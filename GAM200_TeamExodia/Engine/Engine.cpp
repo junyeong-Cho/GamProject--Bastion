@@ -6,7 +6,7 @@ File Name:  Engine.cpp
 Project:    CS230 Engine
 Author:     Jonathan Holmes, Junyeong Cho
 Created:    March 14, 2023
-Updated:    March 31, 2023
+Updated:    September 26, 2023
 */
 
 #pragma once
@@ -61,8 +61,8 @@ void Engine::Update()
         // dt -= FPSUpdate;
         frame_count++;
 
-       // gamestatemanager.Update(dt);
-        //input.Update();
+        gamestatemanager.Update(dt);
+        input.Update();
         window.Update();
 
         if (frame_count >= FPSTargetFrames)
@@ -93,4 +93,3 @@ void Engine::AddFont(const std::filesystem::path& file_name)
 {
     fonts.push_back(CS230::Font(file_name));
 }
-

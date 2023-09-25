@@ -6,7 +6,7 @@ File Name:  Engine.h
 Project:    CS230 Engine
 Author:     Jonathan Holmes, Junyeong Cho
 Created:    March 14, 2023
-Updated:    April 27, 2023
+Updated:    September 26, 2023
 */
 
 #pragma once
@@ -16,13 +16,13 @@ Updated:    April 27, 2023
 
 #include "Window.h"
 
-/*
+
 #include "Input.h"
 #include "Font.h"
 
 #include "GameStateManager.h"
 #include "TextureManager.h"
-*/
+
 
 
 #include <chrono>
@@ -74,12 +74,12 @@ public:
     void Update();
     bool HasGameEnded();
 
-    //void AddFont(const std::filesystem::path& file_name);
+    void AddFont(const std::filesystem::path& file_name);
 
 
 private:
 
-    //std::vector<CS230::Font> fonts;
+    std::vector<CS230::Font> fonts;
 
     std::chrono::system_clock::time_point last_tick = std::chrono::system_clock::now();
     std::chrono::system_clock::time_point last_test;

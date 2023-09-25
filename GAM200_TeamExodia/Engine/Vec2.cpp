@@ -6,7 +6,7 @@ File Name:  Vec2.cpp
 Project:    CS230 Engine
 Author:     Jonathan Holmes, Junyeong Cho
 Created:    March 8,  2023
-Updated:    March 22, 2023
+Updated:    September 26, 2023
 */
 
 #include "../Engine/Vec2.h"
