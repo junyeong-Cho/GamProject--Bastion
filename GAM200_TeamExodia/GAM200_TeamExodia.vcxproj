@@ -88,8 +88,7 @@
     <PostBuildEvent>
       <Command>xcopy /Y "C:\Users\user\Desktop\GAM200_Project\GAM200_TeamExodia\external\doodle\bin\Debug\x64\doodle.lib" "$(OutDir)"
 xcopy /Y "C:\Users\user\Desktop\GAM200_Project\GAM200_TeamExodia\external\doodle\bin\Debug\x64\doodle.pdb" "$(OutDir)"
-
-
+xcopy /y /s "$(ProjectDir)openal32.dll" "$(OutDir)"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -136,8 +135,7 @@ xcopy "$(ProjectDir)external\doodle\bin$(Platform)\doodle.pdb" "$(OutDir)" /Y
     <PostBuildEvent>
       <Command>xcopy /Y "C:\Users\user\Desktop\GAM200_Project\GAM200_TeamExodia\external\doodle\bin\Debug\x64\doodle.lib" "$(OutDir)"
 xcopy /Y "C:\Users\user\Desktop\GAM200_Project\GAM200_TeamExodia\external\doodle\bin\Debug\x64\doodle.pdb" "$(OutDir)"
-
-
+xcopy /y /s "$(ProjectDir)openal32.dll" "$(OutDir)"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
