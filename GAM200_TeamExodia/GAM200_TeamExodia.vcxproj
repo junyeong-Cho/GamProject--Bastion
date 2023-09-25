@@ -86,9 +86,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)external\doodle\$(Platform)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "D:\a\gam200-final-project-team_exodia\gam200-final-project-team_exodia\GAM200_TeamExodia\external\doodle\binx64\doodle.lib" "D:\a\gam200-final-project-team_exodia\gam200-final-project-team_exodia\x64\Release\" /Y
-xcopy "D:\a\gam200-final-project-team_exodia\gam200-final-project-team_exodia\GAM200_TeamExodia\external\doodle\binx64\doodle.pdb" "D:\a\gam200-final-project-team_exodia\gam200-final-project-team_exodia\x64\Release\" /Y
-xcopy /y /s "$(ProjectDir)openal32.dll" "$(OutDir)"
+      <Command>xcopy /y /s "$(ProjectDir)openal32.dll" "$(OutDir)"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -133,9 +131,7 @@ xcopy "$(ProjectDir)external\doodle\bin$(Platform)\doodle.pdb" "$(OutDir)" /Y
       <AdditionalLibraryDirectories>$(SolutionDir)external\doodle\$(Platform)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "D:\a\gam200-final-project-team_exodia\gam200-final-project-team_exodia\GAM200_TeamExodia\external\doodle\binx64\doodle.lib" "D:\a\gam200-final-project-team_exodia\gam200-final-project-team_exodia\x64\Release\" /Y
-xcopy "D:\a\gam200-final-project-team_exodia\gam200-final-project-team_exodia\GAM200_TeamExodia\external\doodle\binx64\doodle.pdb" "D:\a\gam200-final-project-team_exodia\gam200-final-project-team_exodia\x64\Release\" /Y
-xcopy /y /s "$(ProjectDir)openal32.dll" "$(OutDir)"
+      <Command>xcopy /y /s "$(ProjectDir)openal32.dll" "$(OutDir)"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
