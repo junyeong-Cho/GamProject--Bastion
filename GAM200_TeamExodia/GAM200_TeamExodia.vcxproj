@@ -86,7 +86,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)external\doodle\$(Platform)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /s "$(ProjectDir)openal32.dll" "$(OutDir)"
+      <Command>
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -131,7 +131,7 @@ xcopy "$(ProjectDir)external\doodle\bin$(Platform)\doodle.pdb" "$(OutDir)" /Y
       <AdditionalLibraryDirectories>$(SolutionDir)external\doodle\$(Platform)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /s "$(ProjectDir)openal32.dll" "$(OutDir)"
+      <Command>
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
