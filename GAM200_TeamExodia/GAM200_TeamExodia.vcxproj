@@ -153,9 +153,7 @@ xcopy "$(ProjectDir)external\doodle\bin$(Platform)\doodle.pdb" "$(OutDir)" /Y
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>$(SolutionDir)external\doodle\bin\Release\$(Platform)\doodle.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)external\doodle\bin$(Platform)\doodle.lib" "$(OutDir)" /Y
-xcopy "$(ProjectDir)external\doodle\bin$(Platform)\doodle.pdb" "$(OutDir)" /Y
+
 
 </Command>
     </PostBuildEvent>
