@@ -86,8 +86,8 @@
       <AdditionalLibraryDirectories>$(SolutionDir)external\doodle\$(Platform)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y "C:\Users\user\Desktop\GAM200_Project\GAM200_TeamExodia\external\doodle\bin\Debug\x64\doodle.lib" "$(OutDir)"
-xcopy /Y "C:\Users\user\Desktop\GAM200_Project\GAM200_TeamExodia\external\doodle\bin\Debug\x64\doodle.pdb" "$(OutDir)"
+      <Command>xcopy "D:\a\gam200-final-project-team_exodia\gam200-final-project-team_exodia\GAM200_TeamExodia\external\doodle\binx64\doodle.lib" "D:\a\gam200-final-project-team_exodia\gam200-final-project-team_exodia\x64\Release\" /Y
+xcopy "D:\a\gam200-final-project-team_exodia\gam200-final-project-team_exodia\GAM200_TeamExodia\external\doodle\binx64\doodle.pdb" "D:\a\gam200-final-project-team_exodia\gam200-final-project-team_exodia\x64\Release\" /Y
 xcopy /y /s "$(ProjectDir)openal32.dll" "$(OutDir)"
 </Command>
     </PostBuildEvent>
@@ -133,8 +133,8 @@ xcopy "$(ProjectDir)external\doodle\bin$(Platform)\doodle.pdb" "$(OutDir)" /Y
       <AdditionalLibraryDirectories>$(SolutionDir)external\doodle\$(Platform)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y "C:\Users\user\Desktop\GAM200_Project\GAM200_TeamExodia\external\doodle\bin\Debug\x64\doodle.lib" "$(OutDir)"
-xcopy /Y "C:\Users\user\Desktop\GAM200_Project\GAM200_TeamExodia\external\doodle\bin\Debug\x64\doodle.pdb" "$(OutDir)"
+      <Command>xcopy "D:\a\gam200-final-project-team_exodia\gam200-final-project-team_exodia\GAM200_TeamExodia\external\doodle\binx64\doodle.lib" "D:\a\gam200-final-project-team_exodia\gam200-final-project-team_exodia\x64\Release\" /Y
+xcopy "D:\a\gam200-final-project-team_exodia\gam200-final-project-team_exodia\GAM200_TeamExodia\external\doodle\binx64\doodle.pdb" "D:\a\gam200-final-project-team_exodia\gam200-final-project-team_exodia\x64\Release\" /Y
 xcopy /y /s "$(ProjectDir)openal32.dll" "$(OutDir)"
 </Command>
     </PostBuildEvent>
