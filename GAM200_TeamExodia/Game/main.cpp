@@ -33,7 +33,7 @@ int main()
         engine.AddFont("Assets/Font_Simple.png");
         engine.AddFont("Assets/Font_Outlined.png");
 
-        Splasdfash splash;
+        Splash splash;
         engine.GetGameStateManager().AddGameState(splash);
         Main_menu main_menu;
         engine.GetGameStateManager().AddGameState(main_menu);
