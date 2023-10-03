@@ -12,17 +12,19 @@ Updated:    September 26, 2023
 
 #include <iostream>
 
-#include "../Engine/Engine.h"
-
-#include "../Game/Main_menu.h"
-#include "../Game/Splash.h"
-#include "../Game/Mode1.h"
-#include "../Game/Mode2.h"
+#include "Engine/Engine.h"
 
 
-int main() 
+
+#include "Game/Main_menu.h"
+#include "Game/Splash.h"
+#include "Game/Mode1.h"
+#include "Game/Mode2.h"
+
+
+int main()
 {
-    try 
+    try
     {
         Engine& engine = Engine::Instance();
         engine.Start("GAM200 - Team: Exodia");

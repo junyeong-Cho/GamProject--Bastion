@@ -111,7 +111,6 @@
     <ClCompile Include="Game\Crates.cpp" />
     <ClCompile Include="Game\Floor.cpp" />
     <ClCompile Include="Game\Laser.cpp" />
-    <ClCompile Include="Game\main.cpp" />
     <ClCompile Include="Game\Main_menu.cpp" />
     <ClCompile Include="Game\Meteor.cpp" />
     <ClCompile Include="Game\Mode1.cpp" />
@@ -123,6 +122,7 @@
     <ClCompile Include="Game\Ship.cpp" />
     <ClCompile Include="Game\Splash.cpp" />
     <ClCompile Include="Game\Timer.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Animation.h" />

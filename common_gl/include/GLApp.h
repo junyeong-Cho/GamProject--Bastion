@@ -32,3 +32,4 @@ private:
     util::owner<SDL_GLContext> gl_context  = nullptr;
     bool                       is_done     = false;
 };
+

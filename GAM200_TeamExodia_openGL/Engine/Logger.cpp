@@ -4,9 +4,9 @@ Reproduction or distribution of this file or its contents without
 prior written consent is prohibited
 File Name:  Logger.cpp
 Project:    CS230 Engine
-Author:     Jonathan Holmes, Junyeong Cho
-Created:    March 8, 2023
-Updated:    September 26, 2023
+Author:     Junyeong Cho
+Created:    September 30, 2023
+Updated:    September 30, 2023
 */
 
 #include <string>
@@ -17,10 +17,7 @@ Updated:    September 26, 2023
 #include "Logger.h"
 
 
-
-
-
-CS230::Logger::Logger(Logger::Severity severity, bool use_console, std::chrono::system_clock::time_point start_time) : min_level(severity), out_stream("Trace.log"), start_time(start_time)
+GAM200::Logger::Logger(Logger::Severity severity, bool use_console, std::chrono::system_clock::time_point start_time) : min_level(severity), out_stream("Trace.log"), start_time(start_time)
 {
 	if (use_console == true)
 	{
@@ -28,7 +25,7 @@ CS230::Logger::Logger(Logger::Severity severity, bool use_console, std::chrono::
 	}
 }
 
-CS230::Logger::~Logger()
+GAM200::Logger::~Logger()
 {
 	out_stream.flush();
 	out_stream.close();
@@ -36,7 +33,7 @@ CS230::Logger::~Logger()
 
 
 
-void CS230::Logger::log(CS230::Logger::Severity severity, std::string message)
+void GAM200::Logger::log(GAM200::Logger::Severity severity, std::string message)
 {
 
 	const std::string severity_levels[] = { "Verbose", "Debug", "Event", "Error" };
