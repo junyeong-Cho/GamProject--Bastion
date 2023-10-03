@@ -19,5 +19,8 @@ public:
 public:
 
     double counter = 0;
+
+    int x = 0;
+    int velocity = 100;
     
 };

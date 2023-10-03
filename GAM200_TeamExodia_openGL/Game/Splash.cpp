@@ -13,7 +13,7 @@ void Splash::Load()
 {
     counter = 0;
 
-    
+
 }
 
 void Splash::Update(double dt)
@@ -22,6 +22,8 @@ void Splash::Update(double dt)
 
 
     counter += dt;
+
+    x += (int)(dt * velocity);
 }
 
 void Splash::Unload()
@@ -49,7 +51,7 @@ void Splash::Draw()
 
     shape.SetColor(0.0f, 1.0f, 0.0f, 1.0f);
 
-    shape.DrawTriangle(650, 0, 500, 400);
+    shape.DrawTriangle(x, 0, 500, 400);
 
 }
 
