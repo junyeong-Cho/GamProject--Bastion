@@ -42,7 +42,6 @@ void Splash::Draw()
     shape.DrawLine(0, 0, 500, 500);
 
 
-
     shape.SetColor(1.0f, 0.0f, 0.0f, 1.0f);
 
     shape.DrawRectangle(0, 0, 600, 400);

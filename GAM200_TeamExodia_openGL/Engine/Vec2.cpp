@@ -10,6 +10,7 @@ Updated:    September 30, 2023
 */
 
 #include "../Engine/Vec2.h"
+#include <corecrt_math.h>
 
 //Vec2
 bool Math::vec2::operator==(const vec2& v)
