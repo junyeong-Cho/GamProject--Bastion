@@ -15,7 +15,6 @@ Updated:    September 30, 2023
 enum class States 
 {
 	Splash,
-	MainMenu,
 	Mode1,
 	Mode2
 };

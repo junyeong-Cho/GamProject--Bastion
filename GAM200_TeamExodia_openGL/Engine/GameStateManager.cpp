@@ -14,6 +14,7 @@ Updated:    September 30, 2023
 #include "Engine.h"
 
 #include "GameStateManager.h"
+#include "ImGuiHelper.h"
 //#include "GameObjectManager.h"
 
 
@@ -83,18 +84,31 @@ void GAM200::GameStateManager::Update(double dt)
 		}
 		else
 		{
+			SDL_Event event{ 0 };
+
+			while (SDL_PollEvent(&event) != 0)
+			{
+				ImGuiHelper::FeedEvent(event);
+				
+				Engine::GetInput().HandleEvent(event);
+			}
+
 			Engine::GetLogger().LogVerbose("Update" + current_gamestate->GetName());
 			current_gamestate->Update(dt);
 
-			//GameObjectManager* game_object_manager = GetGSComponent<GameObjectManager>();
-			/*
-			if (game_object_manager != nullptr)
-			{
-				game_object_manager->CollisionTest();
-			}
-			*/
+
 
 			current_gamestate->Draw();
+
+
+			//ÀÌ°Ô ¿Ö µÊ?;;
+			ImGuiHelper::Begin();
+
+			current_gamestate->ImguiDraw();
+
+
+			ImGuiHelper::End(Engine::Instance().GetWindow().GetSDLWindow(), Engine::Instance().GetWindow().GetGLContext());
+			
 		}
 
 

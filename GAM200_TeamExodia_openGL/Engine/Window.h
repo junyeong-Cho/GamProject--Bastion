@@ -1,10 +1,13 @@
 #pragma once
+
 #include <string>
 #include <SDL2/SDL.h>
 
 #include "../Engine/OriginPosition.h"
 #include "../Engine/Vec2.h"
-  
+#include "../Engine/owner.h"  
+
+#include "IProgram.h"
 
 void on_window_resized(int, int);
 
@@ -15,6 +18,9 @@ namespace GAM200
     public:
         Window();
         ~Window();
+
+
+
         void Start(const char* title, int desired_width, int desired_height, OriginPosition position);
         void Update();
 
@@ -28,12 +34,19 @@ namespace GAM200
 
         OriginPosition GetOriginPosition();
 
+        //make get ptr_widow
+        SDL_Window* GetSDLWindow() const noexcept;
+
+        SDL_GLContext GetGLContext() const noexcept;
+
 
     private:
         friend void ::on_window_resized(int, int);
 
-        SDL_Window* ptr_window   = nullptr;
-        SDL_GLContext gl_context = nullptr;
+
+        util::owner<IProgram*>     ptr_program = nullptr;
+        SDL_Window*                ptr_window  = nullptr;
+        SDL_GLContext               gl_context = nullptr;
         
 
         Math::ivec2 window_size;
@@ -46,6 +59,7 @@ namespace GAM200
 
 
         bool is_done = false;
+
 
     };
 }

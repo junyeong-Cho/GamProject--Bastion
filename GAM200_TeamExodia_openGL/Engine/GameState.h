@@ -15,18 +15,23 @@ Updated:    September 26, 2023
 
 #include "../Engine/ComponentManager.h"
 
+#include <SDL2/SDL.h>
+
 
 namespace GAM200
 {
 	class GameState
 	{
 	public:
-		virtual void Load() = 0;
+		virtual void Load()			   = 0;
 		virtual void Update(double dt) = 0;
-		virtual void Unload() = 0;
-		virtual void Draw() = 0;
+		virtual void Unload()		   = 0;
+		virtual void Draw()			   = 0;
 
-		virtual std::string GetName() = 0;
+		virtual void ImguiDraw()					= 0;
+		virtual void HandleEvent( SDL_Event& event) = 0;
+
+		virtual std::string GetName()  = 0;
 
 
 		template<typename T>

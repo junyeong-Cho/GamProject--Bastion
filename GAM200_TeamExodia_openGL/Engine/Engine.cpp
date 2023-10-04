@@ -48,6 +48,7 @@ void Engine::Stop()
 
 void Engine::Update()
 {
+
     std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
     double dt = std::chrono::duration<double>(now - last_tick).count();
 
@@ -63,7 +64,7 @@ void Engine::Update()
         frame_count++;
 
         gamestatemanager.Update(dt);
-        //input.Update();
+        input.Update();
         window.Update();
 
         if (frame_count >= FPSTargetFrames)

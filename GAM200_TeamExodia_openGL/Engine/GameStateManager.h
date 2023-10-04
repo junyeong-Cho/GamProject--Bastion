@@ -28,6 +28,8 @@ namespace GAM200
 		void ReloadGameState();
 		bool HasGameEnded() { return status == Status::EXIT; }
 
+		SDL_Event GetCurrentEvent() { }
+
 		template<typename T>
 		T* GetGSComponent()
 		{

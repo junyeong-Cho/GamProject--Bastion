@@ -1,9 +1,12 @@
 #include "../Engine/Window.h"
+#include "../Engine/ImGuiHelper.h"
+#include "../Engine/Engine.h"
 
 #include <GL/glew.h>
 #include <iostream>
 #include <sstream>
 #include <filesystem>
+
 
 
 namespace 
@@ -145,6 +148,14 @@ namespace GAM200
         {
             SDL_GL_SetSwapInterval(VSYNC);
         }
+
+        ImGuiHelper::Initialize(ptr_window, gl_context);
+    
+
+        int width = 0, height = 0;
+        SDL_GL_GetDrawableSize(ptr_window, &width, &height);
+       // ptr_program = create_program(width, height);
+
     }
 
     
@@ -154,14 +165,15 @@ namespace GAM200
         SDL_Event event{ 0 };
         while (SDL_PollEvent(&event) != 0) 
         {
-        
+           // ImGuiHelper::FeedEvent(event);
+
             if (event.type == SDL_QUIT || (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE)) 
             {
                 is_done = true;
             }
         }
 
-      
+
         SDL_GL_SwapWindow(ptr_window);
     }
 
@@ -196,6 +208,16 @@ namespace GAM200
     OriginPosition Window::GetOriginPosition()
     {
         return origin_position;
+    }
+
+    SDL_Window* Window::GetSDLWindow() const noexcept
+    {
+        return ptr_window;
+    }
+
+    SDL_GLContext Window::GetGLContext() const noexcept
+    {
+        return gl_context;
     }
     
 

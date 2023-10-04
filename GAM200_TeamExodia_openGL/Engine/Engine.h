@@ -13,6 +13,7 @@ Updated:    September 30, 2023
 
 #include "../Engine/Logger.h"
 
+#include "../Engine/Input.h"
 
 #include "../Engine/Window.h"
 #include "../Engine/GameState.h"
@@ -47,6 +48,11 @@ public:
         return Instance().gamestatemanager;
     }
 
+    static GAM200::Input& GetInput()
+	{
+        return Instance().input;
+	}
+
 
 
     void Start(const char* window_title, int desired_width, int desired_height, OriginPosition position);
@@ -77,6 +83,8 @@ private:
     GAM200::Logger logger;
     GAM200::Window window;
     GAM200::GameStateManager gamestatemanager;
+    GAM200::Input input;
+
 
 
 

@@ -49,6 +49,12 @@
     <ClCompile Include="Engine\DrawShape.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Input.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Mode1.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GLApp_Clone.h">
@@ -107,6 +113,12 @@
     </ClInclude>
     <ClInclude Include="Engine\OriginPosition.h">
       <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Input.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Mode1.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -53,12 +53,13 @@ namespace ImGuiHelper
 
 
     //ImGui 프레임 렌더링 후 종료
-    void End(util::not_null<SDL_Window*> sdl_window, util::not_null<SDL_GLContext> gl_context)
+    void End(util::not_null<SDL_Window*> sdl_window, util::not_null<SDL_GLContext> gl_context) 
     {
         //ImGui 명령 렌더링 -> OpenGL 명령으로 변환
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
+        
         //뷰포트 지원 여부 확인
         const ImGuiIO& io = ImGui::GetIO();
         if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
@@ -67,6 +68,7 @@ namespace ImGuiHelper
             ImGui::RenderPlatformWindowsDefault();
             SDL_GL_MakeCurrent(sdl_window, gl_context);
         }
+        
     }
 
     //ImGui 종료

@@ -85,6 +85,7 @@
     <ClCompile Include="Engine\GameStateManager.cpp" />
     <ClCompile Include="Engine\GLApp_Clone.cpp" />
     <ClCompile Include="Engine\ImGuiHelper.cpp" />
+    <ClCompile Include="Engine\Input.cpp" />
     <ClCompile Include="Engine\Logger.cpp" />
     <ClCompile Include="Engine\Matrix.cpp" />
     <ClCompile Include="Engine\stb_image_impl.cpp" />
@@ -92,6 +93,7 @@
     <ClCompile Include="Engine\TextureManager.cpp" />
     <ClCompile Include="Engine\Vec2.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
+    <ClCompile Include="Game\Mode1.cpp" />
     <ClCompile Include="Game\Splash.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -104,6 +106,7 @@
     <ClInclude Include="Engine\GLApp_Clone.h" />
     <ClInclude Include="Engine\GameState.h" />
     <ClInclude Include="Engine\ImGuiHelper.h" />
+    <ClInclude Include="Engine\Input.h" />
     <ClInclude Include="Engine\Logger.h" />
     <ClInclude Include="Engine\Matrix.h" />
     <ClInclude Include="Engine\Normalize.h" />
@@ -113,6 +116,7 @@
     <ClInclude Include="Engine\TextureManager.h" />
     <ClInclude Include="Engine\Vec2.h" />
     <ClInclude Include="Engine\Window.h" />
+    <ClInclude Include="Game\Mode1.h" />
     <ClInclude Include="Game\Splash.h" />
     <ClInclude Include="Game\States.h" />
   </ItemGroup>

@@ -5,6 +5,7 @@
 #include "../Engine/Engine.h"
 
 #include "../Game/Splash.h"
+#include "../Game/Mode1.h"
 
 
 
@@ -19,7 +20,6 @@ int main()
 
         Splash splash;
         engine.GetGameStateManager().AddGameState(splash);
-
 
         while (engine.HasGameEnded() == false)
         {
