@@ -118,10 +118,22 @@ void Splash::ImguiDraw()
 	    ImGui::Text("FPS: %f", "55.5");
 		ImGui::Text("Frame Time: %f", "55.5");
 		ImGui::Text("Counter: %f", counter);
+
+
+        //In-game-gameplay editor demo version
+        float velocity_f = static_cast<float>(velocity); 
+
+        if (ImGui::SliderFloat("Velocity", &velocity_f, 100.0f, 600.0f, "%.0f"))
+        {
+            velocity = static_cast<int>(velocity_f);
+        }
     }
     ImGui::End();
 
     
+
+
+
     if (example_image.loaded)
     {
         ImGui::Begin("OpenGL Texture Test");

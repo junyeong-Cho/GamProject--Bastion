@@ -42,12 +42,12 @@ public:
     } example_image;
 
 public:
-
+    float bruh = 1;
 
     double counter = 0;
 
     int x = 0;
     int y = 0;
-    int velocity = 500;
+    int velocity = 600;
     
 };
