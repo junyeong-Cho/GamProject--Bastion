@@ -65,7 +65,6 @@ void Engine::Update()
 
         gamestatemanager.Update(dt);
         input.Update();
-       // mouse.Update();
         window.Update();
 
         if (frame_count >= FPSTargetFrames)
@@ -73,7 +72,6 @@ void Engine::Update()
             std::chrono::duration<double>now_and_test = now - last_test;
 
             double actual_time = frame_count / now_and_test.count();
-                   average_fps = actual_time;
             logger.LogDebug("FPS: " + std::to_string(actual_time));
 
             frame_count = 0;
@@ -119,11 +117,6 @@ void Engine::push()
 void Engine::pop()
 {
     glPopAttrib();
-}
-
-double Engine::GetFPS()
-{
-    return average_fps;
 }
 
 
