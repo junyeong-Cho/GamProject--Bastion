@@ -48,6 +48,9 @@ void Splash::Update(double dt)
 
 
    // counter += dt;
+
+
+
     
     if (Engine::GetInput().keyDown(GAM200::Input::Keys::D))
     {
@@ -115,7 +118,7 @@ void Splash::ImguiDraw()
 
     ImGui::Begin("Program Info");
     {
-	    ImGui::Text("FPS: %f", "55.5");
+	    ImGui::Text("FPS: %f", Engine::Instance().GetFPS());
 		ImGui::Text("Frame Time: %f", "55.5");
 		ImGui::Text("Counter: %f", counter);
 
@@ -130,8 +133,7 @@ void Splash::ImguiDraw()
     }
     ImGui::End();
 
-    
-
+   
 
 
     if (example_image.loaded)
@@ -146,6 +148,7 @@ void Splash::ImguiDraw()
     
 }
 
+
 void Splash::HandleEvent(SDL_Event& event)
 {
 if (event.type == SDL_KEYDOWN)
@@ -157,8 +160,6 @@ if (event.type == SDL_KEYDOWN)
 		}
 	}
 }
-
-
 
 
 namespace

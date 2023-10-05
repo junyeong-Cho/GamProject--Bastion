@@ -41,6 +41,14 @@ public:
         bool   loaded = false;
     } example_image;
 
+    struct
+    {
+        float red;
+        float green;
+        float blue;
+    } background = { 0.392f, 0.584f, 0.929f };
+
+
 public:
     float bruh = 1;
 

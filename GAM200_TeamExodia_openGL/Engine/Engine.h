@@ -15,6 +15,8 @@ Updated:    September 30, 2023
 
 #include "../Engine/Input.h"
 
+#include "../Engine/Mouse.h"
+
 #include "../Engine/Window.h"
 #include "../Engine/GameState.h"
 #include "../Engine/GameStateManager.h"
@@ -55,6 +57,7 @@ public:
 
 
 
+
     void Start(const char* window_title, int desired_width, int desired_height, OriginPosition position);
     void Stop();
     void Update();
@@ -63,6 +66,7 @@ public:
     void push();
     void pop();
 
+    double GetFPS();
     //void AddFont(const std::filesystem::path& file_name);
 
 
@@ -73,7 +77,9 @@ private:
 
     int frame_count = 0;
 
-    static constexpr double TargetFPS = 60.0;
+    double average_fps = 0.0;
+
+    static constexpr double TargetFPS = 144.0;
     static constexpr int FPSDuration = 5;
     static constexpr int FPSTargetFrames = static_cast<int>(FPSDuration * TargetFPS);
 
@@ -84,7 +90,7 @@ private:
     GAM200::Window window;
     GAM200::GameStateManager gamestatemanager;
     GAM200::Input input;
-
+   // GAM200::Mouse mouse;
 
 
 
