@@ -15,6 +15,8 @@ Updated:    September 30, 2023
 
 #include "../Engine/Input.h"
 
+#include "../Engine/Mouse.h"
+
 #include "../Engine/Window.h"
 #include "../Engine/GameState.h"
 #include "../Engine/GameStateManager.h"
@@ -53,6 +55,10 @@ public:
         return Instance().input;
 	}
 
+    static GAM200::Mouse& GetMouse()
+    {
+		return Instance().mouse;
+	}
 
 
     void Start(const char* window_title, int desired_width, int desired_height, OriginPosition position);
@@ -84,6 +90,7 @@ private:
     GAM200::Window window;
     GAM200::GameStateManager gamestatemanager;
     GAM200::Input input;
+    GAM200::Mouse mouse;
 
 
 

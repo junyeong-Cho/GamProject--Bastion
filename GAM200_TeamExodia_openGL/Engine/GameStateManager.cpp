@@ -91,6 +91,7 @@ void GAM200::GameStateManager::Update(double dt)
 				ImGuiHelper::FeedEvent(event);
 				
 				Engine::GetInput().HandleEvent(event);
+				Engine::GetMouse().HandleEvent(event);
 			}
 
 			Engine::GetLogger().LogVerbose("Update" + current_gamestate->GetName());

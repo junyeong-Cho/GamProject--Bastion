@@ -55,6 +55,9 @@
     <ClCompile Include="Game\Mode1.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Mouse.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GLApp_Clone.h">
@@ -119,6 +122,9 @@
     </ClInclude>
     <ClInclude Include="Game\Mode1.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Mouse.h">
+      <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

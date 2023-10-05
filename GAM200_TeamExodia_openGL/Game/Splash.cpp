@@ -48,6 +48,21 @@ void Splash::Update(double dt)
 
 
    // counter += dt;
+    if (Engine::GetMouse().MouseIsPressed())
+    {
+        if (Engine::GetMouse().MouseButton() == GAM200::Mouse::MouseButtons::LEFT)
+        {
+            x += (int)(velocity * dt);
+        }
+        else if (Engine::GetMouse().MouseButton() == GAM200::Mouse::MouseButtons::RIGHT)
+        {
+            x -= (int)(velocity * dt);
+        }
+
+    }
+
+    Engine::GetLogger().LogDebug("Mouse Position: " + std::to_string(Engine::GetMouse().GetMousePosition().x) + ", " + std::to_string(Engine::GetMouse().GetMousePosition().y));
+
     
     if (Engine::GetInput().keyDown(GAM200::Input::Keys::D))
     {
@@ -91,6 +106,7 @@ void Splash::Draw()
 {
     //Engine::GetWindow().Clear(UINT_MAX);
 
+
     Engine::GetWindow().Clear(0.392f, 0.584f, 0.929f, 1.0f);
 
     GAM200::DrawShape shape;
@@ -130,8 +146,15 @@ void Splash::ImguiDraw()
     }
     ImGui::End();
 
-    
+    /*
+    ImGui::Begin("Mouse Location");
+    {
+        ImGui::Text("Mouse Position X : %d", Engine::Instance().GetMouse().GetMousePosition().x);
+        ImGui::Text("Mouse Position Y : %d", Engine::Instance().GetMouse().GetMousePosition().y);
+    }
 
+    ImGui::End();
+    */
 
 
     if (example_image.loaded)
