@@ -61,7 +61,19 @@ void Splash::Update(double dt)
 
     }
 
-    Engine::GetLogger().LogDebug("Mouse Position: " + std::to_string(Engine::GetMouse().GetMousePosition().x) + ", " + std::to_string(Engine::GetMouse().GetMousePosition().y));
+    if (Engine::GetMouse().WheelIsMoved())
+    {
+        if (Engine::GetMouse().MouseWheelDirection() == GAM200::Mouse::MouseWheel::Up)
+        {
+			y += (int)(velocity * dt);
+		}
+        else if (Engine::GetMouse().MouseWheelDirection() == GAM200::Mouse::MouseWheel::Down)
+        {
+			y -= (int)(velocity * dt);
+		}
+    }
+
+    //Engine::GetLogger().LogDebug("Mouse Position: " + std::to_string(Engine::GetMouse().GetMousePosition().x) + ", " + std::to_string(Engine::GetMouse().GetMousePosition().y));
 
     
     if (Engine::GetInput().keyDown(GAM200::Input::Keys::D))

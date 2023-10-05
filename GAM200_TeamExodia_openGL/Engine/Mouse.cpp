@@ -18,6 +18,15 @@ Updated:    October 6, 2023
 void GAM200::Mouse::HandleEvent(SDL_Event& event)
 {
 	mouse_event = event;
+
+
+	//원래는 WheelIsMoved안에 있었으나 이렇게 바꾼 이유는
+	//WheelIsMoved가 호출되는 시점이 HandleEvent보다 늦기 때문에
+	//속도 좀 높여줄려고 여기다가 넣음
+	if (event.type == SDL_MOUSEWHEEL)
+	{
+		wheel_moved = true;
+	}
 }
 
 
@@ -30,6 +39,19 @@ bool GAM200::Mouse::MouseIsPressed()
 
 	return false;
 
+}
+
+bool GAM200::Mouse::WheelIsMoved()
+{
+	if (wheel_moved)
+	{
+		// 움직임 상태 초기화
+		wheel_moved = false; 
+
+		return true;
+	}
+
+	return false;
 }
 
 Math::vec2 GAM200::Mouse::GetMousePosition()

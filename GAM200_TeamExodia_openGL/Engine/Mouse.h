@@ -27,12 +27,27 @@ namespace GAM200
 			NONE,
 		};
 
+		enum class MouseState
+		{
+			PRESSED,
+			RELEASED,
+		};
+
+		enum class MouseWheel
+		{
+			Up,
+			Down,
+			NONE,
+		};
+
 		Mouse() = default;
 		~Mouse() = default;
 
 		void         HandleEvent(SDL_Event& event);
 
 		bool         MouseIsPressed();
+
+		bool		 WheelIsMoved();
 
 		Math::vec2   GetMousePosition();
 
@@ -49,10 +64,24 @@ namespace GAM200
 			return MouseButtons::NONE;  
 		}
 
+		MouseWheel  MouseWheelDirection()
+		{
+			if (mouse_event.wheel.y > 0)
+			{
+				return MouseWheel::Up;
+			}
+			else if (mouse_event.wheel.y < 0)
+			{
+				return MouseWheel::Down;
+			}
+			return MouseWheel::NONE;
+		}
 
 	private:
 		SDL_Event mouse_event;
 
 		Math::vec2 mouse_position;
+
+		bool wheel_moved = false;
 	};
 }
