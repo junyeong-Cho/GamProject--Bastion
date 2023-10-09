@@ -8,10 +8,10 @@ void GAM200::DrawShape::DrawLine(int x1, int y1, int x2, int y2)
 {
 
 
-    float nx1 = NormalizeX(x1, windowWidth);
-    float ny1 = NormalizeY(y1, windowHeight);
-    float nx2 = NormalizeX(x2, windowWidth);
-    float ny2 = NormalizeY(y2, windowHeight);
+    float nx1 = Math::NormalizeX(x1, windowWidth);
+    float ny1 = Math::NormalizeY(y1, windowHeight);
+    float nx2 = Math::NormalizeX(x2, windowWidth);
+    float ny2 = Math::NormalizeY(y2, windowHeight);
 
     glColor4fv(color);
     glLineWidth(lineWidth);
@@ -31,22 +31,14 @@ void GAM200::DrawShape::DrawLine(Math::ivec2 start, Math::ivec2 end)
 
 void GAM200::DrawShape::DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3)
 {
-    /*
-    glColor4fv(color);     // Set the color
+    Engine::Instance().push();
 
-    glBegin(GL_TRIANGLES); // Start drawing triangle
-    glVertex2i(x1, y1);    // First vertex
-    glVertex2i(x2, y2);    // Second vertex
-    glVertex2i(x3, y3);    // Third vertex
-    glEnd();               // End drawing
-    */
-
-    float nx1 = NormalizeX(x1, windowWidth);
-    float ny1 = NormalizeY(y1, windowHeight);
-    float nx2 = NormalizeX(x2, windowWidth);
-    float ny2 = NormalizeY(y2, windowHeight);
-    float nx3 = NormalizeX(x3, windowWidth);
-    float ny3 = NormalizeY(y3, windowHeight);
+    float nx1 = Math::NormalizeX(x1, windowWidth);
+    float ny1 = Math::NormalizeY(y1, windowHeight);
+    float nx2 = Math::NormalizeX(x2, windowWidth);
+    float ny2 = Math::NormalizeY(y2, windowHeight);
+    float nx3 = Math::NormalizeX(x3, windowWidth);
+    float ny3 = Math::NormalizeY(y3, windowHeight);
 
     glColor4fv(color);           // Set the color
 
@@ -55,6 +47,8 @@ void GAM200::DrawShape::DrawTriangle(int x1, int y1, int x2, int y2, int x3, int
     glVertex2f(nx2, ny2);       // Second vertex
     glVertex2f(nx3, ny3);       // Third vertex
     glEnd();                    // End drawing
+
+    Engine::Instance().pop();
 }
 
 
@@ -64,23 +58,15 @@ void GAM200::DrawShape::DrawTriangle(int x, int y, int width, int height)
 }
 
 
+
 void GAM200::DrawShape::DrawRectangleWithPoints(int x1, int y1, int x2, int y2)
 {
-    /*
-    glColor4fv(color);  // Set the color
+    Engine::Instance().push();
 
-    glBegin(GL_QUADS);  // Start drawing quadrilateral
-    glVertex2i(x1, y1); // Bottom-left vertex
-    glVertex2i(x2, y1); // Bottom-right vertex
-    glVertex2i(x2, y2); // Top-right vertex
-    glVertex2i(x1, y2); // Top-left vertex
-    glEnd();            // End drawing
-    */
-
-    float nx1 = NormalizeX(x1, windowWidth);
-    float ny1 = NormalizeY(y1, windowHeight);
-    float nx2 = NormalizeX(x2, windowWidth);
-    float ny2 = NormalizeY(y2, windowHeight);
+    float nx1 = Math::NormalizeX(x1, windowWidth);
+    float ny1 = Math::NormalizeY(y1, windowHeight);
+    float nx2 = Math::NormalizeX(x2, windowWidth);
+    float ny2 = Math::NormalizeY(y2, windowHeight);
 
     glColor4fv(color);    // Set the color
 
@@ -90,7 +76,11 @@ void GAM200::DrawShape::DrawRectangleWithPoints(int x1, int y1, int x2, int y2)
     glVertex2f(nx2, ny2); // Top-right vertex
     glVertex2f(nx1, ny2); // Top-left vertex
     glEnd();              // End drawing
+
+    Engine::Instance().pop();
+
 }
+
 
 
 
@@ -100,21 +90,37 @@ void GAM200::DrawShape::DrawRectangle(int x, int y, int width, int height)
 }
 
 
-//미완성
-void GAM200::DrawShape::DrawCircle(int x, int y, int radius, int area)
+/*
+x, y, radius, points순으로 입력해 주세요!
+여기서 points는 원의 꼭짓점의 개수를 의미합니다.
+points가 클수록 원이 부드러워집니다. 100개 정도가 적당해요!!
+*/
+void GAM200::DrawShape::DrawCircle(int x, int y, int radius, int points)
 {
-    glColor4fv(color);                // Set the color
+    Engine::Instance().push(); 
 
-    glBegin(GL_TRIANGLE_FAN);         // Start drawing triangle
-    glVertex2i(x, y);                 // Center of circle
-    for (int i = 0; i <= area; i++)   // Last vertex same as first vertex
+    float normalizeX       = Math::NormalizeX(x, windowWidth);      
+    float normalizeY       = Math::NormalizeY(y, windowHeight);    
+    float normalizeRadiusX = radius / (float)windowWidth * 2.0f;                 
+    float normalizeRadiusY = radius / (float)windowHeight * 2.0f; 
+
+    glColor4fv(color);  
+
+    glBegin(GL_TRIANGLE_FAN); 
+    glVertex2f(normalizeX, normalizeY);
+
+    for (int i = 0; i <= points; i++)
     {
-        glVertex2i(
-            (GLint)(x + (radius * cos(i * 2.0f * 3.14159 / area))),
-            (GLint)(y + (radius * sin(i * 2.0f * 3.14159 / area)))
+        float angle = i * 2.0f * 3.14159f / (float)points;
+        glVertex2f
+        (
+            normalizeX + (normalizeRadiusX * cosf(angle)),
+            normalizeY + (normalizeRadiusY * sinf(angle))
         );
     }
-    glEnd();                          // End drawing
+    glEnd(); 
+
+    Engine::Instance().pop(); 
 }
 
 

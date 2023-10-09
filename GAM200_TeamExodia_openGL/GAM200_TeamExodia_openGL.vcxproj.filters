@@ -58,6 +58,9 @@
     <ClCompile Include="Engine\Mouse.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Normalization.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GLApp_Clone.h">
@@ -111,9 +114,6 @@
     <ClInclude Include="Engine\DrawShape.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Normalize.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\OriginPosition.h">
       <Filter>Engine</Filter>
     </ClInclude>
@@ -124,6 +124,9 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Mouse.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Normalization.h">
       <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>

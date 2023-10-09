@@ -119,7 +119,7 @@ namespace GAM200
         //현재 윈도우 속성
         //처음 생성 위치: 랜덤
         //OpenGL context 지원 | 윈도우 크기 조절 가능 | 고DPI모드 허용
-        ptr_window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, desired_width, desired_height, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+        ptr_window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, desired_width, desired_height, SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI);
         if (ptr_window == nullptr) 
         {
             throw_error_message("Failed to create window: ", SDL_GetError());
@@ -165,8 +165,6 @@ namespace GAM200
         SDL_Event event{ 0 };
         while (SDL_PollEvent(&event) != 0) 
         {
-           // ImGuiHelper::FeedEvent(event);
-
             if (event.type == SDL_QUIT || (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE)) 
             {
                 is_done = true;
@@ -196,7 +194,7 @@ namespace GAM200
         alpha = std::clamp(alpha, 0.0f, 1.0f);
 
         glClearColor(red, green, blue, alpha);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT );
     }
 
     bool Window::IsDone() const noexcept

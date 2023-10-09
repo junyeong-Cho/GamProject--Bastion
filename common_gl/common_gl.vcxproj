@@ -77,11 +77,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\angles.h" />
+    <ClInclude Include="include\Camera.h" />
+    <ClInclude Include="include\CameraView.h" />
     <ClInclude Include="include\color3.h" />
     <ClInclude Include="include\GLApp.h" />
     <ClInclude Include="include\glCheck.h" />
     <ClInclude Include="include\GLHandle.h" />
+    <ClInclude Include="include\GLIndexBuffer.h" />
     <ClInclude Include="include\GLShader.h" />
+    <ClInclude Include="include\GLTexture.h" />
+    <ClInclude Include="include\GLVertexArray.h" />
+    <ClInclude Include="include\GLVertexBuffer.h" />
     <ClInclude Include="include\ImGuiHelper.h" />
     <ClInclude Include="include\IProgram.h" />
     <ClInclude Include="include\mat3.h" />
@@ -92,9 +98,15 @@
     <ClInclude Include="include\vec3.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\Camera.cpp" />
+    <ClCompile Include="source\CameraView.cpp" />
     <ClCompile Include="source\GLApp.cpp" />
     <ClCompile Include="source\glCheck.cpp" />
+    <ClCompile Include="source\GLIndexBuffer.cpp" />
     <ClCompile Include="source\GLShader.cpp" />
+    <ClCompile Include="source\GLTexture.cpp" />
+    <ClCompile Include="source\GLVertexArray.cpp" />
+    <ClCompile Include="source\GLVertexBuffer.cpp" />
     <ClCompile Include="source\ImGuiHelper.cpp" />
     <ClCompile Include="source\mat3.cpp" />
     <ClCompile Include="source\Random.cpp" />

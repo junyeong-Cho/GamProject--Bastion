@@ -6,7 +6,7 @@ File Name:  Splah.cpp
 Project:    GAM200_TeamExodia_openGL
 Author:     Junyeong Cho
 Created:    October    4, 2023
-Updated:    October    5, 2023
+Updated:    October    10, 2023
 */
 
 
@@ -15,6 +15,7 @@ Updated:    October    5, 2023
 
 #include "../Game/States.h"
 #include "../Game/Splash.h"
+
 
 #include <filesystem>
 #include <imgui.h>
@@ -25,11 +26,11 @@ Updated:    October    5, 2023
 
 namespace
 {
-    bool LoadTextureFromFile(const std::filesystem::path& filename, GLuint& out_texture, int& out_width, int& out_height);
+    //bool LoadTextureFromFile(const std::filesystem::path& filename, GLuint& out_texture, int& out_width, int& out_height);
 }
 
 
-Splash::Splash()
+Splash::Splash() 
 {
     
 }
@@ -38,16 +39,16 @@ void Splash::Load()
 {
     counter = 0;
 
-    example_image.loaded = LoadTextureFromFile("assets/images/DigiPen_Dragon.png", example_image.handle, example_image.width, example_image.height);
+  //  example_image.loaded = LoadTextureFromFile("assets/images/DigiPen_Dragon.png", example_image.handle, example_image.width, example_image.height);
+
+
 
 }
 
 void Splash::Update(double dt)
 {
-   // Engine::GetLogger().LogDebug(std::to_string(counter));
 
-
-   // counter += dt;
+    //마우스 사용 예시
     if (Engine::GetMouse().MouseIsPressed())
     {
         if (Engine::GetMouse().MouseButton() == GAM200::Mouse::MouseButtons::LEFT)
@@ -73,9 +74,8 @@ void Splash::Update(double dt)
 		}
     }
 
-    //Engine::GetLogger().LogDebug("Mouse Position: " + std::to_string(Engine::GetMouse().GetMousePosition().x) + ", " + std::to_string(Engine::GetMouse().GetMousePosition().y));
 
-    
+    //키보드 사용 예시
     if (Engine::GetInput().keyDown(GAM200::Input::Keys::D))
     {
         x += (int)(velocity * dt);
@@ -98,14 +98,8 @@ void Splash::Update(double dt)
     {
         Engine::GetGameStateManager().ReloadGameState();
     }
-    
-    
-    /*
-    if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Enter))
-    {
-        Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Mode1));
-    }
-    */
+
+
 }
 
 void Splash::Unload()
@@ -118,12 +112,16 @@ void Splash::Draw()
 {
     //Engine::GetWindow().Clear(UINT_MAX);
 
+   // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+
+    //도형 그리는 예시
     Engine::GetWindow().Clear(0.392f, 0.584f, 0.929f, 1.0f);
 
     GAM200::DrawShape shape;
 
     shape.DrawLine(0, 0, 500, 500);
+
 
 
     shape.SetColor(1.0f, 0.0f, 0.0f, 1.0f);
@@ -134,9 +132,22 @@ void Splash::Draw()
 
     shape.SetColor(0.0f, 1.0f, 0.0f, 1.0f);
 
-    shape.DrawTriangle(x, y, 500, 400);
+    shape.DrawTriangle(Engine::GetWindow().GetSize().x / 2, Engine::GetWindow().GetSize().y / 2, 500, 400);
+
+
+    shape.SetColor(0.0f, 0.0f, 1.0f, 1.0f);
+    shape.DrawCircle(Engine::GetWindow().GetSize().x / 2, Engine::GetWindow().GetSize().y / 2, 100, 100);
+
+    
+
+   // molu.Draw(x, y, 600, 600);
+
+    molu.Draw(x + 100, y + 100, 300.f, 100);
+    //texture.Draw(x + 100, y + 100, 300, 600);
+
 
 }
+
 
 void Splash::ImguiDraw()
 {
@@ -158,7 +169,7 @@ void Splash::ImguiDraw()
     }
     ImGui::End();
 
-    /*
+    
     ImGui::Begin("Mouse Location");
     {
         ImGui::Text("Mouse Position X : %d", Engine::Instance().GetMouse().GetMousePosition().x);
@@ -166,9 +177,9 @@ void Splash::ImguiDraw()
     }
 
     ImGui::End();
-    */
+    
 
-
+    /*
     if (example_image.loaded)
     {
         ImGui::Begin("OpenGL Texture Test");
@@ -178,7 +189,7 @@ void Splash::ImguiDraw()
             ImVec2(static_cast<float>(example_image.width), static_cast<float>(example_image.height)));
         ImGui::End();
     }
-    
+    */
 }
 
 void Splash::HandleEvent(SDL_Event& event)
@@ -195,7 +206,7 @@ if (event.type == SDL_KEYDOWN)
 
 
 
-
+/*
 namespace
 {
     // https://github.com/ocornut/imgui/wiki/Image-Loading-and-Displaying-Examples
@@ -233,4 +244,5 @@ namespace
         return true;
     }
 }
+*/
 

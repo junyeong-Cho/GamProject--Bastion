@@ -16,19 +16,22 @@ Updated:    October 4, 2023
 #include <GL/GL.h>
 
 
-#include "../Engine/Vec2.h"
-//#include "../Engine/Normalize.h"
+#include "../Engine/Normalization.h" 
+
 #include "../Engine/GameState.h"
 #include "../Engine/Engine.h"
 
+#include "../Engine/Vec2.h"
 
 
 
 namespace GAM200
 {
-	class DrawShape
+	class DrawShape 
 	{
 	public:
+
+
 		DrawShape() = default;
 		~DrawShape() = default;
 
@@ -40,11 +43,8 @@ namespace GAM200
 		void DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3);
 		void DrawTriangle(int x, int y, int width, int height);
 
-
-		
 		
 		void DrawRectangle(int x, int y, int width, int height);
-
 		void DrawRectangleWithPoints(int x1, int y1, int x2, int y2);
 
 
@@ -73,44 +73,7 @@ namespace GAM200
 
 		int radius = 0;
 
-		//float width = 0;
-
-
-		float NormalizeX(int x, int windowWidth)
-		{
-			float nx = (static_cast<float>(x) / (windowWidth / 2)) - 1.0f;
-
-			switch (Engine::GetWindow().GetOriginPosition())
-			{
-			case OriginPosition::RIGHT_DOWN:
-			case OriginPosition::RIGHT_UP:
-				nx = -nx; // Flip the X-axis for right-oriented origins
-				break;
-			default:
-				break;
-			}
-
-			return nx;
-		}
-
-		float NormalizeY(int y, int windowHeight)
-		{
-			float ny = (static_cast<float>(y) / (windowHeight / 2)) - 1.0f;
-
-			switch (Engine::GetWindow().GetOriginPosition())
-			{
-			case OriginPosition::LEFT_UP:
-			case OriginPosition::RIGHT_UP:
-				ny = -ny; // Flip the Y-axis for bottom-oriented origins
-				break;
-			default:
-				break;
-			}
-
-			return ny;
-		}
-
-
+		
 
 		enum class Whichshape
 		{

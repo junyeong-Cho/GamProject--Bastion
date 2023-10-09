@@ -91,7 +91,7 @@ bool Engine::HasGameEnded()
     return gamestatemanager.HasGameEnded();
 }
 
-//미완성
+//완성!
 void Engine::push()
 {
    glPushAttrib(GL_CURRENT_BIT);

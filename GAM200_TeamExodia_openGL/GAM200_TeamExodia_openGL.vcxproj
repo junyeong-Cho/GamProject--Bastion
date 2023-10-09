@@ -89,6 +89,7 @@
     <ClCompile Include="Engine\Logger.cpp" />
     <ClCompile Include="Engine\Matrix.cpp" />
     <ClCompile Include="Engine\Mouse.cpp" />
+    <ClCompile Include="Engine\Normalization.cpp" />
     <ClCompile Include="Engine\stb_image_impl.cpp" />
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\TextureManager.cpp" />
@@ -111,7 +112,7 @@
     <ClInclude Include="Engine\Logger.h" />
     <ClInclude Include="Engine\Matrix.h" />
     <ClInclude Include="Engine\Mouse.h" />
-    <ClInclude Include="Engine\Normalize.h" />
+    <ClInclude Include="Engine\Normalization.h" />
     <ClInclude Include="Engine\OriginPosition.h" />
     <ClInclude Include="Engine\owner.h" />
     <ClInclude Include="Engine\Texture.h" />

@@ -6,74 +6,201 @@ File Name:  Texture.cpp
 Project:    GAM200_TeamExodia
 Author:     Junyeong Cho
 Created:    October 3, 2023
-Updated:    October 3, 2023
+Updated:    October 10, 2023
 */
 
-/*
-#include <doodle/drawing.hpp>
 
 #include "Texture.h"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
 
-//Texture 고유의 doodle::Image class 생성 후 저장
-CS230::Texture::Texture(const std::filesystem::path& file_path)
+
+
+namespace GAM200 
 {
-    image = doodle::Image{ file_path };
-}
 
-
-//std::move인 이유는 doodle_image가 class 이기 때문!
-CS230::Texture::Texture(doodle::Image&& doodle_image)
-{
-    image = std::move(doodle_image);
-}
-
-
-unsigned int CS230::Texture::GetPixel(Math::ivec2 texel)
-{
-    int index = texel.y * GetSize().x + texel.x;
-    return (static_cast<int>(image[index].red)) << 24 |
-        (static_cast<int>(image[index].green)) << 16 |
-        (static_cast<int>(image[index].blue)) << 8 |
-        (static_cast<int>(image[index].alpha));
-}
-
-
-void CS230::Texture::Draw(Math::TransformationMatrix display_matrix, Math::ivec2 texel_position, Math::ivec2 frame_size)
-{
-    doodle::push_settings();
-
-    doodle::apply_matrix(display_matrix[0][0], display_matrix[1][0], display_matrix[0][1], display_matrix[1][1], display_matrix[0][2], display_matrix[1][2]);
-    doodle::draw_image(image, 0, 0, static_cast<double>(frame_size.x), static_cast<double>(frame_size.y), texel_position.x, texel_position.y);
-
-    doodle::pop_settings();
-
-}
-
-
-void CS230::Texture::Draw(Math::TransformationMatrix display_matrix)
-{
-    doodle::push_settings();
-
-    doodle::apply_matrix
-    (
-        display_matrix[0][0],
-        display_matrix[1][0],
-        display_matrix[0][1],
-        display_matrix[1][1],
-        display_matrix[0][2],
-        display_matrix[1][2]);
-    doodle::draw_image(image, 0, 0);
-
-    doodle::pop_settings();
-}
-
-
-Math::ivec2 CS230::Texture::GetSize()
-{
-    return
+    Texture::Texture(const std::filesystem::path& file_path, TextureType texturetype)
+		: texturetype(texturetype)
     {
-        image.GetWidth(), image.GetHeight()
-    };
-}
-*/
+        image = LoadImageFromFile(file_path);
+
+        glGenTextures(1, &textureID);
+        glBindTexture(GL_TEXTURE_2D, textureID);
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        stbi_image_free(image);  
+        image = nullptr;
+    }
+
+    Texture::~Texture() 
+    {
+        if (image) 
+        {
+            stbi_image_free(image);
+            image = nullptr;
+        }
+    }
+
+
+    unsigned char* Texture::LoadImageFromFile(const std::filesystem::path& filePath) 
+    {
+        if (!std::filesystem::exists(filePath)) 
+        {
+            std::cerr << "ERROR : No " << filePath << ". \n";
+            throw std::runtime_error("File not found: " + filePath.string());
+        }
+
+        int width, height, channel;
+        unsigned char* img = stbi_load(filePath.string().c_str(), &width, &height, &channel, 4);
+
+        if (!img) 
+        {
+            std::cerr << "ERROR: Failed to load image: " << filePath << ". \n";
+            throw std::runtime_error("Failed to load image: " + filePath.string());
+        }
+
+        imageWidth = width;
+        imageHeight = height;
+
+        return img;
+    }
+
+
+    void Texture::Draw(int x, int y, int width, int height)
+    {
+        //무조건 initialize 해줘야함!!!!
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, textureID);
+
+
+        float aspectRatio = static_cast<float>(imageWidth) / static_cast<float>(imageHeight);
+
+        /*
+        glBegin(GL_QUADS);
+
+        glTexCoord2f(0.0f, 1.0f); glVertex2f(-0.5f * aspectRatio, -0.5f);
+        glTexCoord2f(1.0f, 1.0f); glVertex2f(0.5f * aspectRatio, -0.5f);
+        glTexCoord2f(1.0f, 0.0f); glVertex2f(0.5f * aspectRatio, 0.5f);
+        glTexCoord2f(0.0f, 0.0f); glVertex2f(-0.5f * aspectRatio, 0.5f);
+        glEnd();
+        */
+        //DrawRect(x, y, x + width, y + height);
+        
+        switch (texturetype)
+        {
+        case GAM200::Texture::TextureType::RECTANGLE:
+            DrawRect(x, y, x + width, y + height);
+
+            break;
+
+        case GAM200::Texture::TextureType::TRIANGLE:
+            DrawTriangle(x, y, x + width, y, x + width / 2, y + height);
+
+            break;
+        case GAM200::Texture::TextureType::CIRCLE:
+        default:
+            break;
+        }
+
+        glBindTexture(GL_TEXTURE_2D, 0);
+    }
+
+
+
+    void Texture::Draw(int x, int y, float radius, int points)
+    {
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, textureID);
+
+
+        float aspectRatio = static_cast<float>(imageWidth) / static_cast<float>(imageHeight);
+
+        DrawCircle(x, y, radius, points);
+
+        glBindTexture(GL_TEXTURE_2D, 0);
+    }
+
+
+    void Texture::DrawRect(int x1, int y1, int x2, int y2)
+    {
+        float aspectRatio = static_cast<float>(imageWidth) / static_cast<float>(imageHeight);
+
+
+        float nx1 = Math::NormalizeX(x1, windowWidth);
+        float ny1 = Math::NormalizeY(y1, windowHeight);
+        float nx2 = Math::NormalizeX(x2, windowWidth);
+        float ny2 = Math::NormalizeY(y2, windowHeight);
+
+        glBegin(GL_QUADS);    
+
+        glTexCoord2f(0.0f, 1.0f); glVertex2f(nx1 * aspectRatio, ny1); // Bottom-left vertex
+        glTexCoord2f(1.0f, 1.0f); glVertex2f(nx2 * aspectRatio, ny1); // Bottom-right vertex
+        glTexCoord2f(1.0f, 0.0f); glVertex2f(nx2 * aspectRatio, ny2); // Top-right vertex
+        glTexCoord2f(0.0f, 0.0f); glVertex2f(nx1 * aspectRatio, ny2); // Top-left vertex
+
+        glEnd();              
+    }
+
+
+    void Texture::DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3)
+    {
+        float nx1 = Math::NormalizeX(x1, windowWidth);
+        float ny1 = Math::NormalizeY(y1, windowHeight);
+        float nx2 = Math::NormalizeX(x2, windowWidth);
+        float ny2 = Math::NormalizeY(y2, windowHeight);
+        float nx3 = Math::NormalizeX(x3, windowWidth);
+        float ny3 = Math::NormalizeY(y3, windowHeight);
+
+    
+        glBegin(GL_TRIANGLES);  
+
+        //Texture coordinates and Vertex coordinates
+        glTexCoord2f(0.0f, 1.0f); glVertex2f(nx1, ny1);
+
+        glTexCoord2f(1.0f, 1.0f); glVertex2f(nx2, ny2);
+
+        glTexCoord2f(0.5f, 0.0f); glVertex2f(nx3, ny3);
+
+
+        glEnd();  
+
+    }
+
+    void Texture::DrawCircle(int x, int y, float radius, int points)
+    {
+   
+        float aspectRatio = static_cast<float>(imageWidth) / static_cast<float>(imageHeight);
+
+        float normalizeX       = Math::NormalizeX(x, windowWidth);
+        float normalizeY       = Math::NormalizeY(y, windowHeight);
+        float normalizeRadiusX = radius / (float)windowWidth * 2.0f;
+        float normalizeRadiusY = radius / (float)windowHeight * 2.0f;
+
+        glBegin(GL_TRIANGLE_FAN);
+        glTexCoord2f(0.5f, 0.5f); glVertex2f(normalizeX, normalizeY);
+
+        for (int i = 0; i <= points; i++)
+        {
+            float angle = i * 2.0f * 3.14159f / (float)points;
+            float cosA = cosf(angle);
+            float sinA = sinf(angle);
+
+            glTexCoord2f(0.5f * cosA + 0.5f, 1.0f - (0.5f * sinA + 0.5f));
+            glVertex2f
+            (
+                normalizeX + (normalizeRadiusX * cosA),
+                normalizeY + (normalizeRadiusY * sinA)
+            );
+        }
+        glEnd();
+
+        
+    }
+
+}  

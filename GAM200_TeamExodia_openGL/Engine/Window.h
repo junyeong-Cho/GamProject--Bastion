@@ -54,7 +54,7 @@ namespace GAM200
         OriginPosition origin_position;
 
 
-        const int default_width = 800;
+        const int default_width  = 800;
         const int default_height = 600;
 
 

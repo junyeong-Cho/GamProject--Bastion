@@ -6,46 +6,78 @@ File Name:  Texture.h
 Project:    GAM200_TeamExodia
 Author:     Junyeong Cho
 Created:    October 3, 2023
-Updated:    October 3, 2023
+Updated:    October 10, 2023
 */
 
-/*
+
 #pragma once
 
-#include <doodle/image.hpp>
 
-#include "Vec2.h"
+#include <GL/glew.h>
+#include <iostream>
+#include <filesystem>
+
+
+#include "OriginPosition.h"
+#include "Normalization.h" 
+#include "DrawShape.h"
+
+
+#include "Engine.h"
+
 
 #include "Matrix.h"
+#include "Vec2.h"
 
 
-namespace CS230
+
+namespace GAM200
 {
 	class Texture
 	{
 	public:
 
+		enum class TextureType
+		{
+			RECTANGLE,
+			TRIANGLE,
+			CIRCLE,
+		} texturetype;
+
+
 		friend class TextureManager;
 		friend class Font;
 
-		void Draw(Math::TransformationMatrix display_matrix, Math::ivec2 texel_position, Math::ivec2 frame_size);
-		void Draw(Math::TransformationMatrix display_matrix);
+		Texture(const std::filesystem::path& file_path, TextureType texturetype);
 
-		Math::ivec2 GetSize();
+		~Texture();
 
-		Texture() {};
 
+		void Draw(int x, int y, int width, int height);
+
+		void Draw(int x, int y, float radius, int points);
 
 	private:
+		int imageWidth  = 0;
+		int imageHeight = 0;
 
-		Texture(doodle::Image&& doodle_image);
-
-		unsigned int GetPixel(Math::ivec2 texel);
-
-		Texture(const std::filesystem::path& file_path);
+		int windowWidth = Engine::GetWindow().GetSize().x;
+		int windowHeight = Engine::GetWindow().GetSize().y;
 
 
-		doodle::Image image;
+		unsigned char* image;
+
+
+		unsigned char* LoadImageFromFile(const std::filesystem::path& filePath);
+
+		void DrawRect(int x1, int y1, int x2, int y2);
+		void DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3);
+		void DrawCircle(int x, int y, float radius, int points);
+
+
+		GLuint textureID;
+
+
 	};
 }
-*/
+

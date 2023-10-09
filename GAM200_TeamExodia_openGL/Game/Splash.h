@@ -6,7 +6,7 @@ File Name:  Splah.h
 Project:    GAM200_TeamExodia_openGL
 Author:     Junyeong Cho
 Created:    October    4, 2023
-Updated:    October    5, 2023
+Updated:    October    10, 2023
 */
 
 #pragma once
@@ -14,6 +14,8 @@ Updated:    October    5, 2023
 #include "IProgram.h"
 
 #include "../Engine/GameState.h"
+
+#include "../Engine/Texture.h"
 
 
 class Splash : public GAM200::GameState 
@@ -50,4 +52,7 @@ public:
     int y = 0;
     int velocity = 600;
     
+
+    GAM200::Texture molu = GAM200::Texture("assets/images/molu.jpeg", GAM200::Texture::TextureType::TRIANGLE);
+
 };
