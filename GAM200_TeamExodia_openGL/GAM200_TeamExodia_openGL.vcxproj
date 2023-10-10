@@ -80,8 +80,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Collision.cpp" />
     <ClCompile Include="Engine\DrawShape.cpp" />
     <ClCompile Include="Engine\Engine.cpp" />
+    <ClCompile Include="Engine\GameObject.cpp" />
+    <ClCompile Include="Engine\GameObjectManager.cpp" />
     <ClCompile Include="Engine\GameStateManager.cpp" />
     <ClCompile Include="Engine\GLApp_Clone.cpp" />
     <ClCompile Include="Engine\ImGuiHelper.cpp" />
@@ -90,20 +93,28 @@
     <ClCompile Include="Engine\Matrix.cpp" />
     <ClCompile Include="Engine\Mouse.cpp" />
     <ClCompile Include="Engine\Normalization.cpp" />
+    <ClCompile Include="Engine\ShowCollision.cpp" />
     <ClCompile Include="Engine\stb_image_impl.cpp" />
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\TextureManager.cpp" />
     <ClCompile Include="Engine\Vec2.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
     <ClCompile Include="Game\Mode1.cpp" />
+    <ClCompile Include="Game\Monster.cpp" />
+    <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="Game\Splash.cpp" />
+    <ClCompile Include="Game\Tile.cpp" />
+    <ClCompile Include="Game\Tower.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Collision.h" />
     <ClInclude Include="Engine\Component.h" />
     <ClInclude Include="Engine\ComponentManager.h" />
     <ClInclude Include="Engine\DrawShape.h" />
     <ClInclude Include="Engine\Engine.h" />
+    <ClInclude Include="Engine\GameObject.h" />
+    <ClInclude Include="Engine\GameObjectManager.h" />
     <ClInclude Include="Engine\GameStateManager.h" />
     <ClInclude Include="Engine\GLApp_Clone.h" />
     <ClInclude Include="Engine\GameState.h" />
@@ -115,13 +126,20 @@
     <ClInclude Include="Engine\Normalization.h" />
     <ClInclude Include="Engine\OriginPosition.h" />
     <ClInclude Include="Engine\owner.h" />
+    <ClInclude Include="Engine\Rect.h" />
+    <ClInclude Include="Engine\ShowCollision.h" />
     <ClInclude Include="Engine\Texture.h" />
     <ClInclude Include="Engine\TextureManager.h" />
     <ClInclude Include="Engine\Vec2.h" />
     <ClInclude Include="Engine\Window.h" />
+    <ClInclude Include="Game\GameObjectTypes.h" />
     <ClInclude Include="Game\Mode1.h" />
+    <ClInclude Include="Game\Monster.h" />
+    <ClInclude Include="Game\Player.h" />
     <ClInclude Include="Game\Splash.h" />
     <ClInclude Include="Game\States.h" />
+    <ClInclude Include="Game\Tile.h" />
+    <ClInclude Include="Game\Tower.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\common_gl\common_gl.vcxproj">
