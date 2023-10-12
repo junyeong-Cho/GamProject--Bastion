@@ -21,6 +21,7 @@ Updated:    October		10, 2023
 
 Player::Player(Math::vec2 start_position, GameObject* starting_tile_ptr = nullptr) : GameObject(start_position), standing_tile(starting_tile_ptr) {
     //AddGOComponent(new GAM200::Sprite("Assets/Cat.spt", (this)));
+    AddGOComponent(new GAM200::RectCollision({ {static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y)}, {static_cast<int>(GetPosition().x) + size, static_cast<int>(GetPosition().y + size)} }, this));
 
     SetVelocity({ 0, 0 });
     SetPosition(start_position);

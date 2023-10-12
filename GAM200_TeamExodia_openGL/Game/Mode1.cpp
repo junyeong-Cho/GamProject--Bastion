@@ -39,18 +39,19 @@ void Mode1::Load()
 	counter = 0;
 
 	AddGSComponent(new GAM200::GameObjectManager());
+
 	AddGSComponent(new GAM200::Camera({ { 0.15 * Engine::GetWindow().GetSize().x, 0 }, { 0.35 * Engine::GetWindow().GetSize().x, 0 } }));
 
 	Tile* starting_tile = new Tile(Math::irect{ { 0, 0 }, { 100, 100 } });
-
-	player_ptr = new Player({ 100, 100 }, (starting_tile));
-	GetGSComponent<GAM200::GameObjectManager>()->Add(player_ptr);
-
 	GetGSComponent<GAM200::GameObjectManager>()->Add(starting_tile);
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new Tile(Math::irect{ { 100, 0 }, { 100, 100 } }));
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new Tile(Math::irect{ { 200, 0 }, { 200, 100 } }));
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new Tile(Math::irect{ { 300, 0 }, { 300, 100 } }));
+	GetGSComponent<GAM200::GameObjectManager>()->Add(new Tile(Math::irect{ { 100, 0 }, { 200, 100 } }));
+	GetGSComponent<GAM200::GameObjectManager>()->Add(new Tile(Math::irect{ { 200, 0 }, { 300, 100 } }));
+	GetGSComponent<GAM200::GameObjectManager>()->Add(new Tile(Math::irect{ { 300, 0 }, { 400, 100 } }));
 
+	player_ptr = new Player({ 50, 50 }, (starting_tile));
+	GetGSComponent<GAM200::GameObjectManager>()->Add(player_ptr);
+	
+	
 	GetGSComponent<GAM200::Camera>()->SetPosition({ 0, 0 });
 	//GetGSComponent<GAM200::Camera>()->SetLimit({ {0, 0},{GetGSComponent<Background>()->GetSize() - Engine::GetWindow().GetSize()} });
 
@@ -63,19 +64,14 @@ void Mode1::Load()
 
 void Mode1::Update(double dt)
 {
-	//Engine::GetLogger().LogDebug(std::to_string(counter));
-	//Engine::GetWindow().Clear(0.2f, 0.1f, 0.4f, 1.0f);
-	Engine::GetWindow().Clear(1.0f, 1.0f, 1.0f, 1.0f);
-
-
 	GetGSComponent<GAM200::Camera>()->Update(player_ptr->GetPosition());
-	//GetGSComponent<Timer>()->Update(dt);
 	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
 	GetGSComponent<GAM200::ShowCollision>()->Update(dt);
+	
+	Engine::GetWindow().Clear(1.0f, 1.0f, 1.0f, 1.0f);
 
+	GetGSComponent<GAM200::ShowCollision>()->Update(dt);
 	GetGSComponent<GAM200::GameObjectManager>()->CollisionTest();
-
-
 
 
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Escape))

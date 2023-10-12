@@ -43,19 +43,23 @@ bool GAM200::RectCollision::IsCollidingWith(GameObject* other_object)
 
     if (other_collider == nullptr)
     {
+        Engine::GetLogger().LogEvent("Return false..1.\n");
         return false;
     }
 
 
     if (other_collider->Shape() != CollisionShape::Rect)
     {
-        //Engine::GetLogger().LogError("Rect vs unsupported type");
+        Engine::GetLogger().LogError("Rect vs unsupported type");
         return false;
     }
 
     Math::rect rectangle_1 = WorldBoundary();
     Math::rect rectangle_2 = dynamic_cast<RectCollision*>(other_collider)->WorldBoundary();
 
+
+    /*Engine::GetLogger().LogDebug("Rec1: " + std::to_string(rectangle_1.Left()) + " " + std::to_string(rectangle_1.Bottom()) + " " + std::to_string(rectangle_1.Right()) + " " + std::to_string(rectangle_1.Top()));
+    Engine::GetLogger().LogDebug("Rec2: " + std::to_string(rectangle_2.Left()) + " " + std::to_string(rectangle_2.Bottom()) + " " + std::to_string(rectangle_2.Right()) + " " + std::to_string(rectangle_2.Top()) + "\n");*/
 
     /* AABB check between rectangle_1 and rectangle_2 */
     if (rectangle_1.Right() > rectangle_2.Left() &&
