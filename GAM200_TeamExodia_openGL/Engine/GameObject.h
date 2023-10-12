@@ -13,8 +13,10 @@ Updated:    September 26, 2023
 #pragma once
 
 #include <string>
+
 #include "../Engine/ComponentManager.h"
-#include "Matrix.h"
+#include "../Engine/Matrix.h"
+#include "../Engine/Engine.h"
 
 enum class GameObjectTypes;
 
@@ -29,6 +31,7 @@ namespace GAM200
     public:
 
         GameObject(Math::vec2 position);
+        GameObject(Math::vec2 position, double rotation, Math::vec2 scale);
         virtual ~GameObject() {}
 
         virtual GameObjectTypes Type() = 0;
@@ -44,11 +47,14 @@ namespace GAM200
         virtual bool CanCollideWith(GameObjectTypes other_object_type);
 
         virtual void Update(double dt);
-        virtual void Draw(Math::vec2 position);
+        virtual void Draw(Math::TransformationMatrix camera_matrix);
         virtual void ResolveCollision(GameObject* other_object) {}
 
+        const Math::TransformationMatrix& GetMatrix();
         const Math::vec2& GetPosition() const;
         const Math::vec2& GetVelocity() const;
+        const Math::vec2& GetScale() const;
+        double GetRotation() const;
 
         class State
         {
@@ -73,13 +79,18 @@ namespace GAM200
 
 
     protected:
-
         bool destroy;
 
         void UpdatePosition(Math::vec2 delta);
 
         void SetVelocity(Math::vec2 new_position);
         void UpdateVelocity(Math::vec2 delta);
+
+        void SetScale(Math::vec2 new_scale);
+        void UpdateScale(Math::vec2 delta);
+
+        void SetRotation(double new_rotation);
+        void UpdateRotation(double delta);
 
         void AddGOComponent(Component* component)
         {
@@ -102,8 +113,14 @@ namespace GAM200
 
 
     private:
+        Math::TransformationMatrix object_matrix;
+
+        double rotation;
+        Math::vec2 scale;
         Math::vec2 position;
         Math::vec2 velocity;
+
+        bool matrix_outdated;
 
         class State_None : public State
         {

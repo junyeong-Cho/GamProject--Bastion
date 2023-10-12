@@ -11,7 +11,10 @@ Updated:    October		10, 2023
 
 #pragma once
 
-class Monster {
+#include "../Engine/GameObject.h"
+
+
+class Monster : public GAM200::GameObject {
 public:
 
 private:

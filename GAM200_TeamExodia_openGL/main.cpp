@@ -19,7 +19,9 @@ int main()
 
 
         Splash splash;
+        Mode1 mode1;
         engine.GetGameStateManager().AddGameState(splash);
+        engine.GetGameStateManager().AddGameState(mode1);
 
         while (engine.HasGameEnded() == false)
         {

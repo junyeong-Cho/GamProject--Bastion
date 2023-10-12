@@ -13,9 +13,15 @@ Updated:    October		10, 2023
 
 #include "IProgram.h"
 
+#include "../Engine/GameObjectManager.h"
+#include "../Engine/TextureManager.h"
+#include "../Engine/Camera.h"
+#include "../Engine/GameObjectManager.h"
 #include "../Engine/GameState.h"
-
 #include "../Engine/Texture.h"
+
+
+class Player;
 
 class Mode1 : public GAM200::GameState
 {
@@ -39,5 +45,8 @@ public:
     int x = 0;
     int y = 0;
     int velocity = 500;
+
+    Player* player_ptr;
+
 
 };

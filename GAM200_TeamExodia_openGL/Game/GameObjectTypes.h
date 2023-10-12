@@ -11,18 +11,18 @@ Updated:    October		10, 2023
 
 #pragma once
 
+#pragma once
+
 enum class GameObjectTypes
 {
-    Cat,
-    Robot,
-    Asteroid,
-    Crates,
-    Meteor,
-    Ship,
-    Floor,
-    Portal,
-    Count,
-    Laser,
-    Particle,
-};
+    Player,
 
+    Monster,
+    Basic_Monster,
+
+    Tile,
+    Basic_Tile,
+
+    Tower,
+    Basic_Tower
+};

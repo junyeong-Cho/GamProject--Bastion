@@ -63,7 +63,9 @@ void GAM200::GameObjectManager::DrawAll(Math::TransformationMatrix camera_matrix
 {
 	for (GameObject* object : objects)
 	{
-		//object->Draw(camera_matrix);
+		//Engine::GetLogger().LogEvent(object->TypeName());
+		
+		object->Draw(camera_matrix);
 	}
 }
 
@@ -72,13 +74,15 @@ void GAM200::GameObjectManager::CollisionTest()
 
 	for (GameObject* object_1 : objects)
 	{
+		//Engine::GetLogger().LogEvent("First loop: checking " + object_1->TypeName());
 		for (GameObject* object_2 : objects)
 		{
+			//Engine::GetLogger().LogEvent("First loop: checking " + object_2->TypeName());
 			if (object_1 != object_2 && (object_1->CanCollideWith(object_2->Type())))
 			{
 				if (object_1->IsCollidingWith(object_2))
 				{
-					//Engine::GetLogger().LogEvent("Collision Detected: " + object_1->TypeName() + " and " + object_2->TypeName());
+					Engine::GetLogger().LogEvent("Collision Detected: " + object_1->TypeName() + " and " + object_2->TypeName());
 
 					object_1->ResolveCollision(object_2);
 				}

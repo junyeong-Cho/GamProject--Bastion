@@ -102,7 +102,7 @@ void Splash::Update(double dt)
     {
         Engine::GetGameStateManager().ClearNextGameState();
     }
-    if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::R))
+    if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Enter))
     {
         Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Mode1));
     }

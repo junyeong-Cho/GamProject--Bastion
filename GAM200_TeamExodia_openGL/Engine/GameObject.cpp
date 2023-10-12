@@ -15,7 +15,18 @@ Updated:    September 26, 2023
 #include "Matrix.h"
 
 
-GAM200::GameObject::GameObject(Math::vec2 position) :position(position) { }
+GAM200::GameObject::GameObject(Math::vec2 position) : GameObject(position, 0, { 1, 1 }) 
+{ }
+
+GAM200::GameObject::GameObject(Math::vec2 position, double rotation, Math::vec2 scale) :
+    velocity({ 0,0 }),
+    position(position),
+    scale(scale),
+    rotation(rotation),
+    current_state(&state_none),
+    matrix_outdated(true),
+    destroy(false)
+{}
 
 void GAM200::GameObject::Update(double dt)
 {
@@ -30,16 +41,16 @@ void GAM200::GameObject::Update(double dt)
     current_state->CheckExit(this);
 }
 
-void GAM200::GameObject::Draw(Math::vec2 position)
+void GAM200::GameObject::Draw(Math::TransformationMatrix camera_matrix)
 {
-    /*Sprite* sprite = GetGOComponent<Sprite>();
+    //Sprite* sprite = GetGOComponent<Sprite>();
 
-    if (sprite != nullptr)
+    /*if (sprite != nullptr)
     {
         sprite->Draw(camera_matrix * GetMatrix());
-    }
+    }*/
 
-    ShowCollision* show_collision = Engine::GetGameStateManager().GetGSComponent<ShowCollision>();
+    /*ShowCollision* show_collision = Engine::GetGameStateManager().GetGSComponent<ShowCollision>();
 
     if (show_collision != nullptr && show_collision->Enabled())
     {
@@ -56,9 +67,6 @@ bool GAM200::GameObject::IsCollidingWith(Math::vec2 point)
     Collision* collider = GetGOComponent<Collision>();
     return collider != nullptr && collider->IsCollidingWith(point);
 }
-
-
-
 
 bool GAM200::GameObject::IsCollidingWith(GameObject* other_object)
 {
@@ -84,6 +92,16 @@ bool GAM200::GameObject::CanCollideWith(GameObjectTypes other_object_type)
     return false;
 }
 
+const Math::TransformationMatrix& GAM200::GameObject::GetMatrix()
+{
+    if (matrix_outdated)
+    {
+        object_matrix = Math::TranslationMatrix(position) * Math::RotationMatrix(rotation) * Math::ScaleMatrix(scale);
+        matrix_outdated = false;
+    }
+
+    return object_matrix;
+}
 
 const Math::vec2& GAM200::GameObject::GetPosition() const
 {
@@ -95,6 +113,15 @@ const Math::vec2& GAM200::GameObject::GetVelocity() const
     return velocity;
 }
 
+const Math::vec2& GAM200::GameObject::GetScale() const
+{
+    return scale;
+}
+
+double GAM200::GameObject::GetRotation() const
+{
+    return rotation;
+}
 
 void GAM200::GameObject::change_state(State* new_state)
 {
@@ -122,3 +149,30 @@ void GAM200::GameObject::UpdateVelocity(Math::vec2 delta)
 {
     velocity += delta;
 }
+
+void GAM200::GameObject::SetScale(Math::vec2 new_scale)
+{
+    scale = new_scale;
+    matrix_outdated = true;
+}
+
+void GAM200::GameObject::UpdateScale(Math::vec2 delta)
+{
+    scale += delta;
+    matrix_outdated = true;
+}
+
+
+void GAM200::GameObject::SetRotation(double new_rotation)
+{
+    rotation = new_rotation;
+    matrix_outdated = true;
+}
+
+void GAM200::GameObject::UpdateRotation(double delta)
+{
+    rotation += delta;
+    matrix_outdated = true;
+}
+
+
