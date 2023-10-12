@@ -48,7 +48,7 @@ void Mode1::Load()
 	GetGSComponent<GAM200::GameObjectManager>()->Add(new Tile(Math::irect{ { 200, 0 }, { 300, 100 } }));
 	GetGSComponent<GAM200::GameObjectManager>()->Add(new Tile(Math::irect{ { 300, 0 }, { 400, 100 } }));
 
-	player_ptr = new Player({ 50, 50 }, (starting_tile));
+	player_ptr = new Player({ 150, 150 }, (starting_tile));
 	GetGSComponent<GAM200::GameObjectManager>()->Add(player_ptr);
 	
 	

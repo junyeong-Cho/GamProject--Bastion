@@ -99,7 +99,6 @@ const Math::TransformationMatrix& GAM200::GameObject::GetMatrix()
         object_matrix = Math::TranslationMatrix(position) * Math::RotationMatrix(rotation) * Math::ScaleMatrix(scale);
         matrix_outdated = false;
     }
-
     return object_matrix;
 }
 
