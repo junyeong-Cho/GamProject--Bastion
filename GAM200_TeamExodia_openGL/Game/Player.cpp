@@ -19,7 +19,7 @@ Updated:    October		10, 2023
 #include "States.h"
 
 
-Player::Player(Math::vec2 start_position, GameObject* starting_tile_ptr = nullptr) : GameObject(start_position), standing_tile(starting_tile_ptr) {
+Player::Player(Math::vec2 start_position) : GameObject(start_position) {
     //AddGOComponent(new GAM200::Sprite("Assets/Cat.spt", (this)));
     AddGOComponent(new GAM200::RectCollision({ {static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y)}, {static_cast<int>(GetPosition().x) + size, static_cast<int>(GetPosition().y + size)} }, this));
 
@@ -42,17 +42,31 @@ void Player::Update(double dt) {
     if (collider != nullptr)
     {
         auto bounds = collider->WorldBoundary();
+        Math::vec2 camera_position = Engine::GetGameStateManager().GetGSComponent<GAM200::Camera>()->GetPosition();
+        Math::ivec2 window_size = Engine::GetWindow().GetSize();
 
-        if (bounds.Left() < Engine::GetGameStateManager().GetGSComponent<GAM200::Camera>()->GetPosition().x)
+        if (bounds.Left() < camera_position.x)
         {
-            UpdatePosition({ Engine::GetGameStateManager().GetGSComponent<GAM200::Camera>()->GetPosition().x - bounds.Left(), 0 });
+            UpdatePosition({ camera_position.x - bounds.Left(), 0 });
             SetVelocity({ 0, GetVelocity().y });
         }
 
-        if (bounds.Right() > Engine::GetGameStateManager().GetGSComponent<GAM200::Camera>()->GetPosition().x + Engine::GetWindow().GetSize().x)
+        if (bounds.Right() > camera_position.x + window_size.x)
         {
-            UpdatePosition({ Engine::GetGameStateManager().GetGSComponent<GAM200::Camera>()->GetPosition().x + Engine::GetWindow().GetSize().x - bounds.Right(), 0 });
+            UpdatePosition({ camera_position.x + window_size.x - bounds.Right(), 0 });
             SetVelocity({ 0, GetVelocity().y });
+        }
+
+        if (bounds.Bottom() < camera_position.y)
+        {
+            UpdatePosition({ 0, camera_position.y - bounds.Bottom() });
+            SetVelocity({ GetVelocity().x, 0 });
+        }
+
+        if (bounds.Top() > camera_position.y + window_size.y)
+        {
+            UpdatePosition({ 0, camera_position.y + window_size.y - bounds.Top() });
+            SetVelocity({ GetVelocity().x, 0 });
         }
     }
 

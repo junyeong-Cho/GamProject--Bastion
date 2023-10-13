@@ -18,9 +18,10 @@ Updated:    September 26, 2023
 #include "../Engine/Matrix.h"
 #include "../Engine/Engine.h"
 
-enum class GameObjectTypes;
 
 namespace Math { class TransformationMatrix; }
+
+enum class GameObjectTypes;
 
 namespace GAM200
 {

@@ -16,8 +16,6 @@ Updated:    September 26, 2023
 #include "GameObject.h"
 
 
-
-
 GAM200::RectCollision::RectCollision(Math::irect boundary, GameObject* object) :
     boundary(boundary),
     object(object)
@@ -43,7 +41,6 @@ bool GAM200::RectCollision::IsCollidingWith(GameObject* other_object)
 
     if (other_collider == nullptr)
     {
-        Engine::GetLogger().LogEvent("Return false..1.\n");
         return false;
     }
 
@@ -67,6 +64,7 @@ bool GAM200::RectCollision::IsCollidingWith(GameObject* other_object)
         rectangle_1.Bottom() < rectangle_2.Top() &&
         rectangle_1.Top() > rectangle_2.Bottom())
     {
+        Engine::GetLogger().LogEvent("Returned true!\n");
         return true;
     }
     return false;
@@ -77,12 +75,12 @@ bool GAM200::RectCollision::IsCollidingWith(GameObject* other_object)
 
 Math::rect GAM200::RectCollision::WorldBoundary()
 {
-    /*return
+    return
     {
         object->GetMatrix() * static_cast<Math::vec2>(boundary.point1),
         object->GetMatrix() * static_cast<Math::vec2>(boundary.point2)
-    };*/
-    return { static_cast<Math::vec2>(boundary.point1) , static_cast<Math::vec2>(boundary.point2) };
+    };
+    //return { static_cast<Math::vec2>(boundary.point1) , static_cast<Math::vec2>(boundary.point2) };
 }
 
 

@@ -15,7 +15,7 @@ int main()
     try
     {
         Engine& engine = Engine::Instance();
-        engine.Start("GAM200 - Team: Exodia", 1200, 800, OriginPosition::LEFT_DOWN);
+        engine.Start("GAM200 - Team: Exodia", 900, 600, OriginPosition::LEFT_DOWN);
 
 
         Splash splash;
