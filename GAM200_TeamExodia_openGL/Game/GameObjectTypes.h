@@ -21,7 +21,8 @@ enum class GameObjectTypes
     Basic_Monster,
 
     Tile,
-    Basic_Tile,
+    Passing_Tile,
+    Block_Tile,
 
     Tower,
     Basic_Tower

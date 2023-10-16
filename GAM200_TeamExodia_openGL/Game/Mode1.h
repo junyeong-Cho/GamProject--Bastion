@@ -48,5 +48,4 @@ public:
 
     Player* player_ptr;
 
-
 };

@@ -19,12 +19,11 @@ Updated:    October		10, 2023
 #include "States.h"
 
 
-Player::Player(Math::vec2 start_position) : GameObject(start_position) {
+Player::Player(Math::vec2 start_position, int size) : GameObject(start_position), size(size) {
     //AddGOComponent(new GAM200::Sprite("Assets/Cat.spt", (this)));
-    AddGOComponent(new GAM200::RectCollision({ {static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y)}, {static_cast<int>(GetPosition().x) + size, static_cast<int>(GetPosition().y + size)} }, this));
-
-    SetVelocity({ 0, 0 });
     SetPosition(start_position);
+    SetVelocity({ 0, 0 });
+    AddGOComponent(new GAM200::RectCollision({ {static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y)}, {static_cast<int>(GetPosition().x) + size, static_cast<int>(GetPosition().y + size)} }, this));
 
     //hurt_timer = new Timer(0.0);
     //AddGOComponent(hurt_timer);
@@ -85,19 +84,13 @@ void Player::Draw(Math::TransformationMatrix camera_matrix) {
     
     shape.SetColor(0.5f, 0.5f, 1.0f, 1.0f);
     shape.DrawRectangle(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size, size);
+    /*Math::vec2 position = camera_matrix * GetPosition();
+    shape.DrawRectangle(static_cast<int>(position.x), static_cast<int>(position.y), size, size);*/
 }
 
 
 bool Player::CanCollideWith(GameObjectTypes type) {
-    /*if (type == GameObjectTypes::Particle)
-    {
-        return false;
-    }
-    else
-    {
-        return true;
-    }*/
-    if (type == GameObjectTypes::Tile) {
+    if (type == GameObjectTypes::Block_Tile) {
         return true;
     }
     else
@@ -117,53 +110,31 @@ void Player::ResolveCollision(GameObject* other_object) {
 
 
     case GameObjectTypes::Tile:
-        Engine::GetLogger().LogEvent("Tile colliding\n");
-        if (player_rect.Right() > other_rect.Left() && player_rect.Left() < other_rect.Right()) {
-            // player is approaching top to bottom
-            if (player_rect.Bottom() < other_rect.Top() && player_rect.Top() > other_rect.Top()) {
-
-            }
-            // player is approaching bottom to top
-            else if (player_rect.Top() < other_rect.Bottom() && player_rect.Bottom() < other_rect.Bottom()) {
-
-            }
-        }
-        if (player_rect.Top() > other_rect.Bottom() && player_rect.Bottom() < other_rect.Top()) {
-            // player is approaching left to right
-            if (player_rect.Left() < other_rect.Right() && player_rect.Right() > other_rect.Right()) {
-
-            }
-            // player is approaching right to left
-            else if (player_rect.Right() < other_rect.Left() && player_rect.Left() < other_rect.Left()) {
-
-            }
-        }
-
-        if (player_rect.Right() > other_rect.Left() && player_rect.Left() < other_rect.Right() && player_rect.Top() < other_rect.Bottom())
-        {
-            // If Cat is on top of the crate
-            UpdatePosition({ 0, other_rect.Bottom() - player_rect.Top() });
-
-            SetVelocity({ GetVelocity().x, 0 });
-        }
-        else if (player_rect.Left() < other_rect.Right() && player_rect.Right() > other_rect.Right())
-        {
-            // If Cat is colliding with crate on the left side
-            UpdatePosition({ other_rect.Right() - player_rect.Left(), 0 });
-
-            SetVelocity({ 0, GetVelocity().y });
-        }
-        else if (player_rect.Right() > other_rect.Left() && player_rect.Left() < other_rect.Left())
-        {
-            // If Cat is colliding with crate on the right side
-            UpdatePosition({ other_rect.Left() - player_rect.Right(), 0 });
-
-            SetVelocity({ 0, GetVelocity().y });
-        }
-        
 
         break;
 
+    case GameObjectTypes::Block_Tile:
+        if (player_rect.Left() < other_rect.Left()) {
+            UpdatePosition(Math::vec2{ (other_rect.Left() - player_rect.Right()), 0.0 });
+            SetVelocity({ 0, GetVelocity().y });
+        }
+        else if (player_rect.Left() >= other_rect.Left()) {
+            UpdatePosition(Math::vec2{ (other_rect.Right() - player_rect.Left()), 0.0 });
+            SetVelocity({ 0, GetVelocity().y });
+        }
+
+        /*if (player_rect.Bottom() < other_rect.Bottom()) {
+            UpdatePosition(Math::vec2{ 0.0, (other_rect.Bottom() - player_rect.Top()) });
+            SetVelocity({ GetVelocity().x, 0 });
+        }
+        else if (player_rect.Bottom() >= other_rect.Bottom()) {
+            UpdatePosition(Math::vec2{ 0.0, (other_rect.Top() - player_rect.Bottom()) });
+            SetVelocity({ GetVelocity().x, 0 });
+        }*/
+        break;
+    case GameObjectTypes::Passing_Tile:
+
+        break;
 
     case GameObjectTypes::Tower:
 

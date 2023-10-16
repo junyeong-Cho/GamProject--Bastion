@@ -26,10 +26,38 @@ public:
 
 	const Math::vec2& GetPosition() const { return GameObject::GetPosition(); }
 
-	static constexpr int size = 100;
+	int size;
 
 protected:
-
+	struct Color {
+		float r = 0.f;
+		float g = 0.f;
+		float b = 0.f;
+	} color;
 private:
 
+};
+
+
+class Passing_Tile : public Tile {
+public:
+	Passing_Tile(Math::irect boundary);
+
+	GameObjectTypes Type() override { return GameObjectTypes::Passing_Tile; }
+	std::string TypeName() override { return "Passing_Tile"; }
+
+	void Update(double dt) override;
+private:
+
+};
+
+class Block_Tile : public Tile {
+public:
+	Block_Tile(Math::irect boundary);
+
+	GameObjectTypes Type() override { return GameObjectTypes::Block_Tile; }
+	std::string TypeName() override { return "Block_Tile"; }
+
+	void Update(double dt) override;
+private:
 };

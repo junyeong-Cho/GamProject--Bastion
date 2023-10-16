@@ -20,7 +20,7 @@ Updated:    October		10, 2023
 
 class Player : public GAM200::GameObject {
 public:
-    Player(Math::vec2 start_position);
+    Player(Math::vec2 start_position, int size);
 
 	GameObjectTypes Type() override { return GameObjectTypes::Player; }
 	std::string TypeName() override { return "Player"; }
@@ -46,7 +46,7 @@ private:
     };
 
     const double speed = 140;
-    const int size = 100;
+    int size;
 
     static constexpr double max_velocity = 300;
     static constexpr double dash_velocity = 500;

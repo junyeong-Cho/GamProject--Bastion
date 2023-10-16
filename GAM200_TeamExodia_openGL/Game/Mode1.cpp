@@ -23,6 +23,7 @@ Updated:    October		10, 2023
 #include "../Game/Splash.h"
 #include "../Game/Tile.h"
 #include "../Game/Player.h"
+#include "../Game/Monster.h"
 
 #include <filesystem>
 #include <imgui.h>
@@ -43,14 +44,60 @@ void Mode1::Load()
 
 	AddGSComponent(new GAM200::Camera({ { 0.15 * Engine::GetWindow().GetSize().x, 0 }, { 0.35 * Engine::GetWindow().GetSize().x, 0 } }));
 
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new Tile(Math::irect{ { 100,   0 }, { 100, 100 } }));
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new Tile(Math::irect{ { 200,   0 }, { 100, 100 } }));
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new Tile(Math::irect{ { 300, 100 }, { 100, 100 } }));
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new Tile(Math::irect{ { 400, 100 }, { 100, 100 } }));
+	Math::ivec2 window_size = Engine::GetWindow().GetSize();
+	// 16:9
+	int tile_col = 9;
+	int tile_row = 16;
+	int tile_size = window_size.x / tile_row;
 
-	player_ptr = new Player({ 0, 0 });
+	int map_info[9][16] = {
+		4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5,
+		4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5,
+		5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 4, 5, 5, 5, 5,
+		5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 4, 5, 5, 5, 5,
+		5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 4,
+		5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 4,
+		5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+		5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+		5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5
+	};
+	Math::irect map_positions[9][16];
+
+	for (int y = 0; y < tile_col; ++y) {
+		for (int x = 0; x < tile_row; ++x) {
+			map_positions[y][x] = Math::irect{ { x * tile_size, y * tile_size }, { (x + 1) * tile_size, (y + 1) * tile_size } };
+		}
+	}
+
+	for (int x = 0; x < tile_row; ++x) {
+		for (int y = 0; y < tile_col; ++y) {
+			switch (map_info[y][x]) {
+			case 4:
+				GetGSComponent<GAM200::GameObjectManager>()->Add(new Passing_Tile(Math::irect{ map_positions[y][x] }));
+				break;
+			case 5:
+				GetGSComponent<GAM200::GameObjectManager>()->Add(new Block_Tile(Math::irect{ map_positions[y][x] }));
+				break;
+			default:
+
+				break;
+			}
+		}
+	}
+
+	/*GetGSComponent<GAM200::GameObjectManager>()->Add(new Block_Tile(Math::irect{ { tile_size * 2,   0 }, { tile_size * 3,  tile_size * 1 } }));
+	GetGSComponent<GAM200::GameObjectManager>()->Add(new Block_Tile(Math::irect{ { tile_size * 3,   0 }, { tile_size * 4,  tile_size } }));
+	GetGSComponent<GAM200::GameObjectManager>()->Add(new Block_Tile(Math::irect{ { tile_size * 3, tile_size * 3 }, { tile_size * 4, tile_size * 4 } }));
+	GetGSComponent<GAM200::GameObjectManager>()->Add(new Block_Tile(Math::irect{ { tile_size * 6, tile_size * 3 }, { tile_size * 7, tile_size * 4 } }));*/
+
+
+
+
+	player_ptr = new Player({ 0, 0 }, tile_size / 2);
 	GetGSComponent<GAM200::GameObjectManager>()->Add(player_ptr);
-	
+
+	GetGSComponent<GAM200::GameObjectManager>()->Add(new Monster({ 0, 0 }, player_ptr));
+	//Math::vec2 position, Player* player, Math::irect boundary
 	
 	GetGSComponent<GAM200::Camera>()->SetPosition({ 0, 0 });
 	//GetGSComponent<GAM200::Camera>()->SetLimit({ {0, 0},{GetGSComponent<Background>()->GetSize() - Engine::GetWindow().GetSize()} });

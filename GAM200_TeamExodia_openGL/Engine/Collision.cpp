@@ -51,12 +51,13 @@ bool GAM200::RectCollision::IsCollidingWith(GameObject* other_object)
         return false;
     }
 
+
     Math::rect rectangle_1 = WorldBoundary();
     Math::rect rectangle_2 = dynamic_cast<RectCollision*>(other_collider)->WorldBoundary();
 
 
-    Engine::GetLogger().LogDebug("Rec1: " + std::to_string(rectangle_1.Left()) + " " + std::to_string(rectangle_1.Bottom()) + " " + std::to_string(rectangle_1.Right()) + " " + std::to_string(rectangle_1.Top()));
-    Engine::GetLogger().LogDebug("Rec2: " + std::to_string(rectangle_2.Left()) + " " + std::to_string(rectangle_2.Bottom()) + " " + std::to_string(rectangle_2.Right()) + " " + std::to_string(rectangle_2.Top()) + "\n");
+    /*Engine::GetLogger().LogDebug("Rec1: " + std::to_string(rectangle_1.Left()) + " " + std::to_string(rectangle_1.Bottom()) + " " + std::to_string(rectangle_1.Right()) + " " + std::to_string(rectangle_1.Top()));
+    Engine::GetLogger().LogDebug("Rec2: " + std::to_string(rectangle_2.Left()) + " " + std::to_string(rectangle_2.Bottom()) + " " + std::to_string(rectangle_2.Right()) + " " + std::to_string(rectangle_2.Top()) + "\n");*/
 
     /* AABB check between rectangle_1 and rectangle_2 */
     if (rectangle_1.Right() > rectangle_2.Left() &&
@@ -75,6 +76,14 @@ bool GAM200::RectCollision::IsCollidingWith(GameObject* other_object)
 
 Math::rect GAM200::RectCollision::WorldBoundary()
 {
+
+    /*Engine::GetLogger().LogDebug(
+        "\nMatrix: \n" +
+        std::to_string(object->GetMatrix()[0][0]) + ", " + std::to_string(object->GetMatrix()[0][1]) + ", " + std::to_string(object->GetMatrix()[0][2]) + "\n" +
+        std::to_string(object->GetMatrix()[1][0]) + ", " + std::to_string(object->GetMatrix()[1][1]) + ", " + std::to_string(object->GetMatrix()[1][2]) + "\n" +
+        std::to_string(object->GetMatrix()[2][0]) + ", " + std::to_string(object->GetMatrix()[2][1]) + ", " + std::to_string(object->GetMatrix()[2][2]) + "\n" +
+        "Boundary: " + std::to_string(boundary.point1.x) + ", " + std::to_string(boundary.point1.y) + ", " + std::to_string(boundary.point2.x) + ", " + std::to_string(boundary.point2.y) + "\n"
+    );*/
     return
     {
         object->GetMatrix() * static_cast<Math::vec2>(boundary.point1),
