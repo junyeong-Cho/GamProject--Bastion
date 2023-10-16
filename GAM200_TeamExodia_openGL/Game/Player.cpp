@@ -94,7 +94,7 @@ bool Player::CanCollideWith(GameObjectTypes type) {
         return false;
     }
     else
-        return false;
+        return true;
 }
 
 void Player::ResolveCollision(GameObject* other_object) {

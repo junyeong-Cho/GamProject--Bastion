@@ -77,10 +77,8 @@ void GAM200::GameObjectManager::CollisionTest()
 		//Engine::GetLogger().LogEvent("First loop: checking " + object_1->TypeName());
 		for (GameObject* object_2 : objects)
 		{
-			//Engine::GetLogger().LogEvent("First loop: checking " + object_2->TypeName());
 			if (object_1 != object_2 && (object_1->CanCollideWith(object_2->Type())))
 			{
-				Engine::GetLogger().LogEvent("Collision detecting: " + object_1->TypeName() + " and " + object_2->TypeName());
 				if (object_1->IsCollidingWith(object_2))
 				{
 					Engine::GetLogger().LogEvent("Collision Detected: " + object_1->TypeName() + " and " + object_2->TypeName());

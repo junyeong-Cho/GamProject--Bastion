@@ -11,6 +11,7 @@ Updated:    September 30, 2023
 
 #pragma once
 #include <limits>
+#include <functional>
 
 namespace Math
 {
@@ -24,6 +25,9 @@ namespace Math
 
         bool operator==(const vec2& v);
         bool operator!=(const vec2& v);
+        bool operator==(const Math::vec2& other) const {
+            return x == other.x && y == other.y;
+        }
 
         vec2 operator+(const vec2& v);
         vec2& operator+=(const vec2& v);
@@ -60,6 +64,9 @@ namespace Math
 
         bool operator==(const ivec2& v);
         bool operator!=(const ivec2& v);
+        bool operator==(const Math::ivec2& other) const {
+            return x == other.x && y == other.y;
+        }
 
         ivec2 operator+(const ivec2& v);
         ivec2& operator+=(const ivec2& v);
@@ -80,4 +87,15 @@ namespace Math
     };
 
 
+}
+
+namespace std {
+    template<>
+    struct hash<Math::ivec2> {
+        size_t operator()(const Math::ivec2& v) const {
+            size_t xHash = std::hash<int>()(v.x);
+            size_t yHash = std::hash<int>()(v.y);
+            return xHash ^ (yHash << 1);
+        }
+    };
 }
