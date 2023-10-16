@@ -90,8 +90,8 @@ void Player::Draw(Math::TransformationMatrix camera_matrix) {
 
 
 bool Player::CanCollideWith(GameObjectTypes type) {
-    if (type == GameObjectTypes::Block_Tile) {
-        return true;
+    if (type == GameObjectTypes::Passing_Tile) {
+        return false;
     }
     else
         return false;

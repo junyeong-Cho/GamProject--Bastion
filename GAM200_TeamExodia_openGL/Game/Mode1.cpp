@@ -85,18 +85,11 @@ void Mode1::Load()
 		}
 	}
 
-	/*GetGSComponent<GAM200::GameObjectManager>()->Add(new Block_Tile(Math::irect{ { tile_size * 2,   0 }, { tile_size * 3,  tile_size * 1 } }));
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new Block_Tile(Math::irect{ { tile_size * 3,   0 }, { tile_size * 4,  tile_size } }));
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new Block_Tile(Math::irect{ { tile_size * 3, tile_size * 3 }, { tile_size * 4, tile_size * 4 } }));
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new Block_Tile(Math::irect{ { tile_size * 6, tile_size * 3 }, { tile_size * 7, tile_size * 4 } }));*/
-
-
-
 
 	player_ptr = new Player({ 0, 0 }, tile_size / 2);
 	GetGSComponent<GAM200::GameObjectManager>()->Add(player_ptr);
 
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new Monster({ 0, 0 }, player_ptr));
+	//GetGSComponent<GAM200::GameObjectManager>()->Add(new Monster({ 0, 0 }, player_ptr));
 	//Math::vec2 position, Player* player, Math::irect boundary
 	
 	GetGSComponent<GAM200::Camera>()->SetPosition({ 0, 0 });

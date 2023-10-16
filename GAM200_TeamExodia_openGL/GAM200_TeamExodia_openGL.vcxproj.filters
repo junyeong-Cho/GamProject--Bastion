@@ -88,6 +88,9 @@
     <ClCompile Include="Engine\Camera.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Game\AStar.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GLApp_Clone.h">
@@ -188,6 +191,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Camera.h">
       <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\AStar.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

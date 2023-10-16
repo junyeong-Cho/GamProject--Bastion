@@ -15,9 +15,9 @@ Updated:    October		10, 2023
 
 #include "../Game/Player.h"
 #include "../Game/States.h"
+#include "../Game/GameObjectTypes.h"
 
-#include "Mode1.h"
-
+#include "../Game/AStar.h"
 
 class Monster : public GAM200::GameObject {
 public:
@@ -28,10 +28,14 @@ public:
 	GameObjectTypes Type() override { return GameObjectTypes::Monster; }
 	std::string TypeName() override { return "Monster"; }
 
-private:
+protected:
+    std::unordered_map<Math::ivec2, Math::ivec2> path;
+
+    Math::ivec2 current_tile_position;
+    Math::ivec2 next_tile_position;
+
     static constexpr double size = 40.0;
     static constexpr double walking_speed = 75.0;
-    static constexpr double angry_speed = 105.0;
 
     enum class Animations
     {
@@ -46,11 +50,7 @@ private:
 
     Player* m_player;
     Math::irect boundary;
-    /*double m_left_boundary;
-    double m_right_boundary;*/
 
-
-    //Finite State Machine
     class State_Dead : public State
     {
     public:
@@ -72,5 +72,11 @@ private:
 
     State_Dead    state_dead;
     State_Walking state_walking;
+
+private:
+
+};
+
+class Basic_Monster : public Monster {
 
 };
