@@ -7,8 +7,10 @@
 
 #include "Monster.h"
 #include "States.h"
+
 #include "Score.h"
 #include "Gold.h"
+#include "Life.h"
 
 Monster::Monster(Math::vec2 position, Player* player) : GameObject(position), m_player(player) {
     SetPosition(position);
@@ -118,7 +120,9 @@ void Monster::State_Walking::Update(GameObject* object, double dt)
         /*Engine::GetLogger().LogDebug(std::to_string(monster->current_tile_position.x) + ", " + std::to_string(monster->current_tile_position.y) + " -> " + std::to_string(monster->next_tile_position.x) + ", " + std::to_string(monster->next_tile_position.y));
         Engine::GetLogger().LogDebug(std::to_string(monster->GetPosition().x) + ", " + std::to_string(monster->GetPosition().y) + "\n");*/
 
-        if (monster->tile_index == monster->path.size()) {
+        if (monster->tile_index == monster->path.size()) {\
+            Life* lifeComponent = Engine::GetGameStateManager().GetGSComponent<Life>();
+            lifeComponent->Subtract(1);
             monster->change_state(&monster->state_dead);
         }
         Math::ivec2 direction = monster->next_tile_position - monster->current_tile_position;

@@ -20,8 +20,6 @@ Updated:    October		10, 2023
 #include "../Engine/Texture.h"
 #include "GameObjectTypes.h"
 
-#include "Score.h"
-#include "Gold.h"
 
 class Player;
 
@@ -39,6 +37,7 @@ public:
 
 
 
+
     std::string GetName() override { return "Mode1"; }
 public:
 
@@ -49,6 +48,9 @@ public:
     int velocity = 500;
 
     Player* player_ptr;
+
+    //int basic_monster_produce_number = 1;
+    //int fast_monster_produce_number = 1;
 
 private:
 

@@ -100,6 +100,9 @@
     <ClCompile Include="Game\Score.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Life.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GLApp_Clone.h">
@@ -211,6 +214,9 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Game\Score.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Life.h">
       <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>

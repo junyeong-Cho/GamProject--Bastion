@@ -40,11 +40,9 @@ void Tower::State_Charging::Update(GameObject* object, double dt) {
 	Tower* tower = static_cast<Tower*>(object);
 
 	tower -> attack_count += dt;
-	Engine::GetLogger().LogDebug(std::to_string(tower->attack_count));
 
 	if (tower->attack_count >= tower->attack_delay) {
 		tower->attack_count = 0;
-		Engine::GetLogger().LogDebug("Change!\n");
 		tower->change_state(&tower->state_attacking);
 	}
 }

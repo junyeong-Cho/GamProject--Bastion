@@ -27,6 +27,8 @@ Updated:    October		10, 2023
 #include "../Game/Tower.h"
 
 #include "Score.h"
+#include "Gold.h"
+#include "Life.h"
 
 #include <filesystem>
 #include <imgui.h>
@@ -101,6 +103,7 @@ void Mode1::Load()
 
 	AddGSComponent(new Score());
 	AddGSComponent(new Gold());
+	AddGSComponent(new Life());
 
 	#ifdef _DEBUG
 	AddGSComponent(new GAM200::ShowCollision());
@@ -126,16 +129,6 @@ void Mode1::Update(double dt)
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Escape))
 	{
 		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Splash));
-	}
-
-	// For test
-	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::_1))
-	{
-		GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster({ 0, 0 }, player_ptr));
-	}
-	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::_2))
-	{
-		GetGSComponent<GAM200::GameObjectManager>()->Add(new Fast_Monster({ 0, 0 }, player_ptr));
 	}
 
 }
@@ -176,14 +169,34 @@ void Mode1::ImguiDraw()
 	ImGui::End();*/
 
 
-	ImGui::Begin("Mouse Location");
+	ImGui::Begin("Informations");
 	{
 		/*ImGui::Text("Mouse Position X : %.2f", Engine::Instance().GetMouse().GetMousePosition().x);
 		ImGui::Text("Mouse Position Y : %.2f", Engine::Instance().GetMouse().GetMousePosition().y);*/
 
 		ImGui::Text("Killed Monster : %d", GetGSComponent<Score>()->Value());
 		ImGui::Text("Gold : %d", GetGSComponent<Gold>()->Value());
+		ImGui::Text("Life : %d", GetGSComponent<Life>()->Value());
 
+	}
+
+	//if (ImGui::SliderInt("How many basic monsters?", &basic_monster_produce_number, 1, 5)) { }
+	//if (ImGui::SliderInt("How many fast monsters?", &fast_monster_produce_number, 1, 5)) {}
+
+	if (ImGui::Button("Produce Basic Monster"))
+	{
+		/*for (int i = 0; i < basic_monster_produce_number; i++) {
+			Engine::GetLogger().LogDebug("Basic monster added\n");
+			GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster({ 0, 0 }, player_ptr));
+		}*/
+		GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster({ 0, 0 }, player_ptr));
+	}
+	if (ImGui::Button("Produce Fast Monster"))
+	{
+		/*for (int i = 0; i < fast_monster_produce_number; i++) {
+			GetGSComponent<GAM200::GameObjectManager>()->Add(new Fast_Monster({ 0, 0 }, player_ptr));
+		}*/
+		GetGSComponent<GAM200::GameObjectManager>()->Add(new Fast_Monster({ 0, 0 }, player_ptr));
 	}
 
 	ImGui::End();
