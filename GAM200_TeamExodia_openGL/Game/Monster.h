@@ -28,14 +28,18 @@ public:
 	GameObjectTypes Type() override { return GameObjectTypes::Monster; }
 	std::string TypeName() override { return "Monster"; }
 
+    void Update(double dt) override;
+
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+
 protected:
     std::unordered_map<Math::ivec2, Math::ivec2> path;
 
     Math::ivec2 current_tile_position;
     Math::ivec2 next_tile_position;
 
-    static constexpr double size = 40.0;
-    static constexpr double walking_speed = 75.0;
+    static constexpr int size = 40;
+    static constexpr int walking_speed = 75;
 
     enum class Animations
     {

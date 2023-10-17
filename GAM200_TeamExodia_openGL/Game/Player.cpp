@@ -272,7 +272,6 @@ void Player::State_Moving::Update([[maybe_unused]] GameObject* object, [[maybe_u
 
 void Player::State_Moving::CheckExit(GameObject* object) {
     Player* player = static_cast<Player*>(object);
-
     if ((Engine::GetInput().keyDown(GAM200::Input::Keys::Left) && player->GetVelocity().x > 0) ||
         (Engine::GetInput().keyDown(GAM200::Input::Keys::Right) && player->GetVelocity().x < 0) ||
         (Engine::GetInput().keyDown(GAM200::Input::Keys::Down) && player->GetVelocity().y > 0) ||

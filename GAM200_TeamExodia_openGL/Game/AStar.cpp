@@ -2,19 +2,22 @@
 
 
 #include "Astar.h"
-
+#include <limits>
+#include "../Engine/Engine.h"
 //Astar::Astar( ) {
 //
 //}
 
 
-void Astar::UpdatePath(int** map, Math::ivec2 start, Math::ivec2 target) {
+void Astar::UpdatePath(int map[9][16], Math::ivec2 start, Math::ivec2 target) {
 	std::vector<Math::ivec2> openList;
 	std::vector<Math::ivec2> closedList;
+	std::unordered_map<Math::ivec2, Math::ivec2> cameFrom;
 
-	// Clear vectors
 	openList.clear();
 	closedList.clear();
+	cameFrom.clear();
+
 	path.clear();
 
 	openList.push_back(start);
@@ -29,19 +32,21 @@ void Astar::UpdatePath(int** map, Math::ivec2 start, Math::ivec2 target) {
 
 		std::vector<Math::ivec2> neighbors = GetNeighboringTiles(current);
 		Math::ivec2 optimalNeighbor = current;
-		double optimalCost = std::numeric_limits<double>::max();
+		int optimalCost = std::numeric_limits<int>::max();
+
 		for (const Math::ivec2& neighbor : neighbors) {
 			if (std::find_if(closedList.begin(), closedList.end(),
-				[&](Math::ivec2& element) { return element == neighbor; }) != closedList.end()) {
+				[&](const Math::ivec2& element) { return element == neighbor; }) != closedList.end()) {
 				continue;
 			}
+
 			if (map[neighbor.y][neighbor.x] == 5)
 				continue;
 
-			path[neighbor] = current;
+			cameFrom[neighbor] = current;
 			openList.push_back(neighbor);
 
-			int actualCost = static_cast<int>(path.size());
+			int actualCost = static_cast<int>(cameFrom.size());
 			int ManhattanDistanceCost = (abs(target.x - neighbor.x) + abs(target.y - neighbor.y));
 			int neighborCost = actualCost + ManhattanDistanceCost;
 
@@ -50,14 +55,27 @@ void Astar::UpdatePath(int** map, Math::ivec2 start, Math::ivec2 target) {
 				optimalNeighbor = neighbor;
 			}
 		}
-		Math::ivec2 nextPosition = current;
-		while (path.count(current) > 0) {
-			nextPosition = current;
-			current = path[current];
-			if (current == start)
-				break;
+		closedList.push_back(current);
+
+		if (optimalNeighbor != current) {
+			current = optimalNeighbor;
 		}
 	}
+
+
+	Math::ivec2 nextPosition = current;
+
+	while (cameFrom.count(current) > 0) {
+		Engine::GetLogger().LogDebug(std::to_string(current.x) + ", " + std::to_string(current.y));
+		Engine::GetLogger().LogDebug(std::to_string(nextPosition.x) + ", " + std::to_string(nextPosition.y) + "\n");
+
+		nextPosition = current;
+
+		current = cameFrom[current];
+		if (current == start)
+			break;
+	}
+
 
 }
 

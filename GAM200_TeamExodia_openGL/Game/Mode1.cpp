@@ -69,8 +69,8 @@ void Mode1::Load()
 		}
 	}
 
-	for (int x = 0; x < tile_row; ++x) {
-		for (int y = 0; y < tile_col; ++y) {
+	for (int y = 0; y < tile_col; ++y) {
+		for (int x = 0; x < tile_row; ++x) {
 			switch (map_info[y][x]) {
 			case 4:
 				GetGSComponent<GAM200::GameObjectManager>()->Add(new Passing_Tile(Math::irect{ map_positions[y][x] }));
@@ -83,13 +83,15 @@ void Mode1::Load()
 				break;
 			}
 		}
+
 	}
 
+	Astar::GetInstance().UpdatePath(map_info, { 0, 0 }, { 4, 15 });
 
 	player_ptr = new Player({ 0, 0 }, tile_size / 2);
 	GetGSComponent<GAM200::GameObjectManager>()->Add(player_ptr);
 
-	//GetGSComponent<GAM200::GameObjectManager>()->Add(new Monster({ 0, 0 }, player_ptr));
+	GetGSComponent<GAM200::GameObjectManager>()->Add(new Monster({ 0, 0 }, player_ptr));
 	//Math::vec2 position, Player* player, Math::irect boundary
 	
 	GetGSComponent<GAM200::Camera>()->SetPosition({ 0, 0 });
