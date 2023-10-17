@@ -26,5 +26,7 @@ enum class GameObjectTypes
     Block_Tile,
 
     Tower,
-    Basic_Tower
+    Basic_Tower,
+
+    Bullet,
 };

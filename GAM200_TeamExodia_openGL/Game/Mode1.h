@@ -16,7 +16,6 @@ Updated:    October		10, 2023
 #include "../Engine/GameObjectManager.h"
 #include "../Engine/TextureManager.h"
 #include "../Engine/Camera.h"
-#include "../Engine/GameObjectManager.h"
 #include "../Engine/GameState.h"
 #include "../Engine/Texture.h"
 #include "GameObjectTypes.h"

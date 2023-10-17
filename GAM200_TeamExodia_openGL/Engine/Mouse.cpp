@@ -61,7 +61,7 @@ Math::vec2 GAM200::Mouse::GetMousePosition()
 		mouse_position.x = mouse_event.motion.x;
 		mouse_position.y = mouse_event.motion.y;
 	}
-
+	
 	return mouse_position;
 }
 

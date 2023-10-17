@@ -55,6 +55,8 @@ private:
 
     static constexpr double drag = 150;
 
+    bool not_clicked = false;
+
     void update_velocity(double dt);
 
 

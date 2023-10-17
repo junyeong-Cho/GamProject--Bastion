@@ -12,7 +12,7 @@
 Monster::Monster(Math::vec2 position, Player* player) : GameObject(position), m_player(player) {
     SetPosition(position);
     SetVelocity({ 0, 0 });
-    AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{0, 0}, Math::ivec2{60, 60} }, this));
+    AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{0, 0}, Math::ivec2{size, size} }, this));
 
     current_state = &state_walking;
     current_state->Enter(this);
@@ -54,13 +54,21 @@ void Monster::ResolveCollision(GameObject* other_object) {
 
         //change_state(&state_dead);
     }
+
+    if (other_object->Type() == GameObjectTypes::Bullet)
+    {
+        Engine::GetLogger().LogDebug("Resolve Collision bullet\n");
+        RemoveGOComponent<GAM200::RectCollision>();
+
+        change_state(&state_dead);
+    }
 }
 
 void Monster::State_Dead::Enter(GameObject* object)
 {
     Monster* monster = static_cast<Monster*>(object);
+    monster->fill_color = { 0.f, 0.f, 0.f };
     //monster->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(Animations::Dead));
-
 }
 
 void Monster::State_Dead::Update(GameObject* object, double dt)
@@ -164,9 +172,11 @@ void Monster::State_Walking::CheckExit(GameObject* object)
 Basic_Monster::Basic_Monster(Math::vec2 position, Player* player) : Monster(position, player) {
     fill_color = { 1.0f, 0.0f, 0.0f };
     walking_speed = 80;
+    size = 60;
 }
 
 Fast_Monster::Fast_Monster(Math::vec2 position, Player* player) : Monster(position, player) {
     fill_color = { 1.0f, 0.984f, 0.255f };
     walking_speed = 160;
+    size = 40;
 }

@@ -13,10 +13,12 @@ Updated:    October		10, 2023
 #include "../Engine/Engine.h"
 #include "../Engine/Collision.h"
 #include "../Engine/DrawShape.h"
+#include "../Engine/GameObjectManager.h"
 
 #include "Player.h"
 #include "Mode1.h"
 #include "States.h"
+#include "Bullet.h"
 
 
 Player::Player(Math::vec2 start_position, int size) : GameObject(start_position), size(size) {
@@ -69,7 +71,22 @@ void Player::Update(double dt) {
         }
     }
 
+    if (!Engine::GetMouse().MouseIsPressed()) {
+        not_clicked = true;
+    }
+    if (not_clicked && Engine::GetMouse().MouseIsPressed()) {
+        // Some machanism
+        Math::vec2 player_position = Math::vec2({ GetPosition().x + size / 2, GetPosition().y + size / 2 });
+        Math::ivec2 window_size = Engine::GetWindow().GetSize();
+        Math::vec2 mouse_position = Engine::GetMouse().GetMousePosition();
 
+        Math::vec2 real_mouse_position = Math::vec2({ mouse_position.x, window_size.y - mouse_position.y});
+        Math::vec2 bullet_direction = Math::vec2({ real_mouse_position.x - player_position.x, real_mouse_position.y - player_position.y });
+        bullet_direction /= bullet_direction.GetLength();
+        Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity));
+
+        not_clicked = false;
+    }
 
 }
 
@@ -149,7 +166,7 @@ void Player::ResolveCollision(GameObject* other_object) {
 void Player::update_velocity(double dt) {
     Math::vec2 newVelocity = GetVelocity();
 
-    if (Engine::GetInput().keyDown(GAM200::Input::Keys::Right))
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::D))
     {
         newVelocity.x += acceleration * dt;
         if (newVelocity.x > max_velocity)
@@ -157,7 +174,7 @@ void Player::update_velocity(double dt) {
             newVelocity.x = max_velocity;
         }
     }
-    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::Left))
+    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::A))
     {
         newVelocity.x -= acceleration * dt;
         if (newVelocity.x < -max_velocity)
@@ -165,7 +182,7 @@ void Player::update_velocity(double dt) {
             newVelocity.x = -max_velocity;
         }
     }
-    if (Engine::GetInput().keyDown(GAM200::Input::Keys::Up))
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::W))
     {
         newVelocity.y += acceleration * dt;
         if (newVelocity.y > max_velocity)
@@ -173,7 +190,7 @@ void Player::update_velocity(double dt) {
             newVelocity.y = max_velocity;
         }
     }
-    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::Down))
+    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::S))
     {
         newVelocity.y -= acceleration * dt;
         if (newVelocity.y < -max_velocity)
