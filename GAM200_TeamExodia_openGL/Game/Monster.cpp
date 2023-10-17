@@ -103,8 +103,8 @@ void Monster::State_Walking::Update(GameObject* object, double dt)
 
         monster->next_tile_position = monster->path[(monster->tile_index++)];
 
-        Engine::GetLogger().LogDebug(std::to_string(monster->current_tile_position.x) + ", " + std::to_string(monster->current_tile_position.y) + " -> " + std::to_string(monster->next_tile_position.x) + ", " + std::to_string(monster->next_tile_position.y));
-        Engine::GetLogger().LogDebug(std::to_string(monster->GetPosition().x) + ", " + std::to_string(monster->GetPosition().y) + "\n");
+        /*Engine::GetLogger().LogDebug(std::to_string(monster->current_tile_position.x) + ", " + std::to_string(monster->current_tile_position.y) + " -> " + std::to_string(monster->next_tile_position.x) + ", " + std::to_string(monster->next_tile_position.y));
+        Engine::GetLogger().LogDebug(std::to_string(monster->GetPosition().x) + ", " + std::to_string(monster->GetPosition().y) + "\n");*/
 
         if (monster->tile_index == monster->path.size()) {
             monster->change_state(&monster->state_dead);
@@ -143,29 +143,6 @@ void Monster::State_Walking::Update(GameObject* object, double dt)
 
 void Monster::State_Walking::CheckExit(GameObject* object)
 {
-    /*Engine::GetLogger().LogDebug("Monster State Walking CheckExit\n");
-    Monster* monster = static_cast<Monster*>(object);
-
-    if (monster->current_tile_position == monster->next_tile_position) {
-        if (0) {
-            monster->change_state(&monster->state_walking);
-        }
-
-        monster->next_tile_position = monster->path[monster->next_tile_position];
-        Math::ivec2 direction = monster->path[monster->next_tile_position] - monster->next_tile_position;
-        if (direction.x == 1) {
-            monster->m_walking_direction = WalkingDirection::Right;
-        }
-        else if (direction.x == -1) {
-            monster->m_walking_direction = WalkingDirection::Left;
-        }
-        else if (direction.y == 1) {
-            monster->m_walking_direction = WalkingDirection::UP;
-        }
-        else if (direction.y == -1) {
-            monster->m_walking_direction = WalkingDirection::DOWN;
-        }
-    }*/
 
 }
 

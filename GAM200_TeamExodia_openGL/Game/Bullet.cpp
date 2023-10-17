@@ -9,8 +9,7 @@
 Bullet::Bullet(Math::vec2 pos, Math::vec2 vel) : GameObject(pos)
 {
     SetVelocity(vel);
-    AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{0, 0}, Math::ivec2{size, size} }, this));
-    //AddGOComponent(new CS230::Sprite("Assets/Laser.spt", (this)));
+    AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{0, 0}, Math::ivec2{size, size} }, this)); 
 
     color = { 0.f, 0.f, 0.f };
 }

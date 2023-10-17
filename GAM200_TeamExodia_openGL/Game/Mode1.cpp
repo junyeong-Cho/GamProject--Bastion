@@ -24,6 +24,7 @@ Updated:    October		10, 2023
 #include "../Game/Tile.h"
 #include "../Game/Player.h"
 #include "../Game/Monster.h"
+#include "../Game/Tower.h"
 
 #include <filesystem>
 #include <imgui.h>
@@ -91,11 +92,10 @@ void Mode1::Load()
 	player_ptr = new Player({ 0, 0 }, tile_size / 2);
 	GetGSComponent<GAM200::GameObjectManager>()->Add(player_ptr);
 
-	//GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster({ 0, 0 }, player_ptr));
 	GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster({ 0, 0 }, player_ptr));
+	GetGSComponent <GAM200::GameObjectManager>()->Add(new Tower({ 240, 160 }));
 
 	GetGSComponent<GAM200::Camera>()->SetPosition({ 0, 0 });
-	//GetGSComponent<GAM200::Camera>()->SetLimit({ {0, 0},{GetGSComponent<Background>()->GetSize() - Engine::GetWindow().GetSize()} });
 
 	#ifdef _DEBUG
 	AddGSComponent(new GAM200::ShowCollision());

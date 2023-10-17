@@ -166,7 +166,7 @@ void Player::ResolveCollision(GameObject* other_object) {
 void Player::update_velocity(double dt) {
     Math::vec2 newVelocity = GetVelocity();
 
-    if (Engine::GetInput().keyDown(GAM200::Input::Keys::D))
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::Right))
     {
         newVelocity.x += acceleration * dt;
         if (newVelocity.x > max_velocity)
@@ -174,7 +174,7 @@ void Player::update_velocity(double dt) {
             newVelocity.x = max_velocity;
         }
     }
-    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::A))
+    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::Left))
     {
         newVelocity.x -= acceleration * dt;
         if (newVelocity.x < -max_velocity)
@@ -182,7 +182,7 @@ void Player::update_velocity(double dt) {
             newVelocity.x = -max_velocity;
         }
     }
-    if (Engine::GetInput().keyDown(GAM200::Input::Keys::W))
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::Up))
     {
         newVelocity.y += acceleration * dt;
         if (newVelocity.y > max_velocity)
@@ -190,7 +190,7 @@ void Player::update_velocity(double dt) {
             newVelocity.y = max_velocity;
         }
     }
-    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::S))
+    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::Down))
     {
         newVelocity.y -= acceleration * dt;
         if (newVelocity.y < -max_velocity)
