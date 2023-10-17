@@ -4,6 +4,7 @@
 #include "Astar.h"
 #include <limits>
 #include "../Engine/Engine.h"
+#include "GameObjectTypes.h"
 //Astar::Astar( ) {
 //
 //}
@@ -40,7 +41,7 @@ void Astar::UpdatePath(int map[9][16], Math::ivec2 start, Math::ivec2 target) {
 				continue;
 			}
 
-			if (map[neighbor.y][neighbor.x] == 5)
+			if (map[neighbor.y][neighbor.x] == static_cast<int>(GameObjectTypes::Block_Tile))
 				continue;
 
 			cameFrom[neighbor] = current;
@@ -62,19 +63,11 @@ void Astar::UpdatePath(int map[9][16], Math::ivec2 start, Math::ivec2 target) {
 		}
 	}
 
-
-	//Math::ivec2 nextPosition = current;
-	
-	//path.insert(path.begin(), Math::ivec2({ nextPosition.x + 2, nextPosition.y }));
-	//path.insert(path.begin(), Math::ivec2({ nextPosition.x + 1, nextPosition.y }));
-	//path.insert(path.begin(), nextPosition);
 	path.insert(path.begin(), Math::ivec2{ current.x + 2, current.y });
 	path.insert(path.begin(), Math::ivec2{ current.x + 1, current.y });
+	path.insert(path.begin(), current);
 	while (cameFrom.count(current) > 0) {
 		Engine::GetLogger().LogDebug(std::to_string(current.x) + ", " + std::to_string(current.y)/* + " -> " + std::to_string(nextPosition.x) + ", " + std::to_string(nextPosition.y)*/ + "\n");
-
-
-		//nextPosition = current;
 
 		current = cameFrom[current];
 		path.insert(path.begin(), current);
@@ -83,8 +76,6 @@ void Astar::UpdatePath(int map[9][16], Math::ivec2 start, Math::ivec2 target) {
 			break;
 	}
 	path.insert(path.begin(), start);
-	//path.insert(path.begin(), current);
-	//path.insert(path.begin(), Math::ivec2({ current.x - 1, current.y }));
 }
 
 

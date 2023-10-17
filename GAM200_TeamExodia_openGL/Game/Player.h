@@ -53,7 +53,7 @@ private:
 
     static constexpr double acceleration = 300;
 
-    static constexpr double drag = 300;
+    static constexpr double drag = 150;
 
     void update_velocity(double dt);
 

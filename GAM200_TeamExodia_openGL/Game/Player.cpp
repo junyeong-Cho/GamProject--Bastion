@@ -105,7 +105,7 @@ void Player::ResolveCollision(GameObject* other_object) {
     switch (other_object->Type()) {
 
     case GameObjectTypes::Monster:
-
+        other_object->ResolveCollision(this);
         break;
 
 

@@ -19,6 +19,7 @@ enum class GameObjectTypes
 
     Monster,
     Basic_Monster,
+    Fast_Monster,
 
     Tile,
     Passing_Tile,

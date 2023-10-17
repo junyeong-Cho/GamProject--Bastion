@@ -39,8 +39,14 @@ protected:
     Math::ivec2 current_tile_position;
     Math::ivec2 next_tile_position;
 
-    static constexpr int size = 40;
-    static constexpr int walking_speed = 175;
+    int size = 40;
+    int walking_speed = 175;
+
+    struct FillColor {
+        float r = 0;
+        float g = 0;
+        float b = 0;
+    } fill_color;
 
     enum class Animations
     {
@@ -83,5 +89,19 @@ private:
 };
 
 class Basic_Monster : public Monster {
+public:
+    Basic_Monster(Math::vec2 position, Player* player);
+
+    GameObjectTypes Type() override { return GameObjectTypes::Basic_Monster; }
+    std::string TypeName() override { return "Basic_Monster"; }
+
+};
+
+class Fast_Monster : public Monster {
+public:
+    Fast_Monster(Math::vec2 position, Player* player);
+
+    GameObjectTypes Type() override { return GameObjectTypes::Fast_Monster; }
+    std::string TypeName() override { return "Fast_Monster"; }
 
 };

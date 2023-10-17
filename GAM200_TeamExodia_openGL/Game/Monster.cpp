@@ -24,23 +24,24 @@ Monster::Monster(Math::vec2 position, Player* player) : GameObject(position), m_
     SetPosition({ 80.0 * static_cast<double>(current_tile_position.x), 80.0 * static_cast<double>(current_tile_position.y) });
     next_tile_position = path[tile_index++];
 
-    for (auto& temp : path) {
+    fill_color = { 1.0f, 0.0f, 0.0f };
+
+    /*for (auto& temp : path) {
         Engine::GetLogger().LogDebug(std::to_string(temp.x) + ", " + std::to_string(temp.y));
-    }
+    }*/
 }
 
 
 void Monster::Update(double dt) {
     GameObject::Update(dt);
 
-   /* Engine::GetLogger().LogDebug("Current tile position: (" + std::to_string(current_tile_position.x) + ", " + std::to_string(current_tile_position.y) +
-                                ") Next tile position: (" + std::to_string(next_tile_position.x) + ", " + std::to_string(next_tile_position.y) + ")");*/
+
 }
 
 void Monster::Draw(Math::TransformationMatrix camera_matrix) {
     GAM200::DrawShape monster;
 
-    monster.SetColor(1.0f, 0.0f, 0.0f, 1.0f);
+    monster.SetColor(fill_color.r, fill_color.g, fill_color.b, 1.0f);
     monster.DrawRectangle(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size, size);
 }
 
@@ -48,9 +49,10 @@ void Monster::ResolveCollision(GameObject* other_object) {
 
     if (other_object->Type() == GameObjectTypes::Player)
     {
-        RemoveGOComponent<GAM200::RectCollision>();
+        Engine::GetLogger().LogDebug("Resolve Collision player\n");
+        //RemoveGOComponent<GAM200::RectCollision>();
 
-        change_state(&state_dead);
+        //change_state(&state_dead);
     }
 }
 
@@ -90,13 +92,15 @@ void Monster::State_Walking::Update(GameObject* object, double dt)
     monster->current_tile_position = Math::ivec2(static_cast<int>(position.x / tile_size), static_cast<int>(position.y / tile_size));
 
     if (monster->current_tile_position == monster->next_tile_position) {
-        Engine::GetLogger().LogDebug(std::to_string(monster->next_tile_position.x) + ", " + std::to_string(monster->next_tile_position.y));
 
         monster->next_tile_position = monster->path[(monster->tile_index++)];
+
+        Engine::GetLogger().LogDebug(std::to_string(monster->current_tile_position.x) + ", " + std::to_string(monster->current_tile_position.y) + " -> " + std::to_string(monster->next_tile_position.x) + ", " + std::to_string(monster->next_tile_position.y));
+        Engine::GetLogger().LogDebug(std::to_string(monster->GetPosition().x) + ", " + std::to_string(monster->GetPosition().y) + "\n");
+
         if (monster->tile_index == monster->path.size()) {
             monster->change_state(&monster->state_dead);
         }
-        Engine::GetLogger().LogDebug(std::to_string(monster->next_tile_position.x) + ", " + std::to_string(monster->next_tile_position.y));
         Math::ivec2 direction = monster->next_tile_position - monster->current_tile_position;
         if (direction.x == 1) {
             monster->m_walking_direction = WalkingDirection::Right;
@@ -155,4 +159,14 @@ void Monster::State_Walking::CheckExit(GameObject* object)
         }
     }*/
 
+}
+
+Basic_Monster::Basic_Monster(Math::vec2 position, Player* player) : Monster(position, player) {
+    fill_color = { 1.0f, 0.0f, 0.0f };
+    walking_speed = 80;
+}
+
+Fast_Monster::Fast_Monster(Math::vec2 position, Player* player) : Monster(position, player) {
+    fill_color = { 1.0f, 0.984f, 0.255f };
+    walking_speed = 160;
 }
