@@ -70,10 +70,16 @@ void Astar::UpdatePath(int map[9][16], Math::ivec2 start, Math::ivec2 target) {
 		Engine::GetLogger().LogDebug(std::to_string(nextPosition.x) + ", " + std::to_string(nextPosition.y) + "\n");
 
 		nextPosition = current;
+		path.insert(path.begin(), nextPosition);
+		//path.push_back(nextPosition);
 
 		current = cameFrom[current];
 		if (current == start)
 			break;
+	}
+
+	for (auto& temp : path) {
+		Engine::GetLogger().LogDebug(std::to_string(temp.x) + ", " + std::to_string(temp.y));
 	}
 
 

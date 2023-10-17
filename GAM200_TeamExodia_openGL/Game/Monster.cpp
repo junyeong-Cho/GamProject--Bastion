@@ -17,14 +17,17 @@ Monster::Monster(Math::vec2 position, Player* player) : GameObject(position), m_
     current_state = &state_walking;
     current_state->Enter(this);
 
-    next_tile_position = path[current_tile_position];
 
-    Engine::GetLogger().LogDebug("Monster constructor");
     path = Astar::GetInstance().GetPath();
 
-    /*for (auto& map : path) {
-        Engine::GetLogger().LogDebug(std::to_string(map.first.x) + ", " + std::to_string(map.first.y) + " / " + std::to_string(map.second.x) + ", " + std::to_string(map.second.y));
-    }*/
+    tile_index = 0;
+    current_tile_position = path[tile_index++];
+    SetPosition({ 80.0 * static_cast<double>(current_tile_position.x), 80.0 * static_cast<double>(current_tile_position.y) });
+    next_tile_position = path[tile_index++];
+
+    for (auto& temp : path) {
+        Engine::GetLogger().LogDebug(std::to_string(temp.x) + ", " + std::to_string(temp.y));
+    }
 }
 
 
@@ -86,11 +89,16 @@ void Monster::State_Walking::Update(GameObject* object, double dt)
     Math::vec2 position = monster->GetPosition();
 
     monster->current_tile_position = Math::ivec2(static_cast<int>(position.x / tile_size), static_cast<int>(position.y / tile_size));
+
+    Engine::GetLogger().LogDebug(std::to_string(monster->current_tile_position.x) + ", " + std::to_string(monster->current_tile_position.y));
+    Engine::GetLogger().LogDebug(std::to_string(monster->next_tile_position.x) + ", " + std::to_string(monster->next_tile_position.y));
+
     if (monster->current_tile_position == monster->next_tile_position) {
         Engine::GetLogger().LogDebug(std::to_string(monster->next_tile_position.x) + ", " + std::to_string(monster->next_tile_position.y));
-        monster->next_tile_position = monster->path[monster->current_tile_position];
+
+        monster->next_tile_position = monster->path[(monster->tile_index++)];
         Engine::GetLogger().LogDebug(std::to_string(monster->next_tile_position.x) + ", " + std::to_string(monster->next_tile_position.y));
-        Math::ivec2 direction = monster->path[monster->next_tile_position] - monster->next_tile_position;
+        Math::ivec2 direction = monster->next_tile_position - monster->current_tile_position;
         if (direction.x == 1) {
             monster->m_walking_direction = WalkingDirection::Right;
         }

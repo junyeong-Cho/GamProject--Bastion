@@ -33,8 +33,9 @@ public:
     void Draw(Math::TransformationMatrix camera_matrix) override;
 
 protected:
-    std::unordered_map<Math::ivec2, Math::ivec2> path;
+    std::vector<Math::ivec2> path;
 
+    int tile_index;
     Math::ivec2 current_tile_position;
     Math::ivec2 next_tile_position;
 
