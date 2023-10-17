@@ -12,7 +12,7 @@ Updated:    September 26, 2023
 
 
 
-#include<vector>
+#include <vector>
 
 #include "../Game/Floor.h"
 

@@ -10,6 +10,9 @@ Updated:    September 26, 2023
 */
 
 #include "GameObjectManager.h"
+#include "GameObject.h"
+#include "../Game/GameObjectTypes.h"
+#include <limits>
 
 void GAM200::GameObjectManager::Add(GameObject* object)
 {
@@ -88,4 +91,24 @@ void GAM200::GameObjectManager::CollisionTest()
 			}
 		}
 	}
+}
+
+
+GAM200::GameObject* GAM200::GameObjectManager::GetClosestObject(GAM200::GameObject* obj) {
+	double optimal_distance = std::numeric_limits<double>::max();
+	GameObject* closest_object = nullptr;
+
+	for (GameObject* object : objects) {
+		if (object != obj) {
+			if (object->Type() == GameObjectTypes::Monster || object->Type() == GameObjectTypes::Basic_Monster || object->Type() == GameObjectTypes::Fast_Monster) {
+				double distance = obj->GetSquareDistance(object);
+				if (distance < optimal_distance) {
+					optimal_distance = distance;
+					closest_object = object;
+				}
+			}
+		}
+	}
+
+	return closest_object;
 }

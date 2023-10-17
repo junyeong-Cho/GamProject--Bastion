@@ -119,6 +119,9 @@ void Player::ResolveCollision(GameObject* other_object) {
 
     Math::rect other_rect = other_object->GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
 
+    double centerX = (player_rect.Left() + player_rect.Right()) / 2.0 - (other_rect.Left() + other_rect.Right()) / 2.0;
+    double centerY = (player_rect.Top() + player_rect.Bottom()) / 2.0 - (other_rect.Top() + other_rect.Bottom()) / 2.0;
+
     switch (other_object->Type()) {
 
     case GameObjectTypes::Monster:
@@ -131,14 +134,40 @@ void Player::ResolveCollision(GameObject* other_object) {
         break;
 
     case GameObjectTypes::Block_Tile:
-        if (player_rect.Left() < other_rect.Left()) {
+
+
+
+        if (abs(centerX) > abs(centerY)) {
+            if (centerX < 0) {
+                UpdatePosition(Math::vec2{ (other_rect.Left() - player_rect.Right()), 0.0 });
+                SetVelocity({ 0, GetVelocity().y });
+            }
+            else {
+                UpdatePosition(Math::vec2{ (other_rect.Right() - player_rect.Left()), 0.0 });
+                SetVelocity({ 0, GetVelocity().y });
+            }
+        }
+        else {
+            if (centerY < 0) {
+                UpdatePosition(Math::vec2{ 0.0, (other_rect.Bottom() - player_rect.Top()) });
+                SetVelocity({ GetVelocity().x, 0 });
+            }
+            else {
+                UpdatePosition(Math::vec2{ 0.0, (other_rect.Top() - player_rect.Bottom()) });
+                SetVelocity({ GetVelocity().x, 0 });
+            }
+        }
+
+
+
+        /*if (player_rect.Left() < other_rect.Left()) {
             UpdatePosition(Math::vec2{ (other_rect.Left() - player_rect.Right()), 0.0 });
             SetVelocity({ 0, GetVelocity().y });
         }
         else if (player_rect.Left() >= other_rect.Left()) {
             UpdatePosition(Math::vec2{ (other_rect.Right() - player_rect.Left()), 0.0 });
             SetVelocity({ 0, GetVelocity().y });
-        }
+        }*/
 
         /*if (player_rect.Bottom() < other_rect.Bottom()) {
             UpdatePosition(Math::vec2{ 0.0, (other_rect.Bottom() - player_rect.Top()) });

@@ -5,7 +5,7 @@
 
 class Tower : public GAM200::GameObject {
 public:
-    Tower(Math::vec2 positoin);
+    Tower(Math::vec2 position);
 
     GameObjectTypes Type() override { return GameObjectTypes::Tower; }
     std::string TypeName() override { return "Tower"; }
@@ -19,7 +19,10 @@ protected:
         float r;
         float g;
         float b;
-    } color;
+    };
+    Color color = { 0 };
+    Color charging_color;
+    Color attack_color;
 
     enum class Animations
     {
@@ -55,5 +58,15 @@ protected:
 
 private:
 
+};
+
+class Basic_Tower : public Tower {
+public:
+    Basic_Tower(Math::vec2 position);
+
+    GameObjectTypes Type() override { return GameObjectTypes::Basic_Tower; }
+    std::string TypeName() override { return "Basic_Tower"; }
+
+private:
 
 };

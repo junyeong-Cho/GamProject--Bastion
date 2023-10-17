@@ -7,7 +7,8 @@
 
 #include "Monster.h"
 #include "States.h"
-
+#include "Score.h"
+#include "Gold.h"
 
 Monster::Monster(Math::vec2 position, Player* player) : GameObject(position), m_player(player) {
     SetPosition(position);
@@ -60,6 +61,12 @@ void Monster::ResolveCollision(GameObject* other_object) {
         Engine::GetLogger().LogDebug("Resolve Collision bullet\n");
         RemoveGOComponent<GAM200::RectCollision>();
 
+        Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
+        Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
+
+        scoreComponent->Add(score);
+        goldComponent->Add(gold);
+
         change_state(&state_dead);
     }
 }
@@ -73,7 +80,12 @@ void Monster::State_Dead::Enter(GameObject* object)
 
 void Monster::State_Dead::Update(GameObject* object, double dt)
 {
+    Monster* monster = static_cast<Monster*>(object);
 
+    monster->resisting_count += dt;
+    if (monster->resisting_count >= monster->resisting_time) {
+        monster->Destroy();
+    }
 }
 
 void Monster::State_Dead::CheckExit(GameObject* object)
@@ -150,10 +162,16 @@ Basic_Monster::Basic_Monster(Math::vec2 position, Player* player) : Monster(posi
     fill_color = { 1.0f, 0.0f, 0.0f };
     walking_speed = 80;
     size = 60;
+
+    score = 1;
+    gold = 10;
 }
 
 Fast_Monster::Fast_Monster(Math::vec2 position, Player* player) : Monster(position, player) {
     fill_color = { 1.0f, 0.984f, 0.255f };
     walking_speed = 160;
     size = 40;
+
+    score = 2;
+    gold = 20;
 }

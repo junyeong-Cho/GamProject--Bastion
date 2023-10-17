@@ -125,6 +125,10 @@ double GAM200::GameObject::GetRotation() const
     return rotation;
 }
 
+double GAM200::GameObject::GetSquareDistance(GameObject* obj) {
+    return (position.x - obj->GetPosition().x) * (position.x - obj->GetPosition().x) + (position.y - obj->GetPosition().y) * (position.y - obj->GetPosition().y);
+}
+
 void GAM200::GameObject::change_state(State* new_state)
 {
     current_state = new_state;

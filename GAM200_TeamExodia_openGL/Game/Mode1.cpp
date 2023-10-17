@@ -26,6 +26,8 @@ Updated:    October		10, 2023
 #include "../Game/Monster.h"
 #include "../Game/Tower.h"
 
+#include "Score.h"
+
 #include <filesystem>
 #include <imgui.h>
 #include <stb_image.h>
@@ -93,9 +95,12 @@ void Mode1::Load()
 	GetGSComponent<GAM200::GameObjectManager>()->Add(player_ptr);
 
 	GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster({ 0, 0 }, player_ptr));
-	GetGSComponent <GAM200::GameObjectManager>()->Add(new Tower({ 240, 160 }));
+	GetGSComponent <GAM200::GameObjectManager>()->Add(new Basic_Tower({ 240, 160 }));
 
 	GetGSComponent<GAM200::Camera>()->SetPosition({ 0, 0 });
+
+	AddGSComponent(new Score());
+	AddGSComponent(new Gold());
 
 	#ifdef _DEBUG
 	AddGSComponent(new GAM200::ShowCollision());
@@ -159,7 +164,7 @@ void Mode1::Draw()
 
 void Mode1::ImguiDraw()
 {
-	ImGui::Begin("Program Info");
+	/*ImGui::Begin("Program Info");
 	{
 		ImGui::Text("FPS: %f", "55.5");
 		ImGui::Text("Frame Time: %f", "55.5");
@@ -168,13 +173,17 @@ void Mode1::ImguiDraw()
 		ImGui::Text("Camera position: %.3f, %.3f", GetGSComponent<GAM200::Camera>()->GetPosition().x, GetGSComponent<GAM200::Camera>()->GetPosition().y);
 
 	}
-	ImGui::End();
+	ImGui::End();*/
 
 
 	ImGui::Begin("Mouse Location");
 	{
-		ImGui::Text("Mouse Position X : %.2f", Engine::Instance().GetMouse().GetMousePosition().x);
-		ImGui::Text("Mouse Position Y : %.2f", Engine::Instance().GetMouse().GetMousePosition().y);
+		/*ImGui::Text("Mouse Position X : %.2f", Engine::Instance().GetMouse().GetMousePosition().x);
+		ImGui::Text("Mouse Position Y : %.2f", Engine::Instance().GetMouse().GetMousePosition().y);*/
+
+		ImGui::Text("Killed Monster : %d", GetGSComponent<Score>()->Value());
+		ImGui::Text("Gold : %d", GetGSComponent<Gold>()->Value());
+
 	}
 
 	ImGui::End();

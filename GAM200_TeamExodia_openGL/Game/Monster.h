@@ -35,12 +35,18 @@ public:
 protected:
     std::vector<Math::ivec2> path;
 
+    double resisting_count = 0;
+    const double resisting_time = 0.5;
+
     int tile_index;
     Math::ivec2 current_tile_position;
     Math::ivec2 next_tile_position;
 
     int size = 40;
     int walking_speed = 175;
+
+    int score = 1;
+    int gold = 10;
 
     struct FillColor {
         float r = 0;

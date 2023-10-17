@@ -20,6 +20,9 @@ Updated:    October		10, 2023
 #include "../Engine/Texture.h"
 #include "GameObjectTypes.h"
 
+#include "Score.h"
+#include "Gold.h"
+
 class Player;
 
 class Mode1 : public GAM200::GameState

@@ -32,6 +32,7 @@ namespace GAM200
         void DrawAll(Math::TransformationMatrix camera_matrix);
 
         void CollisionTest();
+        GAM200::GameObject* GetClosestObject(GAM200::GameObject*);
 
     private:
         std::list<GameObject*> objects;

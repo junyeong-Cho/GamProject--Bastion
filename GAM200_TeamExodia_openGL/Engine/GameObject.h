@@ -57,6 +57,8 @@ namespace GAM200
         const Math::vec2& GetScale() const;
         double GetRotation() const;
 
+        double GetSquareDistance(GameObject*);
+
         class State
         {
         public:
