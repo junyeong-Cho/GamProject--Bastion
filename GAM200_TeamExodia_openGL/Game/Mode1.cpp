@@ -86,7 +86,7 @@ void Mode1::Load()
 
 	}
 
-	Astar::GetInstance().UpdatePath(map_info, { 0, 0 }, { 4, 15 });
+	Astar::GetInstance().UpdatePath(map_info, { 0, 0 }, { 5, 15 });
 
 	player_ptr = new Player({ 0, 0 }, tile_size / 2);
 	GetGSComponent<GAM200::GameObjectManager>()->Add(player_ptr);

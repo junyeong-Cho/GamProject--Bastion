@@ -40,7 +40,7 @@ protected:
     Math::ivec2 next_tile_position;
 
     static constexpr int size = 40;
-    static constexpr int walking_speed = 75;
+    static constexpr int walking_speed = 175;
 
     enum class Animations
     {

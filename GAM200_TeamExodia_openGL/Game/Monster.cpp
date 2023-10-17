@@ -17,7 +17,6 @@ Monster::Monster(Math::vec2 position, Player* player) : GameObject(position), m_
     current_state = &state_walking;
     current_state->Enter(this);
 
-
     path = Astar::GetInstance().GetPath();
 
     tile_index = 0;
@@ -90,13 +89,13 @@ void Monster::State_Walking::Update(GameObject* object, double dt)
 
     monster->current_tile_position = Math::ivec2(static_cast<int>(position.x / tile_size), static_cast<int>(position.y / tile_size));
 
-    Engine::GetLogger().LogDebug(std::to_string(monster->current_tile_position.x) + ", " + std::to_string(monster->current_tile_position.y));
-    Engine::GetLogger().LogDebug(std::to_string(monster->next_tile_position.x) + ", " + std::to_string(monster->next_tile_position.y));
-
     if (monster->current_tile_position == monster->next_tile_position) {
         Engine::GetLogger().LogDebug(std::to_string(monster->next_tile_position.x) + ", " + std::to_string(monster->next_tile_position.y));
 
         monster->next_tile_position = monster->path[(monster->tile_index++)];
+        if (monster->tile_index == monster->path.size()) {
+            monster->change_state(&monster->state_dead);
+        }
         Engine::GetLogger().LogDebug(std::to_string(monster->next_tile_position.x) + ", " + std::to_string(monster->next_tile_position.y));
         Math::ivec2 direction = monster->next_tile_position - monster->current_tile_position;
         if (direction.x == 1) {
