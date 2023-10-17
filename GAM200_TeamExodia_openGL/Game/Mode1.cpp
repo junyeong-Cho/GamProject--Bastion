@@ -90,14 +90,14 @@ void Mode1::Load()
 		}
 
 	}
-
+	
 	Astar::GetInstance().UpdatePath(map_info, { 0, 0 }, { 5, 15 });
 
 	player_ptr = new Player({ 0, 0 }, tile_size / 2);
 	GetGSComponent<GAM200::GameObjectManager>()->Add(player_ptr);
 
 	GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster({ 0, 0 }, player_ptr));
-	GetGSComponent <GAM200::GameObjectManager>()->Add(new Basic_Tower({ 240, 160 }));
+	//GetGSComponent <GAM200::GameObjectManager>()->Add(new Basic_Tower({ 0, 160 }));
 
 	GetGSComponent<GAM200::Camera>()->SetPosition({ 0, 0 });
 
@@ -197,6 +197,14 @@ void Mode1::ImguiDraw()
 			GetGSComponent<GAM200::GameObjectManager>()->Add(new Fast_Monster({ 0, 0 }, player_ptr));
 		}*/
 		GetGSComponent<GAM200::GameObjectManager>()->Add(new Fast_Monster({ 0, 0 }, player_ptr));
+	}
+
+	static int tower_offset = 0;
+	static int size = 80;
+	if (ImGui::Button("Produce Tower"))
+	{
+		GetGSComponent <GAM200::GameObjectManager>()->Add(new Basic_Tower({ static_cast<double>(tower_offset * size), 160 }));
+		++tower_offset;
 	}
 
 	ImGui::End();

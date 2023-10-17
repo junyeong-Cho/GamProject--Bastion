@@ -34,6 +34,7 @@ protected:
 
     const double attack_delay = 1.0;
     double attack_count = 0;
+    int cost = 0;
 
     class State_Charging : public State
     {

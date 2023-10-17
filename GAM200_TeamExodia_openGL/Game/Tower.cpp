@@ -5,6 +5,7 @@
 #include "../Engine/Collision.h"
 #include "../Engine/Engine.h"
 #include "../Engine/GameObjectManager.h"
+#include "Gold.h"
 
 Tower::Tower(Math::vec2 position) : GameObject(position) {
 	charging_color = { 0.0f, 0.0f, 1.0f };
@@ -67,6 +68,8 @@ void Tower::State_Attacking::Update(GameObject* object, double dt) {
 	Math::vec2 bullet_direction = Math::vec2({ real_mouse_position.x - tower_position.x, real_mouse_position.y - tower_position.y });
 	bullet_direction /= bullet_direction.GetLength();
 
+	bullet_direction = Math::vec2{ 0, -1 };
+
 	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(tower_position, bullet_direction * Bullet::DefaultVelocity));
 	tower->change_state(&tower->state_charging);
 	//GameObject* target = GAM200::GameObjectManager().GetClosestObject(tower);
@@ -95,4 +98,8 @@ void Tower::State_Attacking::CheckExit(GameObject* object) {
 Basic_Tower:: Basic_Tower(Math::vec2 position) : Tower(position) {
 	charging_color = { 0.f, 0.f, 0.6f };
 	attack_color = { 0.0f, 0.0f, 0.0f };
+	cost = 100;
+
+	Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
+	goldComponent->Subtract(cost);
 }
