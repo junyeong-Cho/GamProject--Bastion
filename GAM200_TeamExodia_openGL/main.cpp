@@ -15,11 +15,15 @@ int main()
     try
     {
         Engine& engine = Engine::Instance();
-        engine.Start("GAM200 - Team: Exodia", 1200, 800, OriginPosition::LEFT_DOWN);
+        // 16:9
+        //engine.Start("GAM200 - Team: Exodia", 960, 540, OriginPosition::LEFT_DOWN);
+        engine.Start("GAM200 - Team: Exodia", 1280, 720, OriginPosition::LEFT_DOWN);
 
 
         Splash splash;
+        Mode1 mode1;
         engine.GetGameStateManager().AddGameState(splash);
+        engine.GetGameStateManager().AddGameState(mode1);
 
         while (engine.HasGameEnded() == false)
         {

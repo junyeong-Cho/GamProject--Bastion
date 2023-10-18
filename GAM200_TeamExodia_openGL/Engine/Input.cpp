@@ -110,6 +110,26 @@ GAM200::Input::Keys convert_opengl_to_gam200(SDL_Keycode sdl_key)
 		return GAM200::Input::Keys::Escape;
     case SDLK_BACKQUOTE:
         return GAM200::Input::Keys::Tidle;
+    case SDLK_1:
+        return GAM200::Input::Keys::_1;
+    case SDLK_2:
+        return GAM200::Input::Keys::_2;
+    case SDLK_3:
+        return GAM200::Input::Keys::_3;
+    case SDLK_4:
+        return GAM200::Input::Keys::_4;
+    case SDLK_5:
+        return GAM200::Input::Keys::_5;
+    case SDLK_6:
+        return GAM200::Input::Keys::_6;
+    case SDLK_7:
+        return GAM200::Input::Keys::_7;
+    case SDLK_8:
+        return GAM200::Input::Keys::_8;
+    case SDLK_9:
+        return GAM200::Input::Keys::_9;
+    case SDLK_0:
+        return GAM200::Input::Keys::_0;
 
     }
 

@@ -18,10 +18,9 @@ GAM200::ShowCollision::ShowCollision() : enabled(true) {}
 
 void GAM200::ShowCollision::Update([[maybe_unused]] double dt)
 {
-    /*if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Tidle))
-    {
+    if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Tidle)) {
         enabled = !(enabled);
-    }*/
+    }
 }
 
 bool GAM200::ShowCollision::Enabled()

@@ -48,7 +48,7 @@ void Splash::Load()
 void Splash::Update(double dt)
 {
 
-    //¸¶¿ì½º »ç¿ë ¿¹½Ã
+    //ï¿½ï¿½ï¿½ì½º ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     if (Engine::GetMouse().MouseIsPressed())
     {
         if (Engine::GetMouse().MouseButton() == GAM200::Mouse::MouseButtons::LEFT)
@@ -75,7 +75,7 @@ void Splash::Update(double dt)
     }
 
 
-    //Å°º¸µå »ç¿ë ¿¹½Ã
+    //Å°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     if (Engine::GetInput().keyDown(GAM200::Input::Keys::D))
     {
         x += (int)(velocity * dt);
@@ -98,7 +98,14 @@ void Splash::Update(double dt)
     {
         Engine::GetGameStateManager().ReloadGameState();
     }
-
+    if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Escape))
+    {
+        Engine::GetGameStateManager().ClearNextGameState();
+    }
+    if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Enter))
+    {
+        Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Mode1));
+    }
 
 }
 
@@ -115,35 +122,20 @@ void Splash::Draw()
    // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
-    //µµÇü ±×¸®´Â ¿¹½Ã
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     Engine::GetWindow().Clear(0.392f, 0.584f, 0.929f, 1.0f);
 
     GAM200::DrawShape shape;
 
-    shape.DrawLine(0, 0, 500, 500);
+    
 
-
-
-    shape.SetColor(1.0f, 0.0f, 0.0f, 1.0f);
-
-    shape.DrawRectangle(0, 0, 600, 400);
-
-
-
-    shape.SetColor(0.0f, 1.0f, 0.0f, 1.0f);
-
-    shape.DrawTriangle(Engine::GetWindow().GetSize().x / 2, Engine::GetWindow().GetSize().y / 2, 500, 400);
-
-
-    shape.SetColor(0.0f, 0.0f, 1.0f, 1.0f);
-    shape.DrawCircle(Engine::GetWindow().GetSize().x / 2, Engine::GetWindow().GetSize().y / 2, 100, 100);
 
     
 
-   // molu.Draw(x, y, 600, 600);
+    shape.DrawRectangle(0, 0, 1280, 720);
 
-    molu.Draw(x + 100, y + 100, 300.f, 100);
-    //texture.Draw(x + 100, y + 100, 300, 600);
+    splash.Draw(0, 0, 1280, 720);
+
 
 
 }

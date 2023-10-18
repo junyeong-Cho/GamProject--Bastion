@@ -53,6 +53,6 @@ public:
     int velocity = 600;
     
 
-    GAM200::Texture molu = GAM200::Texture("assets/images/molu.jpeg", GAM200::Texture::TextureType::TRIANGLE);
+    GAM200::Texture splash = GAM200::Texture("assets/images/Splash.png", GAM200::Texture::TextureType::RECTANGLE);
 
 };

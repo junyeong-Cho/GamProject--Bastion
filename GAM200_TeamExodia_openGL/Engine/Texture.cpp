@@ -74,9 +74,13 @@ namespace GAM200
 
     void Texture::Draw(int x, int y, int width, int height)
     {
-        //¹«Á¶°Ç initialize ÇØÁà¾ßÇÔ!!!!
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ initialize ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!!!!
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, textureID);
+
+
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 
         float aspectRatio = static_cast<float>(imageWidth) / static_cast<float>(imageHeight);
@@ -129,7 +133,7 @@ namespace GAM200
 
     void Texture::DrawRect(int x1, int y1, int x2, int y2)
     {
-        float aspectRatio = static_cast<float>(imageWidth) / static_cast<float>(imageHeight);
+        float aspectRatio = 1;
 
 
         float nx1 = Math::NormalizeX(x1, windowWidth);
