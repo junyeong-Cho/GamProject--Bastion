@@ -6,25 +6,24 @@ File Name:  ShowCollision.cpp
 Project:    CS230 Engine
 Author:     Jonathan Holmes, Junyeong Cho
 Created:    March 8, 2023
-Updated:    September 26, 2023
+Updated:    October  18, 2023
 */
 
 #include "ShowCollision.h"
+#include "../Engine/Engine.h"
 
-#include "Engine.h"
-
-GAM200::ShowCollision::ShowCollision() : enabled(true) {}
+CS230::ShowCollision::ShowCollision() : enabled(true) {}
 
 
-void GAM200::ShowCollision::Update([[maybe_unused]] double dt)
+void CS230::ShowCollision::Update([[maybe_unused]] double dt)
 {
-    /*if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Tidle))
+    if (Engine::GetInput().KeyJustReleased(CS230::Input::Keys::Tidle))
     {
         enabled = !(enabled);
-    }*/
+    }
 }
 
-bool GAM200::ShowCollision::Enabled()
+bool CS230::ShowCollision::Enabled()
 {
     return enabled;
 }

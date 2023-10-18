@@ -13,15 +13,14 @@ Updated:    September 26, 2023
 
 #include "../Engine/Component.h"
 
-namespace GAM200 {
-    class ShowCollision : public GAM200::Component
-    {
+namespace CS230 {
+    class ShowCollision : public CS230::Component {
     public:
         ShowCollision();
         void Update(double dt) override;
         bool Enabled();
-
     private:
         bool enabled;
     };
 }
+
