@@ -122,11 +122,11 @@ void Mode1::Update(double dt)
 	//GetGSComponent<GAM200::Camera>()->SetPosition(player_ptr->GetPosition());
 
 	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
-	GetGSComponent<GAM200::ShowCollision>()->Update(dt);
+	//GetGSComponent<GAM200::ShowCollision>()->Update(dt);
 	
 	Engine::GetWindow().Clear(1.0f, 1.0f, 1.0f, 1.0f);
 
-	GetGSComponent<GAM200::ShowCollision>()->Update(dt);
+	//GetGSComponent<GAM200::ShowCollision>()->Update(dt);
 	GetGSComponent<GAM200::GameObjectManager>()->CollisionTest();
 
 
