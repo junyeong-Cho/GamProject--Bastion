@@ -38,6 +38,8 @@ public:
 
 private:
 
+
+
     GAM200::Texture p = GAM200::Texture("assets/images/p.png", GAM200::Texture::TextureType::RECTANGLE);
 
     enum class Animations

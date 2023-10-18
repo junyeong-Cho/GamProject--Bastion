@@ -151,7 +151,6 @@ void Mode1::Unload()
 
 void Mode1::Draw()
 {
-	//임시 맵 코드
 	for (int i = 0; i < 5; i++)
 	{
 		for (int k = 0; k < 5; k++)
@@ -160,9 +159,6 @@ void Mode1::Draw()
 		}
 
 	}
-
-	
-	//임시 맵 코드
 
 
 	//Engine::GetWindow().Clear(0x000000FF);

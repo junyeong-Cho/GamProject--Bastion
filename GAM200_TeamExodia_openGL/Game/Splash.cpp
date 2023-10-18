@@ -47,8 +47,6 @@ void Splash::Load()
 
 void Splash::Update(double dt)
 {
-
-    //���콺 ��� ����
     if (Engine::GetMouse().MouseIsPressed())
     {
         if (Engine::GetMouse().MouseButton() == GAM200::Mouse::MouseButtons::LEFT)
@@ -74,8 +72,6 @@ void Splash::Update(double dt)
 		}
     }
 
-
-    //Ű���� ��� ����
     if (Engine::GetInput().keyDown(GAM200::Input::Keys::D))
     {
         x += (int)(velocity * dt);
@@ -121,8 +117,6 @@ void Splash::Draw()
 
    // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
-    //���� �׸��� ����
     Engine::GetWindow().Clear(0.392f, 0.584f, 0.929f, 1.0f);
 
     GAM200::DrawShape shape;

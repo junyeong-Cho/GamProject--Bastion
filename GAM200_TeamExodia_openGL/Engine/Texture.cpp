@@ -74,7 +74,6 @@ namespace GAM200
 
     void Texture::Draw(int x, int y, int width, int height)
     {
-        //������ initialize �������!!!!
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, textureID);
 
