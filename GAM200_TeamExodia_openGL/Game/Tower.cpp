@@ -98,7 +98,6 @@ void Tower::State_Attacking::CheckExit(GameObject* object) {
 Basic_Tower:: Basic_Tower(Math::vec2 position) : Tower(position) {
 	charging_color = { 0.f, 0.f, 0.6f };
 	attack_color = { 0.0f, 0.0f, 0.0f };
-	cost = 100;
 
 	Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
 	goldComponent->Subtract(cost);

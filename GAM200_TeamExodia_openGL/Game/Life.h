@@ -12,6 +12,7 @@ public:
     void Add(int value);
     void Subtract(int value);
     int Value() const;
+    void SetValue(int value) { lifeValue = value; }
 
 private:
     int lifeValue;

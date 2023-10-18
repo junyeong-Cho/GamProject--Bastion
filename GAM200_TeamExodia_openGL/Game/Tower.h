@@ -14,6 +14,8 @@ public:
 
     void Draw(Math::TransformationMatrix camera_matrix) override;
 
+    static int GetCost() { return cost; }
+
 protected:
     struct Color {
         float r;
@@ -34,7 +36,6 @@ protected:
 
     const double attack_delay = 1.0;
     double attack_count = 0;
-    int cost = 0;
 
     class State_Charging : public State
     {
@@ -58,7 +59,7 @@ protected:
     State_Attacking state_attacking;
 
 private:
-
+    static const int cost = 0;
 };
 
 class Basic_Tower : public Tower {
@@ -68,6 +69,7 @@ public:
     GameObjectTypes Type() override { return GameObjectTypes::Basic_Tower; }
     std::string TypeName() override { return "Basic_Tower"; }
 
+    static int GetCost() { return cost; }
 private:
-
+    static const int cost = 100;
 };
