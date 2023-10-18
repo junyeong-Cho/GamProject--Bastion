@@ -109,7 +109,7 @@ void Mode1::Load()
 	AddGSComponent(new GAM200::ShowCollision());
 	#endif
 
-
+	tower_offset = 0;
 }
 
 void Mode1::Update(double dt)
@@ -199,7 +199,6 @@ void Mode1::ImguiDraw()
 		GetGSComponent<GAM200::GameObjectManager>()->Add(new Fast_Monster({ 0, 0 }, player_ptr));
 	}
 
-	static int tower_offset = 0;
 	static int size = 80;
 	if (ImGui::Button("Produce Tower"))
 	{
