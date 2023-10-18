@@ -97,7 +97,6 @@ void Mode1::Load()
 	GetGSComponent<GAM200::GameObjectManager>()->Add(player_ptr);
 
 	GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster({ 0, 0 }, player_ptr));
-	//GetGSComponent <GAM200::GameObjectManager>()->Add(new Basic_Tower({ 0, 160 }));
 
 	GetGSComponent<GAM200::Camera>()->SetPosition({ 0, 0 });
 
@@ -114,17 +113,15 @@ void Mode1::Load()
 
 void Mode1::Update(double dt)
 {
+	Engine::GetWindow().Clear(1.0f, 1.0f, 1.0f, 1.0f);
+
 	GetGSComponent<GAM200::Camera>()->Update(player_ptr->GetPosition());
-	//GetGSComponent<GAM200::Camera>()->SetPosition(player_ptr->GetPosition());
 
 	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
 	GetGSComponent<GAM200::ShowCollision>()->Update(dt);
 	
-	Engine::GetWindow().Clear(1.0f, 1.0f, 1.0f, 1.0f);
-
-	GetGSComponent<GAM200::ShowCollision>()->Update(dt);
+	//GetGSComponent<GAM200::ShowCollision>()->Update(dt);
 	GetGSComponent<GAM200::GameObjectManager>()->CollisionTest();
-
 
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Escape))
 	{
@@ -140,43 +137,21 @@ void Mode1::Update(double dt)
 void Mode1::Unload()
 {
 	player_ptr = nullptr;
-	//GetGSComponent<Background>()->Unload();
 	GetGSComponent<GAM200::GameObjectManager>()->Unload();
 	ClearGSComponent();
 }
 
 void Mode1::Draw()
 {
-	//Engine::GetWindow().Clear(0x000000FF);
-
 	Math::TransformationMatrix camera_matrix = GetGSComponent<GAM200::Camera>()->GetMatrix();
-
-	//GetGSComponent<Background>()->Draw(*GetGSComponent<GAM200::Camera>());
-
-	//timer_texture.Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 10 - timer_texture.GetSize().x, Engine::GetWindow().GetSize().y - timer_texture.GetSize().y - 5 }));
-	//score.Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 10 - timer_texture.GetSize().x, Engine::GetWindow().GetSize().y - timer_texture.GetSize().y - 80 }));
 
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
 }
 
 void Mode1::ImguiDraw()
 {
-	/*ImGui::Begin("Program Info");
-	{
-		ImGui::Text("FPS: %f", "55.5");
-		ImGui::Text("Frame Time: %f", "55.5");
-		ImGui::Text("Counter: %f", counter);
-		ImGui::Text("Player position: %.3f, %.3f", player_ptr->GetPosition().x, player_ptr->GetPosition().y);
-		ImGui::Text("Camera position: %.3f, %.3f", GetGSComponent<GAM200::Camera>()->GetPosition().x, GetGSComponent<GAM200::Camera>()->GetPosition().y);
-
-	}
-	ImGui::End();*/
-
-
 	ImGui::Begin("Informations");
 	{
-		/*ImGui::Text("Mouse Position X : %.2f", Engine::Instance().GetMouse().GetMousePosition().x);
-		ImGui::Text("Mouse Position Y : %.2f", Engine::Instance().GetMouse().GetMousePosition().y);*/
 		int gold = GetGSComponent<Gold>()->Value();
 		int life = GetGSComponent<Life>()->Value();
 
@@ -197,17 +172,10 @@ void Mode1::ImguiDraw()
 	{
 		if (ImGui::Button("Produce Basic Monster"))
 		{
-			/*for (int i = 0; i < basic_monster_produce_number; i++) {
-				Engine::GetLogger().LogDebug("Basic monster added\n");
-				GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster({ 0, 0 }, player_ptr));
-			}*/
 			GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster({ 0, 0 }, player_ptr));
 		}
 		if (ImGui::Button("Produce Fast Monster"))
 		{
-			/*for (int i = 0; i < fast_monster_produce_number; i++) {	
-				GetGSComponent<GAM200::GameObjectManager>()->Add(new Fast_Monster({ 0, 0 }, player_ptr));
-			}*/
 			GetGSComponent<GAM200::GameObjectManager>()->Add(new Fast_Monster({ 0, 0 }, player_ptr));
 		}
 

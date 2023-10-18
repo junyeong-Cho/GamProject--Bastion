@@ -81,8 +81,12 @@ void Player::Update(double dt) {
         Math::vec2 mouse_position = Engine::GetMouse().GetMousePosition();
 
         Math::vec2 real_mouse_position = Math::vec2({ mouse_position.x, window_size.y - mouse_position.y});
-        Math::vec2 bullet_direction = Math::vec2({ real_mouse_position.x - player_position.x, real_mouse_position.y - player_position.y });
-        bullet_direction /= bullet_direction.GetLength();
+        Math::vec2 bullet_direction = real_mouse_position - player_position;  bullet_direction /= bullet_direction.GetLength();
+
+        Engine::GetLogger().LogDebug(std::to_string(player_position.x) + ", " + std::to_string(player_position.y));
+        Engine::GetLogger().LogDebug(std::to_string(real_mouse_position.x) + ", " + std::to_string(real_mouse_position.y));
+        Engine::GetLogger().LogDebug(std::to_string(bullet_direction.x) + ", " + std::to_string(bullet_direction.y) + "\n\n");
+
         Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity));
 
         not_clicked = false;
@@ -107,7 +111,7 @@ void Player::Draw(Math::TransformationMatrix camera_matrix) {
 
 
 bool Player::CanCollideWith(GameObjectTypes type) {
-    if (type == GameObjectTypes::Passing_Tile) {
+    if (type == GameObjectTypes::Passing_Tile || type == GameObjectTypes::Bullet) {
         return false;
     }
     else
@@ -157,26 +161,6 @@ void Player::ResolveCollision(GameObject* other_object) {
                 SetVelocity({ GetVelocity().x, 0 });
             }
         }
-
-
-
-        /*if (player_rect.Left() < other_rect.Left()) {
-            UpdatePosition(Math::vec2{ (other_rect.Left() - player_rect.Right()), 0.0 });
-            SetVelocity({ 0, GetVelocity().y });
-        }
-        else if (player_rect.Left() >= other_rect.Left()) {
-            UpdatePosition(Math::vec2{ (other_rect.Right() - player_rect.Left()), 0.0 });
-            SetVelocity({ 0, GetVelocity().y });
-        }*/
-
-        /*if (player_rect.Bottom() < other_rect.Bottom()) {
-            UpdatePosition(Math::vec2{ 0.0, (other_rect.Bottom() - player_rect.Top()) });
-            SetVelocity({ GetVelocity().x, 0 });
-        }
-        else if (player_rect.Bottom() >= other_rect.Bottom()) {
-            UpdatePosition(Math::vec2{ 0.0, (other_rect.Top() - player_rect.Bottom()) });
-            SetVelocity({ GetVelocity().x, 0 });
-        }*/
         break;
     case GameObjectTypes::Passing_Tile:
 
@@ -195,7 +179,8 @@ void Player::ResolveCollision(GameObject* other_object) {
 void Player::update_velocity(double dt) {
     Math::vec2 newVelocity = GetVelocity();
 
-    if (Engine::GetInput().keyDown(GAM200::Input::Keys::Right))
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::Right) ||
+        Engine::GetInput().keyDown(GAM200::Input::Keys::D))
     {
         newVelocity.x += acceleration * dt;
         if (newVelocity.x > max_velocity)
@@ -203,7 +188,8 @@ void Player::update_velocity(double dt) {
             newVelocity.x = max_velocity;
         }
     }
-    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::Left))
+    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::Left) ||
+        Engine::GetInput().keyDown(GAM200::Input::Keys::A))
     {
         newVelocity.x -= acceleration * dt;
         if (newVelocity.x < -max_velocity)
@@ -211,7 +197,8 @@ void Player::update_velocity(double dt) {
             newVelocity.x = -max_velocity;
         }
     }
-    if (Engine::GetInput().keyDown(GAM200::Input::Keys::Up))
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::Up) ||
+        Engine::GetInput().keyDown(GAM200::Input::Keys::W))
     {
         newVelocity.y += acceleration * dt;
         if (newVelocity.y > max_velocity)
@@ -219,7 +206,8 @@ void Player::update_velocity(double dt) {
             newVelocity.y = max_velocity;
         }
     }
-    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::Down))
+    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::Down) ||
+        Engine::GetInput().keyDown(GAM200::Input::Keys::S))
     {
         newVelocity.y -= acceleration * dt;
         if (newVelocity.y < -max_velocity)
