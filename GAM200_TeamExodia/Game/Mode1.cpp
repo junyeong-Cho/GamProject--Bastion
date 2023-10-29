@@ -48,6 +48,8 @@ void Mode1::Load()
 
     AddGSComponent(new CS230::GameObjectManager());
 
+    AddGSComponent(new CS230::ShowCollision());
+
     AddGSComponent(new Gravity(Mode1::gravity));
 
     AddGSComponent(new Timer(maxTimer));
@@ -130,7 +132,7 @@ void Mode1::Update(double dt)
     GetGSComponent<Timer>()->Update(dt);
     GetGSComponent<CS230::GameObjectManager>()->UpdateAll(dt);
     GetGSComponent<CS230::ShowCollision>()->Update(dt);
-    //GetGSComponent<Score>()->Update(dt);
+    GetGSComponent<Score>()->Update(dt);
 
 
     int remaining_time = GetGSComponent<Timer>()->GetRemainingTime();

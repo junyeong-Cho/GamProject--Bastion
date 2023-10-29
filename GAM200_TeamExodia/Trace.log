@@ -1,25 +1,54 @@
 [0.0003]	Event	Engine Started
-[0.5410]	Event	Window Resized
-[0.5522]	Event	Random seed: 1697635838
-[0.8136]	Event	Load Splash
-[0.8158]	Event	Loaded texture: Assets/DigiPen.png
-[0.8158]	Event	Load Complete
-[3.3137]	Event	Unload Splash
-[3.3137]	Event	Unload Complete
-[3.3470]	Event	Load Main_menu
-[3.3504]	Event	Load Complete
-[4.0470]	Event	Unload Main_menu
-[4.0471]	Event	Unload Complete
-[4.0804]	Event	Load Mode1
-[4.0854]	Event	Loaded texture: Assets/Cat.png
-[4.0865]	Event	Loaded texture: Assets/Smoke.png
-[4.1113]	Event	Loaded texture: Assets/Planets.png
-[4.1438]	Event	Loaded texture: Assets/Ships.png
-[4.1896]	Event	Loaded texture: Assets/Foreground.png
-[4.1906]	Event	Loaded texture: Assets/Asteroid.png
-[4.1916]	Event	Loaded texture: Assets/Crates2.png
-[4.1920]	Event	Loaded texture: Assets/Crates1.png
-[4.1926]	Event	Loaded texture: Assets/Crates5.png
-[4.1930]	Event	Loaded texture: Assets/Crates3.png
-[4.1944]	Event	Loaded texture: Assets/Robot.png
-[4.1956]	Event	Load Complete
+[0.7662]	Event	Window Resized
+[0.7845]	Event	Random seed: 1698602569
+[0.9824]	Event	Load Splash
+[0.9844]	Event	Loaded texture: Assets/DigiPen.png
+[0.9844]	Event	Load Complete
+[3.4824]	Event	Unload Splash
+[3.4824]	Event	Unload Complete
+[3.5157]	Event	Load Main_menu
+[3.5196]	Event	Load Complete
+[4.0824]	Event	Unload Main_menu
+[4.0824]	Event	Unload Complete
+[4.1157]	Event	Load Mode1
+[4.1182]	Event	Loaded texture: Assets/Cat.png
+[4.1193]	Event	Loaded texture: Assets/Smoke.png
+[4.1347]	Event	Loaded texture: Assets/Planets.png
+[4.1582]	Event	Loaded texture: Assets/Ships.png
+[4.1885]	Event	Loaded texture: Assets/Foreground.png
+[4.1895]	Event	Loaded texture: Assets/Asteroid.png
+[4.1905]	Event	Loaded texture: Assets/Crates2.png
+[4.1910]	Event	Loaded texture: Assets/Crates1.png
+[4.1915]	Event	Loaded texture: Assets/Crates5.png
+[4.1920]	Event	Loaded texture: Assets/Crates3.png
+[4.1932]	Event	Loaded texture: Assets/Robot.png
+[4.1946]	Event	Load Complete
+[5.3628]	Event	Collision Detected: Asteroid and Floor
+[5.3629]	Event	Collision Detected: Asteroid and Floor
+[5.3629]	Event	Collision Detected: Asteroid and Floor
+[6.1295]	Event	Collision Detected: Cat and Floor
+[6.7297]	Event	Collision Detected: Asteroid and Floor
+[6.7297]	Event	Collision Detected: Asteroid and Floor
+[6.7297]	Event	Collision Detected: Asteroid and Floor
+[7.0299]	Event	Collision Detected: Cat and Asteroid
+[8.0961]	Event	Collision Detected: Asteroid and Floor
+[8.0962]	Event	Collision Detected: Asteroid and Floor
+[8.0962]	Event	Collision Detected: Asteroid and Floor
+[8.9298]	Event	Collision Detected: Cat and Floor
+[9.4626]	Event	Collision Detected: Asteroid and Floor
+[9.4627]	Event	Collision Detected: Asteroid and Floor
+[9.4627]	Event	Collision Detected: Asteroid and Floor
+[10.3299]	Event	Collision Detected: Cat and Floor
+[10.3299]	Event	Particle overwritten
+[10.3299]	Event	Particle overwritten
+[10.3299]	Event	Particle overwritten
+[10.8300]	Event	Collision Detected: Asteroid and Floor
+[10.8300]	Event	Collision Detected: Asteroid and Floor
+[10.8300]	Event	Collision Detected: Asteroid and Floor
+[11.6616]	Event	Unload Mode1
+[11.6617]	Event	Unload Complete
+[11.6950]	Event	Load Main_menu
+[11.6971]	Event	Load Complete
+[12.5950]	Event	Unload Main_menu
+[12.5950]	Event	Unload Complete
+[12.6286]	Event	Engine Stopped
