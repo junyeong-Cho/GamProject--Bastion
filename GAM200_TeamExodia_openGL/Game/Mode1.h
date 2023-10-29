@@ -17,7 +17,7 @@ Updated:    October		10, 2023
 #include "../Engine/TextureManager.h"
 #include "../Engine/Camera.h"
 #include "../Engine/GameState.h"
-#include "../Engine/Texture.h"
+#include "../Engine/TextureWithShape.h"
 #include "GameObjectTypes.h"
 
 
@@ -54,8 +54,8 @@ public:
 
 private:
 
-    GAM200::Texture m = GAM200::Texture("assets/images/m.png", GAM200::Texture::TextureType::RECTANGLE);
-    GAM200::Texture w = GAM200::Texture("assets/images/w.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::TextureWithShape m = GAM200::TextureWithShape("assets/images/m.png", GAM200::TextureWithShape::TextureType::RECTANGLE);
+    GAM200::TextureWithShape w = GAM200::TextureWithShape("assets/images/w.png", GAM200::TextureWithShape::TextureType::RECTANGLE);
 
     int map_info[9][16] = {
         static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile),

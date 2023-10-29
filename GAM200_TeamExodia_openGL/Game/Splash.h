@@ -15,7 +15,7 @@ Updated:    October    10, 2023
 
 #include "../Engine/GameState.h"
 
-#include "../Engine/Texture.h"
+#include "../Engine/TextureWithShape.h"
 
 
 class Splash : public GAM200::GameState 
@@ -53,6 +53,6 @@ public:
     int velocity = 600;
     
 
-    GAM200::Texture splash = GAM200::Texture("assets/images/Splash.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::TextureWithShape splash = GAM200::TextureWithShape("assets/images/Splash.png", GAM200::TextureWithShape::TextureType::RECTANGLE);
 
 };

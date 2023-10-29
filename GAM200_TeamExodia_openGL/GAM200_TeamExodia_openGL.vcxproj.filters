@@ -37,7 +37,7 @@
     <ClCompile Include="Engine\TextureManager.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Texture.cpp">
+    <ClCompile Include="Engine\TextureWithShape.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\stb_image_impl.cpp">
@@ -103,6 +103,12 @@
     <ClCompile Include="Game\Life.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Texture.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Font.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GLApp_Clone.h">
@@ -147,7 +153,7 @@
     <ClInclude Include="Engine\TextureManager.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Texture.h">
+    <ClInclude Include="Engine\TextureWithShape.h">
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Matrix.h">
@@ -218,6 +224,15 @@
     </ClInclude>
     <ClInclude Include="Game\Life.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Texture.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Font.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\FrameBufferManager.h">
+      <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

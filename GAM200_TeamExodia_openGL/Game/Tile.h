@@ -13,7 +13,7 @@ Updated:    October		11, 2023
 
 #include "../Engine/GameObject.h"
 #include "../Game/GameObjectTypes.h"
-#include "../Engine/Texture.h"
+#include "../Engine/TextureWithShape.h"
 class Tile :public GAM200::GameObject {
 public:
 
@@ -33,7 +33,7 @@ public:
 
 protected:
 
-	GAM200::Texture block_tile = GAM200::Texture("assets/images/b_tile.png", GAM200::Texture::TextureType::RECTANGLE);
+	GAM200::TextureWithShape block_tile = GAM200::TextureWithShape("assets/images/b_tile.png", GAM200::TextureWithShape::TextureType::RECTANGLE);
 
 	struct Color {
 		float r = 0.f;
