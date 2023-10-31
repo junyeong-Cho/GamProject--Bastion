@@ -28,27 +28,6 @@ namespace Math
 		Math::vec2 operator*(vec2 v) const;
 
 		void Reset();
-
-		const GLfloat* ToGLfloatArray() const
-		{
-			static GLfloat result[16];
-			memset(result, 0, sizeof(result));
-
-			
-			for (int i = 0; i < 3; ++i)
-			{
-				for (int j = 0; j < 3; ++j)
-				{
-					result[i * 4 + j] = (GLfloat)matrix[i][j];
-				}
-			}
-				
-				
-			result[15] = 1.0f;  
-
-			return result;
-		}
-
 	protected:
 		double matrix[3][3];
 

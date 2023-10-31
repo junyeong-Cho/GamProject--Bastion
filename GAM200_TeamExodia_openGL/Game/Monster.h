@@ -33,7 +33,7 @@ public:
     void Draw(Math::TransformationMatrix camera_matrix) override;
 
 protected:
-    GAM200::TextureWithShape e = GAM200::TextureWithShape("assets/images/e.png", GAM200::TextureWithShape::TextureType::RECTANGLE);
+    GAM200::Texture e = GAM200::Texture("assets/images/e.png", GAM200::Texture::TextureType::RECTANGLE);
 
 
     std::vector<Math::ivec2> path;

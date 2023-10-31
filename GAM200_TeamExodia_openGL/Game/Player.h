@@ -15,7 +15,7 @@ Updated:    October		10, 2023
 #include "../Engine/Input.h"
 #include "../Engine/Camera.h"
 #include "../Engine/Matrix.h"
-#include "../Engine/TextureWithShape.h"
+#include "../Engine/Texture.h"
 #include "../Game/GameObjectTypes.h"
 
 class Player : public GAM200::GameObject {
@@ -40,7 +40,7 @@ private:
 
 
 
-    GAM200::TextureWithShape p = GAM200::TextureWithShape("assets/images/p.png", GAM200::TextureWithShape::TextureType::RECTANGLE);
+    GAM200::Texture p = GAM200::Texture("assets/images/p.png", GAM200::Texture::TextureType::RECTANGLE);
 
     enum class Animations
     {

@@ -2,7 +2,7 @@
 
 #include "../Engine/GameObject.h"
 #include "Bullet.h"
-#include "../Engine/TextureWithShape.h"
+#include "../Engine/Texture.h"
 class Tower : public GAM200::GameObject {
 public:
     Tower(Math::vec2 position);
@@ -18,7 +18,7 @@ public:
 
 protected:
     bool set_basic_tower = false;
-    GAM200::TextureWithShape c = GAM200::TextureWithShape("assets/images/c.png", GAM200::TextureWithShape::TextureType::RECTANGLE);
+    GAM200::Texture c = GAM200::Texture("assets/images/c.png", GAM200::Texture::TextureType::RECTANGLE);
 
     struct Color {
         float r;
