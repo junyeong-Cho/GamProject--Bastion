@@ -33,7 +33,7 @@ namespace
 namespace GAM200 
 {
     
-    Window::Window() { };
+    Window::Window() : origin_position{ OriginPosition::CENTER } { };
 
     
     Window::~Window() 

@@ -89,7 +89,7 @@ void CS230::RectCollision::Draw(Math::TransformationMatrix display_matrix)
     doodle::set_outline_color(doodle::HexColor(0xFFFFFFFF));
     doodle::push_settings();
     Math::rect world_boundary = WorldBoundary();
-    doodle::apply_matrix(display_matrix[0][0], display_matrix[1][0], display_matrix[0][1], display_matrix[1][1], display_matrix[0][2], display_matrix[1][2]);
+  //  doodle::apply_matrix(display_matrix[0][0], display_matrix[1][0], display_matrix[0][1], display_matrix[1][1], display_matrix[0][2], display_matrix[1][2]);
     doodle::draw_rectangle(world_boundary.Left(), world_boundary.Bottom(), world_boundary.Size().x, world_boundary.Size().y);
 
     doodle::pop_settings();
