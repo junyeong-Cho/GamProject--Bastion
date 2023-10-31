@@ -7,6 +7,21 @@
     <Filter Include="Engine">
       <UniqueIdentifier>{fd433bef-5a1c-436a-905b-a65c3bb33ae8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Exodia">
+      <UniqueIdentifier>{2de2295b-ef12-4c6d-ac17-8a189c0b5439}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Exodia\Components">
+      <UniqueIdentifier>{cd668bd4-2c1b-4e55-a0a6-db762fd2ae53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Exodia\Modes">
+      <UniqueIdentifier>{0b692e9c-1a01-4017-922a-1342d671d7f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Exodia\Objests">
+      <UniqueIdentifier>{f07a0d33-de28-438c-b9d6-08c2b3e57c66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\CS230">
+      <UniqueIdentifier>{5e360f76-4c7d-4b11-9a5f-fbe773d552b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\GLApp_Clone.cpp">
@@ -30,9 +45,6 @@
     <ClCompile Include="Engine\GameStateManager.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Splash.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\TextureManager.cpp">
       <Filter>Engine</Filter>
@@ -52,26 +64,11 @@
     <ClCompile Include="Engine\Input.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Mode1.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Mouse.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Normalization.cpp">
       <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Player.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Monster.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Tile.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Tower.cpp">
-      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Engine\GameObject.cpp">
       <Filter>Engine</Filter>
@@ -88,20 +85,38 @@
     <ClCompile Include="Engine\Camera.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Game\AStar.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Bullet.cpp">
-      <Filter>Game</Filter>
+      <Filter>Game\Exodia\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\AStar.cpp">
+      <Filter>Game\Exodia\Components</Filter>
     </ClCompile>
     <ClCompile Include="Game\Gold.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Score.cpp">
-      <Filter>Game</Filter>
+      <Filter>Game\Exodia\Components</Filter>
     </ClCompile>
     <ClCompile Include="Game\Life.cpp">
-      <Filter>Game</Filter>
+      <Filter>Game\Exodia\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Score.cpp">
+      <Filter>Game\Exodia\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PrototypeSplash.cpp">
+      <Filter>Game\Exodia\Modes</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\PrototypeMode1.cpp">
+      <Filter>Game\Exodia\Modes</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Tile.cpp">
+      <Filter>Game\Exodia\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Monster.cpp">
+      <Filter>Game\Exodia\Objests</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Player.cpp">
+      <Filter>Game\Exodia\Objests</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Tower.cpp">
+      <Filter>Game\Exodia\Objests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -138,12 +153,6 @@
     <ClInclude Include="Engine\GameStateManager.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Game\States.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Splash.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\TextureManager.h">
       <Filter>Engine</Filter>
     </ClInclude>
@@ -162,29 +171,11 @@
     <ClInclude Include="Engine\Input.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Mode1.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Mouse.h">
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Normalization.h">
       <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Player.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Monster.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Tile.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Tower.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObjectTypes.h">
-      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Engine\GameObject.h">
       <Filter>Engine</Filter>
@@ -204,20 +195,44 @@
     <ClInclude Include="Engine\Camera.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Game\AStar.h">
-      <Filter>Game</Filter>
+    <ClInclude Include="Game\GameObjectTypes.h">
+      <Filter>Game\Exodia</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\States.h">
+      <Filter>Game\Exodia</Filter>
     </ClInclude>
     <ClInclude Include="Game\Bullet.h">
-      <Filter>Game</Filter>
+      <Filter>Game\Exodia\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\AStar.h">
+      <Filter>Game\Exodia\Components</Filter>
     </ClInclude>
     <ClInclude Include="Game\Gold.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Score.h">
-      <Filter>Game</Filter>
+      <Filter>Game\Exodia\Components</Filter>
     </ClInclude>
     <ClInclude Include="Game\Life.h">
-      <Filter>Game</Filter>
+      <Filter>Game\Exodia\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Score.h">
+      <Filter>Game\Exodia\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PrototypeSplash.h">
+      <Filter>Game\Exodia\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PrototypeMode1.h">
+      <Filter>Game\Exodia\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Tile.h">
+      <Filter>Game\Exodia\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Monster.h">
+      <Filter>Game\Exodia\Objests</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Player.h">
+      <Filter>Game\Exodia\Objests</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Tower.h">
+      <Filter>Game\Exodia\Objests</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -4,8 +4,8 @@
 
 #include "../Engine/Engine.h"
 
-#include "../Game/Splash.h"
-#include "../Game/Mode1.h"
+#include "../Game/PrototypeSplash.h"
+#include "../Game/PrototypeMode1.h"
 
 
 
@@ -20,8 +20,8 @@ int main()
         engine.Start("GAM200 - Team: Exodia", 1280, 720, OriginPosition::LEFT_DOWN);
 
 
-        Splash splash;
-        Mode1 mode1;
+        PrototypeSplash  splash;
+        PrototypeMode1   mode1;
         engine.GetGameStateManager().AddGameState(splash);
         engine.GetGameStateManager().AddGameState(mode1);
 

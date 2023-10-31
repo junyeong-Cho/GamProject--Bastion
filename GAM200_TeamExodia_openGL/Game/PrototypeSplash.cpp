@@ -14,7 +14,7 @@ Updated:    October    10, 2023
 #include "../Engine/DrawShape.h"
 
 #include "../Game/States.h"
-#include "../Game/Splash.h"
+#include "../Game/PrototypeSplash.h"
 
 
 #include <filesystem>
@@ -30,12 +30,12 @@ namespace
 }
 
 
-Splash::Splash() 
+PrototypeSplash::PrototypeSplash()
 {
     
 }
 
-void Splash::Load()
+void PrototypeSplash::Load()
 {
     counter = 0;
 
@@ -45,7 +45,7 @@ void Splash::Load()
 
 }
 
-void Splash::Update(double dt)
+void PrototypeSplash::Update(double dt)
 {
     if (Engine::GetMouse().MouseIsPressed())
     {
@@ -105,13 +105,13 @@ void Splash::Update(double dt)
 
 }
 
-void Splash::Unload()
+void PrototypeSplash::Unload()
 {
     x = 0;
     y = 0;
 }
 
-void Splash::Draw()
+void PrototypeSplash::Draw()
 {
     //Engine::GetWindow().Clear(UINT_MAX);
 
@@ -135,7 +135,7 @@ void Splash::Draw()
 }
 
 
-void Splash::ImguiDraw()
+void PrototypeSplash::ImguiDraw()
 {
 
     ImGui::Begin("Program Info");
@@ -178,7 +178,7 @@ void Splash::ImguiDraw()
     */
 }
 
-void Splash::HandleEvent(SDL_Event& event)
+void PrototypeSplash::HandleEvent(SDL_Event& event)
 {
 if (event.type == SDL_KEYDOWN)
 	{
@@ -191,44 +191,4 @@ if (event.type == SDL_KEYDOWN)
 }
 
 
-
-/*
-namespace
-{
-    // https://github.com/ocornut/imgui/wiki/Image-Loading-and-Displaying-Examples
-    bool LoadTextureFromFile(const std::filesystem::path& filename, GLuint& out_texture, int& out_width, int& out_height)
-    {
-        // Load from file
-        int            image_width = 0;
-        int            image_height = 0;
-        unsigned char* image_data = stbi_load(filename.string().c_str(), &image_width, &image_height, NULL, 4);
-        if (image_data == NULL)
-            return false;
-
-        // Create a OpenGL texture identifier
-        GLuint image_texture;
-        glCheck(glGenTextures(1, &image_texture));
-        glBindTexture(GL_TEXTURE_2D, image_texture);
-
-        // Setup filtering parameters for display
-        glCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-        glCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-        glCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE)); // This is required on WebGL for non power-of-two textures
-        glCheck(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE)); // Same
-
-        // Upload pixels into texture
-#if defined(GL_UNPACK_ROW_LENGTH) && !defined(__EMSCRIPTEN__)
-        glCheck(glPixelStorei(GL_UNPACK_ROW_LENGTH, 0));
-#endif
-        glCheck(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_width, image_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data));
-        stbi_image_free(image_data);
-
-        out_texture = image_texture;
-        out_width = image_width;
-        out_height = image_height;
-
-        return true;
-    }
-}
-*/
 

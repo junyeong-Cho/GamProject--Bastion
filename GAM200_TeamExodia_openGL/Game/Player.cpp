@@ -16,7 +16,7 @@ Updated:    October		10, 2023
 #include "../Engine/GameObjectManager.h"
 
 #include "Player.h"
-#include "Mode1.h"
+#include "PrototypeMode1.h"
 #include "States.h"
 #include "Bullet.h"
 

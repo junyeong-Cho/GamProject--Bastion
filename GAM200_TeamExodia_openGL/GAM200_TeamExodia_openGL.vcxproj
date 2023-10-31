@@ -104,11 +104,11 @@
     <ClCompile Include="Game\Bullet.cpp" />
     <ClCompile Include="Game\Gold.cpp" />
     <ClCompile Include="Game\Life.cpp" />
-    <ClCompile Include="Game\Mode1.cpp" />
+    <ClCompile Include="Game\PrototypeMode1.cpp" />
     <ClCompile Include="Game\Monster.cpp" />
     <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="Game\Score.cpp" />
-    <ClCompile Include="Game\Splash.cpp" />
+    <ClCompile Include="Game\PrototypeSplash.cpp" />
     <ClCompile Include="Game\Tile.cpp" />
     <ClCompile Include="Game\Tower.cpp" />
     <ClCompile Include="main.cpp" />
@@ -144,11 +144,11 @@
     <ClInclude Include="Game\GameObjectTypes.h" />
     <ClInclude Include="Game\Gold.h" />
     <ClInclude Include="Game\Life.h" />
-    <ClInclude Include="Game\Mode1.h" />
+    <ClInclude Include="Game\PrototypeMode1.h" />
     <ClInclude Include="Game\Monster.h" />
     <ClInclude Include="Game\Player.h" />
     <ClInclude Include="Game\Score.h" />
-    <ClInclude Include="Game\Splash.h" />
+    <ClInclude Include="Game\PrototypeSplash.h" />
     <ClInclude Include="Game\States.h" />
     <ClInclude Include="Game\Tile.h" />
     <ClInclude Include="Game\Tower.h" />

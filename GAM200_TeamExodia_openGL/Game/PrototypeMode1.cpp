@@ -18,9 +18,9 @@ Updated:    October		10, 2023
 #include "../Engine/GameObjectManager.h"
 #include "../Engine/Collision.h"
 
-#include "../Game/Mode1.h"
+#include "../Game/PrototypeMode1.h"
 #include "../Game/States.h"
-#include "../Game/Splash.h"
+#include "../Game/PrototypeSplash.h"
 #include "../Game/Tile.h"
 #include "../Game/Player.h"
 #include "../Game/Monster.h"
@@ -36,13 +36,13 @@ Updated:    October		10, 2023
 #include <stb_image.h>
 #include <glCheck.h>
 
-Mode1::Mode1() : player_ptr()
+PrototypeMode1::PrototypeMode1() : player_ptr()
 {
 
 }
 
 
-void Mode1::Load()
+void PrototypeMode1::Load()
 {
 	
 
@@ -116,7 +116,7 @@ void Mode1::Load()
 	tower_offset = 0;
 }
 
-void Mode1::Update(double dt)
+void PrototypeMode1::Update(double dt)
 {
 	GetGSComponent<GAM200::Camera>()->Update(player_ptr->GetPosition());
 	//GetGSComponent<GAM200::Camera>()->SetPosition(player_ptr->GetPosition());
@@ -141,7 +141,7 @@ void Mode1::Update(double dt)
 
 }
 
-void Mode1::Unload()
+void PrototypeMode1::Unload()
 {
 	player_ptr = nullptr;
 	//GetGSComponent<Background>()->Unload();
@@ -149,7 +149,7 @@ void Mode1::Unload()
 	ClearGSComponent();
 }
 
-void Mode1::Draw()
+void PrototypeMode1::Draw()
 {
 	for (int i = 0; i < 5; i++)
 	{
@@ -176,7 +176,7 @@ void Mode1::Draw()
 	w.Draw(1200 - 150, 0, 150*2, 400*2);
 }
 
-void Mode1::ImguiDraw()
+void PrototypeMode1::ImguiDraw()
 {
 	/*ImGui::Begin("Program Info");
 	{
@@ -241,7 +241,7 @@ void Mode1::ImguiDraw()
 	ImGui::End();
 }
 
-void Mode1::HandleEvent(SDL_Event& event)
+void PrototypeMode1::HandleEvent(SDL_Event& event)
 {
 
 }

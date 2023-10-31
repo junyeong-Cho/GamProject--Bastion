@@ -23,10 +23,10 @@ Updated:    October		10, 2023
 
 class Player;
 
-class Mode1 : public GAM200::GameState
+class PrototypeMode1 : public GAM200::GameState
 {
 public:
-    Mode1();
+    PrototypeMode1();
     void Load()                                  override;
     void Update(double dt)                       override;
     void Unload()                                override;
@@ -38,7 +38,7 @@ public:
 
 
 
-    std::string GetName() override { return "Mode1"; }
+    std::string GetName() override { return "PrototypeMode1"; }
 public:
 
     double counter = 0;

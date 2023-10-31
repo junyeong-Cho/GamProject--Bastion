@@ -18,10 +18,10 @@ Updated:    October    10, 2023
 #include "../Engine/Texture.h"
 
 
-class Splash : public GAM200::GameState 
+class PrototypeSplash : public GAM200::GameState
 {
 public:
-    Splash();
+    PrototypeSplash();
     void Load()                                  override;
     void Update(double dt)                       override;
     void Unload()                                override;
@@ -32,7 +32,7 @@ public:
 
 
 
-    std::string GetName() override { return "Splash"; }
+    std::string GetName() override { return "PrototypeSplash"; }
 
 
     struct
