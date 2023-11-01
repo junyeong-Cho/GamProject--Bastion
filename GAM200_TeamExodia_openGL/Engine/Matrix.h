@@ -13,6 +13,7 @@ Updated:    October 3, 2023
 
 #include "Vec2.h"
 
+
 namespace Math
 {
 	class TransformationMatrix

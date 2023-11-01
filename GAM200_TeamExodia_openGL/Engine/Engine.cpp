@@ -13,6 +13,7 @@ Updated:    September 30, 2023
 #pragma once
 #include "Engine.h"
 
+#include <GL/glew.h>
 
 Engine::Engine() :
 #ifdef _DEBUG				

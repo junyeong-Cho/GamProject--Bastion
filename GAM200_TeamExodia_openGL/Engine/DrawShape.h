@@ -19,7 +19,7 @@ Updated:    October 4, 2023
 #include "../Engine/Normalization.h" 
 
 #include "../Engine/GameState.h"
-#include "../Engine/Engine.h"
+//#include "../Engine/Engine.h"
 
 #include "../Engine/Vec2.h"
 
@@ -59,8 +59,7 @@ namespace GAM200
 
 
 	private:
-		int windowWidth = Engine::GetWindow().GetSize().x;
-		int windowHeight = Engine::GetWindow().GetSize().y;
+
 
 		float color[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		float lineWidth = 1.0f;

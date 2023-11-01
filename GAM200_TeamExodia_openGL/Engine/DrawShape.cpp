@@ -6,7 +6,8 @@
 
 void GAM200::DrawShape::DrawLine(int x1, int y1, int x2, int y2)
 {
-
+    int windowWidth = Engine::GetWindow().GetSize().x;
+    int windowHeight = Engine::GetWindow().GetSize().y;
 
     float nx1 = Math::NormalizeX(x1, windowWidth);
     float ny1 = Math::NormalizeY(y1, windowHeight);
@@ -32,6 +33,9 @@ void GAM200::DrawShape::DrawLine(Math::ivec2 start, Math::ivec2 end)
 void GAM200::DrawShape::DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3)
 {
     Engine::Instance().push();
+
+    int windowWidth = Engine::GetWindow().GetSize().x;
+    int windowHeight = Engine::GetWindow().GetSize().y;
 
     float nx1 = Math::NormalizeX(x1, windowWidth);
     float ny1 = Math::NormalizeY(y1, windowHeight);
@@ -62,6 +66,9 @@ void GAM200::DrawShape::DrawTriangle(int x, int y, int width, int height)
 void GAM200::DrawShape::DrawRectangleWithPoints(int x1, int y1, int x2, int y2)
 {
     Engine::Instance().push();
+
+    int windowWidth = Engine::GetWindow().GetSize().x;
+    int windowHeight = Engine::GetWindow().GetSize().y;
 
     float nx1 = Math::NormalizeX(x1, windowWidth);
     float ny1 = Math::NormalizeY(y1, windowHeight);
@@ -98,6 +105,9 @@ points가 클수록 원이 부드러워집니다. 100개 정도가 적당해요!!
 void GAM200::DrawShape::DrawCircle(int x, int y, int radius, int points)
 {
     Engine::Instance().push(); 
+
+    int windowWidth = Engine::GetWindow().GetSize().x;
+    int windowHeight = Engine::GetWindow().GetSize().y;
 
     float normalizeX       = Math::NormalizeX(x, windowWidth);      
     float normalizeY       = Math::NormalizeY(y, windowHeight);    

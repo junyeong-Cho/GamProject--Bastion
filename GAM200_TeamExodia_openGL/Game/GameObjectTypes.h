@@ -15,6 +15,21 @@ Updated:    October		10, 2023
 
 enum class GameObjectTypes
 {
+    //CS230
+    Cat,
+    Robot,
+    Asteroid,
+    Crates,
+    Meteor,
+    Ship,
+    Floor,
+    Portal,
+    Count,
+    Laser,
+    Particle,
+
+
+    //Exodia
     Player,
 
     Monster,

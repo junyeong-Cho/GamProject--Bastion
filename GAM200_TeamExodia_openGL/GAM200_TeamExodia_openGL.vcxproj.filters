@@ -118,6 +118,48 @@
     <ClCompile Include="Game\Tower.cpp">
       <Filter>Game\Exodia\Objests</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Animation.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Font.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Sprite.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Asteroid.cpp">
+      <Filter>Game\CS230</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Background.cpp">
+      <Filter>Game\CS230</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Particle.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Crates.cpp">
+      <Filter>Game\CS230</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Floor.cpp">
+      <Filter>Game\CS230</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Laser.cpp">
+      <Filter>Game\CS230</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Timer.cpp">
+      <Filter>Game\CS230</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Robots.cpp">
+      <Filter>Game\CS230</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Mode1.cpp">
+      <Filter>Game\CS230</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Portal.cpp">
+      <Filter>Game\CS230</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Cat.cpp">
+      <Filter>Game\CS230</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GLApp_Clone.h">
@@ -233,6 +275,57 @@
     </ClInclude>
     <ClInclude Include="Game\Tower.h">
       <Filter>Game\Exodia\Objests</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Animation.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Constants.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Font.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Sprite.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Asteroid.h">
+      <Filter>Game\CS230</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Background.h">
+      <Filter>Game\CS230</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Particle.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Crates.h">
+      <Filter>Game\CS230</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Floor.h">
+      <Filter>Game\CS230</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Gravity.h">
+      <Filter>Game\CS230</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Laser.h">
+      <Filter>Game\CS230</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Timer.h">
+      <Filter>Game\CS230</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Fonts.h">
+      <Filter>Game\CS230</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Robots.h">
+      <Filter>Game\CS230</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Cat.h">
+      <Filter>Game\CS230</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Mode1.h">
+      <Filter>Game\CS230</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Portal.h">
+      <Filter>Game\CS230</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
