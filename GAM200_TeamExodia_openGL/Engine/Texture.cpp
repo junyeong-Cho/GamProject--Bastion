@@ -167,7 +167,8 @@ namespace GAM200
         glBindTexture(GL_TEXTURE_2D, textureID);
 
 
-        
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         
      
         DrawRect(display_matrix, texel_position.x, texel_position.y, texel_position.x + frame_size.x, texel_position.y + frame_size.y);
@@ -211,19 +212,14 @@ namespace GAM200
         int windowWidth = Engine::GetWindow().GetSize().x;
         int windowHeight = Engine::GetWindow().GetSize().y;
 
-        // 화면 비율을 유지하면서 비율을 조정합니다.
-        float aspectRatio = static_cast<float>(windowWidth) / static_cast<float>(windowHeight);
+        float aspectRatio = 1;
 
-        // 회전을 배제하고 이동 및 스케일만을 반영하는 새로운 변환 행렬을 생성합니다.
-        Math::TransformationMatrix translationAndScaleMatrix = display_matrix;
-        // 회전 정보가 있다면 아래 코드로 제거합니다. (이 부분은 예시로만 작성되었습니다)
-        //translationAndScaleMatrix.SetRotation(0); // 회전을 0으로 설정하는 메소드가 있다고 가정
+        // 꼭짓점을 변환 행렬을 사용하여 변환.
+        Math::vec2 topLeft = display_matrix * Math::vec2(x1, y1);
+        Math::vec2 bottomRight = display_matrix * Math::vec2(x2, y2);
 
-        // 꼭짓점을 변환 행렬을 사용하여 변환합니다.
-        Math::vec2 topLeft = translationAndScaleMatrix * Math::vec2(x1, y1);
-        Math::vec2 bottomRight = translationAndScaleMatrix * Math::vec2(x2, y2);
 
-        // 정규화 함수를 사용하여 화면 좌표로 변환합니다.
+        // 정규화 함수를 사용하여 화면 좌표로 변환.
         float nx1 = Math::NormalizeX(topLeft.x, windowWidth);
         float ny1 = Math::NormalizeY(topLeft.y, windowHeight);
         float nx2 = Math::NormalizeX(bottomRight.x, windowWidth);
@@ -231,13 +227,14 @@ namespace GAM200
 
         glBegin(GL_QUADS);
 
-        glTexCoord2f(0.0f, 1.0f); glVertex2f(nx1, ny1 * aspectRatio); // 하단 왼쪽 꼭짓점
-        glTexCoord2f(1.0f, 1.0f); glVertex2f(nx2, ny1 * aspectRatio); // 하단 오른쪽 꼭짓점
-        glTexCoord2f(1.0f, 0.0f); glVertex2f(nx2, ny2 * aspectRatio); // 상단 오른쪽 꼭짓점
-        glTexCoord2f(0.0f, 0.0f); glVertex2f(nx1, ny2 * aspectRatio); // 상단 왼쪽 꼭짓점
+        glTexCoord2f(0.0f, 1.0f); glVertex2f(nx1 * aspectRatio, ny1); // 하단 왼쪽 꼭짓점
+        glTexCoord2f(1.0f, 1.0f); glVertex2f(nx2 * aspectRatio, ny1); // 하단 오른쪽 꼭짓점
+        glTexCoord2f(1.0f, 0.0f); glVertex2f(nx2 * aspectRatio, ny2); // 상단 오른쪽 꼭짓점
+        glTexCoord2f(0.0f, 0.0f); glVertex2f(nx1 * aspectRatio, ny2); // 상단 왼쪽 꼭짓점
 
         glEnd();
     }
+
 
 
 
