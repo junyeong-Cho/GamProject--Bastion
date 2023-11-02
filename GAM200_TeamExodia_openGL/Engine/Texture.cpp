@@ -162,29 +162,25 @@ namespace GAM200
 
     void Texture::Draw(Math::TransformationMatrix display_matrix, Math::ivec2 texel_position, Math::ivec2 frame_size)
     {
+
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, textureID);
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        // 행렬 변환을 위한 코드 추가 (OpenGL은 행렬 스택을 사용)
-        glPushMatrix();
-        glMultMatrixf((GLfloat*) & display_matrix[0][0]);
-        // 실제 텍스쳐 그리기
-        glBegin(GL_QUADS);
-        glTexCoord2f(0.0f, 1.0f); glVertex2f(texel_position.x, texel_position.y);
-        glTexCoord2f(1.0f, 1.0f); glVertex2f(texel_position.x + frame_size.x, texel_position.y);
-        glTexCoord2f(1.0f, 0.0f); glVertex2f(texel_position.x + frame_size.x, texel_position.y + frame_size.y);
-        glTexCoord2f(0.0f, 0.0f); glVertex2f(texel_position.x, texel_position.y + frame_size.y);
-        glEnd();
-        // 행렬 스택 복원
-        glPopMatrix();
+
+
+        
+        
+     
+        DrawRect(display_matrix, texel_position.x, texel_position.y, texel_position.x + frame_size.x, texel_position.y + frame_size.y);
+
         glBindTexture(GL_TEXTURE_2D, 0);
     }
+
 
     void Texture::Draw(Math::TransformationMatrix display_matrix)
     {
         Draw(display_matrix, { 0, 0 }, imageSize);
     }
+
 
     void Texture::DrawRect(int x1, int y1, int x2, int y2)
     {
@@ -208,6 +204,41 @@ namespace GAM200
 
         glEnd();              
     }
+
+
+    void Texture::DrawRect(Math::TransformationMatrix display_matrix, int x1, int y1, int x2, int y2)
+    {
+        int windowWidth = Engine::GetWindow().GetSize().x;
+        int windowHeight = Engine::GetWindow().GetSize().y;
+
+        // 화면 비율을 유지하면서 비율을 조정합니다.
+        float aspectRatio = static_cast<float>(windowWidth) / static_cast<float>(windowHeight);
+
+        // 회전을 배제하고 이동 및 스케일만을 반영하는 새로운 변환 행렬을 생성합니다.
+        Math::TransformationMatrix translationAndScaleMatrix = display_matrix;
+        // 회전 정보가 있다면 아래 코드로 제거합니다. (이 부분은 예시로만 작성되었습니다)
+        //translationAndScaleMatrix.SetRotation(0); // 회전을 0으로 설정하는 메소드가 있다고 가정
+
+        // 꼭짓점을 변환 행렬을 사용하여 변환합니다.
+        Math::vec2 topLeft = translationAndScaleMatrix * Math::vec2(x1, y1);
+        Math::vec2 bottomRight = translationAndScaleMatrix * Math::vec2(x2, y2);
+
+        // 정규화 함수를 사용하여 화면 좌표로 변환합니다.
+        float nx1 = Math::NormalizeX(topLeft.x, windowWidth);
+        float ny1 = Math::NormalizeY(topLeft.y, windowHeight);
+        float nx2 = Math::NormalizeX(bottomRight.x, windowWidth);
+        float ny2 = Math::NormalizeY(bottomRight.y, windowHeight);
+
+        glBegin(GL_QUADS);
+
+        glTexCoord2f(0.0f, 1.0f); glVertex2f(nx1, ny1 * aspectRatio); // 하단 왼쪽 꼭짓점
+        glTexCoord2f(1.0f, 1.0f); glVertex2f(nx2, ny1 * aspectRatio); // 하단 오른쪽 꼭짓점
+        glTexCoord2f(1.0f, 0.0f); glVertex2f(nx2, ny2 * aspectRatio); // 상단 오른쪽 꼭짓점
+        glTexCoord2f(0.0f, 0.0f); glVertex2f(nx1, ny2 * aspectRatio); // 상단 왼쪽 꼭짓점
+
+        glEnd();
+    }
+
 
 
     void Texture::DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3)
@@ -280,7 +311,9 @@ namespace GAM200
         glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, localBuffer);
 
         unsigned int pixelData = *(unsigned int*)(localBuffer + (texel.y * imageWidth + texel.x) * 4);
-        delete[] localBuffer;
+
+        delete[] localBuffer; // 해제하는 부분 추가
+
         glBindTexture(GL_TEXTURE_2D, 0);
 
         return pixelData;
@@ -288,14 +321,10 @@ namespace GAM200
 
 
 
+
     Math::ivec2 Texture::GetSize()
     {
-        int width, height;
-        glBindTexture(GL_TEXTURE_2D, textureID);
-        glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &width);
-        glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &height);
-        glBindTexture(GL_TEXTURE_2D, 0);
-        return { width, height };
+        return{ imageSize.x, imageSize.y };
     }
 
 }  

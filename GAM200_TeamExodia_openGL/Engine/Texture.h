@@ -53,6 +53,8 @@ namespace GAM200
 		Texture(const std::filesystem::path& file_path);
 
 
+		void DrawRect(Math::TransformationMatrix display_matrix, int x1, int y1, int x2, int y2);
+
 		void Draw(int x, int y, int width, int height);
 
 		void Draw(int x, int y, float radius, int points);
@@ -94,6 +96,8 @@ namespace GAM200
 		void DrawRect(int x1, int y1, int x2, int y2);
 		void DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3);
 		void DrawCircle(int x, int y, float radius, int points);
+
+
 
 
 		GLuint textureID;
