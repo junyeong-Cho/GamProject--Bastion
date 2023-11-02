@@ -160,6 +160,24 @@
     <ClCompile Include="Game\Cat.cpp">
       <Filter>Game\CS230</Filter>
     </ClCompile>
+    <ClCompile Include="Game\ScreenWrap.cpp">
+      <Filter>Game\CS230</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Ship.cpp">
+      <Filter>Game\CS230</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Splash.cpp">
+      <Filter>Game\CS230</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Mode2.cpp">
+      <Filter>Game\CS230</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Meteor.cpp">
+      <Filter>Game\CS230</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Main_menu.cpp">
+      <Filter>Game\CS230</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GLApp_Clone.h">
@@ -325,6 +343,24 @@
       <Filter>Game\CS230</Filter>
     </ClInclude>
     <ClInclude Include="Game\Portal.h">
+      <Filter>Game\CS230</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ScreenWrap.h">
+      <Filter>Game\CS230</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Ship.h">
+      <Filter>Game\CS230</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Splash.h">
+      <Filter>Game\CS230</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Mode2.h">
+      <Filter>Game\CS230</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Meteor.h">
+      <Filter>Game\CS230</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Main_menu.h">
       <Filter>Game\CS230</Filter>
     </ClInclude>
   </ItemGroup>

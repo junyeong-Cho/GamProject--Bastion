@@ -16,7 +16,7 @@ Laser::Laser(Math::vec2 pos, double rot, Math::vec2 scale, Math::vec2 vel)
     : GameObject(pos, rot, scale)
 {
     SetVelocity(vel);
-    AddGOComponent(new GAM200::Sprite("Assets/Laser.spt", (this)));
+    AddGOComponent(new GAM200::Sprite("assets/Laser.spt", (this)));
 }
 
 void Laser::Update(double dt)

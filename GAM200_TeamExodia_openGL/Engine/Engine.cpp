@@ -92,6 +92,12 @@ bool Engine::HasGameEnded()
     return gamestatemanager.HasGameEnded();
 }
 
+void Engine::AddFont(const std::filesystem::path& file_name)
+{
+    fonts.push_back(GAM200::Font(file_name));
+}
+
+
 //¿Ï¼º!
 void Engine::push()
 {

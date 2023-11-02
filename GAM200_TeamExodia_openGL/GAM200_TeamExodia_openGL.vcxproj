@@ -115,7 +115,10 @@
     <ClCompile Include="Game\Gold.cpp" />
     <ClCompile Include="Game\Laser.cpp" />
     <ClCompile Include="Game\Life.cpp" />
+    <ClCompile Include="Game\Main_menu.cpp" />
+    <ClCompile Include="Game\Meteor.cpp" />
     <ClCompile Include="Game\Mode1.cpp" />
+    <ClCompile Include="Game\Mode2.cpp" />
     <ClCompile Include="Game\Portal.cpp" />
     <ClCompile Include="Game\PrototypeMode1.cpp" />
     <ClCompile Include="Game\Monster.cpp" />
@@ -123,6 +126,9 @@
     <ClCompile Include="Game\Robots.cpp" />
     <ClCompile Include="Game\Score.cpp" />
     <ClCompile Include="Game\PrototypeSplash.cpp" />
+    <ClCompile Include="Game\ScreenWrap.cpp" />
+    <ClCompile Include="Game\Ship.cpp" />
+    <ClCompile Include="Game\Splash.cpp" />
     <ClCompile Include="Game\Tile.cpp" />
     <ClCompile Include="Game\Timer.cpp" />
     <ClCompile Include="Game\Tower.cpp" />
@@ -172,7 +178,10 @@
     <ClInclude Include="Game\Gravity.h" />
     <ClInclude Include="Game\Laser.h" />
     <ClInclude Include="Game\Life.h" />
+    <ClInclude Include="Game\Main_menu.h" />
+    <ClInclude Include="Game\Meteor.h" />
     <ClInclude Include="Game\Mode1.h" />
+    <ClInclude Include="Game\Mode2.h" />
     <ClInclude Include="Game\Portal.h" />
     <ClInclude Include="Game\PrototypeMode1.h" />
     <ClInclude Include="Game\Monster.h" />
@@ -180,6 +189,9 @@
     <ClInclude Include="Game\Robots.h" />
     <ClInclude Include="Game\Score.h" />
     <ClInclude Include="Game\PrototypeSplash.h" />
+    <ClInclude Include="Game\ScreenWrap.h" />
+    <ClInclude Include="Game\Ship.h" />
+    <ClInclude Include="Game\Splash.h" />
     <ClInclude Include="Game\States.h" />
     <ClInclude Include="Game\Tile.h" />
     <ClInclude Include="Game\Timer.h" />

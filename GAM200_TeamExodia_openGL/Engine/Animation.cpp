@@ -121,7 +121,7 @@ bool GAM200::Animation::Ended()
 }
 
 
-GAM200::Animation::Animation() : Animation("./Assets/None.anm") { }
+GAM200::Animation::Animation() : Animation("./assets/None.anm") { }
 
 GAM200::PlayFrame::PlayFrame(int frame, double duration) : frame(frame), target_time(duration), timer(0) {}
 

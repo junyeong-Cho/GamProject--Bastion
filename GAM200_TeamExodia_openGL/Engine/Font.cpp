@@ -18,11 +18,14 @@ Updated:    November 1, 2023
 #include "../Engine/Texture.h"
 
 
-GAM200::Font::Font(const std::filesystem::path& file_name) : texture(file_name)
+
+GAM200::Font::Font(const std::filesystem::path& file_name)
 {
     const unsigned int white = 0xFFFFFFFF;
 
-    unsigned int color = texture.GetPixel({ 0, 0 });
+    texture = new Texture(file_name);
+
+    unsigned int color = texture->GetPixel({ 0, 0 });
 
     if (color != white)
     {
@@ -37,10 +40,10 @@ GAM200::Font::Font(const std::filesystem::path& file_name) : texture(file_name)
 
 void GAM200::Font::FindCharRects()
 {
-    unsigned int check_color = texture.GetPixel({ 0, 0 });
+    unsigned int check_color = texture->GetPixel({ 0, 0 });
     unsigned int next_color;
 
-    int height = texture.GetSize().y;
+    int height = texture->GetSize().y;
 
     int x = 1;
     for (int index = 0; index < num_chars; index++)
@@ -50,7 +53,7 @@ void GAM200::Font::FindCharRects()
         do
         {
             width++;
-            next_color = texture.GetPixel({ x + width, 0 });
+            next_color = texture->GetPixel({ x + width, 0 });
         } while (check_color == next_color);
 
         check_color = next_color;
@@ -82,7 +85,7 @@ void GAM200::Font::DrawChar(Math::TransformationMatrix& matrix, char c)
 
     if (c != ' ')
     {
-        texture.Draw(matrix, top_left, display_rect.Size());
+        texture->Draw(matrix, top_left, display_rect.Size());
     }
 
     matrix *= Math::TranslationMatrix(Math::ivec2{ display_rect.Size().x, 0 });
@@ -101,7 +104,7 @@ Math::ivec2 GAM200::Font::MeasureText(std::string text)
     return size;
 }
 
-GAM200::Texture GAM200::Font::PrintToTexture(std::string text, unsigned int color)
+GAM200::Texture* GAM200::Font::PrintToTexture(std::string text, unsigned int color)
 {
     Math::ivec2 text_size = MeasureText(text);
 
@@ -138,5 +141,8 @@ GAM200::Texture GAM200::Font::PrintToTexture(std::string text, unsigned int colo
     glDeleteFramebuffers(1, &framebuffer);
 
     // 텍스쳐 객체를 생성하고 반환.
-    return GAM200::Texture(textureColorbuffer);
+    Texture* newTexture = new Texture(textureColorbuffer);
+
+    return newTexture;
 }
+

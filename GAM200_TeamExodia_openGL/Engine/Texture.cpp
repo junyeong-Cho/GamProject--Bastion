@@ -274,24 +274,18 @@ namespace GAM200
 
     unsigned int Texture::GetPixel(Math::ivec2 texel)
     {
-
         glBindTexture(GL_TEXTURE_2D, textureID);
-        
-        unsigned char pixelData[4];
-        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-        int invertedY = imageSize.y - texel.y - 1;
+        unsigned char* localBuffer = new unsigned char[imageWidth * imageHeight * 4]; // assuming RGBA format
+        glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, localBuffer);
 
-        glReadPixels(texel.x, invertedY, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, pixelData);
+        unsigned int pixelData = *(unsigned int*)(localBuffer + (texel.y * imageWidth + texel.x) * 4);
+        delete[] localBuffer;
         glBindTexture(GL_TEXTURE_2D, 0);
 
-        return 
-            (static_cast<int>(pixelData[0]) << 24) |  //Red
-            (static_cast<int>(pixelData[1]) << 16) |  //Green
-            (static_cast<int>(pixelData[2]) << 8)  |  //Blue
-            (static_cast<int>(pixelData[3]));		  //Alpha
-
+        return pixelData;
     }
+
 
 
     Math::ivec2 Texture::GetSize()

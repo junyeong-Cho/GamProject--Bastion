@@ -74,6 +74,9 @@ namespace GAM200
 
 		unsigned int GetPixel(Math::ivec2 texel);
 
+		
+
+
 		Math::ivec2 imageSize;
 
 

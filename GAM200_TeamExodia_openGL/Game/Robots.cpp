@@ -30,7 +30,7 @@ Robot::Robot(Math::vec2 position) : CS230::GameObject(position)
 
 Robot::Robot(Math::vec2 position, Cat* cat, double left_boundary, double right_boundary) : GAM200::GameObject(position), m_cat(cat), m_left_boundary(left_boundary), m_right_boundary(right_boundary)
 {
-    AddGOComponent(new GAM200::Sprite("Assets/Robot.spt", (this)));
+    AddGOComponent(new GAM200::Sprite("assets/Robot.spt", (this)));
     GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(Animations::None));
 
     current_state = &state_walking;

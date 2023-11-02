@@ -14,7 +14,7 @@ Updated:    September 30, 2023
 #include "../Engine/Window.h"
 #include "../Engine/Logger.h"
 #include "../Engine/Input.h"
-//#include "../Engine/Font.h"
+#include "../Engine/Font.h"
 #include "../Engine/Mouse.h"
 
 
@@ -61,6 +61,12 @@ public:
 	}
     
 
+    static GAM200::Font& GetFont(int index)
+    {
+        return Instance().fonts[index];
+    }
+
+
     static GAM200::Mouse& GetMouse()
     {
 		return Instance().mouse;
@@ -75,10 +81,12 @@ public:
     void push();
     void pop();
 
+    void AddFont(const std::filesystem::path& file_name);
+
 
 private:
 
-   // std::vector<GAM200::Font> fonts;
+    std::vector<GAM200::Font> fonts;
 
 
     std::chrono::system_clock::time_point last_tick = std::chrono::system_clock::now();

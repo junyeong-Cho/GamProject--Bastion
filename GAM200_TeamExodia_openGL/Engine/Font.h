@@ -10,6 +10,7 @@ Updated:    November 1, 2023
 */
 
 #pragma once
+#include <filesystem>
 #include <string>
 
 #include "Vec2.h"
@@ -17,7 +18,7 @@ Updated:    November 1, 2023
 #include "Rect.h"
 
 
-#include "../Engine/Texture.h"
+//#include "../Engine/Texture.h"
 
 #include "../Engine/Matrix.h" 
 
@@ -25,11 +26,14 @@ Updated:    November 1, 2023
 
 namespace GAM200
 {    
+    class Texture;
+
+
     class Font
     {
     public:
         Font(const std::filesystem::path& file_name);
-        Texture PrintToTexture(std::string text, unsigned int color);
+        Texture* PrintToTexture(std::string text, unsigned int color);
 
     private:
         void FindCharRects();
@@ -37,7 +41,7 @@ namespace GAM200
         Math::ivec2 MeasureText(std::string text);
         void DrawChar(Math::TransformationMatrix& matrix, char c);
 
-        Texture texture;
+        Texture* texture;
         static constexpr int num_chars = 'z' - ' ' + 1;
 
         //글자의 위치와 크기를 담고 그리는 역할을 한다.

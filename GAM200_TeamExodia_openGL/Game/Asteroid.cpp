@@ -19,7 +19,7 @@ Updated:    November 1, 2023
 Asteroid::Asteroid(Math::vec2 start_position) :
     GameObject(start_position)
 {
-    AddGOComponent(new GAM200::Sprite("Assets/Asteroid.spt", (this)));
+    AddGOComponent(new GAM200::Sprite("assets/Asteroid.spt", (this)));
     current_state = &state_bouncing;
     current_state->Enter(this);
 }

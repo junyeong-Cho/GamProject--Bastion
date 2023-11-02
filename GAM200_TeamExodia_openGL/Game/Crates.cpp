@@ -18,16 +18,16 @@ Crates::Crates(Math::vec2 position, int size) : GAM200::GameObject(position) {
     switch (size)
     {
     case 1:
-        AddGOComponent(new GAM200::Sprite("Assets/Crates1.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/Crates1.spt", (this)));
         break;
     case 2:
-        AddGOComponent(new GAM200::Sprite("Assets/Crates2.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/Crates2.spt", (this)));
         break;
     case 3:
-        AddGOComponent(new GAM200::Sprite("Assets/Crates3.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/Crates3.spt", (this)));
         break;
     case 5:
-        AddGOComponent(new GAM200::Sprite("Assets/Crates5.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/Crates5.spt", (this)));
         break;
     }
 }
