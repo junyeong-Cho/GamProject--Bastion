@@ -61,8 +61,8 @@ private:
     int catScore = 0;
     int maxTimer = 60;
 
-    GAM200::Texture* score;
-    GAM200::Texture* timer_texture;
+   // GAM200::Texture* score;
+   // GAM200::Texture* timer_texture;
     Cat* cat_ptr;
 
     int counter = 0;

@@ -134,8 +134,8 @@ void Mode1::Update(double dt)
     int remaining_time = GetGSComponent<Timer>()->GetRemainingTime();
     int catScore = GetGSComponent<Score>()->Value();
 
-    timer_texture = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Timer: " + std::to_string(remaining_time), 0xFFFFFFFF);
-    score = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Score: " + std::to_string(catScore), 0xFFFFFFFF);
+//    timer_texture = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Timer: " + std::to_string(remaining_time), 0xFFFFFFFF);
+//    score = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Score: " + std::to_string(catScore), 0xFFFFFFFF);
 
 
     if (remaining_time == 0)
@@ -175,8 +175,8 @@ void Mode1::Draw()
     GetGSComponent<Background>()->Draw(*GetGSComponent<GAM200::Camera>());
 
 
-    timer_texture->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 10 - timer_texture->GetSize().x, Engine::GetWindow().GetSize().y - timer_texture->GetSize().y - 5 }));
-    score->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 10 - timer_texture->GetSize().x, Engine::GetWindow().GetSize().y - timer_texture->GetSize().y - 80 }));
+   // timer_texture->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 10 - timer_texture->GetSize().x, Engine::GetWindow().GetSize().y - timer_texture->GetSize().y - 5 }));
+   // score->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 10 - timer_texture->GetSize().x, Engine::GetWindow().GetSize().y - timer_texture->GetSize().y - 80 }));
 
     GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
 }

@@ -118,6 +118,7 @@ namespace GAM200
     }
 
 
+
     void Texture::Draw(int x, int y, int width, int height)
     {
         glEnable(GL_TEXTURE_2D);
@@ -180,13 +181,14 @@ namespace GAM200
 
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, textureID);
-
-
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        
-     
-        DrawRect(display_matrix, texel_position.x, texel_position.y, texel_position.x + frame_size.x, texel_position.y + frame_size.y);
+
+        // 화면에서의 사각형의 꼭짓점은 변환 행렬을 이용해서 설정.
+        Math::vec2 screenTopLeft = display_matrix * Math::vec2(0, 0);
+        Math::vec2 screenBottomRight = display_matrix * Math::vec2(frame_size.x, frame_size.y);
+
+        DrawRect(screenTopLeft, screenBottomRight, texel_position, frame_size);
 
         glBindTexture(GL_TEXTURE_2D, 0);
     }
@@ -225,7 +227,7 @@ namespace GAM200
 
 
 
-    void Texture::DrawRect(Math::TransformationMatrix display_matrix, int x1, int y1, int x2, int y2)
+    void Texture::DrawRect(Math::vec2 screenTopLeft, Math::vec2 screenBottomRight, Math::ivec2 texel_position, Math::ivec2 frame_size)
     {
         //예전코드
         /*
@@ -255,35 +257,36 @@ namespace GAM200
         glEnd();
         */
 
+        Engine::Instance().push();
+
         int windowWidth = Engine::GetWindow().GetSize().x;
         int windowHeight = Engine::GetWindow().GetSize().y;
 
-        // 꼭짓점을 변환 행렬을 사용하여 변환.
-        Math::vec2 topLeft = display_matrix * Math::vec2(x1, y1);
-        Math::vec2 bottomRight = display_matrix * Math::vec2(x2, y2);
-
         // 정규화 함수를 사용하여 화면 좌표로 변환.
-        float nx1 = Math::NormalizeX(topLeft.x, windowWidth);
-        float ny1 = Math::NormalizeY(topLeft.y, windowHeight);
-        float nx2 = Math::NormalizeX(bottomRight.x, windowWidth);
-        float ny2 = Math::NormalizeY(bottomRight.y, windowHeight);
+        float nx1 = Math::NormalizeX(screenTopLeft.x, windowWidth);
+        float ny1 = Math::NormalizeY(screenTopLeft.y, windowHeight);
+        float nx2 = Math::NormalizeX(screenBottomRight.x, windowWidth);
+        float ny2 = Math::NormalizeY(screenBottomRight.y, windowHeight);
 
-        // 텍스처 좌표 계산 (전체 텍스처 크기를 사용해야 함)
+        // 텍스처 좌표 계산
         float textureWidth = static_cast<float>(GetSize().x);
         float textureHeight = static_cast<float>(GetSize().y);
-        float tx1 = x1 / textureWidth;
-        float ty1 = y1 / textureHeight;
-        float tx2 = x2 / textureWidth;
-        float ty2 = y2 / textureHeight;
+
+        float tx1 = texel_position.x / textureWidth;
+        float ty1 = texel_position.y / textureHeight;
+        float tx2 = (texel_position.x + frame_size.x) / textureWidth;
+        float ty2 = (texel_position.y + frame_size.y) / textureHeight;
 
         glBegin(GL_QUADS);
 
-        glTexCoord2f(tx1, ty2); glVertex2f(nx1, ny1); // 하단 왼쪽 꼭짓점
-        glTexCoord2f(tx2, ty2); glVertex2f(nx2, ny1); // 하단 오른쪽 꼭짓점
-        glTexCoord2f(tx2, ty1); glVertex2f(nx2, ny2); // 상단 오른쪽 꼭짓점
-        glTexCoord2f(tx1, ty1); glVertex2f(nx1, ny2); // 상단 왼쪽 꼭짓점
+        glTexCoord2f(tx1, ty2); glVertex2f(nx1, ny1);
+        glTexCoord2f(tx2, ty2); glVertex2f(nx2, ny1);
+        glTexCoord2f(tx2, ty1); glVertex2f(nx2, ny2);
+        glTexCoord2f(tx1, ty1); glVertex2f(nx1, ny2);
 
         glEnd();
+
+        Engine::Instance().pop();
     }
 
 
@@ -353,6 +356,7 @@ namespace GAM200
 
     unsigned int Texture::GetPixel(Math::ivec2 texel)
     {
+
         int windowWidth = Engine::GetWindow().GetSize().x;
         int windowHeight = Engine::GetWindow().GetSize().y;
 

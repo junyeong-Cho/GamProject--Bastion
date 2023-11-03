@@ -106,41 +106,30 @@ Math::ivec2 GAM200::Font::MeasureText(std::string text)
 }
 
 
+
 GAM200::Texture* GAM200::Font::PrintToTexture(std::string text, unsigned int color)
 {
+    Engine::Instance().push();
+
     Math::ivec2 text_size = MeasureText(text);
 
-    /*
-    GLuint framebuffer;
-    glGenFramebuffers(1, &framebuffer);
-    glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
-    */
 
-    float R = ((color >> 24) & 0xFF) / 255.0f; // 약 1.0
-    float G = ((color >> 16) & 0xFF) / 255.0f; // 약 0.67
-    float B = ((color >> 8) & 0xFF) / 255.0f;  // 약 0.47
-    float A = (color & 0xFF) / 255.0f;         // 약 0.8
+    float R = ((color >> 24) & 0xFF) / 255.0f; 
+    float G = ((color >> 16) & 0xFF) / 255.0f; 
+    float B = ((color >> 8) & 0xFF)  / 255.0f;  
+    float A = (color & 0xFF)         / 255.0f;         
 
 
     glColor4f(R, G, B, A);
 
-    /*
-    GLuint textureColorbuffer;
-    glGenTextures(1, &textureColorbuffer);
-    glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, text_size.x, text_size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
-    glBindTexture(GL_TEXTURE_2D, 0);
 
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
+    GLuint fbo;
+    glGenFramebuffers(1, &fbo);
+    glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
-    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-    {
-        Engine::GetLogger().LogError("ERROR::FRAMEBUFFER:: Framebuffer is not complete!");
-    }
+    Texture* newTexture = new Texture(file_names, text_size);
 
-    glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
-
-    */
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, newTexture->getTextureID(), 0);
 
 
     Math::TransformationMatrix matrix;
@@ -149,16 +138,12 @@ GAM200::Texture* GAM200::Font::PrintToTexture(std::string text, unsigned int col
         DrawChar(matrix, c);
     }
 
-    /*
-    // Framebuffer를 바인딩 해제하고 삭제.
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-    glDeleteFramebuffers(1, &framebuffer);
-    */
-
-    // 텍스쳐 객체를 생성하고 반환.
-    Texture* newTexture = new Texture(file_names, text_size);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);  // FBO 바인드 해제
+    glDeleteFramebuffers(1, &fbo);         // FBO 삭제
 
     return newTexture;
+
+    Engine::Instance().pop();
 }
 

@@ -53,7 +53,7 @@ namespace GAM200
 		Texture(const std::filesystem::path& file_path);
 
 
-		void DrawRect(Math::TransformationMatrix display_matrix, int x1, int y1, int x2, int y2);
+		void DrawRect(Math::vec2 screenTopLeft, Math::vec2 screenBottomRight, Math::ivec2 texel_position, Math::ivec2 frame_size);
 
 		void Draw(int x, int y, int width, int height);
 
@@ -67,6 +67,8 @@ namespace GAM200
 
 		Math::ivec2 GetSize();
 
+		GLuint getTextureID() const { return textureID; }
+
 	private:
 
 
@@ -77,9 +79,6 @@ namespace GAM200
 		unsigned int GetPixel(Math::ivec2 texel);
 
 		
-
-
-
 		Math::ivec2 imageSize;
 
 
@@ -87,10 +86,9 @@ namespace GAM200
 		int imageHeight = 0;
 
 
-
-
 		unsigned char* image;
 
+		unsigned int* image_data = nullptr;
 
 		unsigned char* LoadImageFromFile(const std::filesystem::path& filePath);
 
