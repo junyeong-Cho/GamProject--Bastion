@@ -54,12 +54,12 @@ void Main_menu::Update(double dt)
 		UpdateMenuTextColors();
 	}
 
-	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Enter))
+	if (Engine::GetInput().keyDown(GAM200::Input::Keys::Enter))
 	{
 		switch (counter)
 		{
 		case 0:
-			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Mode2));
+			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Mode1));
 			break;
 		case 1:
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Mode2));

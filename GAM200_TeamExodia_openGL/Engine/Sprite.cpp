@@ -217,8 +217,10 @@ Math::ivec2 GAM200::Sprite::GetFrameTexel(int index) const
 void GAM200::Sprite::Draw(Math::TransformationMatrix display_matrix)
 {
     int current_frame = animations[current_animation]->CurrentFrame();
-    texture->Draw(display_matrix * Math::TranslationMatrix(-GetHotSpot(0)), GetFrameTexel(current_frame), GetFrameSize());
+    Math::ivec2 hotspot = GetHotSpot(0); // 현재 프레임에 대한 HotSpot을 얻습니다.
+    texture->Draw(display_matrix * Math::TranslationMatrix(-hotspot), GetFrameTexel(current_frame), GetFrameSize());
 }
+
 
 
 

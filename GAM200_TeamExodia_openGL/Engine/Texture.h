@@ -79,6 +79,7 @@ namespace GAM200
 		
 
 
+
 		Math::ivec2 imageSize;
 
 
