@@ -70,7 +70,7 @@ namespace GAM200
 	private:
 
 
-		Texture(GLuint textureColorBuffer);
+		Texture(const std::filesystem::path& file_path, Math::ivec2 text_size);
 
 
 

@@ -19,7 +19,7 @@ Updated:    November 1, 2023
 
 
 
-GAM200::Font::Font(const std::filesystem::path& file_name)
+GAM200::Font::Font(const std::filesystem::path& file_name) : file_names(file_name)
 {
     const unsigned int white = 0xFFFFFFFF;
 
@@ -91,6 +91,7 @@ void GAM200::Font::DrawChar(Math::TransformationMatrix& matrix, char c)
     matrix *= Math::TranslationMatrix(Math::ivec2{ display_rect.Size().x, 0 });
 }
 
+
 Math::ivec2 GAM200::Font::MeasureText(std::string text)
 {
     Math::ivec2 size = { 0, 0 };
@@ -104,15 +105,26 @@ Math::ivec2 GAM200::Font::MeasureText(std::string text)
     return size;
 }
 
+
 GAM200::Texture* GAM200::Font::PrintToTexture(std::string text, unsigned int color)
 {
     Math::ivec2 text_size = MeasureText(text);
 
-
+    /*
     GLuint framebuffer;
     glGenFramebuffers(1, &framebuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+    */
 
+    float R = ((color >> 24) & 0xFF) / 255.0f; // 약 1.0
+    float G = ((color >> 16) & 0xFF) / 255.0f; // 약 0.67
+    float B = ((color >> 8) & 0xFF) / 255.0f;  // 약 0.47
+    float A = (color & 0xFF) / 255.0f;         // 약 0.8
+
+
+    glColor4f(R, G, B, A);
+
+    /*
     GLuint textureColorbuffer;
     glGenTextures(1, &textureColorbuffer);
     glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
@@ -128,6 +140,8 @@ GAM200::Texture* GAM200::Font::PrintToTexture(std::string text, unsigned int col
 
     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
 
+    */
+
 
     Math::TransformationMatrix matrix;
     for (char c : text)
@@ -135,13 +149,15 @@ GAM200::Texture* GAM200::Font::PrintToTexture(std::string text, unsigned int col
         DrawChar(matrix, c);
     }
 
+    /*
     // Framebuffer를 바인딩 해제하고 삭제.
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     glDeleteFramebuffers(1, &framebuffer);
+    */
 
     // 텍스쳐 객체를 생성하고 반환.
-    Texture* newTexture = new Texture(textureColorbuffer);
+    Texture* newTexture = new Texture(file_names, text_size);
 
     return newTexture;
 }

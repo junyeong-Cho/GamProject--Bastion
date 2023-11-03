@@ -40,9 +40,23 @@ namespace GAM200
 
     }
 
-    Texture::Texture(GLuint textureColorBuffer)
+    Texture::Texture(const std::filesystem::path& file_path, Math::ivec2 text_size)
     {
-        textureID = textureColorBuffer;
+        image = LoadImageFromFile(file_path);
+
+
+        glGenTextures(1, &textureID);
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        imageSize = text_size;
+
+        stbi_image_free(image);
+        image = nullptr;
+
     }
 
 
@@ -302,12 +316,18 @@ namespace GAM200
 
     unsigned int Texture::GetPixel(Math::ivec2 texel)
     {
+        int windowWidth = Engine::GetWindow().GetSize().x;
+        int windowHeight = Engine::GetWindow().GetSize().y;
+
+    //    int index = texel.y * GetSize().x + texel.x;
+
+
         glBindTexture(GL_TEXTURE_2D, textureID);
 
-        unsigned char* localBuffer = new unsigned char[imageWidth * imageHeight * 4]; // assuming RGBA format
+        unsigned char* localBuffer = new unsigned char[GetSize().x * GetSize().y * 4]; // assuming RGBA format
         glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, localBuffer);
 
-        unsigned int pixelData = *(unsigned int*)(localBuffer + (texel.y * imageWidth + texel.x) * 4);
+        unsigned int pixelData = *(unsigned int*)(localBuffer + (texel.y * GetSize().x + texel.x) * 4);
 
         delete[] localBuffer; // 해제하는 부분 추가
 

@@ -46,6 +46,8 @@ namespace GAM200
 
         //글자의 위치와 크기를 담고 그리는 역할을 한다.
         Math::irect char_rects[num_chars];
+
+        std::filesystem::path file_names;
     };
 }
 

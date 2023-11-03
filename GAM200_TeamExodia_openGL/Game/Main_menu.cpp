@@ -59,7 +59,7 @@ void Main_menu::Update(double dt)
 		switch (counter)
 		{
 		case 0:
-			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Mode1));
+			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Mode2));
 			break;
 		case 1:
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Mode2));

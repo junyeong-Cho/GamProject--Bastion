@@ -193,6 +193,7 @@ Math::ScaleMatrix::ScaleMatrix(vec2 scale)
 
 Math::RotationMatrix::RotationMatrix(double theta)
 {
+    
     for (int row = 0; row < 3; row++)
     {
         for (int col = 0; col < 3; col++)
@@ -223,6 +224,8 @@ Math::RotationMatrix::RotationMatrix(double theta)
             }
         }
     }
+    
+
 }
 
 #pragma endregion
