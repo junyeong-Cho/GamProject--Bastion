@@ -27,6 +27,9 @@ void GAM200::Input::Update()
 
     //SDL_PollEvent를 내부에서 호출하며, HandleEvent는 키보드 이벤트만을 처리하게함
     //원래는 instance를 따로 받아오는 식이었으나 너무 느렸음...
+    previous_keys_down = keys_down;
+
+
     SDL_Event event;
     while (SDL_PollEvent(&event) != 0)
     {
@@ -34,7 +37,6 @@ void GAM200::Input::Update()
         HandleEvent(event);
     }
 
-    previous_keys_down = keys_down;
 }
 
 

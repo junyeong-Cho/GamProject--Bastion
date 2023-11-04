@@ -38,6 +38,7 @@ void GAM200::TextureManager::Unload()
     for (auto it = textures.begin(); it != textures.end(); ++it)
     {
         delete it->second;
+        it->second = nullptr;
     }
 
     textures.clear();

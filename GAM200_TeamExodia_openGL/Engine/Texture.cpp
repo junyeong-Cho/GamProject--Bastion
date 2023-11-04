@@ -86,10 +86,15 @@ namespace GAM200
 
     Texture::~Texture() 
     {
-        if (image) 
+        if (image != nullptr)
         {
             stbi_image_free(image);
             image = nullptr;
+        }
+        if (textureID != 0)
+        {
+            glDeleteTextures(1, &textureID);
+            textureID = 0;
         }
     }
 
@@ -229,33 +234,6 @@ namespace GAM200
 
     void Texture::DrawRect(Math::vec2 screenTopLeft, Math::vec2 screenBottomRight, Math::ivec2 texel_position, Math::ivec2 frame_size)
     {
-        //예전코드
-        /*
-        int windowWidth = Engine::GetWindow().GetSize().x;
-        int windowHeight = Engine::GetWindow().GetSize().y;
-
-        float aspectRatio = 1;
-
-        // 꼭짓점을 변환 행렬을 사용하여 변환.
-        Math::vec2 topLeft = display_matrix * Math::vec2(x1, y1);
-        Math::vec2 bottomRight = display_matrix * Math::vec2(x2, y2);
-
-
-        // 정규화 함수를 사용하여 화면 좌표로 변환.
-        float nx1 = Math::NormalizeX(topLeft.x, windowWidth);
-        float ny1 = Math::NormalizeY(topLeft.y, windowHeight);
-        float nx2 = Math::NormalizeX(bottomRight.x, windowWidth);
-        float ny2 = Math::NormalizeY(bottomRight.y, windowHeight);
-
-        glBegin(GL_QUADS);
-
-        glTexCoord2f(0.0f, 1.0f); glVertex2f(nx1 * aspectRatio, ny1); // 하단 왼쪽 꼭짓점
-        glTexCoord2f(1.0f, 1.0f); glVertex2f(nx2 * aspectRatio, ny1); // 하단 오른쪽 꼭짓점
-        glTexCoord2f(1.0f, 0.0f); glVertex2f(nx2 * aspectRatio, ny2); // 상단 오른쪽 꼭짓점
-        glTexCoord2f(0.0f, 0.0f); glVertex2f(nx1 * aspectRatio, ny2); // 상단 왼쪽 꼭짓점
-
-        glEnd();
-        */
 
         Engine::Instance().push();
 

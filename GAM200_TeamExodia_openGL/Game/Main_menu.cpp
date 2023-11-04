@@ -31,7 +31,7 @@ void Main_menu::UpdateMenuTextColors()
 
 	side_scroller = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Side Scroller", colors[0]);
 	Space_shotter = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Space Shotter", colors[1]);
-	exit = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Exit", colors[2]);
+	exit		  = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Exit", colors[2]);
 }
 
 void Main_menu::Update(double dt)
@@ -54,7 +54,7 @@ void Main_menu::Update(double dt)
 		UpdateMenuTextColors();
 	}
 
-	if (Engine::GetInput().keyDown(GAM200::Input::Keys::Enter))
+	if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Enter))
 	{
 		switch (counter)
 		{
