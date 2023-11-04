@@ -64,6 +64,8 @@ void GAM200::Font::FindCharRects()
     }
 }
 
+
+
 Math::irect& GAM200::Font::GetCharRect(char c)
 {
     if (c >= ' ' && c <= 'z')
@@ -76,6 +78,8 @@ Math::irect& GAM200::Font::GetCharRect(char c)
         return char_rects[0];
     }
 }
+
+
 
 void GAM200::Font::DrawChar(Math::TransformationMatrix& matrix, char c)
 {
@@ -90,6 +94,7 @@ void GAM200::Font::DrawChar(Math::TransformationMatrix& matrix, char c)
 
     matrix *= Math::TranslationMatrix(Math::ivec2{ display_rect.Size().x, 0 });
 }
+
 
 
 Math::ivec2 GAM200::Font::MeasureText(std::string text)
@@ -109,7 +114,7 @@ Math::ivec2 GAM200::Font::MeasureText(std::string text)
 
 GAM200::Texture* GAM200::Font::PrintToTexture(std::string text, unsigned int color)
 {
-    Engine::Instance().push();
+
 
     Math::ivec2 text_size = MeasureText(text);
 
@@ -144,6 +149,6 @@ GAM200::Texture* GAM200::Font::PrintToTexture(std::string text, unsigned int col
 
     return newTexture;
 
-    Engine::Instance().pop();
+
 }
 

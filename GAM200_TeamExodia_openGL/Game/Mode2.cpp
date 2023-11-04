@@ -48,8 +48,8 @@ void Mode2::Load()
     ship = new Ship({ Engine::GetWindow().GetSize().x / (double)2, Engine::GetWindow().GetSize().y / (double)2 });
     GetGSComponent<GAM200::GameObjectManager>()->Add(ship);
 
-    game_over  = Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Game Over", 0xFFFFFFFF);
-    rToRestart = Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Press R to Restart", 0xFFFFFFFF);
+    //game_over  = Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Game Over", 0xFFFFFFFF);
+   // rToRestart = Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Press R to Restart", 0xFFFFFFFF);
 }
 
 
@@ -73,7 +73,7 @@ void Mode2::Update(double dt)
 
     int shipScore = GetGSComponent<Score>()->Value();
 
-    scoreTexture = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Score: " + std::to_string(shipScore), 0xFFFFFFFF);
+//    scoreTexture = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Score: " + std::to_string(shipScore), 0xFFFFFFFF);
 
     Engine::GetWindow().Clear(0, 0, 0, 1.0);
 
@@ -100,13 +100,13 @@ void Mode2::Draw()
 
     GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
 
-    scoreTexture->Draw(Math::TranslationMatrix(Math::ivec2{ 0, Engine::GetWindow().GetSize().y - scoreTexture->GetSize().y }));
+  //  scoreTexture->Draw(Math::TranslationMatrix(Math::ivec2{ 0, Engine::GetWindow().GetSize().y - scoreTexture->GetSize().y }));
 
 
     if (ship->Exploded() == true)
     {
-        game_over->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 100), (Engine::GetWindow().GetSize().y - 500) }));
-        rToRestart->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 200) }));
+   //     game_over->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 100), (Engine::GetWindow().GetSize().y - 500) }));
+   //     rToRestart->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 200) }));
 
         if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::R))
         {

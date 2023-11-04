@@ -42,12 +42,13 @@ namespace GAM200
 
     Texture::Texture(const std::filesystem::path& file_path, Math::ivec2 text_size)
     {
+
         image = LoadImageFromFile(file_path);
 
 
         glGenTextures(1, &textureID);
         glBindTexture(GL_TEXTURE_2D, textureID);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, text_size.x, text_size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glBindTexture(GL_TEXTURE_2D, 0);
@@ -56,6 +57,7 @@ namespace GAM200
 
         stbi_image_free(image);
         image = nullptr;
+
 
     }
 
@@ -181,6 +183,7 @@ namespace GAM200
     }
 
 
+
     void Texture::Draw(Math::TransformationMatrix display_matrix, Math::ivec2 texel_position, Math::ivec2 frame_size)
     {
 
@@ -199,10 +202,14 @@ namespace GAM200
     }
 
 
+
+
     void Texture::Draw(Math::TransformationMatrix display_matrix)
     {
         Draw(display_matrix, { 0, 0 }, imageSize);
     }
+
+
 
 
     void Texture::DrawRect(int x1, int y1, int x2, int y2)
@@ -297,6 +304,8 @@ namespace GAM200
 
     }
 
+
+
     void Texture::DrawCircle(int x, int y, float radius, int points)
     {
 
@@ -330,6 +339,7 @@ namespace GAM200
 
         
     }
+
 
 
     unsigned int Texture::GetPixel(Math::ivec2 texel)

@@ -49,10 +49,10 @@ private:
     //Meteor* meteor;
 
 
-    GAM200::Texture* game_over;
-    GAM200::Texture* rToRestart;
+ //   GAM200::Texture* game_over;
+//    GAM200::Texture* rToRestart;
 
-    GAM200::Texture* scoreTexture;
+//    GAM200::Texture* scoreTexture;
 
 
     int counter = 0;
