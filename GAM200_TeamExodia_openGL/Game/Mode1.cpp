@@ -36,7 +36,7 @@ Updated:    November 1, 2023
 
 Mode1::Mode1()
 {
-
+ //   score_texture = nullptr;
 }
 
 
@@ -134,7 +134,14 @@ void Mode1::Update(double dt)
     int remaining_time = GetGSComponent<Timer>()->GetRemainingTime();
     int catScore = GetGSComponent<Score>()->Value();
 
+
+    if (timer_texture != nullptr) {
+        delete timer_texture;
+        timer_texture = nullptr;
+    }
     timer_texture = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Timer: " + std::to_string(remaining_time), 0xFFFFFFFF);
+
+   // timer_texture = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Timer: " + std::to_string(remaining_time), 0xFFFFFFFF);
 //    score = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Score: " + std::to_string(catScore), 0xFFFFFFFF);
 
 
@@ -159,6 +166,10 @@ void Mode1::Update(double dt)
 void Mode1::Unload()
 {
     cat_ptr = nullptr;
+    timer_texture = nullptr;
+
+
+//    delete timer_texture;
     GetGSComponent<Background>()->Unload();
     GetGSComponent<GAM200::GameObjectManager>()->Unload();
     ClearGSComponent();

@@ -53,7 +53,7 @@ namespace GAM200
 		Texture(const std::filesystem::path& file_path);
 
 
-		
+		//void DrawRect(Math::vec2 screenTopLeft, Math::vec2 screenBottomRight, Math::ivec2 texel_position, Math::ivec2 frame_size);
 
 		void Draw(int x, int y, int width, int height);
 
@@ -61,17 +61,19 @@ namespace GAM200
 
 		void Draw(Math::TransformationMatrix display_matrix, Math::ivec2 texel_position, Math::ivec2 frame_size);
 
+		void DrawRect(Math::vec2 topLeft, Math::vec2 topRight, Math::vec2 bottomLeft, Math::vec2 bottomRight, Math::ivec2 texel_position, Math::ivec2 frame_size);
+
 		void Draw(Math::TransformationMatrix display_matrix);
 		
 
-		void DrawRect(Math::vec2 screenTopLeft, Math::vec2 screenBottomRight, Math::ivec2 texel_position, Math::ivec2 frame_size);
-		void DrawRect(Math::vec2 topLeft, Math::vec2 topRight, Math::vec2 bottomLeft, Math::vec2 bottomRight, Math::ivec2 texel_position, Math::ivec2 frame_size);
 		//void DrawRect(Math::vec2 screenTopLeft, Math::vec2 screenTopRight, Math::vec2 screenBottomLeft, Math::vec2 screenBottomRight, Math::ivec2 texel_position, Math::ivec2 frame_size);
 		//void DrawRect(Math::vec2 topLeft, Math::vec2 topRight, Math::vec2 bottomLeft, Math::vec2 bottomRight, Math::ivec2 texel_position, Math::ivec2 frame_size);
 
 		Math::ivec2 GetSize();
 
 		GLuint getTextureID() const { return textureID; }
+
+
 
 	private:
 
