@@ -62,7 +62,6 @@ namespace GAM200
     }
 
 
-
     Texture::Texture(const std::filesystem::path& file_path, TextureType texturetype)
 		: texturetype(texturetype)
     {
@@ -186,21 +185,30 @@ namespace GAM200
 
     void Texture::Draw(Math::TransformationMatrix display_matrix, Math::ivec2 texel_position, Math::ivec2 frame_size)
     {
-
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, textureID);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        // 화면에서의 사각형의 꼭짓점은 변환 행렬을 이용해서 설정.
-        Math::vec2 screenTopLeft = display_matrix * Math::vec2(0, 0);
-        Math::vec2 screenBottomRight = display_matrix * Math::vec2(frame_size.x, frame_size.y);
+        // 변환 행렬을 이용해 사각형의 네 꼭지점 계산
+        Math::vec2 topLeft     = Math::vec2(0, 0);
+        Math::vec2 topRight    = Math::vec2(frame_size.x, 0);
+        Math::vec2 bottomLeft  = Math::vec2(0, frame_size.y);
+        Math::vec2 bottomRight = Math::vec2(frame_size.x, frame_size.y);
 
-        DrawRect(screenTopLeft, screenBottomRight, texel_position, frame_size);
+
+        // 변환 행렬 적용
+        Math::vec2 transformedTopLeft     = display_matrix * topLeft;
+        Math::vec2 transformedTopRight    = display_matrix * topRight;
+        Math::vec2 transformedBottomLeft  = display_matrix * bottomLeft;
+        Math::vec2 transformedBottomRight = display_matrix * bottomRight;
+
+
+        // 변환된 좌표로 사각형 그리기
+        DrawRect(transformedTopLeft, transformedTopRight, transformedBottomLeft, transformedBottomRight, texel_position, frame_size);
 
         glBindTexture(GL_TEXTURE_2D, 0);
     }
-
 
 
 
@@ -275,6 +283,51 @@ namespace GAM200
     }
 
 
+    void Texture::DrawRect(Math::vec2 topLeft, Math::vec2 topRight, Math::vec2 bottomLeft, Math::vec2 bottomRight, Math::ivec2 texel_position, Math::ivec2 frame_size)
+    {
+        Engine::Instance().push();
+
+        int windowWidth = Engine::GetWindow().GetSize().x;
+        int windowHeight = Engine::GetWindow().GetSize().y;
+
+
+        // 텍스처 좌표 계산
+        float textureWidth = static_cast<float>(GetSize().x);
+        float textureHeight = static_cast<float>(GetSize().y);
+
+        float tx1 = texel_position.x / textureWidth;
+        float ty1 = texel_position.y / textureHeight;
+        float tx2 = (texel_position.x + frame_size.x) / textureWidth;
+        float ty2 = (texel_position.y + frame_size.y) / textureHeight;
+
+
+        // 각 꼭지점을 화면 좌표로 정규화
+        float nx1 = Math::NormalizeX(topLeft.x, windowWidth);
+        float ny1 = Math::NormalizeY(topLeft.y, windowHeight);
+
+        float nx2 = Math::NormalizeX(topRight.x, windowWidth);
+        float ny2 = Math::NormalizeY(topRight.y, windowHeight);
+
+        float nx3 = Math::NormalizeX(bottomRight.x, windowWidth);
+        float ny3 = Math::NormalizeY(bottomRight.y, windowHeight);
+
+        float nx4 = Math::NormalizeX(bottomLeft.x, windowWidth);
+        float ny4 = Math::NormalizeY(bottomLeft.y, windowHeight);
+
+
+
+        glBegin(GL_QUADS);
+
+        // 회전을 고려한 새로운 꼭지점 순서로 변경
+        glTexCoord2f(tx1, ty2); glVertex2f(nx1, ny1);
+        glTexCoord2f(tx2, ty2); glVertex2f(nx2, ny2);
+        glTexCoord2f(tx2, ty1); glVertex2f(nx3, ny3);
+        glTexCoord2f(tx1, ty1); glVertex2f(nx4, ny4);
+
+        glEnd();
+
+        Engine::Instance().pop();
+    }
 
 
     void Texture::DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3)

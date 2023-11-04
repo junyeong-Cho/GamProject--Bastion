@@ -65,6 +65,7 @@ namespace GAM200
 		
 
 		void DrawRect(Math::vec2 screenTopLeft, Math::vec2 screenBottomRight, Math::ivec2 texel_position, Math::ivec2 frame_size);
+		void DrawRect(Math::vec2 topLeft, Math::vec2 topRight, Math::vec2 bottomLeft, Math::vec2 bottomRight, Math::ivec2 texel_position, Math::ivec2 frame_size);
 		//void DrawRect(Math::vec2 screenTopLeft, Math::vec2 screenTopRight, Math::vec2 screenBottomLeft, Math::vec2 screenBottomRight, Math::ivec2 texel_position, Math::ivec2 frame_size);
 		//void DrawRect(Math::vec2 topLeft, Math::vec2 topRight, Math::vec2 bottomLeft, Math::vec2 bottomRight, Math::ivec2 texel_position, Math::ivec2 frame_size);
 
