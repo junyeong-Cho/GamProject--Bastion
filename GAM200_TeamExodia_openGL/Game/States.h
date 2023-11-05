@@ -19,7 +19,6 @@ enum class States
 	Mode1,
 	Mode2,
 	
-	PrototypeSplash,
+	//PrototypeSplash,
 	PrototypeMode1,
-	PrototypeMode2,
 };

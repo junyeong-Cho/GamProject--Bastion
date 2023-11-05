@@ -129,14 +129,17 @@ void PrototypeMode1::Update(double dt)
 	//GetGSComponent<GAM200::ShowCollision>()->Update(dt);
 	GetGSComponent<GAM200::GameObjectManager>()->CollisionTest();
 
+	//int mouseX = ;
+	//int mouseY = Engine::GetMouse().GetMousePosition().y;
+
 
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Escape))
 	{
-		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Splash));
+		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
 	}
 
 	if (GetGSComponent<Life>()->Value() <= 0) {
-		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Splash));
+		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
 	}
 
 }
@@ -210,6 +213,7 @@ void PrototypeMode1::ImguiDraw()
 	}
 	ImGui::End();
 
+
 	ImGui::Begin("Produec");
 	{
 		if (ImGui::Button("Produce Basic Monster"))
@@ -239,6 +243,7 @@ void PrototypeMode1::ImguiDraw()
 	}
 
 	ImGui::End();
+
 }
 
 void PrototypeMode1::HandleEvent(SDL_Event& event)

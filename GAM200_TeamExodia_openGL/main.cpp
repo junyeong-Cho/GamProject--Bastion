@@ -14,6 +14,8 @@
 #include "Game/Mode1.h"
 #include "Game/Mode2.h"
 
+#include "Game/PrototypeMode1.h"
+
 
 
 /*
@@ -71,6 +73,9 @@ int main()
         engine.GetGameStateManager().AddGameState(mode1);
         Mode2 mode2;
         engine.GetGameStateManager().AddGameState(mode2);
+        PrototypeMode1 prototypeMode1;
+        engine.GetGameStateManager().AddGameState(prototypeMode1);
+
 
 
         while (engine.HasGameEnded() == false)

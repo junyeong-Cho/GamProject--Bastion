@@ -65,6 +65,7 @@ private:
     //GAM200::Texture* timer_texture;
 
     std::unique_ptr<GAM200::Texture> timer_texture;
+    std::unique_ptr<GAM200::Texture> score;
 
     Cat* cat_ptr;
 

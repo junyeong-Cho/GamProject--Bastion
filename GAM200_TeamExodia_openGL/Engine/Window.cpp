@@ -197,6 +197,23 @@ namespace GAM200
         glClear(GL_COLOR_BUFFER_BIT );
     }
 
+    void Window::Clear(unsigned int color)
+    {
+        float red   = ((color >> 24) & 0xFF) / 255.0f;
+        float green = ((color >> 16) & 0xFF) / 255.0f;
+        float blue  = ((color >> 8) & 0xFF) / 255.0f;
+        float alpha = (color & 0xFF) / 255.0f;
+
+        red = std::clamp(red, 0.0f, 1.0f);
+        green = std::clamp(green, 0.0f, 1.0f);
+        blue = std::clamp(blue, 0.0f, 1.0f);
+        alpha = std::clamp(alpha, 0.0f, 1.0f);
+
+        glClearColor(red, green, blue, alpha);
+        glClear(GL_COLOR_BUFFER_BIT);
+    }
+
+
     bool Window::IsDone() const noexcept
     {
         return is_done;

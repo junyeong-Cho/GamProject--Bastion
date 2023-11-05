@@ -90,7 +90,6 @@
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\GameObjectManager.cpp" />
     <ClCompile Include="Engine\GameStateManager.cpp" />
-    <ClCompile Include="Engine\GLApp_Clone.cpp" />
     <ClCompile Include="Engine\ImGuiHelper.cpp" />
     <ClCompile Include="Engine\Input.cpp" />
     <ClCompile Include="Engine\Logger.cpp" />
@@ -147,7 +146,6 @@
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\GameObjectManager.h" />
     <ClInclude Include="Engine\GameStateManager.h" />
-    <ClInclude Include="Engine\GLApp_Clone.h" />
     <ClInclude Include="Engine\GameState.h" />
     <ClInclude Include="Engine\ImGuiHelper.h" />
     <ClInclude Include="Engine\Input.h" />

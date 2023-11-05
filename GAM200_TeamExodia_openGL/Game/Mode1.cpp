@@ -32,6 +32,7 @@ Updated:    November 1, 2023
 
 #include "Mode1.h"
 #include "Fonts.h"
+#include <imgui.h>
 
 
 Mode1::Mode1()
@@ -143,12 +144,12 @@ void Mode1::Update(double dt)
     */
 
     timer_texture.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Timer: " + std::to_string(remaining_time), 0xFFFFFFFF));
-
-
-   // timer_texture = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Timer: " + std::to_string(remaining_time), 0xFFFFFFFF);
+    score.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Score: " + std::to_string(catScore), 0xFFFFFFFF));
 
    // timer_texture = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Timer: " + std::to_string(remaining_time), 0xFFFFFFFF);
-//    score = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Score: " + std::to_string(catScore), 0xFFFFFFFF);
+
+   // timer_texture = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Timer: " + std::to_string(remaining_time), 0xFFFFFFFF);
+   //score = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Score: " + std::to_string(catScore), 0xFFFFFFFF);
 
 
     if (remaining_time == 0)
@@ -192,15 +193,29 @@ void Mode1::Draw()
     GetGSComponent<Background>()->Draw(*GetGSComponent<GAM200::Camera>());
 
 
-    timer_texture->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 10 - timer_texture->GetSize().x, Engine::GetWindow().GetSize().y - timer_texture->GetSize().y - 5 }));
-   // score->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 10 - timer_texture->GetSize().x, Engine::GetWindow().GetSize().y - timer_texture->GetSize().y - 80 }));
+    timer_texture->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 10 - timer_texture->GetSize().x, Engine::GetWindow().GetSize().y}));
+    score->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 10 - timer_texture->GetSize().x, Engine::GetWindow().GetSize().y + timer_texture->GetSize().y}));
 
     GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
 }
 
 void Mode1::ImguiDraw()
 {
+    ImGui::Begin("Program Info");
+    {
+        ImGui::Text("Player position: %.3f, %.3f", cat_ptr->GetPosition().x, cat_ptr->GetPosition().y);
+        ImGui::Text("Camera position: %.3f, %.3f", GetGSComponent<GAM200::Camera>()->GetPosition().x, GetGSComponent<GAM200::Camera>()->GetPosition().y);
 
+        float velocity_f = static_cast<float>(cat_ptr->GetMaxVelocity());
+
+        if (ImGui::SliderFloat("Max Velocity", &velocity_f, 100.0f, 600.0f, "%.0f"))
+        {
+            cat_ptr->SetMaxVelocity(velocity_f);
+        }   
+
+
+    }
+    ImGui::End();
 }
 
 void Mode1::HandleEvent(SDL_Event& event)

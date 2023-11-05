@@ -204,35 +204,6 @@ void Cat::ResolveCollision(GameObject* other_object)
         break;
 
 
-        //Old ver of Asteroid Collision
-        /*
-        other_rect = other_object->GetGOComponent<CS230::RectCollision>()->WorldBoundary();
-
-        hurt_timer->Set(2.0);
-
-        if (cat_rect.Left() < other_rect.Right() && GetVelocity().x < 0)
-        {
-            // Colliding with object on the left side
-            UpdatePosition({ other_rect.Right() - cat_rect.Left(), 0 });
-
-            // Modify the velocity to bounce back
-            SetVelocity({ hurt_acceleration, hurt_velocity });
-
-            change_state(&state_falling);
-        }
-        else if (cat_rect.Right() > other_rect.Left() && GetVelocity().x > 0)
-        {
-            // Colliding with object on the right side
-            UpdatePosition({ other_rect.Left() - cat_rect.Right(), 0 });
-
-            // Modify the velocity to bounce back
-            SetVelocity({ -hurt_acceleration, hurt_velocity });
-
-            change_state(&state_falling);
-        }
-        break;
-        */
-
     case GameObjectTypes::Floor: [[fallthrough]];
     case GameObjectTypes::Crates:
 

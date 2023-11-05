@@ -46,6 +46,9 @@ public:
 
     const Math::vec2& GetPosition() const { return GameObject::GetPosition(); }
 
+    void SetMaxVelocity(double new_max_velocity) { max_velocity = new_max_velocity; }
+
+    double GetMaxVelocity() const { return max_velocity; }
 
 private:
     enum class Animations
@@ -74,7 +77,7 @@ private:
     static constexpr double hurt_velocity = 350;
     static constexpr double jump_velocity = 650;
     static constexpr double pop_velocity = 400;
-    static constexpr double max_velocity = 300;
+     double max_velocity = 300;
 
     static constexpr double x_acceleration = 140;
     static constexpr double hurt_acceleration = 300;

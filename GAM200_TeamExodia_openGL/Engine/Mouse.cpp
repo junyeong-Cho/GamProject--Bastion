@@ -11,6 +11,8 @@ Updated:    October 6, 2023
 
 
 #include "Mouse.h"
+#include "Engine.h"
+#include "Normalization.h"
 
 
 //이름이 HandleEvent인 이유는 GameStateManager에서 HandleEvent를 호출하기 때문임
@@ -56,13 +58,29 @@ bool GAM200::Mouse::WheelIsMoved()
 
 Math::vec2 GAM200::Mouse::GetMousePosition()
 {
-	if (mouse_event.type == SDL_MOUSEMOTION)
-	{
-		mouse_position.x = mouse_event.motion.x;
-		mouse_position.y = mouse_event.motion.y;
-	}
-	
-	return mouse_position;
+    int windowWidth = Engine::GetWindow().GetSize().x;
+    int windowHeight = Engine::GetWindow().GetSize().y;
+    
+    if (mouse_event.type == SDL_MOUSEMOTION)
+    {
+    
+        mouse_position.x = mouse_event.motion.x;
+        mouse_position.y = mouse_event.motion.y;
+
+    
+        OriginPosition origin = Engine::GetWindow().GetOriginPosition();
+        if (origin == OriginPosition::RIGHT_UP || origin == OriginPosition::RIGHT_DOWN)
+        {
+            mouse_position.x = Engine::GetWindow().GetSize().x - mouse_position.x;
+        }
+        if (origin == OriginPosition::LEFT_DOWN || origin == OriginPosition::RIGHT_DOWN)
+        {      
+            mouse_position.y = Engine::GetWindow().GetSize().y - mouse_position.y;
+        }
+  
+    }
+
+    return mouse_position;
 }
 
 

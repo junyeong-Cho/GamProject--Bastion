@@ -47,6 +47,7 @@ private:
 	std::unique_ptr<GAM200::Texture> main_title;
 	std::unique_ptr<GAM200::Texture> side_scroller;
 	std::unique_ptr<GAM200::Texture> Space_shotter;
+	std::unique_ptr<GAM200::Texture> Exodia;
 	std::unique_ptr<GAM200::Texture> exit;
 
 	int counter = 0;
