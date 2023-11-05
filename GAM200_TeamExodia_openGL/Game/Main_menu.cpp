@@ -20,7 +20,7 @@ Main_menu::Main_menu()
 
 void Main_menu::Load()
 {
-	main_title = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("CS230 Engint Test", 0xFFFFFFFF);
+	main_title.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("GAM200 Team Exodia", 0xFFFFFFFF));
 	UpdateMenuTextColors();
 }
 
@@ -29,9 +29,9 @@ void Main_menu::UpdateMenuTextColors()
 	uint32_t colors[3] = { 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF };
 	colors[counter] = 0x7EFACBFF;
 
-	side_scroller = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Side Scroller", colors[0]);
-	Space_shotter = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Space Shotter", colors[1]);
-	exit		  = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Exit", colors[2]);
+	side_scroller.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Side Scroller", colors[0]));
+	Space_shotter.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Space Shotter", colors[1]));
+	exit.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Exit", colors[2]));
 }
 
 void Main_menu::Update(double dt)

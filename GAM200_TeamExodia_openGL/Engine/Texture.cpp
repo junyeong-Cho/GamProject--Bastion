@@ -56,7 +56,9 @@ namespace GAM200
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glBindTexture(GL_TEXTURE_2D, 0);
 
-        imageSize = text_size;
+
+        imageSize.x = text_size.x;
+        imageSize.y = -text_size.y;
 
         stbi_image_free(image);
         image = nullptr;
@@ -165,6 +167,7 @@ namespace GAM200
 
     void Texture::Draw(Math::TransformationMatrix display_matrix)
     {
+        
         Draw(display_matrix, { 0, 0 }, imageSize);
     }
 

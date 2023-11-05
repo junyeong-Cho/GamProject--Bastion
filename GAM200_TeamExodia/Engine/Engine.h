@@ -86,7 +86,7 @@ private:
 
     int frame_count = 0;
 
-    static constexpr double TargetFPS = 30.0;
+    static constexpr double TargetFPS = 144.0;
     static constexpr int FPSDuration = 5;
     static constexpr int FPSTargetFrames = static_cast<int>(FPSDuration * TargetFPS);
 

@@ -33,6 +33,9 @@ namespace GAM200
     {
     public:
         Font(const std::filesystem::path& file_name);
+
+        ~Font();
+
         Texture* PrintToTexture(std::string text, unsigned int color);
 
     private:

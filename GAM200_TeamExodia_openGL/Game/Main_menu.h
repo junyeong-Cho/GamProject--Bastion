@@ -44,10 +44,10 @@ public:
 private:
 	Background background;
 
-	GAM200::Texture* main_title;
-	GAM200::Texture* side_scroller;
-	GAM200::Texture* Space_shotter;
-	GAM200::Texture* exit;
+	std::unique_ptr<GAM200::Texture> main_title;
+	std::unique_ptr<GAM200::Texture> side_scroller;
+	std::unique_ptr<GAM200::Texture> Space_shotter;
+	std::unique_ptr<GAM200::Texture> exit;
 
 	int counter = 0;
 

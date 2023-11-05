@@ -38,6 +38,15 @@ GAM200::Font::Font(const std::filesystem::path& file_name) : file_names(file_nam
     }
 }
 
+GAM200::Font::~Font()
+{
+    if (texture != nullptr)
+    {
+        texture = nullptr;
+    }
+
+}
+
 void GAM200::Font::FindCharRects()
 {
     unsigned int check_color = texture->GetPixel({ 0, 0 });
@@ -83,6 +92,7 @@ Math::irect& GAM200::Font::GetCharRect(char c)
 
 void GAM200::Font::DrawChar(Math::TransformationMatrix& matrix, char c)
 {
+
     Math::irect& display_rect = GetCharRect(c);
 
     Math::ivec2 top_left = { display_rect.point1.x, display_rect.point2.y };
@@ -115,9 +125,7 @@ Math::ivec2 GAM200::Font::MeasureText(std::string text)
 GAM200::Texture* GAM200::Font::PrintToTexture(std::string text, unsigned int color)
 {
 
-
     Math::ivec2 text_size = MeasureText(text);
-
 
     float R = ((color >> 24) & 0xFF) / 255.0f; 
     float G = ((color >> 16) & 0xFF) / 255.0f; 
@@ -134,10 +142,13 @@ GAM200::Texture* GAM200::Font::PrintToTexture(std::string text, unsigned int col
 
     Texture* newTexture = new Texture(file_names, text_size);
 
+
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, newTexture->getTextureID(), 0);
 
 
     Math::TransformationMatrix matrix;
+
+
     for (char c : text)
     {
         DrawChar(matrix, c);

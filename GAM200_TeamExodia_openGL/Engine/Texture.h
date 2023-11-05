@@ -102,8 +102,7 @@ namespace GAM200
 		void DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3);
 		void DrawCircle(int x, int y, float radius, int points);
 
-
-
+		
 
 		GLuint textureID;
 

@@ -83,5 +83,6 @@ namespace GAM200
 		Math::vec2 mouse_position;
 
 		bool wheel_moved = false;
+
 	};
 }

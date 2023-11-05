@@ -70,7 +70,8 @@ void Ship::Update(double dt)
             UpdateRotation(-(rotation_speed * dt));
         }
 
-        if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Enter)) {
+        if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Enter)) 
+        {
             Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(
                 new Laser(
                     GetMatrix() * Math::vec2(GetGOComponent<GAM200::Sprite>()->GetHotSpot(3)),

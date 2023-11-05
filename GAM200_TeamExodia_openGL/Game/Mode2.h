@@ -48,6 +48,12 @@ private:
 
     //Meteor* meteor;
 
+    std::unique_ptr<GAM200::Texture> game_over;
+    std::unique_ptr<GAM200::Texture> rToRestart;
+
+    std::unique_ptr<GAM200::Texture> scoreTexture;
+
+
 
  //   GAM200::Texture* game_over;
 //    GAM200::Texture* rToRestart;
