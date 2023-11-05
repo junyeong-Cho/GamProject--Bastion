@@ -47,6 +47,8 @@ void Mode1::Load()
 
     AddGSComponent(new GAM200::GameObjectManager());
 
+    AddGSComponent(new GAM200::ShowCollision());
+
     AddGSComponent(new Gravity(Mode1::gravity));
 
     AddGSComponent(new Timer(maxTimer));
