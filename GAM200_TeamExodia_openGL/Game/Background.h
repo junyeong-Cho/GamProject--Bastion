@@ -9,7 +9,6 @@ Created:    November 1, 2023
 Updated:    November 1, 2023
 */
 #pragma once
-#include <doodle/drawing.hpp>
 
 #include "../Engine/Component.h"
 #include "../Engine/Texture.h"

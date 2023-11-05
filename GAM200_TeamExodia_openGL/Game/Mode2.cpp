@@ -100,13 +100,13 @@ void Mode2::Draw()
 
     GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
 
-    scoreTexture->Draw(Math::TranslationMatrix(Math::ivec2{ 0, Engine::GetWindow().GetSize().y - scoreTexture->GetSize().y }));
+    scoreTexture->Draw(Math::TranslationMatrix(Math::ivec2{ 0, Engine::GetWindow().GetSize().y}));
 
 
     if (ship->Exploded() == true)
     {
-        game_over->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 100), (Engine::GetWindow().GetSize().y - 500) }));
-        rToRestart->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 200) }));
+        game_over->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 100), (Engine::GetWindow().GetSize().y - 300) }));
+        rToRestart->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 100) }));
 
         if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::R))
         {
