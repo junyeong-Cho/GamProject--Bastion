@@ -60,7 +60,7 @@ private:
 
     static constexpr double acceleration = 300;
 
-    static constexpr double drag = 150;
+    static constexpr double drag = 200;
 
     bool not_clicked = false;
 

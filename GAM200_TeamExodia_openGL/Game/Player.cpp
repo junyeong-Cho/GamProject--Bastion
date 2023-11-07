@@ -80,7 +80,7 @@ void Player::Update(double dt) {
         Math::ivec2 window_size = Engine::GetWindow().GetSize();
         Math::vec2 mouse_position = Engine::GetMouse().GetMousePosition();
 
-        Math::vec2 real_mouse_position = Math::vec2({ mouse_position.x, window_size.y - mouse_position.y});
+        Math::vec2 real_mouse_position = Math::vec2({ mouse_position.x, mouse_position.y});
         Math::vec2 bullet_direction = Math::vec2({ real_mouse_position.x - player_position.x, real_mouse_position.y - player_position.y });
         bullet_direction /= bullet_direction.GetLength();
         Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity));
@@ -243,6 +243,7 @@ void Player::update_velocity(double dt) {
         {
             newVelocity.x = 0;
         }
+
         if (newVelocity.y > drag * dt)
         {
             newVelocity.y -= drag * dt;
@@ -278,10 +279,10 @@ void Player::State_Idle::CheckExit(GameObject* object) {
     else if (Engine::GetInput().keyDown(GAM200::Input::Keys::D)) {
         player->change_state(&player->state_moving);
     }
-    else if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::W)) {
+    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::W)) {
         player->change_state(&player->state_moving);
     }
-    else if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::S)) {
+    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::S)) {
         player->change_state(&player->state_moving);
     }
 }
@@ -328,10 +329,10 @@ void Player::State_Moving::CheckExit(GameObject* object) {
     {
         player->change_state(&player->state_skidding);
     }
-    else if (player->GetVelocity().x == 0)
-    {
-        player->change_state(&player->state_idle);
-    }
+    //else if (player->GetVelocity().x == 0 || player->GetVelocity().y == 0)
+    //{
+    //    player->change_state(&player->state_idle);
+    //} // 이거 없애니까 아무튼 됨,.
 }
 
 // State Dashing
