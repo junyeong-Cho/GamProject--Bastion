@@ -35,6 +35,7 @@ Updated:    October		10, 2023
 #include <imgui.h>
 #include <stb_image.h>
 #include <glCheck.h>
+#include "../Engine/Audio.h"
 
 PrototypeMode1::PrototypeMode1() : player_ptr()
 {
@@ -44,7 +45,9 @@ PrototypeMode1::PrototypeMode1() : player_ptr()
 
 void PrototypeMode1::Load()
 {
-	
+	AddGSComponent(new GAM200::MusicEffect());
+
+	GetGSComponent<GAM200::MusicEffect>()->LoadFile("assets/Sounds/Theme/example_music.ogg");
 
 	counter = 0;
 
@@ -118,6 +121,8 @@ void PrototypeMode1::Load()
 
 void PrototypeMode1::Update(double dt)
 {
+	GetGSComponent<GAM200::MusicEffect>()->Play(0);
+
 	GetGSComponent<GAM200::Camera>()->Update(player_ptr->GetPosition());
 	//GetGSComponent<GAM200::Camera>()->SetPosition(player_ptr->GetPosition());
 
@@ -138,10 +143,12 @@ void PrototypeMode1::Update(double dt)
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Escape))
 	{
 		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
+		GetGSComponent<GAM200::MusicEffect>()->Stop();
 	}
 
 	if (GetGSComponent<Life>()->Value() <= 0) {
 		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
+		GetGSComponent<GAM200::MusicEffect>()->Stop();
 	}
 
 }
@@ -244,6 +251,21 @@ void PrototypeMode1::ImguiDraw()
 		}
 	}
 
+	ImGui::End();
+
+
+	ImGui::Begin("Music Info");
+	{
+
+		float* musicVolume = (GetGSComponent<GAM200::MusicEffect>()->GetMusicVolume());
+
+		if (ImGui::SliderFloat("Max Volume", musicVolume, 0.0f, 100.0f, "%.0f"))
+		{
+			GetGSComponent<GAM200::MusicEffect>()->SetVolume(*musicVolume);
+		}
+
+
+	}
 	ImGui::End();
 
 }

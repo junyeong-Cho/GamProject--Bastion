@@ -9,9 +9,13 @@ Created:    November 2, 2023
 Updated:    November 2, 2023
 */
 
+#include "../Engine/Audio.h"
+
 
 #include "Main_menu.h"
 #include "Fonts.h"
+#include <imgui_impl_sdl.h>
+
 
 Main_menu::Main_menu()
 {
@@ -22,6 +26,10 @@ void Main_menu::Load()
 {
 	main_title.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("GAM200 Team Exodia", 0xFFFFFFFF));
 	UpdateMenuTextColors();
+
+	AddGSComponent(new GAM200::MusicEffect());
+
+	GetGSComponent<GAM200::MusicEffect>()->LoadFile("assets/Sounds/Theme/pixel_time.ogg");
 }
 
 void Main_menu::UpdateMenuTextColors()
@@ -38,6 +46,9 @@ void Main_menu::UpdateMenuTextColors()
 
 void Main_menu::Update(double dt)
 {
+	GetGSComponent<GAM200::MusicEffect>()->Play(0);
+
+
 	bool shouldUpdateColors = false;
 
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Down))
@@ -61,12 +72,15 @@ void Main_menu::Update(double dt)
 		switch (counter)
 		{
 		case 0:
+			
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Mode1));
 			break;
 		case 1:
+			
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Mode2));
 			break;
 		case 2:
+			GetGSComponent<GAM200::MusicEffect>()->Stop();
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::PrototypeMode1));
 			break;
 		case 3:
@@ -100,6 +114,19 @@ void Main_menu::Draw()
 
 void Main_menu::ImguiDraw()
 {
+	ImGui::Begin("Music Info");
+	{
+
+		float* musicVolume = (GetGSComponent<GAM200::MusicEffect>()->GetMusicVolume());
+
+		if (ImGui::SliderFloat("Max Volume", musicVolume, 0.0f, 100.0f, "%.0f"))
+		{
+			GetGSComponent<GAM200::MusicEffect>()->SetVolume(*musicVolume);
+		}
+
+
+	}
+	ImGui::End();
 }
 
 void Main_menu::HandleEvent(SDL_Event& event)

@@ -211,6 +211,9 @@
     <ClCompile Include="Game\Splash.cpp">
       <Filter>Game\CS230\Modes</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Audio.cpp">
+      <Filter>Engine\Core Engine Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\GameObjectTypes.h">
@@ -392,6 +395,9 @@
     </ClInclude>
     <ClInclude Include="Game\States.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Audio.h">
+      <Filter>Engine\Core Engine Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
