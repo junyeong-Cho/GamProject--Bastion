@@ -88,6 +88,11 @@ void Main_menu::Update(double dt)
 			break;
 		}
 	}
+
+	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Escape))
+	{
+		Engine::GetGameStateManager().ClearNextGameState();
+	}
 }
 
 void Main_menu::Unload()

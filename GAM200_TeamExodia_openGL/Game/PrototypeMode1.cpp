@@ -137,7 +137,7 @@ void PrototypeMode1::Update(double dt)
 	//int mouseX = ;
 	//int mouseY = Engine::GetMouse().GetMousePosition().y;
 
-	Engine::GetLogger().LogDebug("Y: " + std::to_string(Engine::GetMouse().GetMousePosition().y));
+	//Engine::GetLogger().LogDebug("Y: " + std::to_string(Engine::GetMouse().GetMousePosition().y));
 
 
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Escape))

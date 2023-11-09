@@ -47,8 +47,8 @@ protected:
 
     int size = 40;
 
-    int size_x = 160;
-    int size_y = 105;
+    int size_x = 160 / 2;
+    int size_y = 105 / 2;
 
     int walking_speed = 175;
 

@@ -5,9 +5,6 @@
 #include <limits>
 #include "../Engine/Engine.h"
 #include "GameObjectTypes.h"
-//Astar::Astar( ) {
-//
-//}
 
 
 void Astar::UpdatePath(int map[9][16], Math::ivec2 start, Math::ivec2 target) {
@@ -63,11 +60,13 @@ void Astar::UpdatePath(int map[9][16], Math::ivec2 start, Math::ivec2 target) {
 		}
 	}
 
-	path.insert(path.begin(), Math::ivec2{ current.x + 2, current.y });
-	path.insert(path.begin(), Math::ivec2{ current.x + 1, current.y });
+	Math::ivec2 last_direction = current - cameFrom[current];
+	path.insert(path.begin(), current + last_direction * 2);
+	path.insert(path.begin(), current + last_direction);
 	path.insert(path.begin(), current);
+
 	while (cameFrom.count(current) > 0) {
-		Engine::GetLogger().LogDebug(std::to_string(current.x) + ", " + std::to_string(current.y)/* + " -> " + std::to_string(nextPosition.x) + ", " + std::to_string(nextPosition.y)*/ + "\n");
+		Engine::GetLogger().LogDebug(std::to_string(current.x) + ", " + std::to_string(current.y) + "\n");
 
 		current = cameFrom[current];
 		path.insert(path.begin(), current);

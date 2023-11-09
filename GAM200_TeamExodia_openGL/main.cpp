@@ -60,7 +60,7 @@ int main()
         Engine& engine = Engine::Instance();
         // 16:9
         //engine.Start("GAM200 - Team: Exodia", 960, 540, OriginPosition::LEFT_DOWN);
-        engine.Start("GAM200 - Team: Exodia", 800, 600, OriginPosition::LEFT_DOWN);
+        engine.Start("GAM200 - Team: Exodia", 1000, 750, OriginPosition::LEFT_DOWN);
 
         engine.AddFont("assets/Font_Simple.png");
         engine.AddFont("assets/Font_Outlined.png");

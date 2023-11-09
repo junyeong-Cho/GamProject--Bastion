@@ -29,9 +29,6 @@ Monster::Monster(Math::vec2 position, Player* player) : GameObject(position), m_
 
     fill_color = { 1.0f, 0.0f, 0.0f };
 
-    /*for (auto& temp : path) {
-        Engine::GetLogger().LogDebug(std::to_string(temp.x) + ", " + std::to_string(temp.y));
-    }*/
 }
 
 
@@ -46,8 +43,8 @@ void Monster::Draw(Math::TransformationMatrix camera_matrix) {
 
     monster.SetColor(fill_color.r, fill_color.g, fill_color.b, 1.0f);
 
-    monster.DrawRectangle(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x/3, size_y/3);
-    e.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x/2, size_y/2);
+    monster.DrawRectangle(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+    e.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
   
 }
 

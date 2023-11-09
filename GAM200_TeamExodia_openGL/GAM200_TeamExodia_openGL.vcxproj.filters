@@ -214,6 +214,9 @@
     <ClCompile Include="Engine\Audio.cpp">
       <Filter>Engine\Core Engine Components</Filter>
     </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Game\Exodia\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\GameObjectTypes.h">
@@ -398,6 +401,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Audio.h">
       <Filter>Engine\Core Engine Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Game\Exodia\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
