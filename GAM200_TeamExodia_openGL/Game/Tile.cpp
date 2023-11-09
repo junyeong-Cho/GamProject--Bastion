@@ -18,7 +18,7 @@ Updated:    October		11, 2023
 #include "../Game/Tile.h"
 
 Tile::Tile(Math::irect boundary) : GameObject(static_cast<Math::vec2>(boundary.point1)) {
-	size = boundary.Size().x;
+	size = boundary.Size();
 	AddGOComponent(new GAM200::RectCollision({ Math::ivec2{0, 0}, boundary.Size() }, this));
 
 }
@@ -31,11 +31,11 @@ void Tile::Draw(Math::TransformationMatrix camera_matrix) {
 
 	if (passing_tile_bool == true)
 	{
-   /* GAM200::DrawShape tile;
-	tile.SetColor(0.431f, 0.282f, 0.067f, 1.0f);
-	tile.SetColor(color.r, color.g, color.b, 1.0f);
-	tile.DrawRectangle(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size, size);*/
-	block_tile.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size, size);
+	   /* GAM200::DrawShape tile;
+		tile.SetColor(0.431f, 0.282f, 0.067f, 1.0f);
+		tile.SetColor(color.r, color.g, color.b, 1.0f);
+		tile.DrawRectangle(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size, size);*/
+		block_tile.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size.x, size.y);
 	}
 
 }

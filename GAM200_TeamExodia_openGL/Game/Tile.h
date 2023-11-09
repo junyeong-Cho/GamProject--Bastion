@@ -29,7 +29,7 @@ public:
 
 	const Math::vec2& GetPosition() const { return GameObject::GetPosition(); }
 
-	int size;
+	Math::ivec2 size;
 
 protected:
 

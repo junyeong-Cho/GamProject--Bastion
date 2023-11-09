@@ -111,17 +111,22 @@ void Monster::State_Walking::Update(GameObject* object, double dt)
 {
     Monster* monster = static_cast<Monster*>(object);
 
-    static int tile_size = Engine::GetWindow().GetSize().x / 16;
+    static Math::ivec2 tile_size = Math::ivec2(Engine::GetWindow().GetSize().x / 16, Engine::GetWindow().GetSize().y / 9);
 
     Math::vec2 position = monster->GetPosition();
-
-    monster->current_tile_position = Math::ivec2(static_cast<int>(position.x / tile_size), static_cast<int>(position.y / tile_size));
-    //monster->current_tile_position = Math::ivec2(static_cast<int>((position.x + monster->GetSize().x / 2) / tile_size), static_cast<int>((position.y + monster->GetSize().y/2) / tile_size));
+    // Update monster's current tile position
+    if (monster->GetPosition().x > monster->next_tile_position.x * tile_size.x - 10 &&
+        monster->GetPosition().x < monster->next_tile_position.x * tile_size.x + 10 &&
+        monster->GetPosition().y > monster->next_tile_position.y * tile_size.y - 10&&
+        monster->GetPosition().y < monster->next_tile_position.y * tile_size.y + 10)
+    {
+        monster->current_tile_position = Math::ivec2(static_cast<int>(position.x / tile_size.x), static_cast<int>(position.y / tile_size.y));
+    }
+    
     if (monster->current_tile_position == monster->next_tile_position) {
 
         monster->next_tile_position = monster->path[(monster->tile_index++)];
-        Engine::GetLogger().LogEvent("Direction Updated: [" + std::to_string(monster->current_tile_position.x) + ", " + std::to_string(monster->current_tile_position.y) + "] -> [" +
-            std::to_string(monster->next_tile_position.x) + ", " + std::to_string(monster->next_tile_position.y) + "]");
+
         if (monster->tile_index == monster->path.size()) {
             Life* lifeComponent = Engine::GetGameStateManager().GetGSComponent<Life>();
             lifeComponent->Subtract(1);

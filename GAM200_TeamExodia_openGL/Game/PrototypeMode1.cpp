@@ -56,9 +56,11 @@ void PrototypeMode1::Load()
 	AddGSComponent(new GAM200::Camera({ { 0.15 * Engine::GetWindow().GetSize().x, 0 }, { 0.35 * Engine::GetWindow().GetSize().x, 0 } }));
 	// Window, tiles
 	Math::ivec2 window_size = Engine::GetWindow().GetSize();
+	std::cout << "Window Size: " << window_size.x << ", " << window_size.y << std::endl;
 	int tile_col = 9;
 	int tile_row = 16;
-	int tile_size = window_size.x / tile_row;
+	int tile_size_x = window_size.x / tile_row;
+	int tile_size_y = window_size.y / tile_col;
 	// Set Map
 	Map::GetInstance().SetMap1();
 	map_info = Map::GetInstance().GetMap();
@@ -67,10 +69,10 @@ void PrototypeMode1::Load()
 		for (int x = 0; x < tile_row; ++x) {
 			switch (map_info[y][x]) {
 			case static_cast<int>(GameObjectTypes::Pass__Tile):
-				GetGSComponent<GAM200::GameObjectManager>()->Add(new Pass__Tile(Math::irect{ { x * tile_size, y * tile_size }, { (x + 1) * tile_size, (y + 1) * tile_size } }));
+				GetGSComponent<GAM200::GameObjectManager>()->Add(new Pass__Tile(Math::irect{ { x * tile_size_x, y * tile_size_y }, { (x + 1) * tile_size_x, (y + 1) * tile_size_y } }));
 				break;
 			case static_cast<int>(GameObjectTypes::Block_Tile):
-				GetGSComponent<GAM200::GameObjectManager>()->Add(new Block_Tile(Math::irect{ { x * tile_size, y * tile_size }, { (x + 1) * tile_size, (y + 1) * tile_size } }));
+				GetGSComponent<GAM200::GameObjectManager>()->Add(new Block_Tile(Math::irect{ { x * tile_size_x, y * tile_size_y }, { (x + 1) * tile_size_x, (y + 1) * tile_size_y } }));
 				break;
 			default:
 
@@ -82,7 +84,7 @@ void PrototypeMode1::Load()
 	// Set Path using AStar
 	Astar::GetInstance().UpdatePath(map_info, { 0, 0 }, { 8, 13 });
 	// Add Player
-	player_ptr = new Player({ 0, 0 }, tile_size*2/3, tile_size*2/3);
+	player_ptr = new Player({ 0, 0 }, tile_size_x * 2 / 3, tile_size_y * 2 / 3);
 	GetGSComponent<GAM200::GameObjectManager>()->Add(player_ptr);
 	// Camera Setting
 	GetGSComponent<GAM200::Camera>()->SetPosition({ 0, 0 });
