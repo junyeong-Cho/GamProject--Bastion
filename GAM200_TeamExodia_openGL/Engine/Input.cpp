@@ -132,6 +132,8 @@ GAM200::Input::Keys convert_opengl_to_gam200(SDL_Keycode sdl_key)
         return GAM200::Input::Keys::_9;
     case SDLK_0:
         return GAM200::Input::Keys::_0;
+    case SDLK_TAB:
+        return GAM200::Input::Keys::Tab;
 
     }
 

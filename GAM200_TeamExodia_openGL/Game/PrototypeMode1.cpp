@@ -121,6 +121,21 @@ void PrototypeMode1::Load()
 
 void PrototypeMode1::Update(double dt)
 {
+	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Tab)) {
+		switch (game_speed) {
+		case 1:
+			game_speed = 2;
+			break;
+		case 2:
+			game_speed = 3;
+			break;
+		case 3:
+			game_speed = 1;
+			break;
+		}
+	}
+	dt *= static_cast<double>(game_speed);
+
 	GetGSComponent<GAM200::MusicEffect>()->Play(0);
 
 	GetGSComponent<GAM200::Camera>()->Update(player_ptr->GetPosition());
@@ -212,12 +227,17 @@ void PrototypeMode1::ImguiDraw()
 		ImGui::Text("Killed Monster : %d", GetGSComponent<Score>()->Value());
 		ImGui::Text("Gold : %d", gold);
 		ImGui::Text("Life : %d", life);
+		ImGui::Text("Game Speed : %d", game_speed);
 
 		if (ImGui::SliderInt("Adjust Gold", &gold, 0, 600, "%d")) {
 			GetGSComponent<Gold>()->SetValue(gold);
 		}
 		if (ImGui::SliderInt("Adjust Life", &life, 1, 30, "%d")) {
 			GetGSComponent<Life>()->SetValue(life);
+		}
+
+		if (ImGui::SliderInt("Adjust Game Speed", &game_speed, 1, 3, "%d")) {
+			
 		}
 	}
 	ImGui::End();

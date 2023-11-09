@@ -49,6 +49,8 @@ public:
 
     Player* player_ptr;
 
+    int game_speed = 1;
+
     //int basic_monster_produce_number = 1;
     //int fast_monster_produce_number = 1;
 
