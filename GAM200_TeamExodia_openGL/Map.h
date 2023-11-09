@@ -10,10 +10,12 @@ public:
 		static Map instance;
 		return instance;
 	}
-protected:
-	void SetMap(std::string file_name) {
 
+	int** GetMap() {
+		return map;
 	}
+	void SetMap(std::string file_name);
+	void SetMap1();
 
 private:
 	int** map;

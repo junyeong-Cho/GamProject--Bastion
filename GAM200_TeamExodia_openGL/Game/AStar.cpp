@@ -7,7 +7,7 @@
 #include "GameObjectTypes.h"
 
 
-void Astar::UpdatePath(int map[9][16], Math::ivec2 start, Math::ivec2 target) {
+void Astar::UpdatePath(int** map, Math::ivec2 start, Math::ivec2 target) {
 	std::vector<Math::ivec2> openList;
 	std::vector<Math::ivec2> closedList;
 	std::unordered_map<Math::ivec2, Math::ivec2> cameFrom;

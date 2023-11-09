@@ -11,7 +11,7 @@ public:
 		return instance;
 	}
 	std::vector<Math::ivec2>& GetPath() { return path; }
-	void UpdatePath(int map[9][16], Math::ivec2 start, Math::ivec2 target);
+	void UpdatePath(int** map, Math::ivec2 start, Math::ivec2 target);
 private:
 	Astar() = default;
 
