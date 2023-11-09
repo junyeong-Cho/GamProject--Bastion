@@ -99,7 +99,7 @@ void Player::Draw(Math::TransformationMatrix camera_matrix) {
 
 
 bool Player::CanCollideWith(GameObjectTypes type) {
-    if (type == GameObjectTypes::Passing_Tile) {
+    if (type == GameObjectTypes::Pass__Tile) {
         return false;
     }
     else
@@ -170,7 +170,7 @@ void Player::ResolveCollision(GameObject* other_object) {
             SetVelocity({ GetVelocity().x, 0 });
         }*/
         break;
-    case GameObjectTypes::Passing_Tile:
+    case GameObjectTypes::Pass__Tile:
 
         break;
 

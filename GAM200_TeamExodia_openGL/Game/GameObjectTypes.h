@@ -37,7 +37,7 @@ enum class GameObjectTypes
     Fast_Monster,
 
     Tile,
-    Passing_Tile,
+    Pass__Tile,
     Block_Tile,
 
     Tower,

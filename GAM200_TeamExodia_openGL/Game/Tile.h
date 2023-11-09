@@ -48,12 +48,12 @@ private:
 };
 
 
-class Passing_Tile : public Tile {
+class Pass__Tile : public Tile {
 public:
-	Passing_Tile(Math::irect boundary);
+	Pass__Tile(Math::irect boundary);
 
-	GameObjectTypes Type() override { return GameObjectTypes::Passing_Tile; }
-	std::string TypeName() override { return "Passing_Tile"; }
+	GameObjectTypes Type() override { return GameObjectTypes::Pass__Tile; }
+	std::string TypeName() override { return "Pass__Tile"; }
 
 	void Update(double dt) override;
 private:

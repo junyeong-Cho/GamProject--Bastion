@@ -41,7 +41,7 @@ void Tile::Draw(Math::TransformationMatrix camera_matrix) {
 }
 
 
-Passing_Tile::Passing_Tile(Math::irect boundary) : Tile(boundary) {
+Pass__Tile::Pass__Tile(Math::irect boundary) : Tile(boundary) {
 	color.r = 0.157f;
 	color.g = 0.631f;
 	color.b = 0.235f;
@@ -49,7 +49,7 @@ Passing_Tile::Passing_Tile(Math::irect boundary) : Tile(boundary) {
 	passing_tile_bool = true;
 }
 
-void Passing_Tile::Update(double dt) {
+void Pass__Tile::Update(double dt) {
 
 }
 
