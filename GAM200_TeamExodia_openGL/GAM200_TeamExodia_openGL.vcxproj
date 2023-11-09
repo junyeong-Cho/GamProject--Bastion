@@ -132,6 +132,7 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClCompile Include="Engine\TextureManager.cpp" />
     <ClCompile Include="Engine\Vec2.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
+    <ClCompile Include="GameSpeed.cpp" />
     <ClCompile Include="Game\AStar.cpp" />
     <ClCompile Include="Game\Asteroid.cpp" />
     <ClCompile Include="Game\Background.cpp" />
@@ -193,6 +194,7 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClInclude Include="Engine\TextureManager.h" />
     <ClInclude Include="Engine\Vec2.h" />
     <ClInclude Include="Engine\Window.h" />
+    <ClInclude Include="GameSpeed.h" />
     <ClInclude Include="Game\AStar.h" />
     <ClInclude Include="Game\Asteroid.h" />
     <ClInclude Include="Game\Background.h" />

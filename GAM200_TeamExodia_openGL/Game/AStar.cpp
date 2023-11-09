@@ -61,7 +61,8 @@ void Astar::UpdatePath(int** map, Math::ivec2 start, Math::ivec2 target) {
 	}
 
 	Math::ivec2 last_direction = current - cameFrom[current];
-	path.insert(path.begin(), current + last_direction * 2);
+
+	path.insert(path.begin(), current + last_direction);
 	path.insert(path.begin(), current + last_direction);
 	path.insert(path.begin(), current);
 
@@ -83,7 +84,7 @@ void Astar::UpdatePath(int** map, Math::ivec2 start, Math::ivec2 target) {
 	
 	path.insert(path.begin(), start);
 	path.insert(path.begin(), start - start_direction);
-	path.insert(path.begin(), start - start_direction * 2);
+	//path.insert(path.begin(), start - start_direction * 2);
 
 }
 

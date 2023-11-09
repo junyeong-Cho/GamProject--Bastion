@@ -217,6 +217,9 @@
     <ClCompile Include="Map.cpp">
       <Filter>Game\Exodia\Components</Filter>
     </ClCompile>
+    <ClCompile Include="GameSpeed.cpp">
+      <Filter>Game\Exodia\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\GameObjectTypes.h">
@@ -403,6 +406,9 @@
       <Filter>Engine\Core Engine Components</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
+      <Filter>Game\Exodia\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSpeed.h">
       <Filter>Game\Exodia\Components</Filter>
     </ClInclude>
   </ItemGroup>

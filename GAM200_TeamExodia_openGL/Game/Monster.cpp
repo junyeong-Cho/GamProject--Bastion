@@ -21,14 +21,13 @@ Monster::Monster(Math::vec2 position, Player* player) : GameObject(position), m_
     current_state->Enter(this);
 
     path = Astar::GetInstance().GetPath();
-    for (auto& ref : path) {
-        Engine::GetLogger().LogDebug(std::to_string(ref.x) + ", " + std::to_string(ref.y) + " -> ");
-    }
 
     tile_index = 0;
     current_tile_position = path[tile_index++];
-    SetPosition({ 80.0 * static_cast<double>(current_tile_position.x), 80.0 * static_cast<double>(current_tile_position.y) });
-    Engine::GetLogger().LogDebug(std::to_string(current_tile_position.x) + ", " + std::to_string(current_tile_position.y) + " is good ");
+
+    Math::vec2 tile_size = Math::vec2(Engine::GetWindow().GetSize().x / 16.0, Engine::GetWindow().GetSize().y / 9.0);
+
+    SetPosition({ tile_size.x * static_cast<double>(current_tile_position.x), tile_size.y * static_cast<double>(current_tile_position.y) });
     next_tile_position = path[tile_index++];
 
     fill_color = { 1.0f, 0.0f, 0.0f };

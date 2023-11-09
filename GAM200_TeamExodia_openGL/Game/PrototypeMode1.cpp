@@ -31,6 +31,7 @@ Updated:    October		10, 2023
 #include "Score.h"
 #include "Gold.h"
 #include "Life.h"
+#include "../GameSpeed.h"
 
 #include <filesystem>
 #include <imgui.h>
@@ -92,6 +93,7 @@ void PrototypeMode1::Load()
 	AddGSComponent(new Score());
 	AddGSComponent(new Gold());
 	AddGSComponent(new Life());
+	AddGSComponent(new GameSpeed(5));	// Parameter is for the max game speed
 
 	#ifdef _DEBUG
 	AddGSComponent(new GAM200::ShowCollision());
@@ -102,20 +104,11 @@ void PrototypeMode1::Load()
 
 void PrototypeMode1::Update(double dt)
 {
-	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Tab)) {
-		switch (game_speed) {
-		case 1:
-			game_speed = 2;
-			break;
-		case 2:
-			game_speed = 3;
-			break;
-		case 3:
-			game_speed = 1;
-			break;
-		}
+	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Tab)) 
+	{
+		GetGSComponent<GameSpeed>()->NextSpeed();
 	}
-	dt *= static_cast<double>(game_speed);
+	dt *= static_cast<double>(GetGSComponent<GameSpeed>()->Value());
 
 	GetGSComponent<GAM200::MusicEffect>()->Play(0);
 
@@ -182,6 +175,8 @@ void PrototypeMode1::ImguiDraw()
 		int gold = GetGSComponent<Gold>()->Value();
 		int life = GetGSComponent<Life>()->Value();
 		int score = GetGSComponent<Score>()->Value();
+		int game_speed = GetGSComponent<GameSpeed>()->Value();
+		int max_speed = GetGSComponent<GameSpeed>()->GetMax();
 
 		ImGui::Text("Killed Monster : %d", score);
 		ImGui::Text("Gold : %d", gold);
@@ -194,8 +189,7 @@ void PrototypeMode1::ImguiDraw()
 		if (ImGui::SliderInt("Adjust Life", &life, 1, 30, "%d")) {
 			GetGSComponent<Life>()->SetValue(life);
 		}
-
-		if (ImGui::SliderInt("Adjust Game Speed", &game_speed, 1, 3, "%d")) {
+		if (ImGui::SliderInt("Adjust Game Speed", &game_speed, 1, max_speed, "%d")) {
 			Engine::GetLogger().LogEvent("Game Speed: x" + std::to_string(game_speed));
 		}
 	}

@@ -99,12 +99,12 @@ void Player::Draw(Math::TransformationMatrix camera_matrix) {
 
 
 bool Player::CanCollideWith(GameObjectTypes type) {
-    /*if (type == GameObjectTypes::Pass__Tile) {
+    if (type == GameObjectTypes::Pass__Tile || type == GameObjectTypes::Block_Tile || 
+        type == GameObjectTypes::Bullet) {
         return false;
     }
     else
-        return true;*/
-    return false;
+        return true;
 }
 
 void Player::ResolveCollision(GameObject* other_object) {
