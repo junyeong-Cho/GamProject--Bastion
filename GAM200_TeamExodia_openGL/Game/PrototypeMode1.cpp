@@ -46,41 +46,31 @@ PrototypeMode1::PrototypeMode1() : player_ptr()
 
 void PrototypeMode1::Load()
 {
+	// Music
 	AddGSComponent(new GAM200::MusicEffect());
-
 	GetGSComponent<GAM200::MusicEffect>()->LoadFile("assets/Sounds/Theme/example_music.ogg");
 
-	counter = 0;
-
+	// Game Object
 	AddGSComponent(new GAM200::GameObjectManager());
-
+	// Camera
 	AddGSComponent(new GAM200::Camera({ { 0.15 * Engine::GetWindow().GetSize().x, 0 }, { 0.35 * Engine::GetWindow().GetSize().x, 0 } }));
-
-
+	// Window, tiles
 	Math::ivec2 window_size = Engine::GetWindow().GetSize();
-	// 16:9
 	int tile_col = 9;
 	int tile_row = 16;
 	int tile_size = window_size.x / tile_row;
-
+	// Set Map
 	Map::GetInstance().SetMap1();
 	map_info = Map::GetInstance().GetMap();
-	Math::irect map_positions[9][16];
-
-	for (int y = 0; y < tile_col; ++y) {
-		for (int x = 0; x < tile_row; ++x) {
-			map_positions[y][x] = Math::irect{ { x * tile_size, y * tile_size }, { (x + 1) * tile_size, (y + 1) * tile_size } };
-		}
-	}
-
+	// Need to change to a function!!!!!!!!!!!!!!
 	for (int y = 0; y < tile_col; ++y) {
 		for (int x = 0; x < tile_row; ++x) {
 			switch (map_info[y][x]) {
 			case static_cast<int>(GameObjectTypes::Pass__Tile):
-				GetGSComponent<GAM200::GameObjectManager>()->Add(new Pass__Tile(Math::irect{ map_positions[y][x] }));
+				GetGSComponent<GAM200::GameObjectManager>()->Add(new Pass__Tile(Math::irect{ { x * tile_size, y * tile_size }, { (x + 1) * tile_size, (y + 1) * tile_size } }));
 				break;
 			case static_cast<int>(GameObjectTypes::Block_Tile):
-				GetGSComponent<GAM200::GameObjectManager>()->Add(new Block_Tile(Math::irect{ map_positions[y][x] }));
+				GetGSComponent<GAM200::GameObjectManager>()->Add(new Block_Tile(Math::irect{ { x * tile_size, y * tile_size }, { (x + 1) * tile_size, (y + 1) * tile_size } }));
 				break;
 			default:
 
@@ -89,17 +79,14 @@ void PrototypeMode1::Load()
 		}
 
 	}
-	
-	Astar::GetInstance().UpdatePath(map_info, { 0, 0 }, { 5, 15 });
-
-	player_ptr = new Player({ 0, 0 }, tile_size,128/2);
+	// Set Path using AStar
+	Astar::GetInstance().UpdatePath(map_info, { 0, 0 }, { 8, 13 });
+	// Add Player
+	player_ptr = new Player({ 0, 0 }, tile_size*2/3, tile_size*2/3);
 	GetGSComponent<GAM200::GameObjectManager>()->Add(player_ptr);
-
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster({ 0, 0 }, player_ptr));
-	//GetGSComponent <GAM200::GameObjectManager>()->Add(new Basic_Tower({ 0, 160 }));
-
+	// Camera Setting
 	GetGSComponent<GAM200::Camera>()->SetPosition({ 0, 0 });
-
+	// Informations
 	AddGSComponent(new Score());
 	AddGSComponent(new Gold());
 	AddGSComponent(new Life());
@@ -188,26 +175,13 @@ void PrototypeMode1::Draw()
 
 void PrototypeMode1::ImguiDraw()
 {
-	/*ImGui::Begin("Program Info");
+	ImGui::Begin("Information");
 	{
-		ImGui::Text("FPS: %f", "55.5");
-		ImGui::Text("Frame Time: %f", "55.5");
-		ImGui::Text("Counter: %f", counter);
-		ImGui::Text("Player position: %.3f, %.3f", player_ptr->GetPosition().x, player_ptr->GetPosition().y);
-		ImGui::Text("Camera position: %.3f, %.3f", GetGSComponent<GAM200::Camera>()->GetPosition().x, GetGSComponent<GAM200::Camera>()->GetPosition().y);
-
-	}
-	ImGui::End();*/
-
-
-	ImGui::Begin("Informations");
-	{
-		/*ImGui::Text("Mouse Position X : %.2f", Engine::Instance().GetMouse().GetMousePosition().x);
-		ImGui::Text("Mouse Position Y : %.2f", Engine::Instance().GetMouse().GetMousePosition().y);*/
 		int gold = GetGSComponent<Gold>()->Value();
 		int life = GetGSComponent<Life>()->Value();
+		int score = GetGSComponent<Score>()->Value();
 
-		ImGui::Text("Killed Monster : %d", GetGSComponent<Score>()->Value());
+		ImGui::Text("Killed Monster : %d", score);
 		ImGui::Text("Gold : %d", gold);
 		ImGui::Text("Life : %d", life);
 		ImGui::Text("Game Speed : %d", game_speed);
@@ -220,7 +194,7 @@ void PrototypeMode1::ImguiDraw()
 		}
 
 		if (ImGui::SliderInt("Adjust Game Speed", &game_speed, 1, 3, "%d")) {
-			
+			Engine::GetLogger().LogEvent("Game Speed: x" + std::to_string(game_speed));
 		}
 	}
 	ImGui::End();
@@ -230,17 +204,10 @@ void PrototypeMode1::ImguiDraw()
 	{
 		if (ImGui::Button("Produce Basic Monster"))
 		{
-			/*for (int i = 0; i < basic_monster_produce_number; i++) {
-				Engine::GetLogger().LogDebug("Basic monster added\n");
-				GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster({ 0, 0 }, player_ptr));
-			}*/
 			GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster({ 0, 0 }, player_ptr));
 		}
 		if (ImGui::Button("Produce Fast Monster"))
 		{
-			/*for (int i = 0; i < fast_monster_produce_number; i++) {	
-				GetGSComponent<GAM200::GameObjectManager>()->Add(new Fast_Monster({ 0, 0 }, player_ptr));
-			}*/
 			GetGSComponent<GAM200::GameObjectManager>()->Add(new Fast_Monster({ 0, 0 }, player_ptr));
 		}
 
@@ -253,7 +220,6 @@ void PrototypeMode1::ImguiDraw()
 			}
 		}
 	}
-
 	ImGui::End();
 
 

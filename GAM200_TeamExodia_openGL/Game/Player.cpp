@@ -99,11 +99,12 @@ void Player::Draw(Math::TransformationMatrix camera_matrix) {
 
 
 bool Player::CanCollideWith(GameObjectTypes type) {
-    if (type == GameObjectTypes::Pass__Tile) {
+    /*if (type == GameObjectTypes::Pass__Tile) {
         return false;
     }
     else
-        return true;
+        return true;*/
+    return false;
 }
 
 void Player::ResolveCollision(GameObject* other_object) {
@@ -126,10 +127,7 @@ void Player::ResolveCollision(GameObject* other_object) {
         break;
 
     case GameObjectTypes::Block_Tile:
-
-
-
-        if (abs(centerX) > abs(centerY)) {
+        /*if (abs(centerX) > abs(centerY)) {
             if (centerX < 0) {
                 UpdatePosition(Math::vec2{ (other_rect.Left() - player_rect.Right()), 0.0 });
                 SetVelocity({ 0, GetVelocity().y });
@@ -148,27 +146,8 @@ void Player::ResolveCollision(GameObject* other_object) {
                 UpdatePosition(Math::vec2{ 0.0, (other_rect.Top() - player_rect.Bottom()) });
                 SetVelocity({ GetVelocity().x, 0 });
             }
-        }
-
-
-
-        /*if (player_rect.Left() < other_rect.Left()) {
-            UpdatePosition(Math::vec2{ (other_rect.Left() - player_rect.Right()), 0.0 });
-            SetVelocity({ 0, GetVelocity().y });
-        }
-        else if (player_rect.Left() >= other_rect.Left()) {
-            UpdatePosition(Math::vec2{ (other_rect.Right() - player_rect.Left()), 0.0 });
-            SetVelocity({ 0, GetVelocity().y });
         }*/
 
-        /*if (player_rect.Bottom() < other_rect.Bottom()) {
-            UpdatePosition(Math::vec2{ 0.0, (other_rect.Bottom() - player_rect.Top()) });
-            SetVelocity({ GetVelocity().x, 0 });
-        }
-        else if (player_rect.Bottom() >= other_rect.Bottom()) {
-            UpdatePosition(Math::vec2{ 0.0, (other_rect.Top() - player_rect.Bottom()) });
-            SetVelocity({ GetVelocity().x, 0 });
-        }*/
         break;
     case GameObjectTypes::Pass__Tile:
 

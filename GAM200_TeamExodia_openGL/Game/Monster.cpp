@@ -21,14 +21,18 @@ Monster::Monster(Math::vec2 position, Player* player) : GameObject(position), m_
     current_state->Enter(this);
 
     path = Astar::GetInstance().GetPath();
+    for (auto& ref : path) {
+        Engine::GetLogger().LogDebug(std::to_string(ref.x) + ", " + std::to_string(ref.y) + " -> ");
+    }
 
     tile_index = 0;
     current_tile_position = path[tile_index++];
     SetPosition({ 80.0 * static_cast<double>(current_tile_position.x), 80.0 * static_cast<double>(current_tile_position.y) });
+    Engine::GetLogger().LogDebug(std::to_string(current_tile_position.x) + ", " + std::to_string(current_tile_position.y) + " is good ");
     next_tile_position = path[tile_index++];
 
     fill_color = { 1.0f, 0.0f, 0.0f };
-
+    
 }
 
 
@@ -112,15 +116,13 @@ void Monster::State_Walking::Update(GameObject* object, double dt)
     Math::vec2 position = monster->GetPosition();
 
     monster->current_tile_position = Math::ivec2(static_cast<int>(position.x / tile_size), static_cast<int>(position.y / tile_size));
-
+    //monster->current_tile_position = Math::ivec2(static_cast<int>((position.x + monster->GetSize().x / 2) / tile_size), static_cast<int>((position.y + monster->GetSize().y/2) / tile_size));
     if (monster->current_tile_position == monster->next_tile_position) {
 
         monster->next_tile_position = monster->path[(monster->tile_index++)];
-
-        /*Engine::GetLogger().LogDebug(std::to_string(monster->current_tile_position.x) + ", " + std::to_string(monster->current_tile_position.y) + " -> " + std::to_string(monster->next_tile_position.x) + ", " + std::to_string(monster->next_tile_position.y));
-        Engine::GetLogger().LogDebug(std::to_string(monster->GetPosition().x) + ", " + std::to_string(monster->GetPosition().y) + "\n");*/
-
-        if (monster->tile_index == monster->path.size()) {\
+        Engine::GetLogger().LogEvent("Direction Updated: [" + std::to_string(monster->current_tile_position.x) + ", " + std::to_string(monster->current_tile_position.y) + "] -> [" +
+            std::to_string(monster->next_tile_position.x) + ", " + std::to_string(monster->next_tile_position.y) + "]");
+        if (monster->tile_index == monster->path.size()) {
             Life* lifeComponent = Engine::GetGameStateManager().GetGSComponent<Life>();
             lifeComponent->Subtract(1);
             monster->change_state(&monster->state_dead);
@@ -165,7 +167,7 @@ void Monster::State_Walking::CheckExit(GameObject* object)
 Basic_Monster::Basic_Monster(Math::vec2 position, Player* player) : Monster(position, player) {
     fill_color = { 1.0f, 0.0f, 0.0f };
     walking_speed = 80;
-    size = 60;
+    //size = 60;
 
     score = 1;
     gold = 10;
@@ -174,7 +176,7 @@ Basic_Monster::Basic_Monster(Math::vec2 position, Player* player) : Monster(posi
 Fast_Monster::Fast_Monster(Math::vec2 position, Player* player) : Monster(position, player) {
     fill_color = { 1.0f, 0.984f, 0.255f };
     walking_speed = 160;
-    size = 40;
+    //size = 40;
 
     score = 2;
     gold = 20;

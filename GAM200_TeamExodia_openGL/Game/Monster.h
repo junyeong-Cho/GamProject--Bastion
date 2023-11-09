@@ -32,6 +32,8 @@ public:
 
     void Draw(Math::TransformationMatrix camera_matrix) override;
 
+    Math::vec2 GetSize() { return Math::vec2(size_x, size_y); }
+
 protected:
     GAM200::Texture e = GAM200::Texture("assets/images/e.png", GAM200::Texture::TextureType::RECTANGLE);
 
@@ -44,8 +46,6 @@ protected:
     int tile_index;
     Math::ivec2 current_tile_position;
     Math::ivec2 next_tile_position;
-
-    int size = 40;
 
     int size_x = 160 / 2;
     int size_y = 105 / 2;

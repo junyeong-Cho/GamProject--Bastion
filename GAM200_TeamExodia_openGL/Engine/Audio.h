@@ -38,7 +38,7 @@ namespace GAM200
 
 	private:
 
-		float defaultVolume = 40.f;
+		float defaultVolume = 0.f;
 
 		std::vector<std::unique_ptr<sf::Music>> musicList;
 		bool isMusicPlaying = false;
