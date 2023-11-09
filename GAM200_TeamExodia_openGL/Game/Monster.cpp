@@ -39,11 +39,11 @@ void Monster::Update(double dt) {
 }
 
 void Monster::Draw(Math::TransformationMatrix camera_matrix) {
-    GAM200::DrawShape monster;
+    /*GAM200::DrawShape monster;
 
     monster.SetColor(fill_color.r, fill_color.g, fill_color.b, 1.0f);
 
-    monster.DrawRectangle(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+    monster.DrawRectangle(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);*/
     e.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
   
 }

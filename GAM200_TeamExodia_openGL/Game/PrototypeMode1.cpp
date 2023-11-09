@@ -142,17 +142,12 @@ void PrototypeMode1::Update(double dt)
 	//GetGSComponent<GAM200::Camera>()->SetPosition(player_ptr->GetPosition());
 
 	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
-	//GetGSComponent<GAM200::ShowCollision>()->Update(dt);
+	GetGSComponent<GAM200::ShowCollision>()->Update(dt);
 	
 	Engine::GetWindow().Clear(1.0f, 1.0f, 1.0f, 1.0f);
 
 	//GetGSComponent<GAM200::ShowCollision>()->Update(dt);
 	GetGSComponent<GAM200::GameObjectManager>()->CollisionTest();
-
-	//int mouseX = ;
-	//int mouseY = Engine::GetMouse().GetMousePosition().y;
-
-	//Engine::GetLogger().LogDebug("Y: " + std::to_string(Engine::GetMouse().GetMousePosition().y));
 
 
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Escape))
@@ -171,7 +166,6 @@ void PrototypeMode1::Update(double dt)
 void PrototypeMode1::Unload()
 {
 	player_ptr = nullptr;
-	//GetGSComponent<Background>()->Unload();
 	GetGSComponent<GAM200::GameObjectManager>()->Unload();
 	ClearGSComponent();
 }
@@ -186,9 +180,6 @@ void PrototypeMode1::Draw()
 		}
 
 	}
-
-
-	//Engine::GetWindow().Clear(0x000000FF);
 
 	Math::TransformationMatrix camera_matrix = GetGSComponent<GAM200::Camera>()->GetMatrix();
 

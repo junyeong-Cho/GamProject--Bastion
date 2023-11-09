@@ -22,7 +22,8 @@ Updated:    October		10, 2023
 
 
 Player::Player(Math::vec2 start_position, int size_x, int size_y) : GameObject(start_position), size_x(size_x), size_y(size_y) {
-    //AddGOComponent(new GAM200::Sprite("Assets/Cat.spt", (this)));
+    //AddGOComponent(new GAM200::Sprite("Assets/Player.spt", this));
+
     SetPosition(start_position);
     SetVelocity({ 0, 0 });
     AddGOComponent(new GAM200::RectCollision({ {static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y)}, {static_cast<int>(GetPosition().x) + size_x, static_cast<int>(GetPosition().y + size_y)} }, this));
@@ -91,20 +92,9 @@ void Player::Update(double dt) {
 }
 
 void Player::Draw(Math::TransformationMatrix camera_matrix) {
-    /*if (hurt_timer->Remaining() == 0.0 || hurt_timer->TickTock() == true)
-    {
-        GAM200::GameObject::Draw(camera_matrix);
-    }*/
-    //GAM200::GameObject::Draw(camera_matrix);
-
-    GAM200::DrawShape shape;
     
-    shape.SetColor(0.5f, 0.5f, 1.0f, 1.0f);
-  //  shape.DrawRectangle(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size, size);
     p.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x,size_y);
-    
-    /*Math::vec2 position = camera_matrix * GetPosition();
-    shape.DrawRectangle(static_cast<int>(position.x), static_cast<int>(position.y), size, size);*/
+    //GAM200::GameObject::Draw(camera_matrix);
 }
 
 
