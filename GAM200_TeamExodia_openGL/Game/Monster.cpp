@@ -29,7 +29,7 @@ Monster::Monster(Math::vec2 position, Player* player) : GameObject(position), m_
     tile_index = 0;
     current_tile_position = path[tile_index++];
     // Set Direction, speed, position...
-    Math::ivec2 direction = path[tile_index] - path[tile_index];
+    Math::ivec2 direction = path[1] - path[0];
     if (direction.x == 1)
         m_walking_direction = WalkingDirection::Right;
     else if (direction.x == -1)
