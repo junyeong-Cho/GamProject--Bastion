@@ -15,8 +15,8 @@
 Monster::Monster(Math::vec2 position, Player* player) : GameObject(position), m_player(player) {
     // Tile Size
     Math::vec2 tile_size = Math::vec2(Engine::GetWindow().GetSize().x / 16.0, Engine::GetWindow().GetSize().y / 9.0);
-    size_x = tile_size.x * 2 / 3;
-    size_y = tile_size.y * 2 / 3;
+    size_x = static_cast<int>(tile_size.x * 2 / 3);
+    size_y = static_cast<int>(tile_size.y * 2 / 3);
     // Settings
     SetVelocity({ 0, 0 });
     AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{0, 0}, Math::ivec2{size_x, size_y} }, this));
@@ -41,7 +41,7 @@ Monster::Monster(Math::vec2 position, Player* player) : GameObject(position), m_
     else
         Engine::GetLogger().LogError("Monster Direction Error!");
 
-    walking_speed = tile_size.x / 2;
+    walking_speed = static_cast<int>(tile_size.x / 2);
     
     SetPosition({ tile_size.x * static_cast<double>(current_tile_position.x), tile_size.y * static_cast<double>(current_tile_position.y) });
     next_tile_position = path[tile_index++];
@@ -51,7 +51,6 @@ Monster::Monster(Math::vec2 position, Player* player) : GameObject(position), m_
 void Monster::Update(double dt) {
     GameObject::Update(dt);
 
-    Engine::GetLogger().LogDebug("Position: " + std::to_string(GetPosition().x) + ", " + std::to_string(GetPosition().y));
 }
 
 void Monster::Draw(Math::TransformationMatrix camera_matrix) {
@@ -159,26 +158,32 @@ void Monster::State_Walking::Update(GameObject* object, double dt)
         monster->current_tile_position = Math::ivec2(static_cast<int>(position.x / tile_size.x), static_cast<int>(position.y / tile_size.y));
     }
     
-    if (monster->current_tile_position == monster->next_tile_position) {
+    if (monster->current_tile_position == monster->next_tile_position) 
+    {
 
         monster->next_tile_position = monster->path[(monster->tile_index++)];
 
-        if (monster->tile_index == monster->path.size()) {
+        if (monster->tile_index == monster->path.size()) 
+        {
             Life* lifeComponent = Engine::GetGameStateManager().GetGSComponent<Life>();
             lifeComponent->Subtract(1);
             monster->change_state(&monster->state_dead);
         }
         Math::ivec2 direction = monster->next_tile_position - monster->current_tile_position;
-        if (direction.x == 1) {
+        if (direction.x == 1) 
+        {
             monster->m_walking_direction = WalkingDirection::Right;
         }
-        else if (direction.x == -1) {
+        else if (direction.x == -1) 
+        {
             monster->m_walking_direction = WalkingDirection::Left;
         }
-        else if (direction.y == 1) {
+        else if (direction.y == 1) 
+        {
             monster->m_walking_direction = WalkingDirection::UP;
         }
-        else if (direction.y == -1) {
+        else if (direction.y == -1) 
+        {
             monster->m_walking_direction = WalkingDirection::DOWN;
         }
     }

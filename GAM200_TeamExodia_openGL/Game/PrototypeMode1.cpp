@@ -63,7 +63,7 @@ void PrototypeMode1::Load()
 	int tile_size_x = window_size.x / tile_row;
 	int tile_size_y = window_size.y / tile_col;
 	// Set Map
-	Map::GetInstance().SetMap2();
+	Map::GetInstance().SetMap1();
 	map_info = Map::GetInstance().GetMap();
 	// Need to change to a function!!!!!!!!!!!!!! Maybe not??
 	for (int y = 0; y < tile_col; ++y) {
