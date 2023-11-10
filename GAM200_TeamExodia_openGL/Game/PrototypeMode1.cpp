@@ -140,6 +140,7 @@ void PrototypeMode1::Update(double dt)
 void PrototypeMode1::Unload()
 {
 	player_ptr = nullptr;
+	Map::GetInstance().MapUnload();
 	GetGSComponent<GAM200::GameObjectManager>()->Unload();
 	ClearGSComponent();
 }

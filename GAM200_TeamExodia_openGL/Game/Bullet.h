@@ -17,8 +17,12 @@ public:
 
     static constexpr double DefaultVelocity = 600;
 
+    static int GetDamage() { return damage; }
+
 protected:
     int size = 10;
+
+    static constexpr int damage = 1;
 
     struct Color {
         float r;

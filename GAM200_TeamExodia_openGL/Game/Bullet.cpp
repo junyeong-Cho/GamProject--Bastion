@@ -18,6 +18,16 @@ void Bullet::Update(double dt)
 {
     GameObject::Update(dt);
 
+    Math::ivec2 window_size = Engine::GetWindow().GetSize();
+    Math::vec2 position = GetPosition();
+    
+    if (position.x + size < 0 || position.x > window_size.x ||
+        position.y + size < 0 || position.y > window_size.y)
+    {
+        Destroy();
+        RemoveGOComponent<GAM200::RectCollision>();
+    }
+
     // Check if the laser is outside of the window
 
     /*Math::ivec2 frame_size = GetGOComponent<CS230::Sprite>()->GetFrameSize();
@@ -42,6 +52,7 @@ void Bullet::ResolveCollision(GameObject* other_object)
 {
     Destroy();
     other_object->ResolveCollision(this);
+    RemoveGOComponent<GAM200::RectCollision>();
 }
 
 void Bullet::Draw(Math::TransformationMatrix camera_matrix) {

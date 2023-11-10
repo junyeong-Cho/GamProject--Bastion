@@ -54,6 +54,8 @@ protected:
     int score = 1;
     int gold = 10;
 
+    int life = 3;
+
     struct FillColor {
         float r = 0;
         float g = 0;

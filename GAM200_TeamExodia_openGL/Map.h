@@ -19,12 +19,16 @@ public:
 	void SetMap2();
 	Math::ivec2 GetStartPoint() const { return start_point; }
 	Math::ivec2 GetEndPoint() const { return end_point; }
+	void MapUnload();
 
 private:
-	int** map;
+	int** map = nullptr;
 
 	Math::ivec2 start_point;
 	Math::ivec2 end_point;
+
+	int cols;
+	int rows;
 
 };
 

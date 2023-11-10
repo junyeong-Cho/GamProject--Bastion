@@ -12,6 +12,8 @@
 #include "Gold.h"
 #include "Life.h"
 
+#include "Bullet.h"
+
 Monster::Monster(Math::vec2 position, Player* player) : GameObject(position), m_player(player) {
     // Tile Size
     Math::vec2 tile_size = Math::vec2(Engine::GetWindow().GetSize().x / 16.0, Engine::GetWindow().GetSize().y / 9.0);
@@ -67,24 +69,30 @@ void Monster::ResolveCollision(GameObject* other_object) {
 
     if (other_object->Type() == GameObjectTypes::Player)
     {
-        Engine::GetLogger().LogDebug("Resolve Collision player\n");
+        Engine::GetLogger().LogDebug("Resolve Collision player");
         //RemoveGOComponent<GAM200::RectCollision>();
 
         //change_state(&state_dead);
     }
-
-    if (other_object->Type() == GameObjectTypes::Bullet)
+    else if (other_object->Type() == GameObjectTypes::Bullet)
     {
-        Engine::GetLogger().LogDebug("Resolve Collision bullet\n");
-        RemoveGOComponent<GAM200::RectCollision>();
+        life -= Bullet::GetDamage();
 
-        Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
-        Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
+        if (life <= 0) {
+            RemoveGOComponent<GAM200::RectCollision>();
 
-        scoreComponent->Add(score);
-        goldComponent->Add(gold);
+            Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
+            Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
 
-        change_state(&state_dead);
+            scoreComponent->Add(score);
+            goldComponent->Add(gold);
+
+            change_state(&state_dead);
+        }
+    }
+    else if (other_object->Type() == GameObjectTypes::Block_Tile)
+    {
+        Engine::GetLogger().LogDebug("Resolve Collision Block Tile!");
     }
 }
 
@@ -210,20 +218,25 @@ void Monster::State_Walking::CheckExit(GameObject* object)
 
 }
 
+
+
+
+
+
 Basic_Monster::Basic_Monster(Math::vec2 position, Player* player) : Monster(position, player) {
     fill_color = { 1.0f, 0.0f, 0.0f };
-    walking_speed = 80;
-    //size = 60;
 
     score = 1;
     gold = 10;
+    life = 4;
 }
 
 Fast_Monster::Fast_Monster(Math::vec2 position, Player* player) : Monster(position, player) {
     fill_color = { 1.0f, 0.984f, 0.255f };
-    walking_speed = 160;
-    //size = 40;
+    walking_speed *= 2;
 
     score = 2;
     gold = 20;
+
+    life = 2;
 }
