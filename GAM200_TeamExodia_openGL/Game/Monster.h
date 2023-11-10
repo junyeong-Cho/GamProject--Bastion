@@ -69,7 +69,7 @@ protected:
 
     enum class WalkingDirection { Left, Right, UP, DOWN };
 
-    WalkingDirection m_walking_direction = WalkingDirection::Right;
+    WalkingDirection m_walking_direction = WalkingDirection::UP;
 
     Player* m_player;
     Math::irect boundary;

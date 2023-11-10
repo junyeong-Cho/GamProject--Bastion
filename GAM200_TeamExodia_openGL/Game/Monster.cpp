@@ -13,39 +13,45 @@
 #include "Life.h"
 
 Monster::Monster(Math::vec2 position, Player* player) : GameObject(position), m_player(player) {
-
+    // Tile Size
     Math::vec2 tile_size = Math::vec2(Engine::GetWindow().GetSize().x / 16.0, Engine::GetWindow().GetSize().y / 9.0);
-
     size_x = tile_size.x * 2 / 3;
     size_y = tile_size.y * 2 / 3;
-
-    SetPosition(position);
+    // Settings
     SetVelocity({ 0, 0 });
     AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{0, 0}, Math::ivec2{size_x, size_y} }, this));
-
+    // State
     current_state = &state_walking;
     current_state->Enter(this);
-
+    // Path finding
     path = Astar::GetInstance().GetPath();
 
     tile_index = 0;
     current_tile_position = path[tile_index++];
+    // Set Direction, speed, position...
+    Math::ivec2 direction = path[tile_index] - path[tile_index];
+    if (direction.x == 1)
+        m_walking_direction = WalkingDirection::Right;
+    else if (direction.x == -1)
+        m_walking_direction = WalkingDirection::Left;
+    else if (direction.y == 1)
+        m_walking_direction = WalkingDirection::UP;
+    else if (direction.y == -1)
+        m_walking_direction = WalkingDirection::DOWN;
+    else
+        Engine::GetLogger().LogError("Monster Direction Error!");
 
     walking_speed = tile_size.x / 2;
-
-
+    
     SetPosition({ tile_size.x * static_cast<double>(current_tile_position.x), tile_size.y * static_cast<double>(current_tile_position.y) });
     next_tile_position = path[tile_index++];
-
-    fill_color = { 1.0f, 0.0f, 0.0f };
-    
 }
 
 
 void Monster::Update(double dt) {
     GameObject::Update(dt);
 
-
+    Engine::GetLogger().LogDebug("Position: " + std::to_string(GetPosition().x) + ", " + std::to_string(GetPosition().y));
 }
 
 void Monster::Draw(Math::TransformationMatrix camera_matrix) {
@@ -109,8 +115,6 @@ void Monster::State_Dead::CheckExit(GameObject* object)
 void Monster::State_Walking::Enter(GameObject* object)
 {
     Monster* monster = static_cast<Monster*>(object);
-    //monster->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(Animations::Walking));
-    monster->m_walking_direction = WalkingDirection::Right;
 }
 
 void Monster::State_Walking::Update(GameObject* object, double dt)

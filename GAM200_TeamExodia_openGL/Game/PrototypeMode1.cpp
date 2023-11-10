@@ -63,9 +63,9 @@ void PrototypeMode1::Load()
 	int tile_size_x = window_size.x / tile_row;
 	int tile_size_y = window_size.y / tile_col;
 	// Set Map
-	Map::GetInstance().SetMap1();
+	Map::GetInstance().SetMap2();
 	map_info = Map::GetInstance().GetMap();
-	// Need to change to a function!!!!!!!!!!!!!!
+	// Need to change to a function!!!!!!!!!!!!!! Maybe not??
 	for (int y = 0; y < tile_col; ++y) {
 		for (int x = 0; x < tile_row; ++x) {
 			switch (map_info[y][x]) {
@@ -83,7 +83,7 @@ void PrototypeMode1::Load()
 
 	}
 	// Set Path using AStar
-	Astar::GetInstance().UpdatePath(map_info, { 0, 0 }, { 8, 13 });
+	Astar::GetInstance().UpdatePath(map_info, Map::GetInstance().GetStartPoint(), Map::GetInstance().GetEndPoint());
 	// Add Player
 	player_ptr = new Player({ 0, 0 }, tile_size_x * 2 / 3, tile_size_y * 2 / 3);
 	GetGSComponent<GAM200::GameObjectManager>()->Add(player_ptr);
@@ -200,10 +200,12 @@ void PrototypeMode1::ImguiDraw()
 	{
 		if (ImGui::Button("Produce Basic Monster"))
 		{
+			Engine::GetLogger().LogEvent("Basic Monster Produce!");
 			GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster({ 0, 0 }, player_ptr));
 		}
 		if (ImGui::Button("Produce Fast Monster"))
 		{
+			Engine::GetLogger().LogEvent("Fast Monster Produce!");
 			GetGSComponent<GAM200::GameObjectManager>()->Add(new Fast_Monster({ 0, 0 }, player_ptr));
 		}
 

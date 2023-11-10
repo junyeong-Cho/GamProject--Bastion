@@ -2,7 +2,7 @@
 
 #include "../Engine/GameState.h"
 #include "Game/GameObjectTypes.h"
-
+#include "Engine/Vec2.h"
 
 class Map {
 public:
@@ -16,11 +16,15 @@ public:
 	}
 	void SetMap(std::string file_name);
 	void SetMap1();
+	void SetMap2();
+	Math::ivec2 GetStartPoint() const { return start_point; }
+	Math::ivec2 GetEndPoint() const { return end_point; }
 
 private:
 	int** map;
 
-
+	Math::ivec2 start_point;
+	Math::ivec2 end_point;
 
 };
 
