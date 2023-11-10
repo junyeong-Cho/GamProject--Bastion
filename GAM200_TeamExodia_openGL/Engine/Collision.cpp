@@ -85,17 +85,26 @@ Math::rect GAM200::RectCollision::WorldBoundary()
 
 void GAM200::RectCollision::Draw(Math::TransformationMatrix display_matrix)
 {
-    DrawShape draw_shape;
-    draw_shape.SetColor(1.0f, 1.0f, 1.0f, 1.0f);  // White color
-    draw_shape.SetLineWidth(50);
+    //DrawShape draw_shape;
+    //draw_shape.SetColor(1.0f, 1.0f, 1.0f, 1.0f);  // White color
+    //draw_shape.SetLineWidth(50);
 
-    
-    Math::rect world_boundary = WorldBoundary();
+    //
+    //Math::rect world_boundary = WorldBoundary();
+    //glPushMatrix();
+    //glMultMatrixd(&(display_matrix[0][0]));
+    //draw_shape.DrawRectangle((int)world_boundary.Left(), (int)world_boundary.Bottom(), (int)world_boundary.Size().x, (int)world_boundary.Size().y);
+    //glPopMatrix();
+    //
+
+    DrawShape shape;
+    shape.SetLineWidth(2);
+    shape.SetColor(1.0f, 1.0f, 1.0f, 1.0f);
     glPushMatrix();
-    glMultMatrixd(&(display_matrix[0][0]));
-    draw_shape.DrawRectangle((int)world_boundary.Left(), (int)world_boundary.Bottom(), (int)world_boundary.Size().x, (int)world_boundary.Size().y);
+    Math::rect world_boundary = WorldBoundary();
+    //glMultMatrixd(&(display_matrix[0][0], display_matrix[1][0], display_matrix[0][1], display_matrix[1][1], display_matrix[0][2], display_matrix[1][2]));
+    shape.DrawRectangle(world_boundary.Left(), world_boundary.Bottom(), world_boundary.Size().x, world_boundary.Size().y);
     glPopMatrix();
-    
 }
 
 

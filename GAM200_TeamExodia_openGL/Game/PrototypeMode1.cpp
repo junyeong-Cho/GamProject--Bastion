@@ -44,7 +44,6 @@ PrototypeMode1::PrototypeMode1() : player_ptr()
 
 }
 
-
 void PrototypeMode1::Load()
 {
 	// Music
@@ -63,7 +62,8 @@ void PrototypeMode1::Load()
 	int tile_size_x = window_size.x / tile_row;
 	int tile_size_y = window_size.y / tile_col;
 	// Set Map
-	Map::GetInstance().SetMap1();
+	//Map::GetInstance().SetMap1();
+	Map::GetInstance().SetMap("assets/Map3.txt");
 	map_info = Map::GetInstance().GetMap();
 	// Need to change to a function!!!!!!!!!!!!!! Maybe not??
 	for (int y = 0; y < tile_col; ++y) {
@@ -164,7 +164,7 @@ void PrototypeMode1::Draw()
 	//score.Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 10 - timer_texture.GetSize().x, Engine::GetWindow().GetSize().y - timer_texture.GetSize().y - 80 }));
 
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
-	
+
 	
 	w.Draw(1200 - 150, 0, 150*2, 400*2);
 }

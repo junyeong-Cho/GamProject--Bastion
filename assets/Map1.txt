@@ -1,0 +1,13 @@
+9
+16
+P P P P P P P P P P P P B B B B
+P P P P P P P P P P P P B B B B
+B B B B B B B B B B P P B B B B
+B B B B B B B B B B P P B B B B
+B B B B B B B B B B P P P P P P
+B B B B B B B B B B P P P P P P
+B B B B B B B B B B B B B B B B
+B B B B B B B B B B B B B B B B
+B B B B B B B B B B B B B B B B
+0 0
+5 15

@@ -15,8 +15,6 @@ public:
 		return map;
 	}
 	void SetMap(std::string file_name);
-	void SetMap1();
-	void SetMap2();
 	Math::ivec2 GetStartPoint() const { return start_point; }
 	Math::ivec2 GetEndPoint() const { return end_point; }
 	void MapUnload();
@@ -27,8 +25,8 @@ private:
 	Math::ivec2 start_point;
 	Math::ivec2 end_point;
 
-	int cols;
-	int rows;
+	int cols = 0;
+	int rows = 0;
 
 };
 

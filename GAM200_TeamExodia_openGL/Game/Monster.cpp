@@ -25,28 +25,8 @@ Monster::Monster(Math::vec2 position, Player* player) : GameObject(position), m_
     // State
     current_state = &state_walking;
     current_state->Enter(this);
-    // Path finding
-    path = Astar::GetInstance().GetPath();
-
-    tile_index = 0;
-    current_tile_position = path[tile_index++];
-    // Set Direction, speed, position...
-    Math::ivec2 direction = path[1] - path[0];
-    if (direction.x == 1)
-        m_walking_direction = WalkingDirection::Right;
-    else if (direction.x == -1)
-        m_walking_direction = WalkingDirection::Left;
-    else if (direction.y == 1)
-        m_walking_direction = WalkingDirection::UP;
-    else if (direction.y == -1)
-        m_walking_direction = WalkingDirection::DOWN;
-    else
-        Engine::GetLogger().LogError("Monster Direction Error!");
 
     walking_speed = static_cast<int>(tile_size.x / 2);
-    
-    SetPosition({ tile_size.x * static_cast<double>(current_tile_position.x), tile_size.y * static_cast<double>(current_tile_position.y) });
-    next_tile_position = path[tile_index++];
 }
 
 
@@ -122,6 +102,40 @@ void Monster::State_Dead::CheckExit(GameObject* object)
 void Monster::State_Walking::Enter(GameObject* object)
 {
     Monster* monster = static_cast<Monster*>(object);
+
+    // Path finding
+    monster -> path = Astar::GetInstance().GetPath();
+
+    monster->tile_index = 0;
+    monster->current_tile_position = monster->path[monster->tile_index++];
+
+    // Set Direction, speed, position...
+    Math::ivec2 direction = monster->path[1] - monster->path[0];
+    if (direction.x == 1)
+    {
+        monster->m_walking_direction = WalkingDirection::Right;
+    }
+    else if (direction.x == -1)
+    {
+        monster->m_walking_direction = WalkingDirection::Left;
+    }
+    else if (direction.y == 1)
+    {
+        monster->m_walking_direction = WalkingDirection::UP;
+    }
+    else if (direction.y == -1)
+    {
+        monster->m_walking_direction = WalkingDirection::DOWN;
+    }
+    else
+    {
+        Engine::GetLogger().LogError("Monster Direction Error!");
+    }
+
+    Math::vec2 tile_size = Math::vec2(Engine::GetWindow().GetSize().x / 16.0, Engine::GetWindow().GetSize().y / 9.0);
+
+    monster->SetPosition({ tile_size.x * static_cast<double>(monster->current_tile_position.x), tile_size.y * static_cast<double>(monster->current_tile_position.y) });
+    monster->next_tile_position = monster->path[monster->tile_index++];
 }
 
 void Monster::State_Walking::Update(GameObject* object, double dt)

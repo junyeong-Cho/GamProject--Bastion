@@ -35,7 +35,7 @@ Updated:    November 1, 2023
 #include <imgui.h>
 
 
-Mode1::Mode1()
+Mode1::Mode1() : cat_ptr()
 {
  //   score_texture = nullptr;
 }
