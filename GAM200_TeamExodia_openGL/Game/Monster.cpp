@@ -19,14 +19,14 @@ Monster::Monster(Math::vec2 position, Player* player) : GameObject(position), m_
     Math::vec2 tile_size = Math::vec2(Engine::GetWindow().GetSize().x / 16.0, Engine::GetWindow().GetSize().y / 9.0);
     size_x = static_cast<int>(tile_size.x * 2 / 3);
     size_y = static_cast<int>(tile_size.y * 2 / 3);
+    walking_speed = static_cast<int>(tile_size.x / 2);
     // Settings
     SetVelocity({ 0, 0 });
     AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{0, 0}, Math::ivec2{size_x, size_y} }, this));
+    tile_index = 0;
     // State
     current_state = &state_walking;
     current_state->Enter(this);
-
-    walking_speed = static_cast<int>(tile_size.x / 2);
 }
 
 
@@ -106,7 +106,6 @@ void Monster::State_Walking::Enter(GameObject* object)
     // Path finding
     monster -> path = Astar::GetInstance().GetPath();
 
-    monster->tile_index = 0;
     monster->current_tile_position = monster->path[monster->tile_index++];
 
     // Set Direction, speed, position...

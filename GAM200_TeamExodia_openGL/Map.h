@@ -18,6 +18,7 @@ public:
 	Math::ivec2 GetStartPoint() const { return start_point; }
 	Math::ivec2 GetEndPoint() const { return end_point; }
 	void MapUnload();
+	Math::ivec2 GetSize() const { return Math::ivec2(cols, rows); }
 
 private:
 	int** map = nullptr;

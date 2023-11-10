@@ -54,17 +54,15 @@ void PrototypeMode1::Load()
 	AddGSComponent(new GAM200::GameObjectManager());
 	// Camera
 	AddGSComponent(new GAM200::Camera({ { 0.15 * Engine::GetWindow().GetSize().x, 0 }, { 0.35 * Engine::GetWindow().GetSize().x, 0 } }));
-	// Window, tiles
-	Math::ivec2 window_size = Engine::GetWindow().GetSize();
-	std::cout << "Window Size: " << window_size.x << ", " << window_size.y << std::endl;
-	int tile_col = 9;
-	int tile_row = 16;
-	int tile_size_x = window_size.x / tile_row;
-	int tile_size_y = window_size.y / tile_col;
 	// Set Map
-	//Map::GetInstance().SetMap1();
 	Map::GetInstance().SetMap("assets/Map3.txt");
 	map_info = Map::GetInstance().GetMap();
+	// Window, tiles
+	Math::ivec2 window_size = Engine::GetWindow().GetSize();
+	int tile_col = Map::GetInstance().GetSize().x;
+	int tile_row = Map::GetInstance().GetSize().y;
+	int tile_size_x = window_size.x / tile_row;
+	int tile_size_y = window_size.y / tile_col;
 	// Need to change to a function!!!!!!!!!!!!!! Maybe not??
 	for (int y = 0; y < tile_col; ++y) {
 		for (int x = 0; x < tile_row; ++x) {
@@ -233,6 +231,23 @@ void PrototypeMode1::ImguiDraw()
 		}
 
 
+	}
+	ImGui::End();
+
+	ImGui::Begin("Tile Position Info");
+	{
+		Math::ivec2 window_size = Engine::GetWindow().GetSize();
+		int tile_col = Map::GetInstance().GetSize().x;
+		int tile_row = Map::GetInstance().GetSize().y;
+		int tile_size_x = window_size.x / tile_row;
+		int tile_size_y = window_size.y / tile_col;
+
+		Math::vec2 mouse_position = Engine::GetMouse().GetMousePosition();
+		Math::ivec2 mouse_tile_position = Math::ivec2(static_cast<int>(mouse_position.x / tile_size_x), static_cast<int>(mouse_position.y / tile_size_y));
+
+
+		ImGui::Text("Current Tile Info : %d, %d", mouse_position.x, mouse_position.y);
+		ImGui::Text("Current Tile Info : %d, %d", mouse_tile_position.x, mouse_tile_position.y);
 	}
 	ImGui::End();
 
