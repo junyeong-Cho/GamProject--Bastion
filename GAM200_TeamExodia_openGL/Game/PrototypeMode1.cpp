@@ -189,14 +189,14 @@ void PrototypeMode1::ImguiDraw()
 		if (ImGui::SliderInt("Adjust Life", &life, 1, 30, "%d")) {
 			GetGSComponent<Life>()->SetValue(life);
 		}
-		if (ImGui::SliderInt("Adjust Game Speed", &game_speed, 1, max_speed, "%d")) {
-			Engine::GetLogger().LogEvent("Game Speed: x" + std::to_string(game_speed));
+		if (ImGui::SliderInt("Adjust Game Speed", &game_speed, 0, max_speed, "%d")) {
+			GetGSComponent<GameSpeed>()->SetValue(game_speed);
 		}
 	}
 	ImGui::End();
 
 
-	ImGui::Begin("Produec");
+	ImGui::Begin("Produce");
 	{
 		if (ImGui::Button("Produce Basic Monster"))
 		{

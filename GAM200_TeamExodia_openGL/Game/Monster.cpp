@@ -13,6 +13,12 @@
 #include "Life.h"
 
 Monster::Monster(Math::vec2 position, Player* player) : GameObject(position), m_player(player) {
+
+    Math::vec2 tile_size = Math::vec2(Engine::GetWindow().GetSize().x / 16.0, Engine::GetWindow().GetSize().y / 9.0);
+
+    size_x = tile_size.x * 2 / 3;
+    size_y = tile_size.y * 2 / 3;
+
     SetPosition(position);
     SetVelocity({ 0, 0 });
     AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{0, 0}, Math::ivec2{size_x, size_y} }, this));
@@ -25,7 +31,8 @@ Monster::Monster(Math::vec2 position, Player* player) : GameObject(position), m_
     tile_index = 0;
     current_tile_position = path[tile_index++];
 
-    Math::vec2 tile_size = Math::vec2(Engine::GetWindow().GetSize().x / 16.0, Engine::GetWindow().GetSize().y / 9.0);
+    walking_speed = tile_size.x / 2;
+
 
     SetPosition({ tile_size.x * static_cast<double>(current_tile_position.x), tile_size.y * static_cast<double>(current_tile_position.y) });
     next_tile_position = path[tile_index++];
@@ -114,10 +121,36 @@ void Monster::State_Walking::Update(GameObject* object, double dt)
 
     Math::vec2 position = monster->GetPosition();
     // Update monster's current tile position
-    if (monster->GetPosition().x > monster->next_tile_position.x * tile_size.x - 10 &&
-        monster->GetPosition().x < monster->next_tile_position.x * tile_size.x + 10 &&
-        monster->GetPosition().y > monster->next_tile_position.y * tile_size.y - 10&&
-        monster->GetPosition().y < monster->next_tile_position.y * tile_size.y + 10)
+    /*static bool change_direction = false;
+
+    switch (monster->m_walking_direction) {
+    case(WalkingDirection::Right):
+        if (monster->boundary.Left() > monster->next_tile_position.x * tile_size.x)
+            change_direction = true;
+        break;
+    case(WalkingDirection::Left):
+        if (monster->boundary.Right() < (monster->next_tile_position.x + 1) * tile_size.x)
+            change_direction = true;
+        break;
+    case(WalkingDirection::UP):
+        if (monster->boundary.Bottom() > monster->next_tile_position.y * tile_size.y)
+            change_direction = true;
+        break;
+    case(WalkingDirection::DOWN):
+        if (monster->boundary.Top() < (monster->next_tile_position.y + 1) * tile_size.y)
+            change_direction = true;
+        break;
+    }
+    
+    if (change_direction) {
+        std::cout << "Change Detected!\n";
+        monster->current_tile_position = Math::ivec2(static_cast<int>(position.x / tile_size.x), static_cast<int>(position.y / tile_size.y));
+        change_direction = false;
+    }*/
+    if (monster->GetPosition().x > monster->next_tile_position.x * tile_size.x - 20 &&
+        monster->GetPosition().x < monster->next_tile_position.x * tile_size.x + 20 &&
+        monster->GetPosition().y > monster->next_tile_position.y * tile_size.y - 20&&
+        monster->GetPosition().y < monster->next_tile_position.y * tile_size.y + 20)
     {
         monster->current_tile_position = Math::ivec2(static_cast<int>(position.x / tile_size.x), static_cast<int>(position.y / tile_size.y));
     }

@@ -4,7 +4,7 @@ void GameSpeed::NextSpeed()
 {
 	game_speed += 1;
 	if (game_speed > max_speed)
-		game_speed = 1;
+		game_speed = 0;
 }
 
 int GameSpeed::Value() const

@@ -47,10 +47,9 @@ protected:
     Math::ivec2 current_tile_position;
     Math::ivec2 next_tile_position;
 
-    int size_x = 160 / 2;
-    int size_y = 105 / 2;
-
-    int walking_speed = 175;
+    int size_x;
+    int size_y;
+    int walking_speed;
 
     int score = 1;
     int gold = 10;
