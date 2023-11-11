@@ -33,19 +33,22 @@ void GAM200::Mouse::Update() {
 	}
 }
 
-
-
 //이름이 HandleEvent인 이유는 GameStateManager에서 HandleEvent를 호출하기 때문임
 //간단하게 Update 기능을 수행한다고 생각하면 된다.
 void GAM200::Mouse::HandleEvent(SDL_Event& event)
 {
 	mouse_event = event;
-	//previous_buttons_down = buttons_down;
+
 	if (mouse_event.type == SDL_MOUSEBUTTONDOWN || mouse_event.type == SDL_MOUSEBUTTONUP) {
 		MouseButtons buttons = convert_opengl_to_gam200(mouse_event);
 
 		if (buttons != MouseButtons::NONE) {
-			bool is_pressed = (mouse_event.type == SDL_MOUSEBUTTONDOWN);
+			if (mouse_event.type == SDL_MOUSEBUTTONDOWN) {
+				is_pressed = true;
+			}
+			else if (mouse_event.type == SDL_MOUSEBUTTONUP) {
+				is_pressed = false;
+			}
 
 			SetMouseDown(buttons, is_pressed);
 		}

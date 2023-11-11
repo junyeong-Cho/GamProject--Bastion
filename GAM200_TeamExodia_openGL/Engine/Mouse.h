@@ -100,6 +100,7 @@ namespace GAM200
 
 		Math::vec2 mouse_position;
 
+		bool is_pressed = false;
 		bool wheel_moved = false;
 
 		std::vector<bool> buttons_down;
