@@ -52,6 +52,16 @@ namespace Math
                 (Top() - Bottom())
             };
         }
+
+        Math::vec2 GetPoint1()
+        {
+            return point1;
+        }
+
+        Math::vec2 GetPoint2()
+        {
+            return point2;
+        }
     };
 
     struct [[nodiscard]] irect

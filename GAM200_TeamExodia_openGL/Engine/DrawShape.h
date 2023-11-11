@@ -47,7 +47,11 @@ namespace GAM200
 		void DrawRectangle(int x, int y, int width, int height);
 		void DrawRectangleWithPoints(int x1, int y1, int x2, int y2);
 
+		void DrawRectangle_NoFill(int x, int y, int width, int height);
+		void DrawRectangle_NoFill_WithPoints(int x1, int y1, int x2, int y2);
+		void DrawRectangle_NoFill_WithPoints(Math::vec2 topLeft, Math::vec2 topRight, Math::vec2 bottomLeft, Math::vec2 bottomRight);
 
+		void DrawRectangle_NoFill_WithBoundaries(Math::rect world_boundary, Math::TransformationMatrix);
 
 		void DrawCircle(int x, int y, int radius, int area);
 		
