@@ -20,6 +20,8 @@ Updated:    October		10, 2023
 #include "States.h"
 #include "Bullet.h"
 
+#include "../Engine/Mouse.h"
+
 
 Player::Player(Math::vec2 start_position, int size_x, int size_y) : GameObject(start_position), size_x(size_x), size_y(size_y) {
     //AddGOComponent(new GAM200::Sprite("Assets/Player.spt", this));
@@ -76,15 +78,25 @@ void Player::Update(double dt) {
         not_clicked = true;
     }
     if (not_clicked && Engine::GetMouse().MouseIsPressed()) {
-        // Some machanism
-        Math::vec2 player_position = Math::vec2({ GetPosition().x + size_x / 2, GetPosition().y + size_y / 2 });
-        Math::ivec2 window_size = Engine::GetWindow().GetSize();
-        Math::vec2 mouse_position = Engine::GetMouse().GetMousePosition();
+        if (Engine::GetMouse().MouseButton() == GAM200::Mouse::MouseButtons::LEFT)
+        {
+            // Some machanism
+            Math::vec2 player_position = Math::vec2({ GetPosition().x + size_x / 2, GetPosition().y + size_y / 2 });
+            Math::ivec2 window_size = Engine::GetWindow().GetSize();
+            Math::vec2 mouse_position = Engine::GetMouse().GetMousePosition();
 
-        Math::vec2 real_mouse_position = Math::vec2({ mouse_position.x, mouse_position.y});
-        Math::vec2 bullet_direction = Math::vec2({ real_mouse_position.x - player_position.x, real_mouse_position.y - player_position.y });
-        bullet_direction /= bullet_direction.GetLength();
-        Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity));
+            Math::vec2 real_mouse_position = Math::vec2({ mouse_position.x, mouse_position.y });
+            Math::vec2 bullet_direction = Math::vec2({ real_mouse_position.x - player_position.x, real_mouse_position.y - player_position.y });
+            bullet_direction /= bullet_direction.GetLength();
+            Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity));
+
+        }
+        if (Engine::GetMouse().MouseButton() == GAM200::Mouse::MouseButtons::RIGHT)
+        {
+            Engine::GetLogger().LogEvent("Tower!");
+
+
+        }
 
         not_clicked = false;
     }
