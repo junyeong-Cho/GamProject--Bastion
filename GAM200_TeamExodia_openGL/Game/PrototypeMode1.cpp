@@ -57,7 +57,7 @@ void PrototypeMode1::Load()
 	AddGSComponent(new GAM200::Camera({ { 0.15 * Engine::GetWindow().GetSize().x, 0 }, { 0.35 * Engine::GetWindow().GetSize().x, 0 } }));
 
 	// Set Map
-	PrototypeMode1::SetMap("assets/Map2.txt");
+	PrototypeMode1::SetMap("assets/maps/Map2.txt");
 
 	// Add Player
 	player_ptr = new Player({ 0, 0 }, tile_size_x * 2 / 3, tile_size_y * 2 / 3);

@@ -35,4 +35,6 @@ private:
 	int tile_size_x = 0;
 	int tile_size_y = 0;
 
+	/*int wave_num = 0;
+	std::vector<int>* wave_info;*/
 };

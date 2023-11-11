@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
 
 #include "Map.h"
 #include "Engine/Engine.h"
@@ -58,10 +59,25 @@ void Map::SetMap(std::string file_name) {
 		}
 
 		// Set start and end point
-		file >> start_point.x;
-		file >> start_point.y;
-		file >> end_point.x;
-		file >> end_point.y;
+		file >> start_point.x; file >> start_point.y;
+		file >> end_point.x;   file >> end_point.y;
+
+		//// Wave info!
+		//file >> wave_num;
+
+		//wave_info.reserve(wave_num);
+
+		//std::string info;
+		//for (int i = 0; i < wave_num; ++i)
+		//{
+		//	while (1)
+		//	{
+		//		file >> info;
+		//		if (info == "END")
+		//			break;
+		//		wave_info[i] += info;
+		//	}
+		//}
 
 		file.close();
 	}
