@@ -186,6 +186,3 @@ bool GAM200::Input::KeyJustReleased(Keys key)
 {
     return keys_down[static_cast<int>(key)] == false && previous_keys_down[static_cast<int>(key)] == true;
 }
-
-
-

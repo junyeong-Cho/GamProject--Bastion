@@ -47,17 +47,11 @@ void PrototypeSplash::Load()
 
 void PrototypeSplash::Update(double dt)
 {
-    if (Engine::GetMouse().MouseIsPressed())
-    {
-        if (Engine::GetMouse().MouseButton() == GAM200::Mouse::MouseButtons::LEFT)
-        {
-            x += (int)(velocity * dt);
-        }
-        else if (Engine::GetMouse().MouseButton() == GAM200::Mouse::MouseButtons::RIGHT)
-        {
-            x -= (int)(velocity * dt);
-        }
-
+    if (Engine::GetMouse().MouseDown(GAM200::Mouse::MouseButtons::LEFT)) {
+        x += (int)(velocity * dt);
+    }
+    else if (Engine::GetMouse().MouseDown(GAM200::Mouse::MouseButtons::RIGHT)) {
+        x -= (int)(velocity * dt);
     }
 
     if (Engine::GetMouse().WheelIsMoved())

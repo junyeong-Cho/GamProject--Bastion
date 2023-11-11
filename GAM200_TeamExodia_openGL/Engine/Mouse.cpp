@@ -14,14 +14,42 @@ Updated:    October 6, 2023
 #include "Engine.h"
 #include "Normalization.h"
 
+#include <SDL2/SDL.h>
+#include "ImGuiHelper.h"
+
+GAM200::Mouse::Mouse() {
+	buttons_down.resize(static_cast<int>(MouseButtons::NONE));
+	previous_buttons_down.resize(static_cast<int>(MouseButtons::NONE));
+}
+
+void GAM200::Mouse::Update() {
+	previous_buttons_down = buttons_down;
+
+	SDL_Event event;
+	while (SDL_PollEvent(&event) != 0)
+	{
+		ImGuiHelper::FeedEvent(event);
+		HandleEvent(event);
+	}
+}
+
+
 
 //이름이 HandleEvent인 이유는 GameStateManager에서 HandleEvent를 호출하기 때문임
 //간단하게 Update 기능을 수행한다고 생각하면 된다.
 void GAM200::Mouse::HandleEvent(SDL_Event& event)
 {
 	mouse_event = event;
+	//previous_buttons_down = buttons_down;
+	if (mouse_event.type == SDL_MOUSEBUTTONDOWN || mouse_event.type == SDL_MOUSEBUTTONUP) {
+		MouseButtons buttons = convert_opengl_to_gam200(mouse_event);
 
+		if (buttons != MouseButtons::NONE) {
+			bool is_pressed = (mouse_event.type == SDL_MOUSEBUTTONDOWN);
 
+			SetMouseDown(buttons, is_pressed);
+		}
+	}
 	//원래는 WheelIsMoved안에 있었으나 이렇게 바꾼 이유는
 	//WheelIsMoved가 호출되는 시점이 HandleEvent보다 늦기 때문에
 	//속도 좀 높여줄려고 여기다가 넣음
@@ -35,7 +63,6 @@ void GAM200::Mouse::HandleEvent(SDL_Event& event)
 
 	if (mouse_event.type == SDL_MOUSEMOTION)
 	{
-
 		mouse_position.x = mouse_event.motion.x;
 		mouse_position.y = mouse_event.motion.y;
 
@@ -49,20 +76,12 @@ void GAM200::Mouse::HandleEvent(SDL_Event& event)
 		{
 			mouse_position.y = Engine::GetWindow().GetSize().y - mouse_position.y;
 		}
-
-	}
-}
-
-
-bool GAM200::Mouse::MouseIsPressed()
-{
-	if (mouse_event.type == SDL_MOUSEBUTTONDOWN)
-	{
-		return true;
 	}
 
-	return false;
-
+	// Log mouse event (pressed or released)
+	if (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_MOUSEBUTTONUP) {
+		Engine::GetLogger().LogDebug((event.type == SDL_MOUSEBUTTONDOWN) ? "Mouse Pressed" : "Mouse Released");
+	}
 }
 
 bool GAM200::Mouse::WheelIsMoved()
@@ -70,7 +89,7 @@ bool GAM200::Mouse::WheelIsMoved()
 	if (wheel_moved)
 	{
 		// 움직임 상태 초기화
-		wheel_moved = false; 
+		wheel_moved = false;
 
 		return true;
 	}
@@ -80,9 +99,28 @@ bool GAM200::Mouse::WheelIsMoved()
 
 Math::vec2 GAM200::Mouse::GetMousePosition()
 {
-    
+	return mouse_position;
+}
 
-    return mouse_position;
+
+void GAM200::Mouse::SetMouseDown(MouseButtons button, bool value)
+{
+	buttons_down[static_cast<int>(button)] = value;
+}
+
+bool GAM200::Mouse::MouseDown(MouseButtons button)
+{
+	return buttons_down[static_cast<int>(button)];
+}
+
+bool GAM200::Mouse::MouseJustPressed(MouseButtons button)
+{
+	return buttons_down[static_cast<int>(button)] == true && previous_buttons_down[static_cast<int>(button)] == false;
+}
+
+bool GAM200::Mouse::MouseJustReleased(MouseButtons button)
+{
+	return buttons_down[static_cast<int>(button)] == false && previous_buttons_down[static_cast<int>(button)] == true;
 }
 
 

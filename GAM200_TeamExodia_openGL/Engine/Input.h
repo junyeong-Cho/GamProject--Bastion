@@ -30,6 +30,10 @@ namespace GAM200
 			Unknown
 		};
 
+		enum class Buttons {
+
+		};
+
 		Input();
 
 		void Update();
