@@ -155,11 +155,25 @@ void PrototypeMode1::ImguiDraw()
 		int score = GetGSComponent<Score>()->Value();
 		int game_speed = GetGSComponent<GameSpeed>()->Value();
 		int max_speed = GetGSComponent<GameSpeed>()->GetMax();
+		float* musicVolume = (GetGSComponent<GAM200::MusicEffect>()->GetMusicVolume());
 
 		ImGui::Text("Killed Monster : %d", score);
 		ImGui::Text("Gold : %d", gold);
 		ImGui::Text("Life : %d", life);
 		ImGui::Text("Game Speed : %d", game_speed);
+
+		////////// Mouse tile info ////////////
+		Math::ivec2 window_size = Engine::GetWindow().GetSize();
+		int tile_col = Map::GetInstance().GetSize().x;
+		int tile_row = Map::GetInstance().GetSize().y;
+		int tile_size_x = window_size.x / tile_row;
+		int tile_size_y = window_size.y / tile_col;
+
+		Math::vec2 mouse_position = Engine::GetMouse().GetMousePosition();
+		Math::ivec2 mouse_tile_position = Math::ivec2(static_cast<int>(mouse_position.x / tile_size_x), static_cast<int>(mouse_position.y / tile_size_y));
+
+		ImGui::Text("Current Tile Info : %d, %d", mouse_tile_position.x, mouse_tile_position.y);
+		////////////////////////////////////////
 
 		if (ImGui::SliderInt("Adjust Gold", &gold, 0, 600, "%d")) {
 			GetGSComponent<Gold>()->SetValue(gold);
@@ -169,6 +183,11 @@ void PrototypeMode1::ImguiDraw()
 		}
 		if (ImGui::SliderInt("Adjust Game Speed", &game_speed, 0, max_speed, "%d")) {
 			GetGSComponent<GameSpeed>()->SetValue(game_speed);
+		}
+
+		if (ImGui::SliderFloat("Max Volume", musicVolume, 0.0f, 100.0f, "%.0f"))
+		{
+			GetGSComponent<GAM200::MusicEffect>()->SetVolume(*musicVolume);
 		}
 	}
 	ImGui::End();
@@ -196,38 +215,11 @@ void PrototypeMode1::ImguiDraw()
 				++tower_offset;
 			}
 		}
-	}
-	ImGui::End();
-
-
-	ImGui::Begin("Music Info");
-	{
-
-		float* musicVolume = (GetGSComponent<GAM200::MusicEffect>()->GetMusicVolume());
-
-		if (ImGui::SliderFloat("Max Volume", musicVolume, 0.0f, 100.0f, "%.0f"))
-		{
-			GetGSComponent<GAM200::MusicEffect>()->SetVolume(*musicVolume);
-		}
 
 
 	}
 	ImGui::End();
 
-	ImGui::Begin("Tile Position Info");
-	{
-		Math::ivec2 window_size = Engine::GetWindow().GetSize();
-		int tile_col = Map::GetInstance().GetSize().x;
-		int tile_row = Map::GetInstance().GetSize().y;
-		int tile_size_x = window_size.x / tile_row;
-		int tile_size_y = window_size.y / tile_col;
-
-		Math::vec2 mouse_position = Engine::GetMouse().GetMousePosition();
-		Math::ivec2 mouse_tile_position = Math::ivec2(static_cast<int>(mouse_position.x / tile_size_x), static_cast<int>(mouse_position.y / tile_size_y));
-
-		ImGui::Text("Current Tile Info : %d, %d", mouse_tile_position.x, mouse_tile_position.y);
-	}
-	ImGui::End();
 
 }
 
