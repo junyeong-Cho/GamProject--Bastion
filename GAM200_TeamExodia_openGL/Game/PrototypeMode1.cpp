@@ -52,41 +52,20 @@ void PrototypeMode1::Load()
 
 	// Game Object
 	AddGSComponent(new GAM200::GameObjectManager());
+
 	// Camera
 	AddGSComponent(new GAM200::Camera({ { 0.15 * Engine::GetWindow().GetSize().x, 0 }, { 0.35 * Engine::GetWindow().GetSize().x, 0 } }));
+
 	// Set Map
-	Map::GetInstance().SetMap("assets/Map3.txt");
-	map_info = Map::GetInstance().GetMap();
-	// Window, tiles
-	Math::ivec2 window_size = Engine::GetWindow().GetSize();
-	int tile_col = Map::GetInstance().GetSize().x;
-	int tile_row = Map::GetInstance().GetSize().y;
-	int tile_size_x = window_size.x / tile_row;
-	int tile_size_y = window_size.y / tile_col;
-	// Need to change to a function!!!!!!!!!!!!!! Maybe not??
-	for (int y = 0; y < tile_col; ++y) {
-		for (int x = 0; x < tile_row; ++x) {
-			switch (map_info[y][x]) {
-			case static_cast<int>(GameObjectTypes::Pass__Tile):
-				GetGSComponent<GAM200::GameObjectManager>()->Add(new Pass__Tile(Math::irect{ { x * tile_size_x, y * tile_size_y }, { (x + 1) * tile_size_x, (y + 1) * tile_size_y } }));
-				break;
-			case static_cast<int>(GameObjectTypes::Block_Tile):
-				GetGSComponent<GAM200::GameObjectManager>()->Add(new Block_Tile(Math::irect{ { x * tile_size_x, y * tile_size_y }, { (x + 1) * tile_size_x, (y + 1) * tile_size_y } }));
-				break;
-			default:
+	PrototypeMode1::SetMap("assets/Map2.txt");
 
-				break;
-			}
-		}
-
-	}
-	// Set Path using AStar
-	Astar::GetInstance().UpdatePath(map_info, Map::GetInstance().GetStartPoint(), Map::GetInstance().GetEndPoint());
 	// Add Player
 	player_ptr = new Player({ 0, 0 }, tile_size_x * 2 / 3, tile_size_y * 2 / 3);
 	GetGSComponent<GAM200::GameObjectManager>()->Add(player_ptr);
+
 	// Camera Setting
 	GetGSComponent<GAM200::Camera>()->SetPosition({ 0, 0 });
+
 	// Informations
 	AddGSComponent(new Score());
 	AddGSComponent(new Gold());
@@ -209,6 +188,7 @@ void PrototypeMode1::ImguiDraw()
 		}
 
 		static int size = 80;
+
 		if (ImGui::Button("Produce Tower"))
 		{
 			if (GetGSComponent<Gold>()->Value() >= Basic_Tower::GetCost()) {
@@ -245,8 +225,6 @@ void PrototypeMode1::ImguiDraw()
 		Math::vec2 mouse_position = Engine::GetMouse().GetMousePosition();
 		Math::ivec2 mouse_tile_position = Math::ivec2(static_cast<int>(mouse_position.x / tile_size_x), static_cast<int>(mouse_position.y / tile_size_y));
 
-
-		ImGui::Text("Current Tile Info : %d, %d", mouse_position.x, mouse_position.y);
 		ImGui::Text("Current Tile Info : %d, %d", mouse_tile_position.x, mouse_tile_position.y);
 	}
 	ImGui::End();
@@ -256,4 +234,31 @@ void PrototypeMode1::ImguiDraw()
 void PrototypeMode1::HandleEvent(SDL_Event& event)
 {
 
+}
+
+
+void PrototypeMode1::SetMap(std::string file_name) 
+{
+	// Set Map
+	Map::GetInstance().SetMap(file_name);
+
+	// Window, tiles
+	Math::ivec2 window_size = Engine::GetWindow().GetSize();
+	tile_col = Map::GetInstance().GetSize().x;
+	tile_row = Map::GetInstance().GetSize().y;
+	tile_size_x = window_size.x / tile_row;
+	tile_size_y = window_size.y / tile_col;
+
+	Astar::GetInstance().UpdatePath(Map::GetInstance().GetMap(), Map::GetInstance().GetStartPoint(), Map::GetInstance().GetEndPoint());
+}
+
+
+void PrototypeMode1::ChangeTile(Math::ivec2 position, GameObjectTypes type) {
+	Map::GetInstance().ChangeTile(position, type);
+
+	int cols = position.y;
+	int rows = position.x;
+
+	
+	GetGSComponent<GAM200::GameObjectManager>()->Add(new Pass__Tile(Math::irect{ { rows * tile_size_x, cols * tile_size_y }, { (rows + 1) * tile_size_x, (cols + 1) * tile_size_y } }));
 }

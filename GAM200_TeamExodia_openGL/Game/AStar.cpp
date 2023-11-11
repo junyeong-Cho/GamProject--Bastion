@@ -5,9 +5,10 @@
 #include <limits>
 #include "../Engine/Engine.h"
 #include "GameObjectTypes.h"
+#include "../Map.h"
+#include "Tile.h"
 
-
-void Astar::UpdatePath(int** map, Math::ivec2 start, Math::ivec2 target) {
+void Astar::UpdatePath(Tile*** map, Math::ivec2 start, Math::ivec2 target) {
 	std::vector<Math::ivec2> openList;
 	std::vector<Math::ivec2> closedList;
 	std::unordered_map<Math::ivec2, Math::ivec2> cameFrom;
@@ -37,8 +38,7 @@ void Astar::UpdatePath(int** map, Math::ivec2 start, Math::ivec2 target) {
 				[&](const Math::ivec2& element) { return element == neighbor; }) != closedList.end()) {
 				continue;
 			}
-
-			if (map[neighbor.y][neighbor.x] == static_cast<int>(GameObjectTypes::Block_Tile))
+			if (map[neighbor.y][neighbor.x]->Type() == (GameObjectTypes::Block_Tile))
 				continue;
 
 			cameFrom[neighbor] = current;

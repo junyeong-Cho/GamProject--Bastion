@@ -35,6 +35,8 @@ public:
     void ImguiDraw()                             override;
     void HandleEvent(SDL_Event& event)           override;
 
+    void SetMap(std::string file_name);
+    void ChangeTile(Math::ivec2 position, GameObjectTypes type);
 
 
 
@@ -49,15 +51,15 @@ public:
 
     Player* player_ptr;
 
-    //int basic_monster_produce_number = 1;
-    //int fast_monster_produce_number = 1;
+    int tile_col = 0;
+    int tile_row = 0;
+    int tile_size_x = 0;
+    int tile_size_y = 0;
 
 private:
 
     GAM200::Texture m = GAM200::Texture("assets/images/m.png", GAM200::Texture::TextureType::RECTANGLE);
     GAM200::Texture w = GAM200::Texture("assets/images/w.png", GAM200::Texture::TextureType::RECTANGLE);
-
-    int** map_info = nullptr;
 
     int tower_offset = 0;
 };

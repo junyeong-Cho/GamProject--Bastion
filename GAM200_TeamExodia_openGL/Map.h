@@ -4,6 +4,7 @@
 #include "Game/GameObjectTypes.h"
 #include "Engine/Vec2.h"
 
+class Tile;
 class Map {
 public:
 	static Map& GetInstance() {
@@ -11,7 +12,7 @@ public:
 		return instance;
 	}
 
-	int** GetMap() {
+	Tile*** GetMap() {
 		return map;
 	}
 	void SetMap(std::string file_name);
@@ -20,8 +21,10 @@ public:
 	void MapUnload();
 	Math::ivec2 GetSize() const { return Math::ivec2(cols, rows); }
 
+	void ChangeTile(Math::ivec2 position, GameObjectTypes type);
+
 private:
-	int** map = nullptr;
+	Tile*** map = nullptr;
 
 	Math::ivec2 start_point;
 	Math::ivec2 end_point;
@@ -29,25 +32,7 @@ private:
 	int cols = 0;
 	int rows = 0;
 
+	int tile_size_x = 0;
+	int tile_size_y = 0;
+
 };
-
-
-
-
-/*
-9
-16
-
-0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 1 1 1 1 0 0 0 0 0
-0 0 0 0 0 1 0 0 1 0 0 0 0 0
-0 0 1 1 1 1 0 0 1 0 0 0 0 0
-0 0 1 0 0 0 0 0 1 1 1 1 1 1
-0 0 1 0 0 0 0 0 0 0 0 0 0 0
-1 1 1 0 0 0 0 0 0 0 0 0 0 0
-
-
-
-
-*/

@@ -16,11 +16,12 @@ Updated:    October		11, 2023
 #include "../Engine/Collision.h"
 
 #include "../Game/Tile.h"
+#include "../Engine/GameObjectManager.h"
 
 Tile::Tile(Math::irect boundary) : GameObject(static_cast<Math::vec2>(boundary.point1)) {
 	size = boundary.Size();
 	AddGOComponent(new GAM200::RectCollision({ Math::ivec2{0, 0}, boundary.Size() }, this));
-
+	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
 
 void Tile::Update(double dt) {
