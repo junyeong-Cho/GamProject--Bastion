@@ -47,20 +47,20 @@ void PrototypeSplash::Load()
 
 void PrototypeSplash::Update(double dt)
 {
-    if (Engine::GetMouse().MouseDown(GAM200::Mouse::MouseButtons::LEFT)) {
+    if (Engine::GetInput().MouseDown(GAM200::Input::MouseButtons::LEFT)) {
         x += (int)(velocity * dt);
     }
-    else if (Engine::GetMouse().MouseDown(GAM200::Mouse::MouseButtons::RIGHT)) {
+    else if (Engine::GetInput().MouseDown(GAM200::Input::MouseButtons::RIGHT)) {
         x -= (int)(velocity * dt);
     }
 
-    if (Engine::GetMouse().WheelIsMoved())
+    if (Engine::GetInput().WheelIsMoved())
     {
-        if (Engine::GetMouse().MouseWheelDirection() == GAM200::Mouse::MouseWheel::Up)
+        if (Engine::GetInput().MouseWheelDirection() == GAM200::Input::MouseWheel::Up)
         {
 			y += (int)(velocity * dt);
 		}
-        else if (Engine::GetMouse().MouseWheelDirection() == GAM200::Mouse::MouseWheel::Down)
+        else if (Engine::GetInput().MouseWheelDirection() == GAM200::Input::MouseWheel::Down)
         {
 			y -= (int)(velocity * dt);
 		}
@@ -152,8 +152,8 @@ void PrototypeSplash::ImguiDraw()
     
     ImGui::Begin("Mouse Location");
     {
-        ImGui::Text("Mouse Position X : %d", Engine::Instance().GetMouse().GetMousePosition().x);
-        ImGui::Text("Mouse Position Y : %d", Engine::Instance().GetMouse().GetMousePosition().y);
+        ImGui::Text("Mouse Position X : %d", Engine::Instance().GetInput().GetMousePosition().x);
+        ImGui::Text("Mouse Position Y : %d", Engine::Instance().GetInput().GetMousePosition().y);
     }
 
     ImGui::End();

@@ -37,10 +37,10 @@ void GAM200::Mouse::Update() {
 //간단하게 Update 기능을 수행한다고 생각하면 된다.
 void GAM200::Mouse::HandleEvent(SDL_Event& event)
 {
-	mouse_event = event;
+	//mouse_event = event;
 
-	if (mouse_event.type == SDL_MOUSEBUTTONDOWN || mouse_event.type == SDL_MOUSEBUTTONUP) {
-		MouseButtons buttons = convert_opengl_to_gam200(mouse_event);
+	if (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_MOUSEBUTTONUP) {
+		MouseButtons buttons = convert_opengl_to_gam200(event);
 
 		if (buttons != MouseButtons::NONE) {
 			if (mouse_event.type == SDL_MOUSEBUTTONDOWN) {

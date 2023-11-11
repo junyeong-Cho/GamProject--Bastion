@@ -70,7 +70,7 @@ void Tower::State_Attacking::Update(GameObject* object, double dt) {
 
 	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x + tower->size / 2, tower->GetPosition().y + tower->size / 2 });
 	Math::ivec2 window_size = Engine::GetWindow().GetSize();
-	Math::vec2 mouse_position = Engine::GetMouse().GetMousePosition();
+	Math::vec2 mouse_position = Engine::GetInput().GetMousePosition();
 
 	Math::vec2 real_mouse_position = Math::vec2({ mouse_position.x, window_size.y - mouse_position.y });
 	Math::vec2 bullet_direction = Math::vec2({ real_mouse_position.x - tower_position.x, real_mouse_position.y - tower_position.y });
