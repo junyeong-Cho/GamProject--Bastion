@@ -74,44 +74,30 @@ void Player::Update(double dt) {
         }
     }
 
-    if (!Engine::GetMouse().MouseIsPressed()) {
-        not_clicked = true;
+    Math::vec2 player_position = Math::vec2({ GetPosition().x + size_x / 2, GetPosition().y + size_y / 2 });
+    Math::ivec2 window_size = Engine::GetWindow().GetSize();
+    Math::vec2 mouse_position = Engine::GetInput().GetMousePosition();
+
+    Math::vec2 real_mouse_position = Math::vec2({ mouse_position.x, mouse_position.y });
+    Math::vec2 bullet_direction = Math::vec2({ real_mouse_position.x - player_position.x, real_mouse_position.y - player_position.y });
+    bullet_direction /= bullet_direction.GetLength();
+    if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT))
+    {
+        // Some machanism
+
+        Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity));
     }
-    if (not_clicked && Engine::GetMouse().MouseIsPressed()) {
-        if (Engine::GetMouse().MouseButton() == GAM200::Mouse::MouseButtons::LEFT)
-        {
-            // Some machanism
-            Math::vec2 player_position = Math::vec2({ GetPosition().x + size_x / 2, GetPosition().y + size_y / 2 });
-            Math::ivec2 window_size = Engine::GetWindow().GetSize();
-            Math::vec2 mouse_position = Engine::GetMouse().GetMousePosition();
-
-            Math::vec2 real_mouse_position = Math::vec2({ mouse_position.x, mouse_position.y });
-            Math::vec2 bullet_direction = Math::vec2({ real_mouse_position.x - player_position.x, real_mouse_position.y - player_position.y });
-            bullet_direction /= bullet_direction.GetLength();
-            Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity));
-
-        }
-        if (Engine::GetMouse().MouseButton() == GAM200::Mouse::MouseButtons::RIGHT)
-        {
-            Engine::GetLogger().LogEvent("Tower!");
-
-
-        }
-
-        not_clicked = false;
-    }
-
 }
 
 void Player::Draw(Math::TransformationMatrix camera_matrix) {
-    
-    p.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x,size_y);
+
+    p.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
     //GAM200::GameObject::Draw(camera_matrix);
 }
 
 
 bool Player::CanCollideWith(GameObjectTypes type) {
-    if (type == GameObjectTypes::Pass__Tile || type == GameObjectTypes::Block_Tile || 
+    if (type == GameObjectTypes::Pass__Tile || type == GameObjectTypes::Block_Tile ||
         type == GameObjectTypes::Bullet) {
         return false;
     }
@@ -168,7 +154,7 @@ void Player::ResolveCollision(GameObject* other_object) {
     case GameObjectTypes::Tower:
 
         break;
-    
+
     default:
 
         break;
@@ -397,4 +383,3 @@ void Player::State_Skidding::CheckExit(GameObject* object) {
         player->change_state(&player->state_moving);
     }
 }
-

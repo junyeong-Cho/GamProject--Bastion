@@ -169,7 +169,7 @@ void PrototypeMode1::ImguiDraw()
 		int tile_size_x = window_size.x / tile_row;
 		int tile_size_y = window_size.y / tile_col;
 
-		Math::vec2 mouse_position = Engine::GetMouse().GetMousePosition();
+		Math::vec2 mouse_position = Engine::GetInput().GetMousePosition();
 		Math::ivec2 mouse_tile_position = Math::ivec2(static_cast<int>(mouse_position.x / tile_size_x), static_cast<int>(mouse_position.y / tile_size_y));
 
 		ImGui::Text("Current Tile Info : %d, %d", mouse_tile_position.x, mouse_tile_position.y);
