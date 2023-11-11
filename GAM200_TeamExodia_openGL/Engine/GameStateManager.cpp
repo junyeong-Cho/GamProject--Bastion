@@ -90,9 +90,9 @@ void GAM200::GameStateManager::Update(double dt)
 			while (SDL_PollEvent(&event) != 0)
 			{
 				ImGuiHelper::FeedEvent(event);
-				
+				//Engine::GetMouse().HandleEvent(event);
+
 				Engine::GetInput().HandleEvent(event);
-				Engine::GetMouse().HandleEvent(event);
 			}
 
 			Engine::GetLogger().LogVerbose("Update" + current_gamestate->GetName());

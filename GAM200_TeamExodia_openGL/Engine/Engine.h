@@ -67,10 +67,10 @@ public:
     }
 
 
-    static GAM200::Mouse& GetMouse()
-    {
-		return Instance().mouse;
-	}
+ //   static GAM200::Mouse& GetMouse()
+ //   {
+	//	return Instance().mouse;
+	//}
 
 
     void Start(const char* window_title, int desired_width, int desired_height, OriginPosition position);
@@ -106,7 +106,7 @@ private:
     GAM200::GameStateManager gamestatemanager;
     GAM200::TextureManager   texturemanager;
     GAM200::Input input;
-    GAM200::Mouse mouse;
+    //GAM200::Mouse mouse;
 
 
 

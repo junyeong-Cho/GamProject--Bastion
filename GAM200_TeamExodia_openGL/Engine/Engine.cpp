@@ -65,8 +65,9 @@ void Engine::Update()
         frame_count++;
 
         gamestatemanager.Update(dt);
-        input.Update();
         //mouse.Update();
+        input.Update();
+
         window.Update();
 
         if (frame_count >= FPSTargetFrames)
