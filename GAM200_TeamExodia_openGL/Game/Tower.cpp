@@ -6,6 +6,7 @@
 #include "../Engine/Engine.h"
 #include "../Engine/GameObjectManager.h"
 #include "Gold.h"
+#include "../Map.h"
 
 Tower::Tower(Math::vec2 position) : GameObject(position) {
 	charging_color = { 0.0f, 0.0f, 1.0f };
@@ -14,7 +15,12 @@ Tower::Tower(Math::vec2 position) : GameObject(position) {
 
 	SetPosition(position);
 
-	AddGOComponent(new GAM200::RectCollision(Math::irect{ {0, 0}, {size, size} }, this));
+	Math::ivec2 window_size = Engine::GetWindow().GetSize();
+	size_x = window_size.x / Map::GetInstance().GetSize().x;
+	size_y = window_size.y / Map::GetInstance().GetSize().y;
+	size_x /= 2;
+	size_y /= 2;
+	AddGOComponent(new GAM200::RectCollision(Math::irect{ {0, 0}, {size_x, size_y} }, this));
 
 	current_state = &state_charging;
 	current_state->Enter(this);
@@ -30,11 +36,7 @@ void Tower::Draw(Math::TransformationMatrix camera_matrix) {
 
 	if (set_basic_tower == true)
 	{
-		c.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size, size);
-	
-	GAM200::DrawShape tower;
-	tower.SetColor(color.r, color.g, color.b, 1.0f);
-	tower.DrawRectangle(static_cast<int>(GetPosition().x+60), static_cast<int>(GetPosition().y+size/2 - size / 8), size/4, size/4);
+		c.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
 	}
 
 }
@@ -68,7 +70,7 @@ void Tower::State_Attacking::Enter(GameObject* object) {
 void Tower::State_Attacking::Update(GameObject* object, double dt) {
 	Tower* tower = static_cast<Tower*>(object);
 
-	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x + tower->size / 2, tower->GetPosition().y + tower->size / 2 });
+	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x + tower->size_x / 2, tower->GetPosition().y + tower->size_y / 2 });
 	Math::ivec2 window_size = Engine::GetWindow().GetSize();
 	Math::vec2 mouse_position = Engine::GetMouse().GetMousePosition();
 

@@ -35,7 +35,8 @@ protected:
         Attacking,
     };
 
-    int size = 80;
+    int size_x = 0;
+    int size_y = 0;
 
     const double attack_delay = 1.0;
     double attack_count = 0;

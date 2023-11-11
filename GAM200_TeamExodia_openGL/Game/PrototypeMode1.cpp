@@ -206,12 +206,11 @@ void PrototypeMode1::ImguiDraw()
 			GetGSComponent<GAM200::GameObjectManager>()->Add(new Fast_Monster({ 0, 0 }, player_ptr));
 		}
 
-		static int size = 80;
 
 		if (ImGui::Button("Produce Tower"))
 		{
 			if (GetGSComponent<Gold>()->Value() >= Basic_Tower::GetCost()) {
-				GetGSComponent <GAM200::GameObjectManager>()->Add(new Basic_Tower({ static_cast<double>(tower_offset * size), 160 }));
+				GetGSComponent <GAM200::GameObjectManager>()->Add(new Basic_Tower({ static_cast<double>(tower_offset * tile_size_x), tile_size_y * 3.0 }));
 				++tower_offset;
 			}
 		}
