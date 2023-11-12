@@ -250,7 +250,7 @@ Basic_Monster::Basic_Monster(Math::vec2 position) : Monster(position) {
 
     score = 1;
     gold = 10;
-    life = 4;
+    life = 2;
 }
 
 Fast_Monster::Fast_Monster(Math::vec2 position) : Monster(position) {
@@ -260,5 +260,5 @@ Fast_Monster::Fast_Monster(Math::vec2 position) : Monster(position) {
     score = 2;
     gold = 20;
 
-    life = 2;
+    life = 1;
 }
