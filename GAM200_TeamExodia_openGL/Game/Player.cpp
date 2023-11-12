@@ -97,12 +97,20 @@ void Player::Draw(Math::TransformationMatrix camera_matrix) {
 
 
 bool Player::CanCollideWith(GameObjectTypes type) {
-    if (type == GameObjectTypes::Pass__Tile || type == GameObjectTypes::Block_Tile ||
-        type == GameObjectTypes::Bullet) {
-        return false;
+    
+    if (type == GameObjectTypes::Basic_Monster ||
+        type == GameObjectTypes::Fast_Monster ||
+        type == GameObjectTypes::Slow_Monster ||
+        type == GameObjectTypes::Weak_Monster
+        )
+    {
+        return true;
     }
     else
-        return true;
+    {
+        return false;
+    }
+
 }
 
 void Player::ResolveCollision(GameObject* other_object) {
