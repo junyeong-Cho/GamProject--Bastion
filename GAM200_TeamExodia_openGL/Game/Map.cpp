@@ -4,12 +4,12 @@
 #include <string>
 
 #include "Map.h"
-#include "Engine/Engine.h"
-#include "Engine/GameObjectManager.h"
-#include "Engine/GameObject.h"
+#include "../Engine/Engine.h"
+#include "../Engine/GameObjectManager.h"
+#include "../Engine/GameObject.h"
 
-#include "Game/AStar.h"
-#include "Game/Tile.h"
+#include "AStar.h"
+#include "Tile.h"
 
 void Map::SetMap(std::string file_name) {
 	std::ifstream file(file_name);
@@ -62,23 +62,41 @@ void Map::SetMap(std::string file_name) {
 		file >> start_point.x; file >> start_point.y;
 		file >> end_point.x;   file >> end_point.y;
 
-		//// Wave info!
-		//file >> wave_num;
+		// Wave info!
+		file >> wave_num;
 
-		//wave_info.reserve(wave_num);
+		wave_info.clear();
+		wave_info.resize(wave_num);
 
-		//std::string info;
-		//for (int i = 0; i < wave_num; ++i)
-		//{
-		//	while (1)
-		//	{
-		//		file >> info;
-		//		if (info == "END")
-		//			break;
-		//		wave_info[i] += info;
-		//	}
-		//}
+		std::string info;
+		for (int i = 0; i < wave_num; ++i)
+		{
+			wave_info[i].clear();
+			while (1)
+			{
+				file >> info;
+				if (info == "END")
+					break;
+				else if (info == "TIME")
+				{
+					int time;
+					std::string type;
+					int number;
 
+					file >> time;
+					file >> type;
+					file >> number;
+					//std::tuple(time, type, number);
+					//wave_info[i].push_back(std::tuple<int, std::string, int>(time, type, number));
+					wave_info[i].emplace_back(std::make_tuple(time, type, number));
+				}
+				else
+				{
+					std::cerr << "Wrong input!" << std::endl;
+				}
+				
+			}
+		}
 		file.close();
 	}
 	else 

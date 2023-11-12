@@ -17,7 +17,7 @@ Updated:    October		10, 2023
 #include "../Engine/GameObject.h"
 #include "../Engine/GameObjectManager.h"
 #include "../Engine/Collision.h"
-#include "../Map.h"
+#include "Map.h"
 
 #include "../Game/PrototypeMode1.h"
 #include "../Game/States.h"
@@ -31,7 +31,7 @@ Updated:    October		10, 2023
 #include "Score.h"
 #include "Gold.h"
 #include "Life.h"
-#include "../GameSpeed.h"
+#include "GameSpeed.h"
 
 #include <filesystem>
 #include <imgui.h>
@@ -57,7 +57,7 @@ void PrototypeMode1::Load()
 	AddGSComponent(new GAM200::Camera({ { 0.15 * Engine::GetWindow().GetSize().x, 0 }, { 0.35 * Engine::GetWindow().GetSize().x, 0 } }));
 
 	// Set Map
-	PrototypeMode1::SetMap("assets/maps/Map2.txt");
+	PrototypeMode1::SetMap("assets/maps/Map3.txt");
 
 	// Add Player
 	player_ptr = new Player({ 0, 0 }, tile_size_x * 2 / 3, tile_size_y * 2 / 3);

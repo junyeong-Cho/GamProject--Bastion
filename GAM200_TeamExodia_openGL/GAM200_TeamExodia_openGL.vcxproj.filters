@@ -214,10 +214,10 @@
     <ClCompile Include="Engine\Audio.cpp">
       <Filter>Engine\Core Engine Components</Filter>
     </ClCompile>
-    <ClCompile Include="Map.cpp">
+    <ClCompile Include="Game\GameSpeed.cpp">
       <Filter>Game\Exodia\Components</Filter>
     </ClCompile>
-    <ClCompile Include="GameSpeed.cpp">
+    <ClCompile Include="Game\Map.cpp">
       <Filter>Game\Exodia\Components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -405,10 +405,10 @@
     <ClInclude Include="Engine\Audio.h">
       <Filter>Engine\Core Engine Components</Filter>
     </ClInclude>
-    <ClInclude Include="Map.h">
+    <ClInclude Include="Game\GameSpeed.h">
       <Filter>Game\Exodia\Components</Filter>
     </ClInclude>
-    <ClInclude Include="GameSpeed.h">
+    <ClInclude Include="Game\Map.h">
       <Filter>Game\Exodia\Components</Filter>
     </ClInclude>
   </ItemGroup>

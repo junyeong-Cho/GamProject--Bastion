@@ -6,7 +6,7 @@
 #include "../Engine/Engine.h"
 #include "../Engine/GameObjectManager.h"
 #include "Gold.h"
-#include "../Map.h"
+#include "Map.h"
 
 Tower::Tower(Math::vec2 position) : GameObject(position) {
 	charging_color = { 0.0f, 0.0f, 1.0f };

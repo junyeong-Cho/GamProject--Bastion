@@ -5,7 +5,7 @@
 #include <limits>
 #include "../Engine/Engine.h"
 #include "GameObjectTypes.h"
-#include "../Map.h"
+#include "Map.h"
 #include "Tile.h"
 
 void Astar::UpdatePath(Tile*** map, Math::ivec2 start, Math::ivec2 target) {

@@ -132,7 +132,6 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClCompile Include="Engine\TextureManager.cpp" />
     <ClCompile Include="Engine\Vec2.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
-    <ClCompile Include="GameSpeed.cpp" />
     <ClCompile Include="Game\AStar.cpp" />
     <ClCompile Include="Game\Asteroid.cpp" />
     <ClCompile Include="Game\Background.cpp" />
@@ -140,10 +139,12 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClCompile Include="Game\Cat.cpp" />
     <ClCompile Include="Game\Crates.cpp" />
     <ClCompile Include="Game\Floor.cpp" />
+    <ClCompile Include="Game\GameSpeed.cpp" />
     <ClCompile Include="Game\Gold.cpp" />
     <ClCompile Include="Game\Laser.cpp" />
     <ClCompile Include="Game\Life.cpp" />
     <ClCompile Include="Game\Main_menu.cpp" />
+    <ClCompile Include="Game\Map.cpp" />
     <ClCompile Include="Game\Meteor.cpp" />
     <ClCompile Include="Game\Mode1.cpp" />
     <ClCompile Include="Game\Mode2.cpp" />
@@ -161,7 +162,6 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClCompile Include="Game\Timer.cpp" />
     <ClCompile Include="Game\Tower.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Map.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Animation.h" />
@@ -194,7 +194,6 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClInclude Include="Engine\TextureManager.h" />
     <ClInclude Include="Engine\Vec2.h" />
     <ClInclude Include="Engine\Window.h" />
-    <ClInclude Include="GameSpeed.h" />
     <ClInclude Include="Game\AStar.h" />
     <ClInclude Include="Game\Asteroid.h" />
     <ClInclude Include="Game\Background.h" />
@@ -204,11 +203,13 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClInclude Include="Game\Floor.h" />
     <ClInclude Include="Game\Fonts.h" />
     <ClInclude Include="Game\GameObjectTypes.h" />
+    <ClInclude Include="Game\GameSpeed.h" />
     <ClInclude Include="Game\Gold.h" />
     <ClInclude Include="Game\Gravity.h" />
     <ClInclude Include="Game\Laser.h" />
     <ClInclude Include="Game\Life.h" />
     <ClInclude Include="Game\Main_menu.h" />
+    <ClInclude Include="Game\Map.h" />
     <ClInclude Include="Game\Meteor.h" />
     <ClInclude Include="Game\Mode1.h" />
     <ClInclude Include="Game\Mode2.h" />
@@ -226,7 +227,6 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClInclude Include="Game\Tile.h" />
     <ClInclude Include="Game\Timer.h" />
     <ClInclude Include="Game\Tower.h" />
-    <ClInclude Include="Map.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\common_gl\common_gl.vcxproj">
