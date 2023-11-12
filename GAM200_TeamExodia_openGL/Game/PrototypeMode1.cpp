@@ -206,9 +206,7 @@ void PrototypeMode1::ImguiDraw()
 
 		if (ImGui::Button("Produce Tower"))
 		{
-			if (GetGSComponent<Gold>()->Value() >= Basic_Tower::GetCost()) {
-				GetGSComponent<BuildMode>()->Build();
-			}
+			GetGSComponent<BuildMode>()->Build();
 		}
 
 

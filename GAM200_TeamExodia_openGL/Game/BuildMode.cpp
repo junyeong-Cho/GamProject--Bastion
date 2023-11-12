@@ -3,6 +3,7 @@
 
 #include "Map.h"
 #include "Tower.h"
+#include "Gold.h"
 
 BuildMode::BuildMode() : build_mode(false), direction(Direction::RIGHT)
 {
@@ -68,17 +69,20 @@ void BuildMode::Update()
 
 		if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT))
 		{
+			build_mode = false;
 			if (Map::GetInstance().GetType(Math::ivec2(mouse_tile_position.x, mouse_tile_position.y)) != "Block_Tile")
 			{
 				Engine::GetLogger().LogDebug("Not able here!  It is " + Map::GetInstance().GetType(Math::ivec2(mouse_tile_position.x, mouse_tile_position.y)));
-				build_mode = false;
 				return;
+			}
+			else if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() < Basic_Tower::GetCost())
+			{
+				Engine::GetLogger().LogDebug("Not enough gold!");
 			}
 			else
 			{
 				Engine::GetGameStateManager().GetGSComponent <GAM200::GameObjectManager>()->Add(new Basic_Tower({ static_cast<double>(mouse_tile_position.x * static_cast<double>(tile_size.x)), (mouse_tile_position.y * static_cast<double>(tile_size.y)) }, static_cast<int>(direction)));
 			}
-			build_mode = false;
 		}
 		else if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::RIGHT))
 		{
