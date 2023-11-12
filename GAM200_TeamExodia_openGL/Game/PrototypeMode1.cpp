@@ -166,11 +166,14 @@ void PrototypeMode1::ImguiDraw()
 		int game_speed = GetGSComponent<GameSpeed>()->Value();
 		int max_speed = GetGSComponent<GameSpeed>()->GetMax();
 		float* musicVolume = (GetGSComponent<GAM200::MusicEffect>()->GetMusicVolume());
+		int player_hp = player_ptr->GetHP();
 
 		ImGui::Text("Killed Monster : %d", score);
 		ImGui::Text("Gold : %d", gold);
 		ImGui::Text("Life : %d", life);
 		ImGui::Text("Game Speed : %d", game_speed);
+		ImGui::Text("Player HP : %d", player_hp);
+
 
 		if (ImGui::SliderInt("Adjust Gold", &gold, 0, 100000, "%d")) {
 			GetGSComponent<Gold>()->SetValue(gold);
@@ -178,10 +181,12 @@ void PrototypeMode1::ImguiDraw()
 		if (ImGui::SliderInt("Adjust Life", &life, 1, 30, "%d")) {
 			GetGSComponent<Life>()->SetValue(life);
 		}
+		if (ImGui::SliderInt("Player HP", &player_hp, 1, 30, "%d")) {
+			player_ptr->SetHP(player_hp);
+		}
 		if (ImGui::SliderInt("Adjust Game Speed", &game_speed, 0, max_speed, "%d")) {
 			GetGSComponent<GameSpeed>()->SetValue(game_speed);
 		}
-
 		if (ImGui::SliderFloat("Max Volume", musicVolume, 0.0f, 100.0f, "%.0f"))
 		{
 			GetGSComponent<GAM200::MusicEffect>()->SetVolume(*musicVolume);

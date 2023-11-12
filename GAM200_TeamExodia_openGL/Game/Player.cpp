@@ -19,6 +19,7 @@ Updated:    October		10, 2023
 #include "PrototypeMode1.h"
 #include "States.h"
 #include "Bullet.h"
+#include "Monster.h"
 
 #include "../Engine/Mouse.h"
 
@@ -32,9 +33,11 @@ Player::Player(Math::vec2 start_position, int size_x, int size_y) : GameObject(s
 
     //hurt_timer = new Timer(0.0);
     //AddGOComponent(hurt_timer);
+    life_count = max_life;
 
     current_state = &state_idle;
     current_state->Enter(this);
+
 }
 
 
@@ -43,6 +46,8 @@ void Player::Update(double dt) {
 
     auto collider = GetGOComponent<GAM200::RectCollision>();
 
+    invincibility_count += dt;
+    
     if (collider != nullptr)
     {
         auto bounds = collider->WorldBoundary();
@@ -114,6 +119,8 @@ bool Player::CanCollideWith(GameObjectTypes type) {
 }
 
 void Player::ResolveCollision(GameObject* other_object) {
+    if (invincibility_count < invincibilityTime)
+        return;
     Math::rect player_rect = GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
 
     Math::rect other_rect = other_object->GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
@@ -124,8 +131,35 @@ void Player::ResolveCollision(GameObject* other_object) {
     switch (other_object->Type()) {
 
     case GameObjectTypes::Monster:
+        life_count -= Monster::GetDamage();
+        invincibility_count = 0;
         other_object->ResolveCollision(this);
         break;
+
+    case GameObjectTypes::Basic_Monster:
+        life_count -= Basic_Monster::GetDamage();
+        invincibility_count = 0;
+        other_object->ResolveCollision(this);
+        break;
+
+    case GameObjectTypes::Fast_Monster:
+        life_count -= Fast_Monster::GetDamage();
+        invincibility_count = 0;
+        other_object->ResolveCollision(this);
+        break;
+
+    case GameObjectTypes::Slow_Monster:
+        life_count -= Slow_Monster::GetDamage();
+        invincibility_count = 0;
+        other_object->ResolveCollision(this);
+        break;
+
+    case GameObjectTypes::Weak_Monster:
+        life_count -= Weak_Monster::GetDamage();
+        invincibility_count = 0;
+        other_object->ResolveCollision(this);
+        break;
+
 
 
     case GameObjectTypes::Tile:
@@ -236,6 +270,15 @@ void Player::update_velocity(double dt) {
     SetVelocity(newVelocity);
 
 }
+
+
+
+
+
+
+
+
+
 
 // State Idle
 void Player::State_Idle::Enter(GameObject* object)

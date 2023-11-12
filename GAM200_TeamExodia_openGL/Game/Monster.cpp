@@ -253,6 +253,7 @@ Basic_Monster::Basic_Monster(Math::vec2 position) : Monster(position) {
 
     score = 1;
     gold = 10;
+
     life = 3;
 
     speed_scale = 1;

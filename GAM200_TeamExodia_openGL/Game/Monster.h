@@ -33,6 +33,7 @@ public:
     void Draw(Math::TransformationMatrix camera_matrix) override;
 
     Math::vec2 GetSize() { return Math::vec2(size_x, size_y); }
+    static int GetDamage() { return damage; }
 
     static int remaining_monsters;
 
@@ -106,7 +107,7 @@ protected:
     State_Walking state_walking;
 
 private:
-
+    static constexpr int damage = 1;
 };
 
 class Basic_Monster : public Monster {
@@ -115,6 +116,11 @@ public:
 
     GameObjectTypes Type() override { return GameObjectTypes::Basic_Monster; }
     std::string TypeName() override { return "Basic_Monster"; }
+
+    static int GetDamage() { return damage; }
+
+private:
+    static constexpr int damage = 2;
 
 };
 
@@ -125,6 +131,10 @@ public:
     GameObjectTypes Type() override { return GameObjectTypes::Fast_Monster; }
     std::string TypeName() override { return "Fast_Monster"; }
 
+    static int GetDamage() { return damage; }
+
+private:
+    static constexpr int damage = 1;
 };
 
 class Slow_Monster : public Monster {
@@ -134,12 +144,22 @@ public:
     GameObjectTypes Type() override { return GameObjectTypes::Slow_Monster; }
     std::string TypeName() override { return "Slow_Monster"; }
 
+    static int GetDamage() { return damage; }
+
+private:
+    static constexpr int damage = 3;
 };
 
 class Weak_Monster : public Monster
 {
+public:
     Weak_Monster(Math::vec2 position = Math::vec2(0, 0));
 
     GameObjectTypes Type() override { return GameObjectTypes::Weak_Monster; }
     std::string TypeName() override { return "Weak_Monster"; }
+
+    static int GetDamage() { return damage; }
+
+private:
+    static constexpr int damage = 1;
 };

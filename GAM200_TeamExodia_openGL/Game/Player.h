@@ -35,6 +35,8 @@ public:
 	void ResolveCollision(GameObject* other_object) override;
 
 	const Math::vec2& GetPosition() const { return GameObject::GetPosition(); }
+    int GetHP() const { return life_count; }
+    void SetHP(int life) { life_count = life; }
 
 private:
 
@@ -65,6 +67,12 @@ private:
     bool not_clicked = false;
 
     void update_velocity(double dt);
+
+    static constexpr double invincibilityTime = 1.0;
+    double invincibility_count = 0;
+
+    int max_life = 10;
+    int life_count = 0;
 
 
     //Finite State Machines
