@@ -32,6 +32,7 @@ Updated:    October		10, 2023
 #include "Gold.h"
 #include "Life.h"
 #include "GameSpeed.h"
+#include "Wave.h"
 
 #include <filesystem>
 #include <imgui.h>
@@ -57,7 +58,7 @@ void PrototypeMode1::Load()
 	AddGSComponent(new GAM200::Camera({ { 0.15 * Engine::GetWindow().GetSize().x, 0 }, { 0.35 * Engine::GetWindow().GetSize().x, 0 } }));
 
 	// Set Map
-	PrototypeMode1::SetMap("assets/maps/Map3.txt");
+	PrototypeMode1::SetMap("assets/maps/Map1.txt");
 
 	// Add Player
 	player_ptr = new Player({ 0, 0 }, tile_size_x * 2 / 3, tile_size_y * 2 / 3);
@@ -71,12 +72,13 @@ void PrototypeMode1::Load()
 	AddGSComponent(new Gold());
 	AddGSComponent(new Life());
 	AddGSComponent(new GameSpeed(5));	// Parameter is for the max game speed
+	AddGSComponent(new Wave());
+	GetGSComponent<Wave>()->SetWave();
 
 	#ifdef _DEBUG
 	AddGSComponent(new GAM200::ShowCollision());
 	#endif
 
-	tower_offset = 0;
 }
 
 void PrototypeMode1::Update(double dt)
@@ -96,6 +98,11 @@ void PrototypeMode1::Update(double dt)
 
 	GetGSComponent<GAM200::GameObjectManager>()->CollisionTest();
 
+	GetGSComponent<Wave>()->Update(dt);
+	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Space) && GetGSComponent<Wave>()->GetState() == Wave::NotInProgress)
+	{
+		GetGSComponent<Wave>()->Start();
+	}
 
 	#ifdef _DEBUG
 	GetGSComponent<GAM200::ShowCollision>()->Update(dt);
@@ -200,12 +207,12 @@ void PrototypeMode1::ImguiDraw()
 		if (ImGui::Button("Produce Basic Monster"))
 		{
 			Engine::GetLogger().LogEvent("Basic Monster Produce!");
-			GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster({ 0, 0 }, player_ptr));
+			GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster());
 		}
 		if (ImGui::Button("Produce Fast Monster"))
 		{
 			Engine::GetLogger().LogEvent("Fast Monster Produce!");
-			GetGSComponent<GAM200::GameObjectManager>()->Add(new Fast_Monster({ 0, 0 }, player_ptr));
+			GetGSComponent<GAM200::GameObjectManager>()->Add(new Fast_Monster());
 		}
 
 

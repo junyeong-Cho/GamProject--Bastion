@@ -21,7 +21,7 @@ Updated:    October		10, 2023
 
 class Monster : public GAM200::GameObject {
 public:
-	Monster(Math::vec2 position, Player* player);
+	Monster(Math::vec2 position = Math::vec2(0, 0));
 
 	void ResolveCollision(GameObject* other_object) override;
 
@@ -73,7 +73,7 @@ protected:
 
     WalkingDirection m_walking_direction = WalkingDirection::UP;
 
-    Player* m_player;
+    //Player* m_player;
     Math::irect boundary;
 
     class State_Dead : public State
@@ -104,7 +104,7 @@ private:
 
 class Basic_Monster : public Monster {
 public:
-    Basic_Monster(Math::vec2 position, Player* player);
+    Basic_Monster(Math::vec2 position = Math::vec2(0, 0));
 
     GameObjectTypes Type() override { return GameObjectTypes::Basic_Monster; }
     std::string TypeName() override { return "Basic_Monster"; }
@@ -113,7 +113,7 @@ public:
 
 class Fast_Monster : public Monster {
 public:
-    Fast_Monster(Math::vec2 position, Player* player);
+    Fast_Monster(Math::vec2 position = Math::vec2(0, 0));
 
     GameObjectTypes Type() override { return GameObjectTypes::Fast_Monster; }
     std::string TypeName() override { return "Fast_Monster"; }

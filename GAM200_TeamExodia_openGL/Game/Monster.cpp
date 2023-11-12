@@ -14,7 +14,7 @@
 
 #include "Bullet.h"
 
-Monster::Monster(Math::vec2 position, Player* player) : GameObject(position), m_player(player) {
+Monster::Monster(Math::vec2 position) : GameObject(position) {
     // Tile Size
     Math::vec2 tile_size = Math::vec2(Engine::GetWindow().GetSize().x / 16.0, Engine::GetWindow().GetSize().y / 9.0);
     size_x = static_cast<int>(tile_size.x * 2 / 3);
@@ -236,7 +236,7 @@ void Monster::State_Walking::CheckExit(GameObject* object)
 
 
 
-Basic_Monster::Basic_Monster(Math::vec2 position, Player* player) : Monster(position, player) {
+Basic_Monster::Basic_Monster(Math::vec2 position) : Monster(position) {
     fill_color = { 1.0f, 0.0f, 0.0f };
 
     score = 1;
@@ -244,7 +244,7 @@ Basic_Monster::Basic_Monster(Math::vec2 position, Player* player) : Monster(posi
     life = 4;
 }
 
-Fast_Monster::Fast_Monster(Math::vec2 position, Player* player) : Monster(position, player) {
+Fast_Monster::Fast_Monster(Math::vec2 position) : Monster(position) {
     fill_color = { 1.0f, 0.984f, 0.255f };
     walking_speed *= 2;
 

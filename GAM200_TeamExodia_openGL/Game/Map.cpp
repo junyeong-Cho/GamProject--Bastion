@@ -77,7 +77,7 @@ void Map::SetMap(std::string file_name) {
 				file >> info;
 				if (info == "END")
 					break;
-				else if (info == "TIME")
+				else if (info == "WAVE")
 				{
 					int time;
 					std::string type;
@@ -86,8 +86,7 @@ void Map::SetMap(std::string file_name) {
 					file >> time;
 					file >> type;
 					file >> number;
-					//std::tuple(time, type, number);
-					//wave_info[i].push_back(std::tuple<int, std::string, int>(time, type, number));
+
 					wave_info[i].emplace_back(std::make_tuple(time, type, number));
 				}
 				else
