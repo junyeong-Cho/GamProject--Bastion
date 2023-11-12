@@ -21,8 +21,8 @@ void Bullet::Update(double dt)
     Math::ivec2 window_size = Engine::GetWindow().GetSize();
     Math::vec2 position = GetPosition();
     
-    if (position.x + size < 0 || position.x > window_size.x ||
-        position.y + size < 0 || position.y > window_size.y)
+    if (position.x + size < -200 || position.x > window_size.x + 200 ||
+        position.y + size < -200 || position.y > window_size.y + 200)
     {
         Destroy();
         RemoveGOComponent<GAM200::RectCollision>();
