@@ -8,7 +8,7 @@
 #include "Gold.h"
 #include "Map.h"
 
-Tower::Tower(Math::vec2 position) : GameObject(position) {
+Tower::Tower(Math::vec2 position, int direction) : GameObject(position), direction(direction) {
 	charging_color = { 0.0f, 0.0f, 1.0f };
 	attack_color = { 0.0f, 0.0f, 0.0f };
 	color = charging_color;
@@ -19,7 +19,25 @@ Tower::Tower(Math::vec2 position) : GameObject(position) {
 	size_x = window_size.x / Map::GetInstance().GetSize().x;
 	size_y = window_size.y / Map::GetInstance().GetSize().y;
 	size_x /= 2;
-	size_y /= 2;
+
+	// RIGHT, LEFT, UP, DOWN
+	switch (direction)
+	{
+	case 0:
+		bullet_direction = Math::vec2(1, 0);
+		break;
+	case 1:
+		bullet_direction = Math::vec2(-1, 0);
+		break;
+	case 2:
+		bullet_direction = Math::vec2(0, 1);
+		break;
+	case 3:
+		bullet_direction = Math::vec2(0, -1);
+		break;
+
+	}
+
 	AddGOComponent(new GAM200::RectCollision(Math::irect{ {0, 0}, {size_x, size_y} }, this));
 
 	current_state = &state_charging;
@@ -71,16 +89,16 @@ void Tower::State_Attacking::Update(GameObject* object, double dt) {
 	Tower* tower = static_cast<Tower*>(object);
 
 	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x + tower->size_x / 2, tower->GetPosition().y + tower->size_y / 2 });
-	Math::ivec2 window_size = Engine::GetWindow().GetSize();
-	Math::vec2 mouse_position = Engine::GetInput().GetMousePosition();
+	//Math::ivec2 window_size = Engine::GetWindow().GetSize();
+	//Math::vec2 mouse_position = Engine::GetInput().GetMousePosition();
 
-	Math::vec2 real_mouse_position = Math::vec2({ mouse_position.x, window_size.y - mouse_position.y });
-	Math::vec2 bullet_direction = Math::vec2({ real_mouse_position.x - tower_position.x, real_mouse_position.y - tower_position.y });
-	bullet_direction /= bullet_direction.GetLength();
+	//Math::vec2 real_mouse_position = Math::vec2({ mouse_position.x, window_size.y - mouse_position.y });
+	//Math::vec2 bullet_direction = Math::vec2({ real_mouse_position.x - tower_position.x, real_mouse_position.y - tower_position.y });
+	//bullet_direction /= bullet_direction.GetLength();
 
-	bullet_direction = Math::vec2{ 0, -1 };
+	//Math::vec2 bullet_direction = Math::vec2{ 0, -1 };
 
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(tower_position, bullet_direction * Bullet::DefaultVelocity));
+	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(tower_position, tower->bullet_direction * Bullet::DefaultVelocity));
 	tower->change_state(&tower->state_charging);
 	//GameObject* target = GAM200::GameObjectManager().GetClosestObject(tower);
 	//if (target != nullptr) {
@@ -105,7 +123,7 @@ void Tower::State_Attacking::CheckExit(GameObject* object) {
 	
 }
 
-Basic_Tower:: Basic_Tower(Math::vec2 position) : Tower(position) {
+Basic_Tower:: Basic_Tower(Math::vec2 position, int direction) : Tower(position, direction) {
 	charging_color = { 0.f, 0.f, 0.6f };
 	attack_color = { 0.0f, 0.0f, 0.0f };
 

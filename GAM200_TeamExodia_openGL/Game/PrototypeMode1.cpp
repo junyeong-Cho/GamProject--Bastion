@@ -33,6 +33,7 @@ Updated:    October		10, 2023
 #include "Life.h"
 #include "GameSpeed.h"
 #include "Wave.h"
+#include "BuildMode.h"
 
 #include <filesystem>
 #include <imgui.h>
@@ -58,7 +59,7 @@ void PrototypeMode1::Load()
 	AddGSComponent(new GAM200::Camera({ { 0.15 * Engine::GetWindow().GetSize().x, 0 }, { 0.35 * Engine::GetWindow().GetSize().x, 0 } }));
 
 	// Set Map
-	PrototypeMode1::SetMap("assets/maps/Map1.txt");
+	PrototypeMode1::SetMap("assets/maps/Map2.txt");
 
 	// Add Player
 	player_ptr = new Player({ 0, 0 }, tile_size_x * 2 / 3, tile_size_y * 2 / 3);
@@ -74,6 +75,7 @@ void PrototypeMode1::Load()
 	AddGSComponent(new GameSpeed(5));	// Parameter is for the max game speed
 	AddGSComponent(new Wave());
 	GetGSComponent<Wave>()->SetWave();
+	AddGSComponent(new BuildMode());
 
 	#ifdef _DEBUG
 	AddGSComponent(new GAM200::ShowCollision());
@@ -99,10 +101,8 @@ void PrototypeMode1::Update(double dt)
 	GetGSComponent<GAM200::GameObjectManager>()->CollisionTest();
 
 	GetGSComponent<Wave>()->Update(dt);
-	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Space) && GetGSComponent<Wave>()->GetState() == Wave::NotInProgress)
-	{
-		GetGSComponent<Wave>()->Start();
-	}
+
+	GetGSComponent<BuildMode>()->Update();
 
 	#ifdef _DEBUG
 	GetGSComponent<GAM200::ShowCollision>()->Update(dt);
@@ -151,6 +151,7 @@ void PrototypeMode1::Draw()
 
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
 
+	GetGSComponent<BuildMode>()->Draw();
 	
 	w.Draw(1200 - 150, 0, 150*2, 400*2);
 }
@@ -170,19 +171,6 @@ void PrototypeMode1::ImguiDraw()
 		ImGui::Text("Gold : %d", gold);
 		ImGui::Text("Life : %d", life);
 		ImGui::Text("Game Speed : %d", game_speed);
-
-		////////// Mouse tile info ////////////
-		Math::ivec2 window_size = Engine::GetWindow().GetSize();
-		int tile_col = Map::GetInstance().GetSize().x;
-		int tile_row = Map::GetInstance().GetSize().y;
-		int tile_size_x = window_size.x / tile_row;
-		int tile_size_y = window_size.y / tile_col;
-
-		Math::vec2 mouse_position = Engine::GetInput().GetMousePosition();
-		Math::ivec2 mouse_tile_position = Math::ivec2(static_cast<int>(mouse_position.x / tile_size_x), static_cast<int>(mouse_position.y / tile_size_y));
-
-		ImGui::Text("Current Tile Info : %d, %d", mouse_tile_position.x, mouse_tile_position.y);
-		////////////////////////////////////////
 
 		if (ImGui::SliderInt("Adjust Gold", &gold, 0, 600, "%d")) {
 			GetGSComponent<Gold>()->SetValue(gold);
@@ -219,8 +207,7 @@ void PrototypeMode1::ImguiDraw()
 		if (ImGui::Button("Produce Tower"))
 		{
 			if (GetGSComponent<Gold>()->Value() >= Basic_Tower::GetCost()) {
-				GetGSComponent <GAM200::GameObjectManager>()->Add(new Basic_Tower({ static_cast<double>(tower_offset * tile_size_x), tile_size_y * 3.0 }));
-				++tower_offset;
+				GetGSComponent<BuildMode>()->Build();
 			}
 		}
 

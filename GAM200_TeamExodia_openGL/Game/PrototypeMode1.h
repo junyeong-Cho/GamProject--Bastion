@@ -60,6 +60,4 @@ private:
 
     GAM200::Texture m = GAM200::Texture("assets/images/m.png", GAM200::Texture::TextureType::RECTANGLE);
     GAM200::Texture w = GAM200::Texture("assets/images/w.png", GAM200::Texture::TextureType::RECTANGLE);
-
-    int tower_offset = 0;
 };

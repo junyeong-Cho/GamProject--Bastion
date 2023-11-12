@@ -130,3 +130,8 @@ void Map::ChangeTile(Math::ivec2 position, GameObjectTypes type) {
 
 	Astar::GetInstance().UpdatePath(map, start_point, end_point);
 }
+
+std::string Map::GetType(Math::ivec2 position) const
+{
+	return map[position.y][position.x]->TypeName();
+}

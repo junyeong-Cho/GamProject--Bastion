@@ -36,6 +36,12 @@ void Wave::Start()
 
 void Wave::Update(double dt)
 {
+	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Space) && wave_state == Wave::NotInProgress)
+	{
+		Start();
+	}
+
+
 	if (current_wave >= total_wave_num)
 		return;
 	if (wave_state == Wave_State::NotInProgress)

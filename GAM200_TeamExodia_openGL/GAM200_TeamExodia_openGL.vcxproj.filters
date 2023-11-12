@@ -223,6 +223,9 @@
     <ClCompile Include="Game\Wave.cpp">
       <Filter>Game\Exodia\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Game\BuildMode.cpp">
+      <Filter>Game\Exodia\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\GameObjectTypes.h">
@@ -415,6 +418,9 @@
       <Filter>Game\Exodia\Components</Filter>
     </ClInclude>
     <ClInclude Include="Game\Wave.h">
+      <Filter>Game\Exodia\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\BuildMode.h">
       <Filter>Game\Exodia\Components</Filter>
     </ClInclude>
   </ItemGroup>

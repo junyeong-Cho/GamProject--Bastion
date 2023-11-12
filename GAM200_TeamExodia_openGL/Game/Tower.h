@@ -5,7 +5,7 @@
 #include "../Engine/Texture.h"
 class Tower : public GAM200::GameObject {
 public:
-    Tower(Math::vec2 position);
+    Tower(Math::vec2 position, int direction);
 
     GameObjectTypes Type() override { return GameObjectTypes::Tower; }
     std::string TypeName() override { return "Tower"; }
@@ -38,6 +38,9 @@ protected:
     int size_x = 0;
     int size_y = 0;
 
+    int direction;
+    Math::vec2 bullet_direction;
+
     const double attack_delay = 1.0;
     double attack_count = 0;
 
@@ -68,7 +71,7 @@ private:
 
 class Basic_Tower : public Tower {
 public:
-    Basic_Tower(Math::vec2 position);
+    Basic_Tower(Math::vec2 position, int direction);
 
     GameObjectTypes Type() override { return GameObjectTypes::Basic_Tower; }
     std::string TypeName() override { return "Basic_Tower"; }
