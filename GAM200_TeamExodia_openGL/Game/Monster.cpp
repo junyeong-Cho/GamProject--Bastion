@@ -14,6 +14,8 @@
 
 #include "Bullet.h"
 
+int Monster::remaining_monsters = 0;
+
 Monster::Monster(Math::vec2 position) : GameObject(position) {
     // Tile Size
     Math::vec2 tile_size = Math::vec2(Engine::GetWindow().GetSize().x / 16.0, Engine::GetWindow().GetSize().y / 9.0);
@@ -27,8 +29,13 @@ Monster::Monster(Math::vec2 position) : GameObject(position) {
     // State
     current_state = &state_walking;
     current_state->Enter(this);
+
+    ++remaining_monsters;
 }
 
+int Monster::GetRemainMonster() {
+    return remaining_monsters;
+}
 
 void Monster::Update(double dt) {
     GameObject::Update(dt);
@@ -68,6 +75,8 @@ void Monster::ResolveCollision(GameObject* other_object) {
             goldComponent->Add(gold);
 
             change_state(&state_dead);
+
+            --remaining_monsters;
         }
     }
     else if (other_object->Type() == GameObjectTypes::Block_Tile)

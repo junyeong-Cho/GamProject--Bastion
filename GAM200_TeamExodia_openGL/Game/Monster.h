@@ -34,9 +34,12 @@ public:
 
     Math::vec2 GetSize() { return Math::vec2(size_x, size_y); }
 
+    static int remaining_monsters;
+
+    static int GetRemainMonster();
+
 protected:
     GAM200::Texture e = GAM200::Texture("assets/images/e.png", GAM200::Texture::TextureType::RECTANGLE);
-
 
     std::vector<Math::ivec2> path;
 

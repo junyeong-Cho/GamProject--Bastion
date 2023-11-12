@@ -36,9 +36,10 @@ void Wave::Start()
 
 void Wave::Update(double dt)
 {
-	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Space) && wave_state == Wave::NotInProgress)
+	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Space) && wave_state == Wave::NotInProgress && Monster::GetRemainMonster() == 0)
 	{
 		Start();
+		return;
 	}
 
 
