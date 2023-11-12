@@ -42,7 +42,11 @@ bool Bullet::CanCollideWith(GameObjectTypes other_object_type)
 {
     if (other_object_type == GameObjectTypes::Monster ||
         other_object_type == GameObjectTypes::Basic_Monster ||
-        other_object_type == GameObjectTypes::Fast_Monster)
+        other_object_type == GameObjectTypes::Fast_Monster ||
+        other_object_type == GameObjectTypes::Slow_Monster ||
+        other_object_type == GameObjectTypes::Weak_Monster
+
+        )
         return true;
     else
         return false;

@@ -172,7 +172,7 @@ void PrototypeMode1::ImguiDraw()
 		ImGui::Text("Life : %d", life);
 		ImGui::Text("Game Speed : %d", game_speed);
 
-		if (ImGui::SliderInt("Adjust Gold", &gold, 0, 600, "%d")) {
+		if (ImGui::SliderInt("Adjust Gold", &gold, 0, 100000, "%d")) {
 			GetGSComponent<Gold>()->SetValue(gold);
 		}
 		if (ImGui::SliderInt("Adjust Life", &life, 1, 30, "%d")) {
@@ -202,11 +202,24 @@ void PrototypeMode1::ImguiDraw()
 			Engine::GetLogger().LogEvent("Fast Monster Produce!");
 			GetGSComponent<GAM200::GameObjectManager>()->Add(new Fast_Monster());
 		}
-
-
-		if (ImGui::Button("Produce Tower"))
+		if (ImGui::Button("Produce Slow Monster"))
 		{
-			GetGSComponent<BuildMode>()->Build();
+			Engine::GetLogger().LogEvent("Slow Monster Produce!");
+			GetGSComponent<GAM200::GameObjectManager>()->Add(new Slow_Monster());
+		}
+
+
+		if (ImGui::Button("Produce Basic Tower"))
+		{
+			GetGSComponent<BuildMode>()->Build(GameObjectTypes::Basic_Tower);
+		}
+		if (ImGui::Button("Produce Double Tower"))
+		{
+			GetGSComponent<BuildMode>()->Build(GameObjectTypes::Double_Tower);
+		}
+		if (ImGui::Button("Produce Triple Tower"))
+		{
+			GetGSComponent<BuildMode>()->Build(GameObjectTypes::Triple_Tower);
 		}
 
 

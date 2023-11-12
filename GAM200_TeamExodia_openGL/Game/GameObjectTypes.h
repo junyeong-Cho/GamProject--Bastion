@@ -30,18 +30,24 @@ enum class GameObjectTypes
 
 
     //Exodia
+    
+    // Player
     Player,
-
+    // Monsters
     Monster,
     Basic_Monster,
     Fast_Monster,
-
+    Slow_Monster,
+    Weak_Monster,
+    // Tiles
     Tile,
     Pass__Tile,
     Block_Tile,
-
+    // Towers
     Tower,
     Basic_Tower,
-
+    Double_Tower,
+    Triple_Tower,
+    // Bullets
     Bullet,
 };

@@ -13,15 +13,18 @@
 #include "Life.h"
 
 #include "Bullet.h"
+#include "Map.h"
 
 int Monster::remaining_monsters = 0;
 
 Monster::Monster(Math::vec2 position) : GameObject(position) {
     // Tile Size
-    Math::vec2 tile_size = Math::vec2(Engine::GetWindow().GetSize().x / 16.0, Engine::GetWindow().GetSize().y / 9.0);
+    tile_size = Math::vec2(Engine::GetWindow().GetSize().x / Map::GetInstance().GetSize().y, Engine::GetWindow().GetSize().y / Map::GetInstance().GetSize().x);
     size_x = static_cast<int>(tile_size.x * 2 / 3);
     size_y = static_cast<int>(tile_size.y * 2 / 3);
-    walking_speed = static_cast<int>(tile_size.x / 2);
+    walking_speed = (tile_size.x / 2);
+    Engine::GetLogger().LogDebug("Speed scale: " + std::to_string(speed_scale));
+    Engine::GetLogger().LogDebug("Walking speed: " + std::to_string(walking_speed));
     // Settings
     SetVelocity({ 0, 0 });
     AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{0, 0}, Math::ivec2{size_x, size_y} }, this));
@@ -140,9 +143,9 @@ void Monster::State_Walking::Enter(GameObject* object)
         Engine::GetLogger().LogError("Monster Direction Error!");
     }
 
-    Math::vec2 tile_size = Math::vec2(Engine::GetWindow().GetSize().x / 16.0, Engine::GetWindow().GetSize().y / 9.0);
+    //Math::vec2 tile_size = Math::vec2(Engine::GetWindow().GetSize().x / 16.0, Engine::GetWindow().GetSize().y / 9.0);
 
-    monster->SetPosition({ tile_size.x * static_cast<double>(monster->current_tile_position.x), tile_size.y * static_cast<double>(monster->current_tile_position.y) });
+    monster->SetPosition({ monster->tile_size.x * static_cast<double>(monster->current_tile_position.x), monster->tile_size.y * static_cast<double>(monster->current_tile_position.y) });
     monster->next_tile_position = monster->path[monster->tile_index++];
 }
 
@@ -150,7 +153,7 @@ void Monster::State_Walking::Update(GameObject* object, double dt)
 {
     Monster* monster = static_cast<Monster*>(object);
 
-    static Math::ivec2 tile_size = Math::ivec2(Engine::GetWindow().GetSize().x / 16, Engine::GetWindow().GetSize().y / 9);
+    //static Math::ivec2 tile_size = Math::ivec2(Engine::GetWindow().GetSize().x / 16, Engine::GetWindow().GetSize().y / 9);
 
     Math::vec2 position = monster->GetPosition();
     // Update monster's current tile position
@@ -180,12 +183,12 @@ void Monster::State_Walking::Update(GameObject* object, double dt)
         monster->current_tile_position = Math::ivec2(static_cast<int>(position.x / tile_size.x), static_cast<int>(position.y / tile_size.y));
         change_direction = false;
     }*/
-    if (monster->GetPosition().x > monster->next_tile_position.x * tile_size.x - 20 &&
-        monster->GetPosition().x < monster->next_tile_position.x * tile_size.x + 20 &&
-        monster->GetPosition().y > monster->next_tile_position.y * tile_size.y - 20&&
-        monster->GetPosition().y < monster->next_tile_position.y * tile_size.y + 20)
+    if (monster->GetPosition().x > monster->next_tile_position.x * monster->tile_size.x - 20 &&
+        monster->GetPosition().x < monster->next_tile_position.x * monster->tile_size.x + 20 &&
+        monster->GetPosition().y > monster->next_tile_position.y * monster->tile_size.y - 20&&
+        monster->GetPosition().y < monster->next_tile_position.y * monster->tile_size.y + 20)
     {
-        monster->current_tile_position = Math::ivec2(static_cast<int>(position.x / tile_size.x), static_cast<int>(position.y / tile_size.y));
+        monster->current_tile_position = Math::ivec2(static_cast<int>(position.x / monster->tile_size.x), static_cast<int>(position.y / monster->tile_size.y));
     }
     
     if (monster->current_tile_position == monster->next_tile_position) 
@@ -250,15 +253,44 @@ Basic_Monster::Basic_Monster(Math::vec2 position) : Monster(position) {
 
     score = 1;
     gold = 10;
-    life = 2;
+    life = 3;
+
+    speed_scale = 1;
+    walking_speed *= speed_scale;
 }
 
 Fast_Monster::Fast_Monster(Math::vec2 position) : Monster(position) {
     fill_color = { 1.0f, 0.984f, 0.255f };
-    walking_speed *= 2;
 
     score = 2;
     gold = 20;
 
+    life = 2;
+
+    speed_scale = 3;
+    walking_speed *= speed_scale;
+}
+
+Slow_Monster::Slow_Monster(Math::vec2 position) : Monster(position) {
+    fill_color = { 1.0f, 0.984f, 0.255f };
+
+    score = 3;
+    gold = 20;
+
+    life = 6;
+
+    speed_scale = 0.5;
+    walking_speed *= speed_scale;
+}
+
+Weak_Monster::Weak_Monster(Math::vec2 position) : Monster(position) {
+    fill_color = { 1.0f, 0.984f, 0.255f };
+
+    score = 1;
+    gold = 5;
+
     life = 1;
+
+    speed_scale = 0.5;
+    walking_speed *= speed_scale;
 }

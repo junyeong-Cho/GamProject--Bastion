@@ -20,10 +20,10 @@ BuildMode::BuildMode() : build_mode(false), direction(Direction::RIGHT)
 
 void BuildMode::Update()
 {
-	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::B))
+	/*if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::B))
 	{
 		build_mode = true;
-	}
+	}*/
 
 	if (build_mode)
 	{
@@ -81,7 +81,13 @@ void BuildMode::Update()
 			}
 			else
 			{
-				Engine::GetGameStateManager().GetGSComponent <GAM200::GameObjectManager>()->Add(new Basic_Tower({ static_cast<double>(mouse_tile_position.x * static_cast<double>(tile_size.x)), (mouse_tile_position.y * static_cast<double>(tile_size.y)) }, static_cast<int>(direction)));
+				if(tower_type == GameObjectTypes::Basic_Tower)
+					Engine::GetGameStateManager().GetGSComponent <GAM200::GameObjectManager>()->Add(new Basic_Tower({ static_cast<double>(mouse_tile_position.x * static_cast<double>(tile_size.x)), (mouse_tile_position.y * static_cast<double>(tile_size.y)) }, static_cast<int>(direction)));
+				else if(tower_type == GameObjectTypes::Double_Tower)
+					Engine::GetGameStateManager().GetGSComponent <GAM200::GameObjectManager>()->Add(new Double_Tower({ static_cast<double>(mouse_tile_position.x * static_cast<double>(tile_size.x)), (mouse_tile_position.y * static_cast<double>(tile_size.y)) }, static_cast<int>(direction)));
+				else if(tower_type == GameObjectTypes::Triple_Tower)
+					Engine::GetGameStateManager().GetGSComponent <GAM200::GameObjectManager>()->Add(new Triple_Tower({ static_cast<double>(mouse_tile_position.x * static_cast<double>(tile_size.x)), (mouse_tile_position.y * static_cast<double>(tile_size.y)) }, static_cast<int>(direction)));
+
 			}
 		}
 		else if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::RIGHT))
@@ -131,4 +137,23 @@ void BuildMode::Draw() {
 	}
 	//shape.DrawRectangle(mouse_tile_position.x * tile_size.x, mouse_tile_position.y * tile_size.y, tile_size.x, tile_size.y);
 	shape.DrawTriangle(point1.x, point1.y, point2.x, point2.y, point3.x, point3.y);
+}
+
+void BuildMode::Build(GameObjectTypes type)
+{ 
+	build_mode = true;  
+	tower_type = type; 
+
+	if (type == GameObjectTypes::Basic_Tower)
+	{
+		cost = Basic_Tower::GetCost();
+	}
+	if (type == GameObjectTypes::Double_Tower)
+	{
+		cost = Double_Tower::GetCost();
+	}
+	if (type == GameObjectTypes::Triple_Tower)
+	{
+		cost = Triple_Tower::GetCost();
+	}
 }

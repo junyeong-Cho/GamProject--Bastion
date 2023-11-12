@@ -38,6 +38,8 @@ public:
 
     static int GetRemainMonster();
 
+    Math::vec2 tile_size;
+
 protected:
     GAM200::Texture e = GAM200::Texture("assets/images/e.png", GAM200::Texture::TextureType::RECTANGLE);
 
@@ -52,7 +54,9 @@ protected:
 
     int size_x;
     int size_y;
-    int walking_speed;
+
+    double walking_speed;
+    double speed_scale = 1;
 
     int score = 1;
     int gold = 10;
@@ -121,4 +125,21 @@ public:
     GameObjectTypes Type() override { return GameObjectTypes::Fast_Monster; }
     std::string TypeName() override { return "Fast_Monster"; }
 
+};
+
+class Slow_Monster : public Monster {
+public:
+    Slow_Monster(Math::vec2 position = Math::vec2(0, 0));
+
+    GameObjectTypes Type() override { return GameObjectTypes::Slow_Monster; }
+    std::string TypeName() override { return "Slow_Monster"; }
+
+};
+
+class Weak_Monster : public Monster
+{
+    Weak_Monster(Math::vec2 position = Math::vec2(0, 0));
+
+    GameObjectTypes Type() override { return GameObjectTypes::Weak_Monster; }
+    std::string TypeName() override { return "Weak_Monster"; }
 };

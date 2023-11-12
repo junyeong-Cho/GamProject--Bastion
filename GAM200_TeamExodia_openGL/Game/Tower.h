@@ -77,6 +77,97 @@ public:
     std::string TypeName() override { return "Basic_Tower"; }
 
     static int GetCost() { return cost; }
+
+
+    class State_Charging : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Jumping"; }
+    };
+    class State_Attacking : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Idle"; }
+    };
+
+    State_Charging state_charging;
+    State_Attacking state_attacking;
 private:
     static const int cost = 100;
+};
+
+class Double_Tower : public Tower
+{
+public:
+    Double_Tower(Math::vec2 position, int direction);
+
+    GameObjectTypes Type() override { return GameObjectTypes::Double_Tower; }
+    std::string TypeName() override { return "Double_Tower"; }
+
+    static int GetCost() { return cost; }
+
+    class State_Charging : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Jumping"; }
+    };
+    class State_Attacking : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Idle"; }
+    };
+
+    State_Charging state_charging;
+    State_Attacking state_attacking;
+
+private:
+    static const int cost = 300;
+
+};
+
+class Triple_Tower : public Tower
+{
+public:
+    Triple_Tower(Math::vec2 position, int direction);
+
+    GameObjectTypes Type() override { return GameObjectTypes::Triple_Tower; }
+    std::string TypeName() override { return "Triple_Tower"; }
+
+    static int GetCost() { return cost; }
+
+    class State_Charging : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Jumping"; }
+    };
+    class State_Attacking : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Idle"; }
+    };
+
+    State_Charging state_charging;
+    State_Attacking state_attacking;
+
+private:
+    static const int cost = 500;
+
 };
