@@ -34,6 +34,7 @@ Updated:    October		10, 2023
 #include "GameSpeed.h"
 #include "Wave.h"
 #include "BuildMode.h"
+#include "Button.h"
 
 #include <filesystem>
 #include <imgui.h>
@@ -74,7 +75,7 @@ void Mode1::Load()
 	}
 
 	// Add Player
-	player_ptr = new Player({ 0, 0 }, tile_size_x * 2 / 3, tile_size_y * 2 / 3);
+	player_ptr = new Player({ 0, 0 }, tile_size.x * 2 / 3, tile_size.y * 2 / 3);
 	GetGSComponent<GAM200::GameObjectManager>()->Add(player_ptr);
 
 	// Camera Setting
@@ -88,6 +89,22 @@ void Mode1::Load()
 	AddGSComponent(new Wave());
 	GetGSComponent<Wave>()->SetWave();
 	AddGSComponent(new BuildMode());
+
+	Math::ivec2 size = Math::ivec2(Map::GetInstance().GetSize().y, Map::GetInstance().GetSize().x);
+
+	if (Map::GetInstance().editor_mode == false)
+	{
+		new Wave_Start_Button(Math::vec2(tile_size.x * (size.x - 2), tile_size.y * 1), Math::vec2(tile_size.x * 9 / 5, tile_size.y * 4 / 5.0));
+
+		new Basic_Tower_Button(Math::vec2(tile_size.x * (size.x - 1), tile_size.y * 7), Math::vec2(tile_size.x * 4 / 5.0, tile_size.y * 4 / 5.0));
+		new Double_Tower_Button(Math::vec2(tile_size.x * (size.x - 1), tile_size.y * 6), Math::vec2(tile_size.x * 4 / 5.0, tile_size.y * 4 / 5.0));
+		new Triple_Tower_Button(Math::vec2(tile_size.x * (size.x - 1), tile_size.y * 5), Math::vec2(tile_size.x * 4 / 5.0, tile_size.y * 4 / 5.0));
+
+		new Delete_Tower_Button(Math::vec2(tile_size.x * (size.x - 1), tile_size.y * 4), Math::vec2(tile_size.x * 4 / 5.0, tile_size.y * 4 / 5.0));
+		new Pass_Tile_Button(Math::vec2(tile_size.x * (size.x - 1), tile_size.y * 3), Math::vec2(tile_size.x * 4 / 5.0, tile_size.y * 4 / 5.0));
+		new Block_Tile_Button(Math::vec2(tile_size.x * (size.x - 1), tile_size.y * 2), Math::vec2(tile_size.x * 4 / 5.0, tile_size.y * 4 / 5.0));
+	}
+
 
 	#ifdef _DEBUG
 	AddGSComponent(new GAM200::ShowCollision());
@@ -139,6 +156,7 @@ void Mode1::Unload()
 {
 	player_ptr = nullptr;
 	Map::GetInstance().MapUnload();
+	Monster::remaining_monsters = 0;
 	GetGSComponent<GAM200::GameObjectManager>()->Unload();
 	ClearGSComponent();
 }
@@ -153,7 +171,7 @@ void Mode1::Draw()
 		}
 
 	}
-
+	
 	Math::TransformationMatrix camera_matrix = GetGSComponent<GAM200::Camera>()->GetMatrix();
 
 	//GetGSComponent<Background>()->Draw(*GetGSComponent<GAM200::Camera>());
@@ -170,6 +188,9 @@ void Mode1::Draw()
 
 void Mode1::ImguiDraw()
 {
+	if (Map::GetInstance().editor_mode == false)
+		return;
+
 	ImGui::Begin("Information");
 	{
 		int gold = GetGSComponent<Gold>()->Value();
@@ -279,8 +300,8 @@ void Mode1::SetMap(std::string file_name)
 	Math::ivec2 window_size = Engine::GetWindow().GetSize();
 	tile_col = Map::GetInstance().GetSize().x;
 	tile_row = Map::GetInstance().GetSize().y;
-	tile_size_x = window_size.x / tile_row;
-	tile_size_y = window_size.y / tile_col;
+	tile_size.x = window_size.x / tile_row;
+	tile_size.y = window_size.y / tile_col;
 
 	Astar::GetInstance().UpdatePath(Map::GetInstance().GetMap(), Map::GetInstance().GetStartPoint(), Map::GetInstance().GetEndPoint());
 }

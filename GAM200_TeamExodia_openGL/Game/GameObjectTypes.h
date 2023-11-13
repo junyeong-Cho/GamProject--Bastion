@@ -31,6 +31,8 @@ enum class GameObjectTypes
 
     //Exodia
     
+    // Button
+    Button,
     // Player
     Player,
     // Monsters

@@ -41,6 +41,8 @@ public:
 	void DeleteTower(Math::ivec2 position);
 	void BuildTower(Math::ivec2 position, GameObjectTypes type, int direction);
 
+	bool editor_mode = false;
+
 private:
 	Info*** map = nullptr;
 

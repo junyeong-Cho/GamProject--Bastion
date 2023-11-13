@@ -18,6 +18,8 @@ void Map::SetMap(std::string file_name) {
 
 	// File parsing and get cols and rows
 	if (file.is_open()) {
+		// 1 -> editor, 0 -> game
+		file >> editor_mode;
 		// cols, rows
 		file >> cols;
 		file >> rows;

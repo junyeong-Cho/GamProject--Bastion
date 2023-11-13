@@ -190,6 +190,9 @@
     <ClCompile Include="Game\Timer.cpp">
       <Filter>Game\Components\CS230</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Button.cpp">
+      <Filter>Game\Objests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Bullet.h">
@@ -368,6 +371,9 @@
     </ClInclude>
     <ClInclude Include="Game\GameObjectTypes.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Button.h">
+      <Filter>Game\Objests</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

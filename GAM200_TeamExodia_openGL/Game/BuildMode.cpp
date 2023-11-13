@@ -116,34 +116,43 @@ void BuildMode::Draw() {
 
 	GAM200::DrawShape shape;
 
-	Math::ivec2 point1 = Math::ivec2(mouse_tile_position.x * tile_size.x, mouse_tile_position.y * tile_size.y);
-	Math::ivec2 point2 = Math::ivec2(mouse_tile_position.x * tile_size.x, mouse_tile_position.y * tile_size.y);
-	Math::ivec2 point3 = Math::ivec2(mouse_tile_position.x * tile_size.x, mouse_tile_position.y * tile_size.y);
-
-	switch (direction)
+	if (mode == Mode::BUILD_TOWER)
 	{
-	case Direction::RIGHT:
-		point2 += Math::ivec2(0, tile_size.y);
-		point3 += Math::ivec2(tile_size.x, tile_size.y / 2);
-		break;
-	case Direction::LEFT:
-		point1 += Math::ivec2(0, tile_size.y / 2);
-		point2 += Math::ivec2(tile_size.x, 0);
-		point3 += Math::ivec2(tile_size.x, tile_size.y);
-		break;
-	case Direction::UP:
-		point2 += Math::ivec2(tile_size.x / 2, tile_size.y);
-		point3 += Math::ivec2(tile_size.x, 0);
-		break;
-	case Direction::DOWN:
-		point1 += Math::ivec2(0, tile_size.y);
-		point2 += Math::ivec2(tile_size.x, tile_size.y);
-		point3 += Math::ivec2(tile_size.x / 2, 0);
-		break;
+		Math::ivec2 point1 = Math::ivec2(mouse_tile_position.x * tile_size.x, mouse_tile_position.y * tile_size.y);
+		Math::ivec2 point2 = Math::ivec2(mouse_tile_position.x * tile_size.x, mouse_tile_position.y * tile_size.y);
+		Math::ivec2 point3 = Math::ivec2(mouse_tile_position.x * tile_size.x, mouse_tile_position.y * tile_size.y);
 
+		switch (direction)
+		{
+		case Direction::RIGHT:
+			point2 += Math::ivec2(0, tile_size.y);
+			point3 += Math::ivec2(tile_size.x, tile_size.y / 2);
+			break;
+		case Direction::LEFT:
+			point1 += Math::ivec2(0, tile_size.y / 2);
+			point2 += Math::ivec2(tile_size.x, 0);
+			point3 += Math::ivec2(tile_size.x, tile_size.y);
+			break;
+		case Direction::UP:
+			point2 += Math::ivec2(tile_size.x / 2, tile_size.y);
+			point3 += Math::ivec2(tile_size.x, 0);
+			break;
+		case Direction::DOWN:
+			point1 += Math::ivec2(0, tile_size.y);
+			point2 += Math::ivec2(tile_size.x, tile_size.y);
+			point3 += Math::ivec2(tile_size.x / 2, 0);
+			break;
+
+		}
+		shape.DrawTriangle(point1.x, point1.y, point2.x, point2.y, point3.x, point3.y);
+
+		return;
 	}
-	//shape.DrawRectangle(mouse_tile_position.x * tile_size.x, mouse_tile_position.y * tile_size.y, tile_size.x, tile_size.y);
-	shape.DrawTriangle(point1.x, point1.y, point2.x, point2.y, point3.x, point3.y);
+	else if (mode == Mode::CHANGE_TILE || mode == Mode::DELETE_TOWER)
+	{
+		shape.DrawRectangle(mouse_tile_position.x * tile_size.x, mouse_tile_position.y * tile_size.y, tile_size.x, tile_size.y);
+	}
+	
 }
 
 void BuildMode::Build(GameObjectTypes type)

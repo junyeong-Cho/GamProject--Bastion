@@ -23,8 +23,7 @@ Monster::Monster(Math::vec2 position) : GameObject(position) {
     size_x = static_cast<int>(tile_size.x * 2 / 3);
     size_y = static_cast<int>(tile_size.y * 2 / 3);
     walking_speed = (tile_size.x / 2);
-    Engine::GetLogger().LogDebug("Speed scale: " + std::to_string(speed_scale));
-    Engine::GetLogger().LogDebug("Walking speed: " + std::to_string(walking_speed));
+
     // Settings
     SetVelocity({ 0, 0 });
     AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{0, 0}, Math::ivec2{size_x, size_y} }, this));

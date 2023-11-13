@@ -51,8 +51,7 @@ public:
 
     int tile_col = 0;
     int tile_row = 0;
-    int tile_size_x = 0;
-    int tile_size_y = 0;
+    Math::ivec2 tile_size;
 
 private:
 
