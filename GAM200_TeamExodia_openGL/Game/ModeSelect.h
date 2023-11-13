@@ -39,6 +39,7 @@ public:
 
 
 	std::string GetName() override { return "ModeSelect"; }
+	static int GetCount() { return counter; }
 
 	void UpdateMenuTextColors();
 
@@ -52,7 +53,7 @@ private:
 	std::unique_ptr<GAM200::Texture> mode2;
 	std::unique_ptr<GAM200::Texture> mode3;
 
-	int counter = 0;
+	static int counter;
 
 
 };

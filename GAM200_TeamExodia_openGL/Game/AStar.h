@@ -5,6 +5,8 @@
 #include <vector>
 
 class Tile;
+struct Info;
+
 class Astar {
 public:
 	static Astar& GetInstance() {
@@ -12,7 +14,7 @@ public:
 		return instance;
 	}
 	std::vector<Math::ivec2>& GetPath() { return path; }
-	void UpdatePath(Tile*** map, Math::ivec2 start, Math::ivec2 target);
+	void UpdatePath(Info*** map, Math::ivec2 start, Math::ivec2 target);
 private:
 	Astar() = default;
 

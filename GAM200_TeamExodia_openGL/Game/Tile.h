@@ -31,6 +31,8 @@ public:
 
 	Math::ivec2 size;
 
+	void Tile_Destroy();
+
 protected:
 
 	GAM200::Texture block_tile = GAM200::Texture("assets/images/b_tile.png", GAM200::Texture::TextureType::RECTANGLE);

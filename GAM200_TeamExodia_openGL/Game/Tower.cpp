@@ -37,15 +37,22 @@ Tower::Tower(Math::vec2 position, int direction) : GameObject(position), directi
 		break;
 
 	}
+	hp = max_hp;
 
 	AddGOComponent(new GAM200::RectCollision(Math::irect{ {0, 0}, {size_x, size_y} }, this));
 
 	current_state = &state_charging;
 	current_state->Enter(this);
+
 }
 void Tower::Update(double dt) {
 	GameObject::Update(dt);
 
+}
+void Tower::Tower_Destroy()
+{
+	Destroy();
+	RemoveGOComponent<GAM200::RectCollision>();
 }
 void Tower::Draw(Math::TransformationMatrix camera_matrix) {
 	
@@ -56,6 +63,8 @@ void Tower::Draw(Math::TransformationMatrix camera_matrix) {
 	}
 
 }
+
+
 
 Basic_Tower::Basic_Tower(Math::vec2 position, int direction) : Tower(position, direction) {
 	charging_color = { 0.f, 0.f, 0.6f };
@@ -68,6 +77,8 @@ Basic_Tower::Basic_Tower(Math::vec2 position, int direction) : Tower(position, d
 
 	current_state = &state_charging;
 	current_state->Enter(this);
+
+	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
 
 Double_Tower::Double_Tower(Math::vec2 position, int direction) : Tower(position, direction) {
@@ -81,6 +92,8 @@ Double_Tower::Double_Tower(Math::vec2 position, int direction) : Tower(position,
 
 	current_state = &state_charging;
 	current_state->Enter(this);
+
+	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
 
 Triple_Tower::Triple_Tower(Math::vec2 position, int direction) : Tower(position, direction) {
@@ -94,6 +107,8 @@ Triple_Tower::Triple_Tower(Math::vec2 position, int direction) : Tower(position,
 
 	current_state = &state_charging;
 	current_state->Enter(this);
+
+	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
 
 
@@ -129,7 +144,8 @@ void Tower::State_Attacking::Update(GameObject* object, double dt) {
 
 	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x + tower->size_x / 2, tower->GetPosition().y + tower->size_y / 2 });
 	
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(tower_position, tower->bullet_direction * Bullet::DefaultVelocity));
+	//Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(tower_position, tower->bullet_direction * Bullet::DefaultVelocity));
+	new Bullet(tower_position, tower->bullet_direction * Bullet::DefaultVelocity);
 	tower->change_state(&tower->state_charging);
 }
 void Tower::State_Attacking::CheckExit(GameObject* object) {
@@ -170,7 +186,8 @@ void Basic_Tower::State_Attacking::Update(GameObject* object, double dt) {
 
 	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x + tower->size_x / 2, tower->GetPosition().y + tower->size_y / 2 });
 
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(tower_position, tower->bullet_direction * Bullet::DefaultVelocity));
+	//Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(tower_position, tower->bullet_direction * Bullet::DefaultVelocity));
+	new Bullet(tower_position, tower->bullet_direction * Bullet::DefaultVelocity);
 	tower->change_state(&tower->state_charging);
 }
 void Basic_Tower::State_Attacking::CheckExit(GameObject* object) {
@@ -233,8 +250,10 @@ void Double_Tower::State_Attacking::Update(GameObject* object, double dt) {
 		break;
 	}
 
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(point1, tower->bullet_direction * Bullet::DefaultVelocity));
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(point2, tower->bullet_direction * Bullet::DefaultVelocity));
+	new Bullet(point1, tower->bullet_direction * Bullet::DefaultVelocity);
+	new Bullet(point2, tower->bullet_direction * Bullet::DefaultVelocity);
+	//Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(point1, tower->bullet_direction * Bullet::DefaultVelocity));
+	//Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(point2, tower->bullet_direction * Bullet::DefaultVelocity));
 
 	tower->change_state(&tower->state_charging);
 }
@@ -305,9 +324,13 @@ void Triple_Tower::State_Attacking::Update(GameObject* object, double dt) {
 	bullet_direction_left.Normalize();
 	bullet_direction_right.Normalize();
 
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(tower_position, bullet_direction_left * Bullet::DefaultVelocity));
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(tower_position, bullet_direction_middle * Bullet::DefaultVelocity));
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(tower_position, bullet_direction_right * Bullet::DefaultVelocity));
+	new Bullet(tower_position, bullet_direction_left * Bullet::DefaultVelocity);
+	new Bullet(tower_position, bullet_direction_middle * Bullet::DefaultVelocity);
+	new Bullet(tower_position, bullet_direction_right * Bullet::DefaultVelocity);
+
+	//Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(tower_position, bullet_direction_left * Bullet::DefaultVelocity));
+	//Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(tower_position, bullet_direction_middle * Bullet::DefaultVelocity));
+	//Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(tower_position, bullet_direction_right * Bullet::DefaultVelocity));
 
 	tower->change_state(&tower->state_charging);
 }

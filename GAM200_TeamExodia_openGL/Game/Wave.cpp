@@ -79,15 +79,15 @@ void Wave::Update(double dt)
 
 		if (monster_name == "BASIC")
 		{
-			Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster());
+			new Basic_Monster;
 		}
 		else if (monster_name == "FAST")
 		{
-			Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Fast_Monster());
+			new Fast_Monster;
 		}
 		else if (monster_name == "SLOW")
 		{
-			Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Slow_Monster());
+			new Slow_Monster;
 		}
 		else if (monster_name == "NONE")
 		{

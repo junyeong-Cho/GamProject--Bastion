@@ -12,17 +12,27 @@ public:
 
     void Update();
     void Draw();
+    
     void Build(GameObjectTypes type);
+    void DeleteTower();
+    void ChangeTile(GameObjectTypes type);
 
     enum Direction
     {
         RIGHT, LEFT, UP, DOWN
     };
+    enum Mode
+    {
+        CHANGE_TILE,
+
+        DELETE_TOWER,
+        BUILD_TOWER
+    } mode;
 
 private:
     bool build_mode;
 
-    GameObjectTypes tower_type = GameObjectTypes::Basic_Tower;
+    GameObjectTypes type;
     int cost = 0;
 
     Math::ivec2 mouse_tile_position;

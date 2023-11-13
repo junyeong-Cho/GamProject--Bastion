@@ -25,7 +25,13 @@ Tile::Tile(Math::irect boundary) : GameObject(static_cast<Math::vec2>(boundary.p
 }
 
 void Tile::Update(double dt) {
+	GameObject::Update(dt);
 
+}
+void Tile::Tile_Destroy()
+{
+	Destroy();
+	RemoveGOComponent<GAM200::RectCollision>();
 }
 void Tile::Draw(Math::TransformationMatrix camera_matrix) {
 	

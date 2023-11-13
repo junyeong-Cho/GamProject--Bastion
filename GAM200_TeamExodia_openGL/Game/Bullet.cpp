@@ -12,6 +12,9 @@ Bullet::Bullet(Math::vec2 pos, Math::vec2 vel) : GameObject(pos)
     AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{0, 0}, Math::ivec2{size, size} }, this)); 
 
     color = { 0.f, 0.f, 0.f };
+
+
+    Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
 
 void Bullet::Update(double dt)

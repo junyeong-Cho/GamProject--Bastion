@@ -16,6 +16,11 @@ public:
 
     static int GetCost() { return cost; }
 
+    int GetHP() const { return hp; }
+    void SetHP(int value) { hp = value; }
+
+    void Tower_Destroy();
+
 protected:
     bool set_basic_tower = false;
     GAM200::Texture c = GAM200::Texture("assets/images/c.png", GAM200::Texture::TextureType::RECTANGLE);
@@ -43,6 +48,9 @@ protected:
 
     const double attack_delay = 1.0;
     double attack_count = 0;
+
+    int max_hp = 10;
+    int hp;
 
     class State_Charging : public State
     {

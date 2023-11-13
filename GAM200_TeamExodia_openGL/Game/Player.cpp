@@ -89,8 +89,8 @@ void Player::Update(double dt) {
     if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT))
     {
         // Some machanism
-
-        Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity));
+        new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity);
+        //Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity));
     }
 }
 
@@ -106,7 +106,7 @@ bool Player::CanCollideWith(GameObjectTypes type) {
     if (type == GameObjectTypes::Basic_Monster ||
         type == GameObjectTypes::Fast_Monster ||
         type == GameObjectTypes::Slow_Monster ||
-        type == GameObjectTypes::Weak_Monster
+        type == GameObjectTypes::Weak_Monster //|| type == GameObjectTypes::Block_Tile
         )
     {
         return true;

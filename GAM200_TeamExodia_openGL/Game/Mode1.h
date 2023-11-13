@@ -36,8 +36,6 @@ public:
     void HandleEvent(SDL_Event& event)           override;
 
     void SetMap(std::string file_name);
-    void ChangeTile(Math::ivec2 position, GameObjectTypes type);
-
 
 
     std::string GetName() override { return "Mode1"; }
