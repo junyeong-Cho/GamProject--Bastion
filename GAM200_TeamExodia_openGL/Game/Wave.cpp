@@ -18,7 +18,7 @@ void Wave::Start()
 { 
 	if (current_wave >= total_wave_num)
 	{
-		Engine::GetLogger().LogDebug("스탑 새기야");
+		Engine::GetLogger().LogDebug("Stop!!!!");
 		return;
 	}
 
