@@ -44,7 +44,10 @@ void Wave::Update(double dt)
 
 
 	if (current_wave >= total_wave_num)
+	{
+		Engine::GetLogger().LogEvent("Win!");
 		return;
+	}
 	if (wave_state == Wave_State::NotInProgress)
 	{
 		//Engine::GetLogger().LogDebug("It's not in progress.");
