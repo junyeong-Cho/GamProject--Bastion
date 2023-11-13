@@ -119,8 +119,10 @@ void Map::MapUnload() {
 void Map::ChangeTile(Math::ivec2 position, GameObjectTypes type) {
 	int cols = position.y;
 	int rows = position.x;
-	Engine::GetLogger().LogDebug("Before: " + map[cols][rows]->tile->TypeName());
-	//delete map[cols][rows]->tile;
+
+	if (map[cols][rows]->tower != nullptr)
+		return;
+	
 	map[cols][rows]->tile->Tile_Destroy();
 	map[cols][rows]->tile = nullptr;
 	delete map[cols][rows]->tile;
@@ -128,15 +130,12 @@ void Map::ChangeTile(Math::ivec2 position, GameObjectTypes type) {
 	if (type == GameObjectTypes::Pass__Tile) 
 	{
 		map[cols][rows]->tile = new Pass__Tile(Math::irect{ { rows * tile_size.x, cols * tile_size.y }, { (rows + 1) * tile_size.x, (cols + 1) * tile_size.y } });
-		Engine::GetLogger().LogDebug("Changed into pass tile!");
 	}
 	else if (type == GameObjectTypes::Block_Tile)
 	{
 		map[cols][rows]->tile = new Block_Tile(Math::irect{ { rows * tile_size.x, cols * tile_size.y }, { (rows + 1) * tile_size.x, (cols + 1) * tile_size.y } });
-		Engine::GetLogger().LogDebug("Changed into block tile!");
 	}
 
-	Engine::GetLogger().LogDebug("Before: " + map[cols][rows]->tile->TypeName());
 	Astar::GetInstance().UpdatePath(map, start_point, end_point);
 }
 

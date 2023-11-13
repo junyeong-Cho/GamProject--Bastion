@@ -43,7 +43,7 @@ void Button::Draw(Math::TransformationMatrix camera_matrix)
 	{
 		shape.SetColor(0, 0, 1, 1);
 	}
-	shape.DrawRectangle(position.x, position.y, size.x, size.y);
+	shape.DrawRectangle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(size.x), static_cast<int>(size.y));
 }
 
 
