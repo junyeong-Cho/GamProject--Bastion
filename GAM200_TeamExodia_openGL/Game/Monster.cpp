@@ -80,7 +80,6 @@ void Monster::ResolveCollision(GameObject* other_object) {
 
             change_state(&state_dead);
 
-            --remaining_monsters;
         }
     }
     else if (other_object->Type() == GameObjectTypes::Block_Tile)
@@ -93,6 +92,7 @@ void Monster::State_Dead::Enter(GameObject* object)
 {
     Monster* monster = static_cast<Monster*>(object);
     monster->fill_color = { 0.f, 0.f, 0.f };
+    --remaining_monsters;
     //monster->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(Animations::Dead));
 }
 
