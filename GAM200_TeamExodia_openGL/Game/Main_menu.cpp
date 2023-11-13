@@ -37,9 +37,9 @@ void Main_menu::UpdateMenuTextColors()
 	uint32_t colors[4] = { 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF };
 	colors[counter] = 0x7EFACBFF;
 
-	side_scroller.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Side Scroller", colors[0]));
-	Space_shotter.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Space Shotter", colors[1]));
-	Exodia.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("They are "  " ", colors[2]));
+	start.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Start", colors[0]));
+	gamePlay_Editor.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Game play editor", colors[1]));
+	howToPlay.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("How to play", colors[2]));
 	exit.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Exit", colors[3]));
 	
 }
@@ -73,15 +73,15 @@ void Main_menu::Update(double dt)
 		{
 		case 0:
 			
-			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Mode1));
+			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::ModeSelect));
 			break;
 		case 1:
 			
-			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Mode2));
+			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::GamePlayEditior));
 			break;
 		case 2:
 			GetGSComponent<GAM200::MusicEffect>()->Stop();
-			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::PrototypeMode1));
+			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::HowToPlay));
 			break;
 		case 3:
 			Engine::GetGameStateManager().ClearNextGameState();
@@ -111,10 +111,10 @@ void Main_menu::Draw()
 
 	//main_title.Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 400), (Engine::GetWindow().GetSize().y - 400) }) * CS230::ScaleMatrix({2, 2}));
 	main_title->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 50) }));
-	side_scroller->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 200) }));
-	Space_shotter->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 300) }));
-	Exodia->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 400) }));
-	exit->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 500) }));
+	start->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 150) }));
+	gamePlay_Editor->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 250) }));
+	howToPlay->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 350) }));
+	exit->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 450) }));
 }
 
 void Main_menu::ImguiDraw()

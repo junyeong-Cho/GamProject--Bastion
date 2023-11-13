@@ -2,11 +2,11 @@
 Copyright (C) 2023 DigiPen Institute of Technology
 Reproduction or distribution of this file or its contents without
 prior written consent is prohibited
-File Name:  Main_menu.h
+File Name:  ModeSelect.h
 Project:    GAM200 Engine
-Author:     Junyeong Cho
-Created:    November 2, 2023
-Updated:    November 2, 2023
+Author:
+Created:    November 13, 2023
+Updated:    November 13, 2023
 */
 
 #pragma once
@@ -23,10 +23,11 @@ Updated:    November 2, 2023
 #include "../Engine/GameState.h"
 #include "../Engine/Sprite.h"
 
-class Main_menu : public GAM200::GameState
+
+class ModeSelect : public GAM200::GameState
 {
 public:
-	Main_menu();
+	ModeSelect();
 
 	void Load()				override;
 	void Update(double dt)  override;
@@ -37,19 +38,21 @@ public:
 	void HandleEvent(SDL_Event& event) override;
 
 
-	std::string GetName() override { return "Main_menu"; }
+	std::string GetName() override { return "ModeSelect"; }
 
 	void UpdateMenuTextColors();
 
-private:
-	Background background;
 
-	std::unique_ptr<GAM200::Texture> main_title;
-	std::unique_ptr<GAM200::Texture> start;
-	std::unique_ptr<GAM200::Texture> howToPlay;
-	std::unique_ptr<GAM200::Texture> gamePlay_Editor;
-	std::unique_ptr<GAM200::Texture> exit;
+
+private:
+	std::unique_ptr<GAM200::Texture> message;
+
+
+	std::unique_ptr<GAM200::Texture> mode1;
+	std::unique_ptr<GAM200::Texture> mode2;
+	std::unique_ptr<GAM200::Texture> mode3;
 
 	int counter = 0;
+
 
 };

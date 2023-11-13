@@ -4,17 +4,15 @@
 
 #include "../Engine/Engine.h"
 
-#include "../Game/PrototypeSplash.h"
-#include "../Game/PrototypeMode1.h"
-
 
 //#include "Engine/Engine.h"
-#include "Game/Main_menu.h"
 #include "Game/Splash.h"
+#include "Game/Main_menu.h"
+#include "Game/ModeSelect.h" 
+#include "Game/GamePlayEditor.h"
+#include "Game/HowToplay.h"
 #include "Game/Mode1.h"
-#include "Game/Mode2.h"
 
-#include "Game/PrototypeMode1.h"
 
 
 
@@ -69,12 +67,20 @@ int main()
         engine.GetGameStateManager().AddGameState(splash);
         Main_menu main_menu;
         engine.GetGameStateManager().AddGameState(main_menu);
+        ModeSelect modeSelect;
+		engine.GetGameStateManager().AddGameState(modeSelect);
+        GamePlayEditor gamePlayEditor;
+		engine.GetGameStateManager().AddGameState(gamePlayEditor);
+        HowToPlay howToPlay;
+        engine.GetGameStateManager().AddGameState(howToPlay);
+
         Mode1 mode1;
         engine.GetGameStateManager().AddGameState(mode1);
-        Mode2 mode2;
-        engine.GetGameStateManager().AddGameState(mode2);
-        PrototypeMode1 prototypeMode1;
-        engine.GetGameStateManager().AddGameState(prototypeMode1);
+
+        //Mode2 mode2;
+        //engine.GetGameStateManager().AddGameState(mode2);
+        //PrototypeMode1 prototypeMode1;
+        //engine.GetGameStateManager().AddGameState(prototypeMode1);
 
 
 

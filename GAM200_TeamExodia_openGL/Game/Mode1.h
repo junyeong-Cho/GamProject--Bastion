@@ -2,72 +2,62 @@
 Copyright (C) 2023 DigiPen Institute of Technology
 Reproduction or distribution of this file or its contents without
 prior written consent is prohibited
-File Name:  Mode1.h
-Project:    GAM200 Engine
-Author:     Junyeong Cho
-Created:    November 1, 2023
-Updated:    November 1, 2023
+File Name:  Player.h
+Project:    GAM200_TeamExodia_openGL
+Author:     Hyeonjoon Nam
+Created:    October		10, 2023
+Updated:    October		10, 2023
 */
-
 
 #pragma once
 
+#include "IProgram.h"
+
 #include "../Engine/GameObjectManager.h"
 #include "../Engine/TextureManager.h"
-
-#include "../Engine/Particle.h"
-#include "../Engine/GameState.h"
-#include "../Engine/Sprite.h"
-#include "../Engine/Vec2.h"
-#include "../Engine/Sprite.h"
 #include "../Engine/Camera.h"
-
-#include "../Engine/GameObjectManager.h"
+#include "../Engine/GameState.h"
 #include "../Engine/Texture.h"
-#include "../Engine/Font.h"
+#include "GameObjectTypes.h"
 
 
-#include "Background.h"
-#include "Gravity.h"
-#include "Score.h"
-
-
-class Cat;
+class Player;
 
 class Mode1 : public GAM200::GameState
 {
 public:
     Mode1();
-    void Load()            override;
-    void Update(double dt) override;
-    void Unload()          override;
-    void Draw()            override;
+    void Load()                                  override;
+    void Update(double dt)                       override;
+    void Unload()                                override;
+    void Draw()                                  override;
 
+    void ImguiDraw()                             override;
+    void HandleEvent(SDL_Event& event)           override;
 
-    void ImguiDraw()                   override;
-    void HandleEvent(SDL_Event& event) override;
+    void SetMap(std::string file_name);
+    void ChangeTile(Math::ivec2 position, GameObjectTypes type);
 
-
-    //Because there is no definition of the meter so the gravity is big
-    static constexpr double gravity = 800;
-    static constexpr double floor = 80;
 
 
     std::string GetName() override { return "Mode1"; }
+public:
 
+    double counter = 0;
+
+    int x = 0;
+    int y = 0;
+    int velocity = 500;
+
+    Player* player_ptr;
+
+    int tile_col = 0;
+    int tile_row = 0;
+    int tile_size_x = 0;
+    int tile_size_y = 0;
 
 private:
 
-    int catScore = 0;
-    int maxTimer = 60;
-
-   // GAM200::Texture* score;
-    //GAM200::Texture* timer_texture;
-
-    std::unique_ptr<GAM200::Texture> timer_texture;
-    std::unique_ptr<GAM200::Texture> score;
-
-    Cat* cat_ptr;
-
-    int counter = 0;
+    GAM200::Texture m = GAM200::Texture("assets/images/m.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture w = GAM200::Texture("assets/images/w.png", GAM200::Texture::TextureType::RECTANGLE);
 };

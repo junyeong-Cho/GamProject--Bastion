@@ -7,21 +7,6 @@
     <Filter Include="Engine">
       <UniqueIdentifier>{fd433bef-5a1c-436a-905b-a65c3bb33ae8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Exodia">
-      <UniqueIdentifier>{2de2295b-ef12-4c6d-ac17-8a189c0b5439}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Exodia\Components">
-      <UniqueIdentifier>{cd668bd4-2c1b-4e55-a0a6-db762fd2ae53}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Exodia\Modes">
-      <UniqueIdentifier>{0b692e9c-1a01-4017-922a-1342d671d7f7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Exodia\Objests">
-      <UniqueIdentifier>{f07a0d33-de28-438c-b9d6-08c2b3e57c66}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\CS230">
-      <UniqueIdentifier>{5e360f76-4c7d-4b11-9a5f-fbe773d552b9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Core Engine Components">
       <UniqueIdentifier>{8a3ccde8-b097-4046-a36a-207dbf54b44e}</UniqueIdentifier>
     </Filter>
@@ -43,56 +28,53 @@
     <Filter Include="Engine\Game Components">
       <UniqueIdentifier>{fa86117b-c53f-4f39-9fdc-dce1b1d45c24}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\CS230\Components">
-      <UniqueIdentifier>{6a13ba71-e72b-4f96-8d28-b75317fa6421}</UniqueIdentifier>
+    <Filter Include="Game\Components">
+      <UniqueIdentifier>{cd668bd4-2c1b-4e55-a0a6-db762fd2ae53}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\CS230\Objects">
-      <UniqueIdentifier>{3a6301aa-0822-47e1-9398-285521b3b337}</UniqueIdentifier>
+    <Filter Include="Game\Components\CS230">
+      <UniqueIdentifier>{835fe916-dc21-4f63-acc6-078bafc68af8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\CS230\Objects\Mode1">
-      <UniqueIdentifier>{58618de9-0595-41ce-aeb5-26dd98f0eb72}</UniqueIdentifier>
+    <Filter Include="Game\Modes">
+      <UniqueIdentifier>{0b692e9c-1a01-4017-922a-1342d671d7f7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\CS230\Objects\Mode2">
-      <UniqueIdentifier>{9027f4ab-e177-4604-81cb-dbd1f4c39087}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\CS230\Modes">
-      <UniqueIdentifier>{0c5e4627-fef2-417a-8c37-8cbf7e782ad6}</UniqueIdentifier>
+    <Filter Include="Game\Objests">
+      <UniqueIdentifier>{f07a0d33-de28-438c-b9d6-08c2b3e57c66}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Game\Bullet.cpp">
-      <Filter>Game\Exodia\Components</Filter>
+      <Filter>Game\Components</Filter>
     </ClCompile>
     <ClCompile Include="Game\AStar.cpp">
-      <Filter>Game\Exodia\Components</Filter>
+      <Filter>Game\Components</Filter>
     </ClCompile>
     <ClCompile Include="Game\Gold.cpp">
-      <Filter>Game\Exodia\Components</Filter>
+      <Filter>Game\Components</Filter>
     </ClCompile>
     <ClCompile Include="Game\Life.cpp">
-      <Filter>Game\Exodia\Components</Filter>
+      <Filter>Game\Components</Filter>
     </ClCompile>
     <ClCompile Include="Game\Score.cpp">
-      <Filter>Game\Exodia\Components</Filter>
+      <Filter>Game\Components</Filter>
     </ClCompile>
     <ClCompile Include="Game\PrototypeSplash.cpp">
-      <Filter>Game\Exodia\Modes</Filter>
+      <Filter>Game\Modes</Filter>
     </ClCompile>
-    <ClCompile Include="Game\PrototypeMode1.cpp">
-      <Filter>Game\Exodia\Modes</Filter>
+    <ClCompile Include="Game\Mode1.cpp">
+      <Filter>Game\Modes</Filter>
     </ClCompile>
     <ClCompile Include="Game\Tile.cpp">
-      <Filter>Game\Exodia\Components</Filter>
+      <Filter>Game\Components</Filter>
     </ClCompile>
     <ClCompile Include="Game\Monster.cpp">
-      <Filter>Game\Exodia\Objests</Filter>
+      <Filter>Game\Objests</Filter>
     </ClCompile>
     <ClCompile Include="Game\Player.cpp">
-      <Filter>Game\Exodia\Objests</Filter>
+      <Filter>Game\Objests</Filter>
     </ClCompile>
     <ClCompile Include="Game\Tower.cpp">
-      <Filter>Game\Exodia\Objests</Filter>
+      <Filter>Game\Objests</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Engine.cpp">
       <Filter>Engine\Core Engine Components</Filter>
@@ -163,106 +145,85 @@
     <ClCompile Include="Engine\stb_image_impl.cpp">
       <Filter>Engine\Graphics and Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Floor.cpp">
-      <Filter>Game\CS230\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Portal.cpp">
-      <Filter>Game\CS230\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ScreenWrap.cpp">
-      <Filter>Game\CS230\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Timer.cpp">
-      <Filter>Game\CS230\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Crates.cpp">
-      <Filter>Game\CS230\Objects\Mode1</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Cat.cpp">
-      <Filter>Game\CS230\Objects\Mode1</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Laser.cpp">
-      <Filter>Game\CS230\Objects\Mode2</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Background.cpp">
-      <Filter>Game\CS230\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Robots.cpp">
-      <Filter>Game\CS230\Objects\Mode1</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Ship.cpp">
-      <Filter>Game\CS230\Objects\Mode2</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Asteroid.cpp">
-      <Filter>Game\CS230\Objects\Mode1</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Meteor.cpp">
-      <Filter>Game\CS230\Objects\Mode2</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Main_menu.cpp">
-      <Filter>Game\CS230\Modes</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Mode1.cpp">
-      <Filter>Game\CS230\Modes</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Mode2.cpp">
-      <Filter>Game\CS230\Modes</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Splash.cpp">
-      <Filter>Game\CS230\Modes</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Audio.cpp">
       <Filter>Engine\Core Engine Components</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameSpeed.cpp">
-      <Filter>Game\Exodia\Components</Filter>
+      <Filter>Game\Components</Filter>
     </ClCompile>
     <ClCompile Include="Game\Map.cpp">
-      <Filter>Game\Exodia\Components</Filter>
+      <Filter>Game\Components</Filter>
     </ClCompile>
     <ClCompile Include="Game\Wave.cpp">
-      <Filter>Game\Exodia\Components</Filter>
+      <Filter>Game\Components</Filter>
     </ClCompile>
     <ClCompile Include="Game\BuildMode.cpp">
-      <Filter>Game\Exodia\Components</Filter>
+      <Filter>Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Splash.cpp">
+      <Filter>Game\Modes</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Main_menu.cpp">
+      <Filter>Game\Modes</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GamePlayEditor.cpp">
+      <Filter>Game\Modes</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\HowToPlay.cpp">
+      <Filter>Game\Modes</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ModeSelect.cpp">
+      <Filter>Game\Modes</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Background.cpp">
+      <Filter>Game\Components\CS230</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Floor.cpp">
+      <Filter>Game\Components\CS230</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Portal.cpp">
+      <Filter>Game\Components\CS230</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ScreenWrap.cpp">
+      <Filter>Game\Components\CS230</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Timer.cpp">
+      <Filter>Game\Components\CS230</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game\GameObjectTypes.h">
-      <Filter>Game\Exodia</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Bullet.h">
-      <Filter>Game\Exodia\Components</Filter>
+      <Filter>Game\Components</Filter>
     </ClInclude>
     <ClInclude Include="Game\AStar.h">
-      <Filter>Game\Exodia\Components</Filter>
+      <Filter>Game\Components</Filter>
     </ClInclude>
     <ClInclude Include="Game\Gold.h">
-      <Filter>Game\Exodia\Components</Filter>
+      <Filter>Game\Components</Filter>
     </ClInclude>
     <ClInclude Include="Game\Life.h">
-      <Filter>Game\Exodia\Components</Filter>
+      <Filter>Game\Components</Filter>
     </ClInclude>
     <ClInclude Include="Game\Score.h">
-      <Filter>Game\Exodia\Components</Filter>
+      <Filter>Game\Components</Filter>
     </ClInclude>
     <ClInclude Include="Game\PrototypeSplash.h">
-      <Filter>Game\Exodia\Modes</Filter>
+      <Filter>Game\Modes</Filter>
     </ClInclude>
-    <ClInclude Include="Game\PrototypeMode1.h">
-      <Filter>Game\Exodia\Modes</Filter>
+    <ClInclude Include="Game\Mode1.h">
+      <Filter>Game\Modes</Filter>
     </ClInclude>
     <ClInclude Include="Game\Tile.h">
-      <Filter>Game\Exodia\Components</Filter>
+      <Filter>Game\Components</Filter>
     </ClInclude>
     <ClInclude Include="Game\Monster.h">
-      <Filter>Game\Exodia\Objests</Filter>
+      <Filter>Game\Objests</Filter>
     </ClInclude>
     <ClInclude Include="Game\Player.h">
-      <Filter>Game\Exodia\Objests</Filter>
+      <Filter>Game\Objests</Filter>
     </ClInclude>
     <ClInclude Include="Game\Tower.h">
-      <Filter>Game\Exodia\Objests</Filter>
+      <Filter>Game\Objests</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Engine.h">
       <Filter>Engine\Core Engine Components</Filter>
@@ -351,60 +312,6 @@
     <ClInclude Include="Engine\Window.h">
       <Filter>Engine\Core Engine Components</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Floor.h">
-      <Filter>Game\CS230\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Gravity.h">
-      <Filter>Game\CS230\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Portal.h">
-      <Filter>Game\CS230\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ScreenWrap.h">
-      <Filter>Game\CS230\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Timer.h">
-      <Filter>Game\CS230\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Crates.h">
-      <Filter>Game\CS230\Objects\Mode1</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Cat.h">
-      <Filter>Game\CS230\Objects\Mode1</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Laser.h">
-      <Filter>Game\CS230\Objects\Mode2</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Background.h">
-      <Filter>Game\CS230\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Robots.h">
-      <Filter>Game\CS230\Objects\Mode1</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Ship.h">
-      <Filter>Game\CS230\Objects\Mode2</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Asteroid.h">
-      <Filter>Game\CS230\Objects\Mode1</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Meteor.h">
-      <Filter>Game\CS230\Objects\Mode2</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Main_menu.h">
-      <Filter>Game\CS230\Modes</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Mode1.h">
-      <Filter>Game\CS230\Modes</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Mode2.h">
-      <Filter>Game\CS230\Modes</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Splash.h">
-      <Filter>Game\CS230\Modes</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Fonts.h">
-      <Filter>Game\CS230\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Game\States.h">
       <Filter>Game</Filter>
     </ClInclude>
@@ -412,16 +319,55 @@
       <Filter>Engine\Core Engine Components</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameSpeed.h">
-      <Filter>Game\Exodia\Components</Filter>
+      <Filter>Game\Components</Filter>
     </ClInclude>
     <ClInclude Include="Game\Map.h">
-      <Filter>Game\Exodia\Components</Filter>
+      <Filter>Game\Components</Filter>
     </ClInclude>
     <ClInclude Include="Game\Wave.h">
-      <Filter>Game\Exodia\Components</Filter>
+      <Filter>Game\Components</Filter>
     </ClInclude>
     <ClInclude Include="Game\BuildMode.h">
-      <Filter>Game\Exodia\Components</Filter>
+      <Filter>Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Splash.h">
+      <Filter>Game\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Main_menu.h">
+      <Filter>Game\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GamePlayEditor.h">
+      <Filter>Game\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\HowToplay.h">
+      <Filter>Game\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ModeSelect.h">
+      <Filter>Game\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Background.h">
+      <Filter>Game\Components\CS230</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Floor.h">
+      <Filter>Game\Components\CS230</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Fonts.h">
+      <Filter>Game\Components\CS230</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Gravity.h">
+      <Filter>Game\Components\CS230</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Portal.h">
+      <Filter>Game\Components\CS230</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ScreenWrap.h">
+      <Filter>Game\Components\CS230</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Timer.h">
+      <Filter>Game\Components\CS230</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObjectTypes.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

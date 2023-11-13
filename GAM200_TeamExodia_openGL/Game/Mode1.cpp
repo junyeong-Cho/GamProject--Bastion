@@ -2,225 +2,266 @@
 Copyright (C) 2023 DigiPen Institute of Technology
 Reproduction or distribution of this file or its contents without
 prior written consent is prohibited
-File Name:  Mode1.cpp
-Project:    GAM200 Engine
-Author:     Junyeong Cho
-Created:    November 1, 2023
-Updated:    November 1, 2023
+File Name:  Player.h
+Project:    GAM200_TeamExodia_openGL
+Author:     Hyeonjoon Nam
+Created:    October		10, 2023
+Updated:    October		10, 2023
 */
 
 
-#include<vector>
 
-#include "../Game/Floor.h"
-
-#include "../Engine/Engine.h" 
-#include "../Engine/Window.h"
-#include "../Engine/Matrix.h"
-#include "../Engine/Collision.h"
+#include "../Engine/Engine.h"
+#include "../Engine/DrawShape.h"
 #include "../Engine/ShowCollision.h"
+#include "../Engine/GameObject.h"
+#include "../Engine/GameObjectManager.h"
+#include "../Engine/Collision.h"
+#include "Map.h"
 
-#include "Particles.h"
-#include "Asteroid.h"
-#include "Portal.h"
-#include "Crates.h"
-#include "States.h"
-#include "Robots.h"
-#include "Timer.h"
-#include "Cat.h"
+#include "../Game/Mode1.h"
+#include "../Game/States.h"
+#include "../Game/PrototypeSplash.h"
+#include "../Game/Tile.h"
+#include "../Game/Player.h"
+#include "../Game/Monster.h"
+#include "../Game/Tower.h"
+#include "../Engine/DrawShape.h"
 
+#include "Score.h"
+#include "Gold.h"
+#include "Life.h"
+#include "GameSpeed.h"
+#include "Wave.h"
+#include "BuildMode.h"
 
-#include "Mode1.h"
-#include "Fonts.h"
+#include <filesystem>
 #include <imgui.h>
+#include <stb_image.h>
+#include <glCheck.h>
+#include "../Engine/Audio.h"
 
-
-Mode1::Mode1() : cat_ptr()
+Mode1::Mode1() : player_ptr()
 {
- //   score_texture = nullptr;
+
 }
-
-
 
 void Mode1::Load()
 {
+	// Music
+	AddGSComponent(new GAM200::MusicEffect());
+	GetGSComponent<GAM200::MusicEffect>()->LoadFile("assets/Sounds/Theme/example_music.ogg");
 
-    AddGSComponent(new GAM200::GameObjectManager());
+	// Game Object
+	AddGSComponent(new GAM200::GameObjectManager());
 
-    AddGSComponent(new GAM200::ShowCollision());
+	// Camera
+	AddGSComponent(new GAM200::Camera({ { 0.15 * Engine::GetWindow().GetSize().x, 0 }, { 0.35 * Engine::GetWindow().GetSize().x, 0 } }));
 
-    AddGSComponent(new Gravity(Mode1::gravity));
+	// Set Map
+	Mode1::SetMap("assets/maps/Map2.txt");
 
-    AddGSComponent(new Timer(maxTimer));
+	// Add Player
+	player_ptr = new Player({ 0, 0 }, tile_size_x * 2 / 3, tile_size_y * 2 / 3);
+	GetGSComponent<GAM200::GameObjectManager>()->Add(player_ptr);
 
-    AddGSComponent(new Background());
+	// Camera Setting
+	GetGSComponent<GAM200::Camera>()->SetPosition({ 0, 0 });
 
-    AddGSComponent(new Score());
+	// Informations
+	AddGSComponent(new Score());
+	AddGSComponent(new Gold());
+	AddGSComponent(new Life());
+	AddGSComponent(new GameSpeed(5));	// Parameter is for the max game speed
+	AddGSComponent(new Wave());
+	GetGSComponent<Wave>()->SetWave();
+	AddGSComponent(new BuildMode());
 
-    AddGSComponent(new GAM200::Camera({ { 0.15 * Engine::GetWindow().GetSize().x, 0 }, { 0.35 * Engine::GetWindow().GetSize().x, 0 } }));
-
-    Floor* starting_floor_ptr = new Floor(Math::irect{ { 0, 0 }, { 930, static_cast<int>(floor) } });
-    GetGSComponent<GAM200::GameObjectManager>()->Add(starting_floor_ptr);
-    GetGSComponent<GAM200::GameObjectManager>()->Add(new Floor(Math::irect{ { 1014, 0 }, { 2700, static_cast<int>(floor) } }));
-    GetGSComponent<GAM200::GameObjectManager>()->Add(new Floor(Math::irect{ { 2884, 0 }, { 4126, static_cast<int>(floor) } }));
-    GetGSComponent<GAM200::GameObjectManager>()->Add(new Floor(Math::irect{ { 4208, 0 }, { 5760, static_cast<int>(floor) } }));
-
-    //  GetGSComponent<CS230::GameObjectManager>()->Add(new Floor(Math::irect{ { 400, 100 }, { 700, 50 } }));
-
-    GetGSComponent<GAM200::GameObjectManager>()->Add(new Portal(static_cast<int>(States::MainMenu), Math::irect{ { 5700, 50 }, { 5800, 1000 } }));
-
-
-    cat_ptr = new Cat({ 300, floor }, starting_floor_ptr);
-    GetGSComponent<GAM200::GameObjectManager>()->Add(cat_ptr);
-
-    AddGSComponent(new GAM200::ParticleManager<Particles::Smoke>());
-
-    GetGSComponent<Background>()->Add("assets/Planets.png", 0.25);
-    GetGSComponent<Background>()->Add("assets/Ships.png", 0.5);
-    GetGSComponent<Background>()->Add("assets/Foreground.png", 1);
-
-
-    GetGSComponent<GAM200::Camera>()->SetPosition({ 0, 0 });
-    GetGSComponent<GAM200::Camera>()->SetLimit({ {0, 0},{GetGSComponent<Background>()->GetSize() - Engine::GetWindow().GetSize()} });
-
-
-    GetGSComponent<GAM200::GameObjectManager>()->Add(new Asteroid({ 600, floor }));
-    GetGSComponent<GAM200::GameObjectManager>()->Add(new Asteroid({ 1800, floor }));
-    GetGSComponent<GAM200::GameObjectManager>()->Add(new Asteroid({ 2400, floor }));
-
-    GetGSComponent<GAM200::GameObjectManager>()->Add(new Crates({ 900, floor }, 2));
-    GetGSComponent<GAM200::GameObjectManager>()->Add(new Crates({ 1400, floor }, 1));
-    GetGSComponent<GAM200::GameObjectManager>()->Add(new Crates({ 2000, floor }, 5));
-    GetGSComponent<GAM200::GameObjectManager>()->Add(new Crates({ 4000, floor }, 3));
-
-
-    GetGSComponent<GAM200::GameObjectManager>()->Add(new Crates({ 5400, floor }, 1));
-    GetGSComponent<GAM200::GameObjectManager>()->Add(new Crates({ 5500, floor }, 3));
-    GetGSComponent<GAM200::GameObjectManager>()->Add(new Crates({ 5600, floor }, 5));
-
-    //Old robot of logic
-    /*
-    GetGSComponent<CS230::GameObjectManager>()->Add(new Robot({ 1200, Mode1::floor }));
-    GetGSComponent<CS230::GameObjectManager>()->Add(new Robot({ 2200, Mode1::floor }));
-    GetGSComponent<CS230::GameObjectManager>()->Add(new Robot({ 3400, Mode1::floor }));
-    GetGSComponent<CS230::GameObjectManager>()->Add(new Robot({ 4200, Mode1::floor }));
-    */
-
-    //Test floor code for collision check
-    /*
-    GetGSComponent<CS230::GameObjectManager>()->Add(new Floor(Math::irect{ { 400, 100 }, { 700, 50 } }));
-    */
-
-    GetGSComponent<GAM200::GameObjectManager>()->Add(new Robot({ 1025, floor }, cat_ptr, 1025, 1350));
-    GetGSComponent<GAM200::GameObjectManager>()->Add(new Robot({ 2050, floor }, cat_ptr, 2050, 2325));
-    GetGSComponent<GAM200::GameObjectManager>()->Add(new Robot({ 3400, floor }, cat_ptr, 3400, 3800));
-    GetGSComponent<GAM200::GameObjectManager>()->Add(new Robot({ 4225, floor }, cat_ptr, 4225, 4800));
-
-
-
-#ifdef _DEBUG
-    AddGSComponent(new GAM200::ShowCollision());
-#endif
+	#ifdef _DEBUG
+	AddGSComponent(new GAM200::ShowCollision());
+	#endif
 
 }
-
 
 void Mode1::Update(double dt)
 {
-    GetGSComponent<GAM200::Camera>()->Update(cat_ptr->GetPosition());
-    GetGSComponent<Timer>()->Update(dt);
-    GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
-    GetGSComponent<GAM200::ShowCollision>()->Update(dt);
-    GetGSComponent<Score>()->Update(dt);
+	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Tab)) 
+	{
+		GetGSComponent<GameSpeed>()->NextSpeed();
+	}
+	dt *= static_cast<double>(GetGSComponent<GameSpeed>()->Value());
 
+	GetGSComponent<GAM200::MusicEffect>()->Play(0);
 
-    int remaining_time = GetGSComponent<Timer>()->GetRemainingTime();
-    int catScore = GetGSComponent<Score>()->Value();
+	GetGSComponent<GAM200::Camera>()->Update(player_ptr->GetPosition());
+	//GetGSComponent<GAM200::Camera>()->SetPosition(player_ptr->GetPosition());
 
-    /*
-    if (timer_texture != nullptr) 
-    {
-        delete timer_texture;
-        timer_texture = nullptr;
-    }
-    */
+	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
 
-    timer_texture.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Timer: " + std::to_string(remaining_time), 0xFFFFFFFF));
-    score.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Score: " + std::to_string(catScore), 0xFFFFFFFF));
+	GetGSComponent<GAM200::GameObjectManager>()->CollisionTest();
 
-   // timer_texture = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Timer: " + std::to_string(remaining_time), 0xFFFFFFFF);
+	GetGSComponent<Wave>()->Update(dt);
 
-   // timer_texture = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Timer: " + std::to_string(remaining_time), 0xFFFFFFFF);
-   //score = Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Score: " + std::to_string(catScore), 0xFFFFFFFF);
+	GetGSComponent<BuildMode>()->Update();
 
+	#ifdef _DEBUG
+	GetGSComponent<GAM200::ShowCollision>()->Update(dt);
+	#endif
+	
+	Engine::GetWindow().Clear(1.0f, 1.0f, 1.0f, 1.0f);
 
-    if (remaining_time == 0)
-    {
-        Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
-    }
+	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Escape))
+	{
+		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::ModeSelect));
+		GetGSComponent<GAM200::MusicEffect>()->Stop();
+	}
 
-    if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Escape))
-    {
-        Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
-    }
+	if (GetGSComponent<Life>()->Value() <= 0) {
+		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
+		GetGSComponent<GAM200::MusicEffect>()->Stop();
+	}
 
-
-    if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::R))
-    {
-        Engine::GetGameStateManager().ReloadGameState();
-    }
 }
-
 
 void Mode1::Unload()
 {
-    cat_ptr = nullptr;
-    timer_texture = nullptr;
-
-
-//    delete timer_texture;
-    GetGSComponent<Background>()->Unload();
-    GetGSComponent<GAM200::GameObjectManager>()->Unload();
-    ClearGSComponent();
+	player_ptr = nullptr;
+	Map::GetInstance().MapUnload();
+	GetGSComponent<GAM200::GameObjectManager>()->Unload();
+	ClearGSComponent();
 }
-
 
 void Mode1::Draw()
 {
-    Engine::GetWindow().Clear(0.0, 0.0, 0.0, 1.0);
+	for (int i = 0; i < 5; i++)
+	{
+		for (int k = 0; k < 5; k++)
+		{
+			m.Draw(480 * i, 270 * k, 480, 270);
+		}
 
-    Math::TransformationMatrix camera_matrix = GetGSComponent<GAM200::Camera>()->GetMatrix();
+	}
 
+	Math::TransformationMatrix camera_matrix = GetGSComponent<GAM200::Camera>()->GetMatrix();
 
-    GetGSComponent<Background>()->Draw(*GetGSComponent<GAM200::Camera>());
+	//GetGSComponent<Background>()->Draw(*GetGSComponent<GAM200::Camera>());
 
+	//timer_texture.Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 10 - timer_texture.GetSize().x, Engine::GetWindow().GetSize().y - timer_texture.GetSize().y - 5 }));
+	//score.Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 10 - timer_texture.GetSize().x, Engine::GetWindow().GetSize().y - timer_texture.GetSize().y - 80 }));
 
-    timer_texture->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 10 - timer_texture->GetSize().x, Engine::GetWindow().GetSize().y}));
-    score->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 10 - timer_texture->GetSize().x, Engine::GetWindow().GetSize().y + timer_texture->GetSize().y}));
+	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
 
-    GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
+	GetGSComponent<BuildMode>()->Draw();
+	
+	w.Draw(1200 - 150, 0, 150*2, 400*2);
 }
 
 void Mode1::ImguiDraw()
 {
-    ImGui::Begin("Program Info");
-    {
-        ImGui::Text("Player position: %.3f, %.3f", cat_ptr->GetPosition().x, cat_ptr->GetPosition().y);
-        ImGui::Text("Camera position: %.3f, %.3f", GetGSComponent<GAM200::Camera>()->GetPosition().x, GetGSComponent<GAM200::Camera>()->GetPosition().y);
+	ImGui::Begin("Information");
+	{
+		int gold = GetGSComponent<Gold>()->Value();
+		int life = GetGSComponent<Life>()->Value();
+		int score = GetGSComponent<Score>()->Value();
+		int game_speed = GetGSComponent<GameSpeed>()->Value();
+		int max_speed = GetGSComponent<GameSpeed>()->GetMax();
+		float* musicVolume = (GetGSComponent<GAM200::MusicEffect>()->GetMusicVolume());
+		int player_hp = player_ptr->GetHP();
 
-        float velocity_f = static_cast<float>(cat_ptr->GetMaxVelocity());
+		ImGui::Text("Killed Monster : %d", score);
+		ImGui::Text("Gold : %d", gold);
+		ImGui::Text("Life : %d", life);
+		ImGui::Text("Game Speed : %d", game_speed);
+		ImGui::Text("Player HP : %d", player_hp);
 
-        if (ImGui::SliderFloat("Max Velocity", &velocity_f, 100.0f, 600.0f, "%.0f"))
-        {
-            cat_ptr->SetMaxVelocity(velocity_f);
-        }   
+
+		if (ImGui::SliderInt("Adjust Gold", &gold, 0, 100000, "%d")) {
+			GetGSComponent<Gold>()->SetValue(gold);
+		}
+		if (ImGui::SliderInt("Adjust Life", &life, 1, 30, "%d")) {
+			GetGSComponent<Life>()->SetValue(life);
+		}
+		if (ImGui::SliderInt("Player HP", &player_hp, 1, 30, "%d")) {
+			player_ptr->SetHP(player_hp);
+		}
+		if (ImGui::SliderInt("Adjust Game Speed", &game_speed, 0, max_speed, "%d")) {
+			GetGSComponent<GameSpeed>()->SetValue(game_speed);
+		}
+		if (ImGui::SliderFloat("Max Volume", musicVolume, 0.0f, 100.0f, "%.0f"))
+		{
+			GetGSComponent<GAM200::MusicEffect>()->SetVolume(*musicVolume);
+		}
+	}
+	ImGui::End();
 
 
-    }
-    ImGui::End();
+	ImGui::Begin("Produce");
+	{
+		if (ImGui::Button("Produce Basic Monster"))
+		{
+			Engine::GetLogger().LogEvent("Basic Monster Produce!");
+			GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster());
+		}
+		if (ImGui::Button("Produce Fast Monster"))
+		{
+			Engine::GetLogger().LogEvent("Fast Monster Produce!");
+			GetGSComponent<GAM200::GameObjectManager>()->Add(new Fast_Monster());
+		}
+		if (ImGui::Button("Produce Slow Monster"))
+		{
+			Engine::GetLogger().LogEvent("Slow Monster Produce!");
+			GetGSComponent<GAM200::GameObjectManager>()->Add(new Slow_Monster());
+		}
+
+
+		if (ImGui::Button("Produce Basic Tower"))
+		{
+			GetGSComponent<BuildMode>()->Build(GameObjectTypes::Basic_Tower);
+		}
+		if (ImGui::Button("Produce Double Tower"))
+		{
+			GetGSComponent<BuildMode>()->Build(GameObjectTypes::Double_Tower);
+		}
+		if (ImGui::Button("Produce Triple Tower"))
+		{
+			GetGSComponent<BuildMode>()->Build(GameObjectTypes::Triple_Tower);
+		}
+
+
+	}
+	ImGui::End();
+
+
 }
 
 void Mode1::HandleEvent(SDL_Event& event)
 {
 
+}
+
+
+void Mode1::SetMap(std::string file_name)
+{
+	// Set Map
+	Map::GetInstance().SetMap(file_name);
+
+	// Window, tiles
+	Math::ivec2 window_size = Engine::GetWindow().GetSize();
+	tile_col = Map::GetInstance().GetSize().x;
+	tile_row = Map::GetInstance().GetSize().y;
+	tile_size_x = window_size.x / tile_row;
+	tile_size_y = window_size.y / tile_col;
+
+	Astar::GetInstance().UpdatePath(Map::GetInstance().GetMap(), Map::GetInstance().GetStartPoint(), Map::GetInstance().GetEndPoint());
+}
+
+
+void Mode1::ChangeTile(Math::ivec2 position, GameObjectTypes type) {
+	Map::GetInstance().ChangeTile(position, type);
+
+	int cols = position.y;
+	int rows = position.x;
+
+	
+	GetGSComponent<GAM200::GameObjectManager>()->Add(new Pass__Tile(Math::irect{ { rows * tile_size_x, cols * tile_size_y }, { (rows + 1) * tile_size_x, (cols + 1) * tile_size_y } }));
 }
