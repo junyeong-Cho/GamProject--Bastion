@@ -15,18 +15,42 @@ Updated:    October		10, 2023
 
 enum class GameObjectTypes
 {
-    Player,
+    //CS230
+    Cat,
+    Robot,
+    Asteroid,
+    Crates,
+    Meteor,
+    Ship,
+    Floor,
+    Portal,
+    Count,
+    Laser,
+    Particle,
 
+
+    //Exodia
+    
+    // Button
+    Button,
+    // Player
+    Player,
+    // Monsters
     Monster,
     Basic_Monster,
     Fast_Monster,
-
+    Slow_Monster,
+    Weak_Monster,
+    // Tiles
     Tile,
-    Passing_Tile,
+    Pass__Tile,
     Block_Tile,
-
+    // Towers
     Tower,
     Basic_Tower,
-
+    Double_Tower,
+    Triple_Tower,
+    // Bullets
     Bullet,
+    HBG_Ui,
 };

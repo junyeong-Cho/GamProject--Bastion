@@ -21,7 +21,7 @@ Updated:    October		10, 2023
 
 class Monster : public GAM200::GameObject {
 public:
-	Monster(Math::vec2 position, Player* player);
+	Monster(Math::vec2 position = Math::vec2(0, 0));
 
 	void ResolveCollision(GameObject* other_object) override;
 
@@ -32,9 +32,17 @@ public:
 
     void Draw(Math::TransformationMatrix camera_matrix) override;
 
+    Math::vec2 GetSize() { return Math::vec2(size_x, size_y); }
+    static int GetDamage() { return damage; }
+
+    static int remaining_monsters;
+
+    static int GetRemainMonster();
+
+    Math::vec2 tile_size;
+
 protected:
     GAM200::Texture e = GAM200::Texture("assets/images/e.png", GAM200::Texture::TextureType::RECTANGLE);
-
 
     std::vector<Math::ivec2> path;
 
@@ -45,15 +53,16 @@ protected:
     Math::ivec2 current_tile_position;
     Math::ivec2 next_tile_position;
 
-    int size = 40;
+    int size_x;
+    int size_y;
 
-    int size_x = 160;
-    int size_y = 105;
-
-    int walking_speed = 175;
+    double walking_speed;
+    double speed_scale = 1;
 
     int score = 1;
     int gold = 10;
+
+    int life = 3;
 
     struct FillColor {
         float r = 0;
@@ -70,9 +79,9 @@ protected:
 
     enum class WalkingDirection { Left, Right, UP, DOWN };
 
-    WalkingDirection m_walking_direction = WalkingDirection::Right;
+    WalkingDirection m_walking_direction = WalkingDirection::UP;
 
-    Player* m_player;
+    //Player* m_player;
     Math::irect boundary;
 
     class State_Dead : public State
@@ -98,23 +107,59 @@ protected:
     State_Walking state_walking;
 
 private:
-
+    static constexpr int damage = 1;
 };
 
 class Basic_Monster : public Monster {
 public:
-    Basic_Monster(Math::vec2 position, Player* player);
+    Basic_Monster(Math::vec2 position = Math::vec2(0, 0));
 
     GameObjectTypes Type() override { return GameObjectTypes::Basic_Monster; }
     std::string TypeName() override { return "Basic_Monster"; }
+
+    static int GetDamage() { return damage; }
+
+private:
+    static constexpr int damage = 2;
 
 };
 
 class Fast_Monster : public Monster {
 public:
-    Fast_Monster(Math::vec2 position, Player* player);
+    Fast_Monster(Math::vec2 position = Math::vec2(0, 0));
 
     GameObjectTypes Type() override { return GameObjectTypes::Fast_Monster; }
     std::string TypeName() override { return "Fast_Monster"; }
 
+    static int GetDamage() { return damage; }
+
+private:
+    static constexpr int damage = 1;
+};
+
+class Slow_Monster : public Monster {
+public:
+    Slow_Monster(Math::vec2 position = Math::vec2(0, 0));
+
+    GameObjectTypes Type() override { return GameObjectTypes::Slow_Monster; }
+    std::string TypeName() override { return "Slow_Monster"; }
+
+    static int GetDamage() { return damage; }
+
+private:
+    static constexpr int damage = 3;
+};
+
+class Weak_Monster : public Monster
+{
+public:
+    Weak_Monster(Math::vec2 position = Math::vec2(0, 0));
+
+    GameObjectTypes Type() override { return GameObjectTypes::Weak_Monster; }
+    std::string TypeName() override { return "Weak_Monster"; }
+
+    static int GetDamage() { return damage; }
+
+private:
+    static constexpr int damage = 1;
 };

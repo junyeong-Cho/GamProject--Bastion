@@ -15,6 +15,17 @@ Updated:    September 30, 2023
 enum class States 
 {
 	Splash,
+	MainMenu,
+	ModeSelect,
+	GamePlayEditior,
+	HowToPlay,
+	
 	Mode1,
-	Mode2
+	Mode2,
+	Mode3,
+
+	//Mode2,
+	
+	//PrototypeSplash,
+	//PrototypeMode1,
 };

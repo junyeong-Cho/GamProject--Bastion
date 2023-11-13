@@ -61,12 +61,26 @@ Math::vec2& Math::vec2::operator/=(double divisor) {
 	return *this;
 }
 
-Math::vec2 Math::operator*(double scale, const Math::vec2& v) {
+Math::vec2 Math::operator*(double scale, const Math::vec2& v) 
+{
 	Math::vec2 result;
 	result.x = v.x * scale;
 	result.y = v.y * scale;
 	return result;
 }
+
+
+void Math::vec2::Normalize()
+{
+	double magnitude = sqrt(x * x + y * y);
+
+	if (magnitude > 0.0)
+	{
+		x /= magnitude;
+		y /= magnitude;
+	}
+}
+
 
 
 //ivec2

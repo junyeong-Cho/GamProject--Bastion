@@ -40,28 +40,46 @@ namespace GAM200
 			NONE,
 		};
 
-		Mouse() = default;
-		~Mouse() = default;
+		Mouse();
+
+		void		 Update();
+		void		 SetMouseDown(MouseButtons button, bool value);
+		//~Mouse() = default;
 
 		void         HandleEvent(SDL_Event& event);
 
-		bool         MouseIsPressed();
 
+		bool         MouseDown(MouseButtons button);
+		bool		 MouseJustPressed(MouseButtons button);
+		bool		 MouseJustReleased(MouseButtons button);
+		
 		bool		 WheelIsMoved();
 
 		Math::vec2   GetMousePosition();
 
-		MouseButtons MouseButton()
-		{
-			if (mouse_event.button.button == SDL_BUTTON_LEFT)
+		//MouseButtons MouseButton()
+		//{
+		//	if (mouse_event.button.button == SDL_BUTTON_LEFT)
+		//	{
+		//		return MouseButtons::LEFT;
+		//	}
+		//	else if (mouse_event.button.button == SDL_BUTTON_RIGHT)
+		//	{
+		//		return MouseButtons::RIGHT;
+		//	}
+		//	return MouseButtons::NONE;  
+		//}
+
+		GAM200::Mouse::MouseButtons convert_opengl_to_gam200(SDL_Event& mouse_event) {
+			switch (mouse_event.button.button)
 			{
-				return MouseButtons::LEFT;
+			case SDL_BUTTON_LEFT:
+				return GAM200::Mouse::MouseButtons::LEFT;
+			case SDL_BUTTON_RIGHT:
+				return GAM200::Mouse::MouseButtons::RIGHT;
+			default:
+				return GAM200::Mouse::MouseButtons::NONE;
 			}
-			else if (mouse_event.button.button == SDL_BUTTON_RIGHT)
-			{
-				return MouseButtons::RIGHT;
-			}
-			return MouseButtons::NONE;  
 		}
 
 		MouseWheel  MouseWheelDirection()
@@ -82,6 +100,11 @@ namespace GAM200
 
 		Math::vec2 mouse_position;
 
+		bool is_pressed = false;
 		bool wheel_moved = false;
+
+		std::vector<bool> buttons_down;
+		std::vector<bool> previous_buttons_down;
+
 	};
 }

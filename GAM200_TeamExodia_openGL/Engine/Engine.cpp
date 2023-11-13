@@ -13,6 +13,7 @@ Updated:    September 30, 2023
 #pragma once
 #include "Engine.h"
 
+#include <GL/glew.h>
 
 Engine::Engine() :
 #ifdef _DEBUG				
@@ -64,8 +65,9 @@ void Engine::Update()
         frame_count++;
 
         gamestatemanager.Update(dt);
-        input.Update();
         //mouse.Update();
+        input.Update();
+
         window.Update();
 
         if (frame_count >= FPSTargetFrames)
@@ -90,6 +92,12 @@ bool Engine::HasGameEnded()
 {
     return gamestatemanager.HasGameEnded();
 }
+
+void Engine::AddFont(const std::filesystem::path& file_name)
+{
+    fonts.push_back(GAM200::Font(file_name));
+}
+
 
 //¿Ï¼º!
 void Engine::push()

@@ -16,32 +16,39 @@ Updated:    October		11, 2023
 #include "../Engine/Collision.h"
 
 #include "../Game/Tile.h"
+#include "../Engine/GameObjectManager.h"
 
 Tile::Tile(Math::irect boundary) : GameObject(static_cast<Math::vec2>(boundary.point1)) {
-	size = boundary.Size().x;
+	size = boundary.Size();
 	AddGOComponent(new GAM200::RectCollision({ Math::ivec2{0, 0}, boundary.Size() }, this));
-
+	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
 
 void Tile::Update(double dt) {
+	GameObject::Update(dt);
 
+}
+void Tile::Tile_Destroy()
+{
+	Destroy();
+	RemoveGOComponent<GAM200::RectCollision>();
 }
 void Tile::Draw(Math::TransformationMatrix camera_matrix) {
 	
 
 	if (passing_tile_bool == true)
 	{
-   /* GAM200::DrawShape tile;
-	tile.SetColor(0.431f, 0.282f, 0.067f, 1.0f);
-	tile.SetColor(color.r, color.g, color.b, 1.0f);
-	tile.DrawRectangle(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size, size);*/
-	block_tile.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size, size);
+	   /* GAM200::DrawShape tile;
+		tile.SetColor(0.431f, 0.282f, 0.067f, 1.0f);
+		tile.SetColor(color.r, color.g, color.b, 1.0f);
+		tile.DrawRectangle(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size, size);*/
+		block_tile.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size.x, size.y);
 	}
 
 }
 
 
-Passing_Tile::Passing_Tile(Math::irect boundary) : Tile(boundary) {
+Pass__Tile::Pass__Tile(Math::irect boundary) : Tile(boundary) {
 	color.r = 0.157f;
 	color.g = 0.631f;
 	color.b = 0.235f;
@@ -49,7 +56,7 @@ Passing_Tile::Passing_Tile(Math::irect boundary) : Tile(boundary) {
 	passing_tile_bool = true;
 }
 
-void Passing_Tile::Update(double dt) {
+void Pass__Tile::Update(double dt) {
 
 }
 

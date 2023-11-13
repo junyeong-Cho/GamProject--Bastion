@@ -12,12 +12,8 @@ Updated:    September 26, 2023
 
 #pragma once
 
-#include <string>
 
-#include "../Engine/ComponentManager.h"
-#include "../Engine/Matrix.h"
-#include "../Engine/Engine.h"
-
+#include "../Engine/Sprite.h"
 
 namespace Math { class TransformationMatrix; }
 
@@ -30,6 +26,9 @@ namespace GAM200
     class GameObject
     {
     public:
+
+        friend class Sprite;
+
 
         GameObject(Math::vec2 position);
         GameObject(Math::vec2 position, double rotation, Math::vec2 scale);

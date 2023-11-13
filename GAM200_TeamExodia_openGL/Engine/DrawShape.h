@@ -19,7 +19,7 @@ Updated:    October 4, 2023
 #include "../Engine/Normalization.h" 
 
 #include "../Engine/GameState.h"
-#include "../Engine/Engine.h"
+//#include "../Engine/Engine.h"
 
 #include "../Engine/Vec2.h"
 
@@ -47,7 +47,11 @@ namespace GAM200
 		void DrawRectangle(int x, int y, int width, int height);
 		void DrawRectangleWithPoints(int x1, int y1, int x2, int y2);
 
+		void DrawRectangle_NoFill(int x, int y, int width, int height);
+		void DrawRectangle_NoFill_WithPoints(int x1, int y1, int x2, int y2);
+		void DrawRectangle_NoFill_WithPoints(Math::vec2 topLeft, Math::vec2 topRight, Math::vec2 bottomLeft, Math::vec2 bottomRight);
 
+		void DrawRectangle_NoFill_WithBoundaries(Math::rect world_boundary, Math::TransformationMatrix);
 
 		void DrawCircle(int x, int y, int radius, int area);
 		
@@ -59,8 +63,7 @@ namespace GAM200
 
 
 	private:
-		int windowWidth = Engine::GetWindow().GetSize().x;
-		int windowHeight = Engine::GetWindow().GetSize().y;
+
 
 		float color[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		float lineWidth = 1.0f;

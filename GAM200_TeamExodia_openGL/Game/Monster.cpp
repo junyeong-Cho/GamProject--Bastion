@@ -12,42 +12,47 @@
 #include "Gold.h"
 #include "Life.h"
 
-Monster::Monster(Math::vec2 position, Player* player) : GameObject(position), m_player(player) {
-    SetPosition(position);
+#include "Bullet.h"
+#include "Map.h"
+
+int Monster::remaining_monsters = 0;
+
+Monster::Monster(Math::vec2 position) : GameObject(position) {
+    // Tile Size
+    tile_size = Math::vec2(Engine::GetWindow().GetSize().x / Map::GetInstance().GetSize().y, Engine::GetWindow().GetSize().y / Map::GetInstance().GetSize().x);
+    size_x = static_cast<int>(tile_size.x * 2 / 3);
+    size_y = static_cast<int>(tile_size.y * 2 / 3);
+    walking_speed = (tile_size.x / 2);
+
+    // Settings
     SetVelocity({ 0, 0 });
     AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{0, 0}, Math::ivec2{size_x, size_y} }, this));
-
+    tile_index = 0;
+    // State
     current_state = &state_walking;
     current_state->Enter(this);
 
-    path = Astar::GetInstance().GetPath();
+    ++remaining_monsters;
 
-    tile_index = 0;
-    current_tile_position = path[tile_index++];
-    SetPosition({ 80.0 * static_cast<double>(current_tile_position.x), 80.0 * static_cast<double>(current_tile_position.y) });
-    next_tile_position = path[tile_index++];
 
-    fill_color = { 1.0f, 0.0f, 0.0f };
-
-    /*for (auto& temp : path) {
-        Engine::GetLogger().LogDebug(std::to_string(temp.x) + ", " + std::to_string(temp.y));
-    }*/
 }
 
+int Monster::GetRemainMonster() {
+    return remaining_monsters;
+}
 
 void Monster::Update(double dt) {
     GameObject::Update(dt);
 
-
 }
 
 void Monster::Draw(Math::TransformationMatrix camera_matrix) {
-    GAM200::DrawShape monster;
+    /*GAM200::DrawShape monster;
 
     monster.SetColor(fill_color.r, fill_color.g, fill_color.b, 1.0f);
 
-    monster.DrawRectangle(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x/3, size_y/3);
-    e.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x/2, size_y/2);
+    monster.DrawRectangle(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);*/
+    e.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
   
 }
 
@@ -55,24 +60,31 @@ void Monster::ResolveCollision(GameObject* other_object) {
 
     if (other_object->Type() == GameObjectTypes::Player)
     {
-        Engine::GetLogger().LogDebug("Resolve Collision player\n");
+        Engine::GetLogger().LogDebug("Resolve Collision player");
         //RemoveGOComponent<GAM200::RectCollision>();
 
         //change_state(&state_dead);
     }
-
-    if (other_object->Type() == GameObjectTypes::Bullet)
+    else if (other_object->Type() == GameObjectTypes::Bullet)
     {
-        Engine::GetLogger().LogDebug("Resolve Collision bullet\n");
-        RemoveGOComponent<GAM200::RectCollision>();
+        life -= Bullet::GetDamage();
 
-        Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
-        Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
+        if (life <= 0) {
+            RemoveGOComponent<GAM200::RectCollision>();
 
-        scoreComponent->Add(score);
-        goldComponent->Add(gold);
+            Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
+            Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
 
-        change_state(&state_dead);
+            scoreComponent->Add(score);
+            goldComponent->Add(gold);
+
+            change_state(&state_dead);
+
+        }
+    }
+    else if (other_object->Type() == GameObjectTypes::Block_Tile)
+    {
+        Engine::GetLogger().LogDebug("Resolve Collision Block Tile!");
     }
 }
 
@@ -80,6 +92,7 @@ void Monster::State_Dead::Enter(GameObject* object)
 {
     Monster* monster = static_cast<Monster*>(object);
     monster->fill_color = { 0.f, 0.f, 0.f };
+    --remaining_monsters;
     //monster->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(Animations::Dead));
 }
 
@@ -102,43 +115,109 @@ void Monster::State_Dead::CheckExit(GameObject* object)
 void Monster::State_Walking::Enter(GameObject* object)
 {
     Monster* monster = static_cast<Monster*>(object);
-    //monster->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(Animations::Walking));
-    monster->m_walking_direction = WalkingDirection::Right;
+
+    // Path finding
+    monster -> path = Astar::GetInstance().GetPath();
+
+    monster->current_tile_position = monster->path[monster->tile_index++];
+
+    // Set Direction, speed, position...
+    Math::ivec2 direction = monster->path[1] - monster->path[0];
+    if (direction.x == 1)
+    {
+        monster->m_walking_direction = WalkingDirection::Right;
+    }
+    else if (direction.x == -1)
+    {
+        monster->m_walking_direction = WalkingDirection::Left;
+    }
+    else if (direction.y == 1)
+    {
+        monster->m_walking_direction = WalkingDirection::UP;
+    }
+    else if (direction.y == -1)
+    {
+        monster->m_walking_direction = WalkingDirection::DOWN;
+    }
+    else
+    {
+        Engine::GetLogger().LogError("Monster Direction Error!");
+    }
+
+    //Math::vec2 tile_size = Math::vec2(Engine::GetWindow().GetSize().x / 16.0, Engine::GetWindow().GetSize().y / 9.0);
+
+    monster->SetPosition({ monster->tile_size.x * static_cast<double>(monster->current_tile_position.x), monster->tile_size.y * static_cast<double>(monster->current_tile_position.y) });
+    monster->next_tile_position = monster->path[monster->tile_index++];
 }
 
 void Monster::State_Walking::Update(GameObject* object, double dt)
 {
     Monster* monster = static_cast<Monster*>(object);
 
-    static int tile_size = Engine::GetWindow().GetSize().x / 16;
+    //static Math::ivec2 tile_size = Math::ivec2(Engine::GetWindow().GetSize().x / 16, Engine::GetWindow().GetSize().y / 9);
 
     Math::vec2 position = monster->GetPosition();
+    // Update monster's current tile position
+    /*static bool change_direction = false;
 
-    monster->current_tile_position = Math::ivec2(static_cast<int>(position.x / tile_size), static_cast<int>(position.y / tile_size));
-
-    if (monster->current_tile_position == monster->next_tile_position) {
+    switch (monster->m_walking_direction) {
+    case(WalkingDirection::Right):
+        if (monster->boundary.Left() > monster->next_tile_position.x * tile_size.x)
+            change_direction = true;
+        break;
+    case(WalkingDirection::Left):
+        if (monster->boundary.Right() < (monster->next_tile_position.x + 1) * tile_size.x)
+            change_direction = true;
+        break;
+    case(WalkingDirection::UP):
+        if (monster->boundary.Bottom() > monster->next_tile_position.y * tile_size.y)
+            change_direction = true;
+        break;
+    case(WalkingDirection::DOWN):
+        if (monster->boundary.Top() < (monster->next_tile_position.y + 1) * tile_size.y)
+            change_direction = true;
+        break;
+    }
+    
+    if (change_direction) {
+        std::cout << "Change Detected!\n";
+        monster->current_tile_position = Math::ivec2(static_cast<int>(position.x / tile_size.x), static_cast<int>(position.y / tile_size.y));
+        change_direction = false;
+    }*/
+    if (monster->GetPosition().x > monster->next_tile_position.x * monster->tile_size.x - 20 &&
+        monster->GetPosition().x < monster->next_tile_position.x * monster->tile_size.x + 20 &&
+        monster->GetPosition().y > monster->next_tile_position.y * monster->tile_size.y - 20&&
+        monster->GetPosition().y < monster->next_tile_position.y * monster->tile_size.y + 20)
+    {
+        monster->current_tile_position = Math::ivec2(static_cast<int>(position.x / monster->tile_size.x), static_cast<int>(position.y / monster->tile_size.y));
+    }
+    
+    if (monster->current_tile_position == monster->next_tile_position) 
+    {
 
         monster->next_tile_position = monster->path[(monster->tile_index++)];
 
-        /*Engine::GetLogger().LogDebug(std::to_string(monster->current_tile_position.x) + ", " + std::to_string(monster->current_tile_position.y) + " -> " + std::to_string(monster->next_tile_position.x) + ", " + std::to_string(monster->next_tile_position.y));
-        Engine::GetLogger().LogDebug(std::to_string(monster->GetPosition().x) + ", " + std::to_string(monster->GetPosition().y) + "\n");*/
-
-        if (monster->tile_index == monster->path.size()) {\
+        if (monster->tile_index == monster->path.size()) 
+        {
             Life* lifeComponent = Engine::GetGameStateManager().GetGSComponent<Life>();
             lifeComponent->Subtract(1);
             monster->change_state(&monster->state_dead);
         }
         Math::ivec2 direction = monster->next_tile_position - monster->current_tile_position;
-        if (direction.x == 1) {
+        if (direction.x == 1) 
+        {
             monster->m_walking_direction = WalkingDirection::Right;
         }
-        else if (direction.x == -1) {
+        else if (direction.x == -1) 
+        {
             monster->m_walking_direction = WalkingDirection::Left;
         }
-        else if (direction.y == 1) {
+        else if (direction.y == 1) 
+        {
             monster->m_walking_direction = WalkingDirection::UP;
         }
-        else if (direction.y == -1) {
+        else if (direction.y == -1) 
+        {
             monster->m_walking_direction = WalkingDirection::DOWN;
         }
     }
@@ -165,20 +244,63 @@ void Monster::State_Walking::CheckExit(GameObject* object)
 
 }
 
-Basic_Monster::Basic_Monster(Math::vec2 position, Player* player) : Monster(position, player) {
+
+
+
+
+
+Basic_Monster::Basic_Monster(Math::vec2 position) : Monster(position) {
     fill_color = { 1.0f, 0.0f, 0.0f };
-    walking_speed = 80;
-    size = 60;
 
     score = 1;
     gold = 10;
+
+    life = 3;
+
+    speed_scale = 1;
+    walking_speed *= speed_scale;
+
+    Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
 
-Fast_Monster::Fast_Monster(Math::vec2 position, Player* player) : Monster(position, player) {
+Fast_Monster::Fast_Monster(Math::vec2 position) : Monster(position) {
     fill_color = { 1.0f, 0.984f, 0.255f };
-    walking_speed = 160;
-    size = 40;
 
     score = 2;
     gold = 20;
+
+    life = 2;
+
+    speed_scale = 3;
+    walking_speed *= speed_scale;
+
+    Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
+}
+
+Slow_Monster::Slow_Monster(Math::vec2 position) : Monster(position) {
+    fill_color = { 1.0f, 0.984f, 0.255f };
+
+    score = 3;
+    gold = 20;
+
+    life = 6;
+
+    speed_scale = 0.5;
+    walking_speed *= speed_scale;
+
+    Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
+}
+
+Weak_Monster::Weak_Monster(Math::vec2 position) : Monster(position) {
+    fill_color = { 1.0f, 0.984f, 0.255f };
+
+    score = 1;
+    gold = 5;
+
+    life = 1;
+
+    speed_scale = 0.5;
+    walking_speed *= speed_scale;
+
+    Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }

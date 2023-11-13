@@ -17,10 +17,11 @@ Updated:    October		10, 2023
 #include "../Engine/GameObject.h"
 #include "../Engine/GameObjectManager.h"
 #include "../Engine/Collision.h"
+#include "Map.h"
 
 #include "../Game/Mode1.h"
 #include "../Game/States.h"
-#include "../Game/Splash.h"
+#include "../Game/PrototypeSplash.h"
 #include "../Game/Tile.h"
 #include "../Game/Player.h"
 #include "../Game/Monster.h"
@@ -30,128 +31,151 @@ Updated:    October		10, 2023
 #include "Score.h"
 #include "Gold.h"
 #include "Life.h"
+#include "GameSpeed.h"
+#include "Wave.h"
+#include "BuildMode.h"
+#include "Button.h"
 
 #include <filesystem>
 #include <imgui.h>
 #include <stb_image.h>
 #include <glCheck.h>
+#include "../Engine/Audio.h"
+#include "ModeSelect.h"
+
 
 Mode1::Mode1() : player_ptr()
 {
 
 }
 
-
 void Mode1::Load()
 {
-	
+	// Music
+	AddGSComponent(new GAM200::MusicEffect());
+	GetGSComponent<GAM200::MusicEffect>()->LoadFile("assets/Sounds/Theme/example_music.ogg");
 
-	counter = 0;
-
+	// Game Object
 	AddGSComponent(new GAM200::GameObjectManager());
 
+	// Camera
 	AddGSComponent(new GAM200::Camera({ { 0.15 * Engine::GetWindow().GetSize().x, 0 }, { 0.35 * Engine::GetWindow().GetSize().x, 0 } }));
 
-
-	Math::ivec2 window_size = Engine::GetWindow().GetSize();
-	// 16:9
-	int tile_col = 9;
-	int tile_row = 16;
-	int tile_size = window_size.x / tile_row;
-
-	int map_info[9][16] = {
-		static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile),
-		static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile),
-		static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile),
-		static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile),
-		static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile),
-		static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile), static_cast<int>(GameObjectTypes::Passing_Tile),
-		static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile),
-		static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile),
-		static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile), static_cast<int>(GameObjectTypes::Block_Tile)
-	};
-	Math::irect map_positions[9][16];
-
-	for (int y = 0; y < tile_col; ++y) {
-		for (int x = 0; x < tile_row; ++x) {
-			map_positions[y][x] = Math::irect{ { x * tile_size, y * tile_size }, { (x + 1) * tile_size, (y + 1) * tile_size } };
-		}
+	// Set Map
+	switch (ModeSelect::GetCount())
+	{
+	case 0:
+		Mode1::SetMap("assets/maps/Map1.txt");
+		break;
+	case 1:
+		Mode1::SetMap("assets/maps/Map2.txt");
+		break;
+	case 2:
+		Mode1::SetMap("assets/maps/Map3.txt");
+		break;
 	}
 
-	for (int y = 0; y < tile_col; ++y) {
-		for (int x = 0; x < tile_row; ++x) {
-			switch (map_info[y][x]) {
-			case static_cast<int>(GameObjectTypes::Passing_Tile):
-				GetGSComponent<GAM200::GameObjectManager>()->Add(new Passing_Tile(Math::irect{ map_positions[y][x] }));
-				break;
-			case static_cast<int>(GameObjectTypes::Block_Tile):
-				GetGSComponent<GAM200::GameObjectManager>()->Add(new Block_Tile(Math::irect{ map_positions[y][x] }));
-				break;
-			default:
-
-				break;
-			}
-		}
-
-	}
-	
-	Astar::GetInstance().UpdatePath(map_info, { 0, 0 }, { 5, 15 });
-
-	player_ptr = new Player({ 0, 0 }, tile_size,128/2);
+	// Add Player
+	player_ptr = new Player({ 0, 0 }, tile_size.x * 2 / 3, tile_size.y * 2 / 3);
 	GetGSComponent<GAM200::GameObjectManager>()->Add(player_ptr);
 
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster({ 0, 0 }, player_ptr));
-	//GetGSComponent <GAM200::GameObjectManager>()->Add(new Basic_Tower({ 0, 160 }));
 
+	// Camera Setting
 	GetGSComponent<GAM200::Camera>()->SetPosition({ 0, 0 });
 
+	// Informations
 	AddGSComponent(new Score());
 	AddGSComponent(new Gold());
 	AddGSComponent(new Life());
+	AddGSComponent(new GameSpeed(5));	// Parameter is for the max game speed
+	AddGSComponent(new Wave());
+	GetGSComponent<Wave>()->SetWave();
+	AddGSComponent(new BuildMode());
+	
+	// add HBG Ui
+	AddGSComponent(new HBG_Ui(50, 0, 0));
+
+	Math::ivec2 size = Math::ivec2(Map::GetInstance().GetSize().y, Map::GetInstance().GetSize().x);
+
+	if (Map::GetInstance().editor_mode == false)
+	{
+		new Wave_Start_Button(Math::vec2(1120-40,720-630), Math::vec2(180,60));
+
+		new Basic_Tower_Button(Math::vec2(1120, 720 - 150), Math::vec2(140, 70));
+		new Double_Tower_Button(Math::vec2(1120, 720 - 230), Math::vec2(140, 70));
+		new Triple_Tower_Button(Math::vec2(1120, 720 - 310), Math::vec2(140, 70));
+
+		new Delete_Tower_Button(Math::vec2(1120, 720 - 390), Math::vec2(140, 70));
+		new Pass_Tile_Button(Math::vec2(1120, 720 - 470), Math::vec2(140, 70));
+		new Block_Tile_Button(Math::vec2(1120, 720 - 550), Math::vec2(140, 70));
+	}
+
 
 	#ifdef _DEBUG
 	AddGSComponent(new GAM200::ShowCollision());
 	#endif
 
-	tower_offset = 0;
 }
 
 void Mode1::Update(double dt)
 {
+	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Tab)) 
+	{
+		GetGSComponent<GameSpeed>()->NextSpeed();
+	}
+	dt *= static_cast<double>(GetGSComponent<GameSpeed>()->Value());
+
+	GetGSComponent<GAM200::MusicEffect>()->Play(0);
+
 	GetGSComponent<GAM200::Camera>()->Update(player_ptr->GetPosition());
 	//GetGSComponent<GAM200::Camera>()->SetPosition(player_ptr->GetPosition());
 
 	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
+
+	GetGSComponent<GAM200::GameObjectManager>()->CollisionTest();
+
+	GetGSComponent<Wave>()->Update(dt);
+
+	GetGSComponent<BuildMode>()->Update();
+
+	#ifdef _DEBUG
 	GetGSComponent<GAM200::ShowCollision>()->Update(dt);
+	#endif
 	
 	Engine::GetWindow().Clear(1.0f, 1.0f, 1.0f, 1.0f);
 
-	GetGSComponent<GAM200::ShowCollision>()->Update(dt);
-	GetGSComponent<GAM200::GameObjectManager>()->CollisionTest();
-
-
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Escape))
 	{
-		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Splash));
+		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::ModeSelect));
+		GetGSComponent<GAM200::MusicEffect>()->Stop();
 	}
 
 	if (GetGSComponent<Life>()->Value() <= 0) {
-		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Splash));
+		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
+		GetGSComponent<GAM200::MusicEffect>()->Stop();
 	}
+
+	int gold = GetGSComponent<Gold>()->Value();
+	int score = GetGSComponent<Score>()->Value();
+	int player_hp = player_ptr->GetHP();
+
+	GetGSComponent<HBG_Ui>()->Player_BOOST = 0;
+	GetGSComponent<HBG_Ui>()->Player_HP = player_hp;
+	GetGSComponent<HBG_Ui>()->Tower_GOLD = gold;
 
 }
 
 void Mode1::Unload()
 {
 	player_ptr = nullptr;
-	//GetGSComponent<Background>()->Unload();
+	Map::GetInstance().MapUnload();
+	Monster::remaining_monsters = 0;
 	GetGSComponent<GAM200::GameObjectManager>()->Unload();
 	ClearGSComponent();
 }
 
 void Mode1::Draw()
 {
-	//임시 맵 코드
 	for (int i = 0; i < 5; i++)
 	{
 		for (int k = 0; k < 5; k++)
@@ -160,13 +184,7 @@ void Mode1::Draw()
 		}
 
 	}
-
 	
-	//임시 맵 코드
-
-
-	//Engine::GetWindow().Clear(0x000000FF);
-
 	Math::TransformationMatrix camera_matrix = GetGSComponent<GAM200::Camera>()->GetMatrix();
 
 	//GetGSComponent<Background>()->Draw(*GetGSComponent<GAM200::Camera>());
@@ -175,77 +193,130 @@ void Mode1::Draw()
 	//score.Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 10 - timer_texture.GetSize().x, Engine::GetWindow().GetSize().y - timer_texture.GetSize().y - 80 }));
 
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
-	
-	
-	w.Draw(1200 - 150, 0, 150*2, 400*2);
+
+	GetGSComponent<BuildMode>()->Draw();
+	player_ptr->Draw(camera_matrix);
+	//w.Draw(1200 - 150, 0, 150*2, 400*2);
+	GetGSComponent<HBG_Ui>()->Draw();
 }
 
 void Mode1::ImguiDraw()
 {
-	/*ImGui::Begin("Program Info");
+	if (Map::GetInstance().editor_mode == false)
+		return;
+
+	ImGui::Begin("Information");
 	{
-		ImGui::Text("FPS: %f", "55.5");
-		ImGui::Text("Frame Time: %f", "55.5");
-		ImGui::Text("Counter: %f", counter);
-		ImGui::Text("Player position: %.3f, %.3f", player_ptr->GetPosition().x, player_ptr->GetPosition().y);
-		ImGui::Text("Camera position: %.3f, %.3f", GetGSComponent<GAM200::Camera>()->GetPosition().x, GetGSComponent<GAM200::Camera>()->GetPosition().y);
-
-	}
-	ImGui::End();*/
-
-
-	ImGui::Begin("Informations");
-	{
-		/*ImGui::Text("Mouse Position X : %.2f", Engine::Instance().GetMouse().GetMousePosition().x);
-		ImGui::Text("Mouse Position Y : %.2f", Engine::Instance().GetMouse().GetMousePosition().y);*/
 		int gold = GetGSComponent<Gold>()->Value();
 		int life = GetGSComponent<Life>()->Value();
+		int score = GetGSComponent<Score>()->Value();
+		int game_speed = GetGSComponent<GameSpeed>()->Value();
+		int max_speed = GetGSComponent<GameSpeed>()->GetMax();
+		float* musicVolume = (GetGSComponent<GAM200::MusicEffect>()->GetMusicVolume());
+		int player_hp = player_ptr->GetHP();
 
-		ImGui::Text("Killed Monster : %d", GetGSComponent<Score>()->Value());
+		ImGui::Text("Killed Monster : %d", score);
 		ImGui::Text("Gold : %d", gold);
 		ImGui::Text("Life : %d", life);
+		ImGui::Text("Game Speed : %d", game_speed);
+		ImGui::Text("Player HP : %d", player_hp);
 
-		if (ImGui::SliderInt("Adjust Gold", &gold, 0, 600, "%d")) {
+
+		if (ImGui::SliderInt("Adjust Gold", &gold, 0, 100000, "%d")) {
 			GetGSComponent<Gold>()->SetValue(gold);
 		}
 		if (ImGui::SliderInt("Adjust Life", &life, 1, 30, "%d")) {
 			GetGSComponent<Life>()->SetValue(life);
 		}
+		if (ImGui::SliderInt("Player HP", &player_hp, 1, 30, "%d")) {
+			player_ptr->SetHP(player_hp);
+		}
+		if (ImGui::SliderInt("Adjust Game Speed", &game_speed, 0, max_speed, "%d")) {
+			GetGSComponent<GameSpeed>()->SetValue(game_speed);
+		}
+		if (ImGui::SliderFloat("Max Volume", musicVolume, 0.0f, 100.0f, "%.0f"))
+		{
+			GetGSComponent<GAM200::MusicEffect>()->SetVolume(*musicVolume);
+		}
 	}
 	ImGui::End();
 
-	ImGui::Begin("Produec");
+
+	ImGui::Begin("Produce");
 	{
 		if (ImGui::Button("Produce Basic Monster"))
 		{
-			/*for (int i = 0; i < basic_monster_produce_number; i++) {
-				Engine::GetLogger().LogDebug("Basic monster added\n");
-				GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster({ 0, 0 }, player_ptr));
-			}*/
-			GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster({ 0, 0 }, player_ptr));
+			Engine::GetLogger().LogEvent("Basic Monster Produce!");
+			new Basic_Monster;
+			//GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster());
 		}
 		if (ImGui::Button("Produce Fast Monster"))
 		{
-			/*for (int i = 0; i < fast_monster_produce_number; i++) {	
-				GetGSComponent<GAM200::GameObjectManager>()->Add(new Fast_Monster({ 0, 0 }, player_ptr));
-			}*/
-			GetGSComponent<GAM200::GameObjectManager>()->Add(new Fast_Monster({ 0, 0 }, player_ptr));
+			Engine::GetLogger().LogEvent("Fast Monster Produce!");
+			new Fast_Monster;
+			//GetGSComponent<GAM200::GameObjectManager>()->Add(new Fast_Monster());
 		}
-
-		static int size = 80;
-		if (ImGui::Button("Produce Tower"))
+		if (ImGui::Button("Produce Slow Monster"))
 		{
-			if (GetGSComponent<Gold>()->Value() >= Basic_Tower::GetCost()) {
-				GetGSComponent <GAM200::GameObjectManager>()->Add(new Basic_Tower({ static_cast<double>(tower_offset * size), 160 }));
-				++tower_offset;
-			}
+			Engine::GetLogger().LogEvent("Slow Monster Produce!");
+			new Slow_Monster;
+			//GetGSComponent<GAM200::GameObjectManager>()->Add(new Slow_Monster());
 		}
-	}
 
+
+		if (ImGui::Button("Produce Basic Tower"))
+		{
+			GetGSComponent<BuildMode>()->Build(GameObjectTypes::Basic_Tower);
+		}
+		if (ImGui::Button("Produce Double Tower"))
+		{
+			GetGSComponent<BuildMode>()->Build(GameObjectTypes::Double_Tower);
+		}
+		if (ImGui::Button("Produce Triple Tower"))
+		{
+			GetGSComponent<BuildMode>()->Build(GameObjectTypes::Triple_Tower);
+		}
+
+
+		if (ImGui::Button("Delete Tower"))
+		{
+			GetGSComponent<BuildMode>()->DeleteTower();
+		}
+		if (ImGui::Button("Change tile to Pass tile"))
+		{
+			GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Pass__Tile);
+		}
+		if (ImGui::Button("Change tile to Block tile"))
+		{
+			GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Block_Tile);
+		}
+
+
+
+	}
 	ImGui::End();
+
+
 }
 
 void Mode1::HandleEvent(SDL_Event& event)
 {
 
 }
+
+
+void Mode1::SetMap(std::string file_name)
+{
+	// Set Map
+	Map::GetInstance().SetMap(file_name);
+
+	// Window, tiles
+	Math::ivec2 window_size = Engine::GetWindow().GetSize();
+	tile_col = Map::GetInstance().GetSize().x;
+	tile_row = Map::GetInstance().GetSize().y;
+	tile_size.x = window_size.x / tile_row;
+	tile_size.y = window_size.y / tile_col;
+
+	Astar::GetInstance().UpdatePath(Map::GetInstance().GetMap(), Map::GetInstance().GetStartPoint(), Map::GetInstance().GetEndPoint());
+}
+

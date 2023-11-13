@@ -5,8 +5,8 @@ prior written consent is prohibited
 File Name:  Matrix.cpp
 Project:    GAM200_TeamExodia
 Author:     Junyeong Cho
-Created:    October 3, 2023
-Updated:    October 3, 2023
+Created:    October  3, 2023
+Updated:    November 1, 2023
 */
 
 
@@ -193,6 +193,7 @@ Math::ScaleMatrix::ScaleMatrix(vec2 scale)
 
 Math::RotationMatrix::RotationMatrix(double theta)
 {
+    
     for (int row = 0; row < 3; row++)
     {
         for (int col = 0; col < 3; col++)
@@ -223,6 +224,8 @@ Math::RotationMatrix::RotationMatrix(double theta)
             }
         }
     }
+    
+
 }
 
 #pragma endregion

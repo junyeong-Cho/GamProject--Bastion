@@ -19,19 +19,25 @@ Updated:    October		10, 2023
 #include "Mode1.h"
 #include "States.h"
 #include "Bullet.h"
+#include "Monster.h"
+
+#include "../Engine/Mouse.h"
 
 
 Player::Player(Math::vec2 start_position, int size_x, int size_y) : GameObject(start_position), size_x(size_x), size_y(size_y) {
-    //AddGOComponent(new GAM200::Sprite("Assets/Cat.spt", (this)));
+    //AddGOComponent(new GAM200::Sprite("Assets/Player.spt", this));
+
     SetPosition(start_position);
     SetVelocity({ 0, 0 });
     AddGOComponent(new GAM200::RectCollision({ {static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y)}, {static_cast<int>(GetPosition().x) + size_x, static_cast<int>(GetPosition().y + size_y)} }, this));
 
     //hurt_timer = new Timer(0.0);
     //AddGOComponent(hurt_timer);
+    life_count = max_life;
 
     current_state = &state_idle;
     current_state->Enter(this);
+
 }
 
 
@@ -40,6 +46,9 @@ void Player::Update(double dt) {
 
     auto collider = GetGOComponent<GAM200::RectCollision>();
 
+    invincibility_count += dt;
+    attack_count += dt;
+    
     if (collider != nullptr)
     {
         auto bounds = collider->WorldBoundary();
@@ -71,52 +80,49 @@ void Player::Update(double dt) {
         }
     }
 
-    if (!Engine::GetMouse().MouseIsPressed()) {
-        not_clicked = true;
-    }
-    if (not_clicked && Engine::GetMouse().MouseIsPressed()) {
+    Math::vec2 player_position = Math::vec2({ GetPosition().x + size_x / 2, GetPosition().y + size_y / 2 });
+    Math::ivec2 window_size = Engine::GetWindow().GetSize();
+    Math::vec2 mouse_position = Engine::GetInput().GetMousePosition();
+
+    Math::vec2 real_mouse_position = Math::vec2({ mouse_position.x, mouse_position.y });
+    Math::vec2 bullet_direction = Math::vec2({ real_mouse_position.x - player_position.x, real_mouse_position.y - player_position.y });
+    bullet_direction /= bullet_direction.GetLength();
+    if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT) && attack_count>=attack_cool)
+    {
         // Some machanism
-        Math::vec2 player_position = Math::vec2({ GetPosition().x + size_x / 2, GetPosition().y + size_y / 2 });
-        Math::ivec2 window_size = Engine::GetWindow().GetSize();
-        Math::vec2 mouse_position = Engine::GetMouse().GetMousePosition();
-
-        Math::vec2 real_mouse_position = Math::vec2({ mouse_position.x, window_size.y - mouse_position.y});
-        Math::vec2 bullet_direction = Math::vec2({ real_mouse_position.x - player_position.x, real_mouse_position.y - player_position.y });
-        bullet_direction /= bullet_direction.GetLength();
-        Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity));
-
-        not_clicked = false;
+        new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity);
+        //Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity));
+        attack_count = 0;
     }
-
 }
 
 void Player::Draw(Math::TransformationMatrix camera_matrix) {
-    /*if (hurt_timer->Remaining() == 0.0 || hurt_timer->TickTock() == true)
-    {
-        GAM200::GameObject::Draw(camera_matrix);
-    }*/
-    //GAM200::GameObject::Draw(camera_matrix);
 
-    GAM200::DrawShape shape;
-    
-    shape.SetColor(0.5f, 0.5f, 1.0f, 1.0f);
-  //  shape.DrawRectangle(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size, size);
-    p.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x,size_y);
-    
-    /*Math::vec2 position = camera_matrix * GetPosition();
-    shape.DrawRectangle(static_cast<int>(position.x), static_cast<int>(position.y), size, size);*/
+    p.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+    //GAM200::GameObject::Draw(camera_matrix);
 }
 
 
 bool Player::CanCollideWith(GameObjectTypes type) {
-    if (type == GameObjectTypes::Passing_Tile) {
-        return false;
+    
+    if (type == GameObjectTypes::Basic_Monster ||
+        type == GameObjectTypes::Fast_Monster ||
+        type == GameObjectTypes::Slow_Monster ||
+        type == GameObjectTypes::Weak_Monster //|| type == GameObjectTypes::Block_Tile
+        )
+    {
+        return true;
     }
     else
-        return true;
+    {
+        return false;
+    }
+
 }
 
 void Player::ResolveCollision(GameObject* other_object) {
+    if (invincibility_count < invincibilityTime)
+        return;
     Math::rect player_rect = GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
 
     Math::rect other_rect = other_object->GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
@@ -127,8 +133,35 @@ void Player::ResolveCollision(GameObject* other_object) {
     switch (other_object->Type()) {
 
     case GameObjectTypes::Monster:
+        life_count -= Monster::GetDamage();
+        invincibility_count = 0;
         other_object->ResolveCollision(this);
         break;
+
+    case GameObjectTypes::Basic_Monster:
+        life_count -= Basic_Monster::GetDamage();
+        invincibility_count = 0;
+        other_object->ResolveCollision(this);
+        break;
+
+    case GameObjectTypes::Fast_Monster:
+        life_count -= Fast_Monster::GetDamage();
+        invincibility_count = 0;
+        other_object->ResolveCollision(this);
+        break;
+
+    case GameObjectTypes::Slow_Monster:
+        life_count -= Slow_Monster::GetDamage();
+        invincibility_count = 0;
+        other_object->ResolveCollision(this);
+        break;
+
+    case GameObjectTypes::Weak_Monster:
+        life_count -= Weak_Monster::GetDamage();
+        invincibility_count = 0;
+        other_object->ResolveCollision(this);
+        break;
+
 
 
     case GameObjectTypes::Tile:
@@ -136,10 +169,7 @@ void Player::ResolveCollision(GameObject* other_object) {
         break;
 
     case GameObjectTypes::Block_Tile:
-
-
-
-        if (abs(centerX) > abs(centerY)) {
+        /*if (abs(centerX) > abs(centerY)) {
             if (centerX < 0) {
                 UpdatePosition(Math::vec2{ (other_rect.Left() - player_rect.Right()), 0.0 });
                 SetVelocity({ 0, GetVelocity().y });
@@ -158,36 +188,17 @@ void Player::ResolveCollision(GameObject* other_object) {
                 UpdatePosition(Math::vec2{ 0.0, (other_rect.Top() - player_rect.Bottom()) });
                 SetVelocity({ GetVelocity().x, 0 });
             }
-        }
-
-
-
-        /*if (player_rect.Left() < other_rect.Left()) {
-            UpdatePosition(Math::vec2{ (other_rect.Left() - player_rect.Right()), 0.0 });
-            SetVelocity({ 0, GetVelocity().y });
-        }
-        else if (player_rect.Left() >= other_rect.Left()) {
-            UpdatePosition(Math::vec2{ (other_rect.Right() - player_rect.Left()), 0.0 });
-            SetVelocity({ 0, GetVelocity().y });
         }*/
 
-        /*if (player_rect.Bottom() < other_rect.Bottom()) {
-            UpdatePosition(Math::vec2{ 0.0, (other_rect.Bottom() - player_rect.Top()) });
-            SetVelocity({ GetVelocity().x, 0 });
-        }
-        else if (player_rect.Bottom() >= other_rect.Bottom()) {
-            UpdatePosition(Math::vec2{ 0.0, (other_rect.Top() - player_rect.Bottom()) });
-            SetVelocity({ GetVelocity().x, 0 });
-        }*/
         break;
-    case GameObjectTypes::Passing_Tile:
+    case GameObjectTypes::Pass__Tile:
 
         break;
 
     case GameObjectTypes::Tower:
 
         break;
-    
+
     default:
 
         break;
@@ -243,6 +254,7 @@ void Player::update_velocity(double dt) {
         {
             newVelocity.x = 0;
         }
+
         if (newVelocity.y > drag * dt)
         {
             newVelocity.y -= drag * dt;
@@ -261,6 +273,15 @@ void Player::update_velocity(double dt) {
 
 }
 
+
+
+
+
+
+
+
+
+
 // State Idle
 void Player::State_Idle::Enter(GameObject* object)
 {
@@ -278,10 +299,10 @@ void Player::State_Idle::CheckExit(GameObject* object) {
     else if (Engine::GetInput().keyDown(GAM200::Input::Keys::D)) {
         player->change_state(&player->state_moving);
     }
-    else if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::W)) {
+    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::W)) {
         player->change_state(&player->state_moving);
     }
-    else if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::S)) {
+    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::S)) {
         player->change_state(&player->state_moving);
     }
 }
@@ -328,10 +349,10 @@ void Player::State_Moving::CheckExit(GameObject* object) {
     {
         player->change_state(&player->state_skidding);
     }
-    else if (player->GetVelocity().x == 0)
-    {
-        player->change_state(&player->state_idle);
-    }
+    //else if (player->GetVelocity().x == 0 || player->GetVelocity().y == 0)
+    //{
+    //    player->change_state(&player->state_idle);
+    //} // 이거 없애니까 아무튼 됨,.
 }
 
 // State Dashing
@@ -415,4 +436,3 @@ void Player::State_Skidding::CheckExit(GameObject* object) {
         player->change_state(&player->state_moving);
     }
 }
-

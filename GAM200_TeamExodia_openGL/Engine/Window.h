@@ -26,9 +26,11 @@ namespace GAM200
 
         Math::ivec2 GetSize();
 
-        void Clear(unsigned int color);
+        //void Clear(unsigned int color);
 
         void Clear(float red, float green, float blue, float alpha);
+
+        void Clear(unsigned int color);
 
         bool IsDone() const noexcept;
 
@@ -56,6 +58,9 @@ namespace GAM200
 
         const int default_width  = 800;
         const int default_height = 600;
+
+        int local_desired_width  = 0;
+        int local_desired_height = 0;
 
 
         bool is_done = false;

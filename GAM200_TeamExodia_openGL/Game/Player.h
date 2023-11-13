@@ -35,8 +35,12 @@ public:
 	void ResolveCollision(GameObject* other_object) override;
 
 	const Math::vec2& GetPosition() const { return GameObject::GetPosition(); }
+    int GetHP() const { return life_count; }
+    void SetHP(int life) { life_count = life; }
 
 private:
+
+
 
     GAM200::Texture p = GAM200::Texture("assets/images/p.png", GAM200::Texture::TextureType::RECTANGLE);
 
@@ -58,11 +62,20 @@ private:
 
     static constexpr double acceleration = 300;
 
-    static constexpr double drag = 150;
+    static constexpr double drag = 200;
 
     bool not_clicked = false;
 
     void update_velocity(double dt);
+
+    static constexpr double invincibilityTime = 1.0;
+    double invincibility_count = 0;
+
+    static constexpr double attack_cool = 0.5;
+    double attack_count = 0;
+
+    int max_life = 50;
+    int life_count = 0;
 
 
     //Finite State Machines

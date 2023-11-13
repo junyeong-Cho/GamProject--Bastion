@@ -11,19 +11,19 @@ Updated:    September 30, 2023
 
 #pragma once
 
+#include "../Engine/Window.h"
 #include "../Engine/Logger.h"
-
 #include "../Engine/Input.h"
-
+#include "../Engine/Font.h"
 #include "../Engine/Mouse.h"
 
-#include "../Engine/Window.h"
-#include "../Engine/GameState.h"
+
 #include "../Engine/GameStateManager.h"
-#include "../Engine/OriginPosition.h"
+#include "../Engine/TextureManager.h"
+
 
 #include <chrono>
-#include <GL/glew.h>
+
 
 
 class Engine
@@ -55,10 +55,22 @@ public:
         return Instance().input;
 	}
 
-    static GAM200::Mouse& GetMouse()
+    static GAM200::TextureManager& GetTextureManager()
     {
-		return Instance().mouse;
+		return Instance().texturemanager;
 	}
+    
+
+    static GAM200::Font& GetFont(int index)
+    {
+        return Instance().fonts[index];
+    }
+
+
+ //   static GAM200::Mouse& GetMouse()
+ //   {
+	//	return Instance().mouse;
+	//}
 
 
     void Start(const char* window_title, int desired_width, int desired_height, OriginPosition position);
@@ -69,10 +81,13 @@ public:
     void push();
     void pop();
 
-    //void AddFont(const std::filesystem::path& file_name);
+    void AddFont(const std::filesystem::path& file_name);
 
 
 private:
+
+    std::vector<GAM200::Font> fonts;
+
 
     std::chrono::system_clock::time_point last_tick = std::chrono::system_clock::now();
     std::chrono::system_clock::time_point last_test;
@@ -89,8 +104,9 @@ private:
     GAM200::Logger logger;
     GAM200::Window window;
     GAM200::GameStateManager gamestatemanager;
+    GAM200::TextureManager   texturemanager;
     GAM200::Input input;
-    GAM200::Mouse mouse;
+    //GAM200::Mouse mouse;
 
 
 

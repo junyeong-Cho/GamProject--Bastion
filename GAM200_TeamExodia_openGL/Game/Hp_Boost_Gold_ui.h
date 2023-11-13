@@ -1,0 +1,93 @@
+/*
+Copyright (C) 2023 DigiPen Institute of Technology
+Reproduction or distribution of this file or its contents without
+prior written consent is prohibited
+File Name:  Player.h
+Project:    GAM200_TeamExodia_openGL
+Author:     Hyeonjoon Nam
+Created:    October		10, 2023
+Updated:    October		10, 2023
+*/
+
+#pragma once
+
+#include "../Engine/GameObject.h" 
+#include "../Engine/Input.h"
+#include "../Engine/Camera.h"
+#include "../Engine/Matrix.h"
+#include "../Engine/Texture.h"
+#include "../Game/GameObjectTypes.h"
+
+
+class HBG_Ui : public GAM200::Component {
+public:
+
+    HBG_Ui(int hp, int gold, int boost);
+
+
+    void Update();
+
+    void Draw();
+
+
+
+    GAM200::Texture HBG_BASE = GAM200::Texture("assets/images/ui/HBG/HBG_BASE.png", GAM200::Texture::TextureType::RECTANGLE);
+
+    GAM200::Texture HP_EFFECT = GAM200::Texture("assets/images/ui/HBG/HP_EFFECT.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture HP_COVER = GAM200::Texture("assets/images/ui/HBG/HP_COVER.png", GAM200::Texture::TextureType::RECTANGLE);
+
+    GAM200::Texture GOLD_COVER = GAM200::Texture("assets/images/ui/HBG/GOLD_COVER.png", GAM200::Texture::TextureType::RECTANGLE);
+
+    GAM200::Texture BOOST_COVER = GAM200::Texture("assets/images/ui/HBG/BOOST_COVER.png", GAM200::Texture::TextureType::RECTANGLE);
+
+    std::unique_ptr<GAM200::Texture>  remaining_gold;
+
+
+    int Player_HP;
+    int Tower_GOLD;
+    int Player_BOOST;
+    int aim_position;
+
+private:
+
+
+
+    enum class Animations
+    {
+        Idle,
+        Moving,
+        Dashing,
+        Skidding,
+    };
+
+
+
+};
+
+class HP : public HBG_Ui
+{
+public:
+    void draw_hp();
+    int hp_up_and_down();
+private:
+
+};
+
+class GOLD : public HBG_Ui
+{
+public:
+    void draw_gold();
+    int gold_up_and_down();
+private:
+
+};
+
+
+class BOOST : public HBG_Ui
+{
+public:
+    void draw_boost();
+    int boost_up_and_down();
+private:
+
+};

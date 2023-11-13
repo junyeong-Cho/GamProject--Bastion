@@ -6,7 +6,7 @@ File Name:  GameObject.cpp
 Project:    GAM200 Engine
 Author:     Jonathan Holmes, Junyeong Cho
 Created:    March 14, 2023
-Updated:    September 26, 2023
+Updated:    November 1, 2023
 */
 
 #include "ShowCollision.h"
@@ -44,12 +44,12 @@ void GAM200::GameObject::Update(double dt)
 
 void GAM200::GameObject::Draw(Math::TransformationMatrix camera_matrix)
 {
-    //Sprite* sprite = GetGOComponent<Sprite>();
+    Sprite* sprite = GetGOComponent<Sprite>();
 
-    /*if (sprite != nullptr)
+    if(sprite != nullptr)
     {
         sprite->Draw(camera_matrix * GetMatrix());
-    }*/
+    }
 
     ShowCollision* show_collision = Engine::GetGameStateManager().GetGSComponent<ShowCollision>();
 
@@ -98,8 +98,8 @@ const Math::TransformationMatrix& GAM200::GameObject::GetMatrix()
 {
     if (matrix_outdated)
     {
-        //object_matrix = Math::TranslationMatrix(position) * Math::RotationMatrix(rotation) * Math::ScaleMatrix(scale);
-        object_matrix = Math::TranslationMatrix(position);
+        object_matrix = Math::TranslationMatrix(position) * Math::RotationMatrix(rotation) * Math::ScaleMatrix(scale);
+       // object_matrix = Math::TranslationMatrix(position);
         matrix_outdated = false;
     }
     return object_matrix;

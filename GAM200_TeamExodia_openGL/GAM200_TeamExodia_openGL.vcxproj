@@ -51,14 +51,28 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(SolutionDir)common_gl\include;$(SolutionDir)external\openGL\include;$(SolutionDir)external\openGL\include\backends;$(SolutionDir)external\SFML\include;$(SolutionDir)external\SFML\$(Platform)\lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Opengl32.lib;glew32.lib;imgui.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Opengl32.lib;glew32.lib;imgui.lib;SDL2.lib;$(SolutionDir)external\SFML\lib\sfml-system-d.lib;$(SolutionDir)external\SFML\lib\sfml-audio-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
+      <AdditionalLibraryDirectories>$(SolutionDir)external\openGL\lib\;$(SolutionDir)external\SFML\$(Platform)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /d "$(SolutionDir)external\openGL\bin\*.dll" "$(TargetDir)"
+xcopy /y /d /e /i "$(SolutionDir)assets\" "$(TargetDir)assets\" 
+if $(Configuration) == Debug xcopy /y "$(SolutionDir)external\SFML\dll\sfml-audio-d-2.dll" "$(TargetDir)"
+if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-audio-2.dll" "$(TargetDir)"
+
+if $(Configuration) == Debug xcopy /y "$(SolutionDir)external\SFML\dll\sfml-system-d-2.dll" "$(TargetDir)"
+if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-system-2.dll" "$(TargetDir)"
+
+ xcopy /y "$(SolutionDir)external\SFML\dll\openal32.dll" "$(TargetDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -68,62 +82,99 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(SolutionDir)common_gl\include;$(SolutionDir)external\openGL\include;$(SolutionDir)external\openGL\include\backends;$(SolutionDir)external\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Opengl32.lib;glew32.lib;imgui.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Opengl32.lib;glew32.lib;imgui.lib;SDL2.lib;$(SolutionDir)external\SFML\lib\sfml-system.lib;$(SolutionDir)external\SFML\lib\sfml-audio.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
+      <AdditionalLibraryDirectories>$(SolutionDir)external\openGL\lib\;$(SolutionDir)external\SFML\$(Platform)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /d "$(SolutionDir)external\openGL\bin\*.dll" "$(TargetDir)"
+xcopy /y /d /e /i "$(SolutionDir)assets\" "$(TargetDir)assets\" 
+if $(Configuration) == Debug xcopy /y "$(SolutionDir)external\SFML\dll\sfml-audio-d-2.dll" "$(TargetDir)"
+if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-audio-2.dll" "$(TargetDir)"
+
+if $(Configuration) == Debug xcopy /y "$(SolutionDir)external\SFML\dll\sfml-system-d-2.dll" "$(TargetDir)"
+if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-system-2.dll" "$(TargetDir)"
+
+ xcopy /y "$(SolutionDir)external\SFML\dll\openal32.dll" "$(TargetDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Animation.cpp" />
+    <ClCompile Include="Engine\Audio.cpp" />
     <ClCompile Include="Engine\Camera.cpp" />
     <ClCompile Include="Engine\Collision.cpp" />
     <ClCompile Include="Engine\DrawShape.cpp" />
     <ClCompile Include="Engine\Engine.cpp" />
+    <ClCompile Include="Engine\Font.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\GameObjectManager.cpp" />
     <ClCompile Include="Engine\GameStateManager.cpp" />
-    <ClCompile Include="Engine\GLApp_Clone.cpp" />
     <ClCompile Include="Engine\ImGuiHelper.cpp" />
     <ClCompile Include="Engine\Input.cpp" />
     <ClCompile Include="Engine\Logger.cpp" />
     <ClCompile Include="Engine\Matrix.cpp" />
     <ClCompile Include="Engine\Mouse.cpp" />
     <ClCompile Include="Engine\Normalization.cpp" />
+    <ClCompile Include="Engine\Particle.cpp" />
     <ClCompile Include="Engine\ShowCollision.cpp" />
+    <ClCompile Include="Engine\Sprite.cpp" />
     <ClCompile Include="Engine\stb_image_impl.cpp" />
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\TextureManager.cpp" />
     <ClCompile Include="Engine\Vec2.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
     <ClCompile Include="Game\AStar.cpp" />
+    <ClCompile Include="Game\Background.cpp" />
+    <ClCompile Include="Game\BuildMode.cpp" />
     <ClCompile Include="Game\Bullet.cpp" />
+    <ClCompile Include="Game\Button.cpp" />
+    <ClCompile Include="Game\Floor.cpp" />
+    <ClCompile Include="Game\GamePlayEditor.cpp" />
+    <ClCompile Include="Game\GameSpeed.cpp" />
     <ClCompile Include="Game\Gold.cpp" />
+    <ClCompile Include="Game\HowToPlay.cpp" />
+    <ClCompile Include="Game\Hp_Boost_Gold_ui.cpp" />
     <ClCompile Include="Game\Life.cpp" />
+    <ClCompile Include="Game\Main_menu.cpp" />
+    <ClCompile Include="Game\Map.cpp" />
+    <ClCompile Include="Game\ModeSelect.cpp" />
+    <ClCompile Include="Game\Portal.cpp" />
     <ClCompile Include="Game\Mode1.cpp" />
     <ClCompile Include="Game\Monster.cpp" />
     <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="Game\Score.cpp" />
+    <ClCompile Include="Game\PrototypeSplash.cpp" />
+    <ClCompile Include="Game\ScreenWrap.cpp" />
     <ClCompile Include="Game\Splash.cpp" />
     <ClCompile Include="Game\Tile.cpp" />
+    <ClCompile Include="Game\Timer.cpp" />
     <ClCompile Include="Game\Tower.cpp" />
+    <ClCompile Include="Game\Wave.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Animation.h" />
+    <ClInclude Include="Engine\Audio.h" />
     <ClInclude Include="Engine\Camera.h" />
     <ClInclude Include="Engine\Collision.h" />
     <ClInclude Include="Engine\Component.h" />
     <ClInclude Include="Engine\ComponentManager.h" />
+    <ClInclude Include="Engine\Constants.h" />
     <ClInclude Include="Engine\DrawShape.h" />
     <ClInclude Include="Engine\Engine.h" />
+    <ClInclude Include="Engine\Font.h" />
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\GameObjectManager.h" />
     <ClInclude Include="Engine\GameStateManager.h" />
-    <ClInclude Include="Engine\GLApp_Clone.h" />
     <ClInclude Include="Engine\GameState.h" />
     <ClInclude Include="Engine\ImGuiHelper.h" />
     <ClInclude Include="Engine\Input.h" />
@@ -133,25 +184,45 @@
     <ClInclude Include="Engine\Normalization.h" />
     <ClInclude Include="Engine\OriginPosition.h" />
     <ClInclude Include="Engine\owner.h" />
+    <ClInclude Include="Engine\Particle.h" />
     <ClInclude Include="Engine\Rect.h" />
     <ClInclude Include="Engine\ShowCollision.h" />
+    <ClInclude Include="Engine\Sprite.h" />
     <ClInclude Include="Engine\Texture.h" />
     <ClInclude Include="Engine\TextureManager.h" />
     <ClInclude Include="Engine\Vec2.h" />
     <ClInclude Include="Engine\Window.h" />
     <ClInclude Include="Game\AStar.h" />
+    <ClInclude Include="Game\Background.h" />
+    <ClInclude Include="Game\BuildMode.h" />
     <ClInclude Include="Game\Bullet.h" />
+    <ClInclude Include="Game\Button.h" />
+    <ClInclude Include="Game\Floor.h" />
+    <ClInclude Include="Game\Fonts.h" />
     <ClInclude Include="Game\GameObjectTypes.h" />
+    <ClInclude Include="Game\GamePlayEditor.h" />
+    <ClInclude Include="Game\GameSpeed.h" />
     <ClInclude Include="Game\Gold.h" />
+    <ClInclude Include="Game\Gravity.h" />
+    <ClInclude Include="Game\HowToplay.h" />
+    <ClInclude Include="Game\Hp_Boost_Gold_ui.h" />
     <ClInclude Include="Game\Life.h" />
+    <ClInclude Include="Game\Main_menu.h" />
+    <ClInclude Include="Game\Map.h" />
+    <ClInclude Include="Game\ModeSelect.h" />
+    <ClInclude Include="Game\Portal.h" />
     <ClInclude Include="Game\Mode1.h" />
     <ClInclude Include="Game\Monster.h" />
     <ClInclude Include="Game\Player.h" />
     <ClInclude Include="Game\Score.h" />
+    <ClInclude Include="Game\PrototypeSplash.h" />
+    <ClInclude Include="Game\ScreenWrap.h" />
     <ClInclude Include="Game\Splash.h" />
     <ClInclude Include="Game\States.h" />
     <ClInclude Include="Game\Tile.h" />
+    <ClInclude Include="Game\Timer.h" />
     <ClInclude Include="Game\Tower.h" />
+    <ClInclude Include="Game\Wave.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\common_gl\common_gl.vcxproj">
