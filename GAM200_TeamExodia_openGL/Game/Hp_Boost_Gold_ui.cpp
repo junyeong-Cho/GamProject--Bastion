@@ -36,7 +36,7 @@ void HBG_Ui::Update() {
 
 
 
-    //remaining_gold.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("G: " + std::to_string(Tower_GOLD), 0xffffff));// Blue Screen
+   remaining_gold.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("G: " + std::to_string(Tower_GOLD), 0xffffff));
 }
 
 void HBG_Ui::Draw() {
@@ -47,6 +47,10 @@ void HBG_Ui::Draw() {
     GOLD_COVER.Draw(130, 720 - 95, Tower_GOLD / 400, 5);
 
     //remaining_gold->Draw(Math::TranslationMatrix(Math::ivec2{ 130, 720 - 95 }));
+    life.Draw(390, 30, 500, 15);
+    HP_COVER.Draw(390, 30, wall_hp * 10, 15);
+
+
 
 }
 

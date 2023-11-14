@@ -40,14 +40,18 @@ public:
 
     GAM200::Texture BOOST_COVER = GAM200::Texture("assets/images/ui/HBG/BOOST_COVER.png", GAM200::Texture::TextureType::RECTANGLE);
 
+
+    GAM200::Texture life = GAM200::Texture("assets/images/ui/HBG/hp_back.png", GAM200::Texture::TextureType::RECTANGLE);
+
     std::unique_ptr<GAM200::Texture>  remaining_gold;
 
 
+   
     int Player_HP;
     int Tower_GOLD;
     int Player_BOOST;
     int aim_position;
-
+    int wall_hp;
 private:
 
 

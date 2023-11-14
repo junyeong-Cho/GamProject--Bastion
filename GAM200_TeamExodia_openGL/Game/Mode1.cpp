@@ -42,7 +42,7 @@ Updated:    October		10, 2023
 #include <glCheck.h>
 #include "../Engine/Audio.h"
 #include "ModeSelect.h"
-
+#include "Fonts.h"
 
 Mode1::Mode1() : player_ptr()
 {
@@ -119,6 +119,8 @@ void Mode1::Load()
 
 void Mode1::Update(double dt)
 {
+
+
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Tab)) 
 	{
 		GetGSComponent<GameSpeed>()->NextSpeed();
@@ -154,16 +156,22 @@ void Mode1::Update(double dt)
 		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Lose));
 		GetGSComponent<GAM200::MusicEffect>()->Stop();
 	}
-
 	int gold = GetGSComponent<Gold>()->Value();
 	int score = GetGSComponent<Score>()->Value();
-	//int player_hp = player_ptr->GetHP();
-	int main_hp = GetGSComponent<Life>()->Value();
+	int player_hp = player_ptr->GetHP();
+	int wall_hp = GetGSComponent<Score>()->Value();
+	int life = GetGSComponent<Life>()->Value();
 
 	GetGSComponent<HBG_Ui>()->Player_BOOST = 0;
 	//GetGSComponent<HBG_Ui>()->Player_HP = player_hp;
 	GetGSComponent<HBG_Ui>()->Player_HP = main_hp;
 	GetGSComponent<HBG_Ui>()->Tower_GOLD = gold;
+	GetGSComponent<HBG_Ui>()->wall_hp = life;
+
+
+
+	remaining_gold.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("G: " + std::to_string(gold), 0xffffff));
+
 
 }
 
@@ -203,6 +211,9 @@ void Mode1::Draw()
 	player_ptr->Draw(camera_matrix);
 	//w.Draw(1200 - 150, 0, 150*2, 400*2);
 	GetGSComponent<HBG_Ui>()->Draw();
+
+	
+	remaining_gold->Draw(Math::TranslationMatrix(Math::ivec2{ 130, 720 - 95 }));
 }
 
 void Mode1::ImguiDraw()

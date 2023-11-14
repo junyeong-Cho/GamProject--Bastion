@@ -57,7 +57,6 @@ protected:
     int max_hp = 10;
     int hp;
 
- 
     class State_Charging : public State
     {
     public:

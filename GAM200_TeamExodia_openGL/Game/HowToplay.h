@@ -40,6 +40,16 @@ public:
 
 	std::string GetName() override { return "HowToPlay"; }
 
+	GAM200::Texture how1 = GAM200::Texture("assets/images/ui/how_to_play/how1.png", GAM200::Texture::TextureType::RECTANGLE);
+
+	GAM200::Texture how2 = GAM200::Texture("assets/images/ui/how_to_play/how2.png", GAM200::Texture::TextureType::RECTANGLE);
+
+	GAM200::Texture how3 = GAM200::Texture("assets/images/ui/how_to_play/how3.png", GAM200::Texture::TextureType::RECTANGLE);
+
+
+	GAM200::Texture key_tuto = GAM200::Texture("assets/images/ui/how_to_play/key_tuto.png", GAM200::Texture::TextureType::RECTANGLE);
+
+	int page_num = 0;
 
 private:
 	std::unique_ptr<GAM200::Texture> message;

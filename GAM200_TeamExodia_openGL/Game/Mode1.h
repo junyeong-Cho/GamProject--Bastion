@@ -55,6 +55,8 @@ public:
     int tile_row = 0;
     Math::ivec2 tile_size;
 
+    std::unique_ptr<GAM200::Texture>  remaining_gold;
+
     enum  Button_Type
     {
         basic_tower,
