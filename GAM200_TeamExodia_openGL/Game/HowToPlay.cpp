@@ -29,6 +29,8 @@ void HowToPlay::Update(double dt)
 {
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Escape))
 	{
+		page_num = 0;
+
 		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
 	}
 }
@@ -40,9 +42,37 @@ void HowToPlay::Unload()
 
 void HowToPlay::Draw()
 {
-	Engine::GetWindow().Clear(0x000000FF);
 
-	message->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 200) }));
+
+	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Enter))
+	{
+		if (page_num <= 5)
+			page_num += 1;
+	}
+
+	switch (page_num)
+	{
+	case 1:
+		key_tuto.Draw(0, 0, 1280, 720);
+		break;
+	case 2:
+		how1.Draw(0, 0, 1280, 720);
+		break;
+
+	case 3:
+		how2.Draw(0, 0, 1280, 720);
+		break;
+
+	case 4:
+		how3.Draw(0, 0, 1280, 720);
+		break;
+	case 5:
+		Engine::GetWindow().Clear(0x000000FF);
+
+		message->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 200) }));
+	
+		break;
+	}
 }
 
 void HowToPlay::ImguiDraw()
