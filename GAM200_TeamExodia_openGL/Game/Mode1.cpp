@@ -293,24 +293,8 @@ void Mode1::ImguiDraw()
 		}
 		if (ImGui::Button("Change tile to Block tile"))
 		{
-			GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Block_Tile);
+			GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Obstacle);
 		}
-
-
-		if (ImGui::Button("Delete Tower"))
-		{
-			GetGSComponent<BuildMode>()->DeleteTower();
-		}
-		if (ImGui::Button("Change tile to Pass tile"))
-		{
-			GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Pass__Tile);
-		}
-		if (ImGui::Button("Change tile to Block tile"))
-		{
-			GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Block_Tile);
-		}
-
-
 
 	}
 	ImGui::End();
