@@ -35,6 +35,7 @@ void BuildMode::Update()
 			if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT))
 			{
 				build_mode = false;
+				Engine::GetLogger().LogDebug("Change Tile!");
 				Map::GetInstance().ChangeTile(mouse_tile_position, type);
 			}
 
@@ -78,49 +79,45 @@ void BuildMode::Update()
 				}
 			}
 
-			///
+
 			if (Map::GetInstance().GetType(Math::ivec2(mouse_tile_position.x, mouse_tile_position.y)) != "Block_Tile")
 			{
 				//Engine::GetLogger().LogDebug("Not able here!  It is " + Map::GetInstance().GetType(Math::ivec2(mouse_tile_position.x, mouse_tile_position.y)));
 				tower_set_available = false;
+
 			}
-
-			break;
-
-		case Mode::DELETE_TOWER:
-
-			if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT))
+			else if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() < Basic_Tower::GetCost())
 			{
 				//Engine::GetLogger().LogDebug("Not enough gold!");
-				empty_gold = false;
+				empty_gold = true;
 			}
 			else
 			{
 				tower_set_available = true;
 				empty_gold = true;
 			}
-			///
 
 			if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT))
 			{
 				build_mode = false;
+				Engine::GetLogger().LogDebug("Build Tower!");
 				Map::GetInstance().BuildTower(mouse_tile_position, type, direction);
 			}
 
 			break;
+
 
 		case Mode::DELETE_TOWER:
 
 			if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT))
 			{
 				build_mode = false;
+				Engine::GetLogger().LogDebug("Delete Tower!");
 				Map::GetInstance().DeleteTower(mouse_tile_position);
 			}
 
 			break;
 		}
-
-		
 
 
 		if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::RIGHT))
@@ -133,6 +130,8 @@ void BuildMode::Update()
 
 
 }
+
+
 void BuildMode::Draw() {
 	if (build_mode == false)
 		return;
