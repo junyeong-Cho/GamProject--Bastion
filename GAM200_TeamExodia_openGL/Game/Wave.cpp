@@ -36,22 +36,18 @@ void Wave::Start()
 
 void Wave::Update(double dt)
 {
-	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Space) && wave_state == Wave::NotInProgress && Monster::GetRemainMonster() == 0)
+	/*if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Space) && wave_state == Wave::NotInProgress && Monster::GetRemainMonster() == 0)
 	{
 		Start();
 		return;
-	}
-
+	}*/
+	if (wave_state == Wave::NotInProgress)
+		return;
 
 	if (current_wave >= total_wave_num && Monster::GetRemainMonster() == 0)
 	{
 		Engine::GetLogger().LogEvent("Win!");
 		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Win));
-		return;
-	}
-	if (wave_state == Wave_State::NotInProgress)
-	{
-		//Engine::GetLogger().LogDebug("It's not in progress.");
 		return;
 	}
 
