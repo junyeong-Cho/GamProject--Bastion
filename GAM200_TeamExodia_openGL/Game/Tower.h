@@ -16,9 +16,17 @@ public:
 
     static int GetCost() { return cost; }
 
+    int GetHP() const { return hp; }
+    void SetHP(int value) { hp = value; }
+
+    void Tower_Destroy();
+
 protected:
     bool set_basic_tower = false;
-    GAM200::Texture c = GAM200::Texture("assets/images/c.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture c_down = GAM200::Texture("assets/images/c_down.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture c_up = GAM200::Texture("assets/images/c_up.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture c_left = GAM200::Texture("assets/images/c_left.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture c_right = GAM200::Texture("assets/images/c_right.png", GAM200::Texture::TextureType::RECTANGLE);
 
     struct Color {
         float r;
@@ -29,7 +37,7 @@ protected:
     Color charging_color;
     Color attack_color;
 
-    enum class Animations
+    enum   Animations
     {
         Charging,
         Attacking,
@@ -43,6 +51,11 @@ protected:
 
     const double attack_delay = 1.0;
     double attack_count = 0;
+    ///
+    bool four_way[4] = { false,false,false,false };//tower_way_select
+    ///
+    int max_hp = 10;
+    int hp;
 
     class State_Charging : public State
     {

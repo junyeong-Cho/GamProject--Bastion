@@ -20,6 +20,8 @@ ModeSelect::ModeSelect()
 
 }
 
+int ModeSelect::counter = 0;
+
 void ModeSelect::Load()
 {
 	message.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Please select the mode!", 0xFFFFFFFF));
@@ -65,20 +67,7 @@ void ModeSelect::Update(double dt)
 
 	if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Enter))
 	{
-		switch (counter)
-		{
-		case 0:
-
-			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Mode1));
-			break;
-		case 1:
-
-			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Mode2));
-			break;
-		case 2:
-			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Mode3));
-			break;
-		}
+		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Mode1));
 	}
 
 

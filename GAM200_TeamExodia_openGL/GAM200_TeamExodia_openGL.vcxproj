@@ -136,11 +136,13 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClCompile Include="Game\Background.cpp" />
     <ClCompile Include="Game\BuildMode.cpp" />
     <ClCompile Include="Game\Bullet.cpp" />
+    <ClCompile Include="Game\Button.cpp" />
     <ClCompile Include="Game\Floor.cpp" />
     <ClCompile Include="Game\GamePlayEditor.cpp" />
     <ClCompile Include="Game\GameSpeed.cpp" />
     <ClCompile Include="Game\Gold.cpp" />
     <ClCompile Include="Game\HowToPlay.cpp" />
+    <ClCompile Include="Game\Hp_Boost_Gold_ui.cpp" />
     <ClCompile Include="Game\Life.cpp" />
     <ClCompile Include="Game\Main_menu.cpp" />
     <ClCompile Include="Game\Map.cpp" />
@@ -194,6 +196,7 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClInclude Include="Game\Background.h" />
     <ClInclude Include="Game\BuildMode.h" />
     <ClInclude Include="Game\Bullet.h" />
+    <ClInclude Include="Game\Button.h" />
     <ClInclude Include="Game\Floor.h" />
     <ClInclude Include="Game\Fonts.h" />
     <ClInclude Include="Game\GameObjectTypes.h" />
@@ -202,6 +205,7 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClInclude Include="Game\Gold.h" />
     <ClInclude Include="Game\Gravity.h" />
     <ClInclude Include="Game\HowToplay.h" />
+    <ClInclude Include="Game\Hp_Boost_Gold_ui.h" />
     <ClInclude Include="Game\Life.h" />
     <ClInclude Include="Game\Main_menu.h" />
     <ClInclude Include="Game\Map.h" />

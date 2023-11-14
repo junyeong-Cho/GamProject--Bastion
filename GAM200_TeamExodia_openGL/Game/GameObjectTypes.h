@@ -31,6 +31,8 @@ enum class GameObjectTypes
 
     //Exodia
     
+    // Button
+    Button,
     // Player
     Player,
     // Monsters
@@ -50,4 +52,5 @@ enum class GameObjectTypes
     Triple_Tower,
     // Bullets
     Bullet,
+    HBG_Ui,
 };

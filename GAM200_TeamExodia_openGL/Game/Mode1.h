@@ -19,9 +19,10 @@ Updated:    October		10, 2023
 #include "../Engine/GameState.h"
 #include "../Engine/Texture.h"
 #include "GameObjectTypes.h"
-
+#include "../Game/Hp_Boost_Gold_ui.h"
 
 class Player;
+
 
 class Mode1 : public GAM200::GameState
 {
@@ -36,8 +37,6 @@ public:
     void HandleEvent(SDL_Event& event)           override;
 
     void SetMap(std::string file_name);
-    void ChangeTile(Math::ivec2 position, GameObjectTypes type);
-
 
 
     std::string GetName() override { return "Mode1"; }
@@ -50,11 +49,24 @@ public:
     int velocity = 500;
 
     Player* player_ptr;
+    
 
     int tile_col = 0;
     int tile_row = 0;
-    int tile_size_x = 0;
-    int tile_size_y = 0;
+    Math::ivec2 tile_size;
+
+    enum  Button_Type
+    {
+        basic_tower,
+        double_tower,
+        triple_tower,
+        delete_tower,
+        change_t_p,
+        change_t_b
+
+
+
+    };
 
 private:
 

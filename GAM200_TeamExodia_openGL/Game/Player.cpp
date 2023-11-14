@@ -47,6 +47,7 @@ void Player::Update(double dt) {
     auto collider = GetGOComponent<GAM200::RectCollision>();
 
     invincibility_count += dt;
+    attack_count += dt;
     
     if (collider != nullptr)
     {
@@ -86,11 +87,12 @@ void Player::Update(double dt) {
     Math::vec2 real_mouse_position = Math::vec2({ mouse_position.x, mouse_position.y });
     Math::vec2 bullet_direction = Math::vec2({ real_mouse_position.x - player_position.x, real_mouse_position.y - player_position.y });
     bullet_direction /= bullet_direction.GetLength();
-    if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT))
+    if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT) && attack_count>=attack_cool)
     {
         // Some machanism
-
-        Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity));
+        new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity);
+        //Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity));
+        attack_count = 0;
     }
 }
 
@@ -106,7 +108,7 @@ bool Player::CanCollideWith(GameObjectTypes type) {
     if (type == GameObjectTypes::Basic_Monster ||
         type == GameObjectTypes::Fast_Monster ||
         type == GameObjectTypes::Slow_Monster ||
-        type == GameObjectTypes::Weak_Monster
+        type == GameObjectTypes::Weak_Monster //|| type == GameObjectTypes::Block_Tile
         )
     {
         return true;

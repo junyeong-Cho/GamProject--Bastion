@@ -71,7 +71,10 @@ private:
     static constexpr double invincibilityTime = 1.0;
     double invincibility_count = 0;
 
-    int max_life = 10;
+    static constexpr double attack_cool = 0.5;
+    double attack_count = 0;
+
+    int max_life = 50;
     int life_count = 0;
 
 

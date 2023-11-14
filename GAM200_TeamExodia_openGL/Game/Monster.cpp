@@ -23,8 +23,7 @@ Monster::Monster(Math::vec2 position) : GameObject(position) {
     size_x = static_cast<int>(tile_size.x * 2 / 3);
     size_y = static_cast<int>(tile_size.y * 2 / 3);
     walking_speed = (tile_size.x / 2);
-    Engine::GetLogger().LogDebug("Speed scale: " + std::to_string(speed_scale));
-    Engine::GetLogger().LogDebug("Walking speed: " + std::to_string(walking_speed));
+
     // Settings
     SetVelocity({ 0, 0 });
     AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{0, 0}, Math::ivec2{size_x, size_y} }, this));
@@ -34,6 +33,8 @@ Monster::Monster(Math::vec2 position) : GameObject(position) {
     current_state->Enter(this);
 
     ++remaining_monsters;
+
+
 }
 
 int Monster::GetRemainMonster() {
@@ -79,7 +80,6 @@ void Monster::ResolveCollision(GameObject* other_object) {
 
             change_state(&state_dead);
 
-            --remaining_monsters;
         }
     }
     else if (other_object->Type() == GameObjectTypes::Block_Tile)
@@ -92,6 +92,7 @@ void Monster::State_Dead::Enter(GameObject* object)
 {
     Monster* monster = static_cast<Monster*>(object);
     monster->fill_color = { 0.f, 0.f, 0.f };
+    --remaining_monsters;
     //monster->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(Animations::Dead));
 }
 
@@ -258,6 +259,8 @@ Basic_Monster::Basic_Monster(Math::vec2 position) : Monster(position) {
 
     speed_scale = 1;
     walking_speed *= speed_scale;
+
+    Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
 
 Fast_Monster::Fast_Monster(Math::vec2 position) : Monster(position) {
@@ -270,6 +273,8 @@ Fast_Monster::Fast_Monster(Math::vec2 position) : Monster(position) {
 
     speed_scale = 3;
     walking_speed *= speed_scale;
+
+    Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
 
 Slow_Monster::Slow_Monster(Math::vec2 position) : Monster(position) {
@@ -282,6 +287,8 @@ Slow_Monster::Slow_Monster(Math::vec2 position) : Monster(position) {
 
     speed_scale = 0.5;
     walking_speed *= speed_scale;
+
+    Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
 
 Weak_Monster::Weak_Monster(Math::vec2 position) : Monster(position) {
@@ -294,4 +301,6 @@ Weak_Monster::Weak_Monster(Math::vec2 position) : Monster(position) {
 
     speed_scale = 0.5;
     walking_speed *= speed_scale;
+
+    Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }

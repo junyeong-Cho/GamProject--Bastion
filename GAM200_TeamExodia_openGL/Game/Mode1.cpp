@@ -34,12 +34,15 @@ Updated:    October		10, 2023
 #include "GameSpeed.h"
 #include "Wave.h"
 #include "BuildMode.h"
+#include "Button.h"
 
 #include <filesystem>
 #include <imgui.h>
 #include <stb_image.h>
 #include <glCheck.h>
 #include "../Engine/Audio.h"
+#include "ModeSelect.h"
+
 
 Mode1::Mode1() : player_ptr()
 {
@@ -59,11 +62,23 @@ void Mode1::Load()
 	AddGSComponent(new GAM200::Camera({ { 0.15 * Engine::GetWindow().GetSize().x, 0 }, { 0.35 * Engine::GetWindow().GetSize().x, 0 } }));
 
 	// Set Map
-	Mode1::SetMap("assets/maps/Map2.txt");
+	switch (ModeSelect::GetCount())
+	{
+	case 0:
+		Mode1::SetMap("assets/maps/Map1.txt");
+		break;
+	case 1:
+		Mode1::SetMap("assets/maps/Map2.txt");
+		break;
+	case 2:
+		Mode1::SetMap("assets/maps/Map3.txt");
+		break;
+	}
 
 	// Add Player
-	player_ptr = new Player({ 0, 0 }, tile_size_x * 2 / 3, tile_size_y * 2 / 3);
+	player_ptr = new Player({ 0, 0 }, tile_size.x * 2 / 3, tile_size.y * 2 / 3);
 	GetGSComponent<GAM200::GameObjectManager>()->Add(player_ptr);
+
 
 	// Camera Setting
 	GetGSComponent<GAM200::Camera>()->SetPosition({ 0, 0 });
@@ -76,6 +91,25 @@ void Mode1::Load()
 	AddGSComponent(new Wave());
 	GetGSComponent<Wave>()->SetWave();
 	AddGSComponent(new BuildMode());
+	
+	// add HBG Ui
+	AddGSComponent(new HBG_Ui(50, 0, 0));
+
+	Math::ivec2 size = Math::ivec2(Map::GetInstance().GetSize().y, Map::GetInstance().GetSize().x);
+
+	if (Map::GetInstance().editor_mode == false)
+	{
+		new Wave_Start_Button(Math::vec2(1120-40,720-630), Math::vec2(180,60));
+
+		new Basic_Tower_Button(Math::vec2(1120, 720 - 150), Math::vec2(140, 70));
+		new Double_Tower_Button(Math::vec2(1120, 720 - 230), Math::vec2(140, 70));
+		new Triple_Tower_Button(Math::vec2(1120, 720 - 310), Math::vec2(140, 70));
+
+		new Delete_Tower_Button(Math::vec2(1120, 720 - 390), Math::vec2(140, 70));
+		new Pass_Tile_Button(Math::vec2(1120, 720 - 470), Math::vec2(140, 70));
+		new Block_Tile_Button(Math::vec2(1120, 720 - 550), Math::vec2(140, 70));
+	}
+
 
 	#ifdef _DEBUG
 	AddGSComponent(new GAM200::ShowCollision());
@@ -121,12 +155,21 @@ void Mode1::Update(double dt)
 		GetGSComponent<GAM200::MusicEffect>()->Stop();
 	}
 
+	int gold = GetGSComponent<Gold>()->Value();
+	int score = GetGSComponent<Score>()->Value();
+	int player_hp = player_ptr->GetHP();
+
+	GetGSComponent<HBG_Ui>()->Player_BOOST = 0;
+	GetGSComponent<HBG_Ui>()->Player_HP = player_hp;
+	GetGSComponent<HBG_Ui>()->Tower_GOLD = gold;
+
 }
 
 void Mode1::Unload()
 {
 	player_ptr = nullptr;
 	Map::GetInstance().MapUnload();
+	Monster::remaining_monsters = 0;
 	GetGSComponent<GAM200::GameObjectManager>()->Unload();
 	ClearGSComponent();
 }
@@ -141,10 +184,13 @@ void Mode1::Draw()
 		}
 
 	}
-
+	
 	Math::TransformationMatrix camera_matrix = GetGSComponent<GAM200::Camera>()->GetMatrix();
 
 	//GetGSComponent<Background>()->Draw(*GetGSComponent<GAM200::Camera>());
+
+
+
 
 	//timer_texture.Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 10 - timer_texture.GetSize().x, Engine::GetWindow().GetSize().y - timer_texture.GetSize().y - 5 }));
 	//score.Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 10 - timer_texture.GetSize().x, Engine::GetWindow().GetSize().y - timer_texture.GetSize().y - 80 }));
@@ -152,12 +198,16 @@ void Mode1::Draw()
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
 
 	GetGSComponent<BuildMode>()->Draw();
-	
-	w.Draw(1200 - 150, 0, 150*2, 400*2);
+	player_ptr->Draw(camera_matrix);
+	//w.Draw(1200 - 150, 0, 150*2, 400*2);
+	GetGSComponent<HBG_Ui>()->Draw();
 }
 
 void Mode1::ImguiDraw()
 {
+	if (Map::GetInstance().editor_mode == false)
+		return;
+
 	ImGui::Begin("Information");
 	{
 		int gold = GetGSComponent<Gold>()->Value();
@@ -200,17 +250,20 @@ void Mode1::ImguiDraw()
 		if (ImGui::Button("Produce Basic Monster"))
 		{
 			Engine::GetLogger().LogEvent("Basic Monster Produce!");
-			GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster());
+			new Basic_Monster;
+			//GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster());
 		}
 		if (ImGui::Button("Produce Fast Monster"))
 		{
 			Engine::GetLogger().LogEvent("Fast Monster Produce!");
-			GetGSComponent<GAM200::GameObjectManager>()->Add(new Fast_Monster());
+			new Fast_Monster;
+			//GetGSComponent<GAM200::GameObjectManager>()->Add(new Fast_Monster());
 		}
 		if (ImGui::Button("Produce Slow Monster"))
 		{
 			Engine::GetLogger().LogEvent("Slow Monster Produce!");
-			GetGSComponent<GAM200::GameObjectManager>()->Add(new Slow_Monster());
+			new Slow_Monster;
+			//GetGSComponent<GAM200::GameObjectManager>()->Add(new Slow_Monster());
 		}
 
 
@@ -226,6 +279,21 @@ void Mode1::ImguiDraw()
 		{
 			GetGSComponent<BuildMode>()->Build(GameObjectTypes::Triple_Tower);
 		}
+
+
+		if (ImGui::Button("Delete Tower"))
+		{
+			GetGSComponent<BuildMode>()->DeleteTower();
+		}
+		if (ImGui::Button("Change tile to Pass tile"))
+		{
+			GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Pass__Tile);
+		}
+		if (ImGui::Button("Change tile to Block tile"))
+		{
+			GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Block_Tile);
+		}
+
 
 
 	}
@@ -249,19 +317,9 @@ void Mode1::SetMap(std::string file_name)
 	Math::ivec2 window_size = Engine::GetWindow().GetSize();
 	tile_col = Map::GetInstance().GetSize().x;
 	tile_row = Map::GetInstance().GetSize().y;
-	tile_size_x = window_size.x / tile_row;
-	tile_size_y = window_size.y / tile_col;
+	tile_size.x = window_size.x / tile_row;
+	tile_size.y = window_size.y / tile_col;
 
 	Astar::GetInstance().UpdatePath(Map::GetInstance().GetMap(), Map::GetInstance().GetStartPoint(), Map::GetInstance().GetEndPoint());
 }
 
-
-void Mode1::ChangeTile(Math::ivec2 position, GameObjectTypes type) {
-	Map::GetInstance().ChangeTile(position, type);
-
-	int cols = position.y;
-	int rows = position.x;
-
-	
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new Pass__Tile(Math::irect{ { rows * tile_size_x, cols * tile_size_y }, { (rows + 1) * tile_size_x, (cols + 1) * tile_size_y } }));
-}
