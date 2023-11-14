@@ -120,20 +120,34 @@ void Map::ChangeTile(Math::ivec2 position, GameObjectTypes type) {
 	int cols = position.y;
 	int rows = position.x;
 
-	if (map[cols][rows]->tower != nullptr)
+	if (map[cols][rows]->tile->Type() == type || map[cols][rows]->tile->Type() == GameObjectTypes::Block_Tile)
 		return;
 	
-	map[cols][rows]->tile->Tile_Destroy();
-	map[cols][rows]->tile = nullptr;
-	delete map[cols][rows]->tile;
 
 	if (type == GameObjectTypes::Pass__Tile) 
 	{
+		map[cols][rows]->tile->Tile_Destroy();
+		map[cols][rows]->tile = nullptr;
+		delete map[cols][rows]->tile;
+
 		map[cols][rows]->tile = new Pass__Tile(Math::irect{ { rows * tile_size.x, cols * tile_size.y }, { (rows + 1) * tile_size.x, (cols + 1) * tile_size.y } });
 	}
 	else if (type == GameObjectTypes::Block_Tile)
 	{
-		map[cols][rows]->tile = new Block_Tile(Math::irect{ { rows * tile_size.x, cols * tile_size.y }, { (rows + 1) * tile_size.x, (cols + 1) * tile_size.y } });
+		/*map[cols][rows]->tile->Tile_Destroy();
+		map[cols][rows]->tile = nullptr;
+		delete map[cols][rows]->tile;
+
+		map[cols][rows]->tile = new Block_Tile(Math::irect{ { rows * tile_size.x, cols * tile_size.y }, { (rows + 1) * tile_size.x, (cols + 1) * tile_size.y } });*/
+		return;
+	}
+	else if (type == GameObjectTypes::Obstacle)
+	{
+		map[cols][rows]->tile->Tile_Destroy();
+		map[cols][rows]->tile = nullptr;
+		delete map[cols][rows]->tile;
+
+		map[cols][rows]->tile = new Obstacle(Math::irect{ { rows * tile_size.x, cols * tile_size.y }, { (rows + 1) * tile_size.x, (cols + 1) * tile_size.y } });
 	}
 
 	Astar::GetInstance().UpdatePath(map, start_point, end_point);

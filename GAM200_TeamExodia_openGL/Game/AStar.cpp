@@ -38,7 +38,8 @@ void Astar::UpdatePath(Info*** map, Math::ivec2 start, Math::ivec2 target) {
 				[&](const Math::ivec2& element) { return element == neighbor; }) != closedList.end()) {
 				continue;
 			}
-			if (map[neighbor.y][neighbor.x]->tile->Type() == (GameObjectTypes::Block_Tile))
+			if (map[neighbor.y][neighbor.x]->tile->Type() == (GameObjectTypes::Block_Tile) ||
+				map[neighbor.y][neighbor.x]->tile->Type() == (GameObjectTypes::Obstacle))
 				continue;
 
 			cameFrom[neighbor] = current;

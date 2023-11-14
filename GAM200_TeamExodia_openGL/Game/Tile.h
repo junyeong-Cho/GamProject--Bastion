@@ -72,3 +72,15 @@ public:
 	void Update(double dt) override;
 private:
 };
+
+class Obstacle : public Tile
+{
+public:
+	Obstacle(Math::irect boundary);
+
+	GameObjectTypes Type() override { return GameObjectTypes::Obstacle; }
+	std::string TypeName() override { return "Obstacle"; }
+
+	void Update(double dt) override;
+private:
+};

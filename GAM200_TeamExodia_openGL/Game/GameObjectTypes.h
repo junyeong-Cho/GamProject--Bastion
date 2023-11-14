@@ -45,6 +45,7 @@ enum class GameObjectTypes
     Tile,
     Pass__Tile,
     Block_Tile,
+    Obstacle,
     // Towers
     Tower,
     Basic_Tower,

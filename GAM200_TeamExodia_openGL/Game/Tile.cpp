@@ -72,3 +72,15 @@ Block_Tile::Block_Tile(Math::irect boundary) : Tile(boundary) {
 void Block_Tile::Update(double dt) {
 
 }
+
+Obstacle::Obstacle(Math::irect boundary) : Tile(boundary) {
+	color.r = 0.431f;
+	color.g = 0.282f;
+	color.b = 0.067f;
+
+	block_tile_bool = true;
+}
+
+void Obstacle::Update(double dt) {
+
+}
