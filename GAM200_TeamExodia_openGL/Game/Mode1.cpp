@@ -151,16 +151,18 @@ void Mode1::Update(double dt)
 	}
 
 	if (GetGSComponent<Life>()->Value() <= 0) {
-		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
+		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Lose));
 		GetGSComponent<GAM200::MusicEffect>()->Stop();
 	}
 
 	int gold = GetGSComponent<Gold>()->Value();
 	int score = GetGSComponent<Score>()->Value();
-	int player_hp = player_ptr->GetHP();
+	//int player_hp = player_ptr->GetHP();
+	int main_hp = GetGSComponent<Life>()->Value();
 
 	GetGSComponent<HBG_Ui>()->Player_BOOST = 0;
-	GetGSComponent<HBG_Ui>()->Player_HP = player_hp;
+	//GetGSComponent<HBG_Ui>()->Player_HP = player_hp;
+	GetGSComponent<HBG_Ui>()->Player_HP = main_hp;
 	GetGSComponent<HBG_Ui>()->Tower_GOLD = gold;
 
 }

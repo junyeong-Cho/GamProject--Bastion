@@ -7,7 +7,7 @@
 class Gold : public GAM200::Component
 {
 public:
-    Gold() : goldValue(0) {}
+    Gold() : goldValue(500) {}
 
     void Add(int value);
     void Subtract(int value);

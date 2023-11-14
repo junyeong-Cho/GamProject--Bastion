@@ -35,6 +35,7 @@ void BuildMode::Update()
 			if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT))
 			{
 				build_mode = false;
+				Engine::GetLogger().LogDebug("Change Tile!");
 				Map::GetInstance().ChangeTile(mouse_tile_position, type);
 			}
 
@@ -96,6 +97,13 @@ void BuildMode::Update()
 				empty_gold = true;
 			}
 
+			if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT))
+			{
+				build_mode = false;
+				Engine::GetLogger().LogDebug("Build Tower!");
+				Map::GetInstance().BuildTower(mouse_tile_position, type, direction);
+			}
+
 			break;
 
 
@@ -104,6 +112,7 @@ void BuildMode::Update()
 			if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT))
 			{
 				build_mode = false;
+				Engine::GetLogger().LogDebug("Delete Tower!");
 				Map::GetInstance().DeleteTower(mouse_tile_position);
 			}
 

@@ -11,8 +11,10 @@
 #include "Game/ModeSelect.h" 
 #include "Game/GamePlayEditor.h"
 #include "Game/HowToplay.h"
-#include "Game/Mode1.h"
 
+#include "Game/Mode1.h"
+#include "Game/Win.h"
+#include "Game/Lose.h"
 
 
 
@@ -76,6 +78,10 @@ int main()
 
         Mode1 mode1;
         engine.GetGameStateManager().AddGameState(mode1);
+        Win win;
+        engine.GetGameStateManager().AddGameState(win);
+        Lose lose;
+        engine.GetGameStateManager().AddGameState(lose);
 
         //Mode2 mode2;
         //engine.GetGameStateManager().AddGameState(mode2);

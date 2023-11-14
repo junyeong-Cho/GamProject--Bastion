@@ -43,9 +43,10 @@ void Wave::Update(double dt)
 	}
 
 
-	if (current_wave >= total_wave_num)
+	if (current_wave >= total_wave_num && Monster::GetRemainMonster() == 0)
 	{
 		Engine::GetLogger().LogEvent("Win!");
+		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Win));
 		return;
 	}
 	if (wave_state == Wave_State::NotInProgress)
