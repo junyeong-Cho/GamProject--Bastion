@@ -42,6 +42,10 @@ public:
     bool tower_set_available;
     ///
 
+        DELETE_TOWER,
+        BUILD_TOWER
+    } mode;
+
 private:
     bool build_mode;
 

@@ -84,7 +84,12 @@ void BuildMode::Update()
 				//Engine::GetLogger().LogDebug("Not able here!  It is " + Map::GetInstance().GetType(Math::ivec2(mouse_tile_position.x, mouse_tile_position.y)));
 				tower_set_available = false;
 			}
-			else if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() < Basic_Tower::GetCost())
+
+			break;
+
+		case Mode::DELETE_TOWER:
+
+			if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT))
 			{
 				//Engine::GetLogger().LogDebug("Not enough gold!");
 				empty_gold = false;
