@@ -162,17 +162,11 @@ namespace GAM200
     void Window::Update() 
     {
     
-        SDL_Event event{ 0 };
-        while (SDL_PollEvent(&event) != 0) 
-        {
-            if (event.type == SDL_QUIT || (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE)) 
-            {
-                is_done = true;
-            }
-        }
-
+//        SDL_Event event{ 0 };
 
         SDL_GL_SwapWindow(ptr_window);
+
+
     }
 
     
@@ -233,6 +227,19 @@ namespace GAM200
     SDL_GLContext Window::GetGLContext() const noexcept
     {
         return gl_context;
+    }
+
+    void Window::HandleEvent(SDL_Event& event)
+    {
+        while (SDL_PollEvent(&event) != 0)
+        {
+            if (event.type == SDL_QUIT || (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE))
+            {
+                Engine::GetGameStateManager().ClearNextGameState();
+                is_done = true;
+            }
+        }
+
     }
     
 

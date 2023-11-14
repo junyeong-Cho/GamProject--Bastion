@@ -41,6 +41,8 @@ namespace GAM200
 
         SDL_GLContext GetGLContext() const noexcept;
 
+        void HandleEvent(SDL_Event& event);
+
 
     private:
         friend void ::on_window_resized(int, int);
