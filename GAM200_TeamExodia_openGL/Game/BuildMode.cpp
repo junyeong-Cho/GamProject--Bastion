@@ -78,36 +78,26 @@ void BuildMode::Update()
 				}
 			}
 
-			///
+
 			if (Map::GetInstance().GetType(Math::ivec2(mouse_tile_position.x, mouse_tile_position.y)) != "Block_Tile")
 			{
 				//Engine::GetLogger().LogDebug("Not able here!  It is " + Map::GetInstance().GetType(Math::ivec2(mouse_tile_position.x, mouse_tile_position.y)));
 				tower_set_available = false;
+
 			}
-
-			break;
-
-		case Mode::DELETE_TOWER:
-
-			if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT))
+			else if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() < Basic_Tower::GetCost())
 			{
 				//Engine::GetLogger().LogDebug("Not enough gold!");
-				empty_gold = false;
+				empty_gold = true;
 			}
 			else
 			{
 				tower_set_available = true;
 				empty_gold = true;
 			}
-			///
-
-			if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT))
-			{
-				build_mode = false;
-				Map::GetInstance().BuildTower(mouse_tile_position, type, direction);
-			}
 
 			break;
+
 
 		case Mode::DELETE_TOWER:
 
@@ -120,8 +110,6 @@ void BuildMode::Update()
 			break;
 		}
 
-		
-
 
 		if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::RIGHT))
 		{
@@ -133,7 +121,8 @@ void BuildMode::Update()
 
 
 }
-void BuildMode::Draw() {
+void BuildMode::Draw()
+{
 	if (build_mode == false)
 		return;
 
@@ -142,13 +131,13 @@ void BuildMode::Draw() {
 	if (mode == Mode::BUILD_TOWER)
 	{
 		Math::ivec2 point1 = Math::ivec2(mouse_tile_position.x * tile_size.x, mouse_tile_position.y * tile_size.y);
-		
+
 		switch (direction)
 		{
 
 
 		case Direction::UP:
-			
+
 			four_way[0] = true;
 			four_way[1] = false;
 			four_way[2] = false;
@@ -157,7 +146,7 @@ void BuildMode::Draw() {
 			break;
 
 		case Direction::RIGHT:
-			
+
 			four_way[0] = false;
 			four_way[1] = true;
 			four_way[2] = false;
@@ -166,7 +155,7 @@ void BuildMode::Draw() {
 			break;
 
 		case Direction::DOWN:
-			
+
 
 			four_way[0] = false;
 			four_way[1] = false;
@@ -176,7 +165,7 @@ void BuildMode::Draw() {
 			break;
 
 		case Direction::LEFT:
-			
+
 
 			four_way[0] = false;
 			four_way[1] = false;
@@ -211,11 +200,11 @@ void BuildMode::Draw() {
 				}
 				else if (four_way[2] == true)//right
 				{
-					edit_2_down_aim.Draw(point1.x - 40, point1.y-40, 160, 160);
+					edit_2_down_aim.Draw(point1.x - 40, point1.y - 40, 160, 160);
 				}
 				else if (four_way[3] == true)//right
 				{
-					edit_2_left_aim.Draw(point1.x - 40, point1.y-40, 160, 160);
+					edit_2_left_aim.Draw(point1.x - 40, point1.y - 40, 160, 160);
 				}
 
 
@@ -224,22 +213,22 @@ void BuildMode::Draw() {
 
 		return;
 	}
-	else if (mode == Mode::CHANGE_TILE )//after_image_add
+	else if (mode == Mode::CHANGE_TILE)//after_image_add
 	{
-		change_aim.Draw(mouse_tile_position.x * tile_size.x, mouse_tile_position.y * tile_size.y-17.5, tile_size.x, 115);
+		change_aim.Draw(mouse_tile_position.x * tile_size.x, mouse_tile_position.y * tile_size.y - 17.5, tile_size.x, 115);
 	}
-	else if ( mode == Mode::DELETE_TOWER)//after_image_add
+	else if (mode == Mode::DELETE_TOWER)//after_image_add
 	{
 		delete_aim.Draw(mouse_tile_position.x * tile_size.x, mouse_tile_position.y * tile_size.y, tile_size.x, tile_size.y);
-		
+
 	}
-	
+
 }
 
 void BuildMode::Build(GameObjectTypes type)
-{ 
-	build_mode = true;  
-	this->type = type; 
+{
+	build_mode = true;
+	this->type = type;
 	mode = Mode::BUILD_TOWER;
 
 	if (type == GameObjectTypes::Basic_Tower)
@@ -278,4 +267,3 @@ void BuildMode::ChangeTile(GameObjectTypes type)
 
 	mode = Mode::CHANGE_TILE;
 }
-
