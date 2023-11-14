@@ -124,7 +124,7 @@ Math::ivec2 GAM200::Font::MeasureText(std::string text)
 
 GAM200::Texture* GAM200::Font::PrintToTexture(std::string text, unsigned int color)
 {
-    //Engine::Instance().push();
+    Engine::Instance().push();
 
     Math::ivec2 text_size = MeasureText(text);
 
@@ -159,7 +159,7 @@ GAM200::Texture* GAM200::Font::PrintToTexture(std::string text, unsigned int col
     glBindFramebuffer(GL_FRAMEBUFFER, 0);  // FBO 바인드 해제
     glDeleteFramebuffers(1, &fbo);         // FBO 삭제
 
-   // Engine::Instance().pop();
+   Engine::Instance().pop();
 
 
     return newTexture;

@@ -65,6 +65,10 @@ void Bullet::ResolveCollision(GameObject* other_object)
 void Bullet::Draw(Math::TransformationMatrix camera_matrix) {
     GAM200::DrawShape bullet;
 
+    Engine::Instance().push();
+
     bullet.SetColor(color.r, color.g, color.b, 1.0f);
     bullet.DrawRectangle(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size, size);
+
+    Engine::Instance().pop();
 }
