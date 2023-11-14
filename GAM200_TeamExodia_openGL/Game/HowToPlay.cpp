@@ -44,7 +44,7 @@ void HowToPlay::Draw()
 {
 
 
-	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Enter))
+	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Enter) || Engine::GetInput().MouseJustReleased(GAM200::Input::MouseButtons::LEFT))
 	{
 		if (page_num <= 5)
 			page_num += 1;

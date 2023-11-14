@@ -64,15 +64,15 @@ private:
         Skidding,
     };
 
-    Button* w_button;
+    Button* w_button = nullptr;
 
-    Button* basic_t_button;
-    Button* double_t_button;
-    Button* triple_t_button;
+    Button* basic_t_button = nullptr;
+    Button* double_t_button = nullptr;
+    Button* triple_t_button = nullptr;
 
-    Button* delete_t_button;
-    Button* pass_t_button;
-    Button* block_t_button;
+    Button* delete_t_button = nullptr;
+    Button* pass_t_button = nullptr;
+    Button* block_t_button = nullptr;
 
 
 };

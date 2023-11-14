@@ -38,12 +38,12 @@ public:
 
 
     bool four_way[4] = { false,false,false,false };
-    bool empty_gold;
-    bool tower_set_available;
+    bool empty_gold = false;
+    bool tower_set_available = false;
 
 
 private:
-    bool build_mode;
+    bool build_mode = false;
 
     GameObjectTypes type;
     int cost = 0;

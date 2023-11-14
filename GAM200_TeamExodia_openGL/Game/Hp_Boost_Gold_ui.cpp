@@ -25,19 +25,23 @@ Updated:    October		10, 2023
 #include "Timer.h"
 
 #include "Button.h"
+#include "Map.h"
 
 HBG_Ui::HBG_Ui(int hp, int gold, int boost) : Player_HP(hp), Tower_GOLD(gold), Player_BOOST(boost) {
     //AddGOComponent(new GAM200::Sprite("Assets/Player.spt", this));
 
-    w_button = new Wave_Start_Button(Math::vec2(1120 - 40, 720 - 630), Math::vec2(180, 60));
+    if (Map::GetInstance().editor_mode == false)
+    {
+        w_button = new Wave_Start_Button(Math::vec2(1120 - 40, 720 - 630), Math::vec2(180, 60));
 
-    basic_t_button = new Basic_Tower_Button(Math::vec2(1120, 720 - 150), Math::vec2(140, 70));
-    double_t_button = new Double_Tower_Button(Math::vec2(1120, 720 - 230), Math::vec2(140, 70));
-    triple_t_button = new Triple_Tower_Button(Math::vec2(1120, 720 - 310), Math::vec2(140, 70));
+        basic_t_button = new Basic_Tower_Button(Math::vec2(1120, 720 - 150), Math::vec2(140, 70));
+        double_t_button = new Double_Tower_Button(Math::vec2(1120, 720 - 230), Math::vec2(140, 70));
+        triple_t_button = new Triple_Tower_Button(Math::vec2(1120, 720 - 310), Math::vec2(140, 70));
 
-    delete_t_button = new Delete_Tower_Button(Math::vec2(1120, 720 - 390), Math::vec2(140, 70));
-    pass_t_button = new Pass_Tile_Button(Math::vec2(1120, 720 - 470), Math::vec2(140, 70));
-    block_t_button = new Block_Tile_Button(Math::vec2(1120, 720 - 550), Math::vec2(140, 70));
+        delete_t_button = new Delete_Tower_Button(Math::vec2(1120, 720 - 390), Math::vec2(140, 70));
+        pass_t_button = new Pass_Tile_Button(Math::vec2(1120, 720 - 470), Math::vec2(140, 70));
+        block_t_button = new Block_Tile_Button(Math::vec2(1120, 720 - 550), Math::vec2(140, 70));
+    }
 
 }
 
@@ -60,16 +64,18 @@ void HBG_Ui::Draw() {
     life.Draw(390, 30, 500, 15);
     HP_COVER.Draw(390, 30, wall_hp * 10, 15);
 
-    
-    w_button->Draw(Math::TransformationMatrix());
+    if (Map::GetInstance().editor_mode == false)
+    {
+        w_button->Draw(Math::TransformationMatrix());
 
-    basic_t_button->Draw(Math::TransformationMatrix());
-    double_t_button->Draw(Math::TransformationMatrix());
-    triple_t_button->Draw(Math::TransformationMatrix());
+        basic_t_button->Draw(Math::TransformationMatrix());
+        double_t_button->Draw(Math::TransformationMatrix());
+        triple_t_button->Draw(Math::TransformationMatrix());
 
-    delete_t_button->Draw(Math::TransformationMatrix());
-    pass_t_button->Draw(Math::TransformationMatrix());
-    block_t_button->Draw(Math::TransformationMatrix());
+        delete_t_button->Draw(Math::TransformationMatrix());
+        pass_t_button->Draw(Math::TransformationMatrix());
+        block_t_button->Draw(Math::TransformationMatrix());
+    }
 }
 
 void HP::draw_hp()
