@@ -72,11 +72,11 @@ void Main_menu::Update(double dt)
 		switch (counter)
 		{
 		case 0:
-			
+			GetGSComponent<GAM200::MusicEffect>()->Stop();
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::ModeSelect));
 			break;
 		case 1:
-			
+			GetGSComponent<GAM200::MusicEffect>()->Stop();
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::GamePlayEditior));
 			break;
 		case 2:

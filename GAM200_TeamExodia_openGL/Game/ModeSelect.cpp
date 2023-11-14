@@ -14,6 +14,7 @@ Updated:    November 13, 2023
 
 #include "Fonts.h"
 #include "../Engine/Engine.h"
+#include "../Engine/Audio.h"
 
 ModeSelect::ModeSelect()
 {
