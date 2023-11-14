@@ -36,15 +36,11 @@ public:
         BUILD_TOWER
     } mode;
 
-    ///
+
     bool four_way[4] = { false,false,false,false };
     bool empty_gold;
     bool tower_set_available;
-    ///
 
-        DELETE_TOWER,
-        BUILD_TOWER
-    } mode;
 
 private:
     bool build_mode;
