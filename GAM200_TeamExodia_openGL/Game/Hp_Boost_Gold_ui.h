@@ -18,7 +18,7 @@ Updated:    October		10, 2023
 #include "../Engine/Texture.h"
 #include "../Game/GameObjectTypes.h"
 
-
+class Button;
 class HBG_Ui : public GAM200::Component {
 public:
 
@@ -64,6 +64,15 @@ private:
         Skidding,
     };
 
+    Button* w_button;
+
+    Button* basic_t_button;
+    Button* double_t_button;
+    Button* triple_t_button;
+
+    Button* delete_t_button;
+    Button* pass_t_button;
+    Button* block_t_button;
 
 
 };

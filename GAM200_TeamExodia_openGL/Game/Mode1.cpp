@@ -209,8 +209,8 @@ void Mode1::Draw()
 
 	GetGSComponent<BuildMode>()->Draw();
 	player_ptr->Draw(camera_matrix);
-	//w.Draw(1200 - 150, 0, 150*2, 400*2);
 	GetGSComponent<HBG_Ui>()->Draw();
+	
 
 	
 	remaining_gold->Draw(Math::TranslationMatrix(Math::ivec2{ 130, 720 - 95 }));
