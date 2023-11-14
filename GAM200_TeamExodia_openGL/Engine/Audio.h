@@ -56,7 +56,7 @@ namespace GAM200
 
 	private:
 
-		float defaultVolume = 40.f;
+		float defaultVolume = 70.f;
 
 		std::vector<sf::SoundBuffer> buffers;
 		std::vector<sf::Sound> sounds;

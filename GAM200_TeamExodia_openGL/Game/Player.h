@@ -16,7 +16,11 @@ Updated:    October		10, 2023
 #include "../Engine/Camera.h"
 #include "../Engine/Matrix.h"
 #include "../Engine/Texture.h"
+#include "../Engine/Audio.h"
+
 #include "../Game/GameObjectTypes.h"
+
+
 
 class Player : public GAM200::GameObject {
 public:
@@ -40,6 +44,7 @@ public:
 
 private:
 
+    GAM200::SoundEffect* soundEffect = new GAM200::SoundEffect();
 
 
     GAM200::Texture p = GAM200::Texture("assets/images/p.png", GAM200::Texture::TextureType::RECTANGLE);

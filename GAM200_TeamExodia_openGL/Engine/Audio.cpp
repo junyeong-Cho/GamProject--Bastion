@@ -108,7 +108,7 @@ namespace GAM200
 		if (index >= 0 && index < sounds.size())
 		{
 			sounds[index].setBuffer(buffers[index]);
-			sounds[index].setVolume(55);
+			sounds[index].setVolume(50);
 
 			sounds[index].play();
 

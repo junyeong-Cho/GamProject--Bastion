@@ -3,6 +3,7 @@
 #include "../Engine/GameState.h"
 #include "GameObjectTypes.h"
 #include "../Engine/Vec2.h"
+#include "../Engine/Audio.h"
 
 #include <tuple>
 
@@ -44,6 +45,9 @@ public:
 	bool editor_mode = false;
 
 private:
+	GAM200::SoundEffect* soundEffect = new GAM200::SoundEffect();
+
+
 	Info*** map = nullptr;
 
 	Math::ivec2 start_point;

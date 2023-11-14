@@ -24,7 +24,10 @@ Updated:    October		10, 2023
 #include "../Engine/Mouse.h"
 
 
-Player::Player(Math::vec2 start_position, int size_x, int size_y) : GameObject(start_position), size_x(size_x), size_y(size_y) {
+Player::Player(Math::vec2 start_position, int size_x, int size_y) : GameObject(start_position), size_x(size_x), size_y(size_y) 
+{
+    soundEffect->LoadFile("Assets/Sounds/SoundEffect/gun_sound_meca.wav");
+
     //AddGOComponent(new GAM200::Sprite("Assets/Player.spt", this));
 
     SetPosition(start_position);
@@ -93,6 +96,9 @@ void Player::Update(double dt) {
     if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT) && attack_count>=attack_cool)
     {
         // Some machanism
+        soundEffect->Play(0);
+
+
         new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity);
         //Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity));
         attack_count = 0;

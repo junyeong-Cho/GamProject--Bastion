@@ -51,7 +51,8 @@ Tower::Tower(Math::vec2 position, int direction) : GameObject(position), directi
 	current_state->Enter(this);
 
 }
-void Tower::Update(double dt) {
+void Tower::Update(double dt) 
+{
 	GameObject::Update(dt);
 
 }

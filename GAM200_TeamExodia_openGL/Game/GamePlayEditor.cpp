@@ -53,7 +53,7 @@ void GamePlayEditor::Load()
 {
 	// Music
 	AddGSComponent(new GAM200::MusicEffect());
-	GetGSComponent<GAM200::MusicEffect>()->LoadFile("assets/Sounds/Theme/example_music.ogg");
+	GetGSComponent<GAM200::MusicEffect>()->LoadFile("assets/Sounds/Theme/example_music_editor.ogg");
 
 	// Game Object
 	AddGSComponent(new GAM200::GameObjectManager());
