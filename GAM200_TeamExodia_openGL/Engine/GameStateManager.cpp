@@ -93,7 +93,12 @@ void GAM200::GameStateManager::Update(double dt)
 				//Engine::GetMouse().HandleEvent(event);
 
 				Engine::GetInput().HandleEvent(event);
-				Engine::GetWindow().HandleEvent(event);
+				//Engine::GetWindow().Update();
+
+				if (event.type == SDL_QUIT || (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE))
+				{
+					Engine::GetGameStateManager().ClearNextGameState();
+				}
 			}
 
 			Engine::GetLogger().LogVerbose("Update" + current_gamestate->GetName());

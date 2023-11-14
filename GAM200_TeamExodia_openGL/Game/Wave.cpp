@@ -22,6 +22,9 @@ void Wave::Start()
 		return;
 	}
 
+	if (Monster::GetRemainMonster() > 0)
+		return;
+
 	wave_state = Wave_State::InProgress; 
 	current_time = 0;
 
@@ -36,13 +39,6 @@ void Wave::Start()
 
 void Wave::Update(double dt)
 {
-	/*if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Space) && wave_state == Wave::NotInProgress && Monster::GetRemainMonster() == 0)
-	{
-		Start();
-		return;
-	}*/
-	if (wave_state == Wave::NotInProgress)
-		return;
 
 	if (current_wave >= total_wave_num && Monster::GetRemainMonster() == 0)
 	{
@@ -50,6 +46,11 @@ void Wave::Update(double dt)
 		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Win));
 		return;
 	}
+
+
+	if (wave_state == Wave::NotInProgress)
+		return;
+
 
 	current_time += dt;
 	monster_produce_time_count += dt;

@@ -36,7 +36,7 @@ void HBG_Ui::Update() {
 
 
 
-    //remaining_gold.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("G: " + std::to_string(Tower_GOLD), 0xffffff));//화면 파랗게 만듬
+    //remaining_gold.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("G: " + std::to_string(Tower_GOLD), 0xffffff));// Blue Screen
 }
 
 void HBG_Ui::Draw() {
