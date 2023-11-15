@@ -70,13 +70,6 @@ void Monster::ResolveCollision(GameObject* other_object) {
         life -= Bullet::GetDamage();
 
         if (life <= 0) {
-            RemoveGOComponent<GAM200::RectCollision>();
-
-            Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
-            Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
-
-            scoreComponent->Add(score);
-            goldComponent->Add(gold);
 
             change_state(&state_dead);
 
@@ -93,6 +86,16 @@ void Monster::State_Dead::Enter(GameObject* object)
     Monster* monster = static_cast<Monster*>(object);
     monster->fill_color = { 0.f, 0.f, 0.f };
     --remaining_monsters;
+
+
+
+    monster->RemoveGOComponent<GAM200::RectCollision>();
+
+    Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
+    Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
+
+    scoreComponent->Add(monster->score);
+    goldComponent->Add(monster->gold);
     //monster->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(Animations::Dead));
 }
 

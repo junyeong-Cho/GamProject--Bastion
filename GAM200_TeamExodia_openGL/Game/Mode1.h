@@ -57,6 +57,9 @@ public:
 
     std::unique_ptr<GAM200::Texture>  remaining_gold;
 
+    std::unique_ptr<GAM200::Texture>  wave_info;
+
+
     enum  Button_Type
     {
         basic_tower,

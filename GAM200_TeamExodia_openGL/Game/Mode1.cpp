@@ -172,6 +172,7 @@ void Mode1::Update(double dt)
 
 	remaining_gold.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("G: " + std::to_string(gold), 0xffffff));
 
+	wave_info.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Wave: " + std::to_string(GetGSComponent<Wave>()->GetCurrentWave()) + "/" + std::to_string(GetGSComponent<Wave>()->GetMaxWave()), 0xffffff));
 
 }
 
@@ -211,9 +212,14 @@ void Mode1::Draw()
 	player_ptr->Draw(camera_matrix);
 	GetGSComponent<HBG_Ui>()->Draw();
 	
+	GetGSComponent<Wave>()->GetCurrentWave();
+	GetGSComponent<Wave>()->GetMaxWave();
 
-	
+
+	//Engine::Instance().push();
 	remaining_gold->Draw(Math::TranslationMatrix(Math::ivec2{ 130, 720 - 95 }));
+	wave_info->Draw(Math::TranslationMatrix(Math::ivec2{ 1000, 720 - 0 }));
+	//Engine::Instance().pop();
 }
 
 void Mode1::ImguiDraw()

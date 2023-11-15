@@ -22,7 +22,7 @@ void Wave::Start()
 		return;
 	}
 
-	if (Monster::GetRemainMonster() > 0)
+	if (Monster::GetRemainMonster() > 0 || wave_state == InProgress)
 		return;
 
 	wave_state = Wave_State::InProgress; 
