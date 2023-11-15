@@ -96,7 +96,7 @@ void Player::Update(double dt) {
     if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT) && attack_count>=attack_cool)
     {
         // Some machanism
-        soundEffect->Play(0);
+        //soundEffect->Play(0);
 
 
         new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity);
