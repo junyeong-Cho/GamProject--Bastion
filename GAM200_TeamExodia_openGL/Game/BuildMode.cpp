@@ -137,10 +137,12 @@ void BuildMode::Draw()
 
 	GAM200::DrawShape shape;
 
+
 	if (mode == Mode::BUILD_TOWER)
 	{
 		Math::ivec2 point1 = Math::ivec2(mouse_tile_position.x * tile_size.x, mouse_tile_position.y * tile_size.y);
 		
+	
 		switch (direction)
 		{
 

@@ -44,11 +44,20 @@ public:
 private:
 	Background background;
 
-	std::unique_ptr<GAM200::Texture> main_title;
+	/*std::unique_ptr<GAM200::Texture> main_title;
 	std::unique_ptr<GAM200::Texture> start;
 	std::unique_ptr<GAM200::Texture> howToPlay;
 	std::unique_ptr<GAM200::Texture> gamePlay_Editor;
-	std::unique_ptr<GAM200::Texture> exit;
+	std::unique_ptr<GAM200::Texture> exit;*/
+
+	GAM200::Texture play = GAM200::Texture("assets/images/ui/splash/play_selected.png", GAM200::Texture::TextureType::RECTANGLE);
+
+	GAM200::Texture editor = GAM200::Texture("assets/images/ui/splash/editor_selected.png", GAM200::Texture::TextureType::RECTANGLE);
+
+	GAM200::Texture howtoplay = GAM200::Texture("assets/images/ui/splash/howtoplay_selected.png", GAM200::Texture::TextureType::RECTANGLE);
+	
+
+	GAM200::Texture exit = GAM200::Texture("assets/images/ui/splash/exit_selected.png", GAM200::Texture::TextureType::RECTANGLE);
 
 	int counter = 0;
 

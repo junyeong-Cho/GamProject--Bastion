@@ -24,7 +24,7 @@ Main_menu::Main_menu()
 
 void Main_menu::Load()
 {
-	main_title.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("GAM200 Team Exodia", 0xFFFFFFFF));
+	//main_title.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("GAM200 Team Exodia", 0xFFFFFFFF));
 	UpdateMenuTextColors();
 
 	AddGSComponent(new GAM200::MusicEffect());
@@ -37,10 +37,10 @@ void Main_menu::UpdateMenuTextColors()
 	uint32_t colors[4] = { 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF };
 	colors[counter] = 0x7EFACBFF;
 
-	start.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Start", colors[0]));
-	gamePlay_Editor.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Game play editor", colors[1]));
-	howToPlay.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("How to play", colors[2]));
-	exit.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Exit", colors[3]));
+	//start.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Start", colors[0]));
+	//gamePlay_Editor.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Game play editor", colors[1]));
+	//howToPlay.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("How to play", colors[2]));
+    //exit.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Exit", colors[3]));
 	
 }
 
@@ -107,14 +107,32 @@ void Main_menu::Draw()
 	//Make a title that is in a third color with a nice background color or texture. 
 	//Engine::GetWindow().Clear(0.0, 0.0, 0.0, 1.0);
 
-	Engine::GetWindow().Clear(0x000000FF);
+	//Engine::GetWindow().Clear(0x000000FF);
 
 	//main_title.Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 400), (Engine::GetWindow().GetSize().y - 400) }) * CS230::ScaleMatrix({2, 2}));
-	main_title->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 50) }));
-	start->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 150) }));
-	gamePlay_Editor->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 250) }));
-	howToPlay->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 350) }));
-	exit->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 450) }));
+	//main_title->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 50) }));
+	//start->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 150) }));
+	//gamePlay_Editor->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 250) }));
+	//howToPlay->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 350) }));
+	//exit->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 450) }));
+
+	switch (counter)
+	{
+	case 0:
+		play.Draw(0, 0, 1280, 720);
+		break;
+	case 1:
+		editor.Draw(0, 0, 1280, 720);
+		break;
+	case 2:
+		howtoplay.Draw(0, 0, 1280, 720);
+		break;
+	case 3:
+		exit.Draw(0, 0, 1280, 720);
+		break;
+	}
+
+
 }
 
 void Main_menu::ImguiDraw()

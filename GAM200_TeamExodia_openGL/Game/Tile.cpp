@@ -44,6 +44,10 @@ void Tile::Draw(Math::TransformationMatrix camera_matrix) {
 		tile.DrawRectangle(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size, size);*/
 		block_tile.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size.x, size.y);
 	}
+	if (obs_tile_bool == true)
+	{
+		obs_title.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size.x, size.y);
+	}
 
 }
 
@@ -78,7 +82,8 @@ Obstacle::Obstacle(Math::irect boundary) : Tile(boundary) {
 	color.g = 0.282f;
 	color.b = 0.067f;
 
-	block_tile_bool = true;
+	//block_tile_bool = true;
+	obs_tile_bool = true;
 }
 
 void Obstacle::Update(double dt) {
