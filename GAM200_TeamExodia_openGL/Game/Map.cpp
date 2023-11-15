@@ -128,6 +128,8 @@ void Map::ChangeTile(Math::ivec2 position, GameObjectTypes type) {
 	if (map[cols][rows]->tile->Type() == type || map[cols][rows]->tile->Type() == GameObjectTypes::Block_Tile)
 		return;
 	
+	if (position == start_point || position == end_point)
+		return;
 
 	if (type == GameObjectTypes::Pass__Tile) 
 	{
@@ -155,7 +157,12 @@ void Map::ChangeTile(Math::ivec2 position, GameObjectTypes type) {
 		map[cols][rows]->tile = new Obstacle(Math::irect{ { rows * tile_size.x, cols * tile_size.y }, { (rows + 1) * tile_size.x, (cols + 1) * tile_size.y } });
 	}
 
-	Astar::GetInstance().UpdatePath(map, start_point, end_point);
+	if (Astar::GetInstance().UpdatePath(map, start_point, end_point) == false)
+	{
+		Engine::GetLogger().LogDebug("You cannot change this tile!");
+		ChangeTile(position, GameObjectTypes::Pass__Tile);
+		Astar::GetInstance().UpdatePath(map, start_point, end_point);
+	}
 }
 
 

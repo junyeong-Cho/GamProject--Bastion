@@ -25,7 +25,8 @@ void BuildMode::Update()
 
 	if (build_mode)
 	{
-		Math::vec2 mouse_position = Engine::GetInput().GetMousePosition();
+		//Math::vec2 mouse_position = Engine::GetInput().GetMousePosition();
+		Math::vec2 mouse_position = Math::vec2(Engine::GetInput().GetMousePosition().x - 1, Engine::GetInput().GetMousePosition().y - 1);
 		mouse_tile_position = Math::ivec2(static_cast<int>(mouse_position.x / tile_size.x), static_cast<int>(mouse_position.y / tile_size.y));
 
 		switch (mode)
@@ -226,7 +227,7 @@ void BuildMode::Draw()
 	}
 	else if (mode == Mode::CHANGE_TILE )//after_image_add
 	{
-		change_aim.Draw(mouse_tile_position.x * tile_size.x, mouse_tile_position.y * tile_size.y-17.5, tile_size.x, 115);
+		change_aim.Draw(mouse_tile_position.x * tile_size.x, static_cast<int>(mouse_tile_position.y * tile_size.y - 17.5), tile_size.x, 115);
 	}
 	else if ( mode == Mode::DELETE_TOWER)//after_image_add
 	{
