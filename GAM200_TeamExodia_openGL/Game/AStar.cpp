@@ -8,7 +8,7 @@
 #include "Map.h"
 #include "Tile.h"
 
-void Astar::UpdatePath(Info*** map, Math::ivec2 start, Math::ivec2 target) {
+bool Astar::UpdatePath(Info*** map, Math::ivec2 start, Math::ivec2 target) {
 	std::vector<Math::ivec2> openList;
 	std::vector<Math::ivec2> closedList;
 	std::unordered_map<Math::ivec2, Math::ivec2> cameFrom;
@@ -20,6 +20,8 @@ void Astar::UpdatePath(Info*** map, Math::ivec2 start, Math::ivec2 target) {
 	path.clear();
 
 	openList.push_back(start);
+
+	is_okay = false;
 
 	Math::ivec2 current;
 	while (!openList.empty()) {
@@ -63,6 +65,12 @@ void Astar::UpdatePath(Info*** map, Math::ivec2 start, Math::ivec2 target) {
 
 	Math::ivec2 last_direction = current - cameFrom[current];
 
+	if (current.x == target.y && current.y == target.x)
+	{
+		Engine::GetLogger().LogDebug("current == target!");
+		is_okay = true;
+	}
+
 	path.insert(path.begin(), current + last_direction);
 	path.insert(path.begin(), current + last_direction);
 	path.insert(path.begin(), current);
@@ -85,6 +93,7 @@ void Astar::UpdatePath(Info*** map, Math::ivec2 start, Math::ivec2 target) {
 	
 	path.insert(path.begin(), start - start_direction);
 
+	return is_okay;
 }
 
 

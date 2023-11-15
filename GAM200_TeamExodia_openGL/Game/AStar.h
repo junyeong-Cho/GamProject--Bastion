@@ -14,9 +14,11 @@ public:
 		return instance;
 	}
 	std::vector<Math::ivec2>& GetPath() { return path; }
-	void UpdatePath(Info*** map, Math::ivec2 start, Math::ivec2 target);
+	bool UpdatePath(Info*** map, Math::ivec2 start, Math::ivec2 target);
 private:
 	Astar() = default;
+
+	bool is_okay = false;
 
 	std::vector<Math::ivec2> path;
 	std::vector<Math::ivec2> GetNeighboringTiles(const Math::ivec2& position);
