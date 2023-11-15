@@ -168,6 +168,7 @@ Pass_Tile_Button::Pass_Tile_Button(Math::vec2 position, Math::vec2 size) : Butto
 void Pass_Tile_Button::func(Math::ivec2 pos)
 {
 	Engine::GetGameStateManager().GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Pass__Tile);
+
 }
 
 
@@ -178,7 +179,8 @@ Block_Tile_Button::Block_Tile_Button(Math::vec2 position, Math::vec2 size) : But
 }
 void Block_Tile_Button::func(Math::ivec2 pos)
 {
-	Engine::GetGameStateManager().GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Block_Tile);
+	//Engine::GetGameStateManager().GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Block_Tile);
+	Engine::GetGameStateManager().GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Obstacle);
 }
 
 

@@ -14,6 +14,7 @@ Updated:    November 13, 2023
 
 #include "Fonts.h"
 #include "../Engine/Engine.h"
+#include "../Engine/Audio.h"
 
 ModeSelect::ModeSelect()
 {
@@ -87,12 +88,29 @@ void ModeSelect::Unload()
 
 void ModeSelect::Draw()
 {
-	Engine::GetWindow().Clear(0x000000FF);
+//	Engine::GetWindow().Clear(0x000000FF);
 
-	message->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 250), (Engine::GetWindow().GetSize().y - 50) }));
-	  mode1->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 100), (Engine::GetWindow().GetSize().y - 200) }));
-	  mode2->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 100), (Engine::GetWindow().GetSize().y - 300) }));
-	  mode3->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 100), (Engine::GetWindow().GetSize().y - 400) }));
+	//message->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 250), (Engine::GetWindow().GetSize().y - 50) }));
+	  //mode1->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 100), (Engine::GetWindow().GetSize().y - 200) }));
+	  //mode2->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 100), (Engine::GetWindow().GetSize().y - 300) }));
+	  //mode3->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 100), (Engine::GetWindow().GetSize().y - 400) }));
+
+	switch (counter)
+	{
+	case 0:
+		map1.Draw(0, 0, 1280, 720);
+		break;
+	case 1:
+		map2.Draw(0, 0, 1280, 720);
+		break;
+	case 2:
+		map3.Draw(0, 0, 1280, 720);
+		break;
+
+	}
+
+
+
 }
 
 void ModeSelect::ImguiDraw()

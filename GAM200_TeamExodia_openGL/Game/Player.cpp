@@ -42,6 +42,9 @@ Player::Player(Math::vec2 start_position, int size_x, int size_y) : GameObject(s
 
 
 void Player::Update(double dt) {
+    if (life_count <= 0)
+        return;
+
     GameObject::Update(dt);
 
     auto collider = GetGOComponent<GAM200::RectCollision>();
@@ -97,6 +100,8 @@ void Player::Update(double dt) {
 }
 
 void Player::Draw(Math::TransformationMatrix camera_matrix) {
+    if (life_count <= 0)
+        return;
 
     p.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
     //GAM200::GameObject::Draw(camera_matrix);

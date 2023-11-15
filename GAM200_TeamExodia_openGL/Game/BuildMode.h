@@ -36,11 +36,10 @@ public:
         BUILD_TOWER
     } mode;
 
-    ///
+
     bool four_way[4] = { false,false,false,false };
     bool empty_gold;
     bool tower_set_available;
-    ///
 
 
 private:
@@ -71,5 +70,8 @@ private:
 
     GAM200::Texture change_aim = GAM200::Texture("assets/images/ui/tower_edit/change_aim.png", GAM200::Texture::TextureType::RECTANGLE);
     GAM200::Texture delete_aim = GAM200::Texture("assets/images/ui/tower_edit/delete_aim.png", GAM200::Texture::TextureType::RECTANGLE);
+   
+    GAM200::Texture obs_block = GAM200::Texture("assets/images/obs_block.png", GAM200::Texture::TextureType::RECTANGLE);
+    
     ///
 };

@@ -146,7 +146,7 @@ public:
     State_Attacking state_attacking;
 
 private:
-    static const int cost = 300;
+    static const int cost = 200;
 
 };
 
@@ -181,6 +181,9 @@ public:
     State_Attacking state_attacking;
 
 private:
-    static const int cost = 500;
+    static const int cost = 300;
 
 };
+
+
+

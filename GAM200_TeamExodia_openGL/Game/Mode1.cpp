@@ -153,7 +153,7 @@ void Mode1::Update(double dt)
 	}
 
 	if (GetGSComponent<Life>()->Value() <= 0) {
-		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
+		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Lose));
 		GetGSComponent<GAM200::MusicEffect>()->Stop();
 	}
 	int gold = GetGSComponent<Gold>()->Value();
@@ -164,6 +164,7 @@ void Mode1::Update(double dt)
 
 	GetGSComponent<HBG_Ui>()->Player_BOOST = 0;
 	GetGSComponent<HBG_Ui>()->Player_HP = player_hp;
+	//GetGSComponent<HBG_Ui>()->Player_HP = main_hp;
 	GetGSComponent<HBG_Ui>()->Tower_GOLD = gold;
 	GetGSComponent<HBG_Ui>()->wall_hp = life;
 
@@ -208,8 +209,8 @@ void Mode1::Draw()
 
 	GetGSComponent<BuildMode>()->Draw();
 	player_ptr->Draw(camera_matrix);
-	//w.Draw(1200 - 150, 0, 150*2, 400*2);
 	GetGSComponent<HBG_Ui>()->Draw();
+	
 
 	
 	remaining_gold->Draw(Math::TranslationMatrix(Math::ivec2{ 130, 720 - 95 }));
@@ -303,24 +304,8 @@ void Mode1::ImguiDraw()
 		}
 		if (ImGui::Button("Change tile to Block tile"))
 		{
-			GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Block_Tile);
+			GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Obstacle);
 		}
-
-
-		if (ImGui::Button("Delete Tower"))
-		{
-			GetGSComponent<BuildMode>()->DeleteTower();
-		}
-		if (ImGui::Button("Change tile to Pass tile"))
-		{
-			GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Pass__Tile);
-		}
-		if (ImGui::Button("Change tile to Block tile"))
-		{
-			GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Block_Tile);
-		}
-
-
 
 	}
 	ImGui::End();

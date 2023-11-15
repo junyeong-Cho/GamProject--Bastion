@@ -36,7 +36,7 @@ public:
 protected:
 
 	GAM200::Texture block_tile = GAM200::Texture("assets/images/b_tile.png", GAM200::Texture::TextureType::RECTANGLE);
-
+	GAM200::Texture obs_title = GAM200::Texture("assets/images/obs_block.png", GAM200::Texture::TextureType::RECTANGLE);
 	struct Color {
 		float r = 0.f;
 		float g = 0.f;
@@ -45,6 +45,7 @@ protected:
 	
 	bool passing_tile_bool = false;
 	bool block_tile_bool = false;
+	bool obs_tile_bool = false;
 private:
 
 };
@@ -68,6 +69,18 @@ public:
 
 	GameObjectTypes Type() override { return GameObjectTypes::Block_Tile; }
 	std::string TypeName() override { return "Block_Tile"; }
+
+	void Update(double dt) override;
+private:
+};
+
+class Obstacle : public Tile
+{
+public:
+	Obstacle(Math::irect boundary);
+
+	GameObjectTypes Type() override { return GameObjectTypes::Obstacle; }
+	std::string TypeName() override { return "Obstacle"; }
 
 	void Update(double dt) override;
 private:

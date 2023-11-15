@@ -79,12 +79,12 @@ void BuildMode::Update()
 				}
 			}
 
-
+			
 			if (Map::GetInstance().GetType(Math::ivec2(mouse_tile_position.x, mouse_tile_position.y)) != "Block_Tile")
 			{
 				//Engine::GetLogger().LogDebug("Not able here!  It is " + Map::GetInstance().GetType(Math::ivec2(mouse_tile_position.x, mouse_tile_position.y)));
 				tower_set_available = false;
-
+				
 			}
 			else if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() < Basic_Tower::GetCost())
 			{
@@ -119,7 +119,7 @@ void BuildMode::Update()
 			break;
 		}
 
-
+		
 		if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::RIGHT))
 		{
 			build_mode = false;
@@ -130,18 +130,19 @@ void BuildMode::Update()
 
 
 }
-
-
-void BuildMode::Draw() {
+void BuildMode::Draw() 
+{
 	if (build_mode == false)
 		return;
 
 	GAM200::DrawShape shape;
 
+
 	if (mode == Mode::BUILD_TOWER)
 	{
 		Math::ivec2 point1 = Math::ivec2(mouse_tile_position.x * tile_size.x, mouse_tile_position.y * tile_size.y);
 		
+	
 		switch (direction)
 		{
 

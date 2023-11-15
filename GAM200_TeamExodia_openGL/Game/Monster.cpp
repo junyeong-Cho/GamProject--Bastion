@@ -22,7 +22,7 @@ Monster::Monster(Math::vec2 position) : GameObject(position) {
     tile_size = Math::vec2(Engine::GetWindow().GetSize().x / Map::GetInstance().GetSize().y, Engine::GetWindow().GetSize().y / Map::GetInstance().GetSize().x);
     size_x = static_cast<int>(tile_size.x * 2 / 3);
     size_y = static_cast<int>(tile_size.y * 2 / 3);
-    walking_speed = (tile_size.x / 2);
+    walking_speed = (tile_size.x * 1.5);
 
     // Settings
     SetVelocity({ 0, 0 });
@@ -271,7 +271,7 @@ Fast_Monster::Fast_Monster(Math::vec2 position) : Monster(position) {
 
     life = 2;
 
-    speed_scale = 3;
+    speed_scale = 2;
     walking_speed *= speed_scale;
 
     Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);

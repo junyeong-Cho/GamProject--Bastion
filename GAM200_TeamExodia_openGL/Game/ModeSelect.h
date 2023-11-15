@@ -53,6 +53,17 @@ private:
 	std::unique_ptr<GAM200::Texture> mode2;
 	std::unique_ptr<GAM200::Texture> mode3;
 
+
+
+
+	GAM200::Texture map1 = GAM200::Texture("assets/images/ui/splash/map1_selected.png", GAM200::Texture::TextureType::RECTANGLE);
+
+	GAM200::Texture map2 = GAM200::Texture("assets/images/ui/splash/map2_selected.png", GAM200::Texture::TextureType::RECTANGLE);
+
+	GAM200::Texture map3 = GAM200::Texture("assets/images/ui/splash/map3_selected.png", GAM200::Texture::TextureType::RECTANGLE);
+
+
+
 	static int counter;
 
 

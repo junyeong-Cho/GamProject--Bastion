@@ -21,8 +21,9 @@ enum class States
 	HowToPlay,
 	
 	Mode1,
-	Mode2,
-	Mode3,
+
+	Win,
+	Lose
 
 	//Mode2,
 	

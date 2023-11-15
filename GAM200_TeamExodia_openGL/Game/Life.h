@@ -7,7 +7,7 @@
 class Life : public GAM200::Component
 {
 public:
-    Life() : lifeValue(20) {}
+    Life() : lifeValue(50) {}
 
     void Add(int value);
     void Subtract(int value);
