@@ -29,9 +29,9 @@ void Win::Unload()
 
 void Win::Draw()
 {
-	Engine::GetWindow().Clear(0x000000FF);
-
-	message->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 200) }));
+	//Engine::GetWindow().Clear(0x000000FF);
+	//message->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 200) }));
+	victory.Draw(0, 0, 1280, 720);
 }
 
 void Win::ImguiDraw()
