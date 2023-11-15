@@ -34,4 +34,5 @@ public:
 private:
 	std::unique_ptr<GAM200::Texture> message;
 
+	GAM200::Texture victory = GAM200::Texture("assets/images/ui/splash/victory.png", GAM200::Texture::TextureType::RECTANGLE);
 };

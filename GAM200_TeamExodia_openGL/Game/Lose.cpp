@@ -29,9 +29,10 @@ void Lose::Unload()
 
 void Lose::Draw()
 {
-	Engine::GetWindow().Clear(0x000000FF);
-
-	message->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 200) }));
+	defeat.Draw(0, 0, 1280, 720);
+	//Engine::GetWindow().Clear(0x000000FF);
+	
+	//message->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 200) }));
 }
 
 void Lose::ImguiDraw()
