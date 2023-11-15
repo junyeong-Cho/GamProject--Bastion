@@ -29,7 +29,7 @@ void Main_menu::Load()
 
 	AddGSComponent(new GAM200::MusicEffect());
 
-	GetGSComponent<GAM200::MusicEffect>()->LoadFile("assets/Sounds/Theme/pixel_time.ogg");
+	GetGSComponent<GAM200::MusicEffect>()->LoadFile("assets/Sounds/Theme/example_music.ogg");
 }
 
 void Main_menu::UpdateMenuTextColors()
@@ -72,7 +72,7 @@ void Main_menu::Update(double dt)
 		switch (counter)
 		{
 		case 0:
-			GetGSComponent<GAM200::MusicEffect>()->Stop();
+			//GetGSComponent<GAM200::MusicEffect>()->Stop();
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::ModeSelect));
 			break;
 		case 1:
@@ -80,7 +80,7 @@ void Main_menu::Update(double dt)
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::GamePlayEditior));
 			break;
 		case 2:
-			GetGSComponent<GAM200::MusicEffect>()->Stop();
+			//GetGSComponent<GAM200::MusicEffect>()->Stop();
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::HowToPlay));
 			break;
 		case 3:

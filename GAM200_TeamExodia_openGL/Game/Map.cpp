@@ -13,7 +13,12 @@
 #include "Tower.h"
 #include "Gold.h"
 
-void Map::SetMap(std::string file_name) {
+void Map::SetMap(std::string file_name) 
+{
+
+	soundEffect->LoadFile("Assets/Sounds/SoundEffect/cannot_select.wav");
+
+
 	std::ifstream file(file_name);
 
 	// File parsing and get cols and rows
@@ -161,6 +166,8 @@ void Map::DeleteTower(Math::ivec2 position)
 
 	if (map[cols][rows]->tower == nullptr)
 	{
+		soundEffect->Play(0);
+
 		Engine::GetLogger().LogDebug("There is no tower!");
 		return;
 	}
@@ -176,12 +183,16 @@ void Map::BuildTower(Math::ivec2 position, GameObjectTypes type, int direction)
 
 	if (map[cols][rows]->tower != nullptr)
 	{
+		soundEffect->Play(0);
+
 		Engine::GetLogger().LogDebug("There is a tower already!");
 		return;
 	}
 
 	if (map[cols][rows]->tile->Type() != GameObjectTypes::Block_Tile)
 	{
+		soundEffect->Play(0);
+
 		Engine::GetLogger().LogDebug("Not able here! It's " + map[cols][rows]->tile->TypeName());
 		return;
 	}
@@ -191,6 +202,8 @@ void Map::BuildTower(Math::ivec2 position, GameObjectTypes type, int direction)
 	case GameObjectTypes::Basic_Tower:
 		if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() < Basic_Tower::GetCost())
 		{
+			soundEffect->Play(0);
+
 			Engine::GetLogger().LogDebug("Not enough gold!");
 			return;
 		}
@@ -199,6 +212,8 @@ void Map::BuildTower(Math::ivec2 position, GameObjectTypes type, int direction)
 	case GameObjectTypes::Double_Tower:
 		if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() < Double_Tower::GetCost())
 		{
+			soundEffect->Play(0);
+
 			Engine::GetLogger().LogDebug("Not enough gold!");
 			return;
 		}
@@ -207,6 +222,8 @@ void Map::BuildTower(Math::ivec2 position, GameObjectTypes type, int direction)
 	case GameObjectTypes::Triple_Tower:
 		if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() < Triple_Tower::GetCost())
 		{
+			soundEffect->Play(0);
+
 			Engine::GetLogger().LogDebug("Not enough gold!");
 			return;
 		}
