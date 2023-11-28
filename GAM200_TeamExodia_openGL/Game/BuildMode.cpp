@@ -5,6 +5,7 @@
 #include "Tower.h"
 #include "Gold.h"
 #include "Monster.h"
+#include "Wave.h"
 
 BuildMode::BuildMode() : build_mode(false), direction(Direction::RIGHT)
 {
@@ -274,6 +275,13 @@ void BuildMode::ChangeTile(GameObjectTypes type)
 		Engine::GetLogger().LogDebug("You are not able to change the tile while the monsters are remaining!");
 		return;
 	}
+
+	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::InProgress)
+	{
+		Engine::GetLogger().LogDebug("You are not able to change the tile while wave is in progress!");
+		return;
+	}
+
 	build_mode = true;
 	this->type = type;
 

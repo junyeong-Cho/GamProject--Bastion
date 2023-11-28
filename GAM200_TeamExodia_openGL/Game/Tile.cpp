@@ -10,20 +10,21 @@ Updated:    October		11, 2023
 */
 
 
+#include "../Game/Tile.h"
+
 #include "../Engine/Engine.h"
 #include "../Engine/DrawShape.h"
 #include "../Engine/Rect.h"
 #include "../Engine/Collision.h"
-
-#include "../Game/Tile.h"
 #include "../Engine/GameObjectManager.h"
+
+
 
 Tile::Tile(Math::irect boundary) : GameObject(static_cast<Math::vec2>(boundary.point1)) {
 	size = boundary.Size();
 	AddGOComponent(new GAM200::RectCollision({ Math::ivec2{0, 0}, boundary.Size() }, this));
 	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
-
 void Tile::Update(double dt) {
 	GameObject::Update(dt);
 
@@ -52,6 +53,7 @@ void Tile::Draw(Math::TransformationMatrix camera_matrix) {
 }
 
 
+
 Pass__Tile::Pass__Tile(Math::irect boundary) : Tile(boundary) {
 	color.r = 0.157f;
 	color.g = 0.631f;
@@ -59,10 +61,10 @@ Pass__Tile::Pass__Tile(Math::irect boundary) : Tile(boundary) {
 
 	passing_tile_bool = true;
 }
-
 void Pass__Tile::Update(double dt) {
 
 }
+
 
 
 Block_Tile::Block_Tile(Math::irect boundary) : Tile(boundary) {
@@ -72,10 +74,11 @@ Block_Tile::Block_Tile(Math::irect boundary) : Tile(boundary) {
 
 	block_tile_bool = true;
 }
-
 void Block_Tile::Update(double dt) {
 
 }
+
+
 
 Obstacle::Obstacle(Math::irect boundary) : Tile(boundary) {
 	color.r = 0.431f;
@@ -85,7 +88,6 @@ Obstacle::Obstacle(Math::irect boundary) : Tile(boundary) {
 	//block_tile_bool = true;
 	obs_tile_bool = true;
 }
-
 void Obstacle::Update(double dt) {
 
 }

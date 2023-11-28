@@ -56,7 +56,7 @@ void HBG_Ui::Update() {
 void HBG_Ui::Draw() {
     GAM200::DrawShape shape;
     HBG_BASE.Draw(40, 605, 340, 80);
-    HP_COVER.Draw(130, 720 - 60, Player_HP * 5, 15);
+    HP_COVER.Draw(130, 720 - 60, Player_HP * 25 / 2, 15);
     BOOST_COVER.Draw(130, 720 - 78, Player_BOOST, 8);
     GOLD_COVER.Draw(130, 720 - 95, Tower_GOLD / 400, 5);
 

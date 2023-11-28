@@ -79,7 +79,7 @@ private:
     static constexpr double attack_cool = 1.0;
     double attack_count = 0;
 
-    int max_life = 50;
+    int max_life = 20;
     int life_count = 0;
 
 
@@ -92,7 +92,6 @@ private:
         virtual void CheckExit(GameObject* object) override;
         std::string GetName() override { return "Jumping"; }
     };
-
     class State_Moving : public State
     {
     public:
@@ -101,7 +100,6 @@ private:
         virtual void CheckExit(GameObject* object) override;
         std::string GetName() override { return "Idle"; }
     };
-
     class State_Dashing : public State
     {
     public:
@@ -110,7 +108,6 @@ private:
         virtual void CheckExit(GameObject* object) override;
         std::string GetName() override { return "Falling"; }
     };
-
     class State_Skidding : public State
     {
     public:
@@ -121,11 +118,8 @@ private:
     };
     
     State_Idle state_idle;
-
     State_Moving state_moving;
-
     State_Dashing state_dashing;
-
     State_Skidding state_skidding;
 
 };

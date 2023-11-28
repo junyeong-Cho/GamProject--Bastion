@@ -14,11 +14,11 @@ Updated:    October		11, 2023
 #include "../Engine/GameObject.h"
 #include "../Game/GameObjectTypes.h"
 #include "../Engine/Texture.h"
+
+
+// Virtual class for tiles
 class Tile :public GAM200::GameObject {
 public:
-
-	
-
 	Tile(Math::irect boundary);
 
 	GameObjectTypes Type() override { return GameObjectTypes::Tile; }
@@ -46,11 +46,12 @@ protected:
 	bool passing_tile_bool = false;
 	bool block_tile_bool = false;
 	bool obs_tile_bool = false;
+
 private:
 
 };
 
-
+// Passable Tile
 class Pass__Tile : public Tile {
 public:
 	Pass__Tile(Math::irect boundary);
@@ -59,10 +60,12 @@ public:
 	std::string TypeName() override { return "Pass__Tile"; }
 
 	void Update(double dt) override;
+
 private:
 
 };
 
+// Block Tile
 class Block_Tile : public Tile {
 public:
 	Block_Tile(Math::irect boundary);
@@ -71,9 +74,12 @@ public:
 	std::string TypeName() override { return "Block_Tile"; }
 
 	void Update(double dt) override;
+
 private:
+
 };
 
+// Obstacle Tile
 class Obstacle : public Tile
 {
 public:
@@ -83,5 +89,7 @@ public:
 	std::string TypeName() override { return "Obstacle"; }
 
 	void Update(double dt) override;
+
 private:
+
 };

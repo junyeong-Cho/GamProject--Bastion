@@ -76,7 +76,7 @@ void GamePlayEditor::Load()
 	AddGSComponent(new Score());
 	AddGSComponent(new Gold());
 	AddGSComponent(new Life());
-	AddGSComponent(new GameSpeed(5));	// Parameter is for the max game speed
+	AddGSComponent(new GameSpeed(3));	// Parameter is for the max game speed
 	AddGSComponent(new Wave());
 	GetGSComponent<Wave>()->SetWave();
 	AddGSComponent(new BuildMode());
@@ -86,18 +86,16 @@ void GamePlayEditor::Load()
 
 	Math::ivec2 size = Math::ivec2(Map::GetInstance().GetSize().y, Map::GetInstance().GetSize().x);
 
-	if (Map::GetInstance().editor_mode == false)
-	{
-		new Wave_Start_Button(Math::vec2(1120 - 40, 720 - 630), Math::vec2(180, 60));
+	// Monster Initalize
+	MonsterFactory::InitBasicMonsterFromFile();
+	MonsterFactory::InitFastMonsterFromFile();
+	MonsterFactory::InitSlowMonsterFromFile();
+	MonsterFactory::InitWeakMonstserFromFile();
 
-		new Basic_Tower_Button(Math::vec2(1120, 720 - 150), Math::vec2(140, 70));
-		new Double_Tower_Button(Math::vec2(1120, 720 - 230), Math::vec2(140, 70));
-		new Triple_Tower_Button(Math::vec2(1120, 720 - 310), Math::vec2(140, 70));
-
-		new Delete_Tower_Button(Math::vec2(1120, 720 - 390), Math::vec2(140, 70));
-		new Pass_Tile_Button(Math::vec2(1120, 720 - 470), Math::vec2(140, 70));
-		new Block_Tile_Button(Math::vec2(1120, 720 - 550), Math::vec2(140, 70));
-	}
+	// Tower Initialize
+	TowerFactory::InitBasicTowerFromFile();
+	TowerFactory::InitDoubleTowerFromFile();
+	TowerFactory::InitTripleTowerFromFile();
 
 
 #ifdef _DEBUG
@@ -146,12 +144,12 @@ void GamePlayEditor::Update(double dt)
 
 	int gold = GetGSComponent<Gold>()->Value();
 	int score = GetGSComponent<Score>()->Value();
-	//int player_hp = player_ptr->GetHP();
+	int player_hp = player_ptr->GetHP();
 	int main_hp = GetGSComponent<Life>()->Value();
 
 	GetGSComponent<HBG_Ui>()->Player_BOOST = 0;
-	//GetGSComponent<HBG_Ui>()->Player_HP = player_hp;
-	GetGSComponent<HBG_Ui>()->Player_HP = main_hp;
+	GetGSComponent<HBG_Ui>()->wall_hp = main_hp;
+	GetGSComponent<HBG_Ui>()->Player_HP = player_hp;
 	GetGSComponent<HBG_Ui>()->Tower_GOLD = gold;
 
 }
@@ -190,7 +188,6 @@ void GamePlayEditor::Draw()
 
 	GetGSComponent<BuildMode>()->Draw();
 	player_ptr->Draw(camera_matrix);
-	//w.Draw(1200 - 150, 0, 150*2, 400*2);
 	GetGSComponent<HBG_Ui>()->Draw();
 }
 
@@ -212,17 +209,17 @@ void GamePlayEditor::ImguiDraw()
 		ImGui::Text("Killed Monster : %d", score);
 		ImGui::Text("Gold : %d", gold);
 		ImGui::Text("Life : %d", life);
-		ImGui::Text("Game Speed : %d", game_speed);
 		ImGui::Text("Player HP : %d", player_hp);
+		ImGui::Text("Game Speed : %d", game_speed);
 
 
 		if (ImGui::SliderInt("Adjust Gold", &gold, 0, 100000, "%d")) {
 			GetGSComponent<Gold>()->SetValue(gold);
 		}
-		if (ImGui::SliderInt("Adjust Life", &life, 1, 30, "%d")) {
+		if (ImGui::SliderInt("Adjust Life", &life, 1, 50, "%d")) {
 			GetGSComponent<Life>()->SetValue(life);
 		}
-		if (ImGui::SliderInt("Player HP", &player_hp, 1, 30, "%d")) {
+		if (ImGui::SliderInt("Player HP", &player_hp, 1, 20, "%d")) {
 			player_ptr->SetHP(player_hp);
 		}
 		if (ImGui::SliderInt("Adjust Game Speed", &game_speed, 0, max_speed, "%d")) {
@@ -241,18 +238,21 @@ void GamePlayEditor::ImguiDraw()
 		if (ImGui::Button("Produce Basic Monster"))
 		{
 			Engine::GetLogger().LogEvent("Basic Monster Produce!");
+			//MonsterFactory::CreateBasicMonsterFromFile();
 			new Basic_Monster;
 			//GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster());
 		}
 		if (ImGui::Button("Produce Fast Monster"))
 		{
 			Engine::GetLogger().LogEvent("Fast Monster Produce!");
+			//MonsterFactory::CreateFastMonsterFromFile();
 			new Fast_Monster;
 			//GetGSComponent<GAM200::GameObjectManager>()->Add(new Fast_Monster());
 		}
 		if (ImGui::Button("Produce Slow Monster"))
 		{
 			Engine::GetLogger().LogEvent("Slow Monster Produce!");
+			//MonsterFactory::CreateSlowMonsterFromFile();
 			new Slow_Monster;
 			//GetGSComponent<GAM200::GameObjectManager>()->Add(new Slow_Monster());
 		}

@@ -10,6 +10,11 @@ Updated:    October		10, 2023
 */
 
 
+#include <filesystem>
+#include <imgui.h>
+#include <stb_image.h>
+#include <glCheck.h>
+#include "../Engine/Audio.h"
 
 #include "../Engine/Engine.h"
 #include "../Engine/DrawShape.h"
@@ -17,7 +22,6 @@ Updated:    October		10, 2023
 #include "../Engine/GameObject.h"
 #include "../Engine/GameObjectManager.h"
 #include "../Engine/Collision.h"
-#include "Map.h"
 
 #include "../Game/Mode1.h"
 #include "../Game/States.h"
@@ -35,14 +39,10 @@ Updated:    October		10, 2023
 #include "Wave.h"
 #include "BuildMode.h"
 #include "Button.h"
-
-#include <filesystem>
-#include <imgui.h>
-#include <stb_image.h>
-#include <glCheck.h>
-#include "../Engine/Audio.h"
+#include "Map.h"
 #include "ModeSelect.h"
 #include "Fonts.h"
+#include "Monster.h"
 
 Mode1::Mode1() : player_ptr()
 {
@@ -87,7 +87,7 @@ void Mode1::Load()
 	AddGSComponent(new Score());
 	AddGSComponent(new Gold());
 	AddGSComponent(new Life());
-	AddGSComponent(new GameSpeed(5));	// Parameter is for the max game speed
+	AddGSComponent(new GameSpeed(3));	// Parameter is for the max game speed
 	AddGSComponent(new Wave());
 	GetGSComponent<Wave>()->SetWave();
 	AddGSComponent(new BuildMode());
@@ -97,19 +97,16 @@ void Mode1::Load()
 
 	Math::ivec2 size = Math::ivec2(Map::GetInstance().GetSize().y, Map::GetInstance().GetSize().x);
 
-	if (Map::GetInstance().editor_mode == false)
-	{
-		new Wave_Start_Button(Math::vec2(1120-40,720-630), Math::vec2(180,60));
+	// Monster Initalize
+	MonsterFactory::InitBasicMonsterFromFile();
+	MonsterFactory::InitFastMonsterFromFile();
+	MonsterFactory::InitSlowMonsterFromFile();
+	MonsterFactory::InitWeakMonstserFromFile();
 
-		new Basic_Tower_Button(Math::vec2(1120, 720 - 150), Math::vec2(140, 70));
-		new Double_Tower_Button(Math::vec2(1120, 720 - 230), Math::vec2(140, 70));
-		new Triple_Tower_Button(Math::vec2(1120, 720 - 310), Math::vec2(140, 70));
-
-		new Delete_Tower_Button(Math::vec2(1120, 720 - 390), Math::vec2(140, 70));
-		new Pass_Tile_Button(Math::vec2(1120, 720 - 470), Math::vec2(140, 70));
-		new Block_Tile_Button(Math::vec2(1120, 720 - 550), Math::vec2(140, 70));
-	}
-
+	// Tower Initialize
+	TowerFactory::InitBasicTowerFromFile();
+	TowerFactory::InitDoubleTowerFromFile();
+	TowerFactory::InitTripleTowerFromFile();
 
 	#ifdef _DEBUG
 	AddGSComponent(new GAM200::ShowCollision());
@@ -212,14 +209,8 @@ void Mode1::Draw()
 	player_ptr->Draw(camera_matrix);
 	GetGSComponent<HBG_Ui>()->Draw();
 	
-	GetGSComponent<Wave>()->GetCurrentWave();
-	GetGSComponent<Wave>()->GetMaxWave();
-
-
-	//Engine::Instance().push();
 	remaining_gold->Draw(Math::TranslationMatrix(Math::ivec2{ 130, 720 - 95 }));
 	wave_info->Draw(Math::TranslationMatrix(Math::ivec2{ 1000, 720 - 0 }));
-	//Engine::Instance().pop();
 }
 
 void Mode1::ImguiDraw()
