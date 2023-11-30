@@ -48,13 +48,7 @@ void Wave::Start()
 
 void Wave::Update(double dt)
 {
-	// Win state
-	if (current_wave >= total_wave_num && Monster::GetRemainMonster() == 0)
-	{
-		Engine::GetLogger().LogEvent("Win!");
-		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Win));
-		return;
-	}
+	
 
 	// If wave is not in progress, return
 	if (wave_state == Wave::NotInProgress)
@@ -70,6 +64,14 @@ void Wave::Update(double dt)
 			wave_state = Wave_State::NotInProgress;
 			Engine::GetGameStateManager().GetGSComponent<Gold>()->Interest();
 			++current_wave;
+
+			// Win state
+			if (current_wave >= total_wave_num && Monster::GetRemainMonster() == 0)
+			{
+				Engine::GetLogger().LogEvent("Win!");
+				Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Win));
+				return;
+			}
 		}
 		return;
 	}

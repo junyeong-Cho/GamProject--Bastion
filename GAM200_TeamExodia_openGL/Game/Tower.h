@@ -137,6 +137,10 @@ private:
     static int cost;
     static double attack_delay;
     static int max_hp;
+
+    static int range_x;
+    static int range_y;
+    static double attack_range;
 };
 
 
@@ -182,6 +186,9 @@ private:
     static double attack_delay;
     static int max_hp;
 
+    static int range_x;
+    static int range_y;
+    static double attack_range;
 };
 
 
@@ -227,6 +234,9 @@ private:
     static double attack_delay;
     static int max_hp;
 
+    static int range_x;
+    static int range_y;
+    static double attack_range;
 };
 
 
