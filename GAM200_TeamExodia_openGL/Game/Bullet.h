@@ -15,7 +15,7 @@ public:
 
     void Draw(Math::TransformationMatrix camera_matrix) override;
 
-    static constexpr double DefaultVelocity = 600;
+    static constexpr double DefaultVelocity = 900;
 
     static int GetDamage() { return damage; }
 

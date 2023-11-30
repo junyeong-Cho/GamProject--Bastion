@@ -149,6 +149,9 @@ Basic_Tower::Basic_Tower(Math::vec2 position, int direction) : Tower(position, d
 	current_state = &state_charging;
 	current_state->Enter(this);
 
+	Math::ivec2 point1{0, 0};
+	Math::ivec2 point2{ size_x, size_y };
+
 	// RIGHT, LEFT, UP, DOWN
 	switch (direction)
 	{

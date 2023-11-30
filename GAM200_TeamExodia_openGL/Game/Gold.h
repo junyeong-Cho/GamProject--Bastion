@@ -13,6 +13,7 @@ public:
     void Subtract(int value);
     int Value() const;
     void SetValue(int value) { goldValue = value; }
+    void Interest();
 
 private:
     int goldValue;

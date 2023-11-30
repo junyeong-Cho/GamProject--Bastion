@@ -20,6 +20,7 @@ Updated:    October		10, 2023
 #include "States.h"
 #include "Bullet.h"
 #include "Monster.h"
+#include "BuildMode.h"
 
 #include "../Engine/Mouse.h"
 
@@ -93,14 +94,28 @@ void Player::Update(double dt) {
     Math::vec2 real_mouse_position = Math::vec2({ mouse_position.x, mouse_position.y });
     Math::vec2 bullet_direction = Math::vec2({ real_mouse_position.x - player_position.x, real_mouse_position.y - player_position.y });
     bullet_direction /= bullet_direction.GetLength();
-    if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT) && attack_count>=attack_cool)
+    if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT) && 
+        attack_count>=attack_cool && 
+        Engine::GetGameStateManager().GetGSComponent<BuildMode>()->IsBuilding() == false
+        )
     {
         // Some machanism
         //soundEffect->Play(0);
 
 
+        /*GameObject* closest_monster = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetClosestObject(this);
+        if (closest_monster != nullptr)
+        {
+            Math::vec2 pos = closest_monster->GetPosition();
+            Engine::GetLogger().LogDebug(std::to_string(pos.x) + ", " + std::to_string(pos.y));
+            Math::vec2 dir = Math::vec2({ pos.x - player_position.x, pos.y - player_position.y});;
+            dir /= dir.GetLength();
+            new Bullet(player_position, dir * Bullet::DefaultVelocity);
+        }*/
+
+
         new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity);
-        //Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity));
+
         attack_count = 0;
     }
 }

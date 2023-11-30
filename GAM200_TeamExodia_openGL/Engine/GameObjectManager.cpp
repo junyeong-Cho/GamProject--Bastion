@@ -100,7 +100,12 @@ GAM200::GameObject* GAM200::GameObjectManager::GetClosestObject(GAM200::GameObje
 
 	for (GameObject* object : objects) {
 		if (object != obj) {
-			if (object->Type() == GameObjectTypes::Monster || object->Type() == GameObjectTypes::Basic_Monster || object->Type() == GameObjectTypes::Fast_Monster) {
+			if (object->Type() == GameObjectTypes::Monster || 
+				object->Type() == GameObjectTypes::Basic_Monster || 
+				object->Type() == GameObjectTypes::Fast_Monster ||
+				object->Type() == GameObjectTypes::Slow_Monster ||
+				object->Type() == GameObjectTypes::Slow_Monster
+				) {
 				double distance = obj->GetSquareDistance(object);
 				if (distance < optimal_distance) {
 					optimal_distance = distance;
