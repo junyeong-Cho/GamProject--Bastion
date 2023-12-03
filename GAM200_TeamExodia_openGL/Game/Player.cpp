@@ -114,7 +114,7 @@ void Player::Update(double dt) {
         }*/
 
 
-        new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity);
+        new Basic_Bullet(player_position, bullet_direction * Bullet::DefaultVelocity);
 
         attack_count = 0;
     }
@@ -134,7 +134,9 @@ bool Player::CanCollideWith(GameObjectTypes type) {
     if (type == GameObjectTypes::Basic_Monster ||
         type == GameObjectTypes::Fast_Monster ||
         type == GameObjectTypes::Slow_Monster ||
-        type == GameObjectTypes::Weak_Monster //|| type == GameObjectTypes::Block_Tile
+        type == GameObjectTypes::Weak_Monster ||
+        type == GameObjectTypes::Mother_Monster ||
+        type == GameObjectTypes::Heal_Monster
         )
     {
         return true;

@@ -101,12 +101,16 @@ void Mode1::Load()
 	MonsterFactory::InitBasicMonsterFromFile();
 	MonsterFactory::InitFastMonsterFromFile();
 	MonsterFactory::InitSlowMonsterFromFile();
-	MonsterFactory::InitWeakMonstserFromFile();
+	MonsterFactory::InitWeakMonsterFromFile();
+	MonsterFactory::InitMotherMonsterFromFile();
+	MonsterFactory::InitHealMonsterFromFile();
 
 	// Tower Initialize
 	TowerFactory::InitBasicTowerFromFile();
 	TowerFactory::InitDoubleTowerFromFile();
 	TowerFactory::InitTripleTowerFromFile();
+	TowerFactory::InitPushTowerFromFile();
+	TowerFactory::InitWideTowerFromFile();
 
 	#ifdef _DEBUG
 	AddGSComponent(new GAM200::ShowCollision());

@@ -13,6 +13,7 @@ Updated:    September 26, 2023
 #include "GameObject.h"
 #include "../Game/GameObjectTypes.h"
 #include <limits>
+#include "../Game/Monster.h"
 
 void GAM200::GameObjectManager::Add(GameObject* object)
 {
@@ -80,6 +81,7 @@ void GAM200::GameObjectManager::CollisionTest()
 		//Engine::GetLogger().LogEvent("First loop: checking " + object_1->TypeName());
 		for (GameObject* object_2 : objects)
 		{
+			//Engine::GetLogger().LogEvent("Second loop: checking " + object_2->TypeName());
 			if (object_1 != object_2 && (object_1->CanCollideWith(object_2->Type())))
 			{
 				if (object_1->IsCollidingWith(object_2))
@@ -100,12 +102,9 @@ GAM200::GameObject* GAM200::GameObjectManager::GetClosestObject(GAM200::GameObje
 
 	for (GameObject* object : objects) {
 		if (object != obj) {
-			if (object->Type() == GameObjectTypes::Monster || 
-				object->Type() == GameObjectTypes::Basic_Monster || 
-				object->Type() == GameObjectTypes::Fast_Monster ||
-				object->Type() == GameObjectTypes::Slow_Monster ||
-				object->Type() == GameObjectTypes::Slow_Monster
-				) {
+			if (static_cast<int>(object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
+				static_cast<int>(object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)) 
+			{
 				double distance = obj->GetSquareDistance(object);
 				if (distance < optimal_distance) {
 					optimal_distance = distance;
@@ -116,4 +115,26 @@ GAM200::GameObject* GAM200::GameObjectManager::GetClosestObject(GAM200::GameObje
 	}
 
 	return closest_object;
+}
+
+
+std::vector<Monster*> GAM200::GameObjectManager::GetMonstersInRange(GAM200::GameObject* obj, double range)
+{
+	std::vector<Monster*> monsters;
+	
+	for (GameObject* object : objects) {
+		if (object != obj) {
+			if (static_cast<int>(object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
+				static_cast<int>(object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End))
+			{
+				double distance = obj->GetSquareDistance(object);
+				Monster* monster = static_cast<Monster*>(object);
+				if (distance <= range * range)
+					monsters.emplace_back(monster);
+
+			}
+		}
+	}
+
+	return monsters;
 }

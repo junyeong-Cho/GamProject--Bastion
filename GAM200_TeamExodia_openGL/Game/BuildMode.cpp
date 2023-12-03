@@ -248,13 +248,21 @@ void BuildMode::Build(GameObjectTypes type)
 	{
 		cost = Basic_Tower::GetCost();
 	}
-	if (type == GameObjectTypes::Double_Tower)
+	else if (type == GameObjectTypes::Double_Tower)
 	{
 		cost = Double_Tower::GetCost();
 	}
-	if (type == GameObjectTypes::Triple_Tower)
+	else if (type == GameObjectTypes::Triple_Tower)
 	{
 		cost = Triple_Tower::GetCost();
+	}
+	else if (type == GameObjectTypes::Push_Tower)
+	{
+		cost = Push_Tower::GetCost();
+	}
+	else if (type == GameObjectTypes::Wide_Tower)
+	{
+		cost = Wide_Tower::GetCost();
 	}
 }
 

@@ -90,12 +90,16 @@ void GamePlayEditor::Load()
 	MonsterFactory::InitBasicMonsterFromFile();
 	MonsterFactory::InitFastMonsterFromFile();
 	MonsterFactory::InitSlowMonsterFromFile();
-	MonsterFactory::InitWeakMonstserFromFile();
+	MonsterFactory::InitWeakMonsterFromFile();
+	MonsterFactory::InitMotherMonsterFromFile();
+	MonsterFactory::InitHealMonsterFromFile();
 
 	// Tower Initialize
 	TowerFactory::InitBasicTowerFromFile();
 	TowerFactory::InitDoubleTowerFromFile();
 	TowerFactory::InitTripleTowerFromFile();
+	TowerFactory::InitPushTowerFromFile();
+	TowerFactory::InitWideTowerFromFile();
 
 
 #ifdef _DEBUG
@@ -256,6 +260,27 @@ void GamePlayEditor::ImguiDraw()
 			new Slow_Monster;
 			//GetGSComponent<GAM200::GameObjectManager>()->Add(new Slow_Monster());
 		}
+		if (ImGui::Button("Produce Mother Monster"))
+		{
+			Engine::GetLogger().LogEvent("Mother Monster Produce!");
+			//MonsterFactory::CreateSlowMonsterFromFile();
+			new Mother_Monster;
+			//GetGSComponent<GAM200::GameObjectManager>()->Add(new Slow_Monster());
+		}
+		if (ImGui::Button("Produce Weak Monster"))
+		{
+			Engine::GetLogger().LogEvent("Weak Monster Produce!");
+			//MonsterFactory::CreateSlowMonsterFromFile();
+			new Weak_Monster;
+			//GetGSComponent<GAM200::GameObjectManager>()->Add(new Slow_Monster());
+		}
+		if (ImGui::Button("Produce Heal Monster"))
+		{
+			Engine::GetLogger().LogEvent("Heal Monster Produce!");
+			//MonsterFactory::CreateSlowMonsterFromFile();
+			new Heal_Monster;
+			//GetGSComponent<GAM200::GameObjectManager>()->Add(new Slow_Monster());
+		}
 
 
 		if (ImGui::Button("Produce Basic Tower"))
@@ -269,6 +294,14 @@ void GamePlayEditor::ImguiDraw()
 		if (ImGui::Button("Produce Triple Tower"))
 		{
 			GetGSComponent<BuildMode>()->Build(GameObjectTypes::Triple_Tower);
+		}
+		if (ImGui::Button("Produce Push Tower"))
+		{
+			GetGSComponent<BuildMode>()->Build(GameObjectTypes::Push_Tower);
+		}
+		if (ImGui::Button("Produce Wide Tower"))
+		{
+			GetGSComponent<BuildMode>()->Build(GameObjectTypes::Wide_Tower);
 		}
 
 

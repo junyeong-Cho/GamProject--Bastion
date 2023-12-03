@@ -113,7 +113,7 @@ void Map::SetMap(std::string file_name)
 	
 }
 
-void Map::MapUnload() {
+void Map::MapUnload() const {
 	// Free the Memoroy
 	for (int i = 0; i < cols; ++i) {
 		delete[] map[i];
@@ -248,6 +248,28 @@ void Map::BuildTower(Math::ivec2 position, GameObjectTypes type, int direction)
 		}
 		//map[cols][rows]->tower = TowerFactory::CreateTripleTowerFromFile({ static_cast<double>(rows * static_cast<double>(tile_size.x)), (cols * static_cast<double>(tile_size.y)) }, static_cast<int>(direction));
 		map[cols][rows]->tower = new Triple_Tower({ static_cast<double>(rows * static_cast<double>(tile_size.x)), (cols * static_cast<double>(tile_size.y)) }, static_cast<int>(direction));
+		break;
+	case GameObjectTypes::Push_Tower:
+		if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() < Push_Tower::GetCost())
+		{
+			soundEffect->Play(0);
+
+			Engine::GetLogger().LogDebug("Not enough gold!");
+			return;
+		}
+		//map[cols][rows]->tower = TowerFactory::CreateBasicTowerFromFile({ static_cast<double>(rows * static_cast<double>(tile_size.x)), (cols * static_cast<double>(tile_size.y)) }, static_cast<int>(direction));
+		map[cols][rows]->tower = new Push_Tower({ static_cast<double>(rows * static_cast<double>(tile_size.x)), (cols * static_cast<double>(tile_size.y)) }, static_cast<int>(direction));
+		break;
+	case GameObjectTypes::Wide_Tower:
+		if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() < Wide_Tower::GetCost())
+		{
+			soundEffect->Play(0);
+
+			Engine::GetLogger().LogDebug("Not enough gold!");
+			return;
+		}
+		//map[cols][rows]->tower = TowerFactory::CreateBasicTowerFromFile({ static_cast<double>(rows * static_cast<double>(tile_size.x)), (cols * static_cast<double>(tile_size.y)) }, static_cast<int>(direction));
+		map[cols][rows]->tower = new Wide_Tower({ static_cast<double>(rows * static_cast<double>(tile_size.x)), (cols * static_cast<double>(tile_size.y)) }, static_cast<int>(direction));
 		break;
 	}
 	Engine::GetLogger().LogDebug("Tower build!");

@@ -24,7 +24,8 @@ class Monster : public GAM200::GameObject {
 public:
 	Monster(Math::vec2 position = Math::vec2(0, 0));
 
-	void ResolveCollision(GameObject* other_object) override;
+	virtual void ResolveCollision(GameObject* other_object) override;
+    virtual bool CanCollideWith(GameObjectTypes type) override;
 
 	GameObjectTypes Type() override { return GameObjectTypes::Monster; }
 	std::string TypeName() override { return "Monster"; }
@@ -36,6 +37,8 @@ public:
     Math::vec2 GetSize() { return Math::vec2(size_x, size_y); }
     static int GetDamage() { return damage; }
     static int GetRemainMonster();
+    virtual int GetLife() const { return life; }
+    virtual int GetMaxLife() const { return real_max_life; }
 
     static int remaining_monsters;
     
@@ -47,7 +50,7 @@ protected:
     std::vector<Math::ivec2> path;
 
     double resisting_count = 0;
-    const double resisting_time = 0.5;
+    double resisting_time = 0.5;
     double walking_speed;
 
     int life = 0;
@@ -107,7 +110,6 @@ private:
 };
 
 
-
 class Basic_Monster : public Monster {
 public:
     Basic_Monster(Math::vec2 position = Math::vec2(0, 0));
@@ -116,6 +118,8 @@ public:
     std::string TypeName() override { return "Basic_Monster"; }
 
     void Update(double dt) override;
+
+    void ResolveCollision(GameObject* other_object) override;
 
     static int GetDamage() { return damage; }
 
@@ -148,7 +152,6 @@ private:
     static int score;
     static int gold;
 };
-
 
 
 class Fast_Monster : public Monster {
@@ -160,6 +163,8 @@ public:
 
     void Update(double dt) override;
 
+    void ResolveCollision(GameObject* other_object) override;
+
     static int GetDamage() { return damage; }
 
 private:
@@ -191,7 +196,6 @@ private:
     static int score;
     static int gold;
 };
-
 
 
 class Slow_Monster : public Monster {
@@ -203,6 +207,8 @@ public:
 
     void Update(double dt) override;
 
+    void ResolveCollision(GameObject* other_object) override;
+
     static int GetDamage() { return damage; }
 
 private:
@@ -235,17 +241,69 @@ private:
     static int gold;
 };
 
+
+class Mother_Monster : public Monster {
+public:
+    Mother_Monster(Math::vec2 position = Math::vec2(0, 0));
+
+    GameObjectTypes Type() override { return GameObjectTypes::Mother_Monster; }
+    std::string TypeName() override { return "Mother_Monster"; }
+
+    void Update(double dt) override;
+
+    void ResolveCollision(GameObject* other_object) override;
+
+    static int GetDamage() { return damage; }
+
+    friend class Weak_Monster;
+
+private:
+    class State_Dead : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Dead"; }
+    };
+    class State_Walking : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Walking"; }
+    };
+    State_Dead    state_dead;
+    State_Walking state_walking;
+
+
+    friend class MonsterFactory;
+
+    static int max_life;
+    static int damage;
+    static double speed_scale;
+    static int score;
+    static int gold;
+
+    bool dead_by_player = false;
+    static constexpr int baby = 4;
+    int baby_count = 0;
+};
 
 
 class Weak_Monster : public Monster
 {
 public:
     Weak_Monster(Math::vec2 position = Math::vec2(0, 0));
+    Weak_Monster(Mother_Monster* monster);
 
     GameObjectTypes Type() override { return GameObjectTypes::Weak_Monster; }
     std::string TypeName() override { return "Weak_Monster"; }
 
     void Update(double dt) override;
+
+    void ResolveCollision(GameObject* other_object) override;
 
     static int GetDamage() { return damage; }
 
@@ -280,14 +338,73 @@ private:
 };
 
 
+class Heal_Monster : public Monster {
+public:
+    Heal_Monster(Math::vec2 position = Math::vec2(0, 0));
+
+    GameObjectTypes Type() override { return GameObjectTypes::Heal_Monster; }
+    std::string TypeName() override { return "Heal_Monster"; }
+
+    void Update(double dt) override;
+
+    void ResolveCollision(GameObject* other_object) override;
+
+    static int GetDamage() { return damage; }
+
+private:
+    class State_Dead : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Dead"; }
+    };
+    class State_Walking : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Walking"; }
+    };
+    class State_Healing : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Healing"; }
+    };
+    State_Dead    state_dead;
+    State_Walking state_walking;
+    State_Healing state_healing;
+
+
+    friend class MonsterFactory;
+
+    static int max_life;
+    static int damage;
+    static double speed_scale;
+    static int score;
+    static int gold;
+
+    static constexpr double waiting_time = 1.5;
+    double waiting_count = 0.0;
+
+    static constexpr double range = 200;
+};
+
 
 
 class MonsterFactory {
 public:
-    static void InitBasicMonsterFromFile(const std::string& filePath = "assets/monsters/Basic_Monster.txt");
-    static void  InitFastMonsterFromFile(const std::string& filePath = "assets/monsters/Fast_Monster.txt");
-    static void  InitSlowMonsterFromFile(const std::string& filePath = "assets/monsters/Slow_Monster.txt");
-    static void InitWeakMonstserFromFile(const std::string& filePath = "assets/monsters/Weak_Monster.txt");
+    static void  InitBasicMonsterFromFile(const std::string& filePath = "assets/monsters/Basic_Monster.txt");
+    static void   InitFastMonsterFromFile(const std::string& filePath = "assets/monsters/Fast_Monster.txt");
+    static void   InitSlowMonsterFromFile(const std::string& filePath = "assets/monsters/Slow_Monster.txt");
+    static void InitMotherMonsterFromFile(const std::string& filePath = "assets/monsters/Mother_Monster.txt");
+    static void   InitWeakMonsterFromFile(const std::string& filePath = "assets/monsters/Weak_Monster.txt");
+    static void   InitHealMonsterFromFile(const std::string& filePath = "assets/monsters/Heal_Monster.txt");
 
 private:
 

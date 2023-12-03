@@ -79,64 +79,9 @@ void Tower::Draw(Math::TransformationMatrix camera_matrix) {
 
 }
 
-bool Tower::CanCollideWith(GameObjectTypes type)
-{
-	if (type == GameObjectTypes::Basic_Monster ||
-		type == GameObjectTypes::Fast_Monster ||
-		type == GameObjectTypes::Slow_Monster ||
-		type == GameObjectTypes::Weak_Monster //|| type == GameObjectTypes::Block_Tile
-		)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-
-void Tower::ResolveCollision(GameObject* other_object)
-{
-	Math::rect tower_rect = GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
-
-	Math::rect other_rect = other_object->GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
-
-	if (attack_ready == false)
-		return;
-
-	switch (other_object->Type())
-	{
-	case GameObjectTypes::Basic_Monster:
-		Engine::GetLogger().LogDebug("Basic monster detected!");
-		attack_ready = false;
-		change_state(&this->state_attacking);
-		break;
-
-	case GameObjectTypes::Fast_Monster:
-		Engine::GetLogger().LogDebug("Fast monster detected!");
-		attack_ready = false;
-		change_state(&this->state_attacking);
-		break;
-
-	case GameObjectTypes::Slow_Monster:
-		Engine::GetLogger().LogDebug("Slow monster detected!");
-		attack_ready = false;
-		change_state(&this->state_attacking);
-		break;
-
-	case GameObjectTypes::Weak_Monster:
-		Engine::GetLogger().LogDebug("Weak monster detected!");
-		change_state(&this->state_attacking);
-		break;
-
-	default:
-
-		break;
-	}
-}
 
 
-// Constructor of Basic_Tower
+// Constructors
 Basic_Tower::Basic_Tower(Math::vec2 position, int direction) : Tower(position, direction) {
 	charging_color = { 0.f, 0.f, 0.6f };
 	attack_color = { 0.0f, 0.0f, 0.0f };
@@ -179,7 +124,6 @@ Basic_Tower::Basic_Tower(Math::vec2 position, int direction) : Tower(position, d
 	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
 
-// Constructor of Double_Tower
 Double_Tower::Double_Tower(Math::vec2 position, int direction) : Tower(position, direction) {
 	charging_color = { 0.f, 0.f, 0.6f };
 	attack_color = { 0.0f, 0.0f, 0.0f };
@@ -220,8 +164,89 @@ Double_Tower::Double_Tower(Math::vec2 position, int direction) : Tower(position,
 	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
 
-// Constructor of Triple_Tower
 Triple_Tower::Triple_Tower(Math::vec2 position, int direction) : Tower(position, direction) {
+	charging_color = { 0.f, 0.f, 0.6f };
+	attack_color = { 0.0f, 0.0f, 0.0f };
+
+	set_basic_tower = true;
+
+	Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
+	goldComponent->Subtract(cost);
+
+	current_state = &state_charging;
+	current_state->Enter(this);
+
+	double offset = 1.0 / 2 - attack_range / 2;
+
+	Math::ivec2 point1{ 0, static_cast<int>(range_y * offset * size_y) };
+	Math::ivec2 point2{ static_cast<int>(range_x * size_x), range_y * size_y - static_cast<int>(size_y * offset) };
+
+	// RIGHT, LEFT, UP, DOWN
+	switch (direction)
+	{
+	case 0:
+		AddGOComponent(new GAM200::RectCollision(Math::irect{ point1, point2 }, this));
+		break;
+
+	case 1:
+		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.x - (range_x - 1) * size_x, point1.y - (range_y - 1) * size_y}, Math::ivec2{point2.x - (range_x - 1) * size_x, point2.y - (range_y - 1) * size_y} }, this));
+		break;
+
+	case 2:
+		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.y , point1.x}, Math::ivec2{point2.y, point2.x} }, this));
+		break;
+
+	case 3:
+		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.y - (range_y - 1) * size_x , point1.x - (range_x - 1) * size_y}, Math::ivec2{point2.y - (range_y - 1) * size_x, point2.x - size_y - (range_x - 1) * size_y} }, this));
+		break;
+	}
+
+	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
+}
+
+Push_Tower::Push_Tower(Math::vec2 position, int direction) : Tower(position, direction)
+{
+	charging_color = { 0.f, 0.f, 0.6f };
+	attack_color = { 0.0f, 0.0f, 0.0f };
+
+	set_basic_tower = true;
+
+	Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
+	goldComponent->Subtract(cost);
+
+	current_state = &state_charging;
+	current_state->Enter(this);
+
+	double offset = 1.0 / 2 - attack_range / 2;
+
+	Math::ivec2 point1{ 0, static_cast<int>(range_y * offset * size_y) };
+	Math::ivec2 point2{ static_cast<int>(range_x * size_x), range_y * size_y - static_cast<int>(size_y * offset) };
+
+	// RIGHT, LEFT, UP, DOWN
+	switch (direction)
+	{
+	case 0:
+		AddGOComponent(new GAM200::RectCollision(Math::irect{ point1, point2 }, this));
+		break;
+
+	case 1:
+		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.x - (range_x - 1) * size_x, point1.y - (range_y - 1) * size_y}, Math::ivec2{point2.x - (range_x - 1) * size_x, point2.y - (range_y - 1) * size_y} }, this));
+		break;
+
+	case 2:
+		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.y , point1.x}, Math::ivec2{point2.y, point2.x} }, this));
+		break;
+
+	case 3:
+		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.y - (range_y - 1) * size_x , point1.x - (range_x - 1) * size_y}, Math::ivec2{point2.y - (range_y - 1) * size_x, point2.x - size_y - (range_x - 1) * size_y} }, this));
+		break;
+	}
+
+	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
+}
+
+Wide_Tower::Wide_Tower(Math::vec2 position, int direction) : Tower(position, direction)
+{
 	charging_color = { 0.f, 0.f, 0.6f };
 	attack_color = { 0.0f, 0.0f, 0.0f };
 
@@ -263,12 +288,41 @@ Triple_Tower::Triple_Tower(Math::vec2 position, int direction) : Tower(position,
 
 
 // Collision functions
+
+bool Tower::CanCollideWith(GameObjectTypes type)
+{
+	if(static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
+	   static_cast<int>(type) <= static_cast<int>(GameObjectTypes::Monster_End)
+		)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+void Tower::ResolveCollision(GameObject* other_object)
+{
+	Math::rect tower_rect = GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
+	Math::rect other_rect = other_object->GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
+
+	if (attack_ready == false)
+		return;
+
+	if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
+		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)
+		)
+	{
+		attack_ready = false;
+		change_state(&this->state_attacking);
+	}
+}
+
 bool Basic_Tower::CanCollideWith(GameObjectTypes type)
 {
-	if (type == GameObjectTypes::Basic_Monster ||
-		type == GameObjectTypes::Fast_Monster ||
-		type == GameObjectTypes::Slow_Monster ||
-		type == GameObjectTypes::Weak_Monster //|| type == GameObjectTypes::Block_Tile
+	if (static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
+		static_cast<int>(type) <= static_cast<int>(GameObjectTypes::Monster_End)
 		)
 	{
 		return true;
@@ -281,49 +335,24 @@ bool Basic_Tower::CanCollideWith(GameObjectTypes type)
 void Basic_Tower::ResolveCollision(GameObject* other_object)
 {
 	Math::rect tower_rect = GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
-
 	Math::rect other_rect = other_object->GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
 
 	if (attack_ready == false)
 		return;
 
-	switch (other_object->Type())
+	if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
+		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)
+		)
 	{
-	case GameObjectTypes::Basic_Monster:
-		Engine::GetLogger().LogDebug("Basic monster detected!");
 		attack_ready = false;
 		change_state(&this->state_attacking);
-		break;
-
-	case GameObjectTypes::Fast_Monster:
-		Engine::GetLogger().LogDebug("Fast monster detected!");
-		attack_ready = false;
-		change_state(&this->state_attacking);
-		break;
-
-	case GameObjectTypes::Slow_Monster:
-		Engine::GetLogger().LogDebug("Slow monster detected!");
-		attack_ready = false;
-		change_state(&this->state_attacking);
-		break;
-
-	case GameObjectTypes::Weak_Monster:
-		Engine::GetLogger().LogDebug("Weak monster detected!");
-		change_state(&this->state_attacking);
-		break;
-
-	default:
-
-		break;
 	}
 }
 
 bool Double_Tower::CanCollideWith(GameObjectTypes type)
 {
-	if (type == GameObjectTypes::Basic_Monster ||
-		type == GameObjectTypes::Fast_Monster ||
-		type == GameObjectTypes::Slow_Monster ||
-		type == GameObjectTypes::Weak_Monster //|| type == GameObjectTypes::Block_Tile
+	if (static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
+		static_cast<int>(type) <= static_cast<int>(GameObjectTypes::Monster_End)
 		)
 	{
 		return true;
@@ -336,49 +365,24 @@ bool Double_Tower::CanCollideWith(GameObjectTypes type)
 void Double_Tower::ResolveCollision(GameObject* other_object)
 {
 	Math::rect tower_rect = GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
-
 	Math::rect other_rect = other_object->GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
 
 	if (attack_ready == false)
 		return;
 
-	switch (other_object->Type())
+	if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
+		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)
+		)
 	{
-	case GameObjectTypes::Basic_Monster:
-		Engine::GetLogger().LogDebug("Basic monster detected!");
 		attack_ready = false;
 		change_state(&this->state_attacking);
-		break;
-
-	case GameObjectTypes::Fast_Monster:
-		Engine::GetLogger().LogDebug("Fast monster detected!");
-		attack_ready = false;
-		change_state(&this->state_attacking);
-		break;
-
-	case GameObjectTypes::Slow_Monster:
-		Engine::GetLogger().LogDebug("Slow monster detected!");
-		attack_ready = false;
-		change_state(&this->state_attacking);
-		break;
-
-	case GameObjectTypes::Weak_Monster:
-		Engine::GetLogger().LogDebug("Weak monster detected!");
-		change_state(&this->state_attacking);
-		break;
-
-	default:
-
-		break;
 	}
 }
 
 bool Triple_Tower::CanCollideWith(GameObjectTypes type)
 {
-	if (type == GameObjectTypes::Basic_Monster ||
-		type == GameObjectTypes::Fast_Monster ||
-		type == GameObjectTypes::Slow_Monster ||
-		type == GameObjectTypes::Weak_Monster //|| type == GameObjectTypes::Block_Tile
+	if (static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
+		static_cast<int>(type) <= static_cast<int>(GameObjectTypes::Monster_End)
 		)
 	{
 		return true;
@@ -391,42 +395,81 @@ bool Triple_Tower::CanCollideWith(GameObjectTypes type)
 void Triple_Tower::ResolveCollision(GameObject* other_object)
 {
 	Math::rect tower_rect = GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
-
 	Math::rect other_rect = other_object->GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
 
 	if (attack_ready == false)
 		return;
 
-	switch (other_object->Type())
+	if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
+		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)
+		)
 	{
-	case GameObjectTypes::Basic_Monster:
-		Engine::GetLogger().LogDebug("Basic monster detected!");
 		attack_ready = false;
 		change_state(&this->state_attacking);
-		break;
-
-	case GameObjectTypes::Fast_Monster:
-		Engine::GetLogger().LogDebug("Fast monster detected!");
-		attack_ready = false;
-		change_state(&this->state_attacking);
-		break;
-
-	case GameObjectTypes::Slow_Monster:
-		Engine::GetLogger().LogDebug("Slow monster detected!");
-		attack_ready = false;
-		change_state(&this->state_attacking);
-		break;
-
-	case GameObjectTypes::Weak_Monster:
-		Engine::GetLogger().LogDebug("Weak monster detected!");
-		change_state(&this->state_attacking);
-		break;
-
-	default:
-
-		break;
 	}
 }
+
+bool Push_Tower::CanCollideWith(GameObjectTypes type)
+{
+	if (static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
+		static_cast<int>(type) <= static_cast<int>(GameObjectTypes::Monster_End)
+		)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+void Push_Tower::ResolveCollision(GameObject* other_object)
+{
+	Math::rect tower_rect = GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
+	Math::rect other_rect = other_object->GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
+
+	if (attack_ready == false)
+		return;
+
+	if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
+		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)
+		)
+	{
+		attack_ready = false;
+		change_state(&this->state_attacking);
+	}
+}
+
+bool Wide_Tower::CanCollideWith(GameObjectTypes type)
+{
+	if (static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
+		static_cast<int>(type) <= static_cast<int>(GameObjectTypes::Monster_End)
+		)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+void Wide_Tower::ResolveCollision(GameObject* other_object)
+{
+	Math::rect tower_rect = GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
+	Math::rect other_rect = other_object->GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
+
+	if (attack_ready == false)
+		return;
+
+	if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
+		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)
+		)
+	{
+		attack_ready = false;
+		change_state(&this->state_attacking);
+	}
+}
+
+
 
 
 // State functions charging
@@ -466,7 +509,7 @@ void Tower::State_Attacking::Update(GameObject* object, double dt) {
 	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x + tower->size_x / 2, tower->GetPosition().y + tower->size_y / 2 });
 	
 	// Create a new bullet at the tower position with specified direction
-	new Bullet(tower_position, tower->bullet_direction * Bullet::DefaultVelocity);
+	new Basic_Bullet(tower_position, tower->bullet_direction * Bullet::DefaultVelocity);
 
 	// Change state to state_charging
 	tower->change_state(&tower->state_charging);
@@ -513,7 +556,7 @@ void Basic_Tower::State_Attacking::Update(GameObject* object, double dt) {
 
 	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x + tower->size_x / 2, tower->GetPosition().y + tower->size_y / 2 });
 
-	new Bullet(tower_position, tower->bullet_direction * Bullet::DefaultVelocity);
+	new Basic_Bullet(tower_position, tower->bullet_direction * Bullet::DefaultVelocity);
 	tower->change_state(&tower->state_charging);
 }
 void Basic_Tower::State_Attacking::CheckExit(GameObject* object) {
@@ -581,8 +624,8 @@ void Double_Tower::State_Attacking::Update(GameObject* object, double dt) {
 		break;
 	}
 
-	new Bullet(point1, tower->bullet_direction * Bullet::DefaultVelocity);
-	new Bullet(point2, tower->bullet_direction * Bullet::DefaultVelocity);
+	new Basic_Bullet(point1, tower->bullet_direction * Bullet::DefaultVelocity);
+	new Basic_Bullet(point2, tower->bullet_direction * Bullet::DefaultVelocity);
 
 	tower->change_state(&tower->state_charging);
 }
@@ -657,9 +700,9 @@ void Triple_Tower::State_Attacking::Update(GameObject* object, double dt) {
 	bullet_direction_left.Normalize();
 	bullet_direction_right.Normalize();
 
-	new Bullet(tower_position, bullet_direction_left * Bullet::DefaultVelocity);
-	new Bullet(tower_position, bullet_direction_middle * Bullet::DefaultVelocity);
-	new Bullet(tower_position, bullet_direction_right * Bullet::DefaultVelocity);
+	new Basic_Bullet(tower_position, bullet_direction_left * Bullet::DefaultVelocity);
+	new Basic_Bullet(tower_position, bullet_direction_middle * Bullet::DefaultVelocity);
+	new Basic_Bullet(tower_position, bullet_direction_right * Bullet::DefaultVelocity);
 
 	tower->change_state(&tower->state_charging);
 }
@@ -668,6 +711,119 @@ void Triple_Tower::State_Attacking::CheckExit(GameObject* object) {
 
 }
 
+
+
+
+// State functions for charging of Push_Tower
+void Push_Tower::State_Charging::Enter(GameObject* object) {
+	Push_Tower* tower = static_cast<Push_Tower*>(object);
+	tower->color = tower->charging_color;
+	tower->attack_ready = false;
+}
+void Push_Tower::State_Charging::Update(GameObject* object, double dt) {
+	Push_Tower* tower = static_cast<Push_Tower*>(object);
+
+	tower->attack_count += dt;
+
+	if (tower->attack_count >= tower->attack_delay) {
+		tower->attack_ready = true;
+		/*tower->attack_count = 0;
+		tower->change_state(&tower->state_attacking);*/
+	}
+}
+void Push_Tower::State_Charging::CheckExit(GameObject* object) {
+	Push_Tower* tower = static_cast<Push_Tower*>(object);
+
+}
+
+// State functions for Attacking of Push_Tower
+void Push_Tower::State_Attacking::Enter(GameObject* object) {
+	Push_Tower* tower = static_cast<Push_Tower*>(object);
+	tower->color = tower->attack_color;
+	tower->attack_count = 0;
+}
+void Push_Tower::State_Attacking::Update(GameObject* object, double dt) {
+	Push_Tower* tower = static_cast<Push_Tower*>(object);
+
+	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x , tower->GetPosition().y  });
+
+	Math::vec2 offset(tower->size_x * 0.1, tower->size_y * 0.1);
+
+	Math::vec2 bullet_direction = tower->bullet_direction;
+	
+	new Pushing_Bullet(tower_position, bullet_direction * Pushing_Bullet::DefaultVelocity);
+
+	tower->change_state(&tower->state_charging);
+}
+void Push_Tower::State_Attacking::CheckExit(GameObject* object) {
+	Push_Tower* tower = static_cast<Push_Tower*>(object);
+
+}
+
+
+
+
+// State functions for charging of Wide_Tower
+void Wide_Tower::State_Charging::Enter(GameObject* object) {
+	Wide_Tower* tower = static_cast<Wide_Tower*>(object);
+	tower->color = tower->charging_color;
+	tower->attack_ready = false;
+}
+void Wide_Tower::State_Charging::Update(GameObject* object, double dt) {
+	Wide_Tower* tower = static_cast<Wide_Tower*>(object);
+
+	tower->attack_count += dt;
+
+	if (tower->attack_count >= tower->attack_delay) {
+		tower->attack_ready = true;
+		/*tower->attack_count = 0;
+		tower->change_state(&tower->state_attacking);*/
+	}
+}
+void Wide_Tower::State_Charging::CheckExit(GameObject* object) {
+	Wide_Tower* tower = static_cast<Wide_Tower*>(object);
+
+}
+
+// State functions for Attacking of Wide_Tower
+void Wide_Tower::State_Attacking::Enter(GameObject* object) {
+	Wide_Tower* tower = static_cast<Wide_Tower*>(object);
+	tower->color = tower->attack_color;
+	tower->attack_count = 0;
+}
+void Wide_Tower::State_Attacking::Update(GameObject* object, double dt) {
+	Wide_Tower* tower = static_cast<Wide_Tower*>(object);
+
+	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x , tower->GetPosition().y });
+
+	Math::vec2 offset(tower->size_x * 0.1, tower->size_y * 0.1);
+
+	Math::vec2 bullet_direction = tower->bullet_direction;
+
+	// RIGHT, LEFT, UP, DOWN
+	switch (tower->direction)
+	{
+	case 0:
+		new Wide_Range_Bullet(Math::vec2{ tower_position.x + tower->size_x, tower_position.y - tower->size_y }, bullet_direction * Wide_Range_Bullet::DefaultVelocity);
+		break;
+	case 1:
+		new Wide_Range_Bullet(Math::vec2{ tower_position.x - tower->size_x, tower_position.y - tower->size_y }, bullet_direction * Wide_Range_Bullet::DefaultVelocity);
+		break;
+	case 2:
+		new Wide_Range_Bullet(Math::vec2{ tower_position.x - tower->size_x, tower_position.y + tower->size_y }, bullet_direction * Wide_Range_Bullet::DefaultVelocity);
+		break;
+	case 3:
+		new Wide_Range_Bullet(Math::vec2{ tower_position.x - tower->size_x, tower_position.y - tower->size_y }, bullet_direction * Wide_Range_Bullet::DefaultVelocity);
+		break;
+	}
+	//new Wide_Range_Bullet(tower_position, bullet_direction * Wide_Range_Bullet::DefaultVelocity);
+	//new Basic_Bullet(tower_position, bullet_direction * Pushing_Bullet::DefaultVelocity);
+	tower->change_state(&tower->state_charging);
+}
+void Wide_Tower::State_Attacking::CheckExit(GameObject* object) {
+	Wide_Tower* tower = static_cast<Wide_Tower*>(object);
+
+}
 
 
 
@@ -700,7 +856,19 @@ int Triple_Tower::range_x = 0;
 int Triple_Tower::range_y = 0;
 double Triple_Tower::attack_range = 0;
 
+int Push_Tower::cost = 0;
+double Push_Tower::attack_delay = 0.0;
+int Push_Tower::max_hp = 0;
+int Push_Tower::range_x = 0;
+int Push_Tower::range_y = 0;
+double Push_Tower::attack_range = 0;
 
+int Wide_Tower::cost = 0;
+double Wide_Tower::attack_delay = 0.0;
+int Wide_Tower::max_hp = 0;
+int Wide_Tower::range_x = 0;
+int Wide_Tower::range_y = 0;
+double Wide_Tower::attack_range = 0;
 
 
 // File parsing from the txt file
@@ -723,8 +891,6 @@ void TowerFactory::InitBasicTowerFromFile(const std::string& filePath) {
 	}
 
 }
-
-// File parsing from the txt file
 void TowerFactory::InitDoubleTowerFromFile(const std::string& filePath) {
 	std::ifstream file(filePath);
 
@@ -744,8 +910,6 @@ void TowerFactory::InitDoubleTowerFromFile(const std::string& filePath) {
 	}
 
 }
-
-// File parsing from the txt file
 void TowerFactory::InitTripleTowerFromFile(const std::string& filePath) {
 	std::ifstream file(filePath);
 
@@ -762,6 +926,44 @@ void TowerFactory::InitTripleTowerFromFile(const std::string& filePath) {
 		file >> Triple_Tower::range_y;
 
 		file >> Triple_Tower::attack_range;
+	}
+
+}
+void TowerFactory::InitPushTowerFromFile(const std::string& filePath) {
+	std::ifstream file(filePath);
+
+	if (file.is_open())
+	{
+		file >> Push_Tower::cost;
+
+		file >> Push_Tower::attack_delay;
+
+		file >> Push_Tower::max_hp;
+
+		file >> Push_Tower::range_x;
+
+		file >> Push_Tower::range_y;
+
+		file >> Push_Tower::attack_range;
+	}
+
+}
+void TowerFactory::InitWideTowerFromFile(const std::string& filePath) {
+	std::ifstream file(filePath);
+
+	if (file.is_open())
+	{
+		file >> Wide_Tower::cost;
+
+		file >> Wide_Tower::attack_delay;
+
+		file >> Wide_Tower::max_hp;
+
+		file >> Wide_Tower::range_x;
+
+		file >> Wide_Tower::range_y;
+
+		file >> Wide_Tower::attack_range;
 	}
 
 }
