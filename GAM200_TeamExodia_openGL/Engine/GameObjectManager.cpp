@@ -96,7 +96,7 @@ void GAM200::GameObjectManager::CollisionTest()
 }
 
 
-Monster* GAM200::GameObjectManager::GetClosestObject(GAM200::GameObject* obj) {
+Monster* GAM200::GameObjectManager::GetClosestMonster(GAM200::GameObject* obj) {
 	double optimal_distance = std::numeric_limits<double>::max();
 	Monster* closest_object = nullptr;
 
