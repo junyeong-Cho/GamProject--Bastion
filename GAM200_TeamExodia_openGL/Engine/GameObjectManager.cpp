@@ -96,9 +96,9 @@ void GAM200::GameObjectManager::CollisionTest()
 }
 
 
-GAM200::GameObject* GAM200::GameObjectManager::GetClosestObject(GAM200::GameObject* obj) {
+Monster* GAM200::GameObjectManager::GetClosestObject(GAM200::GameObject* obj) {
 	double optimal_distance = std::numeric_limits<double>::max();
-	GameObject* closest_object = nullptr;
+	Monster* closest_object = nullptr;
 
 	for (GameObject* object : objects) {
 		if (object != obj) {
@@ -108,7 +108,7 @@ GAM200::GameObject* GAM200::GameObjectManager::GetClosestObject(GAM200::GameObje
 				double distance = obj->GetSquareDistance(object);
 				if (distance < optimal_distance) {
 					optimal_distance = distance;
-					closest_object = object;
+					closest_object = static_cast<Monster*>(object);
 				}
 			}
 		}
@@ -125,7 +125,9 @@ std::vector<Monster*> GAM200::GameObjectManager::GetMonstersInRange(GAM200::Game
 	for (GameObject* object : objects) {
 		if (object != obj) {
 			if (static_cast<int>(object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
-				static_cast<int>(object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End))
+				static_cast<int>(object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End) &&
+				!(object->Destroyed()) &&
+				object->Type() != GameObjectTypes::Heal_Monster)
 			{
 				double distance = obj->GetSquareDistance(object);
 				Monster* monster = static_cast<Monster*>(object);

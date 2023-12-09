@@ -1301,7 +1301,7 @@ void Heal_Monster::State_Walking::Update(GameObject* object, double dt)
 	for (Monster* target : Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetMonstersInRange(monster, range))
 	{
 		//Engine::GetLogger().LogDebug(std::to_string(target->GetLife()) + " / " + std::to_string(target->GetMaxLife()));
-		if (target->GetLife() < target->GetMaxLife())
+		if (target->GetLife() < target->GetMaxLife() && target->GetLife() >= 0)
 		{
 			monster->change_state(&monster->state_healing);
 		}
@@ -1342,17 +1342,18 @@ void Heal_Monster::State_Healing::Enter(GameObject* object)
 {
 	Heal_Monster* monster = static_cast<Heal_Monster*>(object);
 
-	monster->waiting_count = 0;
+	monster->healing_count = 0;
 }
 void Heal_Monster::State_Healing::Update(GameObject* object, double dt)
 {
 	Heal_Monster* monster = static_cast<Heal_Monster*>(object);
 
-	monster->waiting_count += dt;
+	monster->healing_count += dt;
 
-	if (monster->waiting_count >= monster->waiting_time)
+	if (monster->healing_count >= monster->healing_cool_time)
 	{
-
+		Monster* target = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetClosestObject(monster);
+		target->Heal(monster->heal_value);
 		monster->change_state(&monster->state_walking);
 	}
 }

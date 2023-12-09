@@ -35,10 +35,13 @@ public:
     void Draw(Math::TransformationMatrix camera_matrix) override;
 
     Math::vec2 GetSize() { return Math::vec2(size_x, size_y); }
+
     static int GetDamage() { return damage; }
     static int GetRemainMonster();
     virtual int GetLife() const { return life; }
     virtual int GetMaxLife() const { return real_max_life; }
+
+    void Heal(int value) { life += value; if (life > real_max_life) life = real_max_life; }
 
     static int remaining_monsters;
     
@@ -389,10 +392,11 @@ private:
     static int score;
     static int gold;
 
-    static constexpr double waiting_time = 1.5;
-    double waiting_count = 0.0;
+    int heal_value = 1;
+    static constexpr double healing_cool_time = 0.5;
+    double healing_count = 0.0;
 
-    static constexpr double range = 200;
+    static constexpr double range = 50;
 };
 
 

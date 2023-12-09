@@ -33,7 +33,7 @@ namespace GAM200
         void DrawAll(Math::TransformationMatrix camera_matrix);
 
         void CollisionTest();
-        GAM200::GameObject* GetClosestObject(GAM200::GameObject*);
+        Monster* GetClosestObject(GAM200::GameObject*);
         std::vector<Monster*> GetMonstersInRange(GAM200::GameObject*, double);
 
     private:
