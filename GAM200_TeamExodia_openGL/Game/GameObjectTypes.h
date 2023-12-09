@@ -45,6 +45,7 @@ enum class GameObjectTypes
     Mother_Monster,
     Weak_Monster,
     Heal_Monster,
+    Stealth_Monster,
 
     Monster_End,
     
@@ -73,6 +74,9 @@ enum class GameObjectTypes
     Pushing_Bullet,
 
     Bullet_End,
+
+    // Others
+    Monster_Heal,
 
 
     HBG_Ui,

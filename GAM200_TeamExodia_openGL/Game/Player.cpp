@@ -131,13 +131,9 @@ void Player::Draw(Math::TransformationMatrix camera_matrix) {
 
 bool Player::CanCollideWith(GameObjectTypes type) {
     
-    if (type == GameObjectTypes::Basic_Monster ||
-        type == GameObjectTypes::Fast_Monster ||
-        type == GameObjectTypes::Slow_Monster ||
-        type == GameObjectTypes::Weak_Monster ||
-        type == GameObjectTypes::Mother_Monster ||
-        type == GameObjectTypes::Heal_Monster
-        )
+    if(static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
+       static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster_End)
+       )
     {
         return true;
     }
@@ -151,12 +147,26 @@ bool Player::CanCollideWith(GameObjectTypes type) {
 void Player::ResolveCollision(GameObject* other_object) {
     if (invincibility_count < invincibilityTime)
         return;
-    Math::rect player_rect = GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
 
+    Math::rect player_rect = GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
     Math::rect other_rect = other_object->GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
 
     double centerX = (player_rect.Left() + player_rect.Right()) / 2.0 - (other_rect.Left() + other_rect.Right()) / 2.0;
     double centerY = (player_rect.Top() + player_rect.Bottom()) / 2.0 - (other_rect.Top() + other_rect.Bottom()) / 2.0;
+
+
+    Monster* monster = static_cast<Monster*>(other_object);
+
+    if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
+        static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster_End)
+        )
+    {
+        life_count -= monster->GetDamage();
+        invincibility_count = 0;
+        other_object->ResolveCollision(this);
+    }
+
+
 
     switch (other_object->Type()) {
 

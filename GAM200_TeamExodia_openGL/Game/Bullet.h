@@ -101,5 +101,30 @@ public:
 private:
 
     static constexpr int damage = 1;
+
+    static constexpr double push_distance = 80.0;
+    double distance_count = 0.0;
+};
+
+
+class Monster_Heal : public Bullet
+{
+public:
+    Monster_Heal(Math::vec2 pos, Math::vec2 vel);
+    GameObjectTypes Type() override { return GameObjectTypes::Monster_Heal; }
+    std::string TypeName() override { return "MonsterHeal"; }
+    void Update(double dt) override;
+    bool CanCollideWith(GameObjectTypes other_object_type) override;
+    void ResolveCollision(GameObject* other_object) override;
+
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+
+    static constexpr double DefaultVelocity = 900;
+
+    static int GetDamage() { return damage; }
+
+private:
+
+    static constexpr int damage = 1;
 };
 

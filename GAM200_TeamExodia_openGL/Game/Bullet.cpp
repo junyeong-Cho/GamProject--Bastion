@@ -3,6 +3,7 @@
 
 
 #include "Bullet.h"
+#include "Monster.h"
 #include "../Engine/Collision.h"
 #include "../Engine/DrawShape.h"
 
@@ -115,6 +116,21 @@ Pushing_Bullet::Pushing_Bullet(Math::vec2 pos, Math::vec2 vel) : Bullet(pos, vel
 
     Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
+Monster_Heal::Monster_Heal(Math::vec2 pos, Math::vec2 vel) : Bullet(pos, vel)
+{
+    SetVelocity(vel);
+
+    size.x = 100;
+    size.y = 100;
+    vel.x = 0;
+    vel.y = 0;
+
+    AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{0, 0}, Math::ivec2{size.x, size.y} }, this));
+    color = { 0.f, 0.f, 0.f };
+
+
+    Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
+}
 
 // Updates
 void Basic_Bullet::Update(double dt)
@@ -146,6 +162,27 @@ void Wide_Range_Bullet::Update(double dt)
     }
 }
 void Pushing_Bullet::Update(double dt)
+{
+    GameObject::Update(dt);
+
+    Math::ivec2 window_size = Engine::GetWindow().GetSize();
+    Math::vec2 position = GetPosition();
+
+    if (position.x + size.x < -200 || position.x > window_size.x + 200 ||
+        position.y + size.y < -200 || position.y > window_size.y + 200)
+    {
+        Destroy();
+        RemoveGOComponent<GAM200::RectCollision>();
+    }
+
+    distance_count += Pushing_Bullet::DefaultVelocity * dt;
+    if (distance_count >= 80)
+    {
+        Destroy();
+        RemoveGOComponent<GAM200::RectCollision>();
+    }
+}
+void Monster_Heal::Update(double dt)
 {
     GameObject::Update(dt);
 
@@ -193,6 +230,14 @@ bool Pushing_Bullet::CanCollideWith(GameObjectTypes other_object_type)
     else
         return false;
 }
+bool Monster_Heal::CanCollideWith(GameObjectTypes other_object_type)
+{
+    if (static_cast<int>(other_object_type) >= static_cast<int>(GameObjectTypes::Monster) &&
+        static_cast<int>(other_object_type) <= static_cast<int>(GameObjectTypes::Monster_End))
+        return true;
+    else
+        return false;
+}
 
 
 // Resolve Collision
@@ -209,6 +254,12 @@ void Wide_Range_Bullet::ResolveCollision(GameObject* other_object)
     //RemoveGOComponent<GAM200::RectCollision>();
 }
 void Pushing_Bullet::ResolveCollision(GameObject* other_object)
+{
+    //Destroy();
+    other_object->ResolveCollision(this);
+    //RemoveGOComponent<GAM200::RectCollision>();
+}
+void Monster_Heal::ResolveCollision(GameObject* other_object)
 {
     Destroy();
     other_object->ResolveCollision(this);
@@ -240,6 +291,17 @@ void Wide_Range_Bullet::Draw(Math::TransformationMatrix camera_matrix)
     Engine::Instance().pop();
 }
 void Pushing_Bullet::Draw(Math::TransformationMatrix camera_matrix)
+{
+    GAM200::DrawShape bullet;
+
+    Engine::Instance().push();
+
+    bullet.SetColor(color.r, color.g, color.b, 1.0f);
+    bullet.DrawRectangle(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), static_cast<int>(size.x), static_cast<int>(size.y));
+
+    Engine::Instance().pop();
+}
+void Monster_Heal::Draw(Math::TransformationMatrix camera_matrix)
 {
     GAM200::DrawShape bullet;
 

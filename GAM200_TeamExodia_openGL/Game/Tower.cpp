@@ -9,6 +9,7 @@
 #include "Tower.h"
 #include "Gold.h"
 #include "Map.h"
+#include "Monster.h"
 
 
 Tower::Tower(Math::vec2 position, int direction) : GameObject(position), direction(direction) {
@@ -310,6 +311,13 @@ void Tower::ResolveCollision(GameObject* other_object)
 	if (attack_ready == false)
 		return;
 
+	if (other_object->Type() == GameObjectTypes::Stealth_Monster)
+	{
+		Stealth_Monster* temp = static_cast<Stealth_Monster*>(other_object);
+		if (temp->IsStealth())
+			return;
+	}
+
 	if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
 		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)
 		)
@@ -339,6 +347,13 @@ void Basic_Tower::ResolveCollision(GameObject* other_object)
 
 	if (attack_ready == false)
 		return;
+
+	if (other_object->Type() == GameObjectTypes::Stealth_Monster)
+	{
+		Stealth_Monster* temp = static_cast<Stealth_Monster*>(other_object);
+		if (temp->IsStealth())
+			return;
+	}
 
 	if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
 		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)
@@ -370,6 +385,13 @@ void Double_Tower::ResolveCollision(GameObject* other_object)
 	if (attack_ready == false)
 		return;
 
+	if (other_object->Type() == GameObjectTypes::Stealth_Monster)
+	{
+		Stealth_Monster* temp = static_cast<Stealth_Monster*>(other_object);
+		if (temp->IsStealth())
+			return;
+	}
+
 	if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
 		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)
 		)
@@ -399,6 +421,13 @@ void Triple_Tower::ResolveCollision(GameObject* other_object)
 
 	if (attack_ready == false)
 		return;
+
+	if (other_object->Type() == GameObjectTypes::Stealth_Monster)
+	{
+		Stealth_Monster* temp = static_cast<Stealth_Monster*>(other_object);
+		if (temp->IsStealth())
+			return;
+	}
 
 	if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
 		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)
