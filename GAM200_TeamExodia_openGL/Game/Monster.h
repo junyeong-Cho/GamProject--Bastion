@@ -290,7 +290,7 @@ private:
     static int gold;
 
     bool dead_by_player = false;
-    static constexpr int baby = 4;
+    static constexpr int baby = 3;
     int baby_count = 0;
 };
 

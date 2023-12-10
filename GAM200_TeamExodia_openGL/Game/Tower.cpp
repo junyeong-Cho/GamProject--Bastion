@@ -11,7 +11,6 @@
 #include "Map.h"
 #include "Monster.h"
 
-
 Tower::Tower(Math::vec2 position, int direction) : GameObject(position), direction(direction) {
 	charging_color = { 0.0f, 0.0f, 1.0f };
 	attack_color = { 0.0f, 0.0f, 0.0f };
@@ -41,17 +40,13 @@ Tower::Tower(Math::vec2 position, int direction) : GameObject(position), directi
 
 	}
 	hp = max_hp;
-
-	//AddGOComponent(new GAM200::RectCollision(Math::irect{ {0, 0}, {size_x, size_y} }, this));
-
-	//current_state = &state_charging;
-	//current_state->Enter(this);
+	
 
 }
 void Tower::Update(double dt) 
 {
 	GameObject::Update(dt);
-
+	IsClicked();
 }
 void Tower::Tower_Destroy()
 {
@@ -63,24 +58,43 @@ void Tower::Draw(Math::TransformationMatrix camera_matrix) {
 
 	if (four_way[0] == true)
 	{
-		c_up.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+		c_up.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size.x, size.y);
 	}
 	else if (four_way[1] == true)
 	{
-		c_right.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+		c_right.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size.x, size.y);
 	}
 	else if (four_way[2] == true)
 	{
-		c_down.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+		c_down.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size.x, size.y);
 	}
 	else if (four_way[3] == true)
 	{
-		c_left.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+		c_left.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size.x, size.y);
 	}
 
 }
 
+bool Tower::IsOn() const
+{
+	Math::vec2 mouse_position = Engine::GetInput().GetMousePosition();
+	Math::vec2 position = GetPosition();
 
+	return mouse_position.x >= position.x && mouse_position.x <= position.x + size.x && mouse_position.y >= position.y && mouse_position.y <= position.y + size.y;
+}
+
+bool Tower::IsClicked() const
+{
+	if (IsOn())
+	{
+		if (Engine::GetInput().MouseJustReleased(GAM200::Input::MouseButtons::LEFT))
+		{
+			Engine::GetLogger().LogDebug("Tower Clicked!");
+			return true;
+		}
+	}
+	return false;
+}
 
 // Constructors
 Basic_Tower::Basic_Tower(Math::vec2 position, int direction) : Tower(position, direction) {
@@ -97,8 +111,8 @@ Basic_Tower::Basic_Tower(Math::vec2 position, int direction) : Tower(position, d
 
 	double offset = 1.0 / 2 - attack_range / 2;
 
-	Math::ivec2 point1{ 0, static_cast<int>(range_y * offset * size_y) };
-	Math::ivec2 point2{ static_cast<int>(range_x * size_x), range_y * size_y - static_cast<int>(size_y * offset) };
+	Math::ivec2 point1{ 0, static_cast<int>(range_y * offset * size.y) };
+	Math::ivec2 point2{ static_cast<int>(range_x * size.x), range_y * size.y - static_cast<int>(size.y * offset) };
 
 	// RIGHT, LEFT, UP, DOWN
 	switch (direction)
@@ -108,7 +122,7 @@ Basic_Tower::Basic_Tower(Math::vec2 position, int direction) : Tower(position, d
 		break;
 
 	case 1:
-		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.x - (range_x - 1) * size_x, point1.y - (range_y - 1) * size_y}, Math::ivec2{point2.x - (range_x - 1) * size_x, point2.y - (range_y - 1) * size_y} }, this));
+		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.x - (range_x - 1) * size.x, point1.y - (range_y - 1) * size.y}, Math::ivec2{point2.x - (range_x - 1) * size.x, point2.y - (range_y - 1) * size.y} }, this));
 		break;
 
 	case 2:
@@ -116,7 +130,7 @@ Basic_Tower::Basic_Tower(Math::vec2 position, int direction) : Tower(position, d
 		break;
 
 	case 3:
-		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.y - (range_y - 1) * size_x , point1.x - (range_x - 1) * size_y}, Math::ivec2{point2.y - (range_y - 1) * size_x, point2.x - size_y - (range_x - 1) * size_y} }, this));
+		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.y - (range_y - 1) * size.x , point1.x - (range_x - 1) * size.y}, Math::ivec2{point2.y - (range_y - 1) * size.x, point2.x - size.y - (range_x - 1) * size.y} }, this));
 		break;
 	}
 
@@ -139,8 +153,8 @@ Double_Tower::Double_Tower(Math::vec2 position, int direction) : Tower(position,
 
 	double offset = 1.0 / 2 - attack_range / 2;
 
-	Math::ivec2 point1{ 0, static_cast<int>(range_y * offset * size_y) };
-	Math::ivec2 point2{ static_cast<int>(range_x * size_x), range_y * size_y - static_cast<int>(size_y * offset) };
+	Math::ivec2 point1{ 0, static_cast<int>(range_y * offset * size.y) };
+	Math::ivec2 point2{ static_cast<int>(range_x * size.x), range_y * size.y - static_cast<int>(size.y * offset) };
 
 	// RIGHT, LEFT, UP, DOWN
 	switch (direction)
@@ -150,7 +164,7 @@ Double_Tower::Double_Tower(Math::vec2 position, int direction) : Tower(position,
 		break;
 
 	case 1:
-		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.x - (range_x - 1) * size_x, point1.y - (range_y - 1) * size_y}, Math::ivec2{point2.x - (range_x - 1) * size_x, point2.y - (range_y - 1) * size_y} }, this));
+		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.x - (range_x - 1) * size.x, point1.y - (range_y - 1) * size.y}, Math::ivec2{point2.x - (range_x - 1) * size.x, point2.y - (range_y - 1) * size.y} }, this));
 		break;
 
 	case 2:
@@ -158,7 +172,7 @@ Double_Tower::Double_Tower(Math::vec2 position, int direction) : Tower(position,
 		break;
 
 	case 3:
-		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.y - (range_y - 1) * size_x , point1.x - (range_x - 1) * size_y}, Math::ivec2{point2.y - (range_y - 1) * size_x, point2.x - size_y - (range_x - 1) * size_y} }, this));
+		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.y - (range_y - 1) * size.x , point1.x - (range_x - 1) * size.y}, Math::ivec2{point2.y - (range_y - 1) * size.x, point2.x - size.y - (range_x - 1) * size.y} }, this));
 		break;
 	}
 
@@ -179,8 +193,8 @@ Triple_Tower::Triple_Tower(Math::vec2 position, int direction) : Tower(position,
 
 	double offset = 1.0 / 2 - attack_range / 2;
 
-	Math::ivec2 point1{ 0, static_cast<int>(range_y * offset * size_y) };
-	Math::ivec2 point2{ static_cast<int>(range_x * size_x), range_y * size_y - static_cast<int>(size_y * offset) };
+	Math::ivec2 point1{ 0, static_cast<int>(range_y * offset * size.y) };
+	Math::ivec2 point2{ static_cast<int>(range_x * size.x), range_y * size.y - static_cast<int>(size.y * offset) };
 
 	// RIGHT, LEFT, UP, DOWN
 	switch (direction)
@@ -190,7 +204,7 @@ Triple_Tower::Triple_Tower(Math::vec2 position, int direction) : Tower(position,
 		break;
 
 	case 1:
-		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.x - (range_x - 1) * size_x, point1.y - (range_y - 1) * size_y}, Math::ivec2{point2.x - (range_x - 1) * size_x, point2.y - (range_y - 1) * size_y} }, this));
+		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.x - (range_x - 1) * size.x, point1.y - (range_y - 1) * size.y}, Math::ivec2{point2.x - (range_x - 1) * size.x, point2.y - (range_y - 1) * size.y} }, this));
 		break;
 
 	case 2:
@@ -198,7 +212,7 @@ Triple_Tower::Triple_Tower(Math::vec2 position, int direction) : Tower(position,
 		break;
 
 	case 3:
-		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.y - (range_y - 1) * size_x , point1.x - (range_x - 1) * size_y}, Math::ivec2{point2.y - (range_y - 1) * size_x, point2.x - size_y - (range_x - 1) * size_y} }, this));
+		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.y - (range_y - 1) * size.x , point1.x - (range_x - 1) * size.y}, Math::ivec2{point2.y - (range_y - 1) * size.x, point2.x - size.y - (range_x - 1) * size.y} }, this));
 		break;
 	}
 
@@ -220,8 +234,8 @@ Push_Tower::Push_Tower(Math::vec2 position, int direction) : Tower(position, dir
 
 	double offset = 1.0 / 2 - attack_range / 2;
 
-	Math::ivec2 point1{ 0, static_cast<int>(range_y * offset * size_y) };
-	Math::ivec2 point2{ static_cast<int>(range_x * size_x), range_y * size_y - static_cast<int>(size_y * offset) };
+	Math::ivec2 point1{ 0, static_cast<int>(range_y * offset * size.y) };
+	Math::ivec2 point2{ static_cast<int>(range_x * size.x), range_y * size.y - static_cast<int>(size.y * offset) };
 
 	// RIGHT, LEFT, UP, DOWN
 	switch (direction)
@@ -231,7 +245,7 @@ Push_Tower::Push_Tower(Math::vec2 position, int direction) : Tower(position, dir
 		break;
 
 	case 1:
-		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.x - (range_x - 1) * size_x, point1.y - (range_y - 1) * size_y}, Math::ivec2{point2.x - (range_x - 1) * size_x, point2.y - (range_y - 1) * size_y} }, this));
+		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.x - (range_x - 1) * size.x, point1.y - (range_y - 1) * size.y}, Math::ivec2{point2.x - (range_x - 1) * size.x, point2.y - (range_y - 1) * size.y} }, this));
 		break;
 
 	case 2:
@@ -239,7 +253,7 @@ Push_Tower::Push_Tower(Math::vec2 position, int direction) : Tower(position, dir
 		break;
 
 	case 3:
-		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.y - (range_y - 1) * size_x , point1.x - (range_x - 1) * size_y}, Math::ivec2{point2.y - (range_y - 1) * size_x, point2.x - size_y - (range_x - 1) * size_y} }, this));
+		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.y - (range_y - 1) * size.x , point1.x - (range_x - 1) * size.y}, Math::ivec2{point2.y - (range_y - 1) * size.x, point2.x - size.y - (range_x - 1) * size.y} }, this));
 		break;
 	}
 
@@ -261,8 +275,8 @@ Wide_Tower::Wide_Tower(Math::vec2 position, int direction) : Tower(position, dir
 
 	double offset = 1.0 / 2 - attack_range / 2;
 
-	Math::ivec2 point1{ 0, static_cast<int>(range_y * offset * size_y) };
-	Math::ivec2 point2{ static_cast<int>(range_x * size_x), range_y * size_y - static_cast<int>(size_y * offset) };
+	Math::ivec2 point1{ 0, static_cast<int>(range_y * offset * size.y) };
+	Math::ivec2 point2{ static_cast<int>(range_x * size.x), range_y * size.y - static_cast<int>(size.y * offset) };
 
 	// RIGHT, LEFT, UP, DOWN
 	switch (direction)
@@ -272,7 +286,7 @@ Wide_Tower::Wide_Tower(Math::vec2 position, int direction) : Tower(position, dir
 		break;
 
 	case 1:
-		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.x - (range_x - 1) * size_x, point1.y - (range_y - 1) * size_y}, Math::ivec2{point2.x - (range_x - 1) * size_x, point2.y - (range_y - 1) * size_y} }, this));
+		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.x - (range_x - 1) * size.x, point1.y - (range_y - 1) * size.y}, Math::ivec2{point2.x - (range_x - 1) * size.x, point2.y - (range_y - 1) * size.y} }, this));
 		break;
 
 	case 2:
@@ -280,7 +294,7 @@ Wide_Tower::Wide_Tower(Math::vec2 position, int direction) : Tower(position, dir
 		break;
 
 	case 3:
-		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.y - (range_y - 1) * size_x , point1.x - (range_x - 1) * size_y}, Math::ivec2{point2.y - (range_y - 1) * size_x, point2.x - size_y - (range_x - 1) * size_y} }, this));
+		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.y - (range_y - 1) * size.x , point1.x - (range_x - 1) * size.y}, Math::ivec2{point2.y - (range_y - 1) * size.x, point2.x - size.y - (range_x - 1) * size.y} }, this));
 		break;
 	}
 
@@ -535,7 +549,7 @@ void Tower::State_Attacking::Enter(GameObject* object) {
 void Tower::State_Attacking::Update(GameObject* object, double dt) {
 	Tower* tower = static_cast<Tower*>(object);
 
-	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x + tower->size_x / 2, tower->GetPosition().y + tower->size_y / 2 });
+	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x + tower->size.x / 2, tower->GetPosition().y + tower->size.y / 2 });
 	
 	// Create a new bullet at the tower position with specified direction
 	new Basic_Bullet(tower_position, tower->bullet_direction * Bullet::DefaultVelocity);
@@ -583,7 +597,7 @@ void Basic_Tower::State_Attacking::Enter(GameObject* object) {
 void Basic_Tower::State_Attacking::Update(GameObject* object, double dt) {
 	Basic_Tower* tower = static_cast<Basic_Tower*>(object);
 
-	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x + tower->size_x / 2, tower->GetPosition().y + tower->size_y / 2 });
+	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x + tower->size.x / 2, tower->GetPosition().y + tower->size.y / 2 });
 
 	new Basic_Bullet(tower_position, tower->bullet_direction * Bullet::DefaultVelocity);
 	tower->change_state(&tower->state_charging);
@@ -628,10 +642,10 @@ void Double_Tower::State_Attacking::Enter(GameObject* object) {
 void Double_Tower::State_Attacking::Update(GameObject* object, double dt) {
 	Double_Tower* tower = static_cast<Double_Tower*>(object);
 
-	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x + tower->size_x / 2, tower->GetPosition().y + tower->size_y / 2 });
+	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x + tower->size.x / 2, tower->GetPosition().y + tower->size.y / 2 });
 	Math::vec2 point1 = Math::vec2(tower_position.x, tower_position.y);
 	Math::vec2 point2 = Math::vec2(tower_position.x, tower_position.y);
-	Math::vec2 offset(tower->size_x * 0.1, tower->size_y * 0.1);
+	Math::vec2 offset(tower->size.x * 0.1, tower->size.y * 0.1);
 	// RIGHT, LEFT, UP, DOWN
 	switch (tower->direction)
 	{
@@ -697,9 +711,9 @@ void Triple_Tower::State_Attacking::Enter(GameObject* object) {
 void Triple_Tower::State_Attacking::Update(GameObject* object, double dt) {
 	Triple_Tower* tower = static_cast<Triple_Tower*>(object);
 
-	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x + tower->size_x / 2, tower->GetPosition().y + tower->size_y / 2 });
+	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x + tower->size.x / 2, tower->GetPosition().y + tower->size.y / 2 });
 
-	Math::vec2 offset(tower->size_x * 0.1, tower->size_y * 0.1);
+	Math::vec2 offset(tower->size.x * 0.1, tower->size.y * 0.1);
 
 	Math::vec2 bullet_direction_left;
 	Math::vec2 bullet_direction_right;
@@ -709,20 +723,20 @@ void Triple_Tower::State_Attacking::Update(GameObject* object, double dt) {
 	switch (tower->direction)
 	{
 	case 0:
-		bullet_direction_left = Math::vec2(tower->size_x, offset.y);
-		bullet_direction_right = Math::vec2(tower->size_x, -offset.y);
+		bullet_direction_left = Math::vec2(tower->size.x, offset.y);
+		bullet_direction_right = Math::vec2(tower->size.x, -offset.y);
 		break;
 	case 1:
-		bullet_direction_left = Math::vec2(-tower->size_x, offset.y);
-		 bullet_direction_right = Math::vec2(-tower->size_x, -offset.y);
+		bullet_direction_left = Math::vec2(-tower->size.x, offset.y);
+		 bullet_direction_right = Math::vec2(-tower->size.x, -offset.y);
 		break;
 	case 2:
-		bullet_direction_left = Math::vec2(offset.x, tower->size_y);
-		bullet_direction_right = Math::vec2(-offset.x, tower->size_y);
+		bullet_direction_left = Math::vec2(offset.x, tower->size.y);
+		bullet_direction_right = Math::vec2(-offset.x, tower->size.y);
 		break;
 	case 3:
-		bullet_direction_left = Math::vec2(offset.x, -tower->size_y);
-		bullet_direction_right = Math::vec2(-offset.x, -tower->size_y);
+		bullet_direction_left = Math::vec2(offset.x, -tower->size.y);
+		bullet_direction_right = Math::vec2(-offset.x, -tower->size.y);
 		break;
 	}
 
@@ -776,7 +790,7 @@ void Push_Tower::State_Attacking::Update(GameObject* object, double dt) {
 
 	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x , tower->GetPosition().y  });
 
-	Math::vec2 offset(tower->size_x * 0.1, tower->size_y * 0.1);
+	Math::vec2 offset(tower->size.x * 0.1, tower->size.y * 0.1);
 
 	Math::vec2 bullet_direction = tower->bullet_direction;
 	
@@ -825,7 +839,7 @@ void Wide_Tower::State_Attacking::Update(GameObject* object, double dt) {
 
 	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x , tower->GetPosition().y });
 
-	Math::vec2 offset(tower->size_x * 0.1, tower->size_y * 0.1);
+	Math::vec2 offset(tower->size.x * 0.1, tower->size.y * 0.1);
 
 	Math::vec2 bullet_direction = tower->bullet_direction;
 
@@ -833,16 +847,16 @@ void Wide_Tower::State_Attacking::Update(GameObject* object, double dt) {
 	switch (tower->direction)
 	{
 	case 0:
-		new Wide_Range_Bullet(Math::vec2{ tower_position.x + tower->size_x, tower_position.y - tower->size_y }, bullet_direction * Wide_Range_Bullet::DefaultVelocity);
+		new Wide_Range_Bullet(Math::vec2{ tower_position.x + tower->size.x, tower_position.y - tower->size.y }, bullet_direction * Wide_Range_Bullet::DefaultVelocity);
 		break;
 	case 1:
-		new Wide_Range_Bullet(Math::vec2{ tower_position.x - tower->size_x, tower_position.y - tower->size_y }, bullet_direction * Wide_Range_Bullet::DefaultVelocity);
+		new Wide_Range_Bullet(Math::vec2{ tower_position.x - tower->size.x, tower_position.y - tower->size.y }, bullet_direction * Wide_Range_Bullet::DefaultVelocity);
 		break;
 	case 2:
-		new Wide_Range_Bullet(Math::vec2{ tower_position.x - tower->size_x, tower_position.y + tower->size_y }, bullet_direction * Wide_Range_Bullet::DefaultVelocity);
+		new Wide_Range_Bullet(Math::vec2{ tower_position.x - tower->size.x, tower_position.y + tower->size.y }, bullet_direction * Wide_Range_Bullet::DefaultVelocity);
 		break;
 	case 3:
-		new Wide_Range_Bullet(Math::vec2{ tower_position.x - tower->size_x, tower_position.y - tower->size_y }, bullet_direction * Wide_Range_Bullet::DefaultVelocity);
+		new Wide_Range_Bullet(Math::vec2{ tower_position.x - tower->size.x, tower_position.y - tower->size.y }, bullet_direction * Wide_Range_Bullet::DefaultVelocity);
 		break;
 	}
 	//new Wide_Range_Bullet(tower_position, bullet_direction * Wide_Range_Bullet::DefaultVelocity);

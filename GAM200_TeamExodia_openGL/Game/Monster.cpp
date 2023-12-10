@@ -557,6 +557,8 @@ void Mother_Monster::ResolveCollision(GameObject* other_object) {
 			scoreComponent->Add(this->real_score);
 			goldComponent->Add(this->real_gold);
 
+			dead_by_player = true;
+
 			change_state(&state_dead);
 		}
 	}

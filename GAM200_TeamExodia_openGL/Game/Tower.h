@@ -30,6 +30,9 @@ public:
     int GetHP() const { return hp; }
     void SetHP(int value) { hp = value; }
 
+    bool IsOn() const;
+    bool IsClicked() const;
+
     void Tower_Destroy();
 
 protected:
@@ -54,8 +57,7 @@ protected:
         Attacking,
     };
 
-    int size_x = 80;
-    int size_y = 80;
+    Math::ivec2 size{ 80, 80 };
 
     int direction;
     Math::vec2 bullet_direction;
