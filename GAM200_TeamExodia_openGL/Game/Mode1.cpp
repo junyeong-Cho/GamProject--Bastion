@@ -91,6 +91,7 @@ void Mode1::Load()
 	AddGSComponent(new Wave());
 	GetGSComponent<Wave>()->SetWave();
 	AddGSComponent(new BuildMode());
+	AddGSComponent(new ShowPath());
 	
 	// add HBG Ui
 	AddGSComponent(new HBG_Ui(50, 0, 0));
@@ -113,6 +114,8 @@ void Mode1::Load()
 	TowerFactory::InitPushTowerFromFile();
 	TowerFactory::InitWideTowerFromFile();
 
+	
+
 	#ifdef _DEBUG
 	AddGSComponent(new GAM200::ShowCollision());
 	#endif
@@ -121,7 +124,6 @@ void Mode1::Load()
 
 void Mode1::Update(double dt)
 {
-
 
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Tab)) 
 	{
@@ -141,6 +143,9 @@ void Mode1::Update(double dt)
 	GetGSComponent<Wave>()->Update(dt);
 
 	GetGSComponent<BuildMode>()->Update();
+
+	GetGSComponent<ShowPath>()->Update();
+
 
 	#ifdef _DEBUG
 	GetGSComponent<GAM200::ShowCollision>()->Update(dt);
@@ -203,8 +208,6 @@ void Mode1::Draw()
 	//GetGSComponent<Background>()->Draw(*GetGSComponent<GAM200::Camera>());
 
 
-
-
 	//timer_texture.Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 10 - timer_texture.GetSize().x, Engine::GetWindow().GetSize().y - timer_texture.GetSize().y - 5 }));
 	//score.Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 10 - timer_texture.GetSize().x, Engine::GetWindow().GetSize().y - timer_texture.GetSize().y - 80 }));
 
@@ -213,6 +216,10 @@ void Mode1::Draw()
 	GetGSComponent<BuildMode>()->Draw();
 	player_ptr->Draw(camera_matrix);
 	GetGSComponent<HBG_Ui>()->Draw();
+
+
+	GetGSComponent<ShowPath>()->DrawPath();
+
 	
 	remaining_gold->Draw(Math::TranslationMatrix(Math::ivec2{ 130, 720 - 95 }));
 	wave_info->Draw(Math::TranslationMatrix(Math::ivec2{ 1000, 720 - 0 }));

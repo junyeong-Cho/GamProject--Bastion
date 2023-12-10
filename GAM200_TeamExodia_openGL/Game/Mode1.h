@@ -18,8 +18,10 @@ Updated:    October		10, 2023
 #include "../Engine/Camera.h"
 #include "../Engine/GameState.h"
 #include "../Engine/Texture.h"
+
 #include "GameObjectTypes.h"
 #include "../Game/Hp_Boost_Gold_ui.h"
+#include "../Game/ShowPath.h"
 
 class Player;
 

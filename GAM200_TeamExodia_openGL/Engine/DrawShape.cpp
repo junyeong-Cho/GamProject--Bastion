@@ -125,7 +125,7 @@ void GAM200::DrawShape::DrawRectangle_NoFill_WithPoints(Math::vec2 topLeft, Math
     int windowHeight = Engine::GetWindow().GetSize().y;
 
 
-    // °¢ ²ÀÁöÁ¡À» È­¸é ÁÂÇ¥·Î Á¤±ÔÈ­
+    // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È­
     float nx1 = Math::NormalizeX(topLeft.x, windowWidth);
     float ny1 = Math::NormalizeY(topLeft.y, windowHeight);
 
@@ -143,7 +143,7 @@ void GAM200::DrawShape::DrawRectangle_NoFill_WithPoints(Math::vec2 topLeft, Math
     glBegin(GL_LINE_LOOP);
 
 
-    // È¸ÀüÀ» °í·ÁÇÑ »õ·Î¿î ²ÀÁöÁ¡ ¼ø¼­·Î º¯°æ
+    // È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     glVertex2f(nx1, ny1);
     glVertex2f(nx2, ny2);
     glVertex2f(nx3, ny3);
@@ -184,7 +184,7 @@ void GAM200::DrawShape::DrawRectangle_NoFill_WithBoundaries(Math::rect world_bou
     Math::vec2 transformedBottomRight = display_matrix * bottomRight;
 
 
-    // °¢ ²ÀÁöÁ¡À» È­¸é ÁÂÇ¥·Î Á¤±ÔÈ­
+    // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È­
     float nx1 = Math::NormalizeX(transformedTopLeft.x, windowWidth);
     float ny1 = Math::NormalizeY(transformedTopLeft.y, windowHeight);
 
@@ -202,7 +202,7 @@ void GAM200::DrawShape::DrawRectangle_NoFill_WithBoundaries(Math::rect world_bou
     glBegin(GL_LINE_LOOP);
 
 
-    // È¸ÀüÀ» °í·ÁÇÑ »õ·Î¿î ²ÀÁöÁ¡ ¼ø¼­·Î º¯°æ
+    // È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     glVertex2f(nx1, ny1);
     glVertex2f(nx2, ny2);
     glVertex2f(nx3, ny3);
@@ -214,9 +214,9 @@ void GAM200::DrawShape::DrawRectangle_NoFill_WithBoundaries(Math::rect world_bou
 }
 
 /*
-x, y, radius, points¼øÀ¸·Î ÀÔ·ÂÇØ ÁÖ¼¼¿ä!
-¿©±â¼­ points´Â ¿øÀÇ ²ÀÁþÁ¡ÀÇ °³¼ö¸¦ ÀÇ¹ÌÇÕ´Ï´Ù.
-points°¡ Å¬¼ö·Ï ¿øÀÌ ºÎµå·¯¿öÁý´Ï´Ù. 100°³ Á¤µµ°¡ Àû´çÇØ¿ä!!
+x, y, radius, pointsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ï¿½ï¿½!
+ï¿½ï¿½ï¿½â¼­ pointsï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¹ï¿½ï¿½Õ´Ï´ï¿½.
+pointsï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµå·¯ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. 100ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¿ï¿½!!
 */
 void GAM200::DrawShape::DrawCircle(int x, int y, int radius, int points)
 {

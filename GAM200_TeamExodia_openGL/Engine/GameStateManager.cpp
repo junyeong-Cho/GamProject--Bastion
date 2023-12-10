@@ -28,8 +28,8 @@ void GAM200::GameStateManager::AddGameState(GameState& gamestate)
 
 
 
-//gamestate¸¦ ¹éÅÍ¿¡´Ù°¡ ÀúÀåÇØ³ù°í, ±×°ÍÀ» index °ªÀ» ÃßÀûÇØ °è¼ÓÇØ¼­ ¹Ù²Ù±â ¶§¹®¿¡
-//mainÀÇ state¸¦ ³Ö´Â ¼ø¼­°¡ Áß¿äÇÔ!
+//gamestateï¿½ï¿½ ï¿½ï¿½ï¿½Í¿ï¿½ï¿½Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø³ï¿½ï¿½ï¿½, ï¿½×°ï¿½ï¿½ï¿½ index ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½Ù²Ù±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//mainï¿½ï¿½ stateï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß¿ï¿½ï¿½ï¿½!
 void GAM200::GameStateManager::SetNextGameState(int index)
 {
 	next_gamestate = gamestates[index];
@@ -116,7 +116,7 @@ void GAM200::GameStateManager::Update(double dt)
 			current_gamestate->Draw();
 
 
-			//ÀÌ°Ô ¿Ö µÊ?;;
+			//ï¿½Ì°ï¿½ ï¿½ï¿½ ï¿½ï¿½?;;
 			ImGuiHelper::Begin();
 
 			current_gamestate->ImguiDraw();

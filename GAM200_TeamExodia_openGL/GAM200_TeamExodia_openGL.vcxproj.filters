@@ -202,6 +202,9 @@
     <ClCompile Include="Game\Lose.cpp">
       <Filter>Game\Modes</Filter>
     </ClCompile>
+    <ClCompile Include="Game\ShowPath.cpp">
+      <Filter>Game\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Bullet.h">
@@ -392,6 +395,9 @@
     </ClInclude>
     <ClInclude Include="Game\Lose.h">
       <Filter>Game\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ShowPath.h">
+      <Filter>Game\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
