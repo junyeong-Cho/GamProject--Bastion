@@ -5,6 +5,8 @@
 
 void GAM200::DrawShape::DrawLine(int x1, int y1, int x2, int y2)
 {
+    Engine::Instance().push();
+
     int windowWidth = Engine::GetWindow().GetSize().x;
     int windowHeight = Engine::GetWindow().GetSize().y;
 
@@ -20,6 +22,9 @@ void GAM200::DrawShape::DrawLine(int x1, int y1, int x2, int y2)
     glVertex2f(nx1, ny1);
     glVertex2f(nx2, ny2);
     glEnd();
+
+    Engine::Instance().pop();
+
 }
 
 

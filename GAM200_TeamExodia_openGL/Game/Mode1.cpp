@@ -149,6 +149,7 @@ void Mode1::Update(double dt)
 
 	#ifdef _DEBUG
 	GetGSComponent<GAM200::ShowCollision>()->Update(dt);
+
 	#endif
 	
 	Engine::GetWindow().Clear(1.0f, 1.0f, 1.0f, 1.0f);
@@ -212,13 +213,14 @@ void Mode1::Draw()
 	//score.Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 10 - timer_texture.GetSize().x, Engine::GetWindow().GetSize().y - timer_texture.GetSize().y - 80 }));
 
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
+	GetGSComponent<ShowPath>()->DrawPath();
+
 
 	GetGSComponent<BuildMode>()->Draw();
 	player_ptr->Draw(camera_matrix);
 	GetGSComponent<HBG_Ui>()->Draw();
 
-
-	GetGSComponent<ShowPath>()->DrawPath();
+	
 
 	
 	remaining_gold->Draw(Math::TranslationMatrix(Math::ivec2{ 130, 720 - 95 }));
