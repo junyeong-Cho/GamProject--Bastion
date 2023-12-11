@@ -42,6 +42,10 @@ Tower::Tower(Math::vec2 position, int direction) : GameObject(position), directi
 	hp = max_hp;
 	
 
+	Math::vec2 mouse_position = Math::vec2(Engine::GetInput().GetMousePosition().x - 1, Engine::GetInput().GetMousePosition().y - 1);
+	Math::ivec2 mouse_tile_position = Math::ivec2(static_cast<int>(mouse_position.x / tile_size.x), static_cast<int>(mouse_position.y / tile_size.y));
+	tile_position = Math::ivec2(static_cast<int>(position.x) / tile_size.x, static_cast<int>(position.y) / tile_size.y);
+	//tile_position = mouse_tile_position;
 }
 void Tower::Update(double dt) 
 {
@@ -82,19 +86,31 @@ bool Tower::IsOn() const
 
 	return mouse_position.x >= position.x && mouse_position.x <= position.x + size.x && mouse_position.y >= position.y && mouse_position.y <= position.y + size.y;
 }
-
-bool Tower::IsClicked() const
+bool Tower::IsClicked()
 {
 	if (IsOn())
 	{
 		if (Engine::GetInput().MouseJustReleased(GAM200::Input::MouseButtons::LEFT))
 		{
 			Engine::GetLogger().LogDebug("Tower Clicked!");
+			Tower_Adopter::GetInstance().Set_Tower(this);
+			Tower_Adopter::GetInstance().Show_Info();
 			return true;
 		}
 	}
 	return false;
 }
+void Tower::ShowInfo() 
+{
+	std::cout << "\n\n";
+	Engine::GetLogger().LogDebug("Type: " + TypeName());
+	Engine::GetLogger().LogDebug("HP: \t\t" + std::to_string(hp));
+	Engine::GetLogger().LogDebug("max_hp: \t" + std::to_string(max_hp));
+	Engine::GetLogger().LogDebug("attack_delay: \t" + std::to_string(attack_delay));
+	Engine::GetLogger().LogDebug("Tile Pos: \t" + std::to_string(tile_position.x) + ", " + std::to_string(tile_position.y));
+	std::cout << "\n\n";
+}
+void Tower::Upgrade() { }
 
 // Constructors
 Basic_Tower::Basic_Tower(Math::vec2 position, int direction) : Tower(position, direction) {
@@ -113,7 +129,7 @@ Basic_Tower::Basic_Tower(Math::vec2 position, int direction) : Tower(position, d
 
 	Math::ivec2 point1{ 0, static_cast<int>(range_y * offset * size.y) };
 	Math::ivec2 point2{ static_cast<int>(range_x * size.x), range_y * size.y - static_cast<int>(size.y * offset) };
-
+	hp = max_hp;
 	// RIGHT, LEFT, UP, DOWN
 	switch (direction)
 	{
@@ -155,6 +171,7 @@ Double_Tower::Double_Tower(Math::vec2 position, int direction) : Tower(position,
 
 	Math::ivec2 point1{ 0, static_cast<int>(range_y * offset * size.y) };
 	Math::ivec2 point2{ static_cast<int>(range_x * size.x), range_y * size.y - static_cast<int>(size.y * offset) };
+	hp = max_hp;
 
 	// RIGHT, LEFT, UP, DOWN
 	switch (direction)
@@ -195,6 +212,7 @@ Triple_Tower::Triple_Tower(Math::vec2 position, int direction) : Tower(position,
 
 	Math::ivec2 point1{ 0, static_cast<int>(range_y * offset * size.y) };
 	Math::ivec2 point2{ static_cast<int>(range_x * size.x), range_y * size.y - static_cast<int>(size.y * offset) };
+	hp = max_hp;
 
 	// RIGHT, LEFT, UP, DOWN
 	switch (direction)
@@ -236,6 +254,7 @@ Push_Tower::Push_Tower(Math::vec2 position, int direction) : Tower(position, dir
 
 	Math::ivec2 point1{ 0, static_cast<int>(range_y * offset * size.y) };
 	Math::ivec2 point2{ static_cast<int>(range_x * size.x), range_y * size.y - static_cast<int>(size.y * offset) };
+	hp = max_hp;
 
 	// RIGHT, LEFT, UP, DOWN
 	switch (direction)
@@ -277,6 +296,7 @@ Wide_Tower::Wide_Tower(Math::vec2 position, int direction) : Tower(position, dir
 
 	Math::ivec2 point1{ 0, static_cast<int>(range_y * offset * size.y) };
 	Math::ivec2 point2{ static_cast<int>(range_x * size.x), range_y * size.y - static_cast<int>(size.y * offset) };
+	hp = max_hp;
 
 	// RIGHT, LEFT, UP, DOWN
 	switch (direction)
@@ -513,6 +533,73 @@ void Wide_Tower::ResolveCollision(GameObject* other_object)
 }
 
 
+// Tower Upgrade
+void Basic_Tower::Upgrade()
+{
+	Math::ivec2 tile_position = this->GetTilePosition();
+
+	if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() < Double_Tower::GetCost())
+	{
+		Map::GetInstance().DeleteTower(tile_position);
+
+		Map::GetInstance().BuildTower(tile_position, GameObjectTypes::Double_Tower, direction);
+	}
+}
+void Double_Tower::Upgrade()
+{
+	Math::ivec2 tile_position = this->GetTilePosition();
+
+	if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() < Triple_Tower::GetCost())
+	{
+		Map::GetInstance().DeleteTower(tile_position);
+
+		Map::GetInstance().BuildTower(tile_position, GameObjectTypes::Triple_Tower, direction);
+	}
+}
+void Triple_Tower::Upgrade()
+{
+	Engine::GetLogger().LogDebug("You cannot upgrade more!");
+}
+void Push_Tower::Upgrade()
+{
+	Engine::GetLogger().LogDebug("Upgrade count: " + std::to_string(upgrade_count));
+	switch (upgrade_count)
+	{
+	case 0:
+		Push_Tower::attack_delay -= 0.75;
+		++upgrade_count;
+		break;
+
+	case 1:
+		Push_Tower::attack_delay -= 0.75;
+		++upgrade_count;
+		break;
+
+	default:
+
+		break;
+	}
+}
+void Wide_Tower::Upgrade()
+{
+	Engine::GetLogger().LogDebug("Upgrade count: " + std::to_string(upgrade_count));
+	switch (upgrade_count)
+	{
+	case 0:
+		Wide_Tower::attack_delay -= 0.75;
+		++upgrade_count;
+		break;
+
+	case 1:
+		Wide_Tower::attack_delay -= 0.75;
+		++upgrade_count;
+		break;
+
+	default:
+
+		break;
+	}
+}
 
 
 // State functions charging
@@ -1009,4 +1096,40 @@ void TowerFactory::InitWideTowerFromFile(const std::string& filePath) {
 		file >> Wide_Tower::attack_range;
 	}
 
+}
+
+
+
+
+
+
+
+
+
+void Tower_Adopter::Set_Tower(Tower* tower)
+{
+	current_tower = tower;
+}
+void Tower_Adopter::Show_Info()
+{
+	if (current_tower == nullptr)
+		return;
+
+	current_tower->ShowInfo();
+}
+void Tower_Adopter::Upgrade()
+{
+	if (current_tower == nullptr)
+		return;
+
+	current_tower->Upgrade();
+	current_tower = nullptr;
+}
+void Tower_Adopter::Delete()
+{
+	if (current_tower == nullptr)
+		return;
+
+	Map::GetInstance().DeleteTower(current_tower->GetTilePosition());
+	current_tower = nullptr;
 }

@@ -157,6 +157,7 @@ void GamePlayEditor::Update(double dt)
 	GetGSComponent<HBG_Ui>()->Player_HP = player_hp;
 	GetGSComponent<HBG_Ui>()->Tower_GOLD = gold;
 
+	//Tower_Adopter::GetInstance().Show_Info();
 }
 
 void GamePlayEditor::Unload()
@@ -324,6 +325,19 @@ void GamePlayEditor::ImguiDraw()
 		if (ImGui::Button("Change tile to Block tile"))
 		{
 			GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Obstacle);
+		}
+
+		if (ImGui::Button("Show Current Tower Info"))
+		{
+			Tower_Adopter::GetInstance().Show_Info();
+		}
+		if (ImGui::Button("Delete Current Tower"))
+		{
+			Tower_Adopter::GetInstance().Delete();
+		}
+		if (ImGui::Button("Upgrade Current Tower"))
+		{
+			Tower_Adopter::GetInstance().Upgrade();
 		}
 	}
 	ImGui::End();

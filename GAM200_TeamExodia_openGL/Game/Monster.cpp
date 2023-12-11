@@ -278,7 +278,8 @@ void Stealth_Monster::Update(double dt)
 bool Monster::CanCollideWith(GameObjectTypes type)
 {
 	if (type == GameObjectTypes::Obstacle ||
-		type == GameObjectTypes::Block_Tile
+		type == GameObjectTypes::Block_Tile ||
+		type == GameObjectTypes::Pit
 		)
 	{
 		return true;
@@ -347,6 +348,17 @@ void Monster::ResolveCollision(GameObject* other_object) {
 				UpdatePosition(Math::vec2{ 0.0, (other_rect.Top() - monster_rect.Bottom()) });
 			}
 		}
+	}
+
+	if (other_object->Type() == GameObjectTypes::Pit)
+	{
+		Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
+		Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
+
+		scoreComponent->Add(this->real_score);
+		goldComponent->Add(this->real_gold);
+
+		change_state(&state_dead);
 	}
 }
 void Basic_Monster::ResolveCollision(GameObject* other_object) {

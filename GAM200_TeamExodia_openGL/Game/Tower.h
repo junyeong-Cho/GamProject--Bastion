@@ -29,11 +29,15 @@ public:
 
     int GetHP() const { return hp; }
     void SetHP(int value) { hp = value; }
+    Math::ivec2 GetTilePosition() const { return tile_position; }
 
     bool IsOn() const;
-    bool IsClicked() const;
+    bool IsClicked();
 
     void Tower_Destroy();
+
+    virtual void ShowInfo();
+    virtual void Upgrade();
 
 protected:
     bool set_basic_tower = false;
@@ -58,6 +62,9 @@ protected:
     };
 
     Math::ivec2 size{ 80, 80 };
+    Math::ivec2 tile_size{ 80, 80 };
+
+    Math::ivec2 tile_position;
 
     int direction;
     Math::vec2 bullet_direction;
@@ -68,6 +75,8 @@ protected:
     bool four_way[4] = { false,false,false,false };//tower_way_select
     ///
     int hp;
+
+    int upgrade_count = 0;
 
     class State_Charging : public State
     {
@@ -107,11 +116,20 @@ public:
     std::string TypeName() override { return "Basic_Tower"; }
 
     bool CanCollideWith(GameObjectTypes type) override;
-
     void ResolveCollision(GameObject* other_object) override;
 
+    void Upgrade() override;
 
     static int GetCost() { return cost; }
+    virtual void ShowInfo()
+    {
+        Engine::GetLogger().LogDebug("Type: " + TypeName());
+        Engine::GetLogger().LogDebug("HP: \t\t" + std::to_string(hp));
+        Engine::GetLogger().LogDebug("max_hp: \t" + std::to_string(max_hp));
+        Engine::GetLogger().LogDebug("attack_delay: \t" + std::to_string(attack_delay));
+        Engine::GetLogger().LogDebug("Tile Pos: \t" + std::to_string(tile_position.x) + ", " + std::to_string(tile_position.y));
+        std::cout << "\n\n";
+    }
 
 
     class State_Charging : public State
@@ -156,11 +174,20 @@ public:
     std::string TypeName() override { return "Double_Tower"; }
 
     bool CanCollideWith(GameObjectTypes type) override;
-
     void ResolveCollision(GameObject* other_object) override;
 
+    void Upgrade() override;
 
     static int GetCost() { return cost; }
+    virtual void ShowInfo()
+    {
+        Engine::GetLogger().LogDebug("Type: " + TypeName());
+        Engine::GetLogger().LogDebug("HP: \t\t" + std::to_string(hp));
+        Engine::GetLogger().LogDebug("max_hp: \t" + std::to_string(max_hp));
+        Engine::GetLogger().LogDebug("attack_delay: \t" + std::to_string(attack_delay));
+        Engine::GetLogger().LogDebug("Tile Pos: \t" + std::to_string(tile_position.x) + ", " + std::to_string(tile_position.y));
+        std::cout << "\n\n";
+    }
 
     class State_Charging : public State
     {
@@ -204,11 +231,20 @@ public:
     std::string TypeName() override { return "Triple_Tower"; }
 
     bool CanCollideWith(GameObjectTypes type) override;
-
     void ResolveCollision(GameObject* other_object) override;
 
+    void Upgrade() override;
 
     static int GetCost() { return cost; }
+    virtual void ShowInfo()
+    {
+        Engine::GetLogger().LogDebug("Type: " + TypeName());
+        Engine::GetLogger().LogDebug("HP: \t\t" + std::to_string(hp));
+        Engine::GetLogger().LogDebug("max_hp: \t" + std::to_string(max_hp));
+        Engine::GetLogger().LogDebug("attack_delay: \t" + std::to_string(attack_delay));
+        Engine::GetLogger().LogDebug("Tile Pos: \t" + std::to_string(tile_position.x) + ", " + std::to_string(tile_position.y));
+        std::cout << "\n\n";
+    }
 
     class State_Charging : public State
     {
@@ -252,11 +288,20 @@ public:
     std::string TypeName() override { return "Push_Tower"; }
 
     bool CanCollideWith(GameObjectTypes type) override;
-
     void ResolveCollision(GameObject* other_object) override;
 
+    void Upgrade() override;
 
     static int GetCost() { return cost; }
+    virtual void ShowInfo()
+    {
+        Engine::GetLogger().LogDebug("Type: " + TypeName());
+        Engine::GetLogger().LogDebug("HP: \t\t" + std::to_string(hp));
+        Engine::GetLogger().LogDebug("max_hp: \t" + std::to_string(max_hp));
+        Engine::GetLogger().LogDebug("attack_delay: \t" + std::to_string(attack_delay));
+        Engine::GetLogger().LogDebug("Tile Pos: \t" + std::to_string(tile_position.x) + ", " + std::to_string(tile_position.y));
+        std::cout << "\n\n";
+    }
 
     class State_Charging : public State
     {
@@ -300,11 +345,20 @@ public:
     std::string TypeName() override { return "Wide_Tower"; }
 
     bool CanCollideWith(GameObjectTypes type) override;
-
     void ResolveCollision(GameObject* other_object) override;
 
+    void Upgrade() override;
 
     static int GetCost() { return cost; }
+    virtual void ShowInfo()
+    {
+        Engine::GetLogger().LogDebug("Type: " + TypeName());
+        Engine::GetLogger().LogDebug("HP: \t\t" + std::to_string(hp));
+        Engine::GetLogger().LogDebug("max_hp: \t" + std::to_string(max_hp));
+        Engine::GetLogger().LogDebug("attack_delay: \t" + std::to_string(attack_delay));
+        Engine::GetLogger().LogDebug("Tile Pos: \t" + std::to_string(tile_position.x) + ", " + std::to_string(tile_position.y));
+        std::cout << "\n\n";
+    }
 
     class State_Charging : public State
     {
@@ -338,7 +392,7 @@ private:
 };
 
 
-
+// File parsing
 class TowerFactory {
 public:
     static void InitBasicTowerFromFile(const std::string& filePath = "assets/towers/Basic_Tower.txt");
@@ -348,5 +402,28 @@ public:
     static void InitWideTowerFromFile(const std::string& filePath = "assets/towers/Wide_Tower.txt");
 
 private:
+
+};
+
+
+// Tower Adopter
+class Tower_Adopter
+{
+public:
+    static Tower_Adopter& GetInstance()
+    {
+        static Tower_Adopter instance;
+        return instance;
+    }
+
+    void Set_Tower(Tower*);
+    void Show_Info();
+    void Upgrade();
+    void Delete();
+
+private:
+    Tower_Adopter() = default;
+
+    Tower* current_tower = nullptr;
 
 };

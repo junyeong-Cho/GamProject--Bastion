@@ -46,6 +46,7 @@ protected:
 	bool passing_tile_bool = false;
 	bool block_tile_bool = false;
 	bool obs_tile_bool = false;
+	bool pit_tile_bool = false;
 
 private:
 
@@ -87,6 +88,21 @@ public:
 
 	GameObjectTypes Type() override { return GameObjectTypes::Obstacle; }
 	std::string TypeName() override { return "Obstacle"; }
+
+	void Update(double dt) override;
+
+private:
+
+};
+
+// Pit Tile
+class Pit : public Tile
+{
+public:
+	Pit(Math::irect boundary);
+
+	GameObjectTypes Type() override { return GameObjectTypes::Pit; }
+	std::string TypeName() override { return "Pit"; }
 
 	void Update(double dt) override;
 

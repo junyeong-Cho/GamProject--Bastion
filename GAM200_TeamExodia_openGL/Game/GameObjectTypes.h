@@ -54,6 +54,7 @@ enum class GameObjectTypes
     Pass__Tile,
     Block_Tile,
     Obstacle,
+    Pit,
 
     Tile_End,
     

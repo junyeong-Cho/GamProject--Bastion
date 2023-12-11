@@ -91,3 +91,17 @@ Obstacle::Obstacle(Math::irect boundary) : Tile(boundary) {
 void Obstacle::Update(double dt) {
 
 }
+
+
+
+Pit::Pit(Math::irect boundary) : Tile(boundary) {
+	color.r = 0.431f;
+	color.g = 0.282f;
+	color.b = 0.067f;
+
+	//block_tile_bool = true;
+	pit_tile_bool = true;
+}
+void Pit::Update(double dt) {
+
+}

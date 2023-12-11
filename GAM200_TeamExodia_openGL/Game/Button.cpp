@@ -6,6 +6,7 @@
 #include "../Engine/DrawShape.h"
 #include "BuildMode.h"
 #include "Wave.h"
+#include "Tower.h"
 
 Button::Button(Math::vec2 position, Math::vec2 size) : GameObject(position), position(position), size(size)
 {
@@ -134,7 +135,8 @@ Double_Tower_Button::Double_Tower_Button(Math::vec2 position, Math::vec2 size) :
 }
 void Double_Tower_Button::func(Math::ivec2 pos)
 {
-	Engine::GetGameStateManager().GetGSComponent<BuildMode>()->Build(GameObjectTypes::Double_Tower);
+	//Engine::GetGameStateManager().GetGSComponent<BuildMode>()->Build(GameObjectTypes::Double_Tower);
+	Engine::GetGameStateManager().GetGSComponent<BuildMode>()->Build(GameObjectTypes::Push_Tower);
 }
 
 
@@ -145,7 +147,8 @@ Triple_Tower_Button::Triple_Tower_Button(Math::vec2 position, Math::vec2 size) :
 }
 void Triple_Tower_Button::func(Math::ivec2 pos)
 {
-	Engine::GetGameStateManager().GetGSComponent<BuildMode>()->Build(GameObjectTypes::Triple_Tower);
+	//Engine::GetGameStateManager().GetGSComponent<BuildMode>()->Build(GameObjectTypes::Triple_Tower);
+	Engine::GetGameStateManager().GetGSComponent<BuildMode>()->Build(GameObjectTypes::Wide_Tower);
 }
 
 
@@ -156,7 +159,8 @@ Delete_Tower_Button::Delete_Tower_Button(Math::vec2 position, Math::vec2 size) :
 }
 void Delete_Tower_Button::func(Math::ivec2 pos)
 {
-	Engine::GetGameStateManager().GetGSComponent<BuildMode>()->DeleteTower();
+	//Engine::GetGameStateManager().GetGSComponent<BuildMode>()->DeleteTower();
+	Tower_Adopter::GetInstance().Delete();
 }
 
 
@@ -167,8 +171,9 @@ Pass_Tile_Button::Pass_Tile_Button(Math::vec2 position, Math::vec2 size) : Butto
 }
 void Pass_Tile_Button::func(Math::ivec2 pos)
 {
-	Engine::GetGameStateManager().GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Pass__Tile);
+	//Engine::GetGameStateManager().GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Pass__Tile);
 
+	Tower_Adopter::GetInstance().Upgrade();
 }
 
 
@@ -179,7 +184,6 @@ Block_Tile_Button::Block_Tile_Button(Math::vec2 position, Math::vec2 size) : But
 }
 void Block_Tile_Button::func(Math::ivec2 pos)
 {
-	//Engine::GetGameStateManager().GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Block_Tile);
 	Engine::GetGameStateManager().GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Obstacle);
 }
 
