@@ -14,6 +14,7 @@ Updated:    October		10, 2023
 #include "../Engine/Collision.h"
 #include "../Engine/DrawShape.h"
 #include "../Engine/GameObjectManager.h"
+#include "../Engine/Audio.h"
 
 #include "Player.h"
 #include "Mode1.h"
@@ -27,7 +28,7 @@ Updated:    October		10, 2023
 
 Player::Player(Math::vec2 start_position, int size_x, int size_y) : GameObject(start_position), size_x(size_x), size_y(size_y) 
 {
-    soundEffect->LoadFile("Assets/Sounds/SoundEffect/gun_sound_meca.wav");
+    //soundEffect->LoadFile("Assets/Sounds/SoundEffect/gun_sound_meca.wav");
 
     //AddGOComponent(new GAM200::Sprite("Assets/Player.spt", this));
 
@@ -100,7 +101,6 @@ void Player::Update(double dt) {
         )
     {
         // Some machanism
-        //soundEffect->Play(0);
 
 
         /*GameObject* closest_monster = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetClosestObject(this);
@@ -115,7 +115,7 @@ void Player::Update(double dt) {
 
 
         new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity);
-
+        GAM200::SoundEffect::Attack().play();
         attack_count = 0;
     }
 }
@@ -330,6 +330,7 @@ void Player::State_Idle::CheckExit(GameObject* object) {
     }
     else if (Engine::GetInput().keyDown(GAM200::Input::Keys::S)) {
         player->change_state(&player->state_moving);
+        GAM200::SoundEffect::Attack().cannot_select();
     }
 }
 
@@ -388,11 +389,13 @@ void Player::State_Dashing::Enter(GameObject* object)
 
 }
 
-void Player::State_Dashing::Update([[maybe_unused]] GameObject* object, [[maybe_unused]] double dt) {
+void Player::State_Dashing::Update([[maybe_unused]] GameObject* object, [[maybe_unused]] double dt) 
+{
 
 }
 
-void Player::State_Dashing::CheckExit(GameObject* object) {
+void Player::State_Dashing::CheckExit(GameObject* object) 
+{
     Player* player = static_cast<Player*>(object);
     if (Engine::GetInput().keyDown(GAM200::Input::Keys::Left)) {
         player->change_state(&player->state_moving);
