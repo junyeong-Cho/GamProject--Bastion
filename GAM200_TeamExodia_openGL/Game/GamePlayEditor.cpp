@@ -52,8 +52,8 @@ GamePlayEditor::GamePlayEditor() : player_ptr()
 void GamePlayEditor::Load()
 {
 	// Music
-	AddGSComponent(new GAM200::MusicEffect());
-	GetGSComponent<GAM200::MusicEffect>()->LoadFile("assets/Sounds/Theme/example_music_editor.ogg");
+	//AddGSComponent(new GAM200::MusicEffect());
+	//GetGSComponent<GAM200::MusicEffect>()->LoadFile("assets/Sounds/Theme/example_music_editor.ogg");
 
 	// Game Object
 	AddGSComponent(new GAM200::GameObjectManager());
@@ -117,7 +117,7 @@ void GamePlayEditor::Update(double dt)
 	}
 	dt *= static_cast<double>(GetGSComponent<GameSpeed>()->Value());
 
-	GetGSComponent<GAM200::MusicEffect>()->Play(0);
+	//GetGSComponent<GAM200::MusicEffect>()->Play(0);
 
 	GetGSComponent<GAM200::Camera>()->Update(player_ptr->GetPosition());
 	//GetGSComponent<GAM200::Camera>()->SetPosition(player_ptr->GetPosition());
@@ -139,12 +139,12 @@ void GamePlayEditor::Update(double dt)
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Escape))
 	{
 		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
-		GetGSComponent<GAM200::MusicEffect>()->Stop();
+		//GetGSComponent<GAM200::MusicEffect>()->Stop();
 	}
 
 	if (GetGSComponent<Life>()->Value() <= 0) {
 		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Lose));
-		GetGSComponent<GAM200::MusicEffect>()->Stop();
+		//GetGSComponent<GAM200::MusicEffect>()->Stop();
 	}
 
 	int gold = GetGSComponent<Gold>()->Value();
@@ -208,7 +208,7 @@ void GamePlayEditor::ImguiDraw()
 		int score = GetGSComponent<Score>()->Value();
 		int game_speed = GetGSComponent<GameSpeed>()->Value();
 		int max_speed = GetGSComponent<GameSpeed>()->GetMax();
-		float* musicVolume = (GetGSComponent<GAM200::MusicEffect>()->GetMusicVolume());
+		//float* musicVolume = (GetGSComponent<GAM200::MusicEffect>()->GetMusicVolume());
 		int player_hp = player_ptr->GetHP();
 
 		ImGui::Text("Killed Monster : %d", score);
@@ -230,10 +230,10 @@ void GamePlayEditor::ImguiDraw()
 		if (ImGui::SliderInt("Adjust Game Speed", &game_speed, 0, max_speed, "%d")) {
 			GetGSComponent<GameSpeed>()->SetValue(game_speed);
 		}
-		if (ImGui::SliderFloat("Max Volume", musicVolume, 0.0f, 100.0f, "%.0f"))
-		{
-			GetGSComponent<GAM200::MusicEffect>()->SetVolume(*musicVolume);
-		}
+		//if (ImGui::SliderFloat("Max Volume", musicVolume, 0.0f, 100.0f, "%.0f"))
+		//{
+		//	GetGSComponent<GAM200::MusicEffect>()->SetVolume(*musicVolume);
+		//}
 	}
 	ImGui::End();
 
