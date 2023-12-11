@@ -45,7 +45,7 @@ public:
 	bool editor_mode = false;
 
 private:
-	//GAM200::SoundEffect* soundEffect = new GAM200::SoundEffect();
+	GAM200::SoundEffect* soundEffect = new GAM200::SoundEffect();
 
 
 	Info*** map = nullptr;

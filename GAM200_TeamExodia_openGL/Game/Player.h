@@ -43,6 +43,10 @@ public:
     void SetHP(int life) { life_count = life; }
 
 private:
+
+    GAM200::SoundEffect* soundEffect = new GAM200::SoundEffect();
+
+
     GAM200::Texture p = GAM200::Texture("assets/images/p.png", GAM200::Texture::TextureType::RECTANGLE);
 
     enum class Animations

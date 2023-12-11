@@ -1,209 +1,125 @@
+/*
+Copyright (C) 2023 DigiPen Institute of Technology
+Reproduction or distribution of this file or its contents without
+prior written consent is prohibited
+File Name:  Audio.cpp
+Project:    GAM200 Engine
+Author:     Junyeong cho
+Created:    November 8, 2023
+Updated:    November 8, 2023
+*/
+
 #include "Audio.h"
 
-
-GAM200::SoundEffect& GAM200::SoundEffect::Landing()
+namespace GAM200
 {
-    static SoundEffect Landing("Assets/Sound/Landing.wav");
-    return Landing;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::Jump()
-{
-    static SoundEffect Jump("Assets/Sound/JumpJump.wav");
-    return Jump;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::Portal()
-{
-    static SoundEffect Portal("Assets/Sound/Portal.wav");
-    return Portal;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::MeleeAttack()
-{
-    static SoundEffect MeleeAttack("Assets/Sound/sword_swing.wav");
-    return MeleeAttack;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::Item()
-{
-    static SoundEffect Item("Assets/Sound/Item.wav");
-    return Item;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::Attacked()
-{
-    static SoundEffect Attacked("assets/Sounds/SoundEffect/Attacked.wav");
-    return Attacked;
-}
-GAM200::SoundEffect& GAM200::SoundEffect::Attack()
-{
-    static SoundEffect Attack("assets/Sounds/SoundEffect/gun_sound_meca.wav");
-    return Attack;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::Dash()
-{
-    static SoundEffect Dash("Assets/Sound/Dash.wav");
-    return Dash;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::cannot_select()
-{
-    static SoundEffect cannot_select("Assets/Sound/cannot_select.wav");
-    return cannot_select;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::recovery2()
-{
-    static SoundEffect recovery2("Assets/Sound/recovery2.wav");
-    return recovery2;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::Weapon_change()
-{
-    static SoundEffect Weapon_change("Assets/Sound/Weapon_change.wav");
-    return Weapon_change;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::FeildBGM()
-{
-    static SoundEffect FeildBGM("assets/Sounds/Theme/Hihi.wav");
-    return FeildBGM;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::BossBGM()
-{
-    static SoundEffect BossBGM("assets/Sounds/Theme/BossBGM.wav");
-    return BossBGM;
-}
-
-////////////////////////Boss1
-GAM200::SoundEffect& GAM200::SoundEffect::B1_swing()
-{
-    static SoundEffect B1_swing("Assets/Sound/Batswing.wav");
-    return B1_swing;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::B1_JumpAttack()
-{
-    static SoundEffect B1_JumpAttack("Assets/Sound/Stun.wav");
-    return B1_JumpAttack;
-}
+#pragma region MusicEffect
+	MusicEffect::MusicEffect() {}
 
 
-////////////////////////Boss2   
-GAM200::SoundEffect& GAM200::SoundEffect::B2_pew()
-{
-    static SoundEffect B2_pew("Assets/Sound/pew.wav");
-    return B2_pew;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::B2_baldosool()
-{
-    static SoundEffect B2_baldosool("Assets/Sound/baldo.wav");
-    return B2_baldosool;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::B2_swordBeam()
-{
-    static SoundEffect B2_swordBeam("Assets/Sound/sword_beam.wav");
-    return B2_swordBeam;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::B2_jump_Attack()
-{
-    static SoundEffect B2_jump_Attack("Assets/Sound/JJikgi.wav");
-    return B2_jump_Attack;
-}
-
-////////////////////////Boss3   
-GAM200::SoundEffect& GAM200::SoundEffect::B3_Bbaeggom()
-{
-    static SoundEffect B3_Bbaeggom("Assets/Sound/Bbaeggom.wav");
-    return B3_Bbaeggom;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::B3_WormJump()
-{
-    static SoundEffect B3_WormJump("Assets/Sound/WormJump.wav");
-    return B3_WormJump;
-}
-
-////////////////////////Boss4
-GAM200::SoundEffect& GAM200::SoundEffect::B4_Inferno()
-{
-    static SoundEffect B4_Inferno("Assets/Sound/Inferno.wav");
-    return B4_Inferno;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::B4_Fireball()
-{
-    static SoundEffect B4_Fireball("Assets/Sound/Flame.wav");
-    return B4_Fireball;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::B4_Psychokinesis()
-{
-    static SoundEffect B4_Psychokinesis("Assets/Sound/Psychokinesis.wav");
-    return B4_Psychokinesis;
-}
+	void MusicEffect::AddMusicFile(const std::string& filename)
+	{
+		std::unique_ptr<sf::Music> music = std::make_unique<sf::Music>();
+		if (!music->openFromFile(filename))
+		{
+			Engine::GetLogger().LogError("Failed to load music file: " + filename);
+		}
+		else
+		{
+			musicList.push_back(std::move(music));
+		}
+	}
 
 
-GAM200::SoundEffect::SoundEffect(const std::string& path)
-{
-    if (!buffer.loadFromFile(path))
-        throw std::runtime_error("Failed to load sound file " + path);
-}
+	void MusicEffect::LoadFile(const std::string& filename)
+	{
+		AddMusicFile(filename);
+	}
 
-void GAM200::SoundEffect::play()
-{
-    // 더 이상 재생되지 않는 사운드 제거
-    sounds.remove_if([](const sf::Sound& s) { return s.getStatus() == sf::Sound::Stopped; });
 
-    // 새 사운드 재생
-    sounds.emplace_back();
-    sounds.back().setBuffer(buffer);
-    sounds.back().setVolume(musicVolume);
-    sounds.back().play();
-}
+	void MusicEffect::Play(int index)
+	{
+		if (index >= 0 && index < musicList.size())
+		{
+			musicList[index]->setLoop(true);
+			musicList[index]->setVolume(defaultVolume);
+			if (!isMusicPlaying)
+			{
+				musicList[index]->play();
+				Engine::GetLogger().LogEvent("Now playing: " + std::to_string(index));
 
-void GAM200::SoundEffect::SeBGMVolume(float volume)
-{
-    musicVolume = volume;
-}
 
-void GAM200::SoundEffect::Big_play()
-{
-    // 더 이상 재생되지 않는 사운드 제거
-    sounds.remove_if([](const sf::Sound& s) { return s.getStatus() == sf::Sound::Stopped; });
+				isMusicPlaying = true;
+			}
+		}
+	}
 
-    // 새 사운드 재생
-    sounds.emplace_back();
-    sounds.back().setBuffer(buffer);
-    sounds.back().setVolume(BigVolume);
-    sounds.back().play();
-}
+	void MusicEffect::Stop()
+	{
+		for (auto& music : musicList)
+		{
+			music->stop();
+		}
 
-void GAM200::SoundEffect::loopplay()
-{
-    // 더 이상 재생되지 않는 사운드 제거
-    sounds.remove_if([](const sf::Sound& s) { return s.getStatus() == sf::Sound::Stopped; });
+		isMusicPlaying = false;
+	}
 
-    // 새 사운드 재생
-    sounds.emplace_back();
-    sounds.back().setBuffer(buffer);
-    sounds.back().setVolume(musicVolume);
-    sounds.back().play();
+	void MusicEffect::SetVolume(float volume)
+	{
+		//defaultVolume = volume;
 
-    // 재생이 끝나면 다시 재생
-    sounds.back().setLoop(true);
-}
+		for (auto& music : musicList)
+		{
+			music->setVolume(volume);
+		}
+	}
 
-void GAM200::SoundEffect::stopAll()
-{
-    for (auto& sound : sounds)
-    {
-        sound.stop();
-    }
+#pragma endregion
+
+#pragma region SoundEffect
+	SoundEffect::SoundEffect() { }
+
+
+	void SoundEffect::AddSoundFile(const std::string& filename)
+	{
+		sf::SoundBuffer buffer;
+		if (!buffer.loadFromFile(filename))
+		{
+			Engine::GetLogger().LogError("Failed to load sound file: " + filename);
+		}
+		else
+		{
+			sf::Sound sound;
+			sound.setBuffer(buffer);
+			sounds.push_back(sound);
+			buffers.push_back(buffer);
+		}
+	}
+
+
+	void SoundEffect::LoadFile(const std::string& filename)
+	{
+		AddSoundFile(filename);
+	}
+
+
+	void SoundEffect::Play(int index)
+	{
+		if (index >= 0 && index < sounds.size())
+		{
+			sounds[index].setBuffer(buffers[index]);
+			sounds[index].setVolume(50);
+
+			sounds[index].play();
+
+			if (sounds[index].getStatus() == sf::Sound::Stopped)
+			{
+				sounds[index].~Sound();
+			}
+
+
+			Engine::GetLogger().LogEvent("Soundeffect played: " + std::to_string(index));
+		}
+	}
+#pragma endregion
 }
