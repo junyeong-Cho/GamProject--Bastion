@@ -36,6 +36,7 @@ public:
 	Math::ivec2 GetSize() const { return Math::ivec2(cols, rows); }
 	std::vector<std::vector<std::tuple<int, std::string, int>>> GetWaveInfo() const { return wave_info; }
 	std::string GetType(Math::ivec2 position) const;
+	Tower* GetTower(Math::ivec2 position) const;
 
 	void ChangeTile(Math::ivec2 position, GameObjectTypes type);
 

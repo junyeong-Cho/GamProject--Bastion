@@ -51,6 +51,7 @@ void Tower::Update(double dt)
 {
 	GameObject::Update(dt);
 	IsClicked();
+	check_supplied();
 }
 void Tower::Tower_Destroy()
 {
@@ -92,7 +93,6 @@ bool Tower::IsClicked()
 	{
 		if (Engine::GetInput().MouseJustReleased(GAM200::Input::MouseButtons::LEFT))
 		{
-			Engine::GetLogger().LogDebug("Tower Clicked!");
 			Tower_Adopter::GetInstance().Set_Tower(this);
 			Tower_Adopter::GetInstance().Show_Info();
 			return true;
@@ -104,13 +104,34 @@ void Tower::ShowInfo()
 {
 	std::cout << "\n\n";
 	Engine::GetLogger().LogDebug("Type: " + TypeName());
-	Engine::GetLogger().LogDebug("HP: \t\t" + std::to_string(hp));
-	Engine::GetLogger().LogDebug("max_hp: \t" + std::to_string(max_hp));
+	Engine::GetLogger().LogDebug("HP: \t\t" + std::to_string(hp) + " / " + std::to_string(max_hp));
 	Engine::GetLogger().LogDebug("attack_delay: \t" + std::to_string(attack_delay));
 	Engine::GetLogger().LogDebug("Tile Pos: \t" + std::to_string(tile_position.x) + ", " + std::to_string(tile_position.y));
+	Engine::GetLogger().LogDebug("Ammo: \t" + std::to_string(ammo) + " / " + std::to_string(max_ammo));
+	Engine::GetLogger().LogDebug("???");
 	std::cout << "\n\n";
 }
-void Tower::Upgrade() { }
+Tower* Tower::Upgrade() { return this; }
+void Tower::check_supplied()
+{
+
+	Math::vec2 player_position = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetPlayer()->GetPosition();
+	Math::vec2 player_size{ 160.0 / 3, 160.0 / 3 };
+
+	Math::vec2 tower_position{ GetPosition() };
+	Math::vec2 tower_size{ static_cast<double>(size.x), static_cast<double>(size.y) };
+	
+	if (player_position.x + player_size.x >= tower_position.x &&
+		player_position.x <= tower_position.x + tower_size.x &&
+
+		player_position.y + player_size.y >= tower_position.y &&
+		player_position.y <= tower_position.y + tower_size.y
+		)
+	{
+		Engine::GetLogger().LogDebug("Tower vs Player!");
+		supply_ammo();
+	}
+}
 
 // Constructors
 Basic_Tower::Basic_Tower(Math::vec2 position, int direction) : Tower(position, direction) {
@@ -130,6 +151,8 @@ Basic_Tower::Basic_Tower(Math::vec2 position, int direction) : Tower(position, d
 	Math::ivec2 point1{ 0, static_cast<int>(range_y * offset * size.y) };
 	Math::ivec2 point2{ static_cast<int>(range_x * size.x), range_y * size.y - static_cast<int>(size.y * offset) };
 	hp = max_hp;
+	ammo = max_ammo;
+	
 	// RIGHT, LEFT, UP, DOWN
 	switch (direction)
 	{
@@ -172,6 +195,7 @@ Double_Tower::Double_Tower(Math::vec2 position, int direction) : Tower(position,
 	Math::ivec2 point1{ 0, static_cast<int>(range_y * offset * size.y) };
 	Math::ivec2 point2{ static_cast<int>(range_x * size.x), range_y * size.y - static_cast<int>(size.y * offset) };
 	hp = max_hp;
+	ammo = max_ammo;
 
 	// RIGHT, LEFT, UP, DOWN
 	switch (direction)
@@ -213,6 +237,7 @@ Triple_Tower::Triple_Tower(Math::vec2 position, int direction) : Tower(position,
 	Math::ivec2 point1{ 0, static_cast<int>(range_y * offset * size.y) };
 	Math::ivec2 point2{ static_cast<int>(range_x * size.x), range_y * size.y - static_cast<int>(size.y * offset) };
 	hp = max_hp;
+	ammo = max_ammo;
 
 	// RIGHT, LEFT, UP, DOWN
 	switch (direction)
@@ -255,7 +280,8 @@ Push_Tower::Push_Tower(Math::vec2 position, int direction) : Tower(position, dir
 	Math::ivec2 point1{ 0, static_cast<int>(range_y * offset * size.y) };
 	Math::ivec2 point2{ static_cast<int>(range_x * size.x), range_y * size.y - static_cast<int>(size.y * offset) };
 	hp = max_hp;
-
+	ammo = max_ammo;
+	real_attack_delay = attack_delay;
 	// RIGHT, LEFT, UP, DOWN
 	switch (direction)
 	{
@@ -297,7 +323,8 @@ Wide_Tower::Wide_Tower(Math::vec2 position, int direction) : Tower(position, dir
 	Math::ivec2 point1{ 0, static_cast<int>(range_y * offset * size.y) };
 	Math::ivec2 point2{ static_cast<int>(range_x * size.x), range_y * size.y - static_cast<int>(size.y * offset) };
 	hp = max_hp;
-
+	ammo = max_ammo;
+	real_attack_delay = attack_delay;
 	// RIGHT, LEFT, UP, DOWN
 	switch (direction)
 	{
@@ -326,8 +353,8 @@ Wide_Tower::Wide_Tower(Math::vec2 position, int direction) : Tower(position, dir
 
 bool Tower::CanCollideWith(GameObjectTypes type)
 {
-	if(static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
-	   static_cast<int>(type) <= static_cast<int>(GameObjectTypes::Monster_End)
+	if ((static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
+		static_cast<int>(type) <= static_cast<int>(GameObjectTypes::Monster_End))
 		)
 	{
 		return true;
@@ -363,8 +390,8 @@ void Tower::ResolveCollision(GameObject* other_object)
 
 bool Basic_Tower::CanCollideWith(GameObjectTypes type)
 {
-	if (static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
-		static_cast<int>(type) <= static_cast<int>(GameObjectTypes::Monster_End)
+	if ((static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
+		static_cast<int>(type) <= static_cast<int>(GameObjectTypes::Monster_End))
 		)
 	{
 		return true;
@@ -400,8 +427,8 @@ void Basic_Tower::ResolveCollision(GameObject* other_object)
 
 bool Double_Tower::CanCollideWith(GameObjectTypes type)
 {
-	if (static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
-		static_cast<int>(type) <= static_cast<int>(GameObjectTypes::Monster_End)
+	if ((static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
+		static_cast<int>(type) <= static_cast<int>(GameObjectTypes::Monster_End))
 		)
 	{
 		return true;
@@ -437,8 +464,8 @@ void Double_Tower::ResolveCollision(GameObject* other_object)
 
 bool Triple_Tower::CanCollideWith(GameObjectTypes type)
 {
-	if (static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
-		static_cast<int>(type) <= static_cast<int>(GameObjectTypes::Monster_End)
+	if ((static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
+		static_cast<int>(type) <= static_cast<int>(GameObjectTypes::Monster_End))
 		)
 	{
 		return true;
@@ -474,8 +501,8 @@ void Triple_Tower::ResolveCollision(GameObject* other_object)
 
 bool Push_Tower::CanCollideWith(GameObjectTypes type)
 {
-	if (static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
-		static_cast<int>(type) <= static_cast<int>(GameObjectTypes::Monster_End)
+	if ((static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
+		static_cast<int>(type) <= static_cast<int>(GameObjectTypes::Monster_End))
 		)
 	{
 		return true;
@@ -493,6 +520,13 @@ void Push_Tower::ResolveCollision(GameObject* other_object)
 	if (attack_ready == false)
 		return;
 
+	if (other_object->Type() == GameObjectTypes::Stealth_Monster)
+	{
+		Stealth_Monster* temp = static_cast<Stealth_Monster*>(other_object);
+		if (temp->IsStealth())
+			return;
+	}
+
 	if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
 		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)
 		)
@@ -504,8 +538,8 @@ void Push_Tower::ResolveCollision(GameObject* other_object)
 
 bool Wide_Tower::CanCollideWith(GameObjectTypes type)
 {
-	if (static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
-		static_cast<int>(type) <= static_cast<int>(GameObjectTypes::Monster_End)
+	if ((static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
+		static_cast<int>(type) <= static_cast<int>(GameObjectTypes::Monster_End))
 		)
 	{
 		return true;
@@ -523,6 +557,13 @@ void Wide_Tower::ResolveCollision(GameObject* other_object)
 	if (attack_ready == false)
 		return;
 
+	if (other_object->Type() == GameObjectTypes::Stealth_Monster)
+	{
+		Stealth_Monster* temp = static_cast<Stealth_Monster*>(other_object);
+		if (temp->IsStealth())
+			return;
+	}
+
 	if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
 		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)
 		)
@@ -534,44 +575,47 @@ void Wide_Tower::ResolveCollision(GameObject* other_object)
 
 
 // Tower Upgrade
-void Basic_Tower::Upgrade()
+Tower* Basic_Tower::Upgrade()
 {
 	Math::ivec2 tile_position = this->GetTilePosition();
 
-	if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() < Double_Tower::GetCost())
+	if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() > Double_Tower::GetCost())
 	{
 		Map::GetInstance().DeleteTower(tile_position);
 
 		Map::GetInstance().BuildTower(tile_position, GameObjectTypes::Double_Tower, direction);
 	}
+	return Map::GetInstance().GetTower(tile_position);
 }
-void Double_Tower::Upgrade()
+Tower* Double_Tower::Upgrade()
 {
 	Math::ivec2 tile_position = this->GetTilePosition();
 
-	if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() < Triple_Tower::GetCost())
+	if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() > Triple_Tower::GetCost())
 	{
 		Map::GetInstance().DeleteTower(tile_position);
 
 		Map::GetInstance().BuildTower(tile_position, GameObjectTypes::Triple_Tower, direction);
 	}
+	return Map::GetInstance().GetTower(tile_position);
 }
-void Triple_Tower::Upgrade()
+Tower* Triple_Tower::Upgrade()
 {
 	Engine::GetLogger().LogDebug("You cannot upgrade more!");
+	return this;
 }
-void Push_Tower::Upgrade()
+Tower* Push_Tower::Upgrade()
 {
 	Engine::GetLogger().LogDebug("Upgrade count: " + std::to_string(upgrade_count));
 	switch (upgrade_count)
 	{
 	case 0:
-		Push_Tower::attack_delay -= 0.75;
+		real_attack_delay -= 0.75;
 		++upgrade_count;
 		break;
 
 	case 1:
-		Push_Tower::attack_delay -= 0.75;
+		real_attack_delay -= 0.75;
 		++upgrade_count;
 		break;
 
@@ -579,19 +623,20 @@ void Push_Tower::Upgrade()
 
 		break;
 	}
+	return this;
 }
-void Wide_Tower::Upgrade()
+Tower* Wide_Tower::Upgrade()
 {
 	Engine::GetLogger().LogDebug("Upgrade count: " + std::to_string(upgrade_count));
 	switch (upgrade_count)
 	{
 	case 0:
-		Wide_Tower::attack_delay -= 0.75;
+		real_attack_delay -= 0.75;
 		++upgrade_count;
 		break;
 
 	case 1:
-		Wide_Tower::attack_delay -= 0.75;
+		real_attack_delay -= 0.75;
 		++upgrade_count;
 		break;
 
@@ -599,7 +644,57 @@ void Wide_Tower::Upgrade()
 
 		break;
 	}
+	return this;
 }
+
+
+// Show Info
+void Basic_Tower::ShowInfo()
+{
+	std::cout << "\n\n";
+	Engine::GetLogger().LogDebug("Type: " + TypeName());
+	Engine::GetLogger().LogDebug("HP: \t\t" + std::to_string(hp) + " / " + std::to_string(max_hp));
+	Engine::GetLogger().LogDebug("attack_delay: \t" + std::to_string(attack_delay));
+	Engine::GetLogger().LogDebug("Tile Pos: \t" + std::to_string(tile_position.x) + ", " + std::to_string(tile_position.y));
+	Engine::GetLogger().LogDebug("Ammo: \t\t" + std::to_string(ammo) + " / " + std::to_string(max_ammo));
+}
+void Double_Tower::ShowInfo()
+{
+	std::cout << "\n\n";
+	Engine::GetLogger().LogDebug("Type: " + TypeName());
+	Engine::GetLogger().LogDebug("HP: \t\t" + std::to_string(hp) + " / " + std::to_string(max_hp));
+	Engine::GetLogger().LogDebug("attack_delay: \t" + std::to_string(attack_delay));
+	Engine::GetLogger().LogDebug("Tile Pos: \t" + std::to_string(tile_position.x) + ", " + std::to_string(tile_position.y));
+	Engine::GetLogger().LogDebug("Ammo: \t\t" + std::to_string(ammo) + " / " + std::to_string(max_ammo));
+}
+void Triple_Tower::ShowInfo()
+{
+	std::cout << "\n\n";
+	Engine::GetLogger().LogDebug("Type: " + TypeName());
+	Engine::GetLogger().LogDebug("HP: \t\t" + std::to_string(hp) + " / " + std::to_string(max_hp));
+	Engine::GetLogger().LogDebug("attack_delay: \t" + std::to_string(attack_delay));
+	Engine::GetLogger().LogDebug("Tile Pos: \t" + std::to_string(tile_position.x) + ", " + std::to_string(tile_position.y));
+	Engine::GetLogger().LogDebug("Ammo: \t\t" + std::to_string(ammo) + " / " + std::to_string(max_ammo));
+}
+void Push_Tower::ShowInfo()
+{
+	std::cout << "\n\n";
+	Engine::GetLogger().LogDebug("Type: " + TypeName());
+	Engine::GetLogger().LogDebug("HP: \t\t" + std::to_string(hp) + " / " + std::to_string(max_hp));
+	Engine::GetLogger().LogDebug("attack_delay: \t" + std::to_string(real_attack_delay));
+	Engine::GetLogger().LogDebug("Tile Pos: \t" + std::to_string(tile_position.x) + ", " + std::to_string(tile_position.y));
+	Engine::GetLogger().LogDebug("Ammo: \t\t" + std::to_string(ammo) + " / " + std::to_string(max_ammo));
+}
+void Wide_Tower::ShowInfo()
+{
+	std::cout << "\n\n";
+	Engine::GetLogger().LogDebug("Type: " + TypeName());
+	Engine::GetLogger().LogDebug("HP: \t\t" + std::to_string(hp) + " / " + std::to_string(max_hp));
+	Engine::GetLogger().LogDebug("attack_delay: \t" + std::to_string(real_attack_delay));
+	Engine::GetLogger().LogDebug("Tile Pos: \t" + std::to_string(tile_position.x) + ", " + std::to_string(tile_position.y));
+	Engine::GetLogger().LogDebug("Ammo: \t\t" + std::to_string(ammo) + " / " + std::to_string(max_ammo));
+}
+
 
 
 // State functions charging
@@ -616,7 +711,7 @@ void Tower::State_Charging::Update(GameObject* object, double dt) {
 	tower -> attack_count += dt;
 
 	// Attack and change state to state_attacking
-	if (tower->attack_count >= tower->attack_delay) {
+	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0) {
 		tower->attack_ready = true;
 		/*tower->attack_count = 0;
 		tower->change_state(&tower->state_attacking);*/
@@ -664,7 +759,7 @@ void Basic_Tower::State_Charging::Update(GameObject* object, double dt) {
 
 	tower->attack_count += dt;
 
-	if (tower->attack_count >= tower->attack_delay) {
+	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0) {
 		tower->attack_ready = true;
 		/*tower->attack_count = 0;
 		tower->change_state(&tower->state_attacking);*/
@@ -685,7 +780,7 @@ void Basic_Tower::State_Attacking::Update(GameObject* object, double dt) {
 	Basic_Tower* tower = static_cast<Basic_Tower*>(object);
 
 	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x + tower->size.x / 2, tower->GetPosition().y + tower->size.y / 2 });
-
+	--tower->ammo;
 	new Basic_Bullet(tower_position, tower->bullet_direction * Bullet::DefaultVelocity);
 	tower->change_state(&tower->state_charging);
 }
@@ -709,7 +804,7 @@ void Double_Tower::State_Charging::Update(GameObject* object, double dt) {
 
 	tower->attack_count += dt;
 
-	if (tower->attack_count >= tower->attack_delay) {
+	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0) {
 		tower->attack_ready = true;
 		/*tower->attack_count = 0;
 		tower->change_state(&tower->state_attacking);*/
@@ -754,6 +849,7 @@ void Double_Tower::State_Attacking::Update(GameObject* object, double dt) {
 		break;
 	}
 
+	--tower->ammo;
 	new Basic_Bullet(point1, tower->bullet_direction * Bullet::DefaultVelocity);
 	new Basic_Bullet(point2, tower->bullet_direction * Bullet::DefaultVelocity);
 
@@ -778,7 +874,7 @@ void Triple_Tower::State_Charging::Update(GameObject* object, double dt) {
 
 	tower->attack_count += dt;
 
-	if (tower->attack_count >= tower->attack_delay) {
+	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0) {
 		tower->attack_ready = true;
 		/*tower->attack_count = 0;
 		tower->change_state(&tower->state_attacking);*/
@@ -830,6 +926,7 @@ void Triple_Tower::State_Attacking::Update(GameObject* object, double dt) {
 	bullet_direction_left.Normalize();
 	bullet_direction_right.Normalize();
 
+	--tower->ammo;
 	new Basic_Bullet(tower_position, bullet_direction_left * Bullet::DefaultVelocity);
 	new Basic_Bullet(tower_position, bullet_direction_middle * Bullet::DefaultVelocity);
 	new Basic_Bullet(tower_position, bullet_direction_right * Bullet::DefaultVelocity);
@@ -855,7 +952,7 @@ void Push_Tower::State_Charging::Update(GameObject* object, double dt) {
 
 	tower->attack_count += dt;
 
-	if (tower->attack_count >= tower->attack_delay) {
+	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0) {
 		tower->attack_ready = true;
 		/*tower->attack_count = 0;
 		tower->change_state(&tower->state_attacking);*/
@@ -880,7 +977,8 @@ void Push_Tower::State_Attacking::Update(GameObject* object, double dt) {
 	Math::vec2 offset(tower->size.x * 0.1, tower->size.y * 0.1);
 
 	Math::vec2 bullet_direction = tower->bullet_direction;
-	
+
+	--tower->ammo;
 	new Pushing_Bullet(tower_position, bullet_direction * Pushing_Bullet::DefaultVelocity);
 
 	tower->change_state(&tower->state_charging);
@@ -904,7 +1002,7 @@ void Wide_Tower::State_Charging::Update(GameObject* object, double dt) {
 
 	tower->attack_count += dt;
 
-	if (tower->attack_count >= tower->attack_delay) {
+	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0) {
 		tower->attack_ready = true;
 		/*tower->attack_count = 0;
 		tower->change_state(&tower->state_attacking);*/
@@ -930,6 +1028,7 @@ void Wide_Tower::State_Attacking::Update(GameObject* object, double dt) {
 
 	Math::vec2 bullet_direction = tower->bullet_direction;
 
+	--tower->ammo;
 	// RIGHT, LEFT, UP, DOWN
 	switch (tower->direction)
 	{
@@ -963,6 +1062,7 @@ void Wide_Tower::State_Attacking::CheckExit(GameObject* object) {
 int Tower::cost = 0;
 double Tower::attack_delay = 0.0;
 int Tower::max_hp = 0;
+int Tower::max_ammo = 0;
 
 int Basic_Tower::cost = 0;
 double Basic_Tower::attack_delay = 0.0;
@@ -970,6 +1070,7 @@ int Basic_Tower::max_hp = 0;
 int Basic_Tower::range_x = 0;
 int Basic_Tower::range_y = 0;
 double Basic_Tower::attack_range = 0;
+int Basic_Tower::max_ammo = 0;
 
 
 int Double_Tower::cost = 0;
@@ -978,6 +1079,7 @@ int Double_Tower::max_hp = 0;
 int Double_Tower::range_x = 0;
 int Double_Tower::range_y = 0;
 double Double_Tower::attack_range = 0;
+int Double_Tower::max_ammo = 0;
 
 int Triple_Tower::cost = 0;
 double Triple_Tower::attack_delay = 0.0;
@@ -985,6 +1087,7 @@ int Triple_Tower::max_hp = 0;
 int Triple_Tower::range_x = 0;
 int Triple_Tower::range_y = 0;
 double Triple_Tower::attack_range = 0;
+int Triple_Tower::max_ammo = 0;
 
 int Push_Tower::cost = 0;
 double Push_Tower::attack_delay = 0.0;
@@ -992,6 +1095,7 @@ int Push_Tower::max_hp = 0;
 int Push_Tower::range_x = 0;
 int Push_Tower::range_y = 0;
 double Push_Tower::attack_range = 0;
+int Push_Tower::max_ammo = 0;
 
 int Wide_Tower::cost = 0;
 double Wide_Tower::attack_delay = 0.0;
@@ -999,6 +1103,7 @@ int Wide_Tower::max_hp = 0;
 int Wide_Tower::range_x = 0;
 int Wide_Tower::range_y = 0;
 double Wide_Tower::attack_range = 0;
+int Wide_Tower::max_ammo = 0;
 
 
 // File parsing from the txt file
@@ -1018,6 +1123,8 @@ void TowerFactory::InitBasicTowerFromFile(const std::string& filePath) {
 		file >> Basic_Tower::range_y;
 
 		file >> Basic_Tower::attack_range;
+
+		file >> Basic_Tower::max_ammo;
 	}
 
 }
@@ -1037,6 +1144,8 @@ void TowerFactory::InitDoubleTowerFromFile(const std::string& filePath) {
 		file >> Double_Tower::range_y;
 
 		file >> Double_Tower::attack_range;
+
+		file >> Double_Tower::max_ammo;
 	}
 
 }
@@ -1056,6 +1165,8 @@ void TowerFactory::InitTripleTowerFromFile(const std::string& filePath) {
 		file >> Triple_Tower::range_y;
 
 		file >> Triple_Tower::attack_range;
+
+		file >> Triple_Tower::max_ammo;
 	}
 
 }
@@ -1075,6 +1186,8 @@ void TowerFactory::InitPushTowerFromFile(const std::string& filePath) {
 		file >> Push_Tower::range_y;
 
 		file >> Push_Tower::attack_range;
+
+		file >> Push_Tower::max_ammo;
 	}
 
 }
@@ -1094,6 +1207,8 @@ void TowerFactory::InitWideTowerFromFile(const std::string& filePath) {
 		file >> Wide_Tower::range_y;
 
 		file >> Wide_Tower::attack_range;
+
+		file >> Wide_Tower::max_ammo;
 	}
 
 }
@@ -1113,17 +1228,22 @@ void Tower_Adopter::Set_Tower(Tower* tower)
 void Tower_Adopter::Show_Info()
 {
 	if (current_tower == nullptr)
+	{
+		Engine::GetLogger().LogDebug("nullptr!");
 		return;
+	}
 
 	current_tower->ShowInfo();
 }
 void Tower_Adopter::Upgrade()
 {
 	if (current_tower == nullptr)
+	{
+		Engine::GetLogger().LogDebug("nullptr!");
 		return;
+	}
 
-	current_tower->Upgrade();
-	current_tower = nullptr;
+	current_tower = current_tower->Upgrade();
 }
 void Tower_Adopter::Delete()
 {

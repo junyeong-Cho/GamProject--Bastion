@@ -8,6 +8,8 @@ Tower Information Format:
 - Range y: <value>
 - attack range: <value>
 
+- max ammo: <value>
+
 Example:
 100
 1.0
@@ -16,3 +18,5 @@ Example:
 3
 1
 0.125
+
+20

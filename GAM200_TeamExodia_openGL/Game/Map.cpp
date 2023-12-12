@@ -280,3 +280,11 @@ std::string Map::GetType(Math::ivec2 position) const
 {
 	return map[position.y][position.x]->tile->TypeName();
 }
+
+Tower* Map::GetTower(Math::ivec2 position) const
+{
+	int cols = position.y;
+	int rows = position.x;
+
+	return map[cols][rows]->tower;
+}

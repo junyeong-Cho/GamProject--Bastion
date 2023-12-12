@@ -140,3 +140,16 @@ std::vector<Monster*> GAM200::GameObjectManager::GetMonstersInRange(GAM200::Game
 
 	return monsters;
 }
+
+
+Player* GAM200::GameObjectManager::GetPlayer()
+{
+	for (GameObject* object : objects) {
+		if (object->Type() == GameObjectTypes::Player)
+		{
+			Player* player = static_cast<Player*>(object);
+			return player;
+		}
+	}
+	return nullptr;
+}

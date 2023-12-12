@@ -37,7 +37,10 @@ public:
     void Tower_Destroy();
 
     virtual void ShowInfo();
-    virtual void Upgrade();
+    virtual Tower* Upgrade();
+
+    void check_supplied();
+    virtual void supply_ammo() { ammo = max_ammo; }
 
 protected:
     bool set_basic_tower = false;
@@ -78,6 +81,8 @@ protected:
 
     int upgrade_count = 0;
 
+    int ammo = 0;
+
     class State_Charging : public State
     {
     public:
@@ -104,6 +109,8 @@ private:
     static int cost;
     static double attack_delay;
     static int max_hp;
+
+    static int max_ammo;
 };
 
 
@@ -118,19 +125,11 @@ public:
     bool CanCollideWith(GameObjectTypes type) override;
     void ResolveCollision(GameObject* other_object) override;
 
-    void Upgrade() override;
+    Tower* Upgrade() override;
 
     static int GetCost() { return cost; }
-    virtual void ShowInfo()
-    {
-        Engine::GetLogger().LogDebug("Type: " + TypeName());
-        Engine::GetLogger().LogDebug("HP: \t\t" + std::to_string(hp));
-        Engine::GetLogger().LogDebug("max_hp: \t" + std::to_string(max_hp));
-        Engine::GetLogger().LogDebug("attack_delay: \t" + std::to_string(attack_delay));
-        Engine::GetLogger().LogDebug("Tile Pos: \t" + std::to_string(tile_position.x) + ", " + std::to_string(tile_position.y));
-        std::cout << "\n\n";
-    }
-
+    void ShowInfo() override;
+    void supply_ammo() override { ammo = max_ammo; }
 
     class State_Charging : public State
     {
@@ -161,6 +160,8 @@ private:
     static int range_x;
     static int range_y;
     static double attack_range;
+
+    static int max_ammo;
 };
 
 
@@ -176,18 +177,11 @@ public:
     bool CanCollideWith(GameObjectTypes type) override;
     void ResolveCollision(GameObject* other_object) override;
 
-    void Upgrade() override;
+    Tower* Upgrade() override;
 
     static int GetCost() { return cost; }
-    virtual void ShowInfo()
-    {
-        Engine::GetLogger().LogDebug("Type: " + TypeName());
-        Engine::GetLogger().LogDebug("HP: \t\t" + std::to_string(hp));
-        Engine::GetLogger().LogDebug("max_hp: \t" + std::to_string(max_hp));
-        Engine::GetLogger().LogDebug("attack_delay: \t" + std::to_string(attack_delay));
-        Engine::GetLogger().LogDebug("Tile Pos: \t" + std::to_string(tile_position.x) + ", " + std::to_string(tile_position.y));
-        std::cout << "\n\n";
-    }
+    void ShowInfo() override;
+    void supply_ammo() override { ammo = max_ammo; }
 
     class State_Charging : public State
     {
@@ -218,6 +212,8 @@ private:
     static int range_x;
     static int range_y;
     static double attack_range;
+
+    static int max_ammo;
 };
 
 
@@ -233,18 +229,11 @@ public:
     bool CanCollideWith(GameObjectTypes type) override;
     void ResolveCollision(GameObject* other_object) override;
 
-    void Upgrade() override;
+    Tower* Upgrade() override;
 
     static int GetCost() { return cost; }
-    virtual void ShowInfo()
-    {
-        Engine::GetLogger().LogDebug("Type: " + TypeName());
-        Engine::GetLogger().LogDebug("HP: \t\t" + std::to_string(hp));
-        Engine::GetLogger().LogDebug("max_hp: \t" + std::to_string(max_hp));
-        Engine::GetLogger().LogDebug("attack_delay: \t" + std::to_string(attack_delay));
-        Engine::GetLogger().LogDebug("Tile Pos: \t" + std::to_string(tile_position.x) + ", " + std::to_string(tile_position.y));
-        std::cout << "\n\n";
-    }
+    void ShowInfo() override;
+    void supply_ammo() override { ammo = max_ammo; }
 
     class State_Charging : public State
     {
@@ -275,6 +264,8 @@ private:
     static int range_x;
     static int range_y;
     static double attack_range;
+
+    static int max_ammo;
 };
 
 
@@ -290,18 +281,11 @@ public:
     bool CanCollideWith(GameObjectTypes type) override;
     void ResolveCollision(GameObject* other_object) override;
 
-    void Upgrade() override;
+    Tower* Upgrade() override;
 
     static int GetCost() { return cost; }
-    virtual void ShowInfo()
-    {
-        Engine::GetLogger().LogDebug("Type: " + TypeName());
-        Engine::GetLogger().LogDebug("HP: \t\t" + std::to_string(hp));
-        Engine::GetLogger().LogDebug("max_hp: \t" + std::to_string(max_hp));
-        Engine::GetLogger().LogDebug("attack_delay: \t" + std::to_string(attack_delay));
-        Engine::GetLogger().LogDebug("Tile Pos: \t" + std::to_string(tile_position.x) + ", " + std::to_string(tile_position.y));
-        std::cout << "\n\n";
-    }
+    void ShowInfo() override;
+    void supply_ammo() override { ammo = max_ammo; }
 
     class State_Charging : public State
     {
@@ -327,11 +311,14 @@ private:
     friend class TowerFactory;
     static int cost;
     static double attack_delay;
+    double real_attack_delay;
     static int max_hp;
 
     static int range_x;
     static int range_y;
     static double attack_range;
+
+    static int max_ammo;
 };
 
 
@@ -347,18 +334,11 @@ public:
     bool CanCollideWith(GameObjectTypes type) override;
     void ResolveCollision(GameObject* other_object) override;
 
-    void Upgrade() override;
+    Tower* Upgrade() override;
 
     static int GetCost() { return cost; }
-    virtual void ShowInfo()
-    {
-        Engine::GetLogger().LogDebug("Type: " + TypeName());
-        Engine::GetLogger().LogDebug("HP: \t\t" + std::to_string(hp));
-        Engine::GetLogger().LogDebug("max_hp: \t" + std::to_string(max_hp));
-        Engine::GetLogger().LogDebug("attack_delay: \t" + std::to_string(attack_delay));
-        Engine::GetLogger().LogDebug("Tile Pos: \t" + std::to_string(tile_position.x) + ", " + std::to_string(tile_position.y));
-        std::cout << "\n\n";
-    }
+    void ShowInfo() override;
+    void supply_ammo() override { ammo = max_ammo; }
 
     class State_Charging : public State
     {
@@ -384,11 +364,14 @@ private:
     friend class TowerFactory;
     static int cost;
     static double attack_delay;
+    double real_attack_delay;
     static int max_hp;
 
     static int range_x;
     static int range_y;
     static double attack_range;
+
+    static int max_ammo;
 };
 
 

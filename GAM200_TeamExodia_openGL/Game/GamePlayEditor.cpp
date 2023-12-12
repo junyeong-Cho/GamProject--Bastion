@@ -68,7 +68,6 @@ void GamePlayEditor::Load()
 	player_ptr = new Player({ 0, 0 }, tile_size.x * 2 / 3, tile_size.y * 2 / 3);
 	GetGSComponent<GAM200::GameObjectManager>()->Add(player_ptr);
 
-
 	// Camera Setting
 	GetGSComponent<GAM200::Camera>()->SetPosition({ 0, 0 });
 

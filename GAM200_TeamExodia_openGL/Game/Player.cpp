@@ -165,82 +165,14 @@ void Player::ResolveCollision(GameObject* other_object) {
         invincibility_count = 0;
         other_object->ResolveCollision(this);
     }
+    else if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Tower) &&
+        static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Tower_End)
+        )
+    {
 
-
-
-    switch (other_object->Type()) {
-
-    case GameObjectTypes::Monster:
-        life_count -= Monster::GetDamage();
-        invincibility_count = 0;
         other_object->ResolveCollision(this);
-        break;
-
-    case GameObjectTypes::Basic_Monster:
-        life_count -= Basic_Monster::GetDamage();
-        invincibility_count = 0;
-        other_object->ResolveCollision(this);
-        break;
-
-    case GameObjectTypes::Fast_Monster:
-        life_count -= Fast_Monster::GetDamage();
-        invincibility_count = 0;
-        other_object->ResolveCollision(this);
-        break;
-
-    case GameObjectTypes::Slow_Monster:
-        life_count -= Slow_Monster::GetDamage();
-        invincibility_count = 0;
-        other_object->ResolveCollision(this);
-        break;
-
-    case GameObjectTypes::Weak_Monster:
-        life_count -= Weak_Monster::GetDamage();
-        invincibility_count = 0;
-        other_object->ResolveCollision(this);
-        break;
-
-
-
-    case GameObjectTypes::Tile:
-
-        break;
-
-    case GameObjectTypes::Block_Tile:
-        /*if (abs(centerX) > abs(centerY)) {
-            if (centerX < 0) {
-                UpdatePosition(Math::vec2{ (other_rect.Left() - player_rect.Right()), 0.0 });
-                SetVelocity({ 0, GetVelocity().y });
-            }
-            else {
-                UpdatePosition(Math::vec2{ (other_rect.Right() - player_rect.Left()), 0.0 });
-                SetVelocity({ 0, GetVelocity().y });
-            }
-        }
-        else {
-            if (centerY < 0) {
-                UpdatePosition(Math::vec2{ 0.0, (other_rect.Bottom() - player_rect.Top()) });
-                SetVelocity({ GetVelocity().x, 0 });
-            }
-            else {
-                UpdatePosition(Math::vec2{ 0.0, (other_rect.Top() - player_rect.Bottom()) });
-                SetVelocity({ GetVelocity().x, 0 });
-            }
-        }*/
-
-        break;
-    case GameObjectTypes::Pass__Tile:
-
-        break;
-
-    case GameObjectTypes::Tower:
-
-        break;
-
-    default:
-
-        break;
     }
+
 }
 
 void Player::update_velocity(double dt) {

@@ -20,6 +20,7 @@ Updated:    September 26, 2023
 
 namespace Math { class TransformationMatrix; }
 class Monster;
+class Player;
 
 namespace GAM200
 {
@@ -35,6 +36,7 @@ namespace GAM200
         void CollisionTest();
         Monster* GetClosestMonster(GAM200::GameObject*);
         std::vector<Monster*> GetMonstersInRange(GAM200::GameObject*, double);
+        Player* GetPlayer();
 
     private:
         std::list<GameObject*> objects;
