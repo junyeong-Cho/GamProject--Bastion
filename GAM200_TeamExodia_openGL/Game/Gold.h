@@ -14,7 +14,10 @@ public:
     int Value() const;
     void SetValue(int value) { goldValue = value; }
     void Interest();
+    void Upgrade();
 
 private:
     int goldValue;
+
+    double interest_rate = 0.2;
 };

@@ -41,6 +41,16 @@ HBG_Ui::HBG_Ui(int hp, int gold, int boost) : Player_HP(hp), Tower_GOLD(gold), P
         delete_t_button = new Delete_Tower_Button(Math::vec2(1120, 720 - 390), Math::vec2(140, 70));
         pass_t_button = new Pass_Tile_Button(Math::vec2(1120, 720 - 470), Math::vec2(140, 70));
         block_t_button = new Block_Tile_Button(Math::vec2(1120, 720 - 550), Math::vec2(140, 70));
+
+       /* push_t_button = new Push_Tower_Button(Math::vec2(1120, 720 - 230), Math::vec2(140, 70));
+        wide_t_button = new Wide_Tower_Button(Math::vec2(1120, 720 - 310), Math::vec2(140, 70));
+
+        upgrade_button = new Upgrade_Button(Math::vec2(1120, 720 - 390), Math::vec2(140, 70));
+        delete_button = new Delete_Button*/
+
+        choice_1_button = new Choice_1_Button(Math::vec2(50, 100), Math::vec2(300,500));
+        choice_2_button = new Choice_2_Button(Math::vec2(400, 100), Math::vec2(300, 500));
+        choice_3_button = new Choice_3_Button(Math::vec2(750, 100), Math::vec2(300, 500));
     }
 
 }

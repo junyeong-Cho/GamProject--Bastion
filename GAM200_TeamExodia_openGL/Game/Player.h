@@ -41,6 +41,11 @@ public:
 	const Math::vec2& GetPosition() const { return GameObject::GetPosition(); }
     int GetHP() const { return life_count; }
     void SetHP(int life) { life_count = life; }
+    void Recover() { life_count = max_life; }
+
+    void UpgradeAttackSpeed() { attack_cool *= 0.5; }
+    void EnableShotGun() { shot_gun_mode = true; }
+    void EnableGodMode() { god_mode = true; }
 
 private:
 
@@ -76,11 +81,14 @@ private:
     static constexpr double invincibilityTime = 1.0;
     double invincibility_count = 0;
 
-    static constexpr double attack_cool = 1.0;
+    double attack_cool = 1.0;
     double attack_count = 0;
 
     int max_life = 20;
     int life_count = 0;
+
+    bool shot_gun_mode = false;
+    bool god_mode = false;
 
 
     //Finite State Machines

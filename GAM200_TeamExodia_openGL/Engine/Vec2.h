@@ -11,6 +11,7 @@ Created:    March 8, 2023
 #pragma once
 
 #include <functional>
+#define PI 3.14159265358979323846
 
 namespace Math {
     struct vec2 {
@@ -41,7 +42,14 @@ namespace Math {
         double GetLength() { return sqrt(x * x + y * y); }
 
         void Normalize();
+        void Rotate(double angleDegrees) {
+            double angleRadians = angleDegrees * PI / 180.0;
+            double cosValue = cos(angleRadians);
+            double sinValue = sin(angleRadians);
 
+            x = x * cosValue - y*sinValue;
+            y = x * sinValue + y * cosValue;
+        }
     };
 
     vec2 operator*(double scale, const vec2& v);

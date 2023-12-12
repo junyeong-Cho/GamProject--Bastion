@@ -134,6 +134,71 @@ public:
 };
 
 
+class Push_Tower_Button : public Button
+{
+public:
+    Push_Tower_Button(Math::vec2 position, Math::vec2 size);
+
+    void func(Math::ivec2) override;
+};
+
+
+class Wide_Tower_Button : public Button
+{
+public:
+    Wide_Tower_Button(Math::vec2 position, Math::vec2 size);
+
+    void func(Math::ivec2) override;
+};
+
+
+class Upgrade_Button : public Button
+{
+public:
+    Upgrade_Button(Math::vec2 position, Math::vec2 size);
+
+    void func(Math::ivec2) override;
+};
+
+
+class Delete_Button : public Button
+{
+public:
+    Delete_Button(Math::vec2 position, Math::vec2 size);
+
+    void func(Math::ivec2) override;
+};
+
+
+class Choice_1_Button : public Button
+{
+public:
+    Choice_1_Button(Math::vec2 position, Math::vec2 size);
+
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+    void func(Math::ivec2) override;
+};
+
+
+class Choice_2_Button : public Button
+{
+public:
+    Choice_2_Button(Math::vec2 position, Math::vec2 size);
+
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+    void func(Math::ivec2) override;
+};
+
+
+class Choice_3_Button : public Button
+{
+public:
+    Choice_3_Button(Math::vec2 position, Math::vec2 size);
+
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+    void func(Math::ivec2) override;
+};
+
 
 
 

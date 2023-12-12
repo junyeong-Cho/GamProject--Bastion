@@ -188,38 +188,117 @@ void Block_Tile_Button::func(Math::ivec2 pos)
 }
 
 
-
-
-/*
-
-Basic_Monster_Button::Basic_Monster_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+Push_Tower_Button::Push_Tower_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
 {
-
+	//tower_type[0] = true;
+	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
-void Basic_Monster_Button::func(Math::ivec2 pos)
+void Push_Tower_Button::func(Math::ivec2 pos)
 {
-
+	Engine::GetGameStateManager().GetGSComponent<BuildMode>()->Build(GameObjectTypes::Push_Tower);
 }
 
 
-Fast_Monster_Button::Fast_Monster_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+Wide_Tower_Button::Wide_Tower_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
 {
-
+	//tower_type[0] = true;
+	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
-void Fast_Monster_Button::func(Math::ivec2 pos)
+void Wide_Tower_Button::func(Math::ivec2 pos)
 {
-
-}
-
-
-
-Slow_Monster_Button::Slow_Monster_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
-{
-
-}
-void Slow_Monster_Button::func(Math::ivec2 pos)
-{
-
+	Engine::GetGameStateManager().GetGSComponent<BuildMode>()->Build(GameObjectTypes::Wide_Tower);
 }
 
-*/
+
+Upgrade_Button::Upgrade_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+	//tower_type[0] = true;
+	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
+}
+void Upgrade_Button::func(Math::ivec2 pos)
+{
+	Tower_Adopter::GetInstance().Upgrade();
+}
+
+
+Delete_Button::Delete_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+	//tower_type[0] = true;
+	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
+}
+void Delete_Button::func(Math::ivec2 pos)
+{
+	Tower_Adopter::GetInstance().Delete();
+}
+
+
+Choice_1_Button::Choice_1_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+	//tower_type[0] = true;
+	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
+}
+void Choice_1_Button::func(Math::ivec2 pos)
+{
+	Engine::GetLogger().LogDebug("Choice 1 Button func!");
+	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
+	{
+		Engine::GetGameStateManager().GetGSComponent<Wave>()->Choice(1);
+	}
+}
+void Choice_1_Button::Draw(Math::TransformationMatrix camera_matrix)
+{
+	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
+	{
+		GAM200::DrawShape shape;
+
+		shape.DrawRectangle(50, 100, 300, 500);
+	}
+}
+
+
+Choice_2_Button::Choice_2_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+	//tower_type[0] = true;
+	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
+}
+void Choice_2_Button::func(Math::ivec2 pos)
+{
+	Engine::GetLogger().LogDebug("Choice 2 Button func!");
+	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
+	{
+		Engine::GetGameStateManager().GetGSComponent<Wave>()->Choice(2);
+	}
+}
+void Choice_2_Button::Draw(Math::TransformationMatrix camera_matrix)
+{
+	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
+	{
+		GAM200::DrawShape shape;
+
+		shape.DrawRectangle(400, 100, 300, 500);
+	}
+}
+
+
+Choice_3_Button::Choice_3_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+	//tower_type[0] = true;
+	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
+}
+void Choice_3_Button::func(Math::ivec2 pos)
+{
+	Engine::GetLogger().LogDebug("Choice 3 Button func!");
+	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
+	{
+		Engine::GetGameStateManager().GetGSComponent<Wave>()->Choice(3);
+	}
+}
+void Choice_3_Button::Draw(Math::TransformationMatrix camera_matrix)
+{
+	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
+	{
+		GAM200::DrawShape shape;
+
+		shape.DrawRectangle(750, 100, 300, 500);
+	}
+}

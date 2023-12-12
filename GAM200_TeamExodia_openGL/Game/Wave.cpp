@@ -28,7 +28,7 @@ void Wave::Start()
 	}
 
 	// Player cannot start the game if there is remaining monsters or if the wave is in progress
-	if (Monster::GetRemainMonster() > 0 || wave_state == InProgress)
+	if (Monster::GetRemainMonster() > 0 || wave_state != NotInProgress)
 		return;
 
 	// Set wave state to InProgress
@@ -46,86 +46,114 @@ void Wave::Start()
 	Engine::GetLogger().LogEvent("Wave " + std::to_string(current_wave + 1) + " starts!");
 }
 
+void Wave::Choice(int choice)
+{
+	// some mechanism
+
+
+	Engine::GetGameStateManager().GetGSComponent<Gold>()->Interest();
+	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetPlayer()->Recover();
+	wave_state = Wave_State::NotInProgress;
+}
+
 void Wave::Update(double dt)
 {
-	
-
-	// If wave is not in progress, return
-	if (wave_state == Wave::NotInProgress)
+	switch (wave_state)
 	{
-		return;
-	}
+	case Wave_State::NotInProgress:
 
-	// Wave update
-	if (wave_of_wave_ended)
-	{
-		if (Monster::GetRemainMonster() == 0)
+
+		break;
+
+	case Wave_State::InProgress:
+
+		// Wave update
+		if (wave_of_wave_ended)
 		{
-			wave_state = Wave_State::NotInProgress;
-			Engine::GetGameStateManager().GetGSComponent<Gold>()->Interest();
-			++current_wave;
-
-			// Win state
-			if (current_wave >= total_wave_num && Monster::GetRemainMonster() == 0)
+			if (Monster::GetRemainMonster() == 0)
 			{
-				Engine::GetLogger().LogEvent("Win!");
-				Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Win));
-				return;
+				wave_state = Wave_State::Term;
+				term_time_count = 0;
+				++current_wave;
+
+				// Win state
+				if (current_wave >= total_wave_num && Monster::GetRemainMonster() == 0)
+				{
+					Engine::GetLogger().LogEvent("Win!");
+					Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Win));
+					return;
+				}
 			}
-		}
-		return;
-	}
-
-
-	// Update the time
-	current_time += dt;
-	monster_produce_time_count += dt;
-
-	// Monster Wave
-	if (current_time > wave_time)
-	{
-		++current_wave_of_wave;
-		if (current_wave_of_wave >= total_wave_of_wave)
-		{
-			Engine::GetLogger().LogEvent("Wave of wave end.");
-			wave_of_wave_ended = true;
 			return;
 		}
 
-		// Reset the current time and get information of wave from the wave_info
-		current_time = 0;
-		std::tie(wave_time, monster_name, monster_num) = wave_info[current_wave][current_wave_of_wave];
 
-		// Update the time_offset
-		time_offset = wave_time / monster_num;
+		// Update the time
+		current_time += dt;
+		monster_produce_time_count += dt;
+
+		// Monster Wave
+		if (current_time > wave_time)
+		{
+			++current_wave_of_wave;
+			if (current_wave_of_wave >= total_wave_of_wave)
+			{
+				Engine::GetLogger().LogEvent("Wave of wave end.");
+				wave_of_wave_ended = true;
+				return;
+			}
+
+			// Reset the current time and get information of wave from the wave_info
+			current_time = 0;
+			std::tie(wave_time, monster_name, monster_num) = wave_info[current_wave][current_wave_of_wave];
+
+			// Update the time_offset
+			time_offset = wave_time / monster_num;
+		}
+
+		// Produce monster
+		if (monster_produce_time_count > time_offset)
+		{
+			monster_produce_time_count = 0;
+
+			if (monster_name == "BASIC")
+			{
+				new Basic_Monster;
+			}
+			else if (monster_name == "FAST")
+			{
+				new Fast_Monster;
+			}
+			else if (monster_name == "SLOW")
+			{
+				new Slow_Monster;
+			}
+			else if (monster_name == "WEAK")
+			{
+				new Weak_Monster;
+			}
+			else if (monster_name == "NONE")
+			{
+
+			}
+		}
+
+
+		break;
+
+	case Wave_State::Term:
+		term_time_count += dt;
+		if (term_time_count >= term_time)
+			wave_state = Wave_State::Upgrade;
+
+		break;
+
+	case Wave_State::Upgrade:
+
+		
+
+		break;
 	}
 
-	// Produce monster
-	if (monster_produce_time_count > time_offset)
-	{
-		monster_produce_time_count = 0;
-
-		if (monster_name == "BASIC")
-		{
-			new Basic_Monster;
-		}
-		else if (monster_name == "FAST")
-		{
-			new Fast_Monster;
-		}
-		else if (monster_name == "SLOW")
-		{
-			new Slow_Monster;
-		}
-		else if (monster_name == "WEAK")
-		{
-			new Weak_Monster;
-		}
-		else if (monster_name == "NONE")
-		{
-
-		}
-	}
-
-
+	
 }

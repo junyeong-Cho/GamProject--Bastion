@@ -99,22 +99,28 @@ void Player::Update(double dt) {
         Engine::GetGameStateManager().GetGSComponent<BuildMode>()->IsBuilding() == false
         )
     {
-        // Some machanism
-        //soundEffect->Play(0);
-
-
-        /*GameObject* closest_monster = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetClosestObject(this);
-        if (closest_monster != nullptr)
+        if (shot_gun_mode)
         {
-            Math::vec2 pos = closest_monster->GetPosition();
-            Engine::GetLogger().LogDebug(std::to_string(pos.x) + ", " + std::to_string(pos.y));
-            Math::vec2 dir = Math::vec2({ pos.x - player_position.x, pos.y - player_position.y});;
-            dir /= dir.GetLength();
-            new Bullet(player_position, dir * Bullet::DefaultVelocity);
-        }*/
+            Math::vec2 offset(static_cast<double>(size_x) * 0.1, static_cast<double>(size_y) * 0.1);
+
+            Math::vec2 left_bullet_direction = Math::vec2({ real_mouse_position.x - player_position.x, real_mouse_position.y - player_position.y });
+            Math::vec2 right_bullet_direction = Math::vec2({ real_mouse_position.x - player_position.x, real_mouse_position.y - player_position.y });
+
+            left_bullet_direction.Normalize();
+            right_bullet_direction.Normalize();
+
+            left_bullet_direction.Rotate(10.0);
+            right_bullet_direction.Rotate(-10.0);
 
 
-        new Basic_Bullet(player_position, bullet_direction * Bullet::DefaultVelocity);
+            new Basic_Bullet(player_position, bullet_direction * Bullet::DefaultVelocity);
+            new Basic_Bullet(player_position, left_bullet_direction * Bullet::DefaultVelocity);
+            new Basic_Bullet(player_position, right_bullet_direction * Bullet::DefaultVelocity);
+        }
+        else
+        {
+            new Basic_Bullet(player_position, bullet_direction * Bullet::DefaultVelocity);
+        }
 
         attack_count = 0;
     }
@@ -161,6 +167,8 @@ void Player::ResolveCollision(GameObject* other_object) {
         static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster_End)
         )
     {
+        if (god_mode)
+            return;
         life_count -= monster->GetDamage();
         invincibility_count = 0;
         other_object->ResolveCollision(this);

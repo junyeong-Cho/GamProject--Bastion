@@ -17,5 +17,10 @@ int Gold::Value() const
 
 void Gold::Interest()
 {
-	goldValue += goldValue / 10;
+	goldValue += static_cast<int>(goldValue * interest_rate);
+}
+
+void Gold::Upgrade()
+{
+	interest_rate += 0.2;
 }

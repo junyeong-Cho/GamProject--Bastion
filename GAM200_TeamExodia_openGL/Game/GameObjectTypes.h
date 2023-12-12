@@ -65,6 +65,7 @@ enum class GameObjectTypes
     Triple_Tower,
     Push_Tower,
     Wide_Tower,
+    Auto_Tower,
     
     Tower_End,
 

@@ -1,6 +1,8 @@
 Tower Information Format:
 
 - Cost: <value>
+- Upgrade Cost: <value>
+
 - Attack Delay: <value>
 - Max HP: <value>
 
@@ -12,6 +14,8 @@ Tower Information Format:
 
 Example:
 100
+100
+
 1.0
 10
 

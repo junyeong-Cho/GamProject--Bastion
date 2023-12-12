@@ -29,6 +29,7 @@ public:
 
     int GetHP() const { return hp; }
     void SetHP(int value) { hp = value; }
+    void Recover() { hp = max_hp; }
     Math::ivec2 GetTilePosition() const { return tile_position; }
 
     bool IsOn() const;
@@ -128,6 +129,7 @@ public:
     Tower* Upgrade() override;
 
     static int GetCost() { return cost; }
+    static int GetUpgradeCost() { return upgrade_cost; }
     void ShowInfo() override;
     void supply_ammo() override { ammo = max_ammo; }
 
@@ -154,6 +156,7 @@ public:
 private:
     friend class TowerFactory;
     static int cost;
+    static int upgrade_cost;
     static double attack_delay;
     static int max_hp;
 
@@ -180,6 +183,7 @@ public:
     Tower* Upgrade() override;
 
     static int GetCost() { return cost; }
+    static int GetUpgradeCost() { return upgrade_cost; }
     void ShowInfo() override;
     void supply_ammo() override { ammo = max_ammo; }
 
@@ -206,6 +210,7 @@ public:
 private:
     friend class TowerFactory;
     static int cost;
+    static int upgrade_cost;
     static double attack_delay;
     static int max_hp;
 
@@ -232,6 +237,7 @@ public:
     Tower* Upgrade() override;
 
     static int GetCost() { return cost; }
+    static int GetUpgradeCost() { return upgrade_cost; }
     void ShowInfo() override;
     void supply_ammo() override { ammo = max_ammo; }
 
@@ -258,6 +264,7 @@ public:
 private:
     friend class TowerFactory;
     static int cost;
+    static int upgrade_cost;
     static double attack_delay;
     static int max_hp;
 
@@ -284,6 +291,7 @@ public:
     Tower* Upgrade() override;
 
     static int GetCost() { return cost; }
+    static int GetUpgradeCost() { return upgrade_cost; }
     void ShowInfo() override;
     void supply_ammo() override { ammo = max_ammo; }
 
@@ -310,6 +318,7 @@ public:
 private:
     friend class TowerFactory;
     static int cost;
+    static int upgrade_cost;
     static double attack_delay;
     double real_attack_delay;
     static int max_hp;
@@ -337,6 +346,7 @@ public:
     Tower* Upgrade() override;
 
     static int GetCost() { return cost; }
+    static int GetUpgradeCost() { return upgrade_cost; }
     void ShowInfo() override;
     void supply_ammo() override { ammo = max_ammo; }
 
@@ -363,6 +373,62 @@ public:
 private:
     friend class TowerFactory;
     static int cost;
+    static int upgrade_cost;
+    static double attack_delay;
+    double real_attack_delay;
+    static int max_hp;
+
+    static int range_x;
+    static int range_y;
+    static double attack_range;
+
+    static int max_ammo;
+};
+
+
+// Auto Tower
+class Auto_Tower : public Tower
+{
+public:
+    Auto_Tower(Math::vec2 position, int direction);
+
+    GameObjectTypes Type() override { return GameObjectTypes::Auto_Tower; }
+    std::string TypeName() override { return "Auto_Tower"; }
+
+    bool CanCollideWith(GameObjectTypes type) override;
+    void ResolveCollision(GameObject* other_object) override;
+
+    Tower* Upgrade() override;
+
+    static int GetCost() { return cost; }
+    static int GetUpgradeCost() { return upgrade_cost; }
+    void ShowInfo() override;
+    void supply_ammo() override { ammo = max_ammo; }
+
+    class State_Charging : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Jumping"; }
+    };
+    class State_Attacking : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Idle"; }
+    };
+
+    State_Charging state_charging;
+    State_Attacking state_attacking;
+
+private:
+    friend class TowerFactory;
+    static int cost;
+    static int upgrade_cost;
     static double attack_delay;
     double real_attack_delay;
     static int max_hp;
@@ -383,6 +449,7 @@ public:
     static void InitTripleTowerFromFile(const std::string& filePath = "assets/towers/Triple_Tower.txt");
     static void InitPushTowerFromFile(const std::string& filePath = "assets/towers/Push_Tower.txt");
     static void InitWideTowerFromFile(const std::string& filePath = "assets/towers/Wide_Tower.txt");
+    static void InitAutoTowerFromFile(const std::string& filePath = "assets/towers/Auto_Tower.txt");
 
 private:
 

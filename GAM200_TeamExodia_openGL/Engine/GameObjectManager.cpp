@@ -9,11 +9,14 @@ Created:    March 14, 2023
 Updated:    September 26, 2023
 */
 
+#include <limits>
+
 #include "GameObjectManager.h"
 #include "GameObject.h"
+
 #include "../Game/GameObjectTypes.h"
-#include <limits>
 #include "../Game/Monster.h"
+#include "../Game/Tower.h"
 
 void GAM200::GameObjectManager::Add(GameObject* object)
 {
@@ -152,4 +155,47 @@ Player* GAM200::GameObjectManager::GetPlayer()
 		}
 	}
 	return nullptr;
+}
+
+
+void GAM200::GameObjectManager::RecoverAllTower()
+{
+	for (GameObject* object : objects)
+	{
+		if (static_cast<int>(object->Type()) >= static_cast<int>(GameObjectTypes::Tower) &&
+			static_cast<int>(object->Type()) <= static_cast<int>(GameObjectTypes::Tower_End))
+		{
+			Tower* tower = static_cast<Tower*>(object);
+			tower->Recover();
+		}
+	}
+}
+
+
+
+void GAM200::GameObjectManager::SupplyAllTower()
+{
+	for (GameObject* object : objects)
+	{
+		if (static_cast<int>(object->Type()) >= static_cast<int>(GameObjectTypes::Tower) &&
+			static_cast<int>(object->Type()) <= static_cast<int>(GameObjectTypes::Tower_End))
+		{
+			Tower* tower = static_cast<Tower*>(object);
+			tower->supply_ammo();
+		}
+	}
+}
+
+
+void GAM200::GameObjectManager::SlowAllMonsters()
+{
+	for (GameObject* object : objects)
+	{
+		if (static_cast<int>(object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
+			static_cast<int>(object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End))
+		{
+			Monster* monster = static_cast<Monster*>(object);
+			monster->Slow();
+		}
+	}
 }

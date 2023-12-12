@@ -43,6 +43,8 @@ public:
 
     void Heal(int value) { life += value; if (life > real_max_life) life = real_max_life; }
 
+    void Slow() { walking_speed *= 0.8; }
+
     static int remaining_monsters;
     
     Math::vec2 tile_size;

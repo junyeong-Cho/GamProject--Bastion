@@ -348,6 +348,48 @@ Wide_Tower::Wide_Tower(Math::vec2 position, int direction) : Tower(position, dir
 	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
 
+Auto_Tower::Auto_Tower(Math::vec2 position, int direction) : Tower(position, direction) {
+	charging_color = { 0.f, 0.f, 0.6f };
+	attack_color = { 0.0f, 0.0f, 0.0f };
+
+	set_basic_tower = true;
+
+	Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
+	goldComponent->Subtract(cost);
+
+	current_state = &state_charging;
+	current_state->Enter(this);
+
+	double offset = 1.0 / 2 - attack_range / 2;
+
+	Math::ivec2 point1{ 0, static_cast<int>(range_y * offset * size.y) };
+	Math::ivec2 point2{ static_cast<int>(range_x * size.x), range_y * size.y - static_cast<int>(size.y * offset) };
+	hp = max_hp;
+	ammo = max_ammo;
+
+	// RIGHT, LEFT, UP, DOWN
+	switch (direction)
+	{
+	case 0:
+		AddGOComponent(new GAM200::RectCollision(Math::irect{ point1, point2 }, this));
+		break;
+
+	case 1:
+		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.x - (range_x - 1) * size.x, point1.y - (range_y - 1) * size.y}, Math::ivec2{point2.x - (range_x - 1) * size.x, point2.y - (range_y - 1) * size.y} }, this));
+		break;
+
+	case 2:
+		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.y , point1.x}, Math::ivec2{point2.y, point2.x} }, this));
+		break;
+
+	case 3:
+		AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{point1.y - (range_y - 1) * size.x , point1.x - (range_x - 1) * size.y}, Math::ivec2{point2.y - (range_y - 1) * size.x, point2.x - size.y - (range_x - 1) * size.y} }, this));
+		break;
+	}
+
+	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
+}
+
 
 // Collision functions
 
@@ -573,13 +615,49 @@ void Wide_Tower::ResolveCollision(GameObject* other_object)
 	}
 }
 
+bool Auto_Tower::CanCollideWith(GameObjectTypes type)
+{
+	if ((static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
+		static_cast<int>(type) <= static_cast<int>(GameObjectTypes::Monster_End))
+		)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+void Auto_Tower::ResolveCollision(GameObject* other_object)
+{
+	Math::rect tower_rect = GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
+	Math::rect other_rect = other_object->GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
+
+	if (attack_ready == false)
+		return;
+
+	if (other_object->Type() == GameObjectTypes::Stealth_Monster)
+	{
+		Stealth_Monster* temp = static_cast<Stealth_Monster*>(other_object);
+		if (temp->IsStealth())
+			return;
+	}
+
+	if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
+		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)
+		)
+	{
+		attack_ready = false;
+		change_state(&this->state_attacking);
+	}
+}
 
 // Tower Upgrade
 Tower* Basic_Tower::Upgrade()
 {
 	Math::ivec2 tile_position = this->GetTilePosition();
 
-	if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() > Double_Tower::GetCost())
+	if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() > Basic_Tower::GetUpgradeCost())
 	{
 		Map::GetInstance().DeleteTower(tile_position);
 
@@ -591,7 +669,7 @@ Tower* Double_Tower::Upgrade()
 {
 	Math::ivec2 tile_position = this->GetTilePosition();
 
-	if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() > Triple_Tower::GetCost())
+	if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() > Double_Tower::GetUpgradeCost())
 	{
 		Map::GetInstance().DeleteTower(tile_position);
 
@@ -606,44 +684,59 @@ Tower* Triple_Tower::Upgrade()
 }
 Tower* Push_Tower::Upgrade()
 {
-	Engine::GetLogger().LogDebug("Upgrade count: " + std::to_string(upgrade_count));
-	switch (upgrade_count)
+	if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() > Push_Tower::GetUpgradeCost())
 	{
-	case 0:
-		real_attack_delay -= 0.75;
-		++upgrade_count;
-		break;
+		Engine::GetLogger().LogDebug("Upgrade count: " + std::to_string(upgrade_count));
+		switch (upgrade_count)
+		{
+		case 0:
+			Engine::GetGameStateManager().GetGSComponent<Gold>()->Subtract(Push_Tower::GetUpgradeCost());
+			real_attack_delay -= 0.75;
+			++upgrade_count;
+			break;
 
-	case 1:
-		real_attack_delay -= 0.75;
-		++upgrade_count;
-		break;
+		case 1:
+			Engine::GetGameStateManager().GetGSComponent<Gold>()->Subtract(Push_Tower::GetUpgradeCost());
+			real_attack_delay -= 0.75;
+			++upgrade_count;
+			break;
 
-	default:
+		default:
 
-		break;
+			break;
+		}
 	}
 	return this;
 }
 Tower* Wide_Tower::Upgrade()
 {
-	Engine::GetLogger().LogDebug("Upgrade count: " + std::to_string(upgrade_count));
-	switch (upgrade_count)
+	if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() > Wide_Tower::GetUpgradeCost())
 	{
-	case 0:
-		real_attack_delay -= 0.75;
-		++upgrade_count;
-		break;
+		Engine::GetLogger().LogDebug("Upgrade count: " + std::to_string(upgrade_count));
+		switch (upgrade_count)
+		{
+		case 0:
+			Engine::GetGameStateManager().GetGSComponent<Gold>()->Subtract(Wide_Tower::GetUpgradeCost());
+			real_attack_delay -= 0.75;
+			++upgrade_count;
+			break;
 
-	case 1:
-		real_attack_delay -= 0.75;
-		++upgrade_count;
-		break;
+		case 1:
+			Engine::GetGameStateManager().GetGSComponent<Gold>()->Subtract(Wide_Tower::GetUpgradeCost());
+			real_attack_delay -= 0.75;
+			++upgrade_count;
+			break;
 
-	default:
+		default:
 
-		break;
+			break;
+		}
 	}
+	return this;
+}
+Tower* Auto_Tower::Upgrade()
+{
+
 	return this;
 }
 
@@ -686,6 +779,15 @@ void Push_Tower::ShowInfo()
 	Engine::GetLogger().LogDebug("Ammo: \t\t" + std::to_string(ammo) + " / " + std::to_string(max_ammo));
 }
 void Wide_Tower::ShowInfo()
+{
+	std::cout << "\n\n";
+	Engine::GetLogger().LogDebug("Type: " + TypeName());
+	Engine::GetLogger().LogDebug("HP: \t\t" + std::to_string(hp) + " / " + std::to_string(max_hp));
+	Engine::GetLogger().LogDebug("attack_delay: \t" + std::to_string(real_attack_delay));
+	Engine::GetLogger().LogDebug("Tile Pos: \t" + std::to_string(tile_position.x) + ", " + std::to_string(tile_position.y));
+	Engine::GetLogger().LogDebug("Ammo: \t\t" + std::to_string(ammo) + " / " + std::to_string(max_ammo));
+}
+void Auto_Tower::ShowInfo()
 {
 	std::cout << "\n\n";
 	Engine::GetLogger().LogDebug("Type: " + TypeName());
@@ -1057,6 +1159,65 @@ void Wide_Tower::State_Attacking::CheckExit(GameObject* object) {
 
 
 
+// State functions for charging of Triple_Tower
+void Auto_Tower::State_Charging::Enter(GameObject* object) {
+	Auto_Tower* tower = static_cast<Auto_Tower*>(object);
+	tower->color = tower->charging_color;
+	tower->attack_ready = false;
+}
+void Auto_Tower::State_Charging::Update(GameObject* object, double dt) {
+	Auto_Tower* tower = static_cast<Auto_Tower*>(object);
+
+	tower->attack_count += dt;
+
+	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0) {
+		tower->attack_ready = true;
+		/*tower->attack_count = 0;
+		tower->change_state(&tower->state_attacking);*/
+	}
+}
+void Auto_Tower::State_Charging::CheckExit(GameObject* object) {
+	Auto_Tower* tower = static_cast<Auto_Tower*>(object);
+
+}
+
+// State functions for Attacking of Triple_Tower
+void Auto_Tower::State_Attacking::Enter(GameObject* object) {
+	Auto_Tower* tower = static_cast<Auto_Tower*>(object);
+	tower->color = tower->attack_color;
+	tower->attack_count = 0;
+}
+void Auto_Tower::State_Attacking::Update(GameObject* object, double dt) {
+	Auto_Tower* tower = static_cast<Auto_Tower*>(object);
+
+	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x + tower->size.x / 2, tower->GetPosition().y + tower->size.y / 2 });
+
+	Math::vec2 offset(tower->size.x * 0.1, tower->size.y * 0.1);
+
+	Monster* closest_monster = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetClosestMonster(tower);
+	if (closest_monster != nullptr)
+	{
+		Math::vec2 monster_pos = closest_monster->GetPosition();
+		Math::vec2 tower_pos = tower->GetPosition();
+
+		Math::vec2 dir = Math::vec2({ monster_pos.x - tower_pos.x, monster_pos.y - tower_pos.y});;
+		dir /= dir.GetLength();
+
+		--tower->ammo;
+		new Bullet(tower_pos, dir * Bullet::DefaultVelocity);
+	}
+	
+	tower->change_state(&tower->state_charging);
+}
+void Auto_Tower::State_Attacking::CheckExit(GameObject* object) {
+	Auto_Tower* tower = static_cast<Auto_Tower*>(object);
+
+}
+
+
+
+
+
 
 
 int Tower::cost = 0;
@@ -1065,6 +1226,7 @@ int Tower::max_hp = 0;
 int Tower::max_ammo = 0;
 
 int Basic_Tower::cost = 0;
+int Basic_Tower::upgrade_cost = 0;
 double Basic_Tower::attack_delay = 0.0;
 int Basic_Tower::max_hp = 0;
 int Basic_Tower::range_x = 0;
@@ -1074,6 +1236,7 @@ int Basic_Tower::max_ammo = 0;
 
 
 int Double_Tower::cost = 0;
+int Double_Tower::upgrade_cost = 0;
 double Double_Tower::attack_delay = 0.0;
 int Double_Tower::max_hp = 0;
 int Double_Tower::range_x = 0;
@@ -1082,6 +1245,7 @@ double Double_Tower::attack_range = 0;
 int Double_Tower::max_ammo = 0;
 
 int Triple_Tower::cost = 0;
+int Triple_Tower::upgrade_cost = 0;
 double Triple_Tower::attack_delay = 0.0;
 int Triple_Tower::max_hp = 0;
 int Triple_Tower::range_x = 0;
@@ -1090,6 +1254,7 @@ double Triple_Tower::attack_range = 0;
 int Triple_Tower::max_ammo = 0;
 
 int Push_Tower::cost = 0;
+int Push_Tower::upgrade_cost = 0;
 double Push_Tower::attack_delay = 0.0;
 int Push_Tower::max_hp = 0;
 int Push_Tower::range_x = 0;
@@ -1098,12 +1263,22 @@ double Push_Tower::attack_range = 0;
 int Push_Tower::max_ammo = 0;
 
 int Wide_Tower::cost = 0;
+int Wide_Tower::upgrade_cost = 0;
 double Wide_Tower::attack_delay = 0.0;
 int Wide_Tower::max_hp = 0;
 int Wide_Tower::range_x = 0;
 int Wide_Tower::range_y = 0;
 double Wide_Tower::attack_range = 0;
 int Wide_Tower::max_ammo = 0;
+
+int Auto_Tower::cost = 0;
+int Auto_Tower::upgrade_cost = 0;
+double Auto_Tower::attack_delay = 0.0;
+int Auto_Tower::max_hp = 0;
+int Auto_Tower::range_x = 0;
+int Auto_Tower::range_y = 0;
+double Auto_Tower::attack_range = 0;
+int Auto_Tower::max_ammo = 0;
 
 
 // File parsing from the txt file
@@ -1113,6 +1288,8 @@ void TowerFactory::InitBasicTowerFromFile(const std::string& filePath) {
 	if (file.is_open())
 	{
 		file >> Basic_Tower::cost;
+
+		file >> Basic_Tower::upgrade_cost;
 
 		file >> Basic_Tower::attack_delay;
 
@@ -1135,6 +1312,8 @@ void TowerFactory::InitDoubleTowerFromFile(const std::string& filePath) {
 	{
 		file >> Double_Tower::cost;
 
+		file >> Double_Tower::upgrade_cost;
+
 		file >> Double_Tower::attack_delay;
 
 		file >> Double_Tower::max_hp;
@@ -1155,6 +1334,8 @@ void TowerFactory::InitTripleTowerFromFile(const std::string& filePath) {
 	if (file.is_open())
 	{
 		file >> Triple_Tower::cost;
+
+		file >> Triple_Tower::upgrade_cost;
 
 		file >> Triple_Tower::attack_delay;
 
@@ -1177,6 +1358,8 @@ void TowerFactory::InitPushTowerFromFile(const std::string& filePath) {
 	{
 		file >> Push_Tower::cost;
 
+		file >> Push_Tower::upgrade_cost;
+
 		file >> Push_Tower::attack_delay;
 
 		file >> Push_Tower::max_hp;
@@ -1198,6 +1381,8 @@ void TowerFactory::InitWideTowerFromFile(const std::string& filePath) {
 	{
 		file >> Wide_Tower::cost;
 
+		file >> Wide_Tower::upgrade_cost;
+
 		file >> Wide_Tower::attack_delay;
 
 		file >> Wide_Tower::max_hp;
@@ -1209,6 +1394,29 @@ void TowerFactory::InitWideTowerFromFile(const std::string& filePath) {
 		file >> Wide_Tower::attack_range;
 
 		file >> Wide_Tower::max_ammo;
+	}
+
+}
+void TowerFactory::InitAutoTowerFromFile(const std::string& filePath) {
+	std::ifstream file(filePath);
+
+	if (file.is_open())
+	{
+		file >> Auto_Tower::cost;
+
+		file >> Auto_Tower::upgrade_cost;
+
+		file >> Auto_Tower::attack_delay;
+
+		file >> Auto_Tower::max_hp;
+
+		file >> Auto_Tower::range_x;
+
+		file >> Auto_Tower::range_y;
+
+		file >> Auto_Tower::attack_range;
+
+		file >> Auto_Tower::max_ammo;
 	}
 
 }
