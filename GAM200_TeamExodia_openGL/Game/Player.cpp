@@ -27,6 +27,10 @@ Updated:    October		10, 2023
 
 
 int Player::additional_attack_dmg = 0;
+bool shot_gun_mode = false;
+bool god_mode = false;
+double attack_cool = 1.0;
+bool recover_enabled = false;
 
 Player::Player(Math::vec2 start_position, int size_x, int size_y) : GameObject(start_position), size_x(size_x), size_y(size_y) 
 {

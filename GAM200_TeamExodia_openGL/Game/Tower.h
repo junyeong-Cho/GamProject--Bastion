@@ -42,6 +42,8 @@ public:
 
     void check_supplied();
     virtual void supply_ammo() { ammo = max_ammo; }
+    static void Enable_Supply_Ammo() { enable_supply = true; }
+    static bool Supply_Enabled() { return enable_supply; }
 
 protected:
     bool set_basic_tower = false;
@@ -72,6 +74,8 @@ protected:
 
     int direction;
     Math::vec2 bullet_direction;
+
+    static bool enable_supply;
 
     double attack_count = 0;
     bool attack_ready = false;

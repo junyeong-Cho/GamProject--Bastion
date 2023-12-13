@@ -41,13 +41,14 @@ public:
 	const Math::vec2& GetPosition() const { return GameObject::GetPosition(); }
     int GetHP() const { return life_count; }
     void SetHP(int life) { life_count = life; }
-    void Recover() { life_count = max_life; }
+    void Recover() { if(recover_enabled) life_count = max_life; }
+    static void EnableRecover() { recover_enabled = true; }
     static int GetAdditionalDmg() { return additional_attack_dmg; }
 
-    void UpgradeAttackSpeed() { attack_cool *= 0.5; }
-    void UpgradeAttackDmg() { ++additional_attack_dmg; }
-    void EnableShotGun() { shot_gun_mode = true; }
-    void EnableGodMode() { god_mode = true; }
+    static void UpgradeAttackSpeed() { attack_cool *= 0.5; }
+    static void UpgradeAttackDmg() { ++additional_attack_dmg; }
+    static void EnableShotGun() { shot_gun_mode = true; }
+    static void EnableGodMode() { god_mode = true; }
 
 private:
 
@@ -80,10 +81,11 @@ private:
 
     void update_velocity(double dt);
 
+    static bool recover_enabled;
     static constexpr double invincibilityTime = 1.0;
     double invincibility_count = 0;
 
-    double attack_cool = 1.0;
+    static double attack_cool;
     double attack_count = 0;
 
     static int additional_attack_dmg;
@@ -91,8 +93,8 @@ private:
     int max_life = 20;
     int life_count = 0;
 
-    bool shot_gun_mode = false;
-    bool god_mode = false;
+    static bool shot_gun_mode;
+    static bool god_mode;
 
 
     //Finite State Machines

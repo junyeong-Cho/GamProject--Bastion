@@ -6,6 +6,7 @@
 #include "Wave.h"
 #include "Map.h"
 #include "Gold.h"
+#include "Tower.h"
 
 
 void Wave::SetWave()
@@ -50,6 +51,27 @@ void Wave::Choice(int choice)
 {
 	// some mechanism
 
+	// 1
+	Player::EnableShotGun();
+	// 2
+	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->SlowAllMonsters();
+	// 3
+	Player::UpgradeAttackSpeed();
+	// 4
+	Player::UpgradeAttackDmg();
+	// 5
+	Engine::GetGameStateManager().GetGSComponent<Gold>()->Upgrade();
+	// 6
+	Tower::Enable_Supply_Ammo();
+	// 7
+	Player::EnableRecover();
+	// 8
+	Player::EnableGodMode();
+	// 9
+	Player::UpgradeAttackDmg();
+	Player::UpgradeAttackSpeed();
+
+
 	switch (choice)
 	{
 	case 1:
@@ -69,8 +91,11 @@ void Wave::Choice(int choice)
 	}
 
 
-
 	Engine::GetGameStateManager().GetGSComponent<Gold>()->Interest();
+	if (Tower::Supply_Enabled())
+	{
+		Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->SupplyAllTower();
+	}
 	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetPlayer()->Recover();
 	wave_state = Wave_State::NotInProgress;
 }
