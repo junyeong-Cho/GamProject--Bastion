@@ -462,17 +462,17 @@ private:
     double stealth_count = 0;
 };
 
-
+/*
 class Bomb_Monster : public Monster {
 public:
-    Bomb_Monster(Math::vec2 position = Math::vec2(0, 0));
+    //Bomb_Monster(Math::vec2 position = Math::vec2(0, 0));
 
     GameObjectTypes Type() override { return GameObjectTypes::Bomb_Monster; }
     std::string TypeName() override { return "Bomb_Monster"; }
 
-    void Update(double dt) override;
+    //void Update(double dt) override;
 
-    void ResolveCollision(GameObject* other_object) override;
+    //void ResolveCollision(GameObject* other_object) override;
 
     static int GetDamage() { return damage; }
 
@@ -509,6 +509,7 @@ private:
 
     static constexpr double range = 100;
 };
+*/
 
 
 

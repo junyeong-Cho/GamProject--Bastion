@@ -14,6 +14,7 @@ Updated:    November 13, 2023
 
 #include "Fonts.h"
 #include "../Engine/Engine.h"
+#include "../Engine/Audio.h"
 
 HowToPlay::HowToPlay()
 {
@@ -22,6 +23,8 @@ HowToPlay::HowToPlay()
 
 void HowToPlay::Load()
 {
+	GAM200::SoundEffect::MainMenu_BGM().stopAll();
+
 	message.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Press Esc to go back", 0xFFFFFFFF));
 }
 

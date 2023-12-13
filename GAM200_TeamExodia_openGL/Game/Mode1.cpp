@@ -30,6 +30,7 @@ Updated:    October		10, 2023
 #include "../Game/Player.h"
 #include "../Game/Monster.h"
 #include "../Game/Tower.h"
+#include "../Game/ShowPath.h"
 #include "../Engine/DrawShape.h"
 
 #include "Score.h"
@@ -51,9 +52,6 @@ Mode1::Mode1() : player_ptr()
 
 void Mode1::Load()
 {
-	// Music
-	AddGSComponent(new GAM200::MusicEffect());
-	GetGSComponent<GAM200::MusicEffect>()->LoadFile("assets/Sounds/Theme/example_music.ogg");
 
 	// Game Object
 	AddGSComponent(new GAM200::GameObjectManager());
@@ -91,7 +89,9 @@ void Mode1::Load()
 	AddGSComponent(new Wave());
 	GetGSComponent<Wave>()->SetWave();
 	AddGSComponent(new BuildMode());
-	
+	AddGSComponent(new ShowPath());
+
+
 	// add HBG Ui
 	AddGSComponent(new HBG_Ui(50, 0, 0));
 
@@ -105,7 +105,6 @@ void Mode1::Load()
 	MonsterFactory::InitMotherMonsterFromFile();
 	MonsterFactory::InitHealMonsterFromFile();
 	MonsterFactory::InitStealthMonsterFromFile();
-	MonsterFactory::InitBombMonsterFromFile();
 
 	// Tower Initialize
 	TowerFactory::InitBasicTowerFromFile();
@@ -114,9 +113,9 @@ void Mode1::Load()
 	TowerFactory::InitPushTowerFromFile();
 	TowerFactory::InitWideTowerFromFile();
 
-	#ifdef _DEBUG
+#ifdef _DEBUG
 	AddGSComponent(new GAM200::ShowCollision());
-	#endif
+#endif
 
 }
 
@@ -124,13 +123,12 @@ void Mode1::Update(double dt)
 {
 
 
-	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Tab)) 
+	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Tab))
 	{
 		GetGSComponent<GameSpeed>()->NextSpeed();
 	}
 	dt *= static_cast<double>(GetGSComponent<GameSpeed>()->Value());
 
-	GetGSComponent<GAM200::MusicEffect>()->Play(0);
 
 	GetGSComponent<GAM200::Camera>()->Update(player_ptr->GetPosition());
 	//GetGSComponent<GAM200::Camera>()->SetPosition(player_ptr->GetPosition());
@@ -143,21 +141,21 @@ void Mode1::Update(double dt)
 
 	GetGSComponent<BuildMode>()->Update();
 
-	#ifdef _DEBUG
+	GetGSComponent<ShowPath>()->Update();
+
+#ifdef _DEBUG
 	GetGSComponent<GAM200::ShowCollision>()->Update(dt);
-	#endif
-	
+#endif
+
 	Engine::GetWindow().Clear(1.0f, 1.0f, 1.0f, 1.0f);
 
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Escape))
 	{
 		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::ModeSelect));
-		GetGSComponent<GAM200::MusicEffect>()->Stop();
 	}
 
 	if (GetGSComponent<Life>()->Value() <= 0) {
 		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Lose));
-		GetGSComponent<GAM200::MusicEffect>()->Stop();
 	}
 	int gold = GetGSComponent<Gold>()->Value();
 	int score = GetGSComponent<Score>()->Value();
@@ -198,7 +196,7 @@ void Mode1::Draw()
 		}
 
 	}
-	
+
 	Math::TransformationMatrix camera_matrix = GetGSComponent<GAM200::Camera>()->GetMatrix();
 
 	//GetGSComponent<Background>()->Draw(*GetGSComponent<GAM200::Camera>());
@@ -211,17 +209,21 @@ void Mode1::Draw()
 
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
 
+	GetGSComponent<ShowPath>()->DrawPath();
+
+
 	GetGSComponent<BuildMode>()->Draw();
 	player_ptr->Draw(camera_matrix);
 	GetGSComponent<HBG_Ui>()->Draw();
-	
+
+
 	remaining_gold->Draw(Math::TranslationMatrix(Math::ivec2{ 130, 720 - 95 }));
 	wave_info->Draw(Math::TranslationMatrix(Math::ivec2{ 1000, 720 - 0 }));
 }
 
 void Mode1::ImguiDraw()
 {
-	
+
 }
 
 void Mode1::HandleEvent(SDL_Event& event)

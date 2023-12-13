@@ -188,10 +188,10 @@ void Wave::Update(double dt)
 			{
 				new Heal_Monster;
 			}
-			else if (monster_name == "BOMB")
-			{
-				new Bomb_Monster;
-			}
+			//else if (monster_name == "BOMB")
+			//{
+			//	new Bomb_Monster;
+			//}
 			else if (monster_name == "NONE")
 			{
 

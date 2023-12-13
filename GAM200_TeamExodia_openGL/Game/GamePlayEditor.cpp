@@ -26,6 +26,7 @@ Updated:    October		10, 2023
 #include "../Game/Player.h"
 #include "../Game/Monster.h"
 #include "../Game/Tower.h"
+#include "../Game/ShowPath.h"
 #include "../Engine/DrawShape.h"
 
 #include "Score.h"
@@ -51,9 +52,8 @@ GamePlayEditor::GamePlayEditor() : player_ptr()
 
 void GamePlayEditor::Load()
 {
-	// Music
-	AddGSComponent(new GAM200::MusicEffect());
-	GetGSComponent<GAM200::MusicEffect>()->LoadFile("assets/Sounds/Theme/example_music_editor.ogg");
+	GAM200::SoundEffect::MainMenu_BGM().stopAll();
+
 
 	// Game Object
 	AddGSComponent(new GAM200::GameObjectManager());
@@ -79,6 +79,7 @@ void GamePlayEditor::Load()
 	AddGSComponent(new Wave());
 	GetGSComponent<Wave>()->SetWave();
 	AddGSComponent(new BuildMode());
+	AddGSComponent(new ShowPath());
 
 	// add HBG Ui
 	AddGSComponent(new HBG_Ui(50, 0, 0));
@@ -93,7 +94,6 @@ void GamePlayEditor::Load()
 	MonsterFactory::InitMotherMonsterFromFile();
 	MonsterFactory::InitHealMonsterFromFile();
 	MonsterFactory::InitStealthMonsterFromFile();
-	MonsterFactory::InitBombMonsterFromFile();
 
 	// Tower Initialize
 	TowerFactory::InitBasicTowerFromFile();
@@ -117,7 +117,6 @@ void GamePlayEditor::Update(double dt)
 	}
 	dt *= static_cast<double>(GetGSComponent<GameSpeed>()->Value());
 
-	GetGSComponent<GAM200::MusicEffect>()->Play(0);
 
 	GetGSComponent<GAM200::Camera>()->Update(player_ptr->GetPosition());
 	//GetGSComponent<GAM200::Camera>()->SetPosition(player_ptr->GetPosition());
@@ -130,6 +129,9 @@ void GamePlayEditor::Update(double dt)
 
 	GetGSComponent<BuildMode>()->Update();
 
+	GetGSComponent<ShowPath>()->Update();
+
+
 #ifdef _DEBUG
 	GetGSComponent<GAM200::ShowCollision>()->Update(dt);
 #endif
@@ -139,12 +141,10 @@ void GamePlayEditor::Update(double dt)
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Escape))
 	{
 		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
-		GetGSComponent<GAM200::MusicEffect>()->Stop();
 	}
 
 	if (GetGSComponent<Life>()->Value() <= 0) {
 		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Lose));
-		GetGSComponent<GAM200::MusicEffect>()->Stop();
 	}
 
 	int gold = GetGSComponent<Gold>()->Value();
@@ -192,6 +192,8 @@ void GamePlayEditor::Draw()
 
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
 
+	GetGSComponent<ShowPath>()->DrawPath();
+
 	GetGSComponent<BuildMode>()->Draw();
 	player_ptr->Draw(camera_matrix);
 	GetGSComponent<HBG_Ui>()->Draw();
@@ -209,7 +211,7 @@ void GamePlayEditor::ImguiDraw()
 		int score = GetGSComponent<Score>()->Value();
 		int game_speed = GetGSComponent<GameSpeed>()->Value();
 		int max_speed = GetGSComponent<GameSpeed>()->GetMax();
-		float* musicVolume = (GetGSComponent<GAM200::MusicEffect>()->GetMusicVolume());
+
 		int player_hp = player_ptr->GetHP();
 
 		ImGui::Text("Killed Monster : %d", score);
@@ -231,10 +233,7 @@ void GamePlayEditor::ImguiDraw()
 		if (ImGui::SliderInt("Adjust Game Speed", &game_speed, 0, max_speed, "%d")) {
 			GetGSComponent<GameSpeed>()->SetValue(game_speed);
 		}
-		if (ImGui::SliderFloat("Max Volume", musicVolume, 0.0f, 100.0f, "%.0f"))
-		{
-			GetGSComponent<GAM200::MusicEffect>()->SetVolume(*musicVolume);
-		}
+
 	}
 	ImGui::End();
 
@@ -288,13 +287,6 @@ void GamePlayEditor::ImguiDraw()
 			Engine::GetLogger().LogEvent("Stealth Monster Produce!");
 			//MonsterFactory::CreateSlowMonsterFromFile();
 			new Stealth_Monster;
-			//GetGSComponent<GAM200::GameObjectManager>()->Add(new Slow_Monster());
-		}
-		if (ImGui::Button("Produce Bomb Monster"))
-		{
-			Engine::GetLogger().LogEvent("Bomb Monster Produce!");
-			//MonsterFactory::CreateSlowMonsterFromFile();
-			new Bomb_Monster;
 			//GetGSComponent<GAM200::GameObjectManager>()->Add(new Slow_Monster());
 		}
 

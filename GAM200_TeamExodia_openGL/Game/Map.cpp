@@ -13,10 +13,9 @@
 #include "Tower.h"
 #include "Gold.h"
 
-void Map::SetMap(std::string file_name) 
+void Map::SetMap(std::string file_name)
 {
 
-	soundEffect->LoadFile("Assets/Sounds/SoundEffect/cannot_select.wav");
 
 
 	std::ifstream file(file_name);
@@ -30,9 +29,9 @@ void Map::SetMap(std::string file_name)
 		file >> rows;
 
 		// Then dynamic allocate
-		map = new Info** [cols];
+		map = new Info * *[cols];
 		for (int i = 0; i < cols; ++i) {
-			map[i] = new Info*[rows];
+			map[i] = new Info * [rows];
 			for (int j = 0; j < rows; ++j)
 			{
 				map[i][j] = new Info();
@@ -103,17 +102,17 @@ void Map::SetMap(std::string file_name)
 				{
 					std::cerr << "Wrong input!" << std::endl;
 				}
-				
+
 			}
 		}
 		file.close();
 	}
-	else 
+	else
 	{
 		std::cerr << "Failed to open file for reading." << std::endl;
 	}
 
-	
+
 }
 
 void Map::MapUnload() const {
@@ -130,17 +129,21 @@ void Map::ChangeTile(Math::ivec2 position, GameObjectTypes type) {
 
 	if (map[cols][rows]->tile->Type() == type || map[cols][rows]->tile->Type() == GameObjectTypes::Block_Tile)
 	{
+		GAM200::SoundEffect::cannot_select().Big_play();
+
 		Engine::GetLogger().LogDebug("It's same type of tile or it's block tile!");
 		return;
 	}
-	
+
 	if ((position.x == start_point.y && position.y == start_point.x) || (position.x == end_point.y && position.y == end_point.x))
 	{
+		GAM200::SoundEffect::cannot_select().Big_play();
+
 		Engine::GetLogger().LogDebug("You cannot change the start point or end point!");
 		return;
 	}
 
-	if (type == GameObjectTypes::Pass__Tile) 
+	if (type == GameObjectTypes::Pass__Tile)
 	{
 		map[cols][rows]->tile->Tile_Destroy();
 		map[cols][rows]->tile = nullptr;
@@ -172,6 +175,8 @@ void Map::ChangeTile(Math::ivec2 position, GameObjectTypes type) {
 
 	if (Astar::GetInstance().UpdatePath(map, start_point, end_point) == false)
 	{
+		GAM200::SoundEffect::cannot_select().Big_play();
+
 		Engine::GetLogger().LogDebug("You cannot change this tile!");
 		ChangeTile(position, GameObjectTypes::Pass__Tile);
 		Astar::GetInstance().UpdatePath(map, start_point, end_point);
@@ -186,7 +191,6 @@ void Map::DeleteTower(Math::ivec2 position)
 
 	if (map[cols][rows]->tower == nullptr)
 	{
-		soundEffect->Play(0);
 
 		Engine::GetLogger().LogDebug("There is no tower!");
 		return;
@@ -203,7 +207,7 @@ void Map::BuildTower(Math::ivec2 position, GameObjectTypes type, int direction)
 
 	if (map[cols][rows]->tower != nullptr)
 	{
-		soundEffect->Play(0);
+		GAM200::SoundEffect::cannot_select().Big_play();
 
 		Engine::GetLogger().LogDebug("There is a tower already!");
 		return;
@@ -211,7 +215,7 @@ void Map::BuildTower(Math::ivec2 position, GameObjectTypes type, int direction)
 
 	if (map[cols][rows]->tile->Type() != GameObjectTypes::Block_Tile)
 	{
-		soundEffect->Play(0);
+		GAM200::SoundEffect::cannot_select().Big_play();
 
 		Engine::GetLogger().LogDebug("Not able here! It's " + map[cols][rows]->tile->TypeName());
 		return;
@@ -222,7 +226,7 @@ void Map::BuildTower(Math::ivec2 position, GameObjectTypes type, int direction)
 	case GameObjectTypes::Basic_Tower:
 		if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() < Basic_Tower::GetCost())
 		{
-			soundEffect->Play(0);
+			GAM200::SoundEffect::cannot_select().Big_play();
 
 			Engine::GetLogger().LogDebug("Not enough gold!");
 			return;
@@ -233,7 +237,7 @@ void Map::BuildTower(Math::ivec2 position, GameObjectTypes type, int direction)
 	case GameObjectTypes::Double_Tower:
 		if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() < Double_Tower::GetCost())
 		{
-			soundEffect->Play(0);
+			GAM200::SoundEffect::cannot_select().Big_play();
 
 			Engine::GetLogger().LogDebug("Not enough gold!");
 			return;
@@ -244,7 +248,7 @@ void Map::BuildTower(Math::ivec2 position, GameObjectTypes type, int direction)
 	case GameObjectTypes::Triple_Tower:
 		if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() < Triple_Tower::GetCost())
 		{
-			soundEffect->Play(0);
+			GAM200::SoundEffect::cannot_select().Big_play();
 
 			Engine::GetLogger().LogDebug("Not enough gold!");
 			return;
@@ -255,7 +259,7 @@ void Map::BuildTower(Math::ivec2 position, GameObjectTypes type, int direction)
 	case GameObjectTypes::Push_Tower:
 		if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() < Push_Tower::GetCost())
 		{
-			soundEffect->Play(0);
+			GAM200::SoundEffect::cannot_select().Big_play();
 
 			Engine::GetLogger().LogDebug("Not enough gold!");
 			return;
@@ -266,7 +270,7 @@ void Map::BuildTower(Math::ivec2 position, GameObjectTypes type, int direction)
 	case GameObjectTypes::Wide_Tower:
 		if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() < Wide_Tower::GetCost())
 		{
-			soundEffect->Play(0);
+			GAM200::SoundEffect::cannot_select().Big_play();
 
 			Engine::GetLogger().LogDebug("Not enough gold!");
 			return;

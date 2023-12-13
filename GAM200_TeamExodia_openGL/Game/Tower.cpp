@@ -40,14 +40,14 @@ Tower::Tower(Math::vec2 position, int direction) : GameObject(position), directi
 
 	}
 	hp = max_hp;
-	
+
 
 	Math::vec2 mouse_position = Math::vec2(Engine::GetInput().GetMousePosition().x - 1, Engine::GetInput().GetMousePosition().y - 1);
 	Math::ivec2 mouse_tile_position = Math::ivec2(static_cast<int>(mouse_position.x / tile_size.x), static_cast<int>(mouse_position.y / tile_size.y));
 	tile_position = Math::ivec2(static_cast<int>(position.x) / tile_size.x, static_cast<int>(position.y) / tile_size.y);
 	//tile_position = mouse_tile_position;
 }
-void Tower::Update(double dt) 
+void Tower::Update(double dt)
 {
 	GameObject::Update(dt);
 	IsClicked();
@@ -59,7 +59,7 @@ void Tower::Tower_Destroy()
 	RemoveGOComponent<GAM200::RectCollision>();
 }
 void Tower::Draw(Math::TransformationMatrix camera_matrix) {
-	
+
 
 	if (four_way[0] == true)
 	{
@@ -97,17 +97,10 @@ bool Tower::IsClicked()
 			Tower_Adopter::GetInstance().Show_Info();
 			return true;
 		}
-
-		if (Engine::GetInput().MouseJustReleased(GAM200::Input::MouseButtons::RIGHT))
-		{
-			Recover();
-
-			return true;
-		}
 	}
 	return false;
 }
-void Tower::ShowInfo() 
+void Tower::ShowInfo()
 {
 	std::cout << "\n\n";
 	Engine::GetLogger().LogDebug("Type: " + TypeName());
@@ -127,7 +120,7 @@ void Tower::check_supplied()
 
 	Math::vec2 tower_position{ GetPosition() };
 	Math::vec2 tower_size{ static_cast<double>(size.x), static_cast<double>(size.y) };
-	
+
 	if (player_position.x + player_size.x >= tower_position.x &&
 		player_position.x <= tower_position.x + tower_size.x &&
 
@@ -159,7 +152,7 @@ Basic_Tower::Basic_Tower(Math::vec2 position, int direction) : Tower(position, d
 	Math::ivec2 point2{ static_cast<int>(range_x * size.x), range_y * size.y - static_cast<int>(size.y * offset) };
 	hp = max_hp;
 	ammo = max_ammo;
-	
+
 	// RIGHT, LEFT, UP, DOWN
 	switch (direction)
 	{
@@ -180,7 +173,7 @@ Basic_Tower::Basic_Tower(Math::vec2 position, int direction) : Tower(position, d
 		break;
 	}
 
-	
+
 
 	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
@@ -817,7 +810,7 @@ void Tower::State_Charging::Update(GameObject* object, double dt) {
 	Tower* tower = static_cast<Tower*>(object);
 
 	// Increment the attack count based on the dt
-	tower -> attack_count += dt;
+	tower->attack_count += dt;
 
 	// Attack and change state to state_attacking
 	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0) {
@@ -841,7 +834,7 @@ void Tower::State_Attacking::Update(GameObject* object, double dt) {
 	Tower* tower = static_cast<Tower*>(object);
 
 	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x + tower->size.x / 2, tower->GetPosition().y + tower->size.y / 2 });
-	
+
 	// Create a new bullet at the tower position with specified direction
 	new Basic_Bullet(tower_position, tower->bullet_direction * Bullet::DefaultVelocity);
 
@@ -850,7 +843,7 @@ void Tower::State_Attacking::Update(GameObject* object, double dt) {
 }
 void Tower::State_Attacking::CheckExit(GameObject* object) {
 	Tower* tower = static_cast<Tower*>(object);
-	
+
 }
 
 
@@ -868,7 +861,7 @@ void Basic_Tower::State_Charging::Update(GameObject* object, double dt) {
 
 	tower->attack_count += dt;
 
-	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0 && tower->hp > 0) {
+	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0) {
 		tower->attack_ready = true;
 		/*tower->attack_count = 0;
 		tower->change_state(&tower->state_attacking);*/
@@ -913,7 +906,7 @@ void Double_Tower::State_Charging::Update(GameObject* object, double dt) {
 
 	tower->attack_count += dt;
 
-	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0 && tower->hp > 0) {
+	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0) {
 		tower->attack_ready = true;
 		/*tower->attack_count = 0;
 		tower->change_state(&tower->state_attacking);*/
@@ -983,7 +976,7 @@ void Triple_Tower::State_Charging::Update(GameObject* object, double dt) {
 
 	tower->attack_count += dt;
 
-	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0 && tower->hp > 0) {
+	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0) {
 		tower->attack_ready = true;
 		/*tower->attack_count = 0;
 		tower->change_state(&tower->state_attacking);*/
@@ -1020,7 +1013,7 @@ void Triple_Tower::State_Attacking::Update(GameObject* object, double dt) {
 		break;
 	case 1:
 		bullet_direction_left = Math::vec2(-tower->size.x, offset.y);
-		 bullet_direction_right = Math::vec2(-tower->size.x, -offset.y);
+		bullet_direction_right = Math::vec2(-tower->size.x, -offset.y);
 		break;
 	case 2:
 		bullet_direction_left = Math::vec2(offset.x, tower->size.y);
@@ -1061,7 +1054,7 @@ void Push_Tower::State_Charging::Update(GameObject* object, double dt) {
 
 	tower->attack_count += dt;
 
-	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0 && tower->hp > 0) {
+	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0) {
 		tower->attack_ready = true;
 		/*tower->attack_count = 0;
 		tower->change_state(&tower->state_attacking);*/
@@ -1081,7 +1074,7 @@ void Push_Tower::State_Attacking::Enter(GameObject* object) {
 void Push_Tower::State_Attacking::Update(GameObject* object, double dt) {
 	Push_Tower* tower = static_cast<Push_Tower*>(object);
 
-	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x , tower->GetPosition().y  });
+	Math::vec2 tower_position = Math::vec2({ tower->GetPosition().x , tower->GetPosition().y });
 
 	Math::vec2 offset(tower->size.x * 0.1, tower->size.y * 0.1);
 
@@ -1111,7 +1104,7 @@ void Wide_Tower::State_Charging::Update(GameObject* object, double dt) {
 
 	tower->attack_count += dt;
 
-	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0 && tower->hp > 0) {
+	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0) {
 		tower->attack_ready = true;
 		/*tower->attack_count = 0;
 		tower->change_state(&tower->state_attacking);*/
@@ -1177,7 +1170,7 @@ void Auto_Tower::State_Charging::Update(GameObject* object, double dt) {
 
 	tower->attack_count += dt;
 
-	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0 && tower->hp > 0) {
+	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0) {
 		tower->attack_ready = true;
 		/*tower->attack_count = 0;
 		tower->change_state(&tower->state_attacking);*/
@@ -1207,13 +1200,13 @@ void Auto_Tower::State_Attacking::Update(GameObject* object, double dt) {
 		Math::vec2 monster_pos = closest_monster->GetPosition();
 		Math::vec2 tower_pos = tower->GetPosition();
 
-		Math::vec2 dir = Math::vec2({ monster_pos.x - tower_pos.x, monster_pos.y - tower_pos.y});;
+		Math::vec2 dir = Math::vec2({ monster_pos.x - tower_pos.x, monster_pos.y - tower_pos.y });;
 		dir /= dir.GetLength();
 
 		--tower->ammo;
 		new Bullet(tower_pos, dir * Bullet::DefaultVelocity);
 	}
-	
+
 	tower->change_state(&tower->state_charging);
 }
 void Auto_Tower::State_Attacking::CheckExit(GameObject* object) {
@@ -1439,6 +1432,8 @@ void TowerFactory::InitAutoTowerFromFile(const std::string& filePath) {
 
 void Tower_Adopter::Set_Tower(Tower* tower)
 {
+	GAM200::SoundEffect::Tower_Placing().play();
+
 	current_tower = tower;
 }
 void Tower_Adopter::Show_Info()
@@ -1459,12 +1454,19 @@ void Tower_Adopter::Upgrade()
 		return;
 	}
 
+	GAM200::SoundEffect::Tower_Upgrade().play();
+
 	current_tower = current_tower->Upgrade();
 }
 void Tower_Adopter::Delete()
 {
+
+
 	if (current_tower == nullptr)
 		return;
+
+	GAM200::SoundEffect::Tower_Delete().play();
+
 
 	Map::GetInstance().DeleteTower(current_tower->GetTilePosition());
 	current_tower = nullptr;

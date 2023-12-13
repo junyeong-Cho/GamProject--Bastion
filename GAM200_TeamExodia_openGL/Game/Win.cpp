@@ -3,6 +3,7 @@
 
 #include "Fonts.h"
 #include "../Engine/Engine.h"
+#include "../Engine/Audio.h"
 
 Win::Win()
 {
@@ -11,6 +12,8 @@ Win::Win()
 
 void Win::Load()
 {
+	GAM200::SoundEffect::GameClear().play();
+
 	message.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Win! Press Esc to go back", 0xFFFFFFFF));
 }
 

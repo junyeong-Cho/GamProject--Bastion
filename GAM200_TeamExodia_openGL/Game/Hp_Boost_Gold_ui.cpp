@@ -58,9 +58,8 @@ HBG_Ui::HBG_Ui(int hp, int gold, int boost) : Player_HP(hp), Tower_GOLD(gold), P
 
 void HBG_Ui::Update() {
 
-
-
    remaining_gold.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("G: " + std::to_string(Tower_GOLD), 0xffffff));
+
 }
 
 void HBG_Ui::Draw() {

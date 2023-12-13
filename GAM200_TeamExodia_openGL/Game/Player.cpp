@@ -32,9 +32,8 @@ bool Player::god_mode = false;
 double Player::attack_cool = 1.0;
 bool Player::recover_enabled = false;
 
-Player::Player(Math::vec2 start_position, int size_x, int size_y) : GameObject(start_position), size_x(size_x), size_y(size_y) 
+Player::Player(Math::vec2 start_position, int size_x, int size_y) : GameObject(start_position), size_x(size_x), size_y(size_y)
 {
-    soundEffect->LoadFile("Assets/Sounds/SoundEffect/gun_sound_meca.wav");
 
     //AddGOComponent(new GAM200::Sprite("Assets/Player.spt", this));
 
@@ -62,7 +61,7 @@ void Player::Update(double dt) {
 
     invincibility_count += dt;
     attack_count += dt;
-    
+
     if (collider != nullptr)
     {
         auto bounds = collider->WorldBoundary();
@@ -101,8 +100,8 @@ void Player::Update(double dt) {
     Math::vec2 real_mouse_position = Math::vec2({ mouse_position.x, mouse_position.y });
     Math::vec2 bullet_direction = Math::vec2({ real_mouse_position.x - player_position.x, real_mouse_position.y - player_position.y });
     bullet_direction /= bullet_direction.GetLength();
-    if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT) && 
-        attack_count>=attack_cool && 
+    if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT) &&
+        attack_count >= attack_cool &&
         Engine::GetGameStateManager().GetGSComponent<BuildMode>()->IsBuilding() == false
         )
     {
@@ -123,10 +122,13 @@ void Player::Update(double dt) {
             new Basic_Bullet(player_position, bullet_direction * Bullet::DefaultVelocity);
             new Basic_Bullet(player_position, left_bullet_direction * Bullet::DefaultVelocity);
             new Basic_Bullet(player_position, right_bullet_direction * Bullet::DefaultVelocity);
+            GAM200::SoundEffect::Shotgun().play();
+
         }
         else
         {
             new Basic_Bullet(player_position, bullet_direction * Bullet::DefaultVelocity);
+            GAM200::SoundEffect::Attack().play();
         }
 
         attack_count = 0;
@@ -143,10 +145,10 @@ void Player::Draw(Math::TransformationMatrix camera_matrix) {
 
 
 bool Player::CanCollideWith(GameObjectTypes type) {
-    
-    if(static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
-       static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster_End)
-       )
+
+    if (static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
+        static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster_End)
+        )
     {
         return true;
     }

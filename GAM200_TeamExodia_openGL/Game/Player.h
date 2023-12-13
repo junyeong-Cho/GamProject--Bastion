@@ -26,22 +26,22 @@ class Player : public GAM200::GameObject {
 public:
     Player(Math::vec2 start_position, int size_x, int size_y);
 
-	GameObjectTypes Type() override { return GameObjectTypes::Player; }
-	std::string TypeName() override { return "Player"; }
+    GameObjectTypes Type() override { return GameObjectTypes::Player; }
+    std::string TypeName() override { return "Player"; }
 
-	void Update(double dt) override;
+    void Update(double dt) override;
 
-	void Draw(Math::TransformationMatrix camera_matrix) override;
+    void Draw(Math::TransformationMatrix camera_matrix) override;
 
 
-	bool CanCollideWith(GameObjectTypes type) override;
+    bool CanCollideWith(GameObjectTypes type) override;
 
-	void ResolveCollision(GameObject* other_object) override;
+    void ResolveCollision(GameObject* other_object) override;
 
-	const Math::vec2& GetPosition() const { return GameObject::GetPosition(); }
+    const Math::vec2& GetPosition() const { return GameObject::GetPosition(); }
     int GetHP() const { return life_count; }
     void SetHP(int life) { life_count = life; }
-    void Recover() { if(recover_enabled) life_count = max_life; }
+    void Recover() { if (recover_enabled) life_count = max_life; }
     static void EnableRecover() { recover_enabled = true; }
     static int GetAdditionalDmg() { return additional_attack_dmg; }
 
@@ -52,7 +52,6 @@ public:
 
 private:
 
-    GAM200::SoundEffect* soundEffect = new GAM200::SoundEffect();
 
 
     GAM200::Texture p = GAM200::Texture("assets/images/p.png", GAM200::Texture::TextureType::RECTANGLE);
@@ -130,7 +129,7 @@ private:
         virtual void CheckExit(GameObject* object) override;
         std::string GetName() override { return "Running"; }
     };
-    
+
     State_Idle state_idle;
     State_Moving state_moving;
     State_Dashing state_dashing;

@@ -232,24 +232,6 @@ Stealth_Monster::Stealth_Monster(Math::vec2 position) : Monster(position) {
 	current_state->Enter(this);
 	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
-Bomb_Monster::Bomb_Monster(Math::vec2 position) : Monster(position) {
-	life = max_life;
-	real_max_life = max_life;
-	real_damage = Bomb_Monster::damage;
-	real_speed_scale = Bomb_Monster::speed_scale;
-	walking_speed *= speed_scale;
-	real_score = Bomb_Monster::score;
-	real_gold = Bomb_Monster::gold;
-
-	// Path finding
-	path = Astar::GetInstance().GetPath();
-	current_tile_position = path[tile_index++];
-
-
-	current_state = &state_walking;
-	current_state->Enter(this);
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
-}
 
 
 
@@ -289,11 +271,7 @@ void Stealth_Monster::Update(double dt)
 	GameObject::Update(dt);
 
 }
-void Bomb_Monster::Update(double dt)
-{
-	GameObject::Update(dt);
 
-}
 
 
 // Collision things
@@ -1013,95 +991,6 @@ void Stealth_Monster::ResolveCollision(GameObject* other_object) {
 		change_state(&state_dead);
 	}
 }
-void Bomb_Monster::ResolveCollision(GameObject* other_object) {
-	if (other_object->Type() == GameObjectTypes::Player)
-	{
-		//Engine::GetLogger().LogEvent("Collision with Player!");
-	}
-
-	if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Bullet) &&
-		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Bullet_End)
-		)
-	{
-		switch (other_object->Type())
-		{
-		case GameObjectTypes::Basic_Bullet:
-			life -= Basic_Bullet::GetDamage();
-			break;
-
-		case GameObjectTypes::Pushing_Bullet:
-			life -= Pushing_Bullet::GetDamage();
-			break;
-
-		case GameObjectTypes::Wide_Range_Bullet:
-			life -= Wide_Range_Bullet::GetDamage();
-			break;
-
-		default:
-
-			break;
-		}
-		life -= Player::GetAdditionalDmg();
-
-		if (other_object->Type() == GameObjectTypes::Pushing_Bullet)
-		{
-			Math::vec2 offset = other_object->GetVelocity();
-			offset /= offset.GetLength();
-			offset *= tile_size.x;
-
-			SetPosition(Math::vec2(GetPosition().x + offset.x, GetPosition().y + offset.y));
-		}
-
-		if (life <= 0) {
-			Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
-			Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
-
-			scoreComponent->Add(this->real_score);
-			goldComponent->Add(this->real_gold);
-
-			change_state(&state_dead);
-		}
-	}
-
-	if (other_object->Type() == GameObjectTypes::Block_Tile ||
-		other_object->Type() == GameObjectTypes::Obstacle)
-	{
-		//life -= 1;
-		Math::rect monster_rect = GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
-		Math::rect other_rect = other_object->GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
-
-		double centerX = (monster_rect.Left() + monster_rect.Right()) / 2.0 - (other_rect.Left() + other_rect.Right()) / 2.0;
-		double centerY = (monster_rect.Top() + monster_rect.Bottom()) / 2.0 - (other_rect.Top() + other_rect.Bottom()) / 2.0;
-
-		if (abs(centerX) > abs(centerY)) {
-			if (centerX < 0) {
-				UpdatePosition(Math::vec2{ (other_rect.Left() - monster_rect.Right()), 0.0 });
-			}
-			else {
-				UpdatePosition(Math::vec2{ (other_rect.Right() - monster_rect.Left()), 0.0 });
-			}
-		}
-		else {
-			if (centerY < 0) {
-				UpdatePosition(Math::vec2{ 0.0, (other_rect.Bottom() - monster_rect.Top()) });
-			}
-			else {
-				UpdatePosition(Math::vec2{ 0.0, (other_rect.Top() - monster_rect.Bottom()) });
-			}
-		}
-	}
-
-	if (other_object->Type() == GameObjectTypes::Cliff)
-	{
-		Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
-		Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
-
-		scoreComponent->Add(this->real_score);
-		goldComponent->Add(this->real_gold);
-
-		change_state(&state_dead);
-	}
-}
 
 
 
@@ -1241,6 +1130,8 @@ void Monster::State_Walking::CheckExit(GameObject* object)
 // Basic_Monster state functions
 void Basic_Monster::State_Dead::Enter(GameObject* object)
 {
+	GAM200::SoundEffect::Monster_Die_1().play();
+
 	Basic_Monster* monster = static_cast<Basic_Monster*>(object);
 	--remaining_monsters;
 
@@ -1308,6 +1199,8 @@ void Basic_Monster::State_Walking::CheckExit(GameObject* object)
 // Fast_Monster state functions
 void Fast_Monster::State_Dead::Enter(GameObject* object)
 {
+	GAM200::SoundEffect::Monster_Die_2().play();
+
 	Fast_Monster* monster = static_cast<Fast_Monster*>(object);
 	--remaining_monsters;
 
@@ -1335,7 +1228,7 @@ void Fast_Monster::State_Walking::Enter(GameObject* object)
 {
 	Fast_Monster* monster = static_cast<Fast_Monster*>(object);
 
-	
+
 }
 void Fast_Monster::State_Walking::Update(GameObject* object, double dt)
 {
@@ -1376,6 +1269,8 @@ void Fast_Monster::State_Walking::CheckExit(GameObject* object)
 // Slow_Monster state functions
 void Slow_Monster::State_Dead::Enter(GameObject* object)
 {
+	GAM200::SoundEffect::Monster_Die_3().play();
+
 	Slow_Monster* monster = static_cast<Slow_Monster*>(object);
 	--remaining_monsters;
 
@@ -1442,6 +1337,9 @@ void Slow_Monster::State_Walking::CheckExit(GameObject* object)
 // Mother_Monster state functions
 void Mother_Monster::State_Dead::Enter(GameObject* object)
 {
+	GAM200::SoundEffect::Monster_Die_3().play();
+
+
 	Mother_Monster* monster = static_cast<Mother_Monster*>(object);
 	--remaining_monsters;
 
@@ -1528,6 +1426,8 @@ void Mother_Monster::State_Walking::CheckExit(GameObject* object)
 // Weak_Monster state functions
 void Weak_Monster::State_Dead::Enter(GameObject* object)
 {
+	GAM200::SoundEffect::Monster_Die_1().play();
+
 	Weak_Monster* monster = static_cast<Weak_Monster*>(object);
 	--remaining_monsters;
 
@@ -1595,6 +1495,8 @@ void Weak_Monster::State_Walking::CheckExit(GameObject* object)
 // Heal_Monster state functions
 void Heal_Monster::State_Dead::Enter(GameObject* object)
 {
+	GAM200::SoundEffect::Monster_Die_2().play();
+
 	Heal_Monster* monster = static_cast<Heal_Monster*>(object);
 	--remaining_monsters;
 
@@ -1626,7 +1528,7 @@ void Heal_Monster::State_Walking::Enter(GameObject* object)
 void Heal_Monster::State_Walking::Update(GameObject* object, double dt)
 {
 	Heal_Monster* monster = static_cast<Heal_Monster*>(object);
-	
+
 
 	for (Monster* target : Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetMonstersInRange(monster, range))
 	{
@@ -1696,6 +1598,8 @@ void Heal_Monster::State_Healing::CheckExit(GameObject* object)
 // Weak_Monster state functions
 void Stealth_Monster::State_Dead::Enter(GameObject* object)
 {
+	GAM200::SoundEffect::Monster_Die_3().play();
+
 	Stealth_Monster* monster = static_cast<Stealth_Monster*>(object);
 	--remaining_monsters;
 
@@ -1758,7 +1662,7 @@ void Stealth_Monster::State_Walking::Update(GameObject* object, double dt)
 	if (monster->stealth)
 	{
 		monster->stealth_count += dt;
-		
+
 		if (monster->stealth_count >= monster->stealth_time)
 			monster->stealth = false;
 	}
@@ -1767,78 +1671,6 @@ void Stealth_Monster::State_Walking::CheckExit(GameObject* object)
 {
 
 }
-
-
-
-// Bomb_Monster state functions
-void Bomb_Monster::State_Dead::Enter(GameObject* object)
-{
-	Bomb_Monster* monster = static_cast<Bomb_Monster*>(object);
-	--remaining_monsters;
-
-
-
-	monster->RemoveGOComponent<GAM200::RectCollision>();
-
-	//monster->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(Animations::Dead));
-}
-void Bomb_Monster::State_Dead::Update(GameObject* object, double dt)
-{
-	Bomb_Monster* monster = static_cast<Bomb_Monster*>(object);
-
-	monster->resisting_count += dt;
-	if (monster->resisting_count >= monster->resisting_time) {
-		Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->BombToTower(monster, range);
-		monster->Destroy();
-	}
-}
-void Bomb_Monster::State_Dead::CheckExit(GameObject* object)
-{
-
-}
-
-void Bomb_Monster::State_Walking::Enter(GameObject* object)
-{
-	Bomb_Monster* monster = static_cast<Bomb_Monster*>(object);
-
-}
-void Bomb_Monster::State_Walking::Update(GameObject* object, double dt)
-{
-	Bomb_Monster* monster = static_cast<Bomb_Monster*>(object);
-
-
-	Math::vec2 position = monster->GetPosition();
-
-	Math::vec2 next_tile = Math::vec2{ (monster->next_tile_position.x + 1.0 / 2) * monster->tile_size.x - monster->size_x / 2, (monster->next_tile_position.y + 1.0 / 2) * monster->tile_size.y - monster->size_y / 2 };
-
-	Math::vec2 direction = next_tile - position;
-	double distance = direction.GetLength();
-
-	if (distance > 0.0) {
-		direction /= distance;
-
-		if (distance < 20.0) {
-			monster->current_tile_position = Math::ivec2(static_cast<int>(next_tile.x / monster->tile_size.x), static_cast<int>(next_tile.y / monster->tile_size.y));
-			monster->next_tile_position = monster->path[(monster->tile_index++)];
-
-			if (monster->tile_index == monster->path.size()) {
-				Life* lifeComponent = Engine::GetGameStateManager().GetGSComponent<Life>();
-				lifeComponent->Subtract(1);
-				monster->change_state(&monster->state_dead);
-			}
-		}
-	}
-
-	position += direction * monster->walking_speed * dt;
-
-	monster->SetPosition(position);
-}
-void Bomb_Monster::State_Walking::CheckExit(GameObject* object)
-{
-
-}
-
-
 
 
 // File parsing things
@@ -1891,12 +1723,6 @@ int     Stealth_Monster::max_life = 0;
 int     Stealth_Monster::score = 0;
 int     Stealth_Monster::gold = 0;
 double  Stealth_Monster::speed_scale = 0.0f;
-
-int     Bomb_Monster::damage = 0;
-int     Bomb_Monster::max_life = 0;
-int     Bomb_Monster::score = 0;
-int     Bomb_Monster::gold = 0;
-double  Bomb_Monster::speed_scale = 0.0f;
 
 
 
@@ -2030,25 +1856,6 @@ void MonsterFactory::InitStealthMonsterFromFile(const std::string& filePath)
 		file >> Stealth_Monster::speed_scale;
 		file >> Stealth_Monster::gold;
 		file >> Stealth_Monster::score;
-	}
-	else
-	{
-		std::cerr << "Failed to open file for reading." << std::endl;
-	}
-
-}
-
-void MonsterFactory::InitBombMonsterFromFile(const std::string& filePath)
-{
-	std::ifstream file(filePath);
-
-	if (file.is_open())
-	{
-		file >> Bomb_Monster::max_life;
-		file >> Bomb_Monster::damage;
-		file >> Bomb_Monster::speed_scale;
-		file >> Bomb_Monster::gold;
-		file >> Bomb_Monster::score;
 	}
 	else
 	{

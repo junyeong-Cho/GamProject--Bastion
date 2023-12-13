@@ -3,6 +3,7 @@
 
 #include "Fonts.h"
 #include "../Engine/Engine.h"
+#include "../Engine/Audio.h"
 
 Lose::Lose()
 {
@@ -11,11 +12,15 @@ Lose::Lose()
 
 void Lose::Load()
 {
+	GAM200::SoundEffect::GameOver().play();
+
 	message.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Lose... Press Esc to go back", 0xFFFFFFFF));
 }
 
 void Lose::Update(double dt)
 {
+
+
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Escape))
 	{
 		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::ModeSelect));
@@ -31,7 +36,7 @@ void Lose::Draw()
 {
 	defeat.Draw(0, 0, 1280, 720);
 	//Engine::GetWindow().Clear(0x000000FF);
-	
+
 	//message->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 200) }));
 }
 

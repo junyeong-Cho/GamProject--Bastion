@@ -25,6 +25,8 @@ int ModeSelect::counter = 0;
 
 void ModeSelect::Load()
 {
+	GAM200::SoundEffect::MainMenu_BGM().stopAll();
+
 	message.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Please select the mode!", 0xFFFFFFFF));
 	UpdateMenuTextColors();
 }
@@ -33,13 +35,13 @@ void ModeSelect::Load()
 
 void ModeSelect::UpdateMenuTextColors()
 {
-	uint32_t colors[3] = { 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF};
+	uint32_t colors[3] = { 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF };
 	colors[counter] = 0x7EFACBFF;
 
 	mode1.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("mode1", colors[0]));
 	mode2.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("mode2", colors[1]));
 	mode3.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("mode3", colors[2]));
-	
+
 }
 
 
@@ -68,6 +70,8 @@ void ModeSelect::Update(double dt)
 
 	if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Enter))
 	{
+		GAM200::SoundEffect::Select_Map().play();
+
 		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Mode1));
 	}
 
@@ -88,12 +92,12 @@ void ModeSelect::Unload()
 
 void ModeSelect::Draw()
 {
-//	Engine::GetWindow().Clear(0x000000FF);
+	//	Engine::GetWindow().Clear(0x000000FF);
 
-	//message->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 250), (Engine::GetWindow().GetSize().y - 50) }));
-	  //mode1->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 100), (Engine::GetWindow().GetSize().y - 200) }));
-	  //mode2->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 100), (Engine::GetWindow().GetSize().y - 300) }));
-	  //mode3->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 100), (Engine::GetWindow().GetSize().y - 400) }));
+		//message->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 250), (Engine::GetWindow().GetSize().y - 50) }));
+		  //mode1->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 100), (Engine::GetWindow().GetSize().y - 200) }));
+		  //mode2->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 100), (Engine::GetWindow().GetSize().y - 300) }));
+		  //mode3->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 100), (Engine::GetWindow().GetSize().y - 400) }));
 
 	switch (counter)
 	{

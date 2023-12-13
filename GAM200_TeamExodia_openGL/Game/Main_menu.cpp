@@ -24,12 +24,12 @@ Main_menu::Main_menu()
 
 void Main_menu::Load()
 {
+	GAM200::SoundEffect::MainMenu_BGM().loopplay();
+
 	//main_title.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("GAM200 Team Exodia", 0xFFFFFFFF));
 	UpdateMenuTextColors();
 
-	AddGSComponent(new GAM200::MusicEffect());
 
-	GetGSComponent<GAM200::MusicEffect>()->LoadFile("assets/Sounds/Theme/example_music.ogg");
 }
 
 void Main_menu::UpdateMenuTextColors()
@@ -40,13 +40,12 @@ void Main_menu::UpdateMenuTextColors()
 	//start.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Start", colors[0]));
 	//gamePlay_Editor.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Game play editor", colors[1]));
 	//howToPlay.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("How to play", colors[2]));
-    //exit.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Exit", colors[3]));
-	
+	//exit.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Exit", colors[3]));
+
 }
 
 void Main_menu::Update(double dt)
 {
-	GetGSComponent<GAM200::MusicEffect>()->Play(0);
 
 
 	bool shouldUpdateColors = false;
@@ -69,14 +68,16 @@ void Main_menu::Update(double dt)
 
 	if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Enter))
 	{
+		GAM200::SoundEffect::Select_MainMenu().play();
+
 		switch (counter)
 		{
 		case 0:
 			//GetGSComponent<GAM200::MusicEffect>()->Stop();
+			GAM200::SoundEffect::MainMenu_BGM().stopAll();
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::ModeSelect));
 			break;
 		case 1:
-			GetGSComponent<GAM200::MusicEffect>()->Stop();
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::GamePlayEditior));
 			break;
 		case 2:
@@ -139,13 +140,6 @@ void Main_menu::ImguiDraw()
 {
 	ImGui::Begin("Music Info");
 	{
-
-		float* musicVolume = (GetGSComponent<GAM200::MusicEffect>()->GetMusicVolume());
-
-		if (ImGui::SliderFloat("Max Volume", musicVolume, 0.0f, 100.0f, "%.0f"))
-		{
-			GetGSComponent<GAM200::MusicEffect>()->SetVolume(*musicVolume);
-		}
 
 
 	}

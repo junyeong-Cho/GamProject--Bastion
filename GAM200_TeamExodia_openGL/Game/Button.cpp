@@ -98,21 +98,25 @@ void Button::Draw(Math::TransformationMatrix camera_matrix)
 		{
 			next_wave.Draw(1120 - 40, 720 - 630, 180, 60);
 		}
-		
+
 	}
 	//side.Draw(1060, 720 - 629, 40, 550);
 
-	
+
 }
 
 
 Wave_Start_Button::Wave_Start_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
 {
+
 	tower_type[6] = true;
 	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
 void Wave_Start_Button::func(Math::ivec2 pos)
 {
+
+	GAM200::SoundEffect::Wave_Start().play();
+
 	Engine::GetGameStateManager().GetGSComponent<Wave>()->Start();
 }
 
@@ -124,6 +128,8 @@ Basic_Tower_Button::Basic_Tower_Button(Math::vec2 position, Math::vec2 size) : B
 }
 void Basic_Tower_Button::func(Math::ivec2 pos)
 {
+	GAM200::SoundEffect::Button_1().Big_play();
+
 	Engine::GetGameStateManager().GetGSComponent<BuildMode>()->Build(GameObjectTypes::Basic_Tower);
 }
 
@@ -159,6 +165,8 @@ Delete_Tower_Button::Delete_Tower_Button(Math::vec2 position, Math::vec2 size) :
 }
 void Delete_Tower_Button::func(Math::ivec2 pos)
 {
+	GAM200::SoundEffect::Button_1().Big_play();
+
 	//Engine::GetGameStateManager().GetGSComponent<BuildMode>()->DeleteTower();
 	Tower_Adopter::GetInstance().Delete();
 }
@@ -172,6 +180,7 @@ Pass_Tile_Button::Pass_Tile_Button(Math::vec2 position, Math::vec2 size) : Butto
 void Pass_Tile_Button::func(Math::ivec2 pos)
 {
 	//Engine::GetGameStateManager().GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Pass__Tile);
+	GAM200::SoundEffect::Button_1().Big_play();
 
 	Tower_Adopter::GetInstance().Upgrade();
 }
@@ -184,6 +193,8 @@ Block_Tile_Button::Block_Tile_Button(Math::vec2 position, Math::vec2 size) : But
 }
 void Block_Tile_Button::func(Math::ivec2 pos)
 {
+	GAM200::SoundEffect::Button_1().Big_play();
+
 	Engine::GetGameStateManager().GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Obstacle);
 }
 
@@ -195,6 +206,8 @@ Push_Tower_Button::Push_Tower_Button(Math::vec2 position, Math::vec2 size) : But
 }
 void Push_Tower_Button::func(Math::ivec2 pos)
 {
+	GAM200::SoundEffect::Button_1().Big_play();
+
 	Engine::GetGameStateManager().GetGSComponent<BuildMode>()->Build(GameObjectTypes::Push_Tower);
 }
 
@@ -206,6 +219,8 @@ Wide_Tower_Button::Wide_Tower_Button(Math::vec2 position, Math::vec2 size) : But
 }
 void Wide_Tower_Button::func(Math::ivec2 pos)
 {
+	GAM200::SoundEffect::Button_1().Big_play();
+
 	Engine::GetGameStateManager().GetGSComponent<BuildMode>()->Build(GameObjectTypes::Wide_Tower);
 }
 
@@ -217,6 +232,8 @@ Upgrade_Button::Upgrade_Button(Math::vec2 position, Math::vec2 size) : Button(po
 }
 void Upgrade_Button::func(Math::ivec2 pos)
 {
+	GAM200::SoundEffect::Button_1().Big_play();
+
 	Tower_Adopter::GetInstance().Upgrade();
 }
 
@@ -228,6 +245,8 @@ Delete_Button::Delete_Button(Math::vec2 position, Math::vec2 size) : Button(posi
 }
 void Delete_Button::func(Math::ivec2 pos)
 {
+	GAM200::SoundEffect::Button_1().Big_play();
+
 	Tower_Adopter::GetInstance().Delete();
 }
 
@@ -242,6 +261,7 @@ void Choice_1_Button::func(Math::ivec2 pos)
 	Engine::GetLogger().LogDebug("Choice 1 Button func!");
 	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
 	{
+		GAM200::SoundEffect::Button_3().play();
 		Engine::GetGameStateManager().GetGSComponent<Wave>()->Choice(1);
 	}
 }
@@ -266,6 +286,8 @@ void Choice_2_Button::func(Math::ivec2 pos)
 	Engine::GetLogger().LogDebug("Choice 2 Button func!");
 	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
 	{
+		GAM200::SoundEffect::Button_3().play();
+
 		Engine::GetGameStateManager().GetGSComponent<Wave>()->Choice(2);
 	}
 }
@@ -290,6 +312,8 @@ void Choice_3_Button::func(Math::ivec2 pos)
 	Engine::GetLogger().LogDebug("Choice 3 Button func!");
 	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
 	{
+		GAM200::SoundEffect::Button_3().play();
+
 		Engine::GetGameStateManager().GetGSComponent<Wave>()->Choice(3);
 	}
 }
