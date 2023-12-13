@@ -51,10 +51,9 @@ Mode1::Mode1() : player_ptr()
 
 void Mode1::Load()
 {
-	GAM200::SoundEffect::MainMenu_BGM().stopAll();
 	// Music
-	//AddGSComponent(new GAM200::MusicEffect());
-	//GetGSComponent<GAM200::MusicEffect>()->LoadFile("assets/Sounds/Theme/example_music.ogg");
+	AddGSComponent(new GAM200::MusicEffect());
+	GetGSComponent<GAM200::MusicEffect>()->LoadFile("assets/Sounds/Theme/example_music.ogg");
 
 	// Game Object
 	AddGSComponent(new GAM200::GameObjectManager());
@@ -240,7 +239,7 @@ void Mode1::ImguiDraw()
 		int score = GetGSComponent<Score>()->Value();
 		int game_speed = GetGSComponent<GameSpeed>()->Value();
 		int max_speed = GetGSComponent<GameSpeed>()->GetMax();
-		//float* musicVolume = (GetGSComponent<GAM200::MusicEffect>()->GetMusicVolume());
+		float* musicVolume = (GetGSComponent<GAM200::MusicEffect>()->GetMusicVolume());
 		int player_hp = player_ptr->GetHP();
 
 		ImGui::Text("Killed Monster : %d", score);
@@ -262,10 +261,10 @@ void Mode1::ImguiDraw()
 		if (ImGui::SliderInt("Adjust Game Speed", &game_speed, 0, max_speed, "%d")) {
 			GetGSComponent<GameSpeed>()->SetValue(game_speed);
 		}
-		//if (ImGui::SliderFloat("Max Volume", musicVolume, 0.0f, 100.0f, "%.0f"))
-		//{
-		//	//GetGSComponent<GAM200::MusicEffect>()->SetVolume(*musicVolume);
-		//}
+		if (ImGui::SliderFloat("Max Volume", musicVolume, 0.0f, 100.0f, "%.0f"))
+		{
+			GetGSComponent<GAM200::MusicEffect>()->SetVolume(*musicVolume);
+		}
 	}
 	ImGui::End();
 
