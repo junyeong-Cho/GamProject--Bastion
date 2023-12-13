@@ -50,6 +50,25 @@ void Wave::Choice(int choice)
 {
 	// some mechanism
 
+	switch (choice)
+	{
+	case 1:
+
+		break;
+
+	case 2:
+
+		break;
+
+	case 3:
+
+		break;
+
+	default:
+		break;
+	}
+
+
 
 	Engine::GetGameStateManager().GetGSComponent<Gold>()->Interest();
 	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetPlayer()->Recover();
