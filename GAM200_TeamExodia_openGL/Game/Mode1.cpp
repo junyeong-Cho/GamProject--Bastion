@@ -105,6 +105,7 @@ void Mode1::Load()
 	MonsterFactory::InitMotherMonsterFromFile();
 	MonsterFactory::InitHealMonsterFromFile();
 	MonsterFactory::InitStealthMonsterFromFile();
+	MonsterFactory::InitBombMonsterFromFile();
 
 	// Tower Initialize
 	TowerFactory::InitBasicTowerFromFile();

@@ -29,7 +29,8 @@ public:
 
     int GetHP() const { return hp; }
     void SetHP(int value) { hp = value; }
-    void Recover() { hp = max_hp; }
+    void Damaged(int damage) { hp -= damage; }
+    virtual void Recover() { hp = max_hp; }
     Math::ivec2 GetTilePosition() const { return tile_position; }
 
     bool IsOn() const;
@@ -136,6 +137,7 @@ public:
     static int GetUpgradeCost() { return upgrade_cost; }
     void ShowInfo() override;
     void supply_ammo() override { ammo = max_ammo; }
+    void Recover() { hp = max_hp; }
 
     class State_Charging : public State
     {
@@ -190,6 +192,7 @@ public:
     static int GetUpgradeCost() { return upgrade_cost; }
     void ShowInfo() override;
     void supply_ammo() override { ammo = max_ammo; }
+    void Recover() { hp = max_hp; }
 
     class State_Charging : public State
     {
@@ -244,6 +247,7 @@ public:
     static int GetUpgradeCost() { return upgrade_cost; }
     void ShowInfo() override;
     void supply_ammo() override { ammo = max_ammo; }
+    void Recover() { hp = max_hp; }
 
     class State_Charging : public State
     {
@@ -298,6 +302,7 @@ public:
     static int GetUpgradeCost() { return upgrade_cost; }
     void ShowInfo() override;
     void supply_ammo() override { ammo = max_ammo; }
+    void Recover() { hp = max_hp; }
 
     class State_Charging : public State
     {
@@ -353,6 +358,7 @@ public:
     static int GetUpgradeCost() { return upgrade_cost; }
     void ShowInfo() override;
     void supply_ammo() override { ammo = max_ammo; }
+    void Recover() { hp = max_hp; }
 
     class State_Charging : public State
     {
@@ -408,6 +414,7 @@ public:
     static int GetUpgradeCost() { return upgrade_cost; }
     void ShowInfo() override;
     void supply_ammo() override { ammo = max_ammo; }
+    void Recover() { hp = max_hp; }
 
     class State_Charging : public State
     {

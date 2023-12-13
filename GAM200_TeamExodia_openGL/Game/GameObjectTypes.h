@@ -46,6 +46,7 @@ enum class GameObjectTypes
     Weak_Monster,
     Heal_Monster,
     Stealth_Monster,
+    Bomb_Monster,
 
     Monster_End,
     

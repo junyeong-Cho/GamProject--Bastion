@@ -176,6 +176,22 @@ void Wave::Update(double dt)
 			{
 				new Weak_Monster;
 			}
+			else if (monster_name == "MOMM")
+			{
+				new Mother_Monster;
+			}
+			else if (monster_name == "STLT")
+			{
+				new Stealth_Monster;
+			}
+			else if (monster_name == "HEAL")
+			{
+				new Heal_Monster;
+			}
+			else if (monster_name == "BOMB")
+			{
+				new Bomb_Monster;
+			}
 			else if (monster_name == "NONE")
 			{
 

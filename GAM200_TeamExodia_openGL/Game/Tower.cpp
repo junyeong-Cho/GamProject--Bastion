@@ -97,6 +97,13 @@ bool Tower::IsClicked()
 			Tower_Adopter::GetInstance().Show_Info();
 			return true;
 		}
+
+		if (Engine::GetInput().MouseJustReleased(GAM200::Input::MouseButtons::RIGHT))
+		{
+			Recover();
+
+			return true;
+		}
 	}
 	return false;
 }
@@ -861,7 +868,7 @@ void Basic_Tower::State_Charging::Update(GameObject* object, double dt) {
 
 	tower->attack_count += dt;
 
-	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0) {
+	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0 && tower->hp > 0) {
 		tower->attack_ready = true;
 		/*tower->attack_count = 0;
 		tower->change_state(&tower->state_attacking);*/
@@ -906,7 +913,7 @@ void Double_Tower::State_Charging::Update(GameObject* object, double dt) {
 
 	tower->attack_count += dt;
 
-	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0) {
+	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0 && tower->hp > 0) {
 		tower->attack_ready = true;
 		/*tower->attack_count = 0;
 		tower->change_state(&tower->state_attacking);*/
@@ -976,7 +983,7 @@ void Triple_Tower::State_Charging::Update(GameObject* object, double dt) {
 
 	tower->attack_count += dt;
 
-	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0) {
+	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0 && tower->hp > 0) {
 		tower->attack_ready = true;
 		/*tower->attack_count = 0;
 		tower->change_state(&tower->state_attacking);*/
@@ -1054,7 +1061,7 @@ void Push_Tower::State_Charging::Update(GameObject* object, double dt) {
 
 	tower->attack_count += dt;
 
-	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0) {
+	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0 && tower->hp > 0) {
 		tower->attack_ready = true;
 		/*tower->attack_count = 0;
 		tower->change_state(&tower->state_attacking);*/
@@ -1104,7 +1111,7 @@ void Wide_Tower::State_Charging::Update(GameObject* object, double dt) {
 
 	tower->attack_count += dt;
 
-	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0) {
+	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0 && tower->hp > 0) {
 		tower->attack_ready = true;
 		/*tower->attack_count = 0;
 		tower->change_state(&tower->state_attacking);*/
@@ -1170,7 +1177,7 @@ void Auto_Tower::State_Charging::Update(GameObject* object, double dt) {
 
 	tower->attack_count += dt;
 
-	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0) {
+	if ((tower->attack_count >= tower->attack_delay) && tower->ammo > 0 && tower->hp > 0) {
 		tower->attack_ready = true;
 		/*tower->attack_count = 0;
 		tower->change_state(&tower->state_attacking);*/

@@ -43,6 +43,8 @@ namespace GAM200
         void SupplyAllTower();
         void SlowAllMonsters();
 
+        void BombToTower(Monster*, double range);
+
     private:
         std::list<GameObject*> objects;
     };

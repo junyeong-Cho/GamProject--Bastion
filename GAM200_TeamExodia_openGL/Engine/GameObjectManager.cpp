@@ -197,3 +197,26 @@ void GAM200::GameObjectManager::SlowAllMonsters()
 	Stealth_Monster::Slow();
 	Heal_Monster::Slow();
 }
+
+
+
+void GAM200::GameObjectManager::BombToTower(Monster* monster, double range)
+{
+	Math::vec2 monster_position = monster->GetPosition();
+	for (GameObject* object : objects)
+	{
+		if (static_cast<int>(object->Type()) >= static_cast<int>(GameObjectTypes::Tower) &&
+			static_cast<int>(object->Type()) <= static_cast<int>(GameObjectTypes::Tower_End))
+		{
+			Tower* tower = static_cast<Tower*>(object);
+			Math::vec2 tower_positoin = Math::vec2{ tower->GetPosition().x + 40, tower->GetPosition().y + 40 };
+
+			double square_distance = (tower_positoin.x - monster_position.x) * (tower_positoin.y - monster_position.y);
+			if (square_distance < range * range)
+			{
+				Engine::GetLogger().LogDebug("nice");
+				tower->Damaged(3);
+			}
+		}
+	}
+}
