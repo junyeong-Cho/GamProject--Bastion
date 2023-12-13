@@ -10,6 +10,11 @@ Updated:    October		10, 2023
 */
 
 
+#include <filesystem>
+#include <imgui.h>
+#include <stb_image.h>
+#include <glCheck.h>
+#include "../Engine/Audio.h"
 
 #include "../Engine/Engine.h"
 #include "../Engine/DrawShape.h"
@@ -17,7 +22,6 @@ Updated:    October		10, 2023
 #include "../Engine/GameObject.h"
 #include "../Engine/GameObjectManager.h"
 #include "../Engine/Collision.h"
-#include "Map.h"
 
 #include "../Game/Mode1.h"
 #include "../Game/States.h"
@@ -35,14 +39,10 @@ Updated:    October		10, 2023
 #include "Wave.h"
 #include "BuildMode.h"
 #include "Button.h"
-
-#include <filesystem>
-#include <imgui.h>
-#include <stb_image.h>
-#include <glCheck.h>
-#include "../Engine/Audio.h"
+#include "Map.h"
 #include "ModeSelect.h"
 #include "Fonts.h"
+#include "Monster.h"
 
 Mode1::Mode1() : player_ptr()
 {
@@ -76,7 +76,7 @@ void Mode1::Load()
 	}
 
 	// Add Player
-	player_ptr = new Player({ 0, 0 }, tile_size.x * 2 / 3, tile_size.y * 2 / 3);
+	player_ptr = new Player({ 0,0 }, tile_size.x * 2 / 3, tile_size.y * 2 / 3);
 	GetGSComponent<GAM200::GameObjectManager>()->Add(player_ptr);
 
 
@@ -87,7 +87,7 @@ void Mode1::Load()
 	AddGSComponent(new Score());
 	AddGSComponent(new Gold());
 	AddGSComponent(new Life());
-	AddGSComponent(new GameSpeed(5));	// Parameter is for the max game speed
+	AddGSComponent(new GameSpeed(3));	// Parameter is for the max game speed
 	AddGSComponent(new Wave());
 	GetGSComponent<Wave>()->SetWave();
 	AddGSComponent(new BuildMode());
@@ -97,19 +97,20 @@ void Mode1::Load()
 
 	Math::ivec2 size = Math::ivec2(Map::GetInstance().GetSize().y, Map::GetInstance().GetSize().x);
 
-	if (Map::GetInstance().editor_mode == false)
-	{
-		new Wave_Start_Button(Math::vec2(1120-40,720-630), Math::vec2(180,60));
+	// Monster Initalize
+	MonsterFactory::InitBasicMonsterFromFile();
+	MonsterFactory::InitFastMonsterFromFile();
+	MonsterFactory::InitSlowMonsterFromFile();
+	MonsterFactory::InitWeakMonsterFromFile();
+	MonsterFactory::InitMotherMonsterFromFile();
+	MonsterFactory::InitHealMonsterFromFile();
 
-		new Basic_Tower_Button(Math::vec2(1120, 720 - 150), Math::vec2(140, 70));
-		new Double_Tower_Button(Math::vec2(1120, 720 - 230), Math::vec2(140, 70));
-		new Triple_Tower_Button(Math::vec2(1120, 720 - 310), Math::vec2(140, 70));
-
-		new Delete_Tower_Button(Math::vec2(1120, 720 - 390), Math::vec2(140, 70));
-		new Pass_Tile_Button(Math::vec2(1120, 720 - 470), Math::vec2(140, 70));
-		new Block_Tile_Button(Math::vec2(1120, 720 - 550), Math::vec2(140, 70));
-	}
-
+	// Tower Initialize
+	TowerFactory::InitBasicTowerFromFile();
+	TowerFactory::InitDoubleTowerFromFile();
+	TowerFactory::InitTripleTowerFromFile();
+	TowerFactory::InitPushTowerFromFile();
+	TowerFactory::InitWideTowerFromFile();
 
 	#ifdef _DEBUG
 	AddGSComponent(new GAM200::ShowCollision());
@@ -162,7 +163,13 @@ void Mode1::Update(double dt)
 	int wall_hp = GetGSComponent<Score>()->Value();
 	int life = GetGSComponent<Life>()->Value();
 
-	GetGSComponent<HBG_Ui>()->Player_BOOST = 0;
+	int player_boost = player_ptr->GetDashCount();
+
+	GetGSComponent<HBG_Ui>()->Player_BOOST = player_boost;
+
+
+
+
 	GetGSComponent<HBG_Ui>()->Player_HP = player_hp;
 	//GetGSComponent<HBG_Ui>()->Player_HP = main_hp;
 	GetGSComponent<HBG_Ui>()->Tower_GOLD = gold;
@@ -212,14 +219,8 @@ void Mode1::Draw()
 	player_ptr->Draw(camera_matrix);
 	GetGSComponent<HBG_Ui>()->Draw();
 	
-	GetGSComponent<Wave>()->GetCurrentWave();
-	GetGSComponent<Wave>()->GetMaxWave();
-
-
-	//Engine::Instance().push();
 	remaining_gold->Draw(Math::TranslationMatrix(Math::ivec2{ 130, 720 - 95 }));
 	wave_info->Draw(Math::TranslationMatrix(Math::ivec2{ 1000, 720 - 0 }));
-	//Engine::Instance().pop();
 }
 
 void Mode1::ImguiDraw()
@@ -237,11 +238,15 @@ void Mode1::ImguiDraw()
 		float* musicVolume = (GetGSComponent<GAM200::MusicEffect>()->GetMusicVolume());
 		int player_hp = player_ptr->GetHP();
 
+		int player_boost = player_ptr->GetDashCount();
+
 		ImGui::Text("Killed Monster : %d", score);
 		ImGui::Text("Gold : %d", gold);
 		ImGui::Text("Life : %d", life);
 		ImGui::Text("Game Speed : %d", game_speed);
 		ImGui::Text("Player HP : %d", player_hp);
+
+		ImGui::Text("Dash : %d", player_boost);
 
 
 		if (ImGui::SliderInt("Adjust Gold", &gold, 0, 100000, "%d")) {
@@ -269,19 +274,43 @@ void Mode1::ImguiDraw()
 		if (ImGui::Button("Produce Basic Monster"))
 		{
 			Engine::GetLogger().LogEvent("Basic Monster Produce!");
+			//MonsterFactory::CreateBasicMonsterFromFile();
 			new Basic_Monster;
 			//GetGSComponent<GAM200::GameObjectManager>()->Add(new Basic_Monster());
 		}
 		if (ImGui::Button("Produce Fast Monster"))
 		{
 			Engine::GetLogger().LogEvent("Fast Monster Produce!");
+			//MonsterFactory::CreateFastMonsterFromFile();
 			new Fast_Monster;
 			//GetGSComponent<GAM200::GameObjectManager>()->Add(new Fast_Monster());
 		}
 		if (ImGui::Button("Produce Slow Monster"))
 		{
 			Engine::GetLogger().LogEvent("Slow Monster Produce!");
+			//MonsterFactory::CreateSlowMonsterFromFile();
 			new Slow_Monster;
+			//GetGSComponent<GAM200::GameObjectManager>()->Add(new Slow_Monster());
+		}
+		if (ImGui::Button("Produce Mother Monster"))
+		{
+			Engine::GetLogger().LogEvent("Mother Monster Produce!");
+			//MonsterFactory::CreateSlowMonsterFromFile();
+			new Mother_Monster;
+			//GetGSComponent<GAM200::GameObjectManager>()->Add(new Slow_Monster());
+		}
+		if (ImGui::Button("Produce Weak Monster"))
+		{
+			Engine::GetLogger().LogEvent("Weak Monster Produce!");
+			//MonsterFactory::CreateSlowMonsterFromFile();
+			new Weak_Monster;
+			//GetGSComponent<GAM200::GameObjectManager>()->Add(new Slow_Monster());
+		}
+		if (ImGui::Button("Produce Heal Monster"))
+		{
+			Engine::GetLogger().LogEvent("Heal Monster Produce!");
+			//MonsterFactory::CreateSlowMonsterFromFile();
+			new Heal_Monster;
 			//GetGSComponent<GAM200::GameObjectManager>()->Add(new Slow_Monster());
 		}
 
@@ -298,6 +327,14 @@ void Mode1::ImguiDraw()
 		{
 			GetGSComponent<BuildMode>()->Build(GameObjectTypes::Triple_Tower);
 		}
+		if (ImGui::Button("Produce Push Tower"))
+		{
+			GetGSComponent<BuildMode>()->Build(GameObjectTypes::Push_Tower);
+		}
+		if (ImGui::Button("Produce Wide Tower"))
+		{
+			GetGSComponent<BuildMode>()->Build(GameObjectTypes::Wide_Tower);
+		}
 
 
 		if (ImGui::Button("Delete Tower"))
@@ -312,7 +349,6 @@ void Mode1::ImguiDraw()
 		{
 			GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Obstacle);
 		}
-
 	}
 	ImGui::End();
 

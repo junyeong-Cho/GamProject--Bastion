@@ -14,3 +14,8 @@ int Gold::Value() const
 {
 	return goldValue;
 }
+
+void Gold::Interest()
+{
+	goldValue += goldValue / 10;
+}

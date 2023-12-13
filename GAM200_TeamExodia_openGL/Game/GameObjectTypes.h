@@ -33,25 +33,47 @@ enum class GameObjectTypes
     
     // Button
     Button,
+    
     // Player
     Player,
+    
     // Monsters
     Monster,
     Basic_Monster,
     Fast_Monster,
     Slow_Monster,
+    Mother_Monster,
     Weak_Monster,
+    Heal_Monster,
+
+    Monster_End,
+    
     // Tiles
     Tile,
     Pass__Tile,
     Block_Tile,
     Obstacle,
+
+    Tile_End,
+    
     // Towers
     Tower,
     Basic_Tower,
     Double_Tower,
     Triple_Tower,
+    Push_Tower,
+    Wide_Tower,
+    
+    Tower_End,
+
     // Bullets
     Bullet,
+    Basic_Bullet,
+    Wide_Range_Bullet,
+    Pushing_Bullet,
+
+    Bullet_End,
+
+
     HBG_Ui,
 };

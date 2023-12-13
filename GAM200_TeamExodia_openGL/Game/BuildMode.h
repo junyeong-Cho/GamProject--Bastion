@@ -24,6 +24,8 @@ public:
     void DeleteTower();
     void ChangeTile(GameObjectTypes type);
 
+    bool IsBuilding() const { return build_mode; }
+
     enum Direction
     {
         RIGHT, LEFT, UP, DOWN

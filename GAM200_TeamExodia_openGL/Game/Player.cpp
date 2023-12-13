@@ -20,27 +20,37 @@ Updated:    October		10, 2023
 #include "States.h"
 #include "Bullet.h"
 #include "Monster.h"
+#include "BuildMode.h"
 
 #include "../Engine/Mouse.h"
 
 
-Player::Player(Math::vec2 start_position, int size_x, int size_y) : GameObject(start_position), size_x(size_x), size_y(size_y) 
+Player::Player(Math::vec2 start_position, int size_x, int size_y) : GameObject(start_position, 0, { 0.5 , 0.5 }), size_x(size_x), size_y(size_y),
+                                       arm("assets/images/arm.spt", (this)), boost("assets/images/boost.spt", (this)), 
+                                       dash("assets/images/dash.spt", (this)), 
+                                       muzzle_effect("assets/images/muzzle_effect.spt", (this))
 {
     soundEffect->LoadFile("Assets/Sounds/SoundEffect/gun_sound_meca.wav");
-
+    AddGOComponent(new GAM200::Sprite("assets/images/Player.spt", (this)));
+    double pi = 3.14159265359;
     //AddGOComponent(new GAM200::Sprite("Assets/Player.spt", this));
-
+   // UpdateRotation(180* (pi / 180));
     SetPosition(start_position);
     SetVelocity({ 0, 0 });
-    AddGOComponent(new GAM200::RectCollision({ {static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y)}, {static_cast<int>(GetPosition().x) + size_x, static_cast<int>(GetPosition().y + size_y)} }, this));
+    //   AddGOComponent(new GAM200::RectCollision({ {static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y)}, {static_cast<int>(GetPosition().x) + size_x, static_cast<int>(GetPosition().y + size_y)} }, this));
 
-    //hurt_timer = new Timer(0.0);
-    //AddGOComponent(hurt_timer);
+       //hurt_timer = new Timer(0.0);
+       //AddGOComponent(hurt_timer);
     life_count = max_life;
+
+    boost.PlayAnimation(static_cast<int>(dash_anm::dash_none));
+    boost.PlayAnimation(static_cast<int>(boost_anm::None));
+    arm.PlayAnimation(static_cast<int>(arm_anm::None));
+    dash.PlayAnimation(static_cast<int>(dash_anm::dash_none));
+    muzzle_effect.PlayAnimation(static_cast<int>(arm_anm::None));
 
     current_state = &state_idle;
     current_state->Enter(this);
-
 }
 
 
@@ -49,12 +59,130 @@ void Player::Update(double dt) {
         return;
 
     GameObject::Update(dt);
+    GetGOComponent<GAM200::Sprite>()->Update(dt);
+
+    arm.Update(dt);
+    boost.Update(dt);
+    dash.Update(dt);
+    muzzle_effect.Update(dt);
 
     auto collider = GetGOComponent<GAM200::RectCollision>();
 
+
     invincibility_count += dt;
     attack_count += dt;
+    if (!dash_active) {
+        dash_count += dt;
+    }
+
+    if (dash_count > dash_latency) {
+        dash_life++;
+        dash_count = 0;
+    }
+
+
+    invincibility_count += dt;
+    attack_count += dt;
+
     
+        if (Engine::GetInput().keyDown(GAM200::Input::Keys::D))
+        {
+           // boost.PlayAnimation(static_cast<int>(boost_anm::left));
+            if (is_thrusting == false)
+            {
+                boost.PlayAnimation(static_cast<int>(boost_anm::left));
+                current_state = &Left_Moving;
+                is_thrusting = true;
+            }
+        }
+        else if (Engine::GetInput().keyDown(GAM200::Input::Keys::A))
+        {
+             if (is_thrusting == false)
+            {
+              boost.PlayAnimation(static_cast<int>(boost_anm::right));
+              current_state = &Right_Moving;
+                is_thrusting = true;
+            }
+           
+        }
+        else if (Engine::GetInput().keyDown(GAM200::Input::Keys::W))
+        {
+            if (is_thrusting == false)
+            {
+                boost.PlayAnimation(static_cast<int>(boost_anm::front));
+                current_state = &Front_Moving;
+                is_thrusting = true;
+            }
+            
+        }
+        else if (Engine::GetInput().keyDown(GAM200::Input::Keys::S))
+        {
+            if (is_thrusting == false)
+            {
+                boost.PlayAnimation(static_cast<int>(boost_anm::back));
+                current_state = &Back_Moving;
+                is_thrusting = true;
+            }
+
+        }
+        else
+        {
+            if (is_thrusting == true)
+            {
+                boost.PlayAnimation(static_cast<int>(boost_anm::None));
+                current_state = &state_idle;
+                is_thrusting = false;
+            }
+        }
+
+       
+
+
+
+        if (Engine::GetInput().keyDown(GAM200::Input::Keys::Space) && Engine::GetInput().keyDown(GAM200::Input::Keys::W))
+        {
+            if(dash_active)
+            dash.PlayAnimation(static_cast<int>(dash_anm::front_move_dash));//fucking bug
+        }
+        else if (Engine::GetInput().keyDown(GAM200::Input::Keys::Space) && Engine::GetInput().keyDown(GAM200::Input::Keys::S))
+        {
+            if (dash_active)
+            dash.PlayAnimation(static_cast<int>(dash_anm::back_move_dash));
+        }
+        else if (Engine::GetInput().keyDown(GAM200::Input::Keys::Space) && Engine::GetInput().keyDown(GAM200::Input::Keys::A))
+        {
+            if (dash_active)
+            dash.PlayAnimation(static_cast<int>(dash_anm::left_move_dash));
+        }
+        else if (Engine::GetInput().keyDown(GAM200::Input::Keys::Space) && Engine::GetInput().keyDown(GAM200::Input::Keys::D))
+        {
+            if (dash_active)
+            dash.PlayAnimation(static_cast<int>(dash_anm::right_move_dash));
+        }
+        else
+        {
+            dash.PlayAnimation(static_cast<int>(dash_anm::dash_none));
+        }
+      
+
+    
+
+
+
+/*   if(!Engine::GetInput().keyDown(GAM200::Input::Keys::Space) ||
+       Engine::GetInput().keyDown(GAM200::Input::Keys::W) ||
+       Engine::GetInput().keyDown(GAM200::Input::Keys::A) ||
+       Engine::GetInput().keyDown(GAM200::Input::Keys::S) ||
+       Engine::GetInput().keyDown(GAM200::Input::Keys::D))
+   {
+       boost.PlayAnimation(static_cast<int>(dash_anm::dash_none));
+   }*/
+
+
+
+
+
+
     if (collider != nullptr)
     {
         auto bounds = collider->WorldBoundary();
@@ -86,6 +214,15 @@ void Player::Update(double dt) {
         }
     }
 
+
+if (dash_on[0] == true || dash_on[1] == true || dash_on[2] == true || dash_on[3] == true)
+{
+    four_way_dash_on = true;
+}
+else
+{
+    four_way_dash_on = false;
+}
     Math::vec2 player_position = Math::vec2({ GetPosition().x + size_x / 2, GetPosition().y + size_y / 2 });
     Math::ivec2 window_size = Engine::GetWindow().GetSize();
     Math::vec2 mouse_position = Engine::GetInput().GetMousePosition();
@@ -93,39 +230,96 @@ void Player::Update(double dt) {
     Math::vec2 real_mouse_position = Math::vec2({ mouse_position.x, mouse_position.y });
     Math::vec2 bullet_direction = Math::vec2({ real_mouse_position.x - player_position.x, real_mouse_position.y - player_position.y });
     bullet_direction /= bullet_direction.GetLength();
-    if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT) && attack_count>=attack_cool)
+    if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT) &&
+        attack_count >= attack_cool &&
+        Engine::GetGameStateManager().GetGSComponent<BuildMode>()->IsBuilding() == false
+        && four_way_dash_on == false && is_fired == false)
     {
         // Some machanism
-        //soundEffect->Play(0);
+     //   soundEffect->Play(0);
+        is_fired = true;
+        
+      
+        
+        
+           arm.PlayAnimation(static_cast<int>(arm_anm::arm_fire));
+           muzzle_effect.PlayAnimation(static_cast<int>(arm_anm::arm_fire));
+           bullet_is_fired = true;
+        new Basic_Bullet(player_position, bullet_direction * Bullet::DefaultVelocity);
 
-
-        new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity);
-        //Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity));
         attack_count = 0;
     }
+    else
+    {
+        if (is_fired == true)
+        {
+            is_fired = false;
+           // arm.PlayAnimation(static_cast<int>(arm_anm::None));
+            muzzle_effect.PlayAnimation(static_cast<int>(arm_anm::None));
+        }
+    }
+    
+   
+    
+   
+    std::cout << return_idle_count << std::endl;
+
+ 
+
+
+
+
+
+
+
+
+
+
 }
 
 void Player::Draw(Math::TransformationMatrix camera_matrix) {
     if (life_count <= 0)
         return;
 
-    p.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
-    //GAM200::GameObject::Draw(camera_matrix);
+
+    //p.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+    GetGOComponent<GAM200::Sprite>()->Draw(GetMatrix()); 
+  
+    
+       
+   
+        if (dash_on[0] || dash_on[1] || dash_on[2] || dash_on[3])
+        {
+            
+            dash.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(2)));
+        }
+        else
+        {
+            boost.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(2)));
+            arm.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(1)));
+        }
+
+        
+
+        if (bullet_is_fired == true)
+        {
+            muzzle_effect.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(3)));
+         }
+    
 }
 
 
 bool Player::CanCollideWith(GameObjectTypes type) {
-    
-    if (type == GameObjectTypes::Basic_Monster ||
-        type == GameObjectTypes::Fast_Monster ||
-        type == GameObjectTypes::Slow_Monster ||
-        type == GameObjectTypes::Weak_Monster //|| type == GameObjectTypes::Block_Tile
+
+    if (static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
+        static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster_End)
         )
     {
         return true;
     }
     else
     {
+       
         return false;
     }
 
@@ -134,12 +328,26 @@ bool Player::CanCollideWith(GameObjectTypes type) {
 void Player::ResolveCollision(GameObject* other_object) {
     if (invincibility_count < invincibilityTime)
         return;
-    Math::rect player_rect = GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
 
+    Math::rect player_rect = GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
     Math::rect other_rect = other_object->GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
 
     double centerX = (player_rect.Left() + player_rect.Right()) / 2.0 - (other_rect.Left() + other_rect.Right()) / 2.0;
     double centerY = (player_rect.Top() + player_rect.Bottom()) / 2.0 - (other_rect.Top() + other_rect.Bottom()) / 2.0;
+
+
+    Monster* monster = static_cast<Monster*>(other_object);
+
+    if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
+        static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster_End)
+        )
+    {
+        life_count -= monster->GetDamage();
+        invincibility_count = 0;
+        other_object->ResolveCollision(this);
+    }
+
+
 
     switch (other_object->Type()) {
 
@@ -216,72 +424,201 @@ void Player::ResolveCollision(GameObject* other_object) {
     }
 }
 
+
 void Player::update_velocity(double dt) {
     Math::vec2 newVelocity = GetVelocity();
 
-    if (Engine::GetInput().keyDown(GAM200::Input::Keys::D))
-    {
-        newVelocity.x += acceleration * dt;
-        if (newVelocity.x > max_velocity)
-        {
-            newVelocity.x = max_velocity;
-        }
+    if (dash_life <= 0) {
+        dash_active = false;
     }
-    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::A))
-    {
-        newVelocity.x -= acceleration * dt;
-        if (newVelocity.x < -max_velocity)
-        {
-            newVelocity.x = -max_velocity;
+    //Dash
+  /*  if ((Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Space))
+        && dash_count >= dash_cool) {
+       
+        if (Engine::GetInput().keyDown(GAM200::Input::Keys::A)) {
+            dash_left = 500;
         }
-    }
-    if (Engine::GetInput().keyDown(GAM200::Input::Keys::W))
-    {
-        newVelocity.y += acceleration * dt;
-        if (newVelocity.y > max_velocity)
-        {
-            newVelocity.y = max_velocity;
+        else if (Engine::GetInput().keyDown(GAM200::Input::Keys::D)) {
+            dash_right = 100;
         }
-    }
-    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::S))
-    {
-        newVelocity.y -= acceleration * dt;
-        if (newVelocity.y < -max_velocity)
-        {
-            newVelocity.y = -max_velocity;
+        else if (Engine::GetInput().keyDown(GAM200::Input::Keys::W)) {
+            dash_front = 100;
         }
+        else if (Engine::GetInput().keyDown(GAM200::Input::Keys::S)) {
+            dash_back = 100;
+        }
+        dash_count = 0;
     }
     else
     {
-        if (newVelocity.x > drag * dt)
+         dash_right = 1;
+         dash_left = 1;
+         dash_front = 1;
+         dash_back = 1;
+         dash_on = false;
+    }*/
+        if ((Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Space) && Engine::GetInput().keyDown(GAM200::Input::Keys::A)))
         {
-            newVelocity.x -= drag * dt;
-        }
-        else if (newVelocity.x < -drag * dt)
-        {
-            newVelocity.x += drag * dt;
+            //Dash
+            if(dash_active)
+            dash_on[1] = true;
+            Engine::GetLogger().LogDebug("dash_left_on");
         }
         else
         {
-            newVelocity.x = 0;
+            dash_accel = 1;
+
+            dash_on[1] = false;
+
         }
 
-        if (newVelocity.y > drag * dt)
+        if ((Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Space) && Engine::GetInput().keyDown(GAM200::Input::Keys::D)))
         {
-            newVelocity.y -= drag * dt;
-        }
-        else if (newVelocity.y < -drag * dt)
-        {
-            newVelocity.y += drag * dt;
+            //Dash
+            if (dash_active)
+            dash_on[3] = true;
+            Engine::GetLogger().LogDebug("dash_right_on");
         }
         else
         {
-            newVelocity.y = 0;
+            dash_accel = 1;
+
+            dash_on[3] = false;
+
+        }
+
+        if ((Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Space) && Engine::GetInput().keyDown(GAM200::Input::Keys::W)))
+        {
+            //Dash
+            if (dash_active)
+            dash_on[0] = true;
+            Engine::GetLogger().LogDebug("dash_front_on");
+        }
+        else
+        {
+            dash_accel = 1;
+
+            dash_on[0] = false;
+
+        }
+
+        if ((Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Space) && Engine::GetInput().keyDown(GAM200::Input::Keys::S)))
+        {
+            //Dash
+            if (dash_active)
+            dash_on[2] = true;
+            Engine::GetLogger().LogDebug("dash_back_on");
+        }
+        else
+        {
+            dash_accel = 1;
+
+            dash_on[2] = false;
+
+        }
+        //Dash
+    if (dash_on[0] || dash_on[1] || dash_on[2] || dash_on[3]) {
+        dash_life--;
+    }
+    if (dash_original_life == dash_life) {
+        dash_active = true;
+    }
+
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::D))
+    {
+        newVelocity.x += acceleration  * dt;
+        newVelocity.x += dash_accel;
+        if (newVelocity.x > max_velocity  && dash_on[3] == false)
+        {
+            newVelocity.x = max_velocity;
+        }
+        else if (dash_on[3] == true)
+        {
+            dash_accel = 700;
+            dash_right = 700;
+            newVelocity.x += dash_right;
+        }
+    }
+    
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::A) )
+    {
+        newVelocity.x -= acceleration  * dt;
+        newVelocity.x -= dash_accel;
+        if (newVelocity.x < -max_velocity && dash_on[1] == false)
+        {
+            newVelocity.x = -max_velocity;
+        }
+        
+        else if (dash_on[1] == true)
+        {
+            dash_accel = 700;
+            dash_left = 700;
+            newVelocity.x -= dash_left;
         }
     }
 
-    SetVelocity(newVelocity);
 
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::W) )
+    {
+        newVelocity.y += acceleration  * dt;
+        newVelocity.y += dash_accel;
+        if (newVelocity.y > max_velocity && dash_on[0] == false)
+        {
+            newVelocity.y = max_velocity;
+        }
+
+        else if (dash_on[0] == true)
+        {
+            dash_accel = 700;
+            dash_front = 700;
+            newVelocity.y += dash_front;
+        }
+    }
+    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::S) )
+    {
+        newVelocity.y -= acceleration  * dt;
+        newVelocity.y -= dash_accel;
+        if (newVelocity.y < -max_velocity && dash_on[2] == false)
+        {
+            newVelocity.y = -max_velocity;
+        }
+
+        else if (dash_on[2] == true)
+        {
+            dash_accel = 700;
+            dash_back = 700;
+            newVelocity.y -= dash_back;
+        }
+    }
+    else {
+            if (newVelocity.x > drag * dt)
+            {
+                newVelocity.x -= drag * dt;
+            }
+            else if (newVelocity.x < -drag * dt)
+            {
+                newVelocity.x += drag * dt;
+            }
+            else
+            {
+                newVelocity.x = 0;
+            }
+
+            if (newVelocity.y > drag * dt)
+            {
+                newVelocity.y -= drag * dt;
+            }
+            else if (newVelocity.y < -drag * dt)
+            {
+                newVelocity.y += drag * dt;
+            }
+            else
+            {
+                newVelocity.y = 0;
+            }
+    }
+
+    SetVelocity(newVelocity);
 }
 
 
@@ -296,75 +633,238 @@ void Player::update_velocity(double dt) {
 // State Idle
 void Player::State_Idle::Enter(GameObject* object)
 {
+    
     Player* player = static_cast<Player*>(object);
-    //player->GetGOComponent<Player::Sprite>()->PlayAnimation(static_cast<int>(Animations::Idle));
+    player->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(Animations::Idle));
 }
 
 void Player::State_Idle::Update([[maybe_unused]] GameObject* object, [[maybe_unused]] double dt) { }
 
 void Player::State_Idle::CheckExit(GameObject* object) {
     Player* player = static_cast<Player*>(object);
-    if (Engine::GetInput().keyDown(GAM200::Input::Keys::A)) {
-        player->change_state(&player->state_moving);
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::W)) {
+        player->change_state(&player->Front_Moving);
     }
     else if (Engine::GetInput().keyDown(GAM200::Input::Keys::D)) {
-        player->change_state(&player->state_moving);
+        player->change_state(&player->Right_Moving);
     }
-    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::W)) {
-        player->change_state(&player->state_moving);
+
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::A)) {
+        player->change_state(&player->Left_Moving);
     }
     else if (Engine::GetInput().keyDown(GAM200::Input::Keys::S)) {
-        player->change_state(&player->state_moving);
+        player->change_state(&player->Back_Moving);
+    }
+    else
+    {
+        player->change_state(&player->state_idle);
+
     }
 }
 
-// State Moving
-void Player::State_Moving::Enter(GameObject* object)
+// State front Moving
+void Player::Front_Moving::Enter(GameObject* object)
 {
     Player* player = static_cast<Player*>(object);
-    //player->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(Animations::Moving));
-    if (Engine::GetInput().keyDown(GAM200::Input::Keys::Right) && player->GetVelocity().x >= 0)
-    {
-        if (Engine::GetInput().keyDown(GAM200::Input::Keys::Up) && player->GetVelocity().y >= 0)
-        {
-            player->SetScale({ 1, 1 });
-        }
-        else {
-            player->SetScale({ 1, -1 });
-        }
-    }
-    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::Left) && player->GetVelocity().x <= 0)
-    {
-        if (Engine::GetInput().keyDown(GAM200::Input::Keys::Up) && player->GetVelocity().y >= 0)
-        {
-            player->SetScale({ -1, 1 });
-        }
-        else {
-            player->SetScale({ -1, -1 });
-        }
-    }
+    player->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(Animations::Front_Moving));
+    
+  
 }
 
-void Player::State_Moving::Update([[maybe_unused]] GameObject* object, [[maybe_unused]] double dt) {
+void Player::Front_Moving::Update([[maybe_unused]] GameObject* object, [[maybe_unused]] double dt) {
     Player* player = static_cast<Player*>(object);
     player->update_velocity(dt);
 }
 
-void Player::State_Moving::CheckExit(GameObject* object) {
+void Player::Front_Moving::CheckExit(GameObject* object) {
     Player* player = static_cast<Player*>(object);
-    if ((Engine::GetInput().keyDown(GAM200::Input::Keys::Left) && player->GetVelocity().x > 0) ||
-        (Engine::GetInput().keyDown(GAM200::Input::Keys::Right) && player->GetVelocity().x < 0) ||
-        (Engine::GetInput().keyDown(GAM200::Input::Keys::Down) && player->GetVelocity().y > 0) ||
-        (Engine::GetInput().keyDown(GAM200::Input::Keys::Up) && player->GetVelocity().y < 0)
+    if ((Engine::GetInput().keyDown(GAM200::Input::Keys::A) && player->GetVelocity().x > 0) ||
+        (Engine::GetInput().keyDown(GAM200::Input::Keys::D) && player->GetVelocity().x < 0) ||
+        (Engine::GetInput().keyDown(GAM200::Input::Keys::S) && player->GetVelocity().y > 0) ||
+        (Engine::GetInput().keyDown(GAM200::Input::Keys::W) && player->GetVelocity().y < 0)
         )
     {
         player->change_state(&player->state_skidding);
     }
-    //else if (player->GetVelocity().x == 0 || player->GetVelocity().y == 0)
-    //{
-    //    player->change_state(&player->state_idle);
-    //} // 이거 없애니까 아무튼 됨,.
+  
+
+
+
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::W)) {
+        player->change_state(&player->Front_Moving);
+    }
+    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::D)) {
+        player->change_state(&player->Right_Moving);
+    }
+
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::A)) {
+        player->change_state(&player->Left_Moving);
+    }
+    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::S)) {
+        player->change_state(&player->Back_Moving);
+    }
+
+
+
+
 }
+
+
+
+//////////////////////
+
+
+
+// State rihgt Moving
+void Player::Right_Moving::Enter(GameObject* object)
+{
+    Player* player = static_cast<Player*>(object);
+    player->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(Animations::Rihgt_Moving));
+    
+}
+
+void Player::Right_Moving::Update([[maybe_unused]] GameObject* object, [[maybe_unused]] double dt) {
+    Player* player = static_cast<Player*>(object);
+    player->update_velocity(dt);
+}
+
+void Player::Right_Moving::CheckExit(GameObject* object) {
+    Player* player = static_cast<Player*>(object);
+    if ((Engine::GetInput().keyDown(GAM200::Input::Keys::A) && player->GetVelocity().x > 0) ||
+        (Engine::GetInput().keyDown(GAM200::Input::Keys::D) && player->GetVelocity().x < 0) ||
+        (Engine::GetInput().keyDown(GAM200::Input::Keys::S) && player->GetVelocity().y > 0) ||
+        (Engine::GetInput().keyDown(GAM200::Input::Keys::W) && player->GetVelocity().y < 0)
+        )
+    {
+        player->change_state(&player->state_skidding);
+    }
+
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::W)) {
+        player->change_state(&player->Front_Moving);
+    }
+    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::D)) {
+        player->change_state(&player->Right_Moving);
+    }
+
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::A)) {
+        player->change_state(&player->Left_Moving);
+    }
+    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::S)) {
+        player->change_state(&player->Back_Moving);
+    }
+  
+}
+
+
+
+//////////////////////
+
+
+
+// State back Moving
+void Player::Back_Moving::Enter(GameObject* object)
+{
+    Player* player = static_cast<Player*>(object);
+    player->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(Animations::Back_Moving));
+    
+}
+
+void Player::Back_Moving::Update([[maybe_unused]] GameObject* object, [[maybe_unused]] double dt) {
+    Player* player = static_cast<Player*>(object);
+    player->update_velocity(dt);
+}
+
+void Player::Back_Moving::CheckExit(GameObject* object) {
+    Player* player = static_cast<Player*>(object);
+    if ((Engine::GetInput().keyDown(GAM200::Input::Keys::A) && player->GetVelocity().x > 0) ||
+        (Engine::GetInput().keyDown(GAM200::Input::Keys::D) && player->GetVelocity().x < 0) ||
+        (Engine::GetInput().keyDown(GAM200::Input::Keys::S) && player->GetVelocity().y > 0) ||
+        (Engine::GetInput().keyDown(GAM200::Input::Keys::W) && player->GetVelocity().y < 0)
+        )
+    {
+        player->change_state(&player->state_skidding);
+    }
+
+
+
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::W)) {
+        player->change_state(&player->Front_Moving);
+    }
+    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::D)) {
+        player->change_state(&player->Right_Moving);
+    }
+
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::A)) {
+        player->change_state(&player->Left_Moving);
+    }
+    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::S)) {
+        player->change_state(&player->Back_Moving);
+    }
+}
+
+
+
+//////////////////////
+
+
+
+// State left Moving
+void Player::Left_Moving::Enter(GameObject* object)
+{
+    Player* player = static_cast<Player*>(object);
+    player->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(Animations::Left_Moving));
+  
+}
+
+void Player::Left_Moving::Update([[maybe_unused]] GameObject* object, [[maybe_unused]] double dt) {
+    Player* player = static_cast<Player*>(object);
+    player->update_velocity(dt);
+}
+
+void Player::Left_Moving::CheckExit(GameObject* object) {
+    Player* player = static_cast<Player*>(object);
+    if ((Engine::GetInput().keyDown(GAM200::Input::Keys::A) && player->GetVelocity().x > 0) ||
+        (Engine::GetInput().keyDown(GAM200::Input::Keys::D) && player->GetVelocity().x < 0) ||
+        (Engine::GetInput().keyDown(GAM200::Input::Keys::S) && player->GetVelocity().y > 0) ||
+        (Engine::GetInput().keyDown(GAM200::Input::Keys::W) && player->GetVelocity().y < 0)
+        )
+    {
+        player->change_state(&player->state_skidding);
+    }
+
+
+
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::W)) {
+        player->change_state(&player->Front_Moving);
+    }
+    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::D)) {
+        player->change_state(&player->Right_Moving);
+    }
+
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::A)) {
+        player->change_state(&player->Left_Moving);
+    }
+    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::S)) {
+        player->change_state(&player->Back_Moving);
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // State Dashing
 void Player::State_Dashing::Enter(GameObject* object)
@@ -379,18 +879,7 @@ void Player::State_Dashing::Update([[maybe_unused]] GameObject* object, [[maybe_
 
 void Player::State_Dashing::CheckExit(GameObject* object) {
     Player* player = static_cast<Player*>(object);
-    if (Engine::GetInput().keyDown(GAM200::Input::Keys::Left)) {
-        player->change_state(&player->state_moving);
-    }
-    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::Right)) {
-        player->change_state(&player->state_moving);
-    }
-    else if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Up)) {
-        player->change_state(&player->state_moving);
-    }
-    else if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Down)) {
-        player->change_state(&player->state_moving);
-    }
+   
 }
 
 // State Skidding
@@ -430,20 +919,20 @@ void Player::State_Skidding::Update([[maybe_unused]] GameObject* object, [[maybe
 void Player::State_Skidding::CheckExit(GameObject* object) {
     Player* player = static_cast<Player*>(object);
 
-    if (Engine::GetInput().keyDown(GAM200::Input::Keys::Left) && player->GetVelocity().x < 0)
+   /* if (Engine::GetInput().keyDown(GAM200::Input::Keys::A) && player->GetVelocity().x < 0)
     {
-        player->change_state(&player->state_moving);
+        player->change_state(&player->Left_Moving);
     }
-    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::Right) && player->GetVelocity().x > 0)
+    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::D) && player->GetVelocity().x > 0)
     {
-        player->change_state(&player->state_moving);
+        player->change_state(&player->Right_Moving);
     }
-    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::Down) && player->GetVelocity().y < 0)
+    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::S) && player->GetVelocity().y < 0)
     {
-        player->change_state(&player->state_moving);
+        player->change_state(&player->Back_Moving);
     }
-    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::Up) && player->GetVelocity().y > 0)
+    else if (Engine::GetInput().keyDown(GAM200::Input::Keys::W) && player->GetVelocity().y > 0)
     {
-        player->change_state(&player->state_moving);
-    }
+        player->change_state(&player->Front_Moving);
+    }*/
 }

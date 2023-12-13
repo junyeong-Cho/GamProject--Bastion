@@ -20,6 +20,7 @@ public:
     void Draw(Math::TransformationMatrix camera_matrix) override;
 
     bool tower_type[7] = { false,false,false, false,false,false,false };//basic doble triple delete change_tp change_tb wave
+    bool single_tower = false;
 
 protected:
     virtual void func(Math::ivec2);

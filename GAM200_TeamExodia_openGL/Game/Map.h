@@ -32,7 +32,7 @@ public:
 	void SetMap(std::string file_name);
 	Math::ivec2 GetStartPoint() const { return start_point; }
 	Math::ivec2 GetEndPoint() const { return end_point; }
-	void MapUnload();
+	void MapUnload() const;
 	Math::ivec2 GetSize() const { return Math::ivec2(cols, rows); }
 	std::vector<std::vector<std::tuple<int, std::string, int>>> GetWaveInfo() const { return wave_info; }
 	std::string GetType(Math::ivec2 position) const;

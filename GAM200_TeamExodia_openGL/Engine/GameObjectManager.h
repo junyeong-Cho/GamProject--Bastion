@@ -19,6 +19,7 @@ Updated:    September 26, 2023
 #include "../Engine/Component.h"
 
 namespace Math { class TransformationMatrix; }
+class Monster;
 
 namespace GAM200
 {
@@ -33,6 +34,7 @@ namespace GAM200
 
         void CollisionTest();
         GAM200::GameObject* GetClosestObject(GAM200::GameObject*);
+        std::vector<Monster*> GetMonstersInRange(GAM200::GameObject*, double);
 
     private:
         std::list<GameObject*> objects;

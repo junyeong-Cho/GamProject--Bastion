@@ -1,8 +1,15 @@
 #pragma once
 
 #include "../Engine/GameObject.h"
-#include "Bullet.h"
 #include "../Engine/Texture.h"
+
+#include <iostream>
+#include <fstream>
+#include <string>
+
+
+
+// Virtual class for the towers
 class Tower : public GAM200::GameObject {
 public:
     Tower(Math::vec2 position, int direction);
@@ -13,6 +20,10 @@ public:
     void Update(double dt) override;
 
     void Draw(Math::TransformationMatrix camera_matrix) override;
+
+	virtual bool CanCollideWith(GameObjectTypes type) override;
+
+	virtual void ResolveCollision(GameObject* other_object) override;
 
     static int GetCost() { return cost; }
 
@@ -43,18 +54,18 @@ protected:
         Attacking,
     };
 
-    int size_x = 0;
-    int size_y = 0;
+    int size_x = 80;
+    int size_y = 80;
 
     int direction;
     Math::vec2 bullet_direction;
 
-    const double attack_delay = 1.0;
     double attack_count = 0;
+    bool attack_ready = false;
+    bool is_fired = false;
     ///
     bool four_way[4] = { false,false,false,false };//tower_way_select
     ///
-    int max_hp = 10;
     int hp;
 
     class State_Charging : public State
@@ -78,16 +89,42 @@ protected:
     State_Charging state_charging;
     State_Attacking state_attacking;
 
+
+    enum class tower_state
+    {
+        None,
+        Fire
+
+    };
+
+    GAM200::Sprite single_tower;
+    GAM200::Sprite double_tower;
+    GAM200::Sprite triple_tower;
+    GAM200::Sprite push_tower;
+    GAM200::Sprite wide_tower;
+
 private:
-    static const int cost = 0;
+    friend class TowerFactory;
+    static int cost;
+    static double attack_delay;
+    static int max_hp;
+
+  
 };
 
+
+// Basic tower
 class Basic_Tower : public Tower {
 public:
     Basic_Tower(Math::vec2 position, int direction);
 
     GameObjectTypes Type() override { return GameObjectTypes::Basic_Tower; }
     std::string TypeName() override { return "Basic_Tower"; }
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+    bool CanCollideWith(GameObjectTypes type) override;
+
+    void ResolveCollision(GameObject* other_object) override;
+
 
     static int GetCost() { return cost; }
 
@@ -111,10 +148,20 @@ public:
 
     State_Charging state_charging;
     State_Attacking state_attacking;
+
 private:
-    static const int cost = 100;
+    friend class TowerFactory;
+    static int cost;
+    static double attack_delay;
+    static int max_hp;
+
+    static int range_x;
+    static int range_y;
+    static double attack_range;
 };
 
+
+// Double tower
 class Double_Tower : public Tower
 {
 public:
@@ -122,6 +169,11 @@ public:
 
     GameObjectTypes Type() override { return GameObjectTypes::Double_Tower; }
     std::string TypeName() override { return "Double_Tower"; }
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+    bool CanCollideWith(GameObjectTypes type) override;
+
+    void ResolveCollision(GameObject* other_object) override;
+
 
     static int GetCost() { return cost; }
 
@@ -146,10 +198,18 @@ public:
     State_Attacking state_attacking;
 
 private:
-    static const int cost = 200;
+    friend class TowerFactory;
+    static int cost;
+    static double attack_delay;
+    static int max_hp;
 
+    static int range_x;
+    static int range_y;
+    static double attack_range;
 };
 
+
+// Triple tower
 class Triple_Tower : public Tower
 {
 public:
@@ -157,6 +217,11 @@ public:
 
     GameObjectTypes Type() override { return GameObjectTypes::Triple_Tower; }
     std::string TypeName() override { return "Triple_Tower"; }
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+    bool CanCollideWith(GameObjectTypes type) override;
+
+    void ResolveCollision(GameObject* other_object) override;
+
 
     static int GetCost() { return cost; }
 
@@ -181,9 +246,123 @@ public:
     State_Attacking state_attacking;
 
 private:
-    static const int cost = 300;
+    friend class TowerFactory;
+    static int cost;
+    static double attack_delay;
+    static int max_hp;
+
+    static int range_x;
+    static int range_y;
+    static double attack_range;
+};
+
+
+// Push tower
+class Push_Tower : public Tower
+{
+public:
+    Push_Tower(Math::vec2 position, int direction);
+
+    GameObjectTypes Type() override { return GameObjectTypes::Push_Tower; }
+    std::string TypeName() override { return "Push_Tower"; }
+
+    bool CanCollideWith(GameObjectTypes type) override;
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+    void ResolveCollision(GameObject* other_object) override;
+
+
+    static int GetCost() { return cost; }
+
+    class State_Charging : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Jumping"; }
+    };
+    class State_Attacking : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Idle"; }
+    };
+
+    State_Charging state_charging;
+    State_Attacking state_attacking;
+
+private:
+    friend class TowerFactory;
+    static int cost;
+    static double attack_delay;
+    static int max_hp;
+
+    static int range_x;
+    static int range_y;
+    static double attack_range;
 
 };
 
 
+// Wide Tower
+class Wide_Tower : public Tower
+{
+public:
+    Wide_Tower(Math::vec2 position, int direction);
 
+    GameObjectTypes Type() override { return GameObjectTypes::Wide_Tower; }
+    std::string TypeName() override { return "Wide_Tower"; }
+
+    bool CanCollideWith(GameObjectTypes type) override;
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+    void ResolveCollision(GameObject* other_object) override;
+
+
+    static int GetCost() { return cost; }
+
+    class State_Charging : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Jumping"; }
+    };
+    class State_Attacking : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Idle"; }
+    };
+
+    State_Charging state_charging;
+    State_Attacking state_attacking;
+
+private:
+    friend class TowerFactory;
+    static int cost;
+    static double attack_delay;
+    static int max_hp;
+
+    static int range_x;
+    static int range_y;
+    static double attack_range;
+};
+
+
+
+class TowerFactory {
+public:
+    static void InitBasicTowerFromFile(const std::string& filePath = "assets/towers/Basic_Tower.txt");
+    static void InitDoubleTowerFromFile(const std::string& filePath = "assets/towers/Double_Tower.txt");
+    static void InitTripleTowerFromFile(const std::string& filePath = "assets/towers/Triple_Tower.txt");
+    static void InitPushTowerFromFile(const std::string& filePath = "assets/towers/Push_Tower.txt");
+    static void InitWideTowerFromFile(const std::string& filePath = "assets/towers/Wide_Tower.txt");
+
+private:
+
+};

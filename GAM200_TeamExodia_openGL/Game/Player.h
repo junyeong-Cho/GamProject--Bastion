@@ -42,7 +42,82 @@ public:
     int GetHP() const { return life_count; }
     void SetHP(int life) { life_count = life; }
 
+     
+  
+
+
+    int GetDashCount() const { return dash_life; }
+    void SetDashCount(int dash) { dash_life = dash; }
+
+    double GetDashSpeedMultiplier() const { return dash_speed_multiplier; }
+    double GetDashCooltime() const { return dash_cool; }
+
+    bool GetDashActive() const { return dash_active; }
+    void SetDashActive(bool active) { dash_active = active; }
+
+    enum class arm_anm
+    {
+        None,
+
+        arm_fire
+
+    };
+    enum class boost_anm
+    {
+        None,
+
+        front,
+        right,
+        back,
+        left,
+
+        front_right,
+        front_left,
+
+        back_right,
+        back_left
+
+    };  
+
+    enum class dash_anm
+    {
+        dash_none,
+
+        front_move_dash,
+        back_move_dash,
+        left_move_dash,
+        right_move_dash,
+     
+        front_right_dash,
+        front_left_dash,
+
+        back_right_dash,
+        back_left_dash
+
+    };
+    GAM200::Sprite arm;
+    GAM200::Sprite boost;
+    GAM200::Sprite dash;
+    GAM200::Sprite muzzle_effect;
+
+    bool bullet_is_fired = false;
+    bool is_thrusting = false;
+    bool is_fired= false;
+
 private:
+    Math::vec2   start_position;
+
+    Math::vec2 mouse_position;
+
+    double player_angle;
+
+    static constexpr double rotation_speed = 2.0;
+
+    const double ship_speed = 140;
+
+    static constexpr double scale = 0.75;
+
+  
 
     GAM200::SoundEffect* soundEffect = new GAM200::SoundEffect();
 
@@ -52,7 +127,10 @@ private:
     enum class Animations
     {
         Idle,
-        Moving,
+        Front_Moving,
+        Rihgt_Moving,
+        Back_Moving,
+        Left_Moving,
         Dashing,
         Skidding,
     };
@@ -62,16 +140,26 @@ private:
     int size_x;
     int size_y;
 
-    static constexpr double max_velocity = 300;
+    static constexpr double max_velocity = 500;
     static constexpr double dash_velocity = 500;
 
-    static constexpr double acceleration = 300;
+    static constexpr double acceleration = 500;
 
-    static constexpr double drag = 200;
+    static constexpr double drag = 450;
 
     bool not_clicked = false;
 
+    int return_idle_count;
+    bool return_idle = false;
     void update_velocity(double dt);
+
+    int dash_right = 0;
+    int dash_left = 0;
+    int dash_front = 1;
+    int dash_back = 1;
+    int dash_accel = 1;
+    bool dash_on[4] = { false, false, false, false };//wasd
+    bool four_way_dash_on = false;
 
     static constexpr double invincibilityTime = 1.0;
     double invincibility_count = 0;
@@ -79,8 +167,17 @@ private:
     static constexpr double attack_cool = 1.0;
     double attack_count = 0;
 
-    int max_life = 50;
+    int max_life = 20;
     int life_count = 0;
+   
+
+    static constexpr double dash_cool = 1.0;
+    bool dash_active = true;
+    double dash_speed_multiplier = 4.0;
+    double dash_count = 0;
+    double dash_life = 5;
+    static constexpr double dash_original_life = 5;
+    double dash_latency = 1;
 
 
     //Finite State Machines
@@ -90,17 +187,63 @@ private:
         virtual void Enter(GameObject* object) override;
         virtual void Update(GameObject* object, double dt) override;
         virtual void CheckExit(GameObject* object) override;
-        std::string GetName() override { return "Jumping"; }
+        std::string GetName() override { return "idle"; }
     };
 
-    class State_Moving : public State
+
+
+
+    class Front_Moving : public State
     {
     public:
         virtual void Enter(GameObject* object) override;
         virtual void Update(GameObject* object, double dt) override;
         virtual void CheckExit(GameObject* object) override;
-        std::string GetName() override { return "Idle"; }
+        std::string GetName() override { return "front"; }
     };
+
+
+    class Right_Moving : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "right"; }
+    };
+
+
+    class Back_Moving : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "back"; }
+    };
+
+
+    class Left_Moving : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "left"; }
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     class State_Dashing : public State
     {
@@ -110,7 +253,6 @@ private:
         virtual void CheckExit(GameObject* object) override;
         std::string GetName() override { return "Falling"; }
     };
-
     class State_Skidding : public State
     {
     public:
@@ -120,12 +262,18 @@ private:
         std::string GetName() override { return "Running"; }
     };
     
+
     State_Idle state_idle;
 
-    State_Moving state_moving;
+    Front_Moving Front_Moving;
+    Right_Moving Right_Moving;
+    Back_Moving Back_Moving;
+    Left_Moving Left_Moving;
 
     State_Dashing state_dashing;
-
     State_Skidding state_skidding;
 
 };
+
+
+

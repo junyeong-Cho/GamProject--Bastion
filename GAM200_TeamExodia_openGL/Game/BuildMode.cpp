@@ -5,6 +5,7 @@
 #include "Tower.h"
 #include "Gold.h"
 #include "Monster.h"
+#include "Wave.h"
 
 BuildMode::BuildMode() : build_mode(false), direction(Direction::RIGHT)
 {
@@ -247,13 +248,21 @@ void BuildMode::Build(GameObjectTypes type)
 	{
 		cost = Basic_Tower::GetCost();
 	}
-	if (type == GameObjectTypes::Double_Tower)
+	else if (type == GameObjectTypes::Double_Tower)
 	{
 		cost = Double_Tower::GetCost();
 	}
-	if (type == GameObjectTypes::Triple_Tower)
+	else if (type == GameObjectTypes::Triple_Tower)
 	{
 		cost = Triple_Tower::GetCost();
+	}
+	else if (type == GameObjectTypes::Push_Tower)
+	{
+		cost = Push_Tower::GetCost();
+	}
+	else if (type == GameObjectTypes::Wide_Tower)
+	{
+		cost = Wide_Tower::GetCost();
 	}
 }
 
@@ -274,6 +283,13 @@ void BuildMode::ChangeTile(GameObjectTypes type)
 		Engine::GetLogger().LogDebug("You are not able to change the tile while the monsters are remaining!");
 		return;
 	}
+
+	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::InProgress)
+	{
+		Engine::GetLogger().LogDebug("You are not able to change the tile while wave is in progress!");
+		return;
+	}
+
 	build_mode = true;
 	this->type = type;
 

@@ -20,9 +20,10 @@ Updated:    October		10, 2023
 #include "../Engine/Texture.h"
 #include "GameObjectTypes.h"
 #include "../Game/Hp_Boost_Gold_ui.h"
+#include"../Game/Button.h"
 
 class Player;
-
+class Button;
 
 class Mode1 : public GAM200::GameState
 {
@@ -49,7 +50,7 @@ public:
     int velocity = 500;
 
     Player* player_ptr;
-    
+    Button* button_ptr;
 
     int tile_col = 0;
     int tile_row = 0;

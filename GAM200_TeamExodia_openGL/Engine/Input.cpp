@@ -27,8 +27,8 @@ GAM200::Input::Input()
 void GAM200::Input::Update()
 {
 
-    //SDL_PollEvent¸¦ ³»ºÎ¿¡¼­ È£ÃâÇÏ¸ç, HandleEvent´Â Å°º¸µå ÀÌº¥Æ®¸¸À» Ã³¸®ÇÏ°ÔÇÔ
-    //¿ø·¡´Â instance¸¦ µû·Î ¹Þ¾Æ¿À´Â ½ÄÀÌ¾úÀ¸³ª ³Ê¹« ´À·ÈÀ½...
+    //SDL_PollEventï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½Ï¸ï¿½, HandleEventï¿½ï¿½ Å°ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ instanceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
     previous_keys_down = keys_down;
     previous_buttons_down = buttons_down;
 
@@ -136,7 +136,8 @@ GAM200::Input::Keys convertKey_opengl_to_gam200(SDL_Keycode sdl_key)
         return GAM200::Input::Keys::_0;
     case SDLK_TAB:
         return GAM200::Input::Keys::Tab;
-
+    case SDLK_LSHIFT:
+        return GAM200::Input::Keys::L_Shift;
     }
 
     return GAM200::Input::Keys::Unknown;
@@ -226,7 +227,7 @@ bool GAM200::Input::WheelIsMoved()
 {
     if (wheel_moved)
     {
-        // ¿òÁ÷ÀÓ »óÅÂ ÃÊ±âÈ­
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
         wheel_moved = false;
 
         return true;

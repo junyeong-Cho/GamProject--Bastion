@@ -113,7 +113,7 @@ void Map::SetMap(std::string file_name)
 	
 }
 
-void Map::MapUnload() {
+void Map::MapUnload() const {
 	// Free the Memoroy
 	for (int i = 0; i < cols; ++i) {
 		delete[] map[i];
@@ -126,10 +126,16 @@ void Map::ChangeTile(Math::ivec2 position, GameObjectTypes type) {
 	int rows = position.x;
 
 	if (map[cols][rows]->tile->Type() == type || map[cols][rows]->tile->Type() == GameObjectTypes::Block_Tile)
+	{
+		Engine::GetLogger().LogDebug("It's same type of tile or it's block tile!");
 		return;
+	}
 	
-	if (position == start_point || position == end_point)
+	if ((position.x == start_point.y && position.y == start_point.x) || (position.x == end_point.y && position.y == end_point.x))
+	{
+		Engine::GetLogger().LogDebug("You cannot change the start point or end point!");
 		return;
+	}
 
 	if (type == GameObjectTypes::Pass__Tile) 
 	{
@@ -138,6 +144,8 @@ void Map::ChangeTile(Math::ivec2 position, GameObjectTypes type) {
 		delete map[cols][rows]->tile;
 
 		map[cols][rows]->tile = new Pass__Tile(Math::irect{ { rows * tile_size.x, cols * tile_size.y }, { (rows + 1) * tile_size.x, (cols + 1) * tile_size.y } });
+
+		Engine::GetLogger().LogDebug("Changed to pass tile!");
 	}
 	else if (type == GameObjectTypes::Block_Tile)
 	{
@@ -155,6 +163,8 @@ void Map::ChangeTile(Math::ivec2 position, GameObjectTypes type) {
 		delete map[cols][rows]->tile;
 
 		map[cols][rows]->tile = new Obstacle(Math::irect{ { rows * tile_size.x, cols * tile_size.y }, { (rows + 1) * tile_size.x, (cols + 1) * tile_size.y } });
+
+		Engine::GetLogger().LogDebug("Changed to obstacle tile!");
 	}
 
 	if (Astar::GetInstance().UpdatePath(map, start_point, end_point) == false)
@@ -214,6 +224,7 @@ void Map::BuildTower(Math::ivec2 position, GameObjectTypes type, int direction)
 			Engine::GetLogger().LogDebug("Not enough gold!");
 			return;
 		}
+		//map[cols][rows]->tower = TowerFactory::CreateBasicTowerFromFile({ static_cast<double>(rows * static_cast<double>(tile_size.x)), (cols * static_cast<double>(tile_size.y)) }, static_cast<int>(direction));
 		map[cols][rows]->tower = new Basic_Tower({ static_cast<double>(rows * static_cast<double>(tile_size.x)), (cols * static_cast<double>(tile_size.y)) }, static_cast<int>(direction));
 		break;
 	case GameObjectTypes::Double_Tower:
@@ -224,6 +235,7 @@ void Map::BuildTower(Math::ivec2 position, GameObjectTypes type, int direction)
 			Engine::GetLogger().LogDebug("Not enough gold!");
 			return;
 		}
+		//map[cols][rows]->tower = TowerFactory::CreateDoubleTowerFromFile({ static_cast<double>(rows * static_cast<double>(tile_size.x)), (cols * static_cast<double>(tile_size.y)) }, static_cast<int>(direction));
 		map[cols][rows]->tower = new Double_Tower({ static_cast<double>(rows * static_cast<double>(tile_size.x)), (cols * static_cast<double>(tile_size.y)) }, static_cast<int>(direction));
 		break;
 	case GameObjectTypes::Triple_Tower:
@@ -234,7 +246,30 @@ void Map::BuildTower(Math::ivec2 position, GameObjectTypes type, int direction)
 			Engine::GetLogger().LogDebug("Not enough gold!");
 			return;
 		}
+		//map[cols][rows]->tower = TowerFactory::CreateTripleTowerFromFile({ static_cast<double>(rows * static_cast<double>(tile_size.x)), (cols * static_cast<double>(tile_size.y)) }, static_cast<int>(direction));
 		map[cols][rows]->tower = new Triple_Tower({ static_cast<double>(rows * static_cast<double>(tile_size.x)), (cols * static_cast<double>(tile_size.y)) }, static_cast<int>(direction));
+		break;
+	case GameObjectTypes::Push_Tower:
+		if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() < Push_Tower::GetCost())
+		{
+			soundEffect->Play(0);
+
+			Engine::GetLogger().LogDebug("Not enough gold!");
+			return;
+		}
+		//map[cols][rows]->tower = TowerFactory::CreateBasicTowerFromFile({ static_cast<double>(rows * static_cast<double>(tile_size.x)), (cols * static_cast<double>(tile_size.y)) }, static_cast<int>(direction));
+		map[cols][rows]->tower = new Push_Tower({ static_cast<double>(rows * static_cast<double>(tile_size.x)), (cols * static_cast<double>(tile_size.y)) }, static_cast<int>(direction));
+		break;
+	case GameObjectTypes::Wide_Tower:
+		if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() < Wide_Tower::GetCost())
+		{
+			soundEffect->Play(0);
+
+			Engine::GetLogger().LogDebug("Not enough gold!");
+			return;
+		}
+		//map[cols][rows]->tower = TowerFactory::CreateBasicTowerFromFile({ static_cast<double>(rows * static_cast<double>(tile_size.x)), (cols * static_cast<double>(tile_size.y)) }, static_cast<int>(direction));
+		map[cols][rows]->tower = new Wide_Tower({ static_cast<double>(rows * static_cast<double>(tile_size.x)), (cols * static_cast<double>(tile_size.y)) }, static_cast<int>(direction));
 		break;
 	}
 	Engine::GetLogger().LogDebug("Tower build!");
