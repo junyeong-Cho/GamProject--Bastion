@@ -14,6 +14,7 @@ Updated:    October		10, 2023
 #include "../Engine/Collision.h"
 #include "../Engine/DrawShape.h"
 #include "../Engine/GameObjectManager.h"
+#include "../Engine/Mouse.h"
 
 #include "Player.h"
 #include "Mode1.h"
@@ -22,8 +23,10 @@ Updated:    October		10, 2023
 #include "Monster.h"
 #include "BuildMode.h"
 
-#include "../Engine/Mouse.h"
 
+
+
+int Player::additional_attack_dmg = 0;
 
 Player::Player(Math::vec2 start_position, int size_x, int size_y) : GameObject(start_position), size_x(size_x), size_y(size_y) 
 {

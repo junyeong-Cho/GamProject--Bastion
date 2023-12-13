@@ -42,8 +42,10 @@ public:
     int GetHP() const { return life_count; }
     void SetHP(int life) { life_count = life; }
     void Recover() { life_count = max_life; }
+    static int GetAdditionalDmg() { return additional_attack_dmg; }
 
     void UpgradeAttackSpeed() { attack_cool *= 0.5; }
+    void UpgradeAttackDmg() { ++additional_attack_dmg; }
     void EnableShotGun() { shot_gun_mode = true; }
     void EnableGodMode() { god_mode = true; }
 
@@ -83,6 +85,8 @@ private:
 
     double attack_cool = 1.0;
     double attack_count = 0;
+
+    static int additional_attack_dmg;
 
     int max_life = 20;
     int life_count = 0;

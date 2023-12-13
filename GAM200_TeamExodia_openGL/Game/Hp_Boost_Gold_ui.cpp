@@ -85,6 +85,10 @@ void HBG_Ui::Draw() {
         delete_t_button->Draw(Math::TransformationMatrix());
         pass_t_button->Draw(Math::TransformationMatrix());
         block_t_button->Draw(Math::TransformationMatrix());
+
+        choice_1_button->Draw(Math::TransformationMatrix());
+        choice_2_button->Draw(Math::TransformationMatrix());
+        choice_3_button->Draw(Math::TransformationMatrix());
     }
 }
 

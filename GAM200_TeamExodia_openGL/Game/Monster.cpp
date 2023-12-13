@@ -300,7 +300,25 @@ void Monster::ResolveCollision(GameObject* other_object) {
 		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Bullet_End)
 		)
 	{
-		life -= Bullet::GetDamage();
+		switch (other_object->Type())
+		{
+		case GameObjectTypes::Basic_Bullet:
+			life -= Basic_Bullet::GetDamage();
+			break;
+
+		case GameObjectTypes::Pushing_Bullet:
+			life -= Pushing_Bullet::GetDamage();
+			break;
+
+		case GameObjectTypes::Wide_Range_Bullet:
+			life -= Wide_Range_Bullet::GetDamage();
+			break;
+
+		default:
+
+			break;
+		}
+		life -= Player::GetAdditionalDmg();
 
 		if (other_object->Type() == GameObjectTypes::Pushing_Bullet)
 		{
@@ -371,7 +389,25 @@ void Basic_Monster::ResolveCollision(GameObject* other_object) {
 		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Bullet_End)
 		)
 	{
-		life -= Bullet::GetDamage();
+		switch (other_object->Type())
+		{
+		case GameObjectTypes::Basic_Bullet:
+			life -= Basic_Bullet::GetDamage();
+			break;
+
+		case GameObjectTypes::Pushing_Bullet:
+			life -= Pushing_Bullet::GetDamage();
+			break;
+
+		case GameObjectTypes::Wide_Range_Bullet:
+			life -= Wide_Range_Bullet::GetDamage();
+			break;
+
+		default:
+
+			break;
+		}
+		life -= Player::GetAdditionalDmg();
 
 		if (other_object->Type() == GameObjectTypes::Pushing_Bullet)
 		{
@@ -431,7 +467,25 @@ void Fast_Monster::ResolveCollision(GameObject* other_object) {
 		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Bullet_End)
 		)
 	{
-		life -= Bullet::GetDamage();
+		switch (other_object->Type())
+		{
+		case GameObjectTypes::Basic_Bullet:
+			life -= Basic_Bullet::GetDamage();
+			break;
+
+		case GameObjectTypes::Pushing_Bullet:
+			life -= Pushing_Bullet::GetDamage();
+			break;
+
+		case GameObjectTypes::Wide_Range_Bullet:
+			life -= Wide_Range_Bullet::GetDamage();
+			break;
+
+		default:
+
+			break;
+		}
+		life -= Player::GetAdditionalDmg();
 
 		if (other_object->Type() == GameObjectTypes::Pushing_Bullet)
 		{
@@ -491,7 +545,25 @@ void Slow_Monster::ResolveCollision(GameObject* other_object) {
 		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Bullet_End)
 		)
 	{
-		life -= Bullet::GetDamage();
+		switch (other_object->Type())
+		{
+		case GameObjectTypes::Basic_Bullet:
+			life -= Basic_Bullet::GetDamage();
+			break;
+
+		case GameObjectTypes::Pushing_Bullet:
+			life -= Pushing_Bullet::GetDamage();
+			break;
+
+		case GameObjectTypes::Wide_Range_Bullet:
+			life -= Wide_Range_Bullet::GetDamage();
+			break;
+
+		default:
+
+			break;
+		}
+		life -= Player::GetAdditionalDmg();
 
 		if (other_object->Type() == GameObjectTypes::Pushing_Bullet)
 		{
@@ -551,7 +623,25 @@ void Mother_Monster::ResolveCollision(GameObject* other_object) {
 		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Bullet_End)
 		)
 	{
-		life -= Bullet::GetDamage();
+		switch (other_object->Type())
+		{
+		case GameObjectTypes::Basic_Bullet:
+			life -= Basic_Bullet::GetDamage();
+			break;
+
+		case GameObjectTypes::Pushing_Bullet:
+			life -= Pushing_Bullet::GetDamage();
+			break;
+
+		case GameObjectTypes::Wide_Range_Bullet:
+			life -= Wide_Range_Bullet::GetDamage();
+			break;
+
+		default:
+
+			break;
+		}
+		life -= Player::GetAdditionalDmg();
 
 		if (other_object->Type() == GameObjectTypes::Pushing_Bullet)
 		{
@@ -613,7 +703,25 @@ void Weak_Monster::ResolveCollision(GameObject* other_object) {
 		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Bullet_End)
 		)
 	{
-		life -= Bullet::GetDamage();
+		switch (other_object->Type())
+		{
+		case GameObjectTypes::Basic_Bullet:
+			life -= Basic_Bullet::GetDamage();
+			break;
+
+		case GameObjectTypes::Pushing_Bullet:
+			life -= Pushing_Bullet::GetDamage();
+			break;
+
+		case GameObjectTypes::Wide_Range_Bullet:
+			life -= Wide_Range_Bullet::GetDamage();
+			break;
+
+		default:
+
+			break;
+		}
+		life -= Player::GetAdditionalDmg();
 
 		if (other_object->Type() == GameObjectTypes::Pushing_Bullet)
 		{
@@ -673,7 +781,25 @@ void Heal_Monster::ResolveCollision(GameObject* other_object) {
 		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Bullet_End)
 		)
 	{
-		life -= Bullet::GetDamage();
+		switch (other_object->Type())
+		{
+		case GameObjectTypes::Basic_Bullet:
+			life -= Basic_Bullet::GetDamage();
+			break;
+
+		case GameObjectTypes::Pushing_Bullet:
+			life -= Pushing_Bullet::GetDamage();
+			break;
+
+		case GameObjectTypes::Wide_Range_Bullet:
+			life -= Wide_Range_Bullet::GetDamage();
+			break;
+
+		default:
+
+			break;
+		}
+		life -= Player::GetAdditionalDmg();
 
 		if (other_object->Type() == GameObjectTypes::Pushing_Bullet)
 		{
@@ -733,7 +859,25 @@ void Stealth_Monster::ResolveCollision(GameObject* other_object) {
 		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Bullet_End)
 		)
 	{
-		life -= Bullet::GetDamage();
+		switch (other_object->Type())
+		{
+		case GameObjectTypes::Basic_Bullet:
+			life -= Basic_Bullet::GetDamage();
+			break;
+
+		case GameObjectTypes::Pushing_Bullet:
+			life -= Pushing_Bullet::GetDamage();
+			break;
+
+		case GameObjectTypes::Wide_Range_Bullet:
+			life -= Wide_Range_Bullet::GetDamage();
+			break;
+
+		default:
+
+			break;
+		}
+		life -= Player::GetAdditionalDmg();
 
 		if (other_object->Type() == GameObjectTypes::Pushing_Bullet)
 		{

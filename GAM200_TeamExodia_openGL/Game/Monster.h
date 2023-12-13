@@ -43,8 +43,6 @@ public:
 
     void Heal(int value) { life += value; if (life > real_max_life) life = real_max_life; }
 
-    void Slow() { walking_speed *= 0.8; }
-
     static int remaining_monsters;
     
     Math::vec2 tile_size;
@@ -128,6 +126,8 @@ public:
 
     static int GetDamage() { return damage; }
 
+    static void Slow() { speed_scale *= 0.8; }
+
 private:
     class State_Dead : public State
     {
@@ -171,6 +171,8 @@ public:
     void ResolveCollision(GameObject* other_object) override;
 
     static int GetDamage() { return damage; }
+
+    static void Slow() { speed_scale *= 0.8; }
 
 private:
     class State_Dead : public State
@@ -216,6 +218,8 @@ public:
 
     static int GetDamage() { return damage; }
 
+    static void Slow() { speed_scale *= 0.8; }
+
 private:
     class State_Dead : public State
     {
@@ -259,6 +263,8 @@ public:
     void ResolveCollision(GameObject* other_object) override;
 
     static int GetDamage() { return damage; }
+
+    static void Slow() { speed_scale *= 0.8; }
 
     friend class Weak_Monster;
 
@@ -312,6 +318,8 @@ public:
 
     static int GetDamage() { return damage; }
 
+    static void Slow() { speed_scale *= 0.8; }
+
 private:
     class State_Dead : public State
     {
@@ -355,6 +363,8 @@ public:
     void ResolveCollision(GameObject* other_object) override;
 
     static int GetDamage() { return damage; }
+
+    static void Slow() { speed_scale *= 0.8; }
 
 private:
     class State_Dead : public State
@@ -415,6 +425,8 @@ public:
 
     static int GetDamage() { return damage; }
     bool IsStealth() const { return stealth; }
+
+    static void Slow() { speed_scale *= 0.8; }
 
 private:
     class State_Dead : public State

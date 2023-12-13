@@ -189,13 +189,11 @@ void GAM200::GameObjectManager::SupplyAllTower()
 
 void GAM200::GameObjectManager::SlowAllMonsters()
 {
-	for (GameObject* object : objects)
-	{
-		if (static_cast<int>(object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
-			static_cast<int>(object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End))
-		{
-			Monster* monster = static_cast<Monster*>(object);
-			monster->Slow();
-		}
-	}
+	Basic_Monster::Slow();
+	Slow_Monster::Slow();
+	Fast_Monster::Slow();
+	Weak_Monster::Slow();
+	Mother_Monster::Slow();
+	Stealth_Monster::Slow();
+	Heal_Monster::Slow();
 }
