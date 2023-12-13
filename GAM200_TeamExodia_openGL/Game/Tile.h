@@ -46,7 +46,7 @@ protected:
 	bool passing_tile_bool = false;
 	bool block_tile_bool = false;
 	bool obs_tile_bool = false;
-	bool pit_tile_bool = false;
+	bool cliff_tile_bool = false;
 
 private:
 
@@ -96,15 +96,16 @@ private:
 };
 
 // Pit Tile
-class Pit : public Tile
+class Cliff : public Tile
 {
 public:
-	Pit(Math::irect boundary);
+	Cliff(Math::irect boundary);
 
-	GameObjectTypes Type() override { return GameObjectTypes::Pit; }
-	std::string TypeName() override { return "Pit"; }
+	GameObjectTypes Type() override { return GameObjectTypes::Cliff; }
+	std::string TypeName() override { return "Cliff"; }
 
 	void Update(double dt) override;
+	void Draw(Math::TransformationMatrix camera_matrix) override;
 
 private:
 

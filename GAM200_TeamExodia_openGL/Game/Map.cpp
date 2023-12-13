@@ -61,7 +61,10 @@ void Map::SetMap(std::string file_name)
 				{
 					map[y][x]->tile = new Block_Tile(Math::irect{ { x * tile_size.x, y * tile_size.y }, { (x + 1) * tile_size.x, (y + 1) * tile_size.y } });
 				}
-
+				else if (tileType == 'C')
+				{
+					map[y][x]->tile = new Cliff(Math::irect{ { x * tile_size.x, y * tile_size.y }, { (x + 1) * tile_size.x, (y + 1) * tile_size.y } });
+				}
 			}
 		}
 

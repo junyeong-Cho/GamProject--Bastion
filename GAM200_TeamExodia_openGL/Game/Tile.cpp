@@ -94,14 +94,25 @@ void Obstacle::Update(double dt) {
 
 
 
-Pit::Pit(Math::irect boundary) : Tile(boundary) {
+Cliff::Cliff(Math::irect boundary) : Tile(boundary) {
 	color.r = 0.431f;
 	color.g = 0.282f;
 	color.b = 0.067f;
 
 	//block_tile_bool = true;
-	pit_tile_bool = true;
+	cliff_tile_bool = true;
 }
-void Pit::Update(double dt) {
+void Cliff::Update(double dt) {
 
+}
+void Cliff::Draw(Math::TransformationMatrix camera_matrix)
+{
+	Engine::Instance().push();
+
+	GAM200::DrawShape shape;
+
+	shape.SetColor(0, 0, 0, 1);
+	shape.DrawRectangle(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size.x, size.y);
+
+	Engine::Instance().pop();
 }

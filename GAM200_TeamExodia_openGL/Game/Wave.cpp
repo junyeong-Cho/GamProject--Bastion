@@ -51,25 +51,25 @@ void Wave::Choice(int choice)
 {
 	// some mechanism
 
-	// 1
-	Player::EnableShotGun();
-	// 2
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->SlowAllMonsters();
-	// 3
-	Player::UpgradeAttackSpeed();
-	// 4
-	Player::UpgradeAttackDmg();
-	// 5
-	Engine::GetGameStateManager().GetGSComponent<Gold>()->Upgrade();
-	// 6
-	Tower::Enable_Supply_Ammo();
-	// 7
-	Player::EnableRecover();
-	// 8
-	Player::EnableGodMode();
-	// 9
-	Player::UpgradeAttackDmg();
-	Player::UpgradeAttackSpeed();
+	//// 1
+	//Player::EnableShotGun();
+	//// 2
+	//Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->SlowAllMonsters();
+	//// 3
+	//Player::UpgradeAttackSpeed();
+	//// 4
+	//Player::UpgradeAttackDmg();
+	//// 5
+	//Engine::GetGameStateManager().GetGSComponent<Gold>()->Upgrade();
+	//// 6
+	//Tower::Enable_Supply_Ammo();
+	//// 7
+	//Player::EnableRecover();
+	//// 8
+	//Player::EnableGodMode();
+	//// 9
+	//Player::UpgradeAttackDmg();
+	//Player::UpgradeAttackSpeed();
 
 
 	switch (choice)

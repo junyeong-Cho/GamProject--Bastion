@@ -1219,7 +1219,7 @@ void Auto_Tower::State_Attacking::CheckExit(GameObject* object) {
 
 
 
-bool enable_supply = false;
+bool Tower::enable_supply = false;
 
 int Tower::cost = 0;
 double Tower::attack_delay = 0.0;

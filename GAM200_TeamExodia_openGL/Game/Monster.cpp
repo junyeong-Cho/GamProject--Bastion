@@ -279,7 +279,7 @@ bool Monster::CanCollideWith(GameObjectTypes type)
 {
 	if (type == GameObjectTypes::Obstacle ||
 		type == GameObjectTypes::Block_Tile ||
-		type == GameObjectTypes::Pit
+		type == GameObjectTypes::Cliff
 		)
 	{
 		return true;
@@ -368,7 +368,7 @@ void Monster::ResolveCollision(GameObject* other_object) {
 		}
 	}
 
-	if (other_object->Type() == GameObjectTypes::Pit)
+	if (other_object->Type() == GameObjectTypes::Cliff)
 	{
 		Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
 		Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
@@ -456,6 +456,17 @@ void Basic_Monster::ResolveCollision(GameObject* other_object) {
 			}
 		}
 	}
+
+	if (other_object->Type() == GameObjectTypes::Cliff)
+	{
+		Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
+		Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
+
+		scoreComponent->Add(this->real_score);
+		goldComponent->Add(this->real_gold);
+
+		change_state(&state_dead);
+	}
 }
 void Fast_Monster::ResolveCollision(GameObject* other_object) {
 	if (other_object->Type() == GameObjectTypes::Player)
@@ -533,6 +544,17 @@ void Fast_Monster::ResolveCollision(GameObject* other_object) {
 				UpdatePosition(Math::vec2{ 0.0, (other_rect.Top() - monster_rect.Bottom()) });
 			}
 		}
+	}
+
+	if (other_object->Type() == GameObjectTypes::Cliff)
+	{
+		Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
+		Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
+
+		scoreComponent->Add(this->real_score);
+		goldComponent->Add(this->real_gold);
+
+		change_state(&state_dead);
 	}
 }
 void Slow_Monster::ResolveCollision(GameObject* other_object) {
@@ -612,6 +634,17 @@ void Slow_Monster::ResolveCollision(GameObject* other_object) {
 			}
 		}
 	}
+
+	if (other_object->Type() == GameObjectTypes::Cliff)
+	{
+		Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
+		Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
+
+		scoreComponent->Add(this->real_score);
+		goldComponent->Add(this->real_gold);
+
+		change_state(&state_dead);
+	}
 }
 void Mother_Monster::ResolveCollision(GameObject* other_object) {
 	if (other_object->Type() == GameObjectTypes::Player)
@@ -659,8 +692,6 @@ void Mother_Monster::ResolveCollision(GameObject* other_object) {
 			scoreComponent->Add(this->real_score);
 			goldComponent->Add(this->real_gold);
 
-			dead_by_player = true;
-
 			change_state(&state_dead);
 		}
 	}
@@ -691,6 +722,17 @@ void Mother_Monster::ResolveCollision(GameObject* other_object) {
 				UpdatePosition(Math::vec2{ 0.0, (other_rect.Top() - monster_rect.Bottom()) });
 			}
 		}
+	}
+
+	if (other_object->Type() == GameObjectTypes::Cliff)
+	{
+		Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
+		Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
+
+		scoreComponent->Add(this->real_score);
+		goldComponent->Add(this->real_gold);
+
+		change_state(&state_dead);
 	}
 }
 void Weak_Monster::ResolveCollision(GameObject* other_object) {
@@ -848,6 +890,17 @@ void Heal_Monster::ResolveCollision(GameObject* other_object) {
 			}
 		}
 	}
+
+	if (other_object->Type() == GameObjectTypes::Cliff)
+	{
+		Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
+		Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
+
+		scoreComponent->Add(this->real_score);
+		goldComponent->Add(this->real_gold);
+
+		change_state(&state_dead);
+	}
 }
 void Stealth_Monster::ResolveCollision(GameObject* other_object) {
 	if (other_object->Type() == GameObjectTypes::Player)
@@ -897,9 +950,6 @@ void Stealth_Monster::ResolveCollision(GameObject* other_object) {
 
 			change_state(&state_dead);
 		}
-
-		stealth = true;
-		stealth_count = 0;
 	}
 
 	if (other_object->Type() == GameObjectTypes::Block_Tile ||
@@ -928,6 +978,17 @@ void Stealth_Monster::ResolveCollision(GameObject* other_object) {
 				UpdatePosition(Math::vec2{ 0.0, (other_rect.Top() - monster_rect.Bottom()) });
 			}
 		}
+	}
+
+	if (other_object->Type() == GameObjectTypes::Cliff)
+	{
+		Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
+		Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
+
+		scoreComponent->Add(this->real_score);
+		goldComponent->Add(this->real_gold);
+
+		change_state(&state_dead);
 	}
 }
 

@@ -53,8 +53,7 @@ bool Astar::UpdatePath(Info*** map, Math::ivec2 start, Math::ivec2 target) {
 				[&](const Math::ivec2& element) { return element == neighbor; }) != closedList.end()) { // If the checking tile is in the closedList(already checked), continue
 				continue;
 			}
-			if (map[neighbor.y][neighbor.x]->tile->Type() == (GameObjectTypes::Block_Tile) || // If the checking tile is Block_Tile or Obastacle(only check the Pass_Tile), continue
-				map[neighbor.y][neighbor.x]->tile->Type() == (GameObjectTypes::Obstacle))
+			if (map[neighbor.y][neighbor.x]->tile->Type() != (GameObjectTypes::Pass__Tile))
 				continue;
 
 			// Update path information
