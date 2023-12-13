@@ -31,7 +31,7 @@ void Main_menu::Load()
 
 	//GetGSComponent<GAM200::MusicEffect>()->LoadFile("assets/Sounds/Theme/example_music.ogg");
 
-	GAM200::SoundEffect::FeildBGM().loopplay();
+	GAM200::SoundEffect::MainMenu_BGM().loopplay();
 }
 
 void Main_menu::UpdateMenuTextColors()
@@ -139,16 +139,16 @@ void Main_menu::Draw()
 
 void Main_menu::ImguiDraw()
 {
-		ImGui::Begin("Music Info");
-		{
-			float musicVolume = (GetGSComponent<GAM200::SoundEffect>()->GetBGMVolume());
+		//ImGui::Begin("Music Info");
+		//{
+		//	float musicVolume = (GetGSComponent<GAM200::SoundEffect>()->GetBGMVolume());
 
-			if (ImGui::SliderFloat("Max Volume", &musicVolume, 0.0f, 50.0f, "%.0f"))
-			{
-				GetGSComponent<GAM200::SoundEffect>()->SeBGMVolume(musicVolume);
-			}
-		}
-		ImGui::End();
+		//	if (ImGui::SliderFloat("Max Volume", &musicVolume, 0.0f, 50.0f, "%.0f"))
+		//	{
+		//		GetGSComponent<GAM200::SoundEffect>()->SeBGMVolume(musicVolume);
+		//	}
+		//}
+		//ImGui::End();
 }
 
 void Main_menu::HandleEvent(SDL_Event& event)

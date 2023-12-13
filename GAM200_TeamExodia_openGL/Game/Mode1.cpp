@@ -51,7 +51,7 @@ Mode1::Mode1() : player_ptr()
 
 void Mode1::Load()
 {
-	GAM200::SoundEffect::FeildBGM().stopAll();
+	GAM200::SoundEffect::MainMenu_BGM().stopAll();
 	// Music
 	//AddGSComponent(new GAM200::MusicEffect());
 	//GetGSComponent<GAM200::MusicEffect>()->LoadFile("assets/Sounds/Theme/example_music.ogg");

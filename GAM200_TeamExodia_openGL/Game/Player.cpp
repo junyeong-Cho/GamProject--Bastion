@@ -116,6 +116,8 @@ void Player::Update(double dt) {
 
         new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity);
         GAM200::SoundEffect::Attack().play();
+
+        
         attack_count = 0;
     }
 }

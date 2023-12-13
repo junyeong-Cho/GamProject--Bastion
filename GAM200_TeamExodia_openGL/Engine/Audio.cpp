@@ -1,152 +1,130 @@
 #include "Audio.h"
 
 
-GAM200::SoundEffect& GAM200::SoundEffect::Landing()
+GAM200::SoundEffect& GAM200::SoundEffect::Button_1()
 {
-    static SoundEffect Landing("Assets/Sound/Landing.wav");
-    return Landing;
+    static SoundEffect Button_1("assets/Sounds/SoundEffect/Button_1.wav");
+    return Button_1;
 }
 
-GAM200::SoundEffect& GAM200::SoundEffect::Jump()
+GAM200::SoundEffect& GAM200::SoundEffect::Button_2()
 {
-    static SoundEffect Jump("Assets/Sound/JumpJump.wav");
-    return Jump;
+    static SoundEffect Button_2("assets/Sounds/SoundEffect/Button_2.wav");
+    return Button_2;
 }
 
-GAM200::SoundEffect& GAM200::SoundEffect::Portal()
+GAM200::SoundEffect& GAM200::SoundEffect::Button_3()
 {
-    static SoundEffect Portal("Assets/Sound/Portal.wav");
-    return Portal;
+    static SoundEffect Button_3("assets/Sounds/SoundEffect/Button_3.wav");
+    return Button_3;
 }
 
-GAM200::SoundEffect& GAM200::SoundEffect::MeleeAttack()
+GAM200::SoundEffect& GAM200::SoundEffect::Dash_1()
 {
-    static SoundEffect MeleeAttack("Assets/Sound/sword_swing.wav");
-    return MeleeAttack;
+    static SoundEffect Dash_1("assets/Sounds/SoundEffect/Dash_1.wav");
+    return Dash_1;
 }
 
-GAM200::SoundEffect& GAM200::SoundEffect::Item()
+GAM200::SoundEffect& GAM200::SoundEffect::Dash_2()
 {
-    static SoundEffect Item("Assets/Sound/Item.wav");
-    return Item;
+    static SoundEffect Dash_2("assets/Sounds/SoundEffect/Dash_2.wav");
+    return Dash_2;
 }
 
-GAM200::SoundEffect& GAM200::SoundEffect::Attacked()
+GAM200::SoundEffect& GAM200::SoundEffect::GameClear()
 {
-    static SoundEffect Attacked("assets/Sounds/SoundEffect/Attacked.wav");
-    return Attacked;
+    static SoundEffect GameClear("assets/Sounds/SoundEffect/GameClear.wav");
+    return GameClear;
 }
+
+GAM200::SoundEffect& GAM200::SoundEffect::GameOver()
+{
+    static SoundEffect GameOver("assets/Sounds/SoundEffect/GameOver.wav");
+    return GameOver;
+}
+
+GAM200::SoundEffect& GAM200::SoundEffect::cannot_select()
+{
+    static SoundEffect cannot_select("assets/Sounds/SoundEffect/cannot_select.wav");
+    return cannot_select;
+}
+
+GAM200::SoundEffect& GAM200::SoundEffect::Monster_Die_1()
+{
+    static SoundEffect Monster_Die_1("assets/Sounds/SoundEffect/Monster_Die_1.wav");
+    return Monster_Die_1;
+}
+
+GAM200::SoundEffect& GAM200::SoundEffect::Monster_Die_2()
+{
+    static SoundEffect Monster_Die_2("assets/Sounds/SoundEffect/Monster_Die_2.wav");
+    return Monster_Die_2;
+}
+
+GAM200::SoundEffect& GAM200::SoundEffect::Monster_Die_3()
+{
+    static SoundEffect Monster_Die_3("assets/Sounds/SoundEffect/Monster_Die_3.wav");
+    return Monster_Die_3;
+}
+
+GAM200::SoundEffect& GAM200::SoundEffect::Reload()
+{
+    static SoundEffect Reload("assets/Sounds/SoundEffect/Reload.wav");
+    return Reload;
+}
+
+GAM200::SoundEffect& GAM200::SoundEffect::Select_MainMenu()
+{
+    static SoundEffect Select_MainMenu("assets/Sounds/SoundEffect/Select_MainMenu.wav");
+    return Select_MainMenu;
+}
+
+GAM200::SoundEffect& GAM200::SoundEffect::Select_Map()
+{
+    static SoundEffect Select_Map("assets/Sounds/SoundEffect/Select_Map.wav");
+    return Select_Map;
+}
+
+GAM200::SoundEffect& GAM200::SoundEffect::Shotgun()
+{
+    static SoundEffect Shotgun("assets/Sounds/SoundEffect/Shotgun.wav");
+    return Shotgun;
+}
+
+GAM200::SoundEffect& GAM200::SoundEffect::Tower_Delete()
+{
+    static SoundEffect Tower_Delete("assets/Sounds/SoundEffect/Tower_Delete.wav");
+    return Tower_Delete;
+}
+
+GAM200::SoundEffect& GAM200::SoundEffect::Tower_Placing()
+{
+    static SoundEffect Tower_Placing("assets/Sounds/SoundEffect/Tower_Placing.wav");
+    return Tower_Placing;
+}
+
+GAM200::SoundEffect& GAM200::SoundEffect::Tower_Upgrade()
+{
+    static SoundEffect Tower_Upgrade("assets/Sounds/SoundEffect/Tower_Upgrade.wav");
+    return Tower_Upgrade;
+}
+
 GAM200::SoundEffect& GAM200::SoundEffect::Attack()
 {
     static SoundEffect Attack("assets/Sounds/SoundEffect/gun_sound_meca.wav");
     return Attack;
 }
 
-GAM200::SoundEffect& GAM200::SoundEffect::Dash()
+GAM200::SoundEffect& GAM200::SoundEffect::MainMenu_BGM()
 {
-    static SoundEffect Dash("Assets/Sound/Dash.wav");
-    return Dash;
+    static SoundEffect MainMenu_BGM("assets/Sounds/Theme/Hihi.wav");
+    return MainMenu_BGM;
 }
 
-GAM200::SoundEffect& GAM200::SoundEffect::cannot_select()
+GAM200::SoundEffect& GAM200::SoundEffect::Wave_Start()
 {
-    static SoundEffect cannot_select("Assets/Sound/cannot_select.wav");
-    return cannot_select;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::recovery2()
-{
-    static SoundEffect recovery2("Assets/Sound/recovery2.wav");
-    return recovery2;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::Weapon_change()
-{
-    static SoundEffect Weapon_change("Assets/Sound/Weapon_change.wav");
-    return Weapon_change;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::FeildBGM()
-{
-    static SoundEffect FeildBGM("assets/Sounds/Theme/Hihi.wav");
-    return FeildBGM;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::BossBGM()
-{
-    static SoundEffect BossBGM("assets/Sounds/Theme/BossBGM.wav");
-    return BossBGM;
-}
-
-////////////////////////Boss1
-GAM200::SoundEffect& GAM200::SoundEffect::B1_swing()
-{
-    static SoundEffect B1_swing("Assets/Sound/Batswing.wav");
-    return B1_swing;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::B1_JumpAttack()
-{
-    static SoundEffect B1_JumpAttack("Assets/Sound/Stun.wav");
-    return B1_JumpAttack;
-}
-
-
-////////////////////////Boss2   
-GAM200::SoundEffect& GAM200::SoundEffect::B2_pew()
-{
-    static SoundEffect B2_pew("Assets/Sound/pew.wav");
-    return B2_pew;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::B2_baldosool()
-{
-    static SoundEffect B2_baldosool("Assets/Sound/baldo.wav");
-    return B2_baldosool;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::B2_swordBeam()
-{
-    static SoundEffect B2_swordBeam("Assets/Sound/sword_beam.wav");
-    return B2_swordBeam;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::B2_jump_Attack()
-{
-    static SoundEffect B2_jump_Attack("Assets/Sound/JJikgi.wav");
-    return B2_jump_Attack;
-}
-
-////////////////////////Boss3   
-GAM200::SoundEffect& GAM200::SoundEffect::B3_Bbaeggom()
-{
-    static SoundEffect B3_Bbaeggom("Assets/Sound/Bbaeggom.wav");
-    return B3_Bbaeggom;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::B3_WormJump()
-{
-    static SoundEffect B3_WormJump("Assets/Sound/WormJump.wav");
-    return B3_WormJump;
-}
-
-////////////////////////Boss4
-GAM200::SoundEffect& GAM200::SoundEffect::B4_Inferno()
-{
-    static SoundEffect B4_Inferno("Assets/Sound/Inferno.wav");
-    return B4_Inferno;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::B4_Fireball()
-{
-    static SoundEffect B4_Fireball("Assets/Sound/Flame.wav");
-    return B4_Fireball;
-}
-
-GAM200::SoundEffect& GAM200::SoundEffect::B4_Psychokinesis()
-{
-    static SoundEffect B4_Psychokinesis("Assets/Sound/Psychokinesis.wav");
-    return B4_Psychokinesis;
+    static SoundEffect Wave_Start("assets/Sounds/SoundEffect/Wave_Start.wav");
+    return Wave_Start;
 }
 
 
@@ -164,7 +142,7 @@ void GAM200::SoundEffect::play()
     // 새 사운드 재생
     sounds.emplace_back();
     sounds.back().setBuffer(buffer);
-    sounds.back().setVolume(musicVolume);
+    sounds.back().setVolume(effectVolume);
     sounds.back().play();
 }
 
