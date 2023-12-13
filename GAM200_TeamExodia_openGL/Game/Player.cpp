@@ -27,7 +27,7 @@ Updated:    October		10, 2023
 
 Player::Player(Math::vec2 start_position, int size_x, int size_y) : GameObject(start_position), size_x(size_x), size_y(size_y) 
 {
-    soundEffect->LoadFile("Assets/Sounds/SoundEffect/gun_sound_meca.wav");
+    //soundEffect->LoadFile("Assets/Sounds/SoundEffect/gun_sound_meca.wav");
 
     //AddGOComponent(new GAM200::Sprite("Assets/Player.spt", this));
 
@@ -114,8 +114,10 @@ void Player::Update(double dt) {
         }*/
 
 
-        new Basic_Bullet(player_position, bullet_direction * Bullet::DefaultVelocity);
+        new Bullet(player_position, bullet_direction * Bullet::DefaultVelocity);
+        GAM200::SoundEffect::Attack().play();
 
+        
         attack_count = 0;
     }
 }

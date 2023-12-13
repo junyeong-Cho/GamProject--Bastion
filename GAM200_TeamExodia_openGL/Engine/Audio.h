@@ -31,14 +31,28 @@ namespace GAM200
 		void Play(int index);
 		void Stop();
 
-		void SetVolume(float volume);
-
-
-		float* GetMusicVolume() { return &defaultVolume; }
-
-	private:
-
-		float defaultVolume = 0.f;
+        //static SoundEffect Gem();
+        static SoundEffect& Button_1();
+        static SoundEffect& Button_2();
+        static SoundEffect& Button_3();
+        static SoundEffect& Dash_1();
+        static SoundEffect& Dash_2();
+        static SoundEffect& GameClear();
+        static SoundEffect& GameOver();
+        static SoundEffect& cannot_select();
+        static SoundEffect& Monster_Die_1();
+        static SoundEffect& Monster_Die_2();
+        static SoundEffect& Monster_Die_3();
+        static SoundEffect& Reload();
+        static SoundEffect& Select_MainMenu();
+        static SoundEffect& Select_Map();
+        static SoundEffect& Shotgun();
+        static SoundEffect& Tower_Delete();
+        static SoundEffect& Tower_Placing();
+        static SoundEffect& Tower_Upgrade();
+        static SoundEffect& Wave_Start();
+        static SoundEffect& Attack();
+        static SoundEffect& MainMenu_BGM();
 
 		std::vector<std::unique_ptr<sf::Music>> musicList;
 		bool isMusicPlaying = false;

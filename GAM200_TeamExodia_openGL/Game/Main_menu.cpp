@@ -29,7 +29,9 @@ void Main_menu::Load()
 
 	AddGSComponent(new GAM200::MusicEffect());
 
-	GetGSComponent<GAM200::MusicEffect>()->LoadFile("assets/Sounds/Theme/example_music.ogg");
+	//GetGSComponent<GAM200::MusicEffect>()->LoadFile("assets/Sounds/Theme/example_music.ogg");
+
+	GAM200::SoundEffect::MainMenu_BGM().loopplay();
 }
 
 void Main_menu::UpdateMenuTextColors()
@@ -76,7 +78,7 @@ void Main_menu::Update(double dt)
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::ModeSelect));
 			break;
 		case 1:
-			GetGSComponent<GAM200::MusicEffect>()->Stop();
+			//GetGSComponent<GAM200::MusicEffect>()->Stop();
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::GamePlayEditior));
 			break;
 		case 2:
@@ -137,19 +139,16 @@ void Main_menu::Draw()
 
 void Main_menu::ImguiDraw()
 {
-	ImGui::Begin("Music Info");
-	{
+		//ImGui::Begin("Music Info");
+		//{
+		//	float musicVolume = (GetGSComponent<GAM200::SoundEffect>()->GetBGMVolume());
 
-		float* musicVolume = (GetGSComponent<GAM200::MusicEffect>()->GetMusicVolume());
-
-		if (ImGui::SliderFloat("Max Volume", musicVolume, 0.0f, 100.0f, "%.0f"))
-		{
-			GetGSComponent<GAM200::MusicEffect>()->SetVolume(*musicVolume);
-		}
-
-
-	}
-	ImGui::End();
+		//	if (ImGui::SliderFloat("Max Volume", &musicVolume, 0.0f, 50.0f, "%.0f"))
+		//	{
+		//		GetGSComponent<GAM200::SoundEffect>()->SeBGMVolume(musicVolume);
+		//	}
+		//}
+		//ImGui::End();
 }
 
 void Main_menu::HandleEvent(SDL_Event& event)
