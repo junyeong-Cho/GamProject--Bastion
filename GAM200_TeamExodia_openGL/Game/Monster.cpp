@@ -1737,6 +1737,8 @@ void Heal_Monster::State_Healing::Update(GameObject* object, double dt)
 	if (monster->healing_count >= monster->healing_cool_time)
 	{
 		Monster* target = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetClosestMonster(monster);
+		if (target == nullptr)
+			return;
 		target->Heal(monster->heal_value);
 		monster->change_state(&monster->state_walking);
 	}

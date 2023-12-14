@@ -121,7 +121,7 @@ Monster* GAM200::GameObjectManager::GetClosestMonster(GAM200::GameObject* obj) {
 	Monster* closest_object = nullptr;
 
 	for (GameObject* object : objects) {
-		if (object != obj) {
+		if (object != obj && object->Destroyed() != true) {
 			if (static_cast<int>(object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
 				static_cast<int>(object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)) 
 			{
@@ -240,21 +240,6 @@ void GAM200::GameObjectManager::BombToTower(Monster* monster, double range)
 
 void GAM200::GameObjectManager::Click_Handle()
 {
-	for (GameObject* object : objects)
-	{
-		if (static_cast<int>(object->Type()) >= static_cast<int>(GameObjectTypes::Tower) &&
-			static_cast<int>(object->Type()) <= static_cast<int>(GameObjectTypes::Tower_End))
-		{
-			Tower* tower = static_cast<Tower*>(object);
-
-			if (tower->IsClicked())
-			{
-				Engine::GetLogger().LogDebug("Tower clicked");
-				return;
-			}
-		}
-
-	}
 
 
 	for (GameObject* object : objects)
@@ -271,6 +256,23 @@ void GAM200::GameObjectManager::Click_Handle()
 		}
 
 	}
+
+	for (GameObject* object : objects)
+	{
+		if (static_cast<int>(object->Type()) >= static_cast<int>(GameObjectTypes::Tower) &&
+			static_cast<int>(object->Type()) <= static_cast<int>(GameObjectTypes::Tower_End))
+		{
+			Tower* tower = static_cast<Tower*>(object);
+
+			if (tower->IsClicked())
+			{
+				Engine::GetLogger().LogDebug("Tower clicked");
+				return;
+			}
+		}
+
+	}
+
 
 	if (Engine::GetGameStateManager().GetGSComponent<BuildMode>()->Click())
 		return;
