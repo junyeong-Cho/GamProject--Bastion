@@ -270,8 +270,12 @@ void Choice_1_Button::Draw(Math::TransformationMatrix camera_matrix)
 	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
 	{
 		GAM200::DrawShape shape;
+		Engine::Instance().push();
 
+		shape.SetColor(255, 255, 255, 1);
 		shape.DrawRectangle(50, 100, 300, 500);
+
+		Engine::Instance().pop();
 	}
 }
 
@@ -296,8 +300,12 @@ void Choice_2_Button::Draw(Math::TransformationMatrix camera_matrix)
 	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
 	{
 		GAM200::DrawShape shape;
+		Engine::Instance().push();
 
+		shape.SetColor(255, 255, 255, 1);
 		shape.DrawRectangle(400, 100, 300, 500);
+
+		Engine::Instance().pop();
 	}
 }
 
@@ -322,7 +330,11 @@ void Choice_3_Button::Draw(Math::TransformationMatrix camera_matrix)
 	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
 	{
 		GAM200::DrawShape shape;
+		Engine::Instance().push();
 
+		shape.SetColor(255, 255, 255, 1);
 		shape.DrawRectangle(750, 100, 300, 500);
+
+		Engine::Instance().pop();
 	}
 }

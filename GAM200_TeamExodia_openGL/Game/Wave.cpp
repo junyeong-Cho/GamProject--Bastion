@@ -188,10 +188,10 @@ void Wave::Update(double dt)
 			{
 				new Heal_Monster;
 			}
-			//else if (monster_name == "BOMB")
-			//{
-			//	new Bomb_Monster;
-			//}
+			else if (monster_name == "BOMB")
+			{
+				new Bomb_Monster;
+			}
 			else if (monster_name == "NONE")
 			{
 
@@ -202,6 +202,7 @@ void Wave::Update(double dt)
 		break;
 
 	case Wave_State::Term:
+		Engine::GetLogger().LogEvent("Wave Term Entered");
 		term_time_count += dt;
 		if (term_time_count >= term_time)
 			wave_state = Wave_State::Upgrade;
@@ -209,6 +210,7 @@ void Wave::Update(double dt)
 		break;
 
 	case Wave_State::Upgrade:
+		Engine::GetLogger().LogEvent("Wave Upgrade Entered");
 
 		
 
