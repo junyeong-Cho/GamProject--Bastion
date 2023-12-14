@@ -304,17 +304,32 @@ void Player::Draw(Math::TransformationMatrix camera_matrix) {
 
 
 bool Player::CanCollideWith(GameObjectTypes type) {
+    switch (type)
+    {
+    case GameObjectTypes::Basic_Monster:
+    case GameObjectTypes::Fast_Monster:
+    case GameObjectTypes::Slow_Monster:
+    case GameObjectTypes::Mother_Monster:
+    case GameObjectTypes::Weak_Monster:
+    case GameObjectTypes::Heal_Monster:
+    case GameObjectTypes::Stealth_Monster:
+    case GameObjectTypes::Bomb_Monster:
+        //[[fallthrough]]
+        return true;
+    default:
+        return false;
+    }
 
-    if (static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
-        static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster_End)
-        )
+    /*if(static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
+       static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster_End)
+       )
     {
         return true;
     }
     else
     {
         return false;
-    }
+    }*/
 
 }
 
@@ -328,26 +343,141 @@ void Player::ResolveCollision(GameObject* other_object) {
     double centerX = (player_rect.Left() + player_rect.Right()) / 2.0 - (other_rect.Left() + other_rect.Right()) / 2.0;
     double centerY = (player_rect.Top() + player_rect.Bottom()) / 2.0 - (other_rect.Top() + other_rect.Bottom()) / 2.0;
 
-
-    Monster* monster = static_cast<Monster*>(other_object);
-
-    if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
-        static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster_End)
-        )
+    switch (other_object->Type())
     {
-        if (god_mode)
-            return;
-        life_count -= monster->GetDamage();
+    case GameObjectTypes::Basic_Monster:
+        life_count -= Basic_Monster::GetDamage();
+        Engine::GetLogger().LogDebug("Basic Monster: " + std::to_string(Basic_Monster::GetDamage()));
         invincibility_count = 0;
         other_object->ResolveCollision(this);
-    }
-    else if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Tower) &&
-        static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Tower_End)
-        )
-    {
-
+        break;
+    case GameObjectTypes::Fast_Monster:
+        life_count -= Fast_Monster::GetDamage();
+        Engine::GetLogger().LogDebug("Fast Monster: " + std::to_string(Basic_Monster::GetDamage()));
+        invincibility_count = 0;
         other_object->ResolveCollision(this);
+        break;
+    case GameObjectTypes::Slow_Monster:
+        life_count -= Slow_Monster::GetDamage();
+        Engine::GetLogger().LogDebug("Slow Monster: " + std::to_string(Basic_Monster::GetDamage()));
+        invincibility_count = 0;
+        other_object->ResolveCollision(this);
+        break;
+    case GameObjectTypes::Mother_Monster:
+        life_count -= Mother_Monster::GetDamage();
+        Engine::GetLogger().LogDebug("Mother Monster: " + std::to_string(Basic_Monster::GetDamage()));
+        invincibility_count = 0;
+        other_object->ResolveCollision(this);
+        break;
+    case GameObjectTypes::Weak_Monster:
+        life_count -= Weak_Monster::GetDamage();
+        Engine::GetLogger().LogDebug("Weak Monster: " + std::to_string(Basic_Monster::GetDamage()));
+        invincibility_count = 0;
+        other_object->ResolveCollision(this);
+        break;
+    case GameObjectTypes::Heal_Monster:
+        life_count -= Heal_Monster::GetDamage();
+        Engine::GetLogger().LogDebug("Heal Monster: " + std::to_string(Basic_Monster::GetDamage()));
+        invincibility_count = 0;
+        other_object->ResolveCollision(this);
+        break;
+    case GameObjectTypes::Stealth_Monster:
+        life_count -= Stealth_Monster::GetDamage();
+        Engine::GetLogger().LogDebug("Stealth Monster: " + std::to_string(Basic_Monster::GetDamage()));
+        invincibility_count = 0;
+        other_object->ResolveCollision(this);
+        break;
+    case GameObjectTypes::Bomb_Monster:
+        life_count -= Bomb_Monster::GetDamage();
+        Engine::GetLogger().LogDebug("Bomb Monster: " + std::to_string(Basic_Monster::GetDamage()));
+        invincibility_count = 0;
+        other_object->ResolveCollision(this);
+        break;
+
+    case GameObjectTypes::Basic_Tower:
+    case GameObjectTypes::Double_Tower:
+    case GameObjectTypes::Triple_Tower:
+    case GameObjectTypes::Push_Tower:
+    case GameObjectTypes::Wide_Tower:
+        other_object->ResolveCollision(this);
+        break;
+
+
+    default:
+        ;
     }
+    //Monster* monster = static_cast<Monster*>(other_object);
+
+    //if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
+    //    static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster_End)
+    //    )
+    //{
+    //    Engine::GetLogger().LogDebug("Collisoin with monster");
+    //    /*if (god_mode)
+    //        return;*/
+
+    //    switch (other_object->Type())
+    //    {
+    //    case GameObjectTypes::Basic_Monster:
+    //        life_count -= Basic_Monster::GetDamage();
+    //        Engine::GetLogger().LogDebug("Basic Monster: " + std::to_string(Basic_Monster::GetDamage()));
+    //        invincibility_count = 0;
+    //        other_object->ResolveCollision(this);
+    //        break;
+    //    case GameObjectTypes::Fast_Monster:
+    //        life_count -= Fast_Monster::GetDamage();
+    //        Engine::GetLogger().LogDebug("Fast Monster: " + std::to_string(Basic_Monster::GetDamage()));
+    //        invincibility_count = 0;
+    //        other_object->ResolveCollision(this);
+    //        break;
+    //    case GameObjectTypes::Slow_Monster:
+    //        life_count -= Slow_Monster::GetDamage();
+    //        Engine::GetLogger().LogDebug("Slow Monster: " + std::to_string(Basic_Monster::GetDamage()));
+    //        invincibility_count = 0;
+    //        other_object->ResolveCollision(this);
+    //        break;
+    //    case GameObjectTypes::Mother_Monster:
+    //        life_count -= Mother_Monster::GetDamage();
+    //        Engine::GetLogger().LogDebug("Mother Monster: " + std::to_string(Basic_Monster::GetDamage()));
+    //        invincibility_count = 0;
+    //        other_object->ResolveCollision(this);
+    //        break;
+    //    case GameObjectTypes::Weak_Monster:
+    //        life_count -= Weak_Monster::GetDamage();
+    //        Engine::GetLogger().LogDebug("Weak Monster: " + std::to_string(Basic_Monster::GetDamage()));
+    //        invincibility_count = 0;
+    //        other_object->ResolveCollision(this);
+    //        break;
+    //    case GameObjectTypes::Heal_Monster:
+    //        life_count -= Heal_Monster::GetDamage();
+    //        Engine::GetLogger().LogDebug("Heal Monster: " + std::to_string(Basic_Monster::GetDamage()));
+    //        invincibility_count = 0;
+    //        other_object->ResolveCollision(this);
+    //        break;
+    //    case GameObjectTypes::Stealth_Monster:
+    //        life_count -= Stealth_Monster::GetDamage();
+    //        Engine::GetLogger().LogDebug("Stealth Monster: " + std::to_string(Basic_Monster::GetDamage()));
+    //        invincibility_count = 0;
+    //        other_object->ResolveCollision(this);
+    //        break;
+    //    case GameObjectTypes::Bomb_Monster:
+    //        life_count -= Bomb_Monster::GetDamage();
+    //        Engine::GetLogger().LogDebug("Bomb Monster: " + std::to_string(Basic_Monster::GetDamage()));
+    //        invincibility_count = 0;
+    //        other_object->ResolveCollision(this);
+    //        break;
+    //    default:
+    //        Engine::GetLogger().LogDebug("Error!!");
+    //    }
+
+    //}
+    //else if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Tower) &&
+    //    static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Tower_End)
+    //    )
+    //{
+
+    //    other_object->ResolveCollision(this);
+    //}
 
 }
 void Player::update_velocity(double dt) {
