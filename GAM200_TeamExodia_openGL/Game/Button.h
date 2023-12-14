@@ -6,6 +6,7 @@
 #include "GameObjectTypes.h"
 #include "../Engine/GameObject.h"
 #include "../Engine/Texture.h"
+#include "Wave.h"
 
 
 class Button : public GAM200::GameObject
@@ -54,13 +55,15 @@ private:
 
 
 
-    GAM200::Texture card1 = GAM200::Texture("assets/images/auto_supple.png", GAM200::Texture::TextureType::RECTANGLE);
-    GAM200::Texture card2 = GAM200::Texture("assets/images/rapidity.png", GAM200::Texture::TextureType::RECTANGLE);
-
-    GAM200::Texture card3 = GAM200::Texture("assets/images/damageX2.png", GAM200::Texture::TextureType::RECTANGLE);
-
-
-
+    ////GAM200::Texture card1 = GAM200::Texture("assets/images/supply/auto_supply.png", GAM200::Texture::TextureType::RECTANGLE);
+    //GAM200::Texture card2 = GAM200::Texture("assets/images/supply/rapidity.png", GAM200::Texture::TextureType::RECTANGLE);
+    //GAM200::Texture card3 = GAM200::Texture("assets/images/supply/goldupgrade.png", GAM200::Texture::TextureType::RECTANGLE);
+    //GAM200::Texture card4 = GAM200::Texture("assets/images/supply/recover.png", GAM200::Texture::TextureType::RECTANGLE);
+    //GAM200::Texture card5 = GAM200::Texture("assets/images/supply/goldupgrade.png", GAM200::Texture::TextureType::RECTANGLE);
+    //GAM200::Texture card6 = GAM200::Texture("assets/images/supply/damageX2.png", GAM200::Texture::TextureType::RECTANGLE);
+    ////GAM200::Texture card7 = GAM200::Texture("assets/images/supply/shotgun.png", GAM200::Texture::TextureType::RECTANGLE);
+    //GAM200::Texture card8 = GAM200::Texture("assets/images/supply/shield.png", GAM200::Texture::TextureType::RECTANGLE);
+    //GAM200::Texture card9 = GAM200::Texture("assets/images/supply/slowmonsters.png", GAM200::Texture::TextureType::RECTANGLE);
 
 
 
@@ -179,7 +182,10 @@ public:
 class Choice_1_Button : public Button
 {
 public:
-    GAM200::Texture card1 = GAM200::Texture("assets/images/auto_supple.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture card1 = GAM200::Texture("assets/images/supply/auto_supply.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture card4 = GAM200::Texture("assets/images/supply/recover.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture card7 = GAM200::Texture("assets/images/supply/shotgun.png", GAM200::Texture::TextureType::RECTANGLE);
+
     Choice_1_Button(Math::vec2 position, Math::vec2 size);
 
     void Draw(Math::TransformationMatrix camera_matrix) override;
@@ -191,7 +197,9 @@ public:
 class Choice_2_Button : public Button
 {
 public:
-    GAM200::Texture card2 = GAM200::Texture("assets/images/rapidity.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture card2 = GAM200::Texture("assets/images/supply/rapidity.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture card5 = GAM200::Texture("assets/images/supply/goldupgrade.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture card8 = GAM200::Texture("assets/images/supply/shield.png", GAM200::Texture::TextureType::RECTANGLE);
 
     Choice_2_Button(Math::vec2 position, Math::vec2 size);
 
@@ -204,8 +212,9 @@ public:
 class Choice_3_Button : public Button
 {
 public:
-    GAM200::Texture card3 = GAM200::Texture("assets/images/damageX2.png", GAM200::Texture::TextureType::RECTANGLE);
-
+    GAM200::Texture card3 = GAM200::Texture("assets/images/supply/goldupgrade.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture card6 = GAM200::Texture("assets/images/supply/damageX2.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture card9 = GAM200::Texture("assets/images/supply/slowmonsters.png", GAM200::Texture::TextureType::RECTANGLE);
 
     Choice_3_Button(Math::vec2 position, Math::vec2 size);
 

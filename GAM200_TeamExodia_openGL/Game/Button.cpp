@@ -14,7 +14,6 @@ Button::Button(Math::vec2 position, Math::vec2 size) : GameObject(position), pos
 }
 void Button::Update(double dt)
 {
-	
 }
 void Button::func(Math::ivec2 pos)
 {
@@ -239,6 +238,8 @@ void Choice_1_Button::func(Math::ivec2 pos)
 }
 void Choice_1_Button::Draw(Math::TransformationMatrix camera_matrix)
 {
+	int current_wave = Engine::GetGameStateManager().GetGSComponent<Wave>()->GetCurrentWave() -1;
+
 	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
 	{
 		GAM200::DrawShape shape;
@@ -246,7 +247,16 @@ void Choice_1_Button::Draw(Math::TransformationMatrix camera_matrix)
 
 		shape.SetColor(255, 255, 255, 1);
 		//shape.DrawRectangle(50, 100, 361, 529);
-		card1.Draw(50, 100, 300, 500);
+		if (current_wave <= 5) {
+			card1.Draw(50, 100, 300, 500);
+		}
+		else if (5 < current_wave && current_wave <= 10) {
+			card4.Draw(50, 100, 300, 500);
+		}
+		else if (current_wave > 10) {
+			card7.Draw(50, 100, 300, 500);
+		}
+
 		Engine::Instance().pop();
 	}
 }
@@ -269,13 +279,23 @@ void Choice_2_Button::func(Math::ivec2 pos)
 }
 void Choice_2_Button::Draw(Math::TransformationMatrix camera_matrix)
 {
+	int current_wave = Engine::GetGameStateManager().GetGSComponent<Wave>()->GetCurrentWave() -1;
 	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
 	{
 		GAM200::DrawShape shape;
 		Engine::Instance().push();
 
 		//shape.SetColor(255, 255, 255, 1);
-		card2.Draw(400, 100, 300, 500);
+		if (current_wave <= 5) {
+			card2.Draw(400, 100, 300, 500);
+		}
+		else if (5 < current_wave && current_wave <= 10) {
+			card5.Draw(400, 100, 300, 500);
+		}
+		else if (current_wave > 10) {
+			card8.Draw(400, 100, 300, 500);
+		}
+
 		Engine::Instance().pop();
 	}
 }
@@ -298,13 +318,22 @@ void Choice_3_Button::func(Math::ivec2 pos)
 }
 void Choice_3_Button::Draw(Math::TransformationMatrix camera_matrix)
 {
+	int current_wave = Engine::GetGameStateManager().GetGSComponent<Wave>()->GetCurrentWave() -1;
 	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
 	{
 		GAM200::DrawShape shape;
 		Engine::Instance().push();
 
 		//shape.SetColor(255, 255, 255, 1);
-		card3.Draw(750, 100, 300, 500);
+		if (current_wave <= 5) {
+			card3.Draw(750, 100, 300, 500);
+		}
+		else if (5 < current_wave && current_wave <= 10) {
+			card6.Draw(750, 100, 300, 500);
+		}
+		else if (current_wave > 10) {
+			card9.Draw(750, 100, 300, 500);
+		}
 		Engine::Instance().pop();
 	}
 }

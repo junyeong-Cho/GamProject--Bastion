@@ -218,7 +218,7 @@ void Mode1::Draw()
 
 
 	remaining_gold->Draw(Math::TranslationMatrix(Math::ivec2{ 130, 720 - 95 }));
-	wave_info->Draw(Math::TranslationMatrix(Math::ivec2{ 1000, 720 - 0 }));
+	wave_info->Draw(Math::TranslationMatrix(Math::ivec2{ 975, 720 - 0 }));
 }
 
 void Mode1::ImguiDraw()
