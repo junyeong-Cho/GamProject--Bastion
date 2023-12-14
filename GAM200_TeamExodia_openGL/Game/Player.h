@@ -130,12 +130,12 @@ private:
     int size_x;
     int size_y;
 
-    static constexpr double max_velocity = 300;
+    static constexpr double max_velocity = 500;
     static constexpr double dash_velocity = 500;
 
-    static constexpr double acceleration = 300;
+    static constexpr double acceleration = 500;
 
-    static constexpr double drag = 200;
+    static constexpr double drag = 450;
 
     bool not_clicked = false;
 

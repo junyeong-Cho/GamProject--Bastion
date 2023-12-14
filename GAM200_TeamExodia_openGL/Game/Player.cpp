@@ -676,15 +676,6 @@ void Player::update_velocity(double dt) {
     SetVelocity(newVelocity);
 }
 
-
-
-
-
-
-
-
-
-
 // State Idle
 void Player::State_Idle::Enter(GameObject* object)
 {

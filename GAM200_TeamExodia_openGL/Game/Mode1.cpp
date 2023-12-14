@@ -163,8 +163,9 @@ void Mode1::Update(double dt)
 	int player_hp = player_ptr->GetHP();
 	int wall_hp = GetGSComponent<Score>()->Value();
 	int life = GetGSComponent<Life>()->Value();
+	int boost = player_ptr->GetDashCount();
 
-	GetGSComponent<HBG_Ui>()->Player_BOOST = 0;
+	GetGSComponent<HBG_Ui>()->Player_BOOST = boost;
 	GetGSComponent<HBG_Ui>()->Player_HP = player_hp;
 	//GetGSComponent<HBG_Ui>()->Player_HP = main_hp;
 	GetGSComponent<HBG_Ui>()->Tower_GOLD = gold;
