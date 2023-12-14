@@ -1868,3 +1868,22 @@ void MonsterFactory::InitStealthMonsterFromFile(const std::string& filePath)
 	}
 
 }
+
+void MonsterFactory::InitBombMonsterFromFile(const std::string& filePath)
+{
+	std::ifstream file(filePath);
+
+	if (file.is_open())
+	{
+		file >> Bomb_Monster::max_life;
+		file >> Bomb_Monster::damage;
+		file >> Bomb_Monster::speed_scale;
+		file >> Bomb_Monster::gold;
+		file >> Bomb_Monster::score;
+	}
+	else
+	{
+		std::cerr << "Failed to open file for reading." << std::endl;
+	}
+
+}

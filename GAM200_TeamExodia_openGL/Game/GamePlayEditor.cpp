@@ -94,6 +94,7 @@ void GamePlayEditor::Load()
 	MonsterFactory::InitMotherMonsterFromFile();
 	MonsterFactory::InitHealMonsterFromFile();
 	MonsterFactory::InitStealthMonsterFromFile();
+	MonsterFactory::InitBombMonsterFromFile();
 
 	// Tower Initialize
 	TowerFactory::InitBasicTowerFromFile();
@@ -287,6 +288,13 @@ void GamePlayEditor::ImguiDraw()
 			Engine::GetLogger().LogEvent("Stealth Monster Produce!");
 			//MonsterFactory::CreateSlowMonsterFromFile();
 			new Stealth_Monster;
+			//GetGSComponent<GAM200::GameObjectManager>()->Add(new Slow_Monster());
+		}
+		if (ImGui::Button("Produce Bomb Monster"))
+		{
+			Engine::GetLogger().LogEvent("Bomb Monster Produce!");
+			//MonsterFactory::CreateSlowMonsterFromFile();
+			new Bomb_Monster;
 			//GetGSComponent<GAM200::GameObjectManager>()->Add(new Slow_Monster());
 		}
 
