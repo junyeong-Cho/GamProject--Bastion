@@ -46,7 +46,7 @@ public:
     std::unique_ptr<GAM200::Texture>  remaining_gold;
 
 
-   
+
     int Player_HP;
     int Tower_GOLD;
     int Player_BOOST;
@@ -73,17 +73,6 @@ private:
     Button* delete_t_button = nullptr;
     Button* pass_t_button = nullptr;
     Button* block_t_button = nullptr;
-
-    Button* push_t_button = nullptr;
-    Button* wide_t_button = nullptr;
-
-    Button* upgrade_button = nullptr;
-    Button* delete_button = nullptr;
-
-    Button* choice_1_button = nullptr;
-    Button* choice_2_button = nullptr;
-    Button* choice_3_button = nullptr;
-
 
 
 };

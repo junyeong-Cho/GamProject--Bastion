@@ -50,6 +50,64 @@ public:
     static void EnableShotGun() { shot_gun_mode = true; }
     static void EnableGodMode() { god_mode = true; }
 
+
+    int GetDashCount() const { return dash_life; }
+    void SetDashCount(int dash) { dash_life = dash; }
+
+    double GetDashSpeedMultiplier() const { return dash_speed_multiplier; }
+    double GetDashCooltime() const { return dash_cool; }
+
+    bool GetDashActive() const { return dash_active; }
+    void SetDashActive(bool active) { dash_active = active; }
+
+    enum class arm_anm
+    {
+        None,
+
+        arm_fire
+
+    };
+    enum class boost_anm
+    {
+        None,
+
+        front,
+        right,
+        back,
+        left,
+
+        front_right,
+        front_left,
+
+        back_right,
+        back_left
+
+    };
+
+    enum class dash_anm
+    {
+        dash_none,
+
+        front_move_dash,
+        back_move_dash,
+        left_move_dash,
+        right_move_dash,
+
+        front_right_dash,
+        front_left_dash,
+
+        back_right_dash,
+        back_left_dash
+
+    };
+    GAM200::Sprite arm;
+    GAM200::Sprite boost;
+    GAM200::Sprite dash;
+    GAM200::Sprite muzzle_effect;
+
+    bool bullet_is_fired = false;
+    bool is_thrusting = false;
+    bool is_fired = false;
 private:
 
 
@@ -59,7 +117,10 @@ private:
     enum class Animations
     {
         Idle,
-        Moving,
+        Front_Moving,
+        Rihgt_Moving,
+        Back_Moving,
+        Left_Moving,
         Dashing,
         Skidding,
     };
@@ -80,6 +141,15 @@ private:
 
     void update_velocity(double dt);
 
+
+    int dash_right = 0;
+    int dash_left = 0;
+    int dash_front = 1;
+    int dash_back = 1;
+    int dash_accel = 1;
+    bool dash_on[4] = { false, false, false, false };//wasd
+    bool four_way_dash_on = false;
+
     static bool recover_enabled;
     static constexpr double invincibilityTime = 1.0;
     double invincibility_count = 0;
@@ -96,6 +166,14 @@ private:
     static bool god_mode;
 
 
+    static constexpr double dash_cool = 1.0;
+    bool dash_active = true;
+    double dash_speed_multiplier = 4.0;
+    double dash_count = 0;
+    double dash_life = 5;
+    static constexpr double dash_original_life = 5;
+    double dash_latency = 1;
+
     //Finite State Machines
     class State_Idle : public State
     {
@@ -103,16 +181,64 @@ private:
         virtual void Enter(GameObject* object) override;
         virtual void Update(GameObject* object, double dt) override;
         virtual void CheckExit(GameObject* object) override;
-        std::string GetName() override { return "Jumping"; }
+        std::string GetName() override { return "idle"; }
     };
-    class State_Moving : public State
+
+
+
+
+    class Front_Moving : public State
     {
     public:
         virtual void Enter(GameObject* object) override;
         virtual void Update(GameObject* object, double dt) override;
         virtual void CheckExit(GameObject* object) override;
-        std::string GetName() override { return "Idle"; }
+        std::string GetName() override { return "front"; }
     };
+
+
+    class Right_Moving : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "right"; }
+    };
+
+
+    class Back_Moving : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "back"; }
+    };
+
+
+    class Left_Moving : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "left"; }
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     class State_Dashing : public State
     {
     public:
@@ -130,8 +256,14 @@ private:
         std::string GetName() override { return "Running"; }
     };
 
+
     State_Idle state_idle;
-    State_Moving state_moving;
+
+    Front_Moving Front_Moving;
+    Right_Moving Right_Moving;
+    Back_Moving Back_Moving;
+    Left_Moving Left_Moving;
+
     State_Dashing state_dashing;
     State_Skidding state_skidding;
 

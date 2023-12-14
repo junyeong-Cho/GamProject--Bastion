@@ -11,34 +11,52 @@
 #include "Map.h"
 #include "Monster.h"
 
-Tower::Tower(Math::vec2 position, int direction) : GameObject(position), direction(direction) {
+Tower::Tower(Math::vec2 position, int direction) : GameObject(position, 0, { 0.5, 0.5 }), direction(direction),
+single_tower("assets/towers/single_tower.spt", (this)),//add parts
+double_tower("assets/towers/double_tower.spt", (this)),//add parts
+triple_tower("assets/towers/triple_tower.spt", (this)),//add parts
+push_tower("assets/towers/push_tower.spt", (this)),//add parts
+wide_tower("assets/towers/wide_tower.spt", (this))//add parts
+{
 	charging_color = { 0.0f, 0.0f, 1.0f };
 	attack_color = { 0.0f, 0.0f, 0.0f };
 	color = charging_color;
 
 	SetPosition(position);
 
+	//add parts
+	AddGOComponent(new GAM200::Sprite("assets/towers/tower_base.spt", (this)));
+	//add parts
+
+	//add parts
 	// RIGHT, LEFT, UP, DOWN
 	switch (direction)
 	{
 	case 0:
-		bullet_direction = Math::vec2(1, 0);
+		bullet_direction = Math::vec2(1, 0);//right
+
+		UpdateRotation(90 * (3.14 / 180));
 		four_way[1] = true;
 		break;
 	case 1:
-		bullet_direction = Math::vec2(-1, 0);
+		bullet_direction = Math::vec2(-1, 0);//left
+		UpdateRotation(270 * (3.14 / 180));
 		four_way[3] = true;
 		break;
 	case 2:
-		bullet_direction = Math::vec2(0, 1);
+		bullet_direction = Math::vec2(0, 1);//front
+		UpdateRotation(180 * (3.14 / 180));
 		four_way[0] = true;
 		break;
 	case 3:
-		bullet_direction = Math::vec2(0, -1);
+		bullet_direction = Math::vec2(0, -1);//back
+		UpdateRotation(360 * (3.14 / 180));
 		four_way[2] = true;
 		break;
 
 	}
+	//add parts
+
 	hp = max_hp;
 
 
@@ -50,6 +68,16 @@ Tower::Tower(Math::vec2 position, int direction) : GameObject(position), directi
 void Tower::Update(double dt)
 {
 	GameObject::Update(dt);
+
+	//add parts
+	GetGOComponent<GAM200::Sprite>()->Update(dt);
+	single_tower.Update(dt);
+	double_tower.Update(dt);
+	triple_tower.Update(dt);
+	push_tower.Update(dt);
+	wide_tower.Update(dt);
+	//add parts
+
 	IsClicked();
 	check_supplied();
 }
@@ -61,22 +89,7 @@ void Tower::Tower_Destroy()
 void Tower::Draw(Math::TransformationMatrix camera_matrix) {
 
 
-	if (four_way[0] == true)
-	{
-		c_up.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size.x, size.y);
-	}
-	else if (four_way[1] == true)
-	{
-		c_right.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size.x, size.y);
-	}
-	else if (four_way[2] == true)
-	{
-		c_down.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size.x, size.y);
-	}
-	else if (four_way[3] == true)
-	{
-		c_left.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size.x, size.y);
-	}
+
 
 }
 
@@ -458,14 +471,60 @@ void Basic_Tower::ResolveCollision(GameObject* other_object)
 			return;
 	}
 
+	//add parts
+
 	if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
 		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)
+		&& is_fired == false
 		)
 	{
 		attack_ready = false;
+		is_fired = true;
 		change_state(&this->state_attacking);
+		single_tower.PlayAnimation(static_cast<int>(tower_state::Fire));
+	}
+	else {
+		if (is_fired == true)
+		{
+			change_state(&this->state_charging);
+
+			is_fired = false;
+			single_tower.PlayAnimation(static_cast<int>(tower_state::None));
+		}
+	}
+
+	//add parts
+
+
+}
+
+
+//add parts
+void Basic_Tower::Draw(Math::TransformationMatrix camera_matrix)
+{
+	if (four_way[0] == true)//front
+	{
+		single_tower.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(1)));
+		//c_up.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+	}
+	else if (four_way[1] == true)//right//
+	{
+		//c_right.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+		single_tower.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(0)));
+	}
+	else if (four_way[2] == true)//back//
+	{
+		//c_down.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+		single_tower.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(2)));
+	}
+	else if (four_way[3] == true)
+	{
+		single_tower.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(3)));
+		//c_left.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
 	}
 }
+//add parts
+
 
 bool Double_Tower::CanCollideWith(GameObjectTypes type)
 {
@@ -495,14 +554,56 @@ void Double_Tower::ResolveCollision(GameObject* other_object)
 			return;
 	}
 
+	//add parts
 	if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
 		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)
+		&& is_fired == false
 		)
 	{
-		attack_ready = false;
+		//attack_ready = false;
+		is_fired = true;
 		change_state(&this->state_attacking);
+		double_tower.PlayAnimation(static_cast<int>(tower_state::Fire));
+	}
+	else {
+		if (is_fired == true)
+		{
+			is_fired = false;
+
+			double_tower.PlayAnimation(static_cast<int>(tower_state::None));
+		}
+	}
+	//add parts
+
+}
+
+
+//add parts
+void Double_Tower::Draw(Math::TransformationMatrix camera_matrix)
+{
+	if (four_way[0] == true)//front
+	{
+		double_tower.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(1)));
+		//c_up.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+	}
+	else if (four_way[1] == true)//right//
+	{
+		//c_right.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+		double_tower.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(0)));
+	}
+	else if (four_way[2] == true)//back//
+	{
+		//c_down.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+		double_tower.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(2)));
+	}
+	else if (four_way[3] == true)
+	{
+		double_tower.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(3)));
+		//c_left.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
 	}
 }
+//add parts
+
 
 bool Triple_Tower::CanCollideWith(GameObjectTypes type)
 {
@@ -532,14 +633,51 @@ void Triple_Tower::ResolveCollision(GameObject* other_object)
 			return;
 	}
 
+	//add parts
 	if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
 		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)
 		)
 	{
 		attack_ready = false;
 		change_state(&this->state_attacking);
+		triple_tower.PlayAnimation(static_cast<int>(tower_state::Fire));
+	}
+	else
+	{
+		triple_tower.PlayAnimation(static_cast<int>(tower_state::None));
+	}
+	//add parts
+
+
+}
+
+
+//add parts
+void Triple_Tower::Draw(Math::TransformationMatrix camera_matrix)
+{
+	if (four_way[0] == true)//front
+	{
+		triple_tower.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(1)));
+		//c_up.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+	}
+	else if (four_way[1] == true)//right//
+	{
+		//c_right.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+		triple_tower.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(0)));
+	}
+	else if (four_way[2] == true)//back//
+	{
+		//c_down.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+		triple_tower.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(2)));
+	}
+	else if (four_way[3] == true)
+	{
+		triple_tower.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(3)));
+		//c_left.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
 	}
 }
+//add parts
+
 
 bool Push_Tower::CanCollideWith(GameObjectTypes type)
 {
@@ -569,14 +707,51 @@ void Push_Tower::ResolveCollision(GameObject* other_object)
 			return;
 	}
 
+	//add parts
 	if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
 		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)
 		)
 	{
 		attack_ready = false;
 		change_state(&this->state_attacking);
+		push_tower.PlayAnimation(static_cast<int>(tower_state::Fire));
+	}
+	else
+	{
+		push_tower.PlayAnimation(static_cast<int>(tower_state::None));
+	}
+	//add parts
+
+
+}
+
+
+//add parts
+void Push_Tower::Draw(Math::TransformationMatrix camera_matrix)
+{
+	if (four_way[0] == true)//front
+	{
+		push_tower.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(1)));
+		//c_up.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+	}
+	else if (four_way[1] == true)//right//
+	{
+		//c_right.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+		push_tower.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(0)));
+	}
+	else if (four_way[2] == true)//back//
+	{
+		//c_down.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+		push_tower.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(2)));
+	}
+	else if (four_way[3] == true)
+	{
+		push_tower.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(3)));
+		//c_left.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
 	}
 }
+//add parts
+
 
 bool Wide_Tower::CanCollideWith(GameObjectTypes type)
 {
@@ -606,14 +781,49 @@ void Wide_Tower::ResolveCollision(GameObject* other_object)
 			return;
 	}
 
+	//add parts
 	if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
 		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)
 		)
 	{
 		attack_ready = false;
 		change_state(&this->state_attacking);
+		push_tower.PlayAnimation(static_cast<int>(tower_state::Fire));
+	}
+	else
+	{
+		wide_tower.PlayAnimation(static_cast<int>(tower_state::None));
+	}
+	//add parts
+}
+
+
+//add parts
+void Wide_Tower::Draw(Math::TransformationMatrix camera_matrix)
+{
+	if (four_way[0] == true)//front
+	{
+		wide_tower.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(1)));
+		//c_up.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+	}
+	else if (four_way[1] == true)//right//
+	{
+		//c_right.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+		wide_tower.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(0)));
+	}
+	else if (four_way[2] == true)//back//
+	{
+		//c_down.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+		wide_tower.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(2)));
+	}
+	else if (four_way[3] == true)
+	{
+		wide_tower.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(3)));
+		//c_left.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
 	}
 }
+//add parts
+
 
 bool Auto_Tower::CanCollideWith(GameObjectTypes type)
 {
@@ -1432,7 +1642,7 @@ void TowerFactory::InitAutoTowerFromFile(const std::string& filePath) {
 
 void Tower_Adopter::Set_Tower(Tower* tower)
 {
-	GAM200::SoundEffect::Tower_Placing().play();
+	//GAM200::SoundEffect::Tower_Placing().play();
 
 	current_tower = tower;
 }
