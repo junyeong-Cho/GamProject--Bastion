@@ -71,24 +71,76 @@ void Wave::Choice(int choice)
 	//Player::UpgradeAttackDmg();
 	//Player::UpgradeAttackSpeed();
 
-
-	switch (choice)
+	switch (current_wave / 5)
 	{
 	case 1:
+		switch (choice)
+		{
+		case 1:
+
+			break;
+
+		case 2:
+
+			break;
+
+		case 3:
+
+			break;
+
+		default:
+			break;
+		}
 
 		break;
 
 	case 2:
+		switch (choice)
+		{
+		case 1:
+
+			break;
+
+		case 2:
+
+			break;
+
+		case 3:
+
+			break;
+
+		default:
+			break;
+		}
 
 		break;
 
 	case 3:
+		switch (choice)
+		{
+		case 1:
+
+			break;
+
+		case 2:
+
+			break;
+
+		case 3:
+
+			break;
+
+		default:
+			break;
+		}
 
 		break;
 
 	default:
+
 		break;
 	}
+
 
 
 	Engine::GetGameStateManager().GetGSComponent<Gold>()->Interest();
@@ -213,7 +265,7 @@ void Wave::Update(double dt)
 		}
 		else
 		{
-			wave_state = Wave_State::Upgrade;
+			wave_state = Wave_State::NotInProgress;
 		}
 
 
