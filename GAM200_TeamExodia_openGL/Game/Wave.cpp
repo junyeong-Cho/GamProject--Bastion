@@ -203,9 +203,19 @@ void Wave::Update(double dt)
 
 	case Wave_State::Term:
 		Engine::GetLogger().LogEvent("Wave Term Entered");
-		term_time_count += dt;
-		if (term_time_count >= term_time)
+		Engine::GetLogger().LogEvent(std::to_string(current_wave));
+
+		if (current_wave % 5 == 0)
+		{
+			term_time_count += dt;
+			if (term_time_count >= term_time)
+				wave_state = Wave_State::Upgrade;
+		}
+		else
+		{
 			wave_state = Wave_State::Upgrade;
+		}
+
 
 		break;
 
