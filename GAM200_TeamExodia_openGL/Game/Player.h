@@ -50,9 +50,16 @@ public:
     static void EnableShotGun() { shot_gun_mode = true; }
     static void EnableGodMode() { god_mode = true; }
 
-    void Attack();
+    static void Unload()
+    {
+        god_mode = false;
+        shot_gun_mode = false;
+        attack_cool = 1.0;
+        additional_attack_dmg = 0;
+        recover_enabled = false;
+    }
 
-    void Click_Handle();
+    void Attack();
 
 private:
 

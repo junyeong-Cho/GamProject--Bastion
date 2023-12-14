@@ -19,6 +19,7 @@ Updated:    September 26, 2023
 #include "../Game/Tower.h"
 #include "../Game/Button.h"
 #include "../Game/BuildMode.h"
+#include "../Game/Gold.h"
 
 
 void GAM200::GameObjectManager::Add(GameObject* object)
@@ -32,6 +33,19 @@ void GAM200::GameObjectManager::Unload()
 	{
 		delete object;
 	}
+
+	Player::Unload();
+
+	Basic_Monster::Restore();
+	Slow_Monster::Restore();
+	Fast_Monster::Restore();
+	Weak_Monster::Restore();
+	Mother_Monster::Restore();
+	Stealth_Monster::Restore();
+	Heal_Monster::Restore();
+
+	Engine::GetGameStateManager().GetGSComponent<Gold>()->Restore();
+	Tower::Unable_Supply_Ammo();
 
 	objects.clear();
 }

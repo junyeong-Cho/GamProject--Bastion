@@ -138,12 +138,7 @@ void Main_menu::Draw()
 
 void Main_menu::ImguiDraw()
 {
-	ImGui::Begin("Music Info");
-	{
 
-
-	}
-	ImGui::End();
 }
 
 void Main_menu::HandleEvent(SDL_Event& event)

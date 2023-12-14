@@ -15,6 +15,7 @@ public:
     void SetValue(int value) { goldValue = value; }
     void Interest();
     void Upgrade();
+    void Restore();
 
 private:
     int goldValue;

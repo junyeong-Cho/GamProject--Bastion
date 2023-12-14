@@ -129,8 +129,8 @@ void Player::Attack()
             left_bullet_direction.Normalize();
             right_bullet_direction.Normalize();
 
-            left_bullet_direction.Rotate(10.0);
-            right_bullet_direction.Rotate(-10.0);
+            left_bullet_direction.Rotate(5.0);
+            right_bullet_direction.Rotate(-5.0);
 
 
             new Basic_Bullet(player_position, bullet_direction * Bullet::DefaultVelocity);

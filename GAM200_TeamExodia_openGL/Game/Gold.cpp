@@ -24,3 +24,8 @@ void Gold::Upgrade()
 {
 	interest_rate += 0.2;
 }
+
+void Gold::Restore()
+{
+	double interest_rate = 0.2;
+}

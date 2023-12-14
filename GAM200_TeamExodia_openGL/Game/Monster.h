@@ -135,6 +135,7 @@ public:
     static int GetDamage() { return damage; }
 
     static void Slow() { speed_scale *= 0.8; }
+    static void Restore() { speed_scale *= 1.25; }
 
 private:
     class State_Dead : public State
@@ -181,6 +182,7 @@ public:
     static int GetDamage() { return damage; }
 
     static void Slow() { speed_scale *= 0.8; }
+    static void Restore() { speed_scale *= 1.25; }
 
 private:
     class State_Dead : public State
@@ -227,6 +229,7 @@ public:
     static int GetDamage() { return damage; }
 
     static void Slow() { speed_scale *= 0.8; }
+    static void Restore() { speed_scale *= 1.25; }
 
 private:
     class State_Dead : public State
@@ -273,6 +276,7 @@ public:
     static int GetDamage() { return damage; }
 
     static void Slow() { speed_scale *= 0.8; }
+    static void Restore() { speed_scale *= 1.25; }
 
     friend class Weak_Monster;
 
@@ -327,6 +331,7 @@ public:
     static int GetDamage() { return damage; }
 
     static void Slow() { speed_scale *= 0.8; }
+    static void Restore() { speed_scale *= 1.25; }
 
 private:
     class State_Dead : public State
@@ -373,6 +378,7 @@ public:
     static int GetDamage() { return damage; }
 
     static void Slow() { speed_scale *= 0.8; }
+    static void Restore() { speed_scale *= 1.25; }
 
 private:
     class State_Dead : public State
@@ -435,6 +441,7 @@ public:
     bool IsStealth() const { return stealth; }
 
     static void Slow() { speed_scale *= 0.8; }
+    static void Restore() { speed_scale *= 1.25; }
 
 private:
     class State_Dead : public State
@@ -488,6 +495,7 @@ public:
     static int GetDamage() { return damage; }
 
     static void Slow() { speed_scale *= 0.8; }
+    static void Restore() { speed_scale *= 1.25; }
 
 private:
     class State_Dead : public State

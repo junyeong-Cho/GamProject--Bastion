@@ -46,6 +46,8 @@ public:
     static void Enable_Supply_Ammo() { enable_supply = true; }
     static bool Supply_Enabled() { return enable_supply; }
 
+    static void Unable_Supply_Ammo() { enable_supply = false; }
+
 protected:
     bool set_basic_tower = false;
     GAM200::Texture c_down = GAM200::Texture("assets/images/c_down.png", GAM200::Texture::TextureType::RECTANGLE);
