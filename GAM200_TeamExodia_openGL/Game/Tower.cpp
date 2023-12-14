@@ -10,6 +10,7 @@
 #include "Gold.h"
 #include "Map.h"
 
+<<<<<<< Updated upstream
 
 Tower::Tower(Math::vec2 position, int direction) : GameObject(position, 0, { 0.5, 0.5 }), direction(direction), 
                                                         single_tower("assets/towers/single_tower.spt", (this)), 
@@ -18,6 +19,15 @@ Tower::Tower(Math::vec2 position, int direction) : GameObject(position, 0, { 0.5
 	                                                    push_tower("assets/towers/push_tower.spt", (this)),
 	                                                    wide_tower("assets/towers/wide_tower.spt", (this))
 	                                                     {
+=======
+Tower::Tower(Math::vec2 position, int direction) : GameObject(position, 0, { 0.5, 0.5 }), direction(direction),
+single_tower("assets/towers/single_tower.spt", (this)),//add parts
+double_tower("assets/towers/double_tower.spt", (this)),//add parts
+triple_tower("assets/towers/triple_tower.spt", (this)),//add parts
+push_tower("assets/towers/push_tower.spt", (this)),//add parts
+wide_tower("assets/towers/wide_tower.spt", (this))//add parts
+{
+>>>>>>> Stashed changes
 	charging_color = { 0.0f, 0.0f, 1.0f };
 	attack_color = { 0.0f, 0.0f, 0.0f };
 	color = charging_color;
@@ -29,12 +39,26 @@ Tower::Tower(Math::vec2 position, int direction) : GameObject(position, 0, { 0.5
 	push_tower.PlayAnimation(static_cast<int>(tower_state::None));
 	wide_tower.PlayAnimation(static_cast<int>(tower_state::None));
 
+<<<<<<< Updated upstream
 	AddGOComponent(new GAM200::Sprite("assets/towers/tower_base.spt", (this)));
+=======
+	//add parts
+	AddGOComponent(new GAM200::Sprite("assets/towers/tower_base.spt", (this)));
+	//add parts
+
+
+	//add parts
+	// RIGHT, LEFT, UP, DOWN
+>>>>>>> Stashed changes
 	switch (direction)
 	{
 	case 0:
 		bullet_direction = Math::vec2(1, 0);//right
+<<<<<<< Updated upstream
 	
+=======
+
+>>>>>>> Stashed changes
 		UpdateRotation(90 * (3.14 / 180));
 		four_way[1] = true;
 		break;
@@ -55,6 +79,8 @@ Tower::Tower(Math::vec2 position, int direction) : GameObject(position, 0, { 0.5
 		break;
 
 	}
+	//add parts
+
 	hp = max_hp;
 
 	//AddGOComponent(new GAM200::RectCollision(Math::irect{ {0, 0}, {size_x, size_y} }, this));
@@ -68,13 +94,25 @@ Tower::Tower(Math::vec2 position, int direction) : GameObject(position, 0, { 0.5
 void Tower::Update(double dt) 
 {
 	GameObject::Update(dt);
+<<<<<<< Updated upstream
+=======
+
+	//add parts
+>>>>>>> Stashed changes
 	GetGOComponent<GAM200::Sprite>()->Update(dt);
 	single_tower.Update(dt);
 	double_tower.Update(dt);
 	triple_tower.Update(dt);
 	push_tower.Update(dt);
 	wide_tower.Update(dt);
+<<<<<<< Updated upstream
 
+=======
+	//add parts
+
+	IsClicked();
+	check_supplied();
+>>>>>>> Stashed changes
 }
 
 
@@ -86,10 +124,17 @@ void Tower::Tower_Destroy()
 
 
 void Tower::Draw(Math::TransformationMatrix camera_matrix) {
+<<<<<<< Updated upstream
 	
 	GAM200::DrawShape shape;
 	shape.SetColor(255, 255, 255,1.0f);
 	shape.DrawRectangle(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+=======
+
+
+
+
+>>>>>>> Stashed changes
 }
 
 
@@ -351,9 +396,19 @@ void Basic_Tower::ResolveCollision(GameObject* other_object)
 
 	if (attack_ready == false)
 	{
+<<<<<<< Updated upstream
 		
 		return;
     }
+=======
+		Stealth_Monster* temp = static_cast<Stealth_Monster*>(other_object);
+		if (temp->IsStealth())
+			return;
+	}
+
+	//add parts
+
+>>>>>>> Stashed changes
 	if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
 		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)
 		&& is_fired == false
@@ -368,13 +423,28 @@ void Basic_Tower::ResolveCollision(GameObject* other_object)
 		if (is_fired == true)
 		{
 			change_state(&this->state_charging);
+<<<<<<< Updated upstream
 			
+=======
+
+>>>>>>> Stashed changes
 			is_fired = false;
 			single_tower.PlayAnimation(static_cast<int>(tower_state::None));
 		}
 	}
+<<<<<<< Updated upstream
 	
 }
+=======
+
+	//add parts
+
+
+}
+
+
+//add parts
+>>>>>>> Stashed changes
 void Basic_Tower::Draw(Math::TransformationMatrix camera_matrix)
 {
 	if (four_way[0] == true)//front
@@ -398,6 +468,8 @@ void Basic_Tower::Draw(Math::TransformationMatrix camera_matrix)
 		//c_left.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
 	}
 }
+//add parts
+
 
 
 
@@ -427,6 +499,7 @@ void Double_Tower::ResolveCollision(GameObject* other_object)
 		return;
 
 
+	//add parts
 	if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
 		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)
 		&& is_fired == false
@@ -441,6 +514,7 @@ void Double_Tower::ResolveCollision(GameObject* other_object)
 		if (is_fired == true)
 		{
 			is_fired = false;
+<<<<<<< Updated upstream
 			
 			double_tower.PlayAnimation(static_cast<int>(tower_state::None));
 		}
@@ -450,6 +524,18 @@ void Double_Tower::ResolveCollision(GameObject* other_object)
 
 
 }
+=======
+
+			double_tower.PlayAnimation(static_cast<int>(tower_state::None));
+		}
+	}
+	//add parts
+
+}
+
+
+//add parts
+>>>>>>> Stashed changes
 void Double_Tower::Draw(Math::TransformationMatrix camera_matrix)
 {
 	if (four_way[0] == true)//front
@@ -473,6 +559,8 @@ void Double_Tower::Draw(Math::TransformationMatrix camera_matrix)
 		//c_left.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
 	}
 }
+//add parts
+
 
 
 
@@ -497,6 +585,17 @@ void Triple_Tower::ResolveCollision(GameObject* other_object)
 	if (attack_ready == false)
 		return;
 
+<<<<<<< Updated upstream
+=======
+	if (other_object->Type() == GameObjectTypes::Stealth_Monster)
+	{
+		Stealth_Monster* temp = static_cast<Stealth_Monster*>(other_object);
+		if (temp->IsStealth())
+			return;
+	}
+
+	//add parts
+>>>>>>> Stashed changes
 	if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
 		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)
 		)
@@ -509,7 +608,17 @@ void Triple_Tower::ResolveCollision(GameObject* other_object)
 	{
 		triple_tower.PlayAnimation(static_cast<int>(tower_state::None));
 	}
+<<<<<<< Updated upstream
 }
+=======
+	//add parts
+
+
+}
+
+
+//add parts
+>>>>>>> Stashed changes
 void Triple_Tower::Draw(Math::TransformationMatrix camera_matrix)
 {
 	if (four_way[0] == true)//front
@@ -533,6 +642,8 @@ void Triple_Tower::Draw(Math::TransformationMatrix camera_matrix)
 		//c_left.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
 	}
 }
+//add parts
+
 
 
 bool Push_Tower::CanCollideWith(GameObjectTypes type)
@@ -556,6 +667,17 @@ void Push_Tower::ResolveCollision(GameObject* other_object)
 	if (attack_ready == false)
 		return;
 
+<<<<<<< Updated upstream
+=======
+	if (other_object->Type() == GameObjectTypes::Stealth_Monster)
+	{
+		Stealth_Monster* temp = static_cast<Stealth_Monster*>(other_object);
+		if (temp->IsStealth())
+			return;
+	}
+
+	//add parts
+>>>>>>> Stashed changes
 	if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
 		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)
 		)
@@ -568,8 +690,18 @@ void Push_Tower::ResolveCollision(GameObject* other_object)
 	{
 		push_tower.PlayAnimation(static_cast<int>(tower_state::None));
 	}
+<<<<<<< Updated upstream
 
 }
+=======
+	//add parts
+
+
+}
+
+
+//add parts
+>>>>>>> Stashed changes
 void Push_Tower::Draw(Math::TransformationMatrix camera_matrix)
 {
 	if (four_way[0] == true)//front
@@ -593,6 +725,8 @@ void Push_Tower::Draw(Math::TransformationMatrix camera_matrix)
 		//c_left.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
 	}
 }
+//add parts
+
 
 bool Wide_Tower::CanCollideWith(GameObjectTypes type)
 {
@@ -615,6 +749,17 @@ void Wide_Tower::ResolveCollision(GameObject* other_object)
 	if (attack_ready == false)
 		return;
 
+<<<<<<< Updated upstream
+=======
+	if (other_object->Type() == GameObjectTypes::Stealth_Monster)
+	{
+		Stealth_Monster* temp = static_cast<Stealth_Monster*>(other_object);
+		if (temp->IsStealth())
+			return;
+	}
+
+	//add parts
+>>>>>>> Stashed changes
 	if (static_cast<int>(other_object->Type()) >= static_cast<int>(GameObjectTypes::Monster) &&
 		static_cast<int>(other_object->Type()) <= static_cast<int>(GameObjectTypes::Monster_End)
 		)
@@ -622,6 +767,52 @@ void Wide_Tower::ResolveCollision(GameObject* other_object)
 		attack_ready = false;
 		change_state(&this->state_attacking);
 		push_tower.PlayAnimation(static_cast<int>(tower_state::Fire));
+<<<<<<< Updated upstream
+=======
+	}
+	else
+	{
+		wide_tower.PlayAnimation(static_cast<int>(tower_state::None));
+	}
+	//add parts
+}
+
+
+//add parts
+void Wide_Tower::Draw(Math::TransformationMatrix camera_matrix)
+{
+	if (four_way[0] == true)//front
+	{
+		wide_tower.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(1)));
+		//c_up.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+	}
+	else if (four_way[1] == true)//right//
+	{
+		//c_right.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+		wide_tower.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(0)));
+	}
+	else if (four_way[2] == true)//back//
+	{
+		//c_down.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+		wide_tower.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(2)));
+	}
+	else if (four_way[3] == true)
+	{
+		wide_tower.Draw(GetMatrix() * Math::TranslationMatrix(GetGOComponent<GAM200::Sprite>()->GetHotSpot(3)));
+		//c_left.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+	}
+}
+//add parts
+
+
+bool Auto_Tower::CanCollideWith(GameObjectTypes type)
+{
+	if ((static_cast<int>(type) >= static_cast<int>(GameObjectTypes::Monster) &&
+		static_cast<int>(type) <= static_cast<int>(GameObjectTypes::Monster_End))
+		)
+	{
+		return true;
+>>>>>>> Stashed changes
 	}
 	else
 	{
@@ -1148,4 +1339,80 @@ void TowerFactory::InitWideTowerFromFile(const std::string& filePath) {
 		file >> Wide_Tower::attack_range;
 	}
 
+<<<<<<< Updated upstream
+=======
+}
+void TowerFactory::InitAutoTowerFromFile(const std::string& filePath) {
+	std::ifstream file(filePath);
+
+	if (file.is_open())
+	{
+		file >> Auto_Tower::cost;
+
+		file >> Auto_Tower::upgrade_cost;
+
+		file >> Auto_Tower::attack_delay;
+
+		file >> Auto_Tower::max_hp;
+
+		file >> Auto_Tower::range_x;
+
+		file >> Auto_Tower::range_y;
+
+		file >> Auto_Tower::attack_range;
+
+		file >> Auto_Tower::max_ammo;
+	}
+
+}
+
+
+
+
+
+
+
+
+
+void Tower_Adopter::Set_Tower(Tower* tower)
+{
+	//GAM200::SoundEffect::Tower_Placing().play();
+
+	current_tower = tower;
+}
+void Tower_Adopter::Show_Info()
+{
+	if (current_tower == nullptr)
+	{
+		Engine::GetLogger().LogDebug("nullptr!");
+		return;
+	}
+
+	current_tower->ShowInfo();
+}
+void Tower_Adopter::Upgrade()
+{
+	if (current_tower == nullptr)
+	{
+		Engine::GetLogger().LogDebug("nullptr!");
+		return;
+	}
+
+	GAM200::SoundEffect::Tower_Upgrade().play();
+
+	current_tower = current_tower->Upgrade();
+}
+void Tower_Adopter::Delete()
+{
+
+
+	if (current_tower == nullptr)
+		return;
+
+	GAM200::SoundEffect::Tower_Delete().play();
+
+
+	Map::GetInstance().DeleteTower(current_tower->GetTilePosition());
+	current_tower = nullptr;
+>>>>>>> Stashed changes
 }

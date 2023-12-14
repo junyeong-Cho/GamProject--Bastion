@@ -104,6 +104,67 @@ public:
     bool is_thrusting = false;
     bool is_fired= false;
 
+    //add parts
+
+    int GetDashCount() const { return dash_life; }
+    void SetDashCount(int dash) { dash_life = dash; }
+
+    double GetDashSpeedMultiplier() const { return dash_speed_multiplier; }
+    double GetDashCooltime() const { return dash_cool; }
+
+    bool GetDashActive() const { return dash_active; }
+    void SetDashActive(bool active) { dash_active = active; }
+
+    enum class arm_anm
+    {
+        None,
+
+        arm_fire
+
+    };
+    enum class boost_anm
+    {
+        None,
+
+        front,
+        right,
+        back,
+        left,
+
+        front_right,
+        front_left,
+
+        back_right,
+        back_left
+
+    };
+
+    enum class dash_anm
+    {
+        dash_none,
+
+        front_move_dash,
+        back_move_dash,
+        left_move_dash,
+        right_move_dash,
+
+        front_right_dash,
+        front_left_dash,
+
+        back_right_dash,
+        back_left_dash
+
+    };
+    GAM200::Sprite arm;
+    GAM200::Sprite boost;
+    GAM200::Sprite dash;
+    GAM200::Sprite muzzle_effect;
+
+    bool bullet_is_fired = false;
+    bool is_thrusting = false;
+    bool is_fired = false;
+
+    //add parts
 private:
     Math::vec2   start_position;
 
@@ -139,6 +200,7 @@ private:
     int size;
     int size_x;
     int size_y;
+   
 
     static constexpr double max_velocity = 500;
     static constexpr double dash_velocity = 500;
@@ -153,6 +215,10 @@ private:
     bool return_idle = false;
     void update_velocity(double dt);
 
+<<<<<<< Updated upstream
+=======
+    //add parts
+>>>>>>> Stashed changes
     int dash_right = 0;
     int dash_left = 0;
     int dash_front = 1;
@@ -160,7 +226,14 @@ private:
     int dash_accel = 1;
     bool dash_on[4] = { false, false, false, false };//wasd
     bool four_way_dash_on = false;
+<<<<<<< Updated upstream
 
+=======
+    //add parts
+
+
+    static bool recover_enabled;
+>>>>>>> Stashed changes
     static constexpr double invincibilityTime = 1.0;
     double invincibility_count = 0;
 
@@ -179,8 +252,17 @@ private:
     static constexpr double dash_original_life = 5;
     double dash_latency = 1;
 
+    //add parts
+    static constexpr double dash_cool = 1.0;
+    bool dash_active = true;
+    double dash_speed_multiplier = 4.0;
+    double dash_count = 0;
+    double dash_life = 5;
+    static constexpr double dash_original_life = 5;
+    double dash_latency = 1;
+    //add parts
 
-    //Finite State Machines
+      //Finite State Machines
     class State_Idle : public State
     {
     public:
@@ -263,6 +345,7 @@ private:
     };
     
 
+
     State_Idle state_idle;
 
     Front_Moving Front_Moving;
@@ -272,7 +355,6 @@ private:
 
     State_Dashing state_dashing;
     State_Skidding state_skidding;
-
 };
 
 

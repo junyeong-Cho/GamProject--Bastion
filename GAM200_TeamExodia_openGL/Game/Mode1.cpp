@@ -162,7 +162,9 @@ void Mode1::Update(double dt)
 	int player_hp = player_ptr->GetHP();
 	int wall_hp = GetGSComponent<Score>()->Value();
 	int life = GetGSComponent<Life>()->Value();
+	int player_boost = player_ptr->GetDashCount();
 
+<<<<<<< Updated upstream
 	int player_boost = player_ptr->GetDashCount();
 
 	GetGSComponent<HBG_Ui>()->Player_BOOST = player_boost;
@@ -170,6 +172,12 @@ void Mode1::Update(double dt)
 
 
 
+=======
+	GetGSComponent<HBG_Ui>()->Player_BOOST = player_boost;
+
+
+	
+>>>>>>> Stashed changes
 	GetGSComponent<HBG_Ui>()->Player_HP = player_hp;
 	//GetGSComponent<HBG_Ui>()->Player_HP = main_hp;
 	GetGSComponent<HBG_Ui>()->Tower_GOLD = gold;
