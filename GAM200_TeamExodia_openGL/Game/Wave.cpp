@@ -50,45 +50,90 @@ void Wave::Start()
 void Wave::Choice(int choice)
 {
 	// some mechanism
-
 	//// 1
-	//Player::EnableShotGun();
 	//// 2
-	//Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->SlowAllMonsters();
 	//// 3
-	//Player::UpgradeAttackSpeed();
 	//// 4
-	//Player::UpgradeAttackDmg();
 	//// 5
-	//Engine::GetGameStateManager().GetGSComponent<Gold>()->Upgrade();
+	//
 	//// 6
-	//Tower::Enable_Supply_Ammo();
 	//// 7
-	//Player::EnableRecover();
+	//
 	//// 8
-	//Player::EnableGodMode();
 	//// 9
 	//Player::UpgradeAttackDmg();
 	//Player::UpgradeAttackSpeed();
 
-
-	switch (choice)
+	switch (current_wave)
 	{
-	case 1:
+	case 5:
 
+		switch (choice)
+		{
+		case 1:
+			Tower::Enable_Supply_Ammo();
+			break;
+
+		case 2:
+			Player::UpgradeAttackSpeed();
+			break;
+
+		case 3:
+			Engine::GetGameStateManager().GetGSComponent<Gold>()->Upgrade();
+			break;
+
+		default:
+			break;
+		}
 		break;
 
-	case 2:
+	case 10:
 
+		switch (choice)
+		{
+		case 1:
+			Player::EnableRecover();
+			break;
+
+		case 2:
+			Engine::GetGameStateManager().GetGSComponent<Gold>()->Upgrade();
+			break;
+
+		case 3:
+			Player::UpgradeAttackDmg();
+			break;
+
+		default:
+			break;
+		}
 		break;
 
-	case 3:
+	case 15:
 
+		switch (choice)
+		{
+		case 1:
+			Player::EnableShotGun();
+			break;
+
+		case 2:
+			Player::EnableGodMode();
+			break;
+
+		case 3:
+			Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->SlowAllMonsters();
+			break;
+
+		default:
+			break;
+		}
 		break;
 
 	default:
+		Engine::GetLogger().LogDebug("???");
 		break;
 	}
+
 
 
 	Engine::GetGameStateManager().GetGSComponent<Gold>()->Interest();
@@ -202,9 +247,18 @@ void Wave::Update(double dt)
 		break;
 
 	case Wave_State::Term:
-		term_time_count += dt;
-		if (term_time_count >= term_time)
-			wave_state = Wave_State::Upgrade;
+
+		if (current_wave % 5 == 0)
+		{
+			term_time_count += dt;
+			if (term_time_count >= term_time)
+				wave_state = Wave_State::Upgrade;
+		}
+		else
+		{
+			wave_state = Wave_State::NotInProgress;
+		}
+
 
 		break;
 

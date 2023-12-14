@@ -17,6 +17,9 @@ Updated:    September 26, 2023
 #include "../Game/GameObjectTypes.h"
 #include "../Game/Monster.h"
 #include "../Game/Tower.h"
+#include "../Game/Button.h"
+#include "../Game/BuildMode.h"
+
 
 void GAM200::GameObjectManager::Add(GameObject* object)
 {
@@ -219,4 +222,44 @@ void GAM200::GameObjectManager::BombToTower(Monster* monster, double range)
 			}
 		}
 	}
+}
+
+void GAM200::GameObjectManager::Click_Handle()
+{
+	for (GameObject* object : objects)
+	{
+		if (static_cast<int>(object->Type()) >= static_cast<int>(GameObjectTypes::Tower) &&
+			static_cast<int>(object->Type()) <= static_cast<int>(GameObjectTypes::Tower_End))
+		{
+			Tower* tower = static_cast<Tower*>(object);
+
+			if (tower->IsClicked())
+			{
+				Engine::GetLogger().LogDebug("Tower clicked");
+				return;
+			}
+		}
+
+	}
+
+
+	for (GameObject* object : objects)
+	{
+		if (object->Type() == GameObjectTypes::Button)
+		{
+			Button* button = static_cast<Button*>(object);
+
+			if (button->IsClicked())
+			{
+				Engine::GetLogger().LogDebug("Button clicked");
+				return;
+			}
+		}
+
+	}
+
+	if (Engine::GetGameStateManager().GetGSComponent<BuildMode>()->Click())
+		return;
+
+	this->GetPlayer()->Attack();
 }

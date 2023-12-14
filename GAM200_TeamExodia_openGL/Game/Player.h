@@ -50,6 +50,10 @@ public:
     static void EnableShotGun() { shot_gun_mode = true; }
     static void EnableGodMode() { god_mode = true; }
 
+    void Attack();
+
+    void Click_Handle();
+
 private:
 
 

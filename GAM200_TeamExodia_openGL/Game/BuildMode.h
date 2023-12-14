@@ -26,6 +26,8 @@ public:
 
     bool IsBuilding() const { return build_mode; }
 
+    bool Click();
+
     enum Direction
     {
         RIGHT, LEFT, UP, DOWN

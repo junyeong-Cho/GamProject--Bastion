@@ -19,39 +19,45 @@ public:
     void Update(double dt) override;
     void Draw(Math::TransformationMatrix camera_matrix) override;
 
+    virtual bool IsClicked();
+
     bool tower_type[7] = { false,false,false, false,false,false,false };//basic doble triple delete change_tp change_tb wave
 
 protected:
     virtual void func(Math::ivec2);
+    bool is_activated = true;
 
 private:
-    
+
     GAM200::Texture next_wave = GAM200::Texture("assets/images/ui/tower_deploy_win/nw.png", GAM200::Texture::TextureType::RECTANGLE);
-    GAM200::Texture next_wave_selected = GAM200::Texture("assets/images/ui/tower_deploy_win/nw_2.png", GAM200::Texture::TextureType::RECTANGLE);
-   
-    GAM200::Texture basic = GAM200::Texture("assets/images/ui/tower_deploy_win/b.png", GAM200::Texture::TextureType::RECTANGLE);
-    GAM200::Texture basic_selected = GAM200::Texture("assets/images/ui/tower_deploy_win/b_2.png", GAM200::Texture::TextureType::RECTANGLE);
+    // GAM200::Texture next_wave_selected = GAM200::Texture("assets/images/ui/tower_deploy_win/nw_2.png", GAM200::Texture::TextureType::RECTANGLE);
 
-    GAM200::Texture double_tower = GAM200::Texture("assets/images/ui/tower_deploy_win/d.png", GAM200::Texture::TextureType::RECTANGLE);
-    GAM200::Texture double_tower_selected = GAM200::Texture("assets/images/ui/tower_deploy_win/d_2.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture basic = GAM200::Texture("assets/images/ui/tower_deploy_win/single.png", GAM200::Texture::TextureType::RECTANGLE);
+    //GAM200::Texture basic_selected = GAM200::Texture("assets/images/ui/tower_deploy_win/b_2.png", GAM200::Texture::TextureType::RECTANGLE);
 
-    GAM200::Texture triple = GAM200::Texture("assets/images/ui/tower_deploy_win/t.png", GAM200::Texture::TextureType::RECTANGLE);
-    GAM200::Texture triple_selected = GAM200::Texture("assets/images/ui/tower_deploy_win/t_2.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture double_tower = GAM200::Texture("assets/images/ui/tower_deploy_win/push.png", GAM200::Texture::TextureType::RECTANGLE);
+    //GAM200::Texture double_tower_selected = GAM200::Texture("assets/images/ui/tower_deploy_win/d_2.png", GAM200::Texture::TextureType::RECTANGLE);
 
-    GAM200::Texture change_t_P = GAM200::Texture("assets/images/ui/tower_deploy_win/c1.png", GAM200::Texture::TextureType::RECTANGLE);
-    GAM200::Texture change_t_P_selected = GAM200::Texture("assets/images/ui/tower_deploy_win/c1_2.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture triple = GAM200::Texture("assets/images/ui/tower_deploy_win/wide.png", GAM200::Texture::TextureType::RECTANGLE);
+    //GAM200::Texture triple_selected = GAM200::Texture("assets/images/ui/tower_deploy_win/t_2.png", GAM200::Texture::TextureType::RECTANGLE);
+
+    GAM200::Texture change_t_P = GAM200::Texture("assets/images/ui/tower_deploy_win/upgrade.png", GAM200::Texture::TextureType::RECTANGLE);
+    //GAM200::Texture change_t_P_selected = GAM200::Texture("assets/images/ui/tower_deploy_win/c1_2.png", GAM200::Texture::TextureType::RECTANGLE);
 
     GAM200::Texture change_t_b = GAM200::Texture("assets/images/ui/tower_deploy_win/c2.png", GAM200::Texture::TextureType::RECTANGLE);
-    GAM200::Texture change_t_b_selected = GAM200::Texture("assets/images/ui/tower_deploy_win/c2_2.png", GAM200::Texture::TextureType::RECTANGLE);
+    //GAM200::Texture change_t_b_selected = GAM200::Texture("assets/images/ui/tower_deploy_win/c2_2.png", GAM200::Texture::TextureType::RECTANGLE);
 
     GAM200::Texture delete_tower = GAM200::Texture("assets/images/ui/tower_deploy_win/delete.png", GAM200::Texture::TextureType::RECTANGLE);
-    GAM200::Texture delete_tower_selected = GAM200::Texture("assets/images/ui/tower_deploy_win/delete_2.png", GAM200::Texture::TextureType::RECTANGLE);
+    //GAM200::Texture delete_tower_selected = GAM200::Texture("assets/images/ui/tower_deploy_win/delete_2.png", GAM200::Texture::TextureType::RECTANGLE);
 
     GAM200::Texture side = GAM200::Texture("assets/images/ui/tower_deploy_win/sb.png", GAM200::Texture::TextureType::RECTANGLE);
 
 
 
+    GAM200::Texture card1 = GAM200::Texture("assets/images/auto_supple.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture card2 = GAM200::Texture("assets/images/rapidity.png", GAM200::Texture::TextureType::RECTANGLE);
 
+    GAM200::Texture card3 = GAM200::Texture("assets/images/damageX2.png", GAM200::Texture::TextureType::RECTANGLE);
 
 
 
@@ -173,59 +179,37 @@ public:
 class Choice_1_Button : public Button
 {
 public:
+    GAM200::Texture card1 = GAM200::Texture("assets/images/auto_supple.png", GAM200::Texture::TextureType::RECTANGLE);
     Choice_1_Button(Math::vec2 position, Math::vec2 size);
 
     void Draw(Math::TransformationMatrix camera_matrix) override;
     void func(Math::ivec2) override;
+    void Update(double dt) override;
 };
 
 
 class Choice_2_Button : public Button
 {
 public:
+    GAM200::Texture card2 = GAM200::Texture("assets/images/rapidity.png", GAM200::Texture::TextureType::RECTANGLE);
+
     Choice_2_Button(Math::vec2 position, Math::vec2 size);
 
     void Draw(Math::TransformationMatrix camera_matrix) override;
     void func(Math::ivec2) override;
+    void Update(double dt) override;
 };
 
 
 class Choice_3_Button : public Button
 {
 public:
+    GAM200::Texture card3 = GAM200::Texture("assets/images/damageX2.png", GAM200::Texture::TextureType::RECTANGLE);
+
+
     Choice_3_Button(Math::vec2 position, Math::vec2 size);
 
     void Draw(Math::TransformationMatrix camera_matrix) override;
     void func(Math::ivec2) override;
+    void Update(double dt) override;
 };
-
-
-
-
-
-/*
-class Basic_Monster_Button : public Button
-{
-public:
-    Basic_Monster_Button(Math::vec2 position, Math::vec2 size);
-
-    void func(Math::ivec2) override;
-};
-
-class Fast_Monster_Button : public Button
-{
-public:
-    Fast_Monster_Button(Math::vec2 position, Math::vec2 size);
-
-    void func(Math::ivec2) override;
-};
-
-class Slow_Monster_Button :public Button
-{
-public:
-    Slow_Monster_Button(Math::vec2 position, Math::vec2 size);
-
-    void func(Math::ivec2) override;
-};
-
-*/

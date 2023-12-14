@@ -45,6 +45,8 @@ namespace GAM200
 
         void BombToTower(Monster*, double range);
 
+        void Click_Handle();
+
     private:
         std::list<GameObject*> objects;
     };

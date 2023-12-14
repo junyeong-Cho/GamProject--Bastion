@@ -22,13 +22,13 @@ Updated:    October		10, 2023
 
 class Monster : public GAM200::GameObject {
 public:
-	Monster(Math::vec2 position = Math::vec2(0, 0));
+    Monster(Math::vec2 position = Math::vec2(0, 0));
 
-	virtual void ResolveCollision(GameObject* other_object) override;
+    virtual void ResolveCollision(GameObject* other_object) override;
     virtual bool CanCollideWith(GameObjectTypes type) override;
 
-	GameObjectTypes Type() override { return GameObjectTypes::Monster; }
-	std::string TypeName() override { return "Monster"; }
+    GameObjectTypes Type() override { return GameObjectTypes::Monster; }
+    std::string TypeName() override { return "Monster"; }
 
     void Update(double dt) override;
 
@@ -44,11 +44,19 @@ public:
     void Heal(int value) { life += value; if (life > real_max_life) life = real_max_life; }
 
     static int remaining_monsters;
-    
+
     Math::vec2 tile_size;
 
 protected:
     GAM200::Texture e = GAM200::Texture("assets/images/e.png", GAM200::Texture::TextureType::RECTANGLE);
+
+    GAM200::Texture e1 = GAM200::Texture("assets/images/enemy/e1.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture e2 = GAM200::Texture("assets/images/enemy/e2.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture e3 = GAM200::Texture("assets/images/enemy/e3.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture e4 = GAM200::Texture("assets/images/enemy/e4.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture e5 = GAM200::Texture("assets/images/enemy/e5.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture e6 = GAM200::Texture("assets/images/enemy/e6.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture e7 = GAM200::Texture("assets/images/enemy/e7.png", GAM200::Texture::TextureType::RECTANGLE);
 
     std::vector<Math::ivec2> path;
 
@@ -121,7 +129,7 @@ public:
     std::string TypeName() override { return "Basic_Monster"; }
 
     void Update(double dt) override;
-
+    void Draw(Math::TransformationMatrix camera_matrix) override;
     void ResolveCollision(GameObject* other_object) override;
 
     static int GetDamage() { return damage; }
@@ -167,7 +175,7 @@ public:
     std::string TypeName() override { return "Fast_Monster"; }
 
     void Update(double dt) override;
-
+    void Draw(Math::TransformationMatrix camera_matrix) override;
     void ResolveCollision(GameObject* other_object) override;
 
     static int GetDamage() { return damage; }
@@ -213,7 +221,7 @@ public:
     std::string TypeName() override { return "Slow_Monster"; }
 
     void Update(double dt) override;
-
+    void Draw(Math::TransformationMatrix camera_matrix) override;
     void ResolveCollision(GameObject* other_object) override;
 
     static int GetDamage() { return damage; }
@@ -259,7 +267,7 @@ public:
     std::string TypeName() override { return "Mother_Monster"; }
 
     void Update(double dt) override;
-
+    void Draw(Math::TransformationMatrix camera_matrix) override;
     void ResolveCollision(GameObject* other_object) override;
 
     static int GetDamage() { return damage; }
@@ -308,7 +316,7 @@ class Weak_Monster : public Monster
 public:
     Weak_Monster(Math::vec2 position = Math::vec2(0, 0));
     Weak_Monster(Mother_Monster* monster);
-
+    void Draw(Math::TransformationMatrix camera_matrix) override;
     GameObjectTypes Type() override { return GameObjectTypes::Weak_Monster; }
     std::string TypeName() override { return "Weak_Monster"; }
 
@@ -359,7 +367,7 @@ public:
     std::string TypeName() override { return "Heal_Monster"; }
 
     void Update(double dt) override;
-
+    void Draw(Math::TransformationMatrix camera_matrix) override;
     void ResolveCollision(GameObject* other_object) override;
 
     static int GetDamage() { return damage; }
@@ -420,7 +428,7 @@ public:
     std::string TypeName() override { return "Stealth_Monster"; }
 
     void Update(double dt) override;
-
+    void Draw(Math::TransformationMatrix camera_matrix) override;
     void ResolveCollision(GameObject* other_object) override;
 
     static int GetDamage() { return damage; }
@@ -462,17 +470,20 @@ private:
     double stealth_count = 0;
 };
 
-/*
+
 class Bomb_Monster : public Monster {
 public:
-    //Bomb_Monster(Math::vec2 position = Math::vec2(0, 0));
+    Bomb_Monster(Math::vec2 position = Math::vec2(0, 0));
+
+
+    void Draw(Math::TransformationMatrix camera_matrix) override;
 
     GameObjectTypes Type() override { return GameObjectTypes::Bomb_Monster; }
     std::string TypeName() override { return "Bomb_Monster"; }
 
-    //void Update(double dt) override;
+    void Update(double dt) override;
 
-    //void ResolveCollision(GameObject* other_object) override;
+    void ResolveCollision(GameObject* other_object) override;
 
     static int GetDamage() { return damage; }
 
@@ -509,7 +520,7 @@ private:
 
     static constexpr double range = 100;
 };
-*/
+
 
 
 
@@ -521,7 +532,7 @@ public:
     static void InitMotherMonsterFromFile(const std::string& filePath = "assets/monsters/Mother_Monster.txt");
     static void   InitWeakMonsterFromFile(const std::string& filePath = "assets/monsters/Weak_Monster.txt");
     static void   InitHealMonsterFromFile(const std::string& filePath = "assets/monsters/Heal_Monster.txt");
-    static void InitStealthMonsterFromFile(const std::string& filePath= "assets/monsters/Heal_Monster.txt");
+    static void InitStealthMonsterFromFile(const std::string& filePath = "assets/monsters/Heal_Monster.txt");
     static void InitBombMonsterFromFile(const std::string& filePath = "assets/monsters/Bomb_Monster.txt");
 
 private:

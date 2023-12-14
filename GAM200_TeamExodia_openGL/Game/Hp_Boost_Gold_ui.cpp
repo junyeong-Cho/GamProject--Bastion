@@ -42,15 +42,11 @@ HBG_Ui::HBG_Ui(int hp, int gold, int boost) : Player_HP(hp), Tower_GOLD(gold), P
         pass_t_button = new Pass_Tile_Button(Math::vec2(1120, 720 - 470), Math::vec2(140, 70));
         block_t_button = new Block_Tile_Button(Math::vec2(1120, 720 - 550), Math::vec2(140, 70));
 
-       /* push_t_button = new Push_Tower_Button(Math::vec2(1120, 720 - 230), Math::vec2(140, 70));
-        wide_t_button = new Wide_Tower_Button(Math::vec2(1120, 720 - 310), Math::vec2(140, 70));
 
-        upgrade_button = new Upgrade_Button(Math::vec2(1120, 720 - 390), Math::vec2(140, 70));
-        delete_button = new Delete_Button*/
-
-        choice_1_button = new Choice_1_Button(Math::vec2(50, 100), Math::vec2(300,500));
+        choice_1_button = new Choice_1_Button(Math::vec2(50, 100), Math::vec2(300, 500));
         choice_2_button = new Choice_2_Button(Math::vec2(400, 100), Math::vec2(300, 500));
         choice_3_button = new Choice_3_Button(Math::vec2(750, 100), Math::vec2(300, 500));
+
     }
 
 }
@@ -58,15 +54,16 @@ HBG_Ui::HBG_Ui(int hp, int gold, int boost) : Player_HP(hp), Tower_GOLD(gold), P
 
 void HBG_Ui::Update() {
 
-   remaining_gold.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("G: " + std::to_string(Tower_GOLD), 0xffffff));
 
+
+    remaining_gold.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("G: " + std::to_string(Tower_GOLD), 0xffffff));
 }
 
 void HBG_Ui::Draw() {
     GAM200::DrawShape shape;
     HBG_BASE.Draw(40, 605, 340, 80);
     HP_COVER.Draw(130, 720 - 60, Player_HP * 25 / 2, 15);
-    BOOST_COVER.Draw(130, 720 - 78, Player_BOOST, 8);
+    BOOST_COVER.Draw(130, 720 - 78, Player_BOOST * 50, 8);
     GOLD_COVER.Draw(130, 720 - 95, Tower_GOLD / 400, 5);
 
     //remaining_gold->Draw(Math::TranslationMatrix(Math::ivec2{ 130, 720 - 95 }));
@@ -128,9 +125,6 @@ int BOOST::boost_up_and_down()
 {
     return 0;
 }
-
-
-
 
 
 

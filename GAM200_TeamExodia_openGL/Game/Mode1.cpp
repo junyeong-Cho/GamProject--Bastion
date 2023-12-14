@@ -122,13 +122,13 @@ void Mode1::Load()
 void Mode1::Update(double dt)
 {
 
-
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Tab))
 	{
 		GetGSComponent<GameSpeed>()->NextSpeed();
 	}
 	dt *= static_cast<double>(GetGSComponent<GameSpeed>()->Value());
 
+	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Click_Handle();
 
 	GetGSComponent<GAM200::Camera>()->Update(player_ptr->GetPosition());
 	//GetGSComponent<GAM200::Camera>()->SetPosition(player_ptr->GetPosition());
@@ -139,7 +139,7 @@ void Mode1::Update(double dt)
 
 	GetGSComponent<Wave>()->Update(dt);
 
-	GetGSComponent<BuildMode>()->Update();
+	//GetGSComponent<BuildMode>()->Update();
 
 	GetGSComponent<ShowPath>()->Update();
 

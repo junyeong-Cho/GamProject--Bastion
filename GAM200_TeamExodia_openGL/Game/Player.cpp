@@ -93,6 +93,18 @@ void Player::Update(double dt) {
         }
     }
 
+}
+
+void Player::Draw(Math::TransformationMatrix camera_matrix) {
+    if (life_count <= 0)
+        return;
+
+    p.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+    //GAM200::GameObject::Draw(camera_matrix);
+}
+
+void Player::Attack()
+{
     Math::vec2 player_position = Math::vec2({ GetPosition().x + size_x / 2, GetPosition().y + size_y / 2 });
     Math::ivec2 window_size = Engine::GetWindow().GetSize();
     Math::vec2 mouse_position = Engine::GetInput().GetMousePosition();
@@ -100,7 +112,9 @@ void Player::Update(double dt) {
     Math::vec2 real_mouse_position = Math::vec2({ mouse_position.x, mouse_position.y });
     Math::vec2 bullet_direction = Math::vec2({ real_mouse_position.x - player_position.x, real_mouse_position.y - player_position.y });
     bullet_direction /= bullet_direction.GetLength();
-    if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT) &&
+
+
+    if (Engine::GetInput().MouseJustReleased(GAM200::Input::MouseButtons::LEFT) &&
         attack_count >= attack_cool &&
         Engine::GetGameStateManager().GetGSComponent<BuildMode>()->IsBuilding() == false
         )
@@ -133,14 +147,7 @@ void Player::Update(double dt) {
 
         attack_count = 0;
     }
-}
 
-void Player::Draw(Math::TransformationMatrix camera_matrix) {
-    if (life_count <= 0)
-        return;
-
-    p.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
-    //GAM200::GameObject::Draw(camera_matrix);
 }
 
 

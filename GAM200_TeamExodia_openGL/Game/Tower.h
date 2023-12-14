@@ -21,9 +21,9 @@ public:
 
     void Draw(Math::TransformationMatrix camera_matrix) override;
 
-	virtual bool CanCollideWith(GameObjectTypes type) override;
+    virtual bool CanCollideWith(GameObjectTypes type) override;
 
-	virtual void ResolveCollision(GameObject* other_object) override;
+    virtual void ResolveCollision(GameObject* other_object) override;
 
     static int GetCost() { return cost; }
 
@@ -80,6 +80,15 @@ protected:
 
     double attack_count = 0;
     bool attack_ready = false;
+
+    // add parts
+
+    bool is_fired = false;
+
+    // add parts
+
+
+
     ///
     bool four_way[4] = { false,false,false,false };//tower_way_select
     ///
@@ -110,6 +119,24 @@ protected:
     State_Charging state_charging;
     State_Attacking state_attacking;
 
+
+    //////// add_parts
+
+    enum class tower_state
+    {
+        None,
+        Fire
+
+    };
+
+    GAM200::Sprite single_tower;
+    GAM200::Sprite double_tower;
+    GAM200::Sprite triple_tower;
+    GAM200::Sprite push_tower;
+    GAM200::Sprite wide_tower;
+
+    //////// add_parts
+
 private:
     friend class TowerFactory;
     static int cost;
@@ -127,6 +154,10 @@ public:
 
     GameObjectTypes Type() override { return GameObjectTypes::Basic_Tower; }
     std::string TypeName() override { return "Basic_Tower"; }
+
+    //add parts
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+    //add parts
 
     bool CanCollideWith(GameObjectTypes type) override;
     void ResolveCollision(GameObject* other_object) override;
@@ -183,6 +214,10 @@ public:
     GameObjectTypes Type() override { return GameObjectTypes::Double_Tower; }
     std::string TypeName() override { return "Double_Tower"; }
 
+    //add parts
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+    //add parts
+
     bool CanCollideWith(GameObjectTypes type) override;
     void ResolveCollision(GameObject* other_object) override;
 
@@ -237,6 +272,10 @@ public:
 
     GameObjectTypes Type() override { return GameObjectTypes::Triple_Tower; }
     std::string TypeName() override { return "Triple_Tower"; }
+
+    //add parts
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+    //add parts
 
     bool CanCollideWith(GameObjectTypes type) override;
     void ResolveCollision(GameObject* other_object) override;
@@ -293,6 +332,10 @@ public:
     GameObjectTypes Type() override { return GameObjectTypes::Push_Tower; }
     std::string TypeName() override { return "Push_Tower"; }
 
+    //add parts
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+    //add parts
+
     bool CanCollideWith(GameObjectTypes type) override;
     void ResolveCollision(GameObject* other_object) override;
 
@@ -348,6 +391,10 @@ public:
 
     GameObjectTypes Type() override { return GameObjectTypes::Wide_Tower; }
     std::string TypeName() override { return "Wide_Tower"; }
+
+    //add parts
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+    //add parts
 
     bool CanCollideWith(GameObjectTypes type) override;
     void ResolveCollision(GameObject* other_object) override;

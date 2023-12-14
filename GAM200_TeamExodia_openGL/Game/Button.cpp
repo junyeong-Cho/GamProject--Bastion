@@ -14,92 +14,64 @@ Button::Button(Math::vec2 position, Math::vec2 size) : GameObject(position), pos
 }
 void Button::Update(double dt)
 {
+	
+}
+void Button::func(Math::ivec2 pos)
+{
+
+}
+bool Button::IsClicked()
+{
 	mouse_position = Engine::GetInput().GetMousePosition();
 	mouse_tile_position = Math::ivec2(static_cast<int>(mouse_position.x / tile_size.x), static_cast<int>(mouse_position.y / tile_size.y));
 
 	is_on = mouse_position.x >= position.x && mouse_position.x <= position.x + size.x && mouse_position.y >= position.y && mouse_position.y <= position.y + size.y;
 
 	if (is_on == false)
-		return;
+		return false;
 
-	if (Engine::GetInput().MouseJustReleased(GAM200::Input::MouseButtons::LEFT))
+	if (Engine::GetInput().MouseJustReleased(GAM200::Input::MouseButtons::LEFT) && is_activated)
 	{
 		func(mouse_tile_position);
+		return true;
 	}
-}
-void Button::func(Math::ivec2 pos)
-{
-
 }
 
 void Button::Draw(Math::TransformationMatrix camera_matrix)
 {
 	GAM200::DrawShape shape;
 
-	if (is_on)
-	{
-		//shape.SetColor(0, 1, 0, 1);
-		if (tower_type[0] == true)
-		{
-			basic_selected.Draw(1120, 720 - 150, 140, 70);
-		}
-		if (tower_type[1] == true)
-		{
-			double_tower_selected.Draw(1120, 720 - 230, 140, 70);
-		}
-		if (tower_type[2] == true)
-		{
-			triple_selected.Draw(1120, 720 - 310, 140, 70);
-		}
-		if (tower_type[3] == true)
-		{
-			delete_tower_selected.Draw(1120, 720 - 390, 140, 70);
-		}
-		if (tower_type[4] == true)
-		{
-			change_t_P_selected.Draw(1120, 720 - 470, 140, 70);
-		}
-		if (tower_type[5] == true)
-		{
-			change_t_b_selected.Draw(1120, 720 - 550, 140, 70);
-		}
-		if (tower_type[6] == true)
-		{
-			next_wave_selected.Draw(1120 - 40, 720 - 630, 180, 60);
-		}
-	}
-	else
-	{
-		if (tower_type[0] == true)
-		{
-			basic.Draw(1120, 720 - 150, 140, 70);
-		}
-		if (tower_type[1] == true)
-		{
-			double_tower.Draw(1120, 720 - 230, 140, 70);
-		}
-		if (tower_type[2] == true)
-		{
-			triple.Draw(1120, 720 - 310, 140, 70);
-		}
-		if (tower_type[3] == true)
-		{
-			delete_tower.Draw(1120, 720 - 390, 140, 70);
-		}
-		if (tower_type[4] == true)
-		{
-			change_t_P.Draw(1120, 720 - 470, 140, 70);
-		}
-		if (tower_type[5] == true)
-		{
-			change_t_b.Draw(1120, 720 - 550, 140, 70);
-		}
-		if (tower_type[6] == true)
-		{
-			next_wave.Draw(1120 - 40, 720 - 630, 180, 60);
-		}
 
+	if (tower_type[0] == true)
+	{
+		basic.Draw(1120 - 40, 720 - 150, 179, 70);
 	}
+	if (tower_type[1] == true)
+	{
+		double_tower.Draw(1120 - 40, 720 - 230, 179, 70);
+	}
+	if (tower_type[2] == true)
+	{
+		triple.Draw(1120 - 40, 720 - 310, 179, 70);
+	}
+	if (tower_type[3] == true)
+	{
+		delete_tower.Draw(1120, 720 - 390, 140, 70);
+	}
+	if (tower_type[4] == true)
+	{
+		change_t_P.Draw(1120 - 40, 720 - 470, 179, 70);
+	}
+	if (tower_type[5] == true)
+	{
+		change_t_b.Draw(1120, 720 - 550, 140, 70);
+	}
+	if (tower_type[6] == true)
+	{
+		next_wave.Draw(1120 - 40, 720 - 630, 180, 60);
+	}
+
+
 	//side.Draw(1060, 720 - 629, 40, 550);
 
 
@@ -141,7 +113,8 @@ Double_Tower_Button::Double_Tower_Button(Math::vec2 position, Math::vec2 size) :
 }
 void Double_Tower_Button::func(Math::ivec2 pos)
 {
-	//Engine::GetGameStateManager().GetGSComponent<BuildMode>()->Build(GameObjectTypes::Double_Tower);
+	GAM200::SoundEffect::Button_1().Big_play();
+
 	Engine::GetGameStateManager().GetGSComponent<BuildMode>()->Build(GameObjectTypes::Push_Tower);
 }
 
@@ -153,7 +126,8 @@ Triple_Tower_Button::Triple_Tower_Button(Math::vec2 position, Math::vec2 size) :
 }
 void Triple_Tower_Button::func(Math::ivec2 pos)
 {
-	//Engine::GetGameStateManager().GetGSComponent<BuildMode>()->Build(GameObjectTypes::Triple_Tower);
+	GAM200::SoundEffect::Button_1().Big_play();
+
 	Engine::GetGameStateManager().GetGSComponent<BuildMode>()->Build(GameObjectTypes::Wide_Tower);
 }
 
@@ -179,7 +153,6 @@ Pass_Tile_Button::Pass_Tile_Button(Math::vec2 position, Math::vec2 size) : Butto
 }
 void Pass_Tile_Button::func(Math::ivec2 pos)
 {
-	//Engine::GetGameStateManager().GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Pass__Tile);
 	GAM200::SoundEffect::Button_1().Big_play();
 
 	Tower_Adopter::GetInstance().Upgrade();
@@ -258,7 +231,6 @@ Choice_1_Button::Choice_1_Button(Math::vec2 position, Math::vec2 size) : Button(
 }
 void Choice_1_Button::func(Math::ivec2 pos)
 {
-	Engine::GetLogger().LogDebug("Choice 1 Button func!");
 	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
 	{
 		GAM200::SoundEffect::Button_3().play();
@@ -270,8 +242,12 @@ void Choice_1_Button::Draw(Math::TransformationMatrix camera_matrix)
 	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
 	{
 		GAM200::DrawShape shape;
+		Engine::Instance().push();
 
-		shape.DrawRectangle(50, 100, 300, 500);
+		shape.SetColor(255, 255, 255, 1);
+		//shape.DrawRectangle(50, 100, 361, 529);
+		card1.Draw(50, 100, 300, 500);
+		Engine::Instance().pop();
 	}
 }
 
@@ -296,8 +272,11 @@ void Choice_2_Button::Draw(Math::TransformationMatrix camera_matrix)
 	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
 	{
 		GAM200::DrawShape shape;
+		Engine::Instance().push();
 
-		shape.DrawRectangle(400, 100, 300, 500);
+		//shape.SetColor(255, 255, 255, 1);
+		card2.Draw(400, 100, 300, 500);
+		Engine::Instance().pop();
 	}
 }
 
@@ -322,7 +301,33 @@ void Choice_3_Button::Draw(Math::TransformationMatrix camera_matrix)
 	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
 	{
 		GAM200::DrawShape shape;
+		Engine::Instance().push();
 
-		shape.DrawRectangle(750, 100, 300, 500);
+		//shape.SetColor(255, 255, 255, 1);
+		card3.Draw(750, 100, 300, 500);
+		Engine::Instance().pop();
 	}
+}
+
+
+void Choice_1_Button::Update(double dt)
+{
+	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
+		is_activated = true;
+	else
+		is_activated = false;
+}
+void Choice_2_Button::Update(double dt)
+{
+	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
+		is_activated = true;
+	else
+		is_activated = false;
+}
+void Choice_3_Button::Update(double dt)
+{
+	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
+		is_activated = true;
+	else
+		is_activated = false;
 }

@@ -24,6 +24,10 @@ BuildMode::BuildMode() : build_mode(false), direction(Direction::RIGHT)
 void BuildMode::Update()
 {
 
+
+}
+bool BuildMode::Click()
+{
 	if (build_mode)
 	{
 		//Math::vec2 mouse_position = Engine::GetInput().GetMousePosition();
@@ -34,13 +38,13 @@ void BuildMode::Update()
 		{
 		case Mode::CHANGE_TILE:
 
-			if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT))
+			if (Engine::GetInput().MouseJustReleased(GAM200::Input::MouseButtons::LEFT))
 			{
 				build_mode = false;
 				Engine::GetLogger().LogDebug("Change Tile!");
 				Map::GetInstance().ChangeTile(mouse_tile_position, type);
 			}
-
+			return true;
 			break;
 
 		case Mode::BUILD_TOWER:
@@ -102,11 +106,12 @@ void BuildMode::Update()
 
 			}
 
-			if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT))
+			if (Engine::GetInput().MouseJustReleased(GAM200::Input::MouseButtons::LEFT))
 			{
 				build_mode = false;
 				Engine::GetLogger().LogDebug("Build Tower!");
 				Map::GetInstance().BuildTower(mouse_tile_position, type, direction);
+				return true;
 			}
 
 			break;
@@ -114,11 +119,12 @@ void BuildMode::Update()
 
 		case Mode::DELETE_TOWER:
 
-			if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT))
+			if (Engine::GetInput().MouseJustReleased(GAM200::Input::MouseButtons::LEFT))
 			{
 				build_mode = false;
 				Engine::GetLogger().LogDebug("Delete Tower!");
 				Map::GetInstance().DeleteTower(mouse_tile_position);
+				return true;
 			}
 
 			break;
@@ -130,10 +136,7 @@ void BuildMode::Update()
 			build_mode = false;
 		}
 	}
-
-
-
-
+	return false;
 }
 void BuildMode::Draw()
 {

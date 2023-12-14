@@ -117,6 +117,8 @@ void GamePlayEditor::Update(double dt)
 	}
 	dt *= static_cast<double>(GetGSComponent<GameSpeed>()->Value());
 
+	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Click_Handle();
+
 
 	GetGSComponent<GAM200::Camera>()->Update(player_ptr->GetPosition());
 	//GetGSComponent<GAM200::Camera>()->SetPosition(player_ptr->GetPosition());
@@ -127,7 +129,7 @@ void GamePlayEditor::Update(double dt)
 
 	GetGSComponent<Wave>()->Update(dt);
 
-	GetGSComponent<BuildMode>()->Update();
+	//GetGSComponent<BuildMode>()->Update();
 
 	GetGSComponent<ShowPath>()->Update();
 
