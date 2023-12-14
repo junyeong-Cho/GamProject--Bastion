@@ -216,11 +216,13 @@ void Mode1::Draw()
 
 	GetGSComponent<BuildMode>()->Draw();
 	player_ptr->Draw(camera_matrix);
-	GetGSComponent<HBG_Ui>()->Draw();
 
 
 	remaining_gold->Draw(Math::TranslationMatrix(Math::ivec2{ 130, 720 - 95 }));
 	wave_info->Draw(Math::TranslationMatrix(Math::ivec2{ 1000, 720 - 0 }));
+
+	GetGSComponent<HBG_Ui>()->Draw();
+
 }
 
 void Mode1::ImguiDraw()

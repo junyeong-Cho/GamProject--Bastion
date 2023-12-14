@@ -71,21 +71,24 @@ void Wave::Choice(int choice)
 	//Player::UpgradeAttackDmg();
 	//Player::UpgradeAttackSpeed();
 
-	switch (current_wave / 2)
+
+	switch (current_wave / 3)
 	{
 	case 1:
 		switch (choice)
 		{
 		case 1:
-			Player::UpgradeAttackSpeed();
+			Tower::Enable_Supply_Ammo();
+
 			break;
 
 		case 2:
-			Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->SlowAllMonsters();
+			Player::UpgradeAttackSpeed();
+
 			break;
 
 		case 3:
-			Engine::GetGameStateManager().GetGSComponent<Gold>()->Upgrade();
+			Player::UpgradeAttackDmg();
 			break;
 
 		default:
@@ -257,7 +260,7 @@ void Wave::Update(double dt)
 		Engine::GetLogger().LogEvent("Wave Term Entered");
 		Engine::GetLogger().LogEvent(std::to_string(current_wave));
 
-		if (current_wave % 2 == 0)
+		if (current_wave % 3 == 0)
 		{
 			term_time_count += dt;
 			if (term_time_count >= term_time)

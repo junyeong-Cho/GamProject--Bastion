@@ -250,6 +250,45 @@ Bomb_Monster::Bomb_Monster(Math::vec2 position) : Monster(position) {
 	current_state->Enter(this);
 	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
+void Basic_Monster::Draw(Math::TransformationMatrix camera_matrix)
+{
+	e.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+}
+void Mother_Monster::Draw(Math::TransformationMatrix camera_matrix)
+{
+	e6.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+}
+void Fast_Monster::Draw(Math::TransformationMatrix camera_matrix)
+{
+	e1.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+}
+
+void Slow_Monster::Draw(Math::TransformationMatrix camera_matrix)
+{
+	e2.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+}
+
+void Weak_Monster::Draw(Math::TransformationMatrix camera_matrix)
+{
+	e3.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+}
+
+void Heal_Monster::Draw(Math::TransformationMatrix camera_matrix)
+{
+	e4.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+}
+
+
+void Stealth_Monster::Draw(Math::TransformationMatrix camera_matrix)
+{
+	e5.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+}
+
+void Bomb_Monster::Draw(Math::TransformationMatrix camera_matrix)
+{
+	e7.Draw(static_cast<int>(GetPosition().x), static_cast<int>(GetPosition().y), size_x, size_y);
+}
+
 
 
 
@@ -393,24 +432,13 @@ void Monster::ResolveCollision(GameObject* other_object) {
 
 	if (other_object->Type() == GameObjectTypes::Cliff)
 	{
+		Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
+		Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
 
-		Math::rect monster_rect = GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
-		Math::rect other_rect = other_object->GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
+		scoreComponent->Add(this->real_score);
+		goldComponent->Add(this->real_gold);
 
-		double centerX = (monster_rect.Left() + monster_rect.Right()) / 2.0 - (other_rect.Left() + other_rect.Right()) / 2.0;
-		double centerY = (monster_rect.Top() + monster_rect.Bottom()) / 2.0 - (other_rect.Top() + other_rect.Bottom()) / 2.0;
-
-		if (Map::GetInstance().GetType(Math::ivec2(static_cast<int>(centerX) / 80, static_cast<int>(centerY) / 80)) == "Cliff")
-		{
-			Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
-			Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
-
-			scoreComponent->Add(this->real_score);
-			goldComponent->Add(this->real_gold);
-
-			change_state(&state_dead);
-		}
-
+		change_state(&state_dead);
 	}
 }
 void Basic_Monster::ResolveCollision(GameObject* other_object) {
@@ -493,24 +521,13 @@ void Basic_Monster::ResolveCollision(GameObject* other_object) {
 
 	if (other_object->Type() == GameObjectTypes::Cliff)
 	{
+		Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
+		Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
 
-		Math::rect monster_rect = GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
-		Math::rect other_rect = other_object->GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
+		scoreComponent->Add(this->real_score);
+		goldComponent->Add(this->real_gold);
 
-		double centerX = (monster_rect.Left() + monster_rect.Right()) / 2.0 - (other_rect.Left() + other_rect.Right()) / 2.0;
-		double centerY = (monster_rect.Top() + monster_rect.Bottom()) / 2.0 - (other_rect.Top() + other_rect.Bottom()) / 2.0;
-
-		if (Map::GetInstance().GetType(Math::ivec2(static_cast<int>(centerX) / 80, static_cast<int>(centerY) / 80)) == "Cliff")
-		{
-			Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
-			Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
-
-			scoreComponent->Add(this->real_score);
-			goldComponent->Add(this->real_gold);
-
-			change_state(&state_dead);
-		}
-
+		change_state(&state_dead);
 	}
 }
 void Fast_Monster::ResolveCollision(GameObject* other_object) {
@@ -593,24 +610,13 @@ void Fast_Monster::ResolveCollision(GameObject* other_object) {
 
 	if (other_object->Type() == GameObjectTypes::Cliff)
 	{
+		Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
+		Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
 
-		Math::rect monster_rect = GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
-		Math::rect other_rect = other_object->GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
+		scoreComponent->Add(this->real_score);
+		goldComponent->Add(this->real_gold);
 
-		double centerX = (monster_rect.Left() + monster_rect.Right()) / 2.0 - (other_rect.Left() + other_rect.Right()) / 2.0;
-		double centerY = (monster_rect.Top() + monster_rect.Bottom()) / 2.0 - (other_rect.Top() + other_rect.Bottom()) / 2.0;
-
-		if (Map::GetInstance().GetType(Math::ivec2(static_cast<int>(centerX) / 80, static_cast<int>(centerY) / 80)) == "Cliff")
-		{
-			Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
-			Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
-
-			scoreComponent->Add(this->real_score);
-			goldComponent->Add(this->real_gold);
-
-			change_state(&state_dead);
-		}
-
+		change_state(&state_dead);
 	}
 }
 void Slow_Monster::ResolveCollision(GameObject* other_object) {
@@ -693,24 +699,13 @@ void Slow_Monster::ResolveCollision(GameObject* other_object) {
 
 	if (other_object->Type() == GameObjectTypes::Cliff)
 	{
+		Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
+		Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
 
-		Math::rect monster_rect = GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
-		Math::rect other_rect = other_object->GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
+		scoreComponent->Add(this->real_score);
+		goldComponent->Add(this->real_gold);
 
-		double centerX = (monster_rect.Left() + monster_rect.Right()) / 2.0 - (other_rect.Left() + other_rect.Right()) / 2.0;
-		double centerY = (monster_rect.Top() + monster_rect.Bottom()) / 2.0 - (other_rect.Top() + other_rect.Bottom()) / 2.0;
-
-		if (Map::GetInstance().GetType(Math::ivec2(static_cast<int>(centerX) / 80, static_cast<int>(centerY) / 80)) == "Cliff")
-		{
-			Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
-			Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
-
-			scoreComponent->Add(this->real_score);
-			goldComponent->Add(this->real_gold);
-
-			change_state(&state_dead);
-		}
-
+		change_state(&state_dead);
 	}
 }
 void Mother_Monster::ResolveCollision(GameObject* other_object) {
@@ -793,24 +788,13 @@ void Mother_Monster::ResolveCollision(GameObject* other_object) {
 
 	if (other_object->Type() == GameObjectTypes::Cliff)
 	{
+		Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
+		Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
 
-		Math::rect monster_rect = GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
-		Math::rect other_rect = other_object->GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
+		scoreComponent->Add(this->real_score);
+		goldComponent->Add(this->real_gold);
 
-		double centerX = (monster_rect.Left() + monster_rect.Right()) / 2.0 - (other_rect.Left() + other_rect.Right()) / 2.0;
-		double centerY = (monster_rect.Top() + monster_rect.Bottom()) / 2.0 - (other_rect.Top() + other_rect.Bottom()) / 2.0;
-
-		if (Map::GetInstance().GetType(Math::ivec2(static_cast<int>(centerX) / 80, static_cast<int>(centerY) / 80)) == "Cliff")
-		{
-			Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
-			Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
-
-			scoreComponent->Add(this->real_score);
-			goldComponent->Add(this->real_gold);
-
-			change_state(&state_dead);
-		}
-
+		change_state(&state_dead);
 	}
 }
 void Weak_Monster::ResolveCollision(GameObject* other_object) {
@@ -889,28 +873,6 @@ void Weak_Monster::ResolveCollision(GameObject* other_object) {
 				UpdatePosition(Math::vec2{ 0.0, (other_rect.Top() - monster_rect.Bottom()) });
 			}
 		}
-	}
-
-	if (other_object->Type() == GameObjectTypes::Cliff)
-	{
-
-		Math::rect monster_rect = GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
-		Math::rect other_rect = other_object->GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
-
-		double centerX = (monster_rect.Left() + monster_rect.Right()) / 2.0 - (other_rect.Left() + other_rect.Right()) / 2.0;
-		double centerY = (monster_rect.Top() + monster_rect.Bottom()) / 2.0 - (other_rect.Top() + other_rect.Bottom()) / 2.0;
-
-		if (Map::GetInstance().GetType(Math::ivec2(static_cast<int>(centerX) / 80, static_cast<int>(centerY) / 80)) == "Cliff")
-		{
-			Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
-			Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
-
-			scoreComponent->Add(this->real_score);
-			goldComponent->Add(this->real_gold);
-
-			change_state(&state_dead);
-		}
-
 	}
 }
 void Heal_Monster::ResolveCollision(GameObject* other_object) {
@@ -993,24 +955,13 @@ void Heal_Monster::ResolveCollision(GameObject* other_object) {
 
 	if (other_object->Type() == GameObjectTypes::Cliff)
 	{
+		Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
+		Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
 
-		Math::rect monster_rect = GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
-		Math::rect other_rect = other_object->GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
+		scoreComponent->Add(this->real_score);
+		goldComponent->Add(this->real_gold);
 
-		double centerX = (monster_rect.Left() + monster_rect.Right()) / 2.0 - (other_rect.Left() + other_rect.Right()) / 2.0;
-		double centerY = (monster_rect.Top() + monster_rect.Bottom()) / 2.0 - (other_rect.Top() + other_rect.Bottom()) / 2.0;
-
-		if (Map::GetInstance().GetType(Math::ivec2(static_cast<int>(centerX) / 80, static_cast<int>(centerY) / 80)) == "Cliff")
-		{
-			Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
-			Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
-
-			scoreComponent->Add(this->real_score);
-			goldComponent->Add(this->real_gold);
-
-			change_state(&state_dead);
-		}
-
+		change_state(&state_dead);
 	}
 }
 void Stealth_Monster::ResolveCollision(GameObject* other_object) {
@@ -1093,24 +1044,13 @@ void Stealth_Monster::ResolveCollision(GameObject* other_object) {
 
 	if (other_object->Type() == GameObjectTypes::Cliff)
 	{
+		Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
+		Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
 
-		Math::rect monster_rect = GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
-		Math::rect other_rect = other_object->GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
+		scoreComponent->Add(this->real_score);
+		goldComponent->Add(this->real_gold);
 
-		double centerX = (monster_rect.Left() + monster_rect.Right()) / 2.0 - (other_rect.Left() + other_rect.Right()) / 2.0;
-		double centerY = (monster_rect.Top() + monster_rect.Bottom()) / 2.0 - (other_rect.Top() + other_rect.Bottom()) / 2.0;
-
-		if (Map::GetInstance().GetType(Math::ivec2(static_cast<int>(centerX) / 80, static_cast<int>(centerY) / 80)) == "Cliff")
-		{
-			Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
-			Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
-
-			scoreComponent->Add(this->real_score);
-			goldComponent->Add(this->real_gold);
-
-			change_state(&state_dead);
-		}
-
+		change_state(&state_dead);
 	}
 }
 void Bomb_Monster::ResolveCollision(GameObject* other_object) {
@@ -1193,24 +1133,13 @@ void Bomb_Monster::ResolveCollision(GameObject* other_object) {
 
 	if (other_object->Type() == GameObjectTypes::Cliff)
 	{
+		Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
+		Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
 
-		Math::rect monster_rect = GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
-		Math::rect other_rect = other_object->GetGOComponent<GAM200::RectCollision>()->WorldBoundary();
+		scoreComponent->Add(this->real_score);
+		goldComponent->Add(this->real_gold);
 
-		double centerX = (monster_rect.Left() + monster_rect.Right()) / 2.0 - (other_rect.Left() + other_rect.Right()) / 2.0;
-		double centerY = (monster_rect.Top() + monster_rect.Bottom()) / 2.0 - (other_rect.Top() + other_rect.Bottom()) / 2.0;
-
-		if (Map::GetInstance().GetType(Math::ivec2(static_cast<int>(centerX) / 80, static_cast<int>(centerY) / 80)) == "Cliff")
-		{
-			Score* scoreComponent = Engine::GetGameStateManager().GetGSComponent<Score>();
-			Gold* goldComponent = Engine::GetGameStateManager().GetGSComponent<Gold>();
-
-			scoreComponent->Add(this->real_score);
-			goldComponent->Add(this->real_gold);
-
-			change_state(&state_dead);
-		}
-
+		change_state(&state_dead);
 	}
 }
 

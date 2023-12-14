@@ -36,70 +36,37 @@ void Button::Draw(Math::TransformationMatrix camera_matrix)
 {
 	GAM200::DrawShape shape;
 
-	if (is_on)
-	{
-		//shape.SetColor(0, 1, 0, 1);
-		if (tower_type[0] == true)
-		{
-			basic_selected.Draw(1120, 720 - 150, 140, 70);
-		}
-		if (tower_type[1] == true)
-		{
-			double_tower_selected.Draw(1120, 720 - 230, 140, 70);
-		}
-		if (tower_type[2] == true)
-		{
-			triple_selected.Draw(1120, 720 - 310, 140, 70);
-		}
-		if (tower_type[3] == true)
-		{
-			delete_tower_selected.Draw(1120, 720 - 390, 140, 70);
-		}
-		if (tower_type[4] == true)
-		{
-			change_t_P_selected.Draw(1120, 720 - 470, 140, 70);
-		}
-		if (tower_type[5] == true)
-		{
-			change_t_b_selected.Draw(1120, 720 - 550, 140, 70);
-		}
-		if (tower_type[6] == true)
-		{
-			next_wave_selected.Draw(1120 - 40, 720 - 630, 180, 60);
-		}
-	}
-	else
-	{
-		if (tower_type[0] == true)
-		{
-			basic.Draw(1120, 720 - 150, 140, 70);
-		}
-		if (tower_type[1] == true)
-		{
-			double_tower.Draw(1120, 720 - 230, 140, 70);
-		}
-		if (tower_type[2] == true)
-		{
-			triple.Draw(1120, 720 - 310, 140, 70);
-		}
-		if (tower_type[3] == true)
-		{
-			delete_tower.Draw(1120, 720 - 390, 140, 70);
-		}
-		if (tower_type[4] == true)
-		{
-			change_t_P.Draw(1120, 720 - 470, 140, 70);
-		}
-		if (tower_type[5] == true)
-		{
-			change_t_b.Draw(1120, 720 - 550, 140, 70);
-		}
-		if (tower_type[6] == true)
-		{
-			next_wave.Draw(1120 - 40, 720 - 630, 180, 60);
-		}
 
+	if (tower_type[0] == true)
+	{
+		basic.Draw(1120 - 40, 720 - 150, 179, 70);
 	}
+	if (tower_type[1] == true)
+	{
+		double_tower.Draw(1120 - 40, 720 - 230, 179, 70);
+	}
+	if (tower_type[2] == true)
+	{
+		triple.Draw(1120 - 40, 720 - 310, 179, 70);
+	}
+	if (tower_type[3] == true)
+	{
+		delete_tower.Draw(1120, 720 - 390, 140, 70);
+	}
+	if (tower_type[4] == true)
+	{
+		change_t_P.Draw(1120 - 40, 720 - 470, 179, 70);
+	}
+	if (tower_type[5] == true)
+	{
+		change_t_b.Draw(1120, 720 - 550, 140, 70);
+	}
+	if (tower_type[6] == true)
+	{
+		next_wave.Draw(1120 - 40, 720 - 630, 180, 60);
+	}
+
+
 	//side.Draw(1060, 720 - 629, 40, 550);
 
 
@@ -273,8 +240,8 @@ void Choice_1_Button::Draw(Math::TransformationMatrix camera_matrix)
 		Engine::Instance().push();
 
 		shape.SetColor(255, 255, 255, 1);
-		shape.DrawRectangle(50, 100, 300, 500);
-
+		//shape.DrawRectangle(50, 100, 361, 529);
+		card1.Draw(50, 80, 310, 479);
 		Engine::Instance().pop();
 	}
 }
@@ -302,9 +269,8 @@ void Choice_2_Button::Draw(Math::TransformationMatrix camera_matrix)
 		GAM200::DrawShape shape;
 		Engine::Instance().push();
 
-		shape.SetColor(255, 255, 255, 1);
-		shape.DrawRectangle(400, 100, 300, 500);
-
+		//shape.SetColor(255, 255, 255, 1);
+		card2.Draw(380, 80, 310, 479);
 		Engine::Instance().pop();
 	}
 }
@@ -332,9 +298,8 @@ void Choice_3_Button::Draw(Math::TransformationMatrix camera_matrix)
 		GAM200::DrawShape shape;
 		Engine::Instance().push();
 
-		shape.SetColor(255, 255, 255, 1);
-		shape.DrawRectangle(750, 100, 300, 500);
-
+		//shape.SetColor(255, 255, 255, 1);
+		card3.Draw(742, 80, 310, 479);
 		Engine::Instance().pop();
 	}
 }

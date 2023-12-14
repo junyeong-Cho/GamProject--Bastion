@@ -74,9 +74,11 @@ private:
     Button* pass_t_button = nullptr;
     Button* block_t_button = nullptr;
 
+
     Button* choice_1_button = nullptr;
     Button* choice_2_button = nullptr;
     Button* choice_3_button = nullptr;
+
 
 };
 
