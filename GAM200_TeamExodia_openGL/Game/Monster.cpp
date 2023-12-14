@@ -1724,6 +1724,11 @@ int     Stealth_Monster::score = 0;
 int     Stealth_Monster::gold = 0;
 double  Stealth_Monster::speed_scale = 0.0f;
 
+int     Bomb_Monster::damage = 0;
+int     Bomb_Monster::max_life = 0;
+int     Bomb_Monster::score = 0;
+int     Bomb_Monster::gold = 0;
+double  Bomb_Monster::speed_scale = 0.0f;
 
 
 void MonsterFactory::InitBasicMonsterFromFile(const std::string& filePath)
