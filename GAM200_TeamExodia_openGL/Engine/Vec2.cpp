@@ -3,7 +3,7 @@ Copyright (C) 2023 DigiPen Institute of Technology
 Reproduction or distribution of this file or its contents without
 prior written consent is prohibited
 File Name:  Vec2.cpp
-Project:    CS230 Engine
+Project:    GAM200_TeamExodia_openGL
 Author:     Hyeonjoon Nam
 Created:    March 8, 2023
 */

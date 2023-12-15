@@ -4,9 +4,9 @@ Reproduction or distribution of this file or its contents without
 prior written consent is prohibited
 File Name:  ModeSelect.h
 Project:    GAM200 Engine
-Author:
+Author:		Hyeonjoon Nam
 Created:    November 13, 2023
-Updated:    November 13, 2023
+Updated:    December 15, 2023
 */
 
 #pragma once

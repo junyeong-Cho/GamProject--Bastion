@@ -6,7 +6,7 @@ File Name:  Splash.cpp
 Project:    GAM200 Engine
 Author:     Junyeong Cho
 Created:    November 2, 2023
-Updated:    November 2, 2023
+Updated:    December 15, 2023
 */
 
 

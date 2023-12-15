@@ -1,4 +1,13 @@
-
+/*
+Copyright (C) 2023 DigiPen Institute of Technology
+Reproduction or distribution of this file or its contents without
+prior written consent is prohibited
+File Name:  Wave.cpp
+Project:    GAM200_TeamExodia_openGL
+Author:     Hyeonjoon Nam
+Created:    December 15, 2023
+Updated:    December 15, 2023
+*/
 
 #include "../Engine/GameObjectManager.h"
 
@@ -49,20 +58,6 @@ void Wave::Start()
 
 void Wave::Choice(int choice)
 {
-	// some mechanism
-	//// 1
-	//// 2
-	//// 3
-	//// 4
-	//// 5
-	//
-	//// 6
-	//// 7
-	//
-	//// 8
-	//// 9
-	//Player::UpgradeAttackDmg();
-	//Player::UpgradeAttackSpeed();
 
 	switch (current_wave)
 	{
@@ -233,10 +228,6 @@ void Wave::Update(double dt)
 			{
 				new Heal_Monster;
 			}
-			//else if (monster_name == "BOMB")
-			//{
-			//	new Bomb_Monster;
-			//}
 			else if (monster_name == "NONE")
 			{
 

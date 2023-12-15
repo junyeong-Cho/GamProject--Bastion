@@ -6,7 +6,7 @@ File Name:  Engine.h
 Project:    GAM200_TeamExodia_openGL
 Author:     Junyeong Cho
 Created:    September 30, 2023
-Updated:    September 30, 2023
+Updated:    December 15, 2023
 */
 
 #pragma once

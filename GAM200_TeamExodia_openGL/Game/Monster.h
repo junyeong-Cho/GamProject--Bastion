@@ -6,7 +6,7 @@ File Name:  Monster.h
 Project:    GAM200_TeamExodia_openGL
 Author:     Hyeonjoon Nam
 Created:    October		10, 2023
-Updated:    October		10, 2023
+Updated:    December	15, 2023
 */
 
 #pragma once
