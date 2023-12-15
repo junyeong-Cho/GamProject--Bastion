@@ -46,6 +46,7 @@ public:
 
 	GAM200::Texture how3 = GAM200::Texture("assets/images/ui/how_to_play/how3.png", GAM200::Texture::TextureType::RECTANGLE);
 
+	GAM200::Texture how4 = GAM200::Texture("assets/images/ui/how_to_play/how4.png", GAM200::Texture::TextureType::RECTANGLE);
 
 	GAM200::Texture key_tuto = GAM200::Texture("assets/images/ui/how_to_play/key_tuto.png", GAM200::Texture::TextureType::RECTANGLE);
 
