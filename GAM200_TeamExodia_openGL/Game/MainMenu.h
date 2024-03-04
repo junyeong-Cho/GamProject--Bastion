@@ -2,7 +2,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology
 Reproduction or distribution of this file or its contents without
 prior written consent is prohibited
-File Name:  Main_menu.h
+File Name:  MainMenu.h
 Project:    GAM200_TeamExodia_openGL
 Author:     Junyeong Cho
 Created:    November 2, 2023
@@ -43,23 +43,31 @@ public:
 	void UpdateMenuTextColors();
 
 private:
-	Background background;
 
-	/*std::unique_ptr<GAM200::Texture> main_title;
+	int counter = 0;
+
+	std::unique_ptr<GAM200::Texture> main_title;
 	std::unique_ptr<GAM200::Texture> start;
 	std::unique_ptr<GAM200::Texture> howToPlay;
 	std::unique_ptr<GAM200::Texture> gamePlay_Editor;
-	std::unique_ptr<GAM200::Texture> exit;*/
+	std::unique_ptr<GAM200::Texture> exit;
 
-	GAM200::Texture play = GAM200::Texture("assets/images/ui/splash/play_selected.png", GAM200::Texture::TextureType::RECTANGLE);
 
-	GAM200::Texture editor = GAM200::Texture("assets/images/ui/splash/editor_selected.png", GAM200::Texture::TextureType::RECTANGLE);
+	/*
+	Background background;
+
+
+
+	GAM200::Texture play = GAM200::Texture("assets/images/ui/splash/play_selected.png",			  GAM200::Texture::TextureType::RECTANGLE);
+
+	GAM200::Texture editor = GAM200::Texture("assets/images/ui/splash/editor_selected.png",		  GAM200::Texture::TextureType::RECTANGLE);
 
 	GAM200::Texture howtoplay = GAM200::Texture("assets/images/ui/splash/howtoplay_selected.png", GAM200::Texture::TextureType::RECTANGLE);
 	
 
 	GAM200::Texture exit = GAM200::Texture("assets/images/ui/splash/exit_selected.png", GAM200::Texture::TextureType::RECTANGLE);
 
-	int counter = 0;
+	*/
+
 
 };

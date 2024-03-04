@@ -22,7 +22,6 @@ Updated:    December 15, 2023
 
 namespace 
 {
-    //attr에 해당하는 플레그를 value로 설정하는 함수
     void hint_gl(SDL_GLattr attr, int value) 
     {
         if (const auto success = SDL_GL_SetAttribute(attr, value); success != 0) 
@@ -64,17 +63,13 @@ namespace GAM200
             throw_error_message("App title shouldn't be empty");
         }
             
-
-        //SDL_INIT_VIDEO가 플레그를 사용해 비디오 관련 기능 초기화
-        //실패하면 에러메세지 출력
         if (SDL_Init(SDL_INIT_VIDEO) < 0) 
         {
             throw_error_message("Failed to init SDK error: ", SDL_GetError());
         }
 
 
-        //아래 플레그들은 SDL_video.h 파일에 정의되어 있음
-        //단 불러올때는 <SDL2/SDL.h>써서 불러옴
+     
         hint_gl(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
         hint_gl(SDL_GL_DOUBLEBUFFER, true);
         hint_gl(SDL_GL_STENCIL_SIZE, 8);
@@ -87,8 +82,6 @@ namespace GAM200
         hint_gl(SDL_GL_MULTISAMPLESAMPLES, 4);
 
 
-        //desired_width와 desired_height를 최대 최소값으로 설정
-        //SDL_CreateWindow에서는 desired_width와 desired_height를 사용해 창의 크기를 설정
         desired_width = std::max(640, std::min(16384, desired_width));
         desired_height = std::max(480, std::min(16384, desired_height));
 
@@ -127,17 +120,12 @@ namespace GAM200
         }
 
 
-        //현재 윈도우 속성
-        //처음 생성 위치: 랜덤
-        //OpenGL context 지원 | 윈도우 크기 조절 가능 | 고DPI모드 허용
         ptr_window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, desired_width, desired_height, SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI);
         if (ptr_window == nullptr) 
         {
             throw_error_message("Failed to create window: ", SDL_GetError());
         }
 
-        //위에서 만든 window 속성을 통해 gl_context를 만든다.
-        //만약 nullptr이면 에러를 반환한다.
         gl_context = SDL_GL_CreateContext(ptr_window);
         if (gl_context == nullptr) 
         {
@@ -151,8 +139,7 @@ namespace GAM200
             throw_error_message("Unable to initialize GLEW - error: ", glewGetErrorString(result));
         }
 
-        //Vsync를 활성화 하는 코드이다.
-        //처음에 ADAPTIVE_VSYNC를 먼저 실행해보고, 실패하면 일반 VSYNC를 실행하게 된다.
+
         constexpr int ADAPTIVE_VSYNC = -1;
         constexpr int VSYNC = 1;
         if (const auto result = SDL_GL_SetSwapInterval(ADAPTIVE_VSYNC); result != 0) 
@@ -190,7 +177,6 @@ namespace GAM200
         return Math::ivec2{width, height};
     }
 
-    //RGBA순서대로 값을 넣어주세요!
     void Window::Clear(float red, float green, float blue, float alpha)
     {
         red = std::clamp(red, 0.0f, 1.0f);

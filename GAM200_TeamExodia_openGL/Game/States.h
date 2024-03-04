@@ -6,7 +6,7 @@ File Name:  States.h
 Project:    GAM200_TeamExodia_openGL
 Author:     Junyeong Cho
 Created:    September 30, 2023
-Updated:    September 30, 2023
+Updated:    March	   4, 2023
 */
 
 
@@ -16,6 +16,8 @@ enum class States
 {
 	Splash,
 	MainMenu,
+
+	/*
 	ModeSelect,
 	GamePlayEditior,
 	HowToPlay,
@@ -29,4 +31,5 @@ enum class States
 	
 	//PrototypeSplash,
 	//PrototypeMode1,
+	*/
 };

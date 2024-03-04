@@ -4,63 +4,18 @@
 
 #include "../Engine/Engine.h"
 
-
-//#include "Engine/Engine.h"
 #include "Game/Splash.h"
-#include "Game/Main_menu.h"
-#include "Game/ModeSelect.h" 
-#include "Game/GamePlayEditor.h"
-#include "Game/HowToplay.h"
+#include "Game/MainMenu.h"
 
-#include "Game/Mode1.h"
-#include "Game/Win.h"
-#include "Game/Lose.h"
-
-
-
-/*
 
 int main()
 {
     try
     {
         Engine& engine = Engine::Instance();
-        // 16:9
-        //engine.Start("GAM200 - Team: Exodia", 960, 540, OriginPosition::LEFT_DOWN);
-        engine.Start("GAM200 - Team: Exodia", 1280, 720, OriginPosition::LEFT_DOWN);
 
-
-        PrototypeSplash  splash;
-        PrototypeMode1   mode1;
-        engine.GetGameStateManager().AddGameState(splash);
-        engine.GetGameStateManager().AddGameState(mode1);
-
-        while (engine.HasGameEnded() == false)
-        {
-            engine.Update();
-        }
-
-        engine.Stop();
-
-        return 0;
-    }
-    catch (std::exception& e)
-    {
-        std::cerr << e.what() << "\n";
-        return -1;
-    }
-
-}
-*/
-
-int main()
-{
-    try
-    {
-        Engine& engine = Engine::Instance();
         // 16:9
         engine.Start("GAM200 - Team: Exodia", 1280, 720, OriginPosition::LEFT_DOWN);
-        //engine.Start("GAM200 - Team: Exodia", 1000, 750, OriginPosition::LEFT_DOWN);
 
         engine.AddFont("assets/Font_Simple.png");
         engine.AddFont("assets/Font_Outlined.png");
@@ -69,26 +24,6 @@ int main()
         engine.GetGameStateManager().AddGameState(splash);
         Main_menu main_menu;
         engine.GetGameStateManager().AddGameState(main_menu);
-        ModeSelect modeSelect;
-		engine.GetGameStateManager().AddGameState(modeSelect);
-        GamePlayEditor gamePlayEditor;
-		engine.GetGameStateManager().AddGameState(gamePlayEditor);
-        HowToPlay howToPlay;
-        engine.GetGameStateManager().AddGameState(howToPlay);
-
-        Mode1 mode1;
-        engine.GetGameStateManager().AddGameState(mode1);
-        Win win;
-        engine.GetGameStateManager().AddGameState(win);
-        Lose lose;
-        engine.GetGameStateManager().AddGameState(lose);
-
-        //Mode2 mode2;
-        //engine.GetGameStateManager().AddGameState(mode2);
-        //PrototypeMode1 prototypeMode1;
-        //engine.GetGameStateManager().AddGameState(prototypeMode1);
-
-
 
         while (engine.HasGameEnded() == false)
         {

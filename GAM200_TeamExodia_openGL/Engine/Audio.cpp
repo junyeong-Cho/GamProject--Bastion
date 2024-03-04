@@ -148,10 +148,10 @@ GAM200::SoundEffect::SoundEffect(const std::string& path)
 
 void GAM200::SoundEffect::play()
 {
-    // ´õ ÀÌ»ó Àç»ýµÇÁö ¾Ê´Â »ç¿îµå Á¦°Å
+    // ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     sounds.remove_if([](const sf::Sound& s) { return s.getStatus() == sf::Sound::Stopped; });
 
-    // »õ »ç¿îµå Àç»ý
+    // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     sounds.emplace_back();
     sounds.back().setBuffer(buffer);
     sounds.back().setVolume(effectVolume);
@@ -165,10 +165,10 @@ void GAM200::SoundEffect::SeBGMVolume(float volume)
 
 void GAM200::SoundEffect::Big_play()
 {
-    // ´õ ÀÌ»ó Àç»ýµÇÁö ¾Ê´Â »ç¿îµå Á¦°Å
+    // ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     sounds.remove_if([](const sf::Sound& s) { return s.getStatus() == sf::Sound::Stopped; });
 
-    // »õ »ç¿îµå Àç»ý
+    // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     sounds.emplace_back();
     sounds.back().setBuffer(buffer);
     sounds.back().setVolume(BigVolume);
@@ -177,16 +177,16 @@ void GAM200::SoundEffect::Big_play()
 
 void GAM200::SoundEffect::loopplay()
 {
-    // ´õ ÀÌ»ó Àç»ýµÇÁö ¾Ê´Â »ç¿îµå Á¦°Å
+    // ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     sounds.remove_if([](const sf::Sound& s) { return s.getStatus() == sf::Sound::Stopped; });
 
-    // »õ »ç¿îµå Àç»ý
+    // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     sounds.emplace_back();
     sounds.back().setBuffer(buffer);
     sounds.back().setVolume(musicVolume);
     sounds.back().play();
 
-    // Àç»ýÀÌ ³¡³ª¸é ´Ù½Ã Àç»ý
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½
     sounds.back().setLoop(true);
 }
 

@@ -144,21 +144,16 @@ namespace GAM200
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        // º¯È¯ Çà·ÄÀ» ÀÌ¿ëÇØ »ç°¢ÇüÀÇ ³× ²ÀÁöÁ¡ °è»ê
         Math::vec2 topLeft = Math::vec2(0, 0);
         Math::vec2 topRight = Math::vec2(frame_size.x, 0);
         Math::vec2 bottomLeft = Math::vec2(0, frame_size.y);
         Math::vec2 bottomRight = Math::vec2(frame_size.x, frame_size.y);
 
-
-        // º¯È¯ Çà·Ä Àû¿ë
         Math::vec2 transformedTopLeft = display_matrix * topLeft;
         Math::vec2 transformedTopRight = display_matrix * topRight;
         Math::vec2 transformedBottomLeft = display_matrix * bottomLeft;
         Math::vec2 transformedBottomRight = display_matrix * bottomRight;
 
-
-        // º¯È¯µÈ ÁÂÇ¥·Î »ç°¢Çü ±×¸®±â
         DrawRect(transformedTopLeft, transformedTopRight, transformedBottomLeft, transformedBottomRight, texel_position, frame_size);
 
         glBindTexture(GL_TEXTURE_2D, 0);
@@ -181,7 +176,6 @@ namespace GAM200
         int windowHeight = Engine::GetWindow().GetSize().y;
 
 
-        // ÅØ½ºÃ³ ÁÂÇ¥ °è»ê
         float textureWidth = static_cast<float>(GetSize().x);
         float textureHeight = static_cast<float>(GetSize().y);
 
@@ -191,7 +185,7 @@ namespace GAM200
         float ty2 = (texel_position.y + frame_size.y) / textureHeight;
 
 
-        // °¢ ²ÀÁöÁ¡À» È­¸é ÁÂÇ¥·Î Á¤±ÔÈ­
+        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È­
         float nx1 = Math::NormalizeX(topLeft.x, windowWidth);
         float ny1 = Math::NormalizeY(topLeft.y, windowHeight);
 
@@ -208,7 +202,6 @@ namespace GAM200
 
         glBegin(GL_QUADS);
 
-        // È¸ÀüÀ» °í·ÁÇÑ »õ·Î¿î ²ÀÁöÁ¡ ¼ø¼­·Î º¯°æ
         glTexCoord2f(tx1, ty2); glVertex2f(nx1, ny1);
         glTexCoord2f(tx2, ty2); glVertex2f(nx2, ny2);
         glTexCoord2f(tx2, ty1); glVertex2f(nx3, ny3);
@@ -230,13 +223,11 @@ namespace GAM200
         int windowWidth = Engine::GetWindow().GetSize().x;
         int windowHeight = Engine::GetWindow().GetSize().y;
 
-        // Á¤±ÔÈ­ ÇÔ¼ö¸¦ »ç¿ëÇÏ¿© È­¸é ÁÂÇ¥·Î º¯È¯.
         float nx1 = Math::NormalizeX(screenTopLeft.x, windowWidth);
         float ny1 = Math::NormalizeY(screenTopLeft.y, windowHeight);
         float nx2 = Math::NormalizeX(screenBottomRight.x, windowWidth);
         float ny2 = Math::NormalizeY(screenBottomRight.y, windowHeight);
 
-        // ÅØ½ºÃ³ ÁÂÇ¥ °è»ê
         float textureWidth = static_cast<float>(GetSize().x);
         float textureHeight = static_cast<float>(GetSize().y);
 
@@ -278,7 +269,7 @@ namespace GAM200
 
         unsigned int pixelData = *(unsigned int*)(localBuffer + (texel.y * GetSize().x + texel.x) * 4);
 
-        delete[] localBuffer; // ÇØÁ¦ÇÏ´Â ºÎºÐ Ãß°¡
+        delete[] localBuffer; // ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Îºï¿½ ï¿½ß°ï¿½
 
         glBindTexture(GL_TEXTURE_2D, 0);
 

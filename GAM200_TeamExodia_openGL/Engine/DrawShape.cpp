@@ -139,7 +139,6 @@ void GAM200::DrawShape::DrawRectangle_NoFill_WithPoints(Math::vec2 topLeft, Math
     int windowHeight = Engine::GetWindow().GetSize().y;
 
 
-    // 각 꼭지점을 화면 좌표로 정규화
     float nx1 = Math::NormalizeX(topLeft.x, windowWidth);
     float ny1 = Math::NormalizeY(topLeft.y, windowHeight);
 
@@ -157,7 +156,6 @@ void GAM200::DrawShape::DrawRectangle_NoFill_WithPoints(Math::vec2 topLeft, Math
     glBegin(GL_LINE_LOOP);
 
 
-    // 회전을 고려한 새로운 꼭지점 순서로 변경
     glVertex2f(nx1, ny1);
     glVertex2f(nx2, ny2);
     glVertex2f(nx3, ny3);
@@ -198,7 +196,6 @@ void GAM200::DrawShape::DrawRectangle_NoFill_WithBoundaries(Math::rect world_bou
     Math::vec2 transformedBottomRight = display_matrix * bottomRight;
 
 
-    // 각 꼭지점을 화면 좌표로 정규화
     float nx1 = Math::NormalizeX(transformedTopLeft.x, windowWidth);
     float ny1 = Math::NormalizeY(transformedTopLeft.y, windowHeight);
 
@@ -216,7 +213,6 @@ void GAM200::DrawShape::DrawRectangle_NoFill_WithBoundaries(Math::rect world_bou
     glBegin(GL_LINE_LOOP);
 
 
-    // 회전을 고려한 새로운 꼭지점 순서로 변경
     glVertex2f(nx1, ny1);
     glVertex2f(nx2, ny2);
     glVertex2f(nx3, ny3);
@@ -227,11 +223,7 @@ void GAM200::DrawShape::DrawRectangle_NoFill_WithBoundaries(Math::rect world_bou
     Engine::Instance().pop();
 }
 
-/*
-x, y, radius, points순으로 입력해 주세요!
-여기서 points는 원의 꼭짓점의 개수를 의미합니다.
-points가 클수록 원이 부드러워집니다. 100개 정도가 적당해요!!
-*/
+
 void GAM200::DrawShape::DrawCircle(int x, int y, int radius, int points)
 {
     Engine::Instance().push(); 

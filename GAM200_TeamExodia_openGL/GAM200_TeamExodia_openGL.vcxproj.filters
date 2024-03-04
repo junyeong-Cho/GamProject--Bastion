@@ -43,39 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Game\Bullet.cpp">
-      <Filter>Game\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\AStar.cpp">
-      <Filter>Game\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Gold.cpp">
-      <Filter>Game\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Life.cpp">
-      <Filter>Game\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Score.cpp">
-      <Filter>Game\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\PrototypeSplash.cpp">
-      <Filter>Game\Modes</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Mode1.cpp">
-      <Filter>Game\Modes</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Tile.cpp">
-      <Filter>Game\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Monster.cpp">
-      <Filter>Game\Objests</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Player.cpp">
-      <Filter>Game\Objests</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Tower.cpp">
-      <Filter>Game\Objests</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Engine.cpp">
       <Filter>Engine\Core Engine Components</Filter>
     </ClCompile>
@@ -148,33 +115,6 @@
     <ClCompile Include="Engine\Audio.cpp">
       <Filter>Engine\Core Engine Components</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameSpeed.cpp">
-      <Filter>Game\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Map.cpp">
-      <Filter>Game\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Wave.cpp">
-      <Filter>Game\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\BuildMode.cpp">
-      <Filter>Game\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Splash.cpp">
-      <Filter>Game\Modes</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Main_menu.cpp">
-      <Filter>Game\Modes</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GamePlayEditor.cpp">
-      <Filter>Game\Modes</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\HowToPlay.cpp">
-      <Filter>Game\Modes</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ModeSelect.cpp">
-      <Filter>Game\Modes</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Background.cpp">
       <Filter>Game\Components\CS230</Filter>
     </ClCompile>
@@ -190,56 +130,14 @@
     <ClCompile Include="Game\Timer.cpp">
       <Filter>Game\Components\CS230</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Button.cpp">
-      <Filter>Game\Objests</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Hp_Boost_Gold_ui.cpp">
-      <Filter>Game\Objests</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Win.cpp">
+    <ClCompile Include="Game\Splash.cpp">
       <Filter>Game\Modes</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Lose.cpp">
+    <ClCompile Include="Game\MainMenu.cpp">
       <Filter>Game\Modes</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ShowPath.cpp">
-      <Filter>Game\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game\Bullet.h">
-      <Filter>Game\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\AStar.h">
-      <Filter>Game\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Gold.h">
-      <Filter>Game\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Life.h">
-      <Filter>Game\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Score.h">
-      <Filter>Game\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\PrototypeSplash.h">
-      <Filter>Game\Modes</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Mode1.h">
-      <Filter>Game\Modes</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Tile.h">
-      <Filter>Game\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Monster.h">
-      <Filter>Game\Objests</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Player.h">
-      <Filter>Game\Objests</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Tower.h">
-      <Filter>Game\Objests</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Engine.h">
       <Filter>Engine\Core Engine Components</Filter>
     </ClInclude>
@@ -333,33 +231,6 @@
     <ClInclude Include="Engine\Audio.h">
       <Filter>Engine\Core Engine Components</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameSpeed.h">
-      <Filter>Game\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Map.h">
-      <Filter>Game\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Wave.h">
-      <Filter>Game\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\BuildMode.h">
-      <Filter>Game\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Splash.h">
-      <Filter>Game\Modes</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Main_menu.h">
-      <Filter>Game\Modes</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GamePlayEditor.h">
-      <Filter>Game\Modes</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\HowToplay.h">
-      <Filter>Game\Modes</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ModeSelect.h">
-      <Filter>Game\Modes</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Background.h">
       <Filter>Game\Components\CS230</Filter>
     </ClInclude>
@@ -384,20 +255,11 @@
     <ClInclude Include="Game\GameObjectTypes.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Button.h">
-      <Filter>Game\Objests</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Hp_Boost_Gold_ui.h">
-      <Filter>Game\Objests</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Win.h">
+    <ClInclude Include="Game\Splash.h">
       <Filter>Game\Modes</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Lose.h">
+    <ClInclude Include="Game\MainMenu.h">
       <Filter>Game\Modes</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ShowPath.h">
-      <Filter>Game\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

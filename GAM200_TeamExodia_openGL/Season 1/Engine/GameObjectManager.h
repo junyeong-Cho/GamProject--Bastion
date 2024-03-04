@@ -19,6 +19,8 @@ Updated:    September 26, 2023
 #include "../Engine/Component.h"
 
 namespace Math { class TransformationMatrix; }
+class Monster;
+class Player;
 
 namespace GAM200
 {
@@ -32,6 +34,18 @@ namespace GAM200
         void DrawAll(Math::TransformationMatrix camera_matrix);
 
         void CollisionTest();
+
+        Monster* GetClosestMonster(GAM200::GameObject*);
+        std::vector<Monster*> GetMonstersInRange(GAM200::GameObject*, double);
+
+        Player* GetPlayer();
+        void RecoverAllTower();
+        void SupplyAllTower();
+        void SlowAllMonsters();
+
+        void BombToTower(Monster*, double range);
+
+        void Click_Handle();
 
     private:
         std::list<GameObject*> objects;
