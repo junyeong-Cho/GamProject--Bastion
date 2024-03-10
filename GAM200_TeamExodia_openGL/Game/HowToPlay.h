@@ -44,25 +44,31 @@ public:
 
 private:
 
-	int counter = 0;
+	int page	= 0;
+	//int counter = 0;
+	int state	= 0;
 
 
-
-	/*
-	Background background;
-
+	std::unique_ptr<GAM200::Texture> next;
+	std::unique_ptr<GAM200::Texture> back;
 
 
-	GAM200::Texture play = GAM200::Texture("assets/images/ui/splash/play_selected.png",			  GAM200::Texture::TextureType::RECTANGLE);
-
-	GAM200::Texture editor = GAM200::Texture("assets/images/ui/splash/editor_selected.png",		  GAM200::Texture::TextureType::RECTANGLE);
-
-	GAM200::Texture howtoplay = GAM200::Texture("assets/images/ui/splash/howtoplay_selected.png", GAM200::Texture::TextureType::RECTANGLE);
+	std::unique_ptr<GAM200::Texture> exit;
+	std::unique_ptr<GAM200::Texture> play;
 
 
-	GAM200::Texture exit = GAM200::Texture("assets/images/ui/splash/exit_selected.png", GAM200::Texture::TextureType::RECTANGLE);
+	enum Page
+	{
+		One,
+		Two,
+		Three,
+		End
+	};
 
-	*/
-
+	enum State
+	{
+		Back,
+		Next
+	};
 
 };

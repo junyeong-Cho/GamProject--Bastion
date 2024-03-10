@@ -71,18 +71,16 @@ void Main_menu::Update(double dt)
 
 	if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Enter))
 	{
-		GAM200::SoundEffect::Select_MainMenu().play();
-
 		switch (counter)
 		{
 		case 0:
-			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Play));
+			//Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Play));
 			break;
 		case 1:
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::HowToPlay));
 			break;
 		case 2:
-			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Setting));
+			//Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Setting));
 			break;
 		case 3:
 			Engine::GetGameStateManager().ClearNextGameState();

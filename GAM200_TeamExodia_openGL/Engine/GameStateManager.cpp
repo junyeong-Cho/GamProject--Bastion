@@ -27,9 +27,6 @@ void GAM200::GameStateManager::AddGameState(GameState& gamestate)
 }
 
 
-
-//gamestate를 백터에다가 저장해놨고, 그것을 index 값을 추적해 계속해서 바꾸기 때문에
-//main의 state를 넣는 순서가 중요함!
 void GAM200::GameStateManager::SetNextGameState(int index)
 {
 	next_gamestate = gamestates[index];
@@ -115,8 +112,6 @@ void GAM200::GameStateManager::Update(double dt)
 
 			current_gamestate->Draw();
 
-
-			//이게 왜 됨?;;
 			ImGuiHelper::Begin();
 
 			current_gamestate->ImguiDraw();

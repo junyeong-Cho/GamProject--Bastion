@@ -18,7 +18,7 @@ enum class States
 
 	MainMenu,
 
-	Play,
+	//Play,
 	HowToPlay,
 	Setting,
 
