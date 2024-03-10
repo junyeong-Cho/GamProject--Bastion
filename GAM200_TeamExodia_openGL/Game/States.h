@@ -12,10 +12,22 @@ Updated:    March	   4, 2023
 
 #pragma once
 
-enum class States 
+enum class States
 {
 	Splash,
+
 	MainMenu,
+
+	Play,
+	HowToPlay,
+	Setting,
+
+	Store,
+
+	Stage,
+
+	Win,
+	Lose,
 
 	/*
 	ModeSelect,
