@@ -139,6 +139,9 @@
     <ClCompile Include="Game\HowToPlay.cpp">
       <Filter>Game\Modes</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Store.cpp">
+      <Filter>Game\Modes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -265,6 +268,9 @@
       <Filter>Game\Modes</Filter>
     </ClInclude>
     <ClInclude Include="Game\HowToPlay.h">
+      <Filter>Game\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Store.h">
       <Filter>Game\Modes</Filter>
     </ClInclude>
   </ItemGroup>

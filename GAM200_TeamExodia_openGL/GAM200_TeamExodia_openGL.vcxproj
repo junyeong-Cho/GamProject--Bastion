@@ -141,6 +141,7 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClCompile Include="Game\Portal.cpp" />
     <ClCompile Include="Game\ScreenWrap.cpp" />
     <ClCompile Include="Game\Splash.cpp" />
+    <ClCompile Include="Game\Store.cpp" />
     <ClCompile Include="Game\Timer.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -186,6 +187,7 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClInclude Include="Game\ScreenWrap.h" />
     <ClInclude Include="Game\Splash.h" />
     <ClInclude Include="Game\States.h" />
+    <ClInclude Include="Game\Store.h" />
     <ClInclude Include="Game\Timer.h" />
   </ItemGroup>
   <ItemGroup>

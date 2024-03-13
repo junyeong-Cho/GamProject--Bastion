@@ -20,9 +20,11 @@ enum class States
 
 	//Play,
 	HowToPlay,
+	Store,
+
 	Setting,
 
-	Store,
+
 
 	Stage,
 

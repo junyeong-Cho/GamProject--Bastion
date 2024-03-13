@@ -7,7 +7,6 @@
 #include "Game/Splash.h"
 #include "Game/MainMenu.h"
 #include "Game/HowToPlay.h"
-#include "Game/Store.h"
 
 
 int main()
@@ -28,8 +27,6 @@ int main()
         engine.GetGameStateManager().AddGameState(main_menu);
         HowToPlay how_to_play;
         engine.GetGameStateManager().AddGameState(how_to_play);
-        Store store;
-        engine.GetGameStateManager().AddGameState(store);
 
         while (engine.HasGameEnded() == false)
         {
