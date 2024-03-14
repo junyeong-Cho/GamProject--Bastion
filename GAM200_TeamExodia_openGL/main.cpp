@@ -6,6 +6,7 @@
 
 #include "Game/Splash.h"
 #include "Game/MainMenu.h"
+#include "Game.h"
 
 
 int main()
@@ -24,6 +25,8 @@ int main()
         engine.GetGameStateManager().AddGameState(splash);
         Main_menu main_menu;
         engine.GetGameStateManager().AddGameState(main_menu);
+        Game game;
+        engine.GetGameStateManager().AddGameState(game);
 
         while (engine.HasGameEnded() == false)
         {

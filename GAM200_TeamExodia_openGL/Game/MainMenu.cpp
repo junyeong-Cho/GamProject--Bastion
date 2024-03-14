@@ -63,6 +63,12 @@ void Main_menu::Update(double dt)
 		Engine::GetGameStateManager().ClearNextGameState();
 	}
 
+	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Enter))
+	{
+		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
+	}
+
+
 	//State change
 	/*
 	if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Enter))

@@ -136,6 +136,27 @@
     <ClCompile Include="Game\MainMenu.cpp">
       <Filter>Game\Modes</Filter>
     </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Game\Objests</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit.cpp">
+      <Filter>Game\Objests</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Game\Objests</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Game\Modes</Filter>
+    </ClCompile>
+    <ClCompile Include="MeleeUnit.cpp">
+      <Filter>Game\Objests</Filter>
+    </ClCompile>
+    <ClCompile Include="RangedUnit.cpp">
+      <Filter>Game\Objests</Filter>
+    </ClCompile>
+    <ClCompile Include="MagicUnit.cpp">
+      <Filter>Game\Objests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -260,6 +281,39 @@
     </ClInclude>
     <ClInclude Include="Game\MainMenu.h">
       <Filter>Game\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Game\Objests</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit.h">
+      <Filter>Game\Objests</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Game\Objests</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterLimit.h">
+      <Filter>Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Gold.h">
+      <Filter>Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Diamond.h">
+      <Filter>Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSpeed.h">
+      <Filter>Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Game\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="MeleeUnit.h">
+      <Filter>Game\Objests</Filter>
+    </ClInclude>
+    <ClInclude Include="RangedUnit.h">
+      <Filter>Game\Objests</Filter>
+    </ClInclude>
+    <ClInclude Include="MagicUnit.h">
+      <Filter>Game\Objests</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

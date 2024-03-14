@@ -15,6 +15,14 @@ Updated:    October		10, 2023
 
 enum class GameObjectTypes
 {
+    // Season 2
+    Monster,
+
+
+
+
+
+    
     //CS230
     Cat,
     Robot,
@@ -27,8 +35,8 @@ enum class GameObjectTypes
     Count,
     Laser,
     Particle,
-
-
+    
+    /*
     //Exodia
     
     // Button
@@ -83,4 +91,6 @@ enum class GameObjectTypes
 
 
     HBG_Ui,
+    */
+
 };
