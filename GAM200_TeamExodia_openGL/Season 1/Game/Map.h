@@ -12,7 +12,7 @@ Updated:    December 15, 2023
 #pragma once
 
 #include "../Engine/GameState.h"
-#include "GameObjectTypes.h"
+#include "../Game/GameObjectTypes.h"
 #include "../Engine/Vec2.h"
 #include "../Engine/Audio.h"
 

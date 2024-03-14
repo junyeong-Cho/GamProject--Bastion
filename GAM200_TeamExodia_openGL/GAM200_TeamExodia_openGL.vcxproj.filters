@@ -37,7 +37,7 @@
     <Filter Include="Game\Modes">
       <UniqueIdentifier>{0b692e9c-1a01-4017-922a-1342d671d7f7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Objests">
+    <Filter Include="Game\Objects">
       <UniqueIdentifier>{f07a0d33-de28-438c-b9d6-08c2b3e57c66}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -141,6 +141,12 @@
     </ClCompile>
     <ClCompile Include="Game\Store.cpp">
       <Filter>Game\Modes</Filter>
+    </ClCompile>
+    <ClCompile Include="Season 1\Game\Gold.cpp">
+      <Filter>Game\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Season 1\Game\Life.cpp">
+      <Filter>Game\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -272,6 +278,12 @@
     </ClInclude>
     <ClInclude Include="Game\Store.h">
       <Filter>Game\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="Season 1\Game\Gold.h">
+      <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Season 1\Game\Life.h">
+      <Filter>Game\Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

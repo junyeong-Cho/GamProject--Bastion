@@ -13,7 +13,7 @@ Updated:    September 26, 2023
 #include <vector>
 #include <list>
 
-#include "GameObject.h"
+#include "../Engine/GameObject.h"
 
 #include "../Engine/Matrix.h"
 #include "../Engine/Component.h"

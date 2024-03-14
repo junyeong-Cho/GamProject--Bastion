@@ -14,7 +14,7 @@ Updated:    December 15, 2023
 
 #include "../Engine/GameStateManager.h"
 #include "../Engine/Vec2.h"
-#include "GameObjectTypes.h"
+#include "../Game/GameObjectTypes.h"
 #include "../Engine/GameObject.h"
 #include "../Engine/Texture.h"
 #include "Wave.h"

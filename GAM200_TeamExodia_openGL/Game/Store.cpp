@@ -38,8 +38,6 @@ void Store::Load()
     counter = 0;
 	texture1 = Engine::Instance().GetTextureManager().Load("assets/images/test1.png");
 	texture2 = Engine::Instance().GetTextureManager().Load("assets/images/test2.png");
-	gold.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Gold :", 0xFFFFFFFF));
-	life.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("life :", 0xFFFFFFFF));
 }
 
 void Store::Update(double dt)
@@ -55,6 +53,19 @@ void Store::Update(double dt)
 	if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Enter))
 	{
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
+	}
+
+	gold.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Gold :" + std::to_string(GetGSComponent<Gold>()->Value()), 0xFFFFFFFF));
+	life.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("life :" + std::to_string(GetGSComponent<Life>()->Value()), 0xFFFFFFFF));
+
+	int gold = GetGSComponent<Gold>()->Value();
+	int life = GetGSComponent<Life>()->Value();
+
+	if (IsClicked(150, 180, 450 , 480) && gold > 0) {
+		GetGSComponent<Gold>()->Subtract(500);
+	}
+	if (IsClicked(500, 180, 800, 480) && life > 0) {
+		GetGSComponent<Life>()->Subtract(5);
 	}
 
 }
@@ -79,26 +90,19 @@ void Store::ImguiDraw()
 {
 	ImGui::Begin("Information");
 	{
-		//int gold = GetGSComponent<Gold>()->Value();
-		//int life = GetGSComponent<Life>()->Value();
-		//int gold = 100000;
-		//int life = 500;
+		int gold = GetGSComponent<Gold>()->Value();
+		int life = GetGSComponent<Life>()->Value();
 
-		//int set_gold = 0;
-		//int set_life = 0;
-
-		//ImGui::Text("Gold : %d", gold);
-		//ImGui::Text("Life : %d", life);
+		ImGui::Text("Gold : %d", gold);
+		ImGui::Text("Life : %d", life);
 
 
-		//if (ImGui::SliderInt("Adjust Gold", &gold, 0, 100000, "%d")) {
-		//	GetGSComponent<Gold>()->SetValue(gold);
-		//	//set_gold = gold;
-		//}
-		//if (ImGui::SliderInt("Adjust Life", &life, 1, 500, "%d")) {
-		//	GetGSComponent<Life>()->SetValue(life);
-		//	//set_life = life;
-		//}
+		if (ImGui::SliderInt("Adjust Gold", &gold, 0, 100000, "%d")) {
+			GetGSComponent<Gold>()->SetValue(gold);
+		}
+		if (ImGui::SliderInt("Adjust Life", &life, 1, 500, "%d")) {
+			GetGSComponent<Life>()->SetValue(life);
+		}
 
 	}
 	ImGui::End();
@@ -107,4 +111,19 @@ void Store::ImguiDraw()
 void Store::HandleEvent(SDL_Event& event)
 {
 
+}
+
+bool Store::IsClicked(int x1, int y1, int x2, int y2)
+{
+	mouse_position = Engine::GetInput().GetMousePosition();
+
+	is_on = mouse_position.x >= x1 && mouse_position.x <= x2 && mouse_position.y >= y1 && mouse_position.y <= y2;
+
+	if (is_on == false)
+		return false;
+
+	if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT) && is_on)
+	{
+		return true;
+	}
 }

@@ -26,7 +26,7 @@ public:
     void ImguiDraw() override;
     void HandleEvent(SDL_Event& event) override;
 
-
+    virtual bool IsClicked(int x1, int y1, int x2, int y2);
 
     std::string GetName() override { return "Store"; }
 public:
@@ -36,4 +36,9 @@ public:
     std::unique_ptr<GAM200::Texture> life;
     GAM200::Texture* texture1;
     GAM200::Texture* texture2;
+
+    Math::vec2 mouse_position;
+    Math::ivec2 tile_size;
+
+    bool is_on = false;
 };
