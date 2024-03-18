@@ -29,13 +29,31 @@ public:
     virtual bool IsClicked(int x1, int y1, int x2, int y2);
 
     std::string GetName() override { return "Store"; }
+
+    enum class Difficulty
+    {
+        Easy,
+        Normal,
+        Hard,
+        In_Game
+    };
+
 public:
 
     double counter = 0;
     std::unique_ptr<GAM200::Texture> gold;
     std::unique_ptr<GAM200::Texture> life;
+    std::unique_ptr<GAM200::Texture> difficulty;
+
     GAM200::Texture* texture1;
     GAM200::Texture* texture2;
+
+    GAM200::Texture* select1;
+    GAM200::Texture* select2;
+    GAM200::Texture* select3;
+    GAM200::Texture* select4;
+
+    GAM200::Texture* menu;
 
     Math::vec2 mouse_position;
     Math::ivec2 tile_size;

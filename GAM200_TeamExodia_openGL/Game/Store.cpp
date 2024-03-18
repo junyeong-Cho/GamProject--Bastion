@@ -36,8 +36,16 @@ void Store::Load()
 	AddGSComponent(new Life());
 
     counter = 0;
+
 	texture1 = Engine::Instance().GetTextureManager().Load("assets/images/test1.png");
 	texture2 = Engine::Instance().GetTextureManager().Load("assets/images/test2.png");
+
+	select1 = Engine::Instance().GetTextureManager().Load("assets/images/Select1.png");
+	select2 = Engine::Instance().GetTextureManager().Load("assets/images/Select2.png");
+	select3 = Engine::Instance().GetTextureManager().Load("assets/images/Select3.png");
+	select4 = Engine::Instance().GetTextureManager().Load("assets/images/Select4.png");
+
+	menu = Engine::Instance().GetTextureManager().Load("assets/images/menu.png");
 }
 
 void Store::Update(double dt)
@@ -57,15 +65,19 @@ void Store::Update(double dt)
 
 	gold.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Gold :" + std::to_string(GetGSComponent<Gold>()->Value()), 0xFFFFFFFF));
 	life.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("life :" + std::to_string(GetGSComponent<Life>()->Value()), 0xFFFFFFFF));
+	
 
 	int gold = GetGSComponent<Gold>()->Value();
 	int life = GetGSComponent<Life>()->Value();
 
-	if (IsClicked(150, 180, 450 , 480) && gold > 0) {
+	if (IsClicked(100, 230, 300 , 330) && gold > 0) {
 		GetGSComponent<Gold>()->Subtract(500);
 	}
-	if (IsClicked(500, 180, 800, 480) && life > 0) {
+	if (IsClicked(350, 230, 550, 330) && life > 0) {
 		GetGSComponent<Life>()->Subtract(5);
+	}
+	if (IsClicked(1030, 50, 1230, 200)) {
+		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
 	}
 
 }
@@ -80,10 +92,19 @@ void Store::Draw()
 {
 	Engine::GetWindow().Clear(0.5, 0.5, 0.5, 1.0);
 
-	texture1->Draw(Math::TranslationMatrix(Math::ivec2{ 150 ,Engine::GetWindow().GetSize().y/4 }));
-	texture2->Draw(Math::TranslationMatrix(Math::ivec2{ 500 ,Engine::GetWindow().GetSize().y / 4 }));
+	select1->Draw(Math::TranslationMatrix(Math::ivec2{ 100 ,Engine::GetWindow().GetSize().y/2 }));
+	select2->Draw(Math::TranslationMatrix(Math::ivec2{ 400 ,Engine::GetWindow().GetSize().y / 2 }));
+	select3->Draw(Math::TranslationMatrix(Math::ivec2{ 700 ,Engine::GetWindow().GetSize().y / 2 }));
+	select4->Draw(Math::TranslationMatrix(Math::ivec2{ 1000 ,Engine::GetWindow().GetSize().y / 2 }));
+
+	texture1->Draw(Math::TranslationMatrix(Math::ivec2{ 100 ,Engine::GetWindow().GetSize().y /4 +50}));
+	texture2->Draw(Math::TranslationMatrix(Math::ivec2{ 350 ,Engine::GetWindow().GetSize().y / 4 +50 }));
+
+	menu->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 250 , 50 }));
+
 	gold->Draw(Math::TranslationMatrix(Math::ivec2{ 0, (Engine::GetWindow().GetSize().y) }));
 	life->Draw(Math::TranslationMatrix(Math::ivec2{ 0, (Engine::GetWindow().GetSize().y - 60) }));
+	//difficulty->Draw(Math::TranslationMatrix(Math::ivec2{ 500, (Engine::GetWindow().GetSize().y) }));
 }
 
 void Store::ImguiDraw()
@@ -119,9 +140,10 @@ bool Store::IsClicked(int x1, int y1, int x2, int y2)
 
 	is_on = mouse_position.x >= x1 && mouse_position.x <= x2 && mouse_position.y >= y1 && mouse_position.y <= y2;
 
-	if (is_on == false)
+	if (!is_on) {
 		return false;
-
+	}
+		
 	if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT) && is_on)
 	{
 		return true;
