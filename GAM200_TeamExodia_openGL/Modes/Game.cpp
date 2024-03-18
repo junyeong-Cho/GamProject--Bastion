@@ -4,15 +4,18 @@
 #include "../Engine/ShowCollision.h"
 #include "../Engine/DrawShape.h"
 
-#include "MonsterLimit.h"
-#include "Gold.h"
-#include "GameSpeed.h"
-#include "Diamond.h"
+#include "../Component/MonsterLimit.h"
+#include "../Component/Gold.h"
+#include "../Component/GameSpeed.h"
+#include "../Component/Diamond.h"
+#include "../Component/Map.h"
 
-#include "Monster.h"
-#include "MeleeUnit.h"
-#include "RangedUnit.h"
-#include "MagicUnit.h"
+#include "../Game/Unit.h"
+
+#include "../Game/Monster.h"
+#include "../Game/MeleeUnit.h"
+#include "../Game/RangedUnit.h"
+#include "../Game/MagicUnit.h"
 
 
 Game::Game()
@@ -26,16 +29,17 @@ void Game::Load()
 	AddGSComponent(new GAM200::GameObjectManager());
 
 	// No Camera
-	
+
 	// No Map??		TODO
 
 
 
 	// Components
-	AddGSComponent(new GameSpeed());		
+	AddGSComponent(new GameSpeed());
 	AddGSComponent(new MonsterLimit(40));	// Max Limit of Monster
 	AddGSComponent(new Gold(100));			// Initial Gold
 	AddGSComponent(new Diamond(100));		// Initial Diamond
+	AddGSComponent(new Map());
 
 
 
@@ -73,11 +77,14 @@ void Game::Update(double dt)
 	}*/
 
 
-	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Space))
+	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::M))
 	{
-		new Monster(3, 3.0);
+		new TestMonster();
 	}
-
+	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::U))
+	{
+		new TestUnit();
+	}
 
 
 
@@ -86,8 +93,6 @@ void Game::Update(double dt)
 
 void Game::Unload()
 {
-
-
 	GetGSComponent<GAM200::GameObjectManager>()->Unload();
 	ClearGSComponent();
 }
@@ -95,7 +100,7 @@ void Game::Unload()
 
 void Game::Draw()
 {
-
+	GetGSComponent<Map>()->Draw();
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
 }
 

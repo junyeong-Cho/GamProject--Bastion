@@ -1,13 +1,14 @@
 #pragma once
 
-#include "../Engine/GameObject.h"
+#include "Unit.h"
 
-class Unit : public GAM200::GameObject
+
+class MeleeUnit : public Unit
 {
 public:
-	Unit(Math::vec2 position) : GameObject(position) { }
 
-	virtual void Update(double dt) override = 0;
+    virtual void Update(double dt) override;
+    //virtual void Draw(Math::TransformationMatrix camera_matrix) override;
 
 protected:
     class State_None : public State
@@ -26,7 +27,7 @@ protected:
         virtual void CheckExit(GameObject* object) override;
         std::string GetName() override { return "Attack"; }
     };
-    class State_Skill: public State
+    class State_Skill : public State
     {
     public:
         virtual void Enter(GameObject* object) override;
@@ -39,22 +40,7 @@ protected:
     State_Attack    state_attacking;
     State_Skill     state_skill;
 
-protected:
-    int cost;
+private:
 
-	double attack_count;
-	double attack_speed;
 
-	double physical_damage;
-    double magical_damage;
-
-	double skill_count;
-	double skill_cooltime;
-
-    double attack_range;
-
-	Math::vec2 position;
-
-    bool clicked = false;
 };
-

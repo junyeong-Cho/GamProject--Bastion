@@ -6,7 +6,7 @@
 
 #include "Game/Splash.h"
 #include "Game/MainMenu.h"
-#include "Game.h"
+#include "../Modes/Game.h"
 
 
 int main()

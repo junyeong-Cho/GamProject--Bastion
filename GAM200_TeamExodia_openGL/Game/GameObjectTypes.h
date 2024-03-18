@@ -18,7 +18,7 @@ enum class GameObjectTypes
     // Season 2
     Monster,
 
-
+    Unit,
 
 
 
