@@ -106,54 +106,82 @@ void GAM200::GameObjectManager::MergeTest()
 		return;
 
 
-	for (GameObject* object_1 : objects)
+	for (GameObject* target : objects)
 	{
-		// Skip the monsters, check only for the units
-		if (object_1->Type() == GameObjectTypes::Monster)
+		if (target->Type() == GameObjectTypes::Monster)
 			continue;
 
-		for (GameObject* object_2 : objects)
+		if (current_unit == target)
+			continue;
+
+		if (current_unit->IsCollidingWith(target))
 		{
-			// Skip the monsters
-			if (object_2->Type() == GameObjectTypes::Monster)
-				continue;
-
-			/* Original Code
-			if (object_1 != object_2 && (object_1->CanMergeWith(object_2->Type())))
+			if (current_unit->CanMergeWith(target->Type()))
 			{
-				if (object_1->IsMergingWith(object_2))
-				{
-					Engine::GetLogger().LogDebug("Merge done!");
+				Engine::GetLogger().LogDebug("Merge done!");
 
-					object_1->ResolveMerge(object_2);
+				current_unit->ResolveMerge(target);
 
-					return;
-				}
+				return;
 			}
-			*/
-			// Changed Code
-			if (object_1 != object_2 && (object_1->IsMergingWith(object_2)))
+			else
 			{
-				if ((object_1->CanMergeWith(object_2->Type())))
-				{
-					Engine::GetLogger().LogDebug("Merge done!");
+				current_unit->SetPosition(current_unit->GetPreviousPosition());
 
-					object_1->ResolveMerge(object_2);
-
-					return;
-				}
-				else
-				{
-					Engine::GetLogger().LogDebug("Merge cannot be done!");
-
-					//object_1->SetPosition(object_1->GetPreviousPosition());
-					//object_2->SetPosition(object_2->GetPreviousPosition());
-					current_unit->SetPosition(current_unit->GetPreviousPosition());
-
-					return;
-				}
+				return;
 			}
 		}
+
+
+
+
+		// Original Code
+		//// Skip the monsters, check only for the units
+		//if (object_1->Type() == GameObjectTypes::Monster)
+		//	continue;
+
+		//for (GameObject* object_2 : objects)
+		//{
+		//	// Skip the monsters
+		//	if (object_2->Type() == GameObjectTypes::Monster)
+		//		continue;
+
+		//	/* Original Code
+		//	if (object_1 != object_2 && (object_1->CanMergeWith(object_2->Type())))
+		//	{
+		//		if (object_1->IsMergingWith(object_2))
+		//		{
+		//			Engine::GetLogger().LogDebug("Merge done!");
+
+		//			object_1->ResolveMerge(object_2);
+
+		//			return;
+		//		}
+		//	}
+		//	*/
+		//	// Changed Code
+		//	if (object_1 != object_2 && (object_1->IsMergingWith(object_2)))
+		//	{
+		//		if ((object_1->CanMergeWith(object_2->Type())))
+		//		{
+		//			Engine::GetLogger().LogDebug("Merge done!");
+
+		//			object_1->ResolveMerge(object_2);
+
+		//			return;
+		//		}
+		//		else
+		//		{
+		//			Engine::GetLogger().LogDebug("Merge cannot be done!");
+
+		//			//object_1->SetPosition(object_1->GetPreviousPosition());
+		//			//object_2->SetPosition(object_2->GetPreviousPosition());
+		//			current_unit->SetPosition(current_unit->GetPreviousPosition());
+
+		//			return;
+		//		}
+		//	}
+		//}
 	}
 }
 
