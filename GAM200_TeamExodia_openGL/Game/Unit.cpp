@@ -7,8 +7,14 @@
 #include "../Engine/GameObjectManager.h"
 #include "../Engine/DrawShape.h"
 
+#include "../Engine/MergeCollision.h"
+#include "../Engine/Collision.h"
+
 Unit::Unit(Math::vec2 position) : GameObject(position) 
 {
+    AddGOComponent(new GAM200::MergeCircleCollision(radius, this));
+    AddGOComponent(new GAM200::CircleCollision(radius, this));
+
     Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
 
@@ -22,22 +28,29 @@ void Unit::Update(double dt)
 void Unit::Draw(Math::TransformationMatrix camera_matrix)
 {
     GAM200::DrawShape shape;
-    shape.SetColor(0.0f, 0.0f, 0.0f, 1.0f);
-    Math::vec2 position = GetPosition();
-    shape.DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(radius), static_cast<int>(radius));
 
     if (is_moving)
     {
-        Math::vec2 mouse_position = Engine::GetInput().GetMousePosition();
-        mouse_position -= position_gap;
-        shape.SetColor(0.f, 0.f, 0.f, 0.5f);
-        shape.DrawCircle(static_cast<int>(mouse_position.x), static_cast<int>(mouse_position.y), static_cast<int>(radius), static_cast<int>(radius));
+        shape.SetColor(0.0f, 0.0f, 0.0f, 0.5f);
+        Math::vec2 position = GetPosition();
+        shape.DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(radius), static_cast<int>(radius));
+
+
+        shape.SetColor(0.f, 0.f, 0.f, 1.0f);
+        shape.DrawCircle(static_cast<int>(previous_position.x), static_cast<int>(previous_position.y), static_cast<int>(radius), static_cast<int>(radius));
+    }
+    else
+    {
+        shape.SetColor(0.0f, 0.0f, 0.0f, 1.0f);
+        Math::vec2 position = GetPosition();
+        shape.DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(radius), static_cast<int>(radius));
     }
 }
 
 void Unit::HandleMouseInput()
 {
     Math::vec2 mouse_position = Engine::GetInput().GetMousePosition();
+
     // Mouse is not being clicked
     if (!Engine::GetInput().MouseDown(GAM200::Input::MouseButtons::LEFT))
     {
@@ -52,10 +65,6 @@ void Unit::HandleMouseInput()
             }
             else if (is_colliding)
             {
-                /*if (possible_to_merge)
-                * // Log Merge
-                    Merge();
-                else*/
                 Engine::GetLogger().LogDebug("Can not merge!");
                 SetPosition(previous_position);
             }
@@ -74,12 +83,21 @@ void Unit::HandleMouseInput()
     // Clicked moment
     if (not_clicked && Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT) && (IsMouseOverUnit()))
     {
+        if (Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetClosestUnit(mouse_position) != this)
+            return;
+
+
         Engine::GetLogger().LogDebug("Clicked! Saved previous position! Started moving");
         is_moving = true;
         previous_position = GetPosition();
         position_gap = mouse_position - previous_position;
         drop = false;
         not_clicked = false;
+    }
+
+    if (is_moving)
+    {
+        SetPosition(mouse_position - position_gap);
     }
 }
 
@@ -99,5 +117,5 @@ bool Unit::IsInMap(Math::vec2 position) const
 
 bool Unit::IsMouseOverUnit() const
 {
-    return ((Engine::GetInput().GetMousePosition() - GetPosition()).GetLength() <= radius);
+    return ((Engine::GetInput().GetMousePosition() - GetPosition()).GetSquaredLength() <= radius * radius);
 }

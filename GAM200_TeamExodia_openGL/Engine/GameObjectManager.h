@@ -20,6 +20,8 @@ Updated:    September 26, 2023
 
 namespace Math { class TransformationMatrix; }
 
+class Unit;
+
 namespace GAM200
 {
     class GameObjectManager : public GAM200::Component
@@ -32,9 +34,15 @@ namespace GAM200
         void DrawAll(Math::TransformationMatrix camera_matrix);
 
         void CollisionTest();
+        void MergeTest();
+
+        Unit* GetClosestUnit(Unit* unit);
+        Unit* GetClosestUnit(Math::vec2 position);
 
     private:
         std::list<GameObject*> objects;
+
+        Unit* current_unit;
     };
 }
 

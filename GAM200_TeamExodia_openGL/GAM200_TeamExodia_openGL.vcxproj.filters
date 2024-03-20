@@ -154,6 +154,9 @@
     <ClCompile Include="Modes\Game.cpp">
       <Filter>Game\Modes</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\MergeCollision.cpp">
+      <Filter>Engine\Game Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -311,6 +314,9 @@
     </ClInclude>
     <ClInclude Include="Modes\Game.h">
       <Filter>Game\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\MergeCollision.h">
+      <Filter>Engine\Game Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

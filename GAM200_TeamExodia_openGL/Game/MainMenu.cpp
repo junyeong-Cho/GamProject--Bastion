@@ -107,7 +107,7 @@ void Main_menu::Unload()
 
 void Main_menu::Draw()
 {
-	Engine::GetWindow().Clear(0.2, 0.4, 0.7, 1.0);
+	Engine::GetWindow().Clear(0.2f, 0.4f, 0.7f, 1.0f);
 
 	main_title->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 50) }));
 

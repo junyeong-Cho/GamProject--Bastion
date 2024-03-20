@@ -124,6 +124,7 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClCompile Include="Engine\Input.cpp" />
     <ClCompile Include="Engine\Logger.cpp" />
     <ClCompile Include="Engine\Matrix.cpp" />
+    <ClCompile Include="Engine\MergeCollision.cpp" />
     <ClCompile Include="Engine\Mouse.cpp" />
     <ClCompile Include="Engine\Normalization.cpp" />
     <ClCompile Include="Engine\Particle.cpp" />
@@ -173,6 +174,7 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClInclude Include="Engine\Input.h" />
     <ClInclude Include="Engine\Logger.h" />
     <ClInclude Include="Engine\Matrix.h" />
+    <ClInclude Include="Engine\MergeCollision.h" />
     <ClInclude Include="Engine\Mouse.h" />
     <ClInclude Include="Engine\Normalization.h" />
     <ClInclude Include="Engine\OriginPosition.h" />

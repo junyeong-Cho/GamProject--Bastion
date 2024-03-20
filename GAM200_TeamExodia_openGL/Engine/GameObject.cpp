@@ -11,6 +11,7 @@ Updated:    November 1, 2023
 
 #include "ShowCollision.h"
 #include "Collision.h"
+#include "MergeCollision.h"
 #include "GameObject.h"
 #include "Matrix.h"
 
@@ -77,6 +78,13 @@ bool GAM200::GameObject::IsCollidingWith(GameObject* other_object)
 }
 
 
+bool GAM200::GameObject::IsMergingWith(GameObject* other_object)
+{
+    MergeCollision* collider = GetGOComponent<MergeCollision>();
+
+    return collider != nullptr && collider->IsMergingWith(other_object);
+}
+
 void GAM200::GameObject::Destroy()
 {
     destroy = true;
@@ -90,6 +98,11 @@ bool GAM200::GameObject::Destroyed()
 
 
 bool GAM200::GameObject::CanCollideWith(GameObjectTypes other_object_type)
+{
+    return false;
+}
+
+bool GAM200::GameObject::CanMergeWith(GameObjectTypes other_object_type)
 {
     return false;
 }

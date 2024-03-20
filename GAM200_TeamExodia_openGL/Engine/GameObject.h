@@ -39,16 +39,19 @@ namespace GAM200
 
         bool IsCollidingWith(GameObject* other_object);
         bool IsCollidingWith(Math::vec2 point);
+        bool IsMergingWith(GameObject* other_object);
 
 
         void Destroy();
         bool Destroyed();
 
         virtual bool CanCollideWith(GameObjectTypes other_object_type);
+        virtual bool CanMergeWith(GameObjectTypes other_object_type);
 
         virtual void Update(double dt);
         virtual void Draw(Math::TransformationMatrix camera_matrix);
         virtual void ResolveCollision(GameObject* other_object) {}
+        virtual void ResolveMerge(GameObject* other_object) { }
 
         const Math::TransformationMatrix& GetMatrix();
         const Math::vec2& GetPosition() const;
@@ -113,6 +116,13 @@ namespace GAM200
             componentmanagers.UpdateAll(dt);
         }
 
+    protected:
+        bool drop = false;
+        Math::vec2 previous_position;
+
+    public:
+        bool IsDropped() const { return drop; }
+        Math::vec2 GetPreviousPosition() const{ return previous_position; }
 
     private:
         Math::TransformationMatrix object_matrix;

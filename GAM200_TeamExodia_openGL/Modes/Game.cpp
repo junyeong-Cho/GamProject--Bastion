@@ -59,6 +59,7 @@ void Game::Update(double dt)
 	// Update things
 	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
 	GetGSComponent<GAM200::GameObjectManager>()->CollisionTest();
+	GetGSComponent<GAM200::GameObjectManager>()->MergeTest();
 
 
 

@@ -10,11 +10,13 @@ Updated:    September 26, 2023
 */
 
 #include <limits>
+#include <cmath>
 
 #include "GameObjectManager.h"
 #include "GameObject.h"
 
 #include "../Game/GameObjectTypes.h"
+#include "../Game/Unit.h"
 
 
 void GAM200::GameObjectManager::Add(GameObject* object)
@@ -95,4 +97,120 @@ void GAM200::GameObjectManager::CollisionTest()
 			}
 		}
 	}
+}
+
+void GAM200::GameObjectManager::MergeTest()
+{
+	// Check only when the mouse is released
+	if (!Engine::GetInput().MouseJustReleased(GAM200::Input::MouseButtons::LEFT))
+		return;
+
+
+	for (GameObject* object_1 : objects)
+	{
+		// Skip the monsters, check only for the units
+		if (object_1->Type() == GameObjectTypes::Monster)
+			continue;
+
+		for (GameObject* object_2 : objects)
+		{
+			// Skip the monsters
+			if (object_2->Type() == GameObjectTypes::Monster)
+				continue;
+
+			/* Original Code
+			if (object_1 != object_2 && (object_1->CanMergeWith(object_2->Type())))
+			{
+				if (object_1->IsMergingWith(object_2))
+				{
+					Engine::GetLogger().LogDebug("Merge done!");
+
+					object_1->ResolveMerge(object_2);
+
+					return;
+				}
+			}
+			*/
+			// Changed Code
+			if (object_1 != object_2 && (object_1->IsMergingWith(object_2)))
+			{
+				if ((object_1->CanMergeWith(object_2->Type())))
+				{
+					Engine::GetLogger().LogDebug("Merge done!");
+
+					object_1->ResolveMerge(object_2);
+
+					return;
+				}
+				else
+				{
+					Engine::GetLogger().LogDebug("Merge cannot be done!");
+
+					//object_1->SetPosition(object_1->GetPreviousPosition());
+					//object_2->SetPosition(object_2->GetPreviousPosition());
+					current_unit->SetPosition(current_unit->GetPreviousPosition());
+
+					return;
+				}
+			}
+		}
+	}
+}
+
+Unit* GAM200::GameObjectManager::GetClosestUnit(Unit* unit)
+{
+	double current_distance = DBL_MAX;
+	Unit* closest_unit = nullptr;
+
+	for (GameObject* object : objects)
+	{
+		if (object->Type() == GameObjectTypes::Monster)
+			continue;
+		else
+		{
+			Math::vec2 unit_position = unit->GetPosition();
+			Math::vec2 target_position = object->GetPosition();
+			double squared_distance = pow(unit_position.x - target_position.x, 2) + pow(unit_position.y - target_position.y, 2);
+
+			if (pow(unit->GetRadius(), 2) < squared_distance)
+				continue;
+
+			if (current_distance < squared_distance)
+			{
+				closest_unit = static_cast<Unit*>(object);
+				current_distance = squared_distance;
+			}
+		}
+	}
+	current_unit = closest_unit;
+
+	return closest_unit;
+}
+
+Unit* GAM200::GameObjectManager::GetClosestUnit(Math::vec2 position)
+{
+	double current_distance = DBL_MAX;
+	Unit* closest_unit = nullptr;
+
+	for (GameObject* object : objects)
+	{
+		if (object->Type() == GameObjectTypes::Monster)
+		{
+			continue;
+		}
+		else
+		{
+			Math::vec2 target_position = object->GetPosition();
+			double squared_distance = pow(position.x - target_position.x, 2) + pow(position.y - target_position.y, 2);
+
+			if (squared_distance < current_distance)
+			{
+				closest_unit = static_cast<Unit*>(object);
+				current_distance = squared_distance;
+			}
+		}
+	}
+	current_unit = closest_unit;
+
+	return closest_unit;
 }
