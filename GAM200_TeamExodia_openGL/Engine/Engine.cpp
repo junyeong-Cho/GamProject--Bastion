@@ -99,7 +99,6 @@ void Engine::AddFont(const std::filesystem::path& file_name)
 }
 
 
-//¿Ï¼º!
 void Engine::push()
 {
    glPushAttrib(GL_CURRENT_BIT);

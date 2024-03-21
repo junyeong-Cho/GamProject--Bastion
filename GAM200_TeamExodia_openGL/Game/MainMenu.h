@@ -46,9 +46,13 @@ private:
 
 	int counter = 0;
 
+
 	std::unique_ptr<GAM200::Texture> main_title;
-	std::unique_ptr<GAM200::Texture> start;
+	
+	
+	std::unique_ptr<GAM200::Texture> play;
 	std::unique_ptr<GAM200::Texture> howToPlay;
+	std::unique_ptr<GAM200::Texture> setting;
 	std::unique_ptr<GAM200::Texture> gamePlay_Editor;
 	std::unique_ptr<GAM200::Texture> exit;
 

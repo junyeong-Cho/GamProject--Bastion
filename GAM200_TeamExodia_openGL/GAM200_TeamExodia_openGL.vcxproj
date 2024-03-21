@@ -138,6 +138,7 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClCompile Include="Game\Background.cpp" />
     <ClCompile Include="Game\Floor.cpp" />
     <ClCompile Include="Game\MagicUnit.cpp" />
+    <ClCompile Include="Game\HowToPlay.cpp" />
     <ClCompile Include="Game\MainMenu.cpp" />
     <ClCompile Include="Game\MeleeUnit.cpp" />
     <ClCompile Include="Game\Monster.cpp" />
@@ -145,9 +146,12 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClCompile Include="Game\RangedUnit.cpp" />
     <ClCompile Include="Game\ScreenWrap.cpp" />
     <ClCompile Include="Game\Splash.cpp" />
+    <ClCompile Include="Game\Store.cpp" />
     <ClCompile Include="Game\Timer.cpp" />
     <ClCompile Include="Game\Unit.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Season 1\Game\Gold.cpp" />
+    <ClCompile Include="Season 1\Game\Life.cpp" />
     <ClCompile Include="Modes\Game.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +196,7 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClInclude Include="Game\Fonts.h" />
     <ClInclude Include="Game\GameObjectTypes.h" />
     <ClInclude Include="Game\Gravity.h" />
+    <ClInclude Include="Game\HowToPlay.h" />
     <ClInclude Include="Game\MagicUnit.h" />
     <ClInclude Include="Game\MainMenu.h" />
     <ClInclude Include="Game\MeleeUnit.h" />
@@ -201,7 +206,10 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClInclude Include="Game\ScreenWrap.h" />
     <ClInclude Include="Game\Splash.h" />
     <ClInclude Include="Game\States.h" />
+    <ClInclude Include="Game\Store.h" />
     <ClInclude Include="Game\Timer.h" />
+    <ClInclude Include="Season 1\Game\Gold.h" />
+    <ClInclude Include="Season 1\Game\Life.h" />
     <ClInclude Include="Game\Unit.h" />
     <ClInclude Include="Modes\Game.h" />
   </ItemGroup>

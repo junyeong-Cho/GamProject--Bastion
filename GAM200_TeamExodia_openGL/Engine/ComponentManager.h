@@ -44,7 +44,6 @@ namespace GAM200
 			for (Component* component : components)
 			{
 
-				//T는 특정타입이 없기 때문에, component를 T*로 바꿔주는 것이다.
 				T* ptr = dynamic_cast<T*>(component);
 
 				if (ptr != nullptr)
