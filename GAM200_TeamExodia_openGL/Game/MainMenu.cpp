@@ -26,18 +26,24 @@ Main_menu::Main_menu()
 void Main_menu::Load()
 {
 	main_title.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("They are season 2", 0xFFFFFFFF));
+	UpdateMenuTextColors();
+	
+
 }
 
 void Main_menu::UpdateMenuTextColors()
 {
 	uint32_t colors[4] = { 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF };
 	colors[counter]    = 0x7EFACBFF;
+
+	play.reset	   (Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Play",		 colors[0]));
+	howToPlay.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("How to play", colors[1]));
+	setting.reset  (Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Setting",	 colors[2]));
+	exit.reset	   (Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Exit",	     colors[3]));
 }
 
 void Main_menu::Update(double dt)
 {
-
-
 	bool shouldUpdateColors = false;
 
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Down))
@@ -73,28 +79,23 @@ void Main_menu::Update(double dt)
 	/*
 	if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Enter))
 	{
-		GAM200::SoundEffect::Select_MainMenu().play();
-
 		switch (counter)
 		{
 		case 0:
-			//GetGSComponent<GAM200::MusicEffect>()->Stop();
-			GAM200::SoundEffect::MainMenu_BGM().stopAll();
-			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::ModeSelect));
+			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Store));
 			break;
 		case 1:
-			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::GamePlayEditior));
+			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::HowToPlay));
 			break;
 		case 2:
-			//GetGSComponent<GAM200::MusicEffect>()->Stop();
-			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::HowToPlay));
+			//Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Setting));
 			break;
 		case 3:
 			Engine::GetGameStateManager().ClearNextGameState();
 			break;
 		}
 	}	
-	*/
+
 
 }
 
@@ -109,9 +110,12 @@ void Main_menu::Draw()
 {
 	Engine::GetWindow().Clear(0.2f, 0.4f, 0.7f, 1.0f);
 
-	main_title->Draw(Math::TranslationMatrix(Math::ivec2{ (Engine::GetWindow().GetSize().x / 2 - 200), (Engine::GetWindow().GetSize().y - 50) }));
+	main_title->Draw(Math::TranslationMatrix(Math::ivec2{ 20, (Engine::GetWindow().GetSize().y - 20) }));
 
-	
+	play	 ->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x/2   + 220, (Engine::GetWindow().GetSize().y / 2 - 100)}));
+	howToPlay->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x / 2 + 220, (Engine::GetWindow().GetSize().y / 2 - 160) }));
+	setting  ->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x / 2 + 220, (Engine::GetWindow().GetSize().y / 2 - 220) }));
+	exit     ->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x / 2 + 220, (Engine::GetWindow().GetSize().y / 2 - 280) }));
 }
 
 void Main_menu::ImguiDraw()

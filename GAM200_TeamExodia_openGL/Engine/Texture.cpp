@@ -185,7 +185,6 @@ namespace GAM200
         float ty2 = (texel_position.y + frame_size.y) / textureHeight;
 
 
-        // �� �������� ȭ�� ��ǥ�� ����ȭ
         float nx1 = Math::NormalizeX(topLeft.x, windowWidth);
         float ny1 = Math::NormalizeY(topLeft.y, windowHeight);
 

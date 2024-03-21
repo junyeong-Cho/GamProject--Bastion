@@ -6,9 +6,7 @@
 
 #include "Game/Splash.h"
 #include "Game/MainMenu.h"
-#include "../Modes/Game.h"
 #include "Game/HowToPlay.h"
-#include "Game/Store.h"
 
 
 int main()
@@ -18,7 +16,7 @@ int main()
         Engine& engine = Engine::Instance();
 
         // 16:9
-        engine.Start("GAM200 - Team: Exodia", 1280, 800, OriginPosition::LEFT_DOWN);
+        engine.Start("GAM200 - Team: Exodia", 1280, 720, OriginPosition::LEFT_DOWN);
 
         engine.AddFont("assets/Font_Simple.png");
         engine.AddFont("assets/Font_Outlined.png");
@@ -29,10 +27,6 @@ int main()
         engine.GetGameStateManager().AddGameState(main_menu);
         HowToPlay how_to_play;
         engine.GetGameStateManager().AddGameState(how_to_play);
-        Store store;
-        engine.GetGameStateManager().AddGameState(store);
-        Game game;
-        engine.GetGameStateManager().AddGameState(game);
 
         while (engine.HasGameEnded() == false)
         {
