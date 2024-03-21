@@ -75,8 +75,6 @@ void Main_menu::Update(double dt)
 	}
 
 
-	//State change
-	/*
 	if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Enter))
 	{
 		switch (counter)
