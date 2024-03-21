@@ -9,6 +9,7 @@
 #include "../Modes/Game.h"
 #include "Game/HowToPlay.h"
 #include "Game/Store.h"
+#include "Modes/Game.h"
 
 
 int main()
