@@ -37,6 +37,7 @@ void Store::Load()
 
     counter = 0;
 
+	store_background = Engine::Instance().GetTextureManager().Load("assets/images/store_background.png");
 	texture1 = Engine::Instance().GetTextureManager().Load("assets/images/test1.png");
 	texture2 = Engine::Instance().GetTextureManager().Load("assets/images/test2.png");
 
@@ -45,6 +46,7 @@ void Store::Load()
 	select3 = Engine::Instance().GetTextureManager().Load("assets/images/Select3.png");
 	select4 = Engine::Instance().GetTextureManager().Load("assets/images/Select4.png");
 
+	game_start = Engine::Instance().GetTextureManager().Load("assets/images/game_start.png");
 	menu = Engine::Instance().GetTextureManager().Load("assets/images/menu.png");
 }
 
@@ -63,23 +65,23 @@ void Store::Update(double dt)
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
 	}
 
+
 	gold.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Gold :" + std::to_string(GetGSComponent<Gold>()->Value()), 0xFFFFFFFF));
-	life.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("life :" + std::to_string(GetGSComponent<Life>()->Value()), 0xFFFFFFFF));
-	
+	life.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Life :" + std::to_string(GetGSComponent<Life>()->Value()), 0xFFFFFFFF));
+	//difficulty.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Difficulty :" + SelectedDifficulty(), 0xFFFFFFFF));
 
 	int gold = GetGSComponent<Gold>()->Value();
 	int life = GetGSComponent<Life>()->Value();
 
-	if (IsClicked(100, 230, 300 , 330) && gold > 0) {
+	if (IsClicked(100, 180, 300 , 280) && gold > 0) {
 		GetGSComponent<Gold>()->Subtract(500);
 	}
-	if (IsClicked(350, 230, 550, 330) && life > 0) {
+	if (IsClicked(350, 180, 550, 280) && life > 0) {
 		GetGSComponent<Life>()->Subtract(5);
 	}
 	if (IsClicked(1030, 50, 1230, 200)) {
 		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
 	}
-
 }
 
 void Store::Unload()
@@ -92,19 +94,21 @@ void Store::Draw()
 {
 	Engine::GetWindow().Clear(0.5, 0.5, 0.5, 1.0);
 
-	select1->Draw(Math::TranslationMatrix(Math::ivec2{ 100 ,Engine::GetWindow().GetSize().y/2 }));
-	select2->Draw(Math::TranslationMatrix(Math::ivec2{ 400 ,Engine::GetWindow().GetSize().y / 2 }));
-	select3->Draw(Math::TranslationMatrix(Math::ivec2{ 700 ,Engine::GetWindow().GetSize().y / 2 }));
-	select4->Draw(Math::TranslationMatrix(Math::ivec2{ 1000 ,Engine::GetWindow().GetSize().y / 2 }));
+	store_background->Draw(Math::TranslationMatrix(Math::ivec2{ 0 ,0 }));
 
-	texture1->Draw(Math::TranslationMatrix(Math::ivec2{ 100 ,Engine::GetWindow().GetSize().y /4 +50}));
-	texture2->Draw(Math::TranslationMatrix(Math::ivec2{ 350 ,Engine::GetWindow().GetSize().y / 4 +50 }));
+	select1->Draw(Math::TranslationMatrix(Math::ivec2{ 100 ,Engine::GetWindow().GetSize().y/2 +60 }));
+	select2->Draw(Math::TranslationMatrix(Math::ivec2{ 400 ,Engine::GetWindow().GetSize().y / 2 +60}));
+	select3->Draw(Math::TranslationMatrix(Math::ivec2{ 700 ,Engine::GetWindow().GetSize().y / 2 +60}));
+	select4->Draw(Math::TranslationMatrix(Math::ivec2{ 1000 ,Engine::GetWindow().GetSize().y / 2 +60}));
+	texture1->Draw(Math::TranslationMatrix(Math::ivec2{ 100 ,Engine::GetWindow().GetSize().y /4}));
+	texture2->Draw(Math::TranslationMatrix(Math::ivec2{ 350 ,Engine::GetWindow().GetSize().y / 4 }));
 
 	menu->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 250 , 50 }));
+	game_start->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 450 , 50 }));
 
 	gold->Draw(Math::TranslationMatrix(Math::ivec2{ 0, (Engine::GetWindow().GetSize().y) }));
 	life->Draw(Math::TranslationMatrix(Math::ivec2{ 0, (Engine::GetWindow().GetSize().y - 60) }));
-	//difficulty->Draw(Math::TranslationMatrix(Math::ivec2{ 500, (Engine::GetWindow().GetSize().y) }));
+	//difficulty->Draw(Math::TranslationMatrix(Math::ivec2{ 300, (Engine::GetWindow().GetSize().y) }));
 }
 
 void Store::ImguiDraw()
@@ -117,8 +121,7 @@ void Store::ImguiDraw()
 		ImGui::Text("Gold : %d", gold);
 		ImGui::Text("Life : %d", life);
 
-
-		if (ImGui::SliderInt("Adjust Gold", &gold, 0, 100000, "%d")) {
+		if (ImGui::SliderInt("Adjust Gold", &gold, 0, 50000, "%d")) {
 			GetGSComponent<Gold>()->SetValue(gold);
 		}
 		if (ImGui::SliderInt("Adjust Life", &life, 1, 500, "%d")) {
@@ -144,8 +147,13 @@ bool Store::IsClicked(int x1, int y1, int x2, int y2)
 		return false;
 	}
 		
-	if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT) && is_on)
+	if (Engine::GetInput().MouseJustReleased(GAM200::Input::MouseButtons::LEFT) && is_on)
 	{
 		return true;
 	}
+
+	return false;
 }
+
+
+

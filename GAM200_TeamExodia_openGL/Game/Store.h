@@ -45,6 +45,8 @@ public:
     std::unique_ptr<GAM200::Texture> life;
     std::unique_ptr<GAM200::Texture> difficulty;
 
+    GAM200::Texture* store_background;
+
     GAM200::Texture* texture1;
     GAM200::Texture* texture2;
 
@@ -53,6 +55,7 @@ public:
     GAM200::Texture* select3;
     GAM200::Texture* select4;
 
+    GAM200::Texture* game_start;
     GAM200::Texture* menu;
 
     Math::vec2 mouse_position;
