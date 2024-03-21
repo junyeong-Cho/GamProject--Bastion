@@ -12,7 +12,7 @@
 
 Unit::Unit(Math::vec2 position, double range) : GameObject(position), range(range)
 {
-    AddGOComponent(new GAM200::MergeCircleCollision(radius, this));
+    AddGOComponent(new GAM200::MergeCircleCollision(radius / 2.0, this));
     AddGOComponent(new GAM200::CircleCollision(range, this));
 
     Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);

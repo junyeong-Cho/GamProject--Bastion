@@ -116,7 +116,7 @@ void GAM200::GameObjectManager::MergeTest()
 		if (current_unit == target)
 			continue;
 
-		if (current_unit->IsCollidingWith(target))
+		if (current_unit->IsMergingWith(target))
 		{
 			if (current_unit->CanMergeWith(target->Type()))
 			{
