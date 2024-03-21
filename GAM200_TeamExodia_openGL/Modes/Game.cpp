@@ -42,7 +42,6 @@ void Game::Load()
 	AddGSComponent(new Map());
 
 
-
 #ifdef _DEBUG
 	AddGSComponent(new GAM200::ShowCollision());
 #endif
@@ -50,11 +49,9 @@ void Game::Load()
 
 void Game::Update(double dt)
 {
-	// Update GameSpeed
-	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Tab))
-	{
-		GetGSComponent<GameSpeed>()->NextSpeed();
-	}
+	// TODO ?
+	GetGSComponent<GameSpeed>()->Update(dt);
+	dt *= GetGSComponent<GameSpeed>()->GetSpeed();
 
 	// Update things
 	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
