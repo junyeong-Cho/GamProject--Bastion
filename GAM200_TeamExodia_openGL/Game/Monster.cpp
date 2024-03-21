@@ -9,7 +9,7 @@ Monster::Monster(MonsterInfo info) : GameObject(Map::middle_upper_left), info(in
 {
 	SetPosition(Map::middle_upper_left);
 	SetVelocity({ 0, -speed * info.speed_scale });
-	//AddGOComponent(new GAM200::RectCollision(Math::irect{ Math::ivec2{0, 0}, Math::ivec2{size_x, size_y} }, this));
+
 	AddGOComponent(new GAM200::CircleCollision(radius, this));
 	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }

@@ -90,7 +90,7 @@ void GAM200::GameObjectManager::CollisionTest()
 			{
 				if (object_1->IsCollidingWith(object_2))
 				{
-					//Engine::GetLogger().LogEvent("Collision Detected: " + object_1->TypeName() + " and " + object_2->TypeName());
+					Engine::GetLogger().LogEvent("Collision Detected: " + object_1->TypeName() + " and " + object_2->TypeName());
 
 					object_1->ResolveCollision(object_2);
 				}
@@ -105,6 +105,8 @@ void GAM200::GameObjectManager::MergeTest()
 	if (!Engine::GetInput().MouseJustReleased(GAM200::Input::MouseButtons::LEFT))
 		return;
 
+	if (current_unit == nullptr)
+		return;
 
 	for (GameObject* target : objects)
 	{
@@ -131,57 +133,6 @@ void GAM200::GameObjectManager::MergeTest()
 				return;
 			}
 		}
-
-
-
-
-		// Original Code
-		//// Skip the monsters, check only for the units
-		//if (object_1->Type() == GameObjectTypes::Monster)
-		//	continue;
-
-		//for (GameObject* object_2 : objects)
-		//{
-		//	// Skip the monsters
-		//	if (object_2->Type() == GameObjectTypes::Monster)
-		//		continue;
-
-		//	/* Original Code
-		//	if (object_1 != object_2 && (object_1->CanMergeWith(object_2->Type())))
-		//	{
-		//		if (object_1->IsMergingWith(object_2))
-		//		{
-		//			Engine::GetLogger().LogDebug("Merge done!");
-
-		//			object_1->ResolveMerge(object_2);
-
-		//			return;
-		//		}
-		//	}
-		//	*/
-		//	// Changed Code
-		//	if (object_1 != object_2 && (object_1->IsMergingWith(object_2)))
-		//	{
-		//		if ((object_1->CanMergeWith(object_2->Type())))
-		//		{
-		//			Engine::GetLogger().LogDebug("Merge done!");
-
-		//			object_1->ResolveMerge(object_2);
-
-		//			return;
-		//		}
-		//		else
-		//		{
-		//			Engine::GetLogger().LogDebug("Merge cannot be done!");
-
-		//			//object_1->SetPosition(object_1->GetPreviousPosition());
-		//			//object_2->SetPosition(object_2->GetPreviousPosition());
-		//			current_unit->SetPosition(current_unit->GetPreviousPosition());
-
-		//			return;
-		//		}
-		//	}
-		//}
 	}
 }
 

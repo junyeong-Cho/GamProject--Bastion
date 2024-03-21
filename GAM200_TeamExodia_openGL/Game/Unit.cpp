@@ -10,10 +10,10 @@
 #include "../Engine/MergeCollision.h"
 #include "../Engine/Collision.h"
 
-Unit::Unit(Math::vec2 position) : GameObject(position) 
+Unit::Unit(Math::vec2 position, double range) : GameObject(position), range(range)
 {
     AddGOComponent(new GAM200::MergeCircleCollision(radius, this));
-    AddGOComponent(new GAM200::CircleCollision(radius, this));
+    AddGOComponent(new GAM200::CircleCollision(range, this));
 
     Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
@@ -29,20 +29,25 @@ void Unit::Draw(Math::TransformationMatrix camera_matrix)
 {
     GAM200::DrawShape shape;
 
+    Math::vec2 position = GetPosition();
+
+    
     if (is_moving)
     {
         shape.SetColor(0.0f, 0.0f, 0.0f, 0.5f);
-        Math::vec2 position = GetPosition();
         shape.DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(radius), static_cast<int>(radius));
 
 
         shape.SetColor(0.f, 0.f, 0.f, 1.0f);
         shape.DrawCircle(static_cast<int>(previous_position.x), static_cast<int>(previous_position.y), static_cast<int>(radius), static_cast<int>(radius));
+
+
+        shape.SetColor(0.3f, 0.3f, 0.3f, 0.3f);
+        shape.DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(range), static_cast<int>(range));
     }
     else
     {
         shape.SetColor(0.0f, 0.0f, 0.0f, 1.0f);
-        Math::vec2 position = GetPosition();
         shape.DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(radius), static_cast<int>(radius));
     }
 }

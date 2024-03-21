@@ -25,6 +25,12 @@ public:
 	// Constructor with position, directoin (Spawn at the certain position, maybe boss)
 	Monster(MonsterInfo info, Math::vec2 position, Math::vec2 direction);
 
+
+	virtual bool CanCollideWith(GameObjectTypes other_object_type)
+	{
+		return false;
+	}
+
 	GameObjectTypes Type() override { return GameObjectTypes::Monster; }
 	std::string TypeName() override { return "Monster"; }
 

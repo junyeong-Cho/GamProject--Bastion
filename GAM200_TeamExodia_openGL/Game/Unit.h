@@ -9,7 +9,7 @@
 class Unit : public GAM200::GameObject
 {
 public:
-    Unit(Math::vec2 position);
+    Unit(Math::vec2 position, double range);
 
     virtual void Update(double dt);
     virtual void Draw(Math::TransformationMatrix camera_matrix);
@@ -31,6 +31,8 @@ public:
     double GetRadius() const { return radius; }
 
 protected:
+    double range;
+
     bool not_clicked = true;
 
     bool is_moving = false;
@@ -46,10 +48,16 @@ protected:
 class TestUnit : public Unit
 {
 public:
-    TestUnit(Math::vec2 position = Map::middle_point) : Unit(position) { }
+    TestUnit(Math::vec2 position = Map::middle_point, double range = Map::basic_size * 1.0) : Unit(position, range) { }
 
 
-    bool CanCollideWith(GameObjectTypes type) override { return false; }
+    bool CanCollideWith(GameObjectTypes type) override 
+    { 
+        if (type == GameObjectTypes::Monster)
+            return true;
+        else
+            return false;
+    }
     void ResolveCollision(GameObject* other_object) override { }
 
     bool CanMergeWith(GameObjectTypes type) override { return false; }
