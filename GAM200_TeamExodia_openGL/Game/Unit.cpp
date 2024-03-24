@@ -10,7 +10,7 @@
 #include "../Engine/MergeCollision.h"
 #include "../Engine/Collision.h"
 
-Unit::Unit(Math::vec2 position, double range) : GameObject(position), range(range)
+Unit::Unit(double range, Math::vec2 position) : GameObject(position), range(range)
 {
     AddGOComponent(new GAM200::MergeCircleCollision(radius, this));
     AddGOComponent(new GAM200::CircleCollision(range, this));

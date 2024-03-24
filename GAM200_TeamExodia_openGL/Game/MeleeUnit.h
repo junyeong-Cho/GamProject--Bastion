@@ -6,6 +6,7 @@
 class MeleeUnit : public Unit
 {
 public:
+    MeleeUnit(double range = Map::basic_size * 0.75, Math::vec2 position = Map::middle_point) : Unit(range, position) { }
 
     virtual void Update(double dt) override;
     //virtual void Draw(Math::TransformationMatrix camera_matrix) override;

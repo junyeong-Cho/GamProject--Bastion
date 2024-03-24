@@ -136,21 +136,6 @@
     <ClCompile Include="Game\MainMenu.cpp">
       <Filter>Game\Modes</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Unit.cpp">
-      <Filter>Game\Objests</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\MeleeUnit.cpp">
-      <Filter>Game\Objests</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\RangedUnit.cpp">
-      <Filter>Game\Objests</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\MagicUnit.cpp">
-      <Filter>Game\Objests</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Monster.cpp">
-      <Filter>Game\Objests</Filter>
-    </ClCompile>
     <ClCompile Include="Modes\Game.cpp">
       <Filter>Game\Modes</Filter>
     </ClCompile>
@@ -168,6 +153,14 @@
     </ClCompile>
     <ClCompile Include="Season 1\Game\Life.cpp">
       <Filter>Game\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\MagicUnit.cpp" />
+    <ClCompile Include="Game\MeleeUnit.cpp" />
+    <ClCompile Include="Game\Monster.cpp" />
+    <ClCompile Include="Game\RangedUnit.cpp" />
+    <ClCompile Include="Game\Unit.cpp" />
+    <ClCompile Include="Component\Wave.cpp">
+      <Filter>Game\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -300,20 +293,8 @@
     <ClInclude Include="Game\Store.h">
       <Filter>Game\Modes</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Unit.h">
-      <Filter>Game\Objests</Filter>
-    </ClInclude>
     <ClInclude Include="Component\Diamond.h">
       <Filter>Game\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\MeleeUnit.h">
-      <Filter>Game\Objests</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\RangedUnit.h">
-      <Filter>Game\Objests</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\MagicUnit.h">
-      <Filter>Game\Objests</Filter>
     </ClInclude>
     <ClInclude Include="Component\GameSpeed.h">
       <Filter>Game\Components</Filter>
@@ -323,9 +304,6 @@
     </ClInclude>
     <ClInclude Include="Component\MonsterLimit.h">
       <Filter>Game\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Monster.h">
-      <Filter>Game\Objests</Filter>
     </ClInclude>
     <ClInclude Include="Component\Map.h">
       <Filter>Game\Components</Filter>
@@ -341,6 +319,14 @@
     </ClInclude>
     <ClInclude Include="Season 1\Game\Life.h">
       <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\MagicUnit.h" />
+    <ClInclude Include="Game\MeleeUnit.h" />
+    <ClInclude Include="Game\Monster.h" />
+    <ClInclude Include="Game\RangedUnit.h" />
+    <ClInclude Include="Game\Unit.h" />
+    <ClInclude Include="Component\Wave.h">
+      <Filter>Game\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

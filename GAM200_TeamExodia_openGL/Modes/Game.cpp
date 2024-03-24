@@ -3,12 +3,15 @@
 
 #include "../Engine/ShowCollision.h"
 #include "../Engine/DrawShape.h"
+#include "../Engine/Font.h"
+#include "../Engine/Texture.h"
 
 #include "../Component/MonsterLimit.h"
 #include "../Component/Gold.h"
 #include "../Component/GameSpeed.h"
 #include "../Component/Diamond.h"
 #include "../Component/Map.h"
+#include "../Component/Wave.h"
 
 #include "../Game/Unit.h"
 
@@ -16,7 +19,7 @@
 #include "../Game/MeleeUnit.h"
 #include "../Game/RangedUnit.h"
 #include "../Game/MagicUnit.h"
-
+#include "../Game/Fonts.h"
 
 Game::Game()
 {
@@ -40,6 +43,8 @@ void Game::Load()
 	AddGSComponent(new Gold(100));			// Initial Gold
 	AddGSComponent(new Diamond(100));		// Initial Diamond
 	AddGSComponent(new Map());
+	AddGSComponent(new Wave());
+	GetGSComponent<Wave>()->SetWave("assets/maps/Wave1.txt");
 
 
 #ifdef _DEBUG
@@ -58,7 +63,7 @@ void Game::Update(double dt)
 	GetGSComponent<GAM200::GameObjectManager>()->CollisionTest();
 	GetGSComponent<GAM200::GameObjectManager>()->MergeTest();
 
-
+	GetGSComponent<Wave>()->Update(dt);
 
 
 #ifdef _DEBUG
@@ -74,7 +79,6 @@ void Game::Update(double dt)
 
 	}*/
 
-
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::M))
 	{
 		new TestMonster();
@@ -83,8 +87,13 @@ void Game::Update(double dt)
 	{
 		new TestUnit();
 	}
+	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::K))
+	{
+		GetGSComponent<Wave>()->Skip();
+	}
 
 
+	time.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 0xFFFFFFFF));
 
 }
 
@@ -100,6 +109,9 @@ void Game::Draw()
 {
 	GetGSComponent<Map>()->Draw();
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
+
+	if(GetGSComponent<Wave>()->IsResting())
+		time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 770 }));
 }
 
 void Game::ImguiDraw()

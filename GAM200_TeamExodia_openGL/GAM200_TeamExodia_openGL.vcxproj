@@ -110,6 +110,7 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Component\Wave.cpp" />
     <ClCompile Include="Engine\Animation.cpp" />
     <ClCompile Include="Engine\Audio.cpp" />
     <ClCompile Include="Engine\Camera.cpp" />
@@ -160,6 +161,7 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClInclude Include="Component\Gold.h" />
     <ClInclude Include="Component\Map.h" />
     <ClInclude Include="Component\MonsterLimit.h" />
+    <ClInclude Include="Component\Wave.h" />
     <ClInclude Include="Engine\Animation.h" />
     <ClInclude Include="Engine\Audio.h" />
     <ClInclude Include="Engine\Camera.h" />

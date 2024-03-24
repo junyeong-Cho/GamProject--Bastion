@@ -5,6 +5,8 @@
 #include "../Engine/DrawShape.h"
 #include "../Engine/Collision.h"
 
+int Monster::remaining_monster = 0;
+
 Monster::Monster(MonsterInfo info) : GameObject(Map::middle_upper_left), info(info)
 {
 	SetPosition(Map::middle_upper_left);
@@ -12,6 +14,8 @@ Monster::Monster(MonsterInfo info) : GameObject(Map::middle_upper_left), info(in
 
 	AddGOComponent(new GAM200::CircleCollision(radius, this));
 	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
+
+	++remaining_monster;
 }
 
 Monster::Monster(MonsterInfo info, Math::vec2 position, Math::vec2 direction) : GameObject(position), info(info)

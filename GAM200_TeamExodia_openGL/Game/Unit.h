@@ -9,7 +9,7 @@
 class Unit : public GAM200::GameObject
 {
 public:
-    Unit(Math::vec2 position, double range);
+    Unit(double range, Math::vec2 position);
 
     virtual void Update(double dt);
     virtual void Draw(Math::TransformationMatrix camera_matrix);
@@ -48,7 +48,7 @@ protected:
 class TestUnit : public Unit
 {
 public:
-    TestUnit(Math::vec2 position = Map::middle_point, double range = Map::basic_size * 1.0) : Unit(position, range) { }
+    TestUnit(double range = Map::basic_size * 0.75, Math::vec2 position = Map::middle_point) : Unit(range, position) { }
 
 
     bool CanCollideWith(GameObjectTypes type) override 

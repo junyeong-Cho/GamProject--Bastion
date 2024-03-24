@@ -40,5 +40,6 @@ public:
 
 
 private:
+	std::unique_ptr<GAM200::Texture> time;
 
 };
