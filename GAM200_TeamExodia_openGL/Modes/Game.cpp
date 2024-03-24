@@ -74,9 +74,9 @@ void Game::Update(double dt)
 
 	// Go to "Lose Scene" TODO
 	/*MonsterLimit* monster_limit = GetGSComponent<MonsterLimit>();
-	if (monster_limit->GetCurrentMonster() > monster_limit->GetLimit())
+	if (monster_limit->GameOver())
 	{
-
+		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Lose));
 	}*/
 
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::M))
@@ -91,10 +91,28 @@ void Game::Update(double dt)
 	{
 		GetGSComponent<Wave>()->Skip();
 	}
+	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::_1))
+	{
+		new Sword();
+	}
+	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::_2))
+	{
+		new Bow();
+	}
+	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::_3))
+	{
+		new Bomb();
+	}
 
+	trash.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("A", 0xFFFFFFFF));
 
-	time.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 0xFFFFFFFF));
-
+	if (!GetGSComponent<Wave>()->IsResting())
+		time.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Next wave: ", 0xFFFFFFFF));
+	else
+		time.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 0xFFFFFFFF));
+	gold.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Gold: " + std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 0xFFFFFFFF));
+	speed.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Speed: " + std::to_string(static_cast<int>(GetGSComponent<GameSpeed>()->GetSpeed())), 0xFFFFFFFF));
+	monsters.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Monster: " + std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 0xFFFFFFFF));
 }
 
 
@@ -110,8 +128,11 @@ void Game::Draw()
 	GetGSComponent<Map>()->Draw();
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
 
-	if(GetGSComponent<Wave>()->IsResting())
-		time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 770 }));
+	trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
+	time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 770 }));
+	gold->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 700 }));
+	speed->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 630 }));
+	monsters->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 560 }));
 }
 
 void Game::ImguiDraw()

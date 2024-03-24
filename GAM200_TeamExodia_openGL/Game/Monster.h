@@ -24,7 +24,7 @@ public:
 	Monster(MonsterInfo info);
 	// Constructor with position, directoin (Spawn at the certain position, maybe boss)
 	Monster(MonsterInfo info, Math::vec2 position, Math::vec2 direction);
-	~Monster() { --remaining_monster; }
+	~Monster();
 
 
 	virtual bool CanCollideWith(GameObjectTypes other_object_type)
@@ -41,6 +41,8 @@ public:
 	bool IsInside(Math::vec2 target_position) const;
 
 	static int GetRemainingMonster() { return remaining_monster; }
+
+	void TakeDamage(int damage) { info.life -= damage; Engine::GetLogger().LogDebug(std::to_string(damage) + "damage! Remaining hp: " + std::to_string(info.life)); }
 
 protected:
 	MonsterInfo info;

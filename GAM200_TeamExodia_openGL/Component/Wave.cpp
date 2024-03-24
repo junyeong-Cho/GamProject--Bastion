@@ -21,7 +21,6 @@ void Wave::SetWave(std::string file_name)
 		// The number of total waves
 		file >> total_wave;
 		wave_info.clear();
-		//wave_info.resize(total_wave);
 
 		double rest_time;
 		double wave_time;

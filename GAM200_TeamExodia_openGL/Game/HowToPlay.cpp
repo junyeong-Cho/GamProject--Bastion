@@ -90,7 +90,7 @@ void HowToPlay::Unload()
 
 void HowToPlay::Draw()
 {
-	Engine::GetWindow().Clear(0.2, 0.4, 0.7, 1.0);
+	Engine::GetWindow().Clear(0.2f, 0.4f, 0.7f, 1.0f);
 
 	back->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x / 2 + 220, (Engine::GetWindow().GetSize().y / 2 - 220) }));
 

@@ -146,9 +146,12 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClCompile Include="Game\Portal.cpp" />
     <ClCompile Include="Game\RangedUnit.cpp" />
     <ClCompile Include="Game\ScreenWrap.cpp" />
+    <ClCompile Include="Game\Sniper.cpp" />
+    <ClCompile Include="Game\Spear.cpp" />
     <ClCompile Include="Game\Splash.cpp" />
     <ClCompile Include="Game\Store.cpp" />
     <ClCompile Include="Game\Timer.cpp" />
+    <ClCompile Include="Game\Transform.cpp" />
     <ClCompile Include="Game\Unit.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Season 1\Game\Gold.cpp" />
@@ -206,10 +209,13 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClInclude Include="Game\Portal.h" />
     <ClInclude Include="Game\RangedUnit.h" />
     <ClInclude Include="Game\ScreenWrap.h" />
+    <ClInclude Include="Game\Sniper.h" />
+    <ClInclude Include="Game\Spear.h" />
     <ClInclude Include="Game\Splash.h" />
     <ClInclude Include="Game\States.h" />
     <ClInclude Include="Game\Store.h" />
     <ClInclude Include="Game\Timer.h" />
+    <ClInclude Include="Game\Transform.h" />
     <ClInclude Include="Season 1\Game\Gold.h" />
     <ClInclude Include="Season 1\Game\Life.h" />
     <ClInclude Include="Game\Unit.h" />

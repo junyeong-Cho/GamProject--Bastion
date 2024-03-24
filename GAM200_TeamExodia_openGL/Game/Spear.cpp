@@ -1,5 +1,5 @@
 
-#include "RangedUnit.h"
+#include "Spear.h"
 
 #include "Monster.h"
 
@@ -7,7 +7,7 @@
 #include "../Engine/GameObjectManager.h"
 
 
-RangedUnit::RangedUnit(double attack_time, int damage, Math::vec2 position, double range) :
+SpearUnit::SpearUnit(double attack_time, int damage, Math::vec2 position, double range) :
     attack_time(attack_time),
     damage(damage),
     Unit(range, position)
@@ -17,7 +17,7 @@ RangedUnit::RangedUnit(double attack_time, int damage, Math::vec2 position, doub
     current_state->Enter(this);
 }
 
-void RangedUnit::Update(double dt)
+void SpearUnit::Update(double dt)
 {
     // Update GameObject
     GameObject::Update(dt);
@@ -27,7 +27,7 @@ void RangedUnit::Update(double dt)
 
 }
 
-void RangedUnit::ResolveCollision(GameObject* other_object)
+void SpearUnit::ResolveCollision(GameObject* other_object)
 {
     if (current_state->GetName() == "None")
         return;
@@ -42,36 +42,37 @@ void RangedUnit::ResolveCollision(GameObject* other_object)
     change_state(&state_none);*/
     // TODO
     Monster* target = static_cast<Monster*>(other_object);
+    //target->TakeDamage(damage);
     Engine::GetLogger().LogDebug(TypeName() + "Attacked!");
-    target->TakeDamage(damage);
+    Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(GetPosition(), range, damage);
     change_state(&state_none);
 }
 
-bool RangedUnit::CanMergeWith(GameObjectTypes type)
+bool SpearUnit::CanMergeWith(GameObjectTypes type)
 {
     return false;
 }
 
-void RangedUnit::ResolveMerge(GameObject* other_object)
+void SpearUnit::ResolveMerge(GameObject* other_object)
 {
 
 }
 
-void RangedUnit::State_None::Enter(GameObject* object)
+void SpearUnit::State_None::Enter(GameObject* object)
 {
-    RangedUnit* unit = static_cast<RangedUnit*>(object);
+    SpearUnit* unit = static_cast<SpearUnit*>(object);
 
     unit->attack_count = 0;
 }
-void RangedUnit::State_None::Update(GameObject* object, double dt)
+void SpearUnit::State_None::Update(GameObject* object, double dt)
 {
-    RangedUnit* unit = static_cast<RangedUnit*>(object);
+    SpearUnit* unit = static_cast<SpearUnit*>(object);
 
     unit->attack_count += dt;
 }
-void RangedUnit::State_None::CheckExit(GameObject* object)
+void SpearUnit::State_None::CheckExit(GameObject* object)
 {
-    RangedUnit* unit = static_cast<RangedUnit*>(object);
+    SpearUnit* unit = static_cast<SpearUnit*>(object);
 
     if (unit->attack_count >= unit->attack_time)
     {
@@ -79,15 +80,15 @@ void RangedUnit::State_None::CheckExit(GameObject* object)
     }
 }
 
-void RangedUnit::State_Attack::Enter(GameObject* object)
+void SpearUnit::State_Attack::Enter(GameObject* object)
 {
 
 }
-void RangedUnit::State_Attack::Update(GameObject* object, double dt)
+void SpearUnit::State_Attack::Update(GameObject* object, double dt)
 {
 
 }
-void RangedUnit::State_Attack::CheckExit(GameObject* object)
+void SpearUnit::State_Attack::CheckExit(GameObject* object)
 {
 
 

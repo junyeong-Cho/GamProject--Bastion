@@ -21,6 +21,27 @@ enum class GameObjectTypes
     Unit,
 
 
+    MeleeUnit,
+    Sword,
+
+
+    RangedUnit,
+    Bow,
+
+
+    MagicUnit,
+    Bomb,
+
+    SpearUnit,
+    Spear,
+
+    TransformUnit,
+    Transform,
+
+    SniperUnit,
+    Sniper,
+
+
 
     
     //CS230

@@ -18,6 +18,12 @@ Unit::Unit(double range, Math::vec2 position) : GameObject(position), range(rang
     Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
 
+Unit::~Unit()
+{
+    RemoveGOComponent<GAM200::MergeCircleCollision>();
+    RemoveGOComponent<GAM200::CircleCollision>();
+}
+
 void Unit::Update(double dt)
 {
     GameObject::Update(dt);

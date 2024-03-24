@@ -10,6 +10,7 @@ class Unit : public GAM200::GameObject
 {
 public:
     Unit(double range, Math::vec2 position);
+    ~Unit();
 
     virtual void Update(double dt);
     virtual void Draw(Math::TransformationMatrix camera_matrix);
@@ -17,7 +18,10 @@ public:
     GameObjectTypes Type() override { return GameObjectTypes::Unit; }
     std::string TypeName() override { return "Unit"; }
 
-    virtual bool CanCollideWith(GameObjectTypes type) override = 0;
+    virtual bool CanCollideWith(GameObjectTypes type) override
+    {
+        return type == GameObjectTypes::Monster ? true : false;
+    }
     virtual void ResolveCollision(GameObject* other_object) override = 0;
 
     virtual bool CanMergeWith(GameObjectTypes type) override = 0;
@@ -51,13 +55,6 @@ public:
     TestUnit(double range = Map::basic_size * 0.75, Math::vec2 position = Map::middle_point) : Unit(range, position) { }
 
 
-    bool CanCollideWith(GameObjectTypes type) override 
-    { 
-        if (type == GameObjectTypes::Monster)
-            return true;
-        else
-            return false;
-    }
     void ResolveCollision(GameObject* other_object) override { }
 
     bool CanMergeWith(GameObjectTypes type) override { return false; }
