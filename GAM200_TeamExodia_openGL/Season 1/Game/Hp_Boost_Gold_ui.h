@@ -18,100 +18,25 @@ Updated:    December	15, 2023
 #include "../Engine/Texture.h"
 #include "../Game/GameObjectTypes.h"
 
+#include "Button.h"
+
 class Button;
 class HBG_Ui : public GAM200::Component {
 public:
 
-    HBG_Ui(int hp, int gold, int boost);
-
+    HBG_Ui();
 
     void Update();
 
     void Draw();
 
-
-
-    GAM200::Texture HBG_BASE = GAM200::Texture("assets/images/ui/HBG/HBG_BASE.png", GAM200::Texture::TextureType::RECTANGLE);
-
-    GAM200::Texture HP_EFFECT = GAM200::Texture("assets/images/ui/HBG/HP_EFFECT.png", GAM200::Texture::TextureType::RECTANGLE);
-    GAM200::Texture HP_COVER = GAM200::Texture("assets/images/ui/HBG/HP_COVER.png", GAM200::Texture::TextureType::RECTANGLE);
-
-    GAM200::Texture GOLD_COVER = GAM200::Texture("assets/images/ui/HBG/GOLD_COVER.png", GAM200::Texture::TextureType::RECTANGLE);
-
-    GAM200::Texture BOOST_COVER = GAM200::Texture("assets/images/ui/HBG/BOOST_COVER.png", GAM200::Texture::TextureType::RECTANGLE);
-
-
-    GAM200::Texture life = GAM200::Texture("assets/images/ui/HBG/hp_back.png", GAM200::Texture::TextureType::RECTANGLE);
-
-    std::unique_ptr<GAM200::Texture>  remaining_gold;
-
-
-   
-    int Player_HP;
-    int Tower_GOLD;
-    int Player_BOOST;
-    int aim_position;
-    int wall_hp;
 private:
-
-
-
-    enum class Animations
-    {
-        Idle,
-        Moving,
-        Dashing,
-        Skidding,
-    };
-
-    Button* w_button = nullptr;
-
-    Button* basic_t_button = nullptr;
-    Button* double_t_button = nullptr;
-    Button* triple_t_button = nullptr;
-
-    Button* delete_t_button = nullptr;
-    Button* pass_t_button = nullptr;
-    Button* block_t_button = nullptr;
-
-    Button* push_t_button = nullptr;
-    Button* wide_t_button = nullptr;
-
-    Button* upgrade_button = nullptr;
-    Button* delete_button = nullptr;
-
-    Button* choice_1_button = nullptr;
-    Button* choice_2_button = nullptr;
-    Button* choice_3_button = nullptr;
-
-
-
-};
-
-class HP : public HBG_Ui
-{
-public:
-    void draw_hp();
-    int hp_up_and_down();
-private:
-
-};
-
-class GOLD : public HBG_Ui
-{
-public:
-    void draw_gold();
-    int gold_up_and_down();
-private:
-
-};
-
-
-class BOOST : public HBG_Ui
-{
-public:
-    void draw_boost();
-    int boost_up_and_down();
-private:
-
+    Button* store_easy = nullptr;
+    Button* store_normal = nullptr;
+    Button* store_hard = nullptr;
+    Button* store_ingame = nullptr;
+    Button* store_gold = nullptr;
+    Button* store_life = nullptr;
+    Button* store_menu = nullptr;
+    Button* store_game_start = nullptr;
 };

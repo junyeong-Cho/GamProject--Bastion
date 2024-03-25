@@ -1,5 +1,5 @@
 
-#include "RangedUnit.h"
+#include "Sniper.h"
 
 #include "Monster.h"
 
@@ -7,7 +7,7 @@
 #include "../Engine/GameObjectManager.h"
 
 
-RangedUnit::RangedUnit(double attack_time, int damage, Math::vec2 position, double range) :
+SniperUnit::SniperUnit(double attack_time, int damage, Math::vec2 position, double range) :
     attack_time(attack_time),
     damage(damage),
     Unit(range, position)
@@ -17,7 +17,7 @@ RangedUnit::RangedUnit(double attack_time, int damage, Math::vec2 position, doub
     current_state->Enter(this);
 }
 
-void RangedUnit::Update(double dt)
+void SniperUnit::Update(double dt)
 {
     // Update GameObject
     GameObject::Update(dt);
@@ -27,7 +27,7 @@ void RangedUnit::Update(double dt)
 
 }
 
-void RangedUnit::ResolveCollision(GameObject* other_object)
+void SniperUnit::ResolveCollision(GameObject* other_object)
 {
     if (current_state->GetName() == "None")
         return;
@@ -47,31 +47,31 @@ void RangedUnit::ResolveCollision(GameObject* other_object)
     change_state(&state_none);
 }
 
-bool RangedUnit::CanMergeWith(GameObjectTypes type)
+bool SniperUnit::CanMergeWith(GameObjectTypes type)
 {
     return false;
 }
 
-void RangedUnit::ResolveMerge(GameObject* other_object)
+void SniperUnit::ResolveMerge(GameObject* other_object)
 {
 
 }
 
-void RangedUnit::State_None::Enter(GameObject* object)
+void SniperUnit::State_None::Enter(GameObject* object)
 {
-    RangedUnit* unit = static_cast<RangedUnit*>(object);
+    SniperUnit* unit = static_cast<SniperUnit*>(object);
 
     unit->attack_count = 0;
 }
-void RangedUnit::State_None::Update(GameObject* object, double dt)
+void SniperUnit::State_None::Update(GameObject* object, double dt)
 {
-    RangedUnit* unit = static_cast<RangedUnit*>(object);
+    SniperUnit* unit = static_cast<SniperUnit*>(object);
 
     unit->attack_count += dt;
 }
-void RangedUnit::State_None::CheckExit(GameObject* object)
+void SniperUnit::State_None::CheckExit(GameObject* object)
 {
-    RangedUnit* unit = static_cast<RangedUnit*>(object);
+    SniperUnit* unit = static_cast<SniperUnit*>(object);
 
     if (unit->attack_count >= unit->attack_time)
     {
@@ -79,15 +79,15 @@ void RangedUnit::State_None::CheckExit(GameObject* object)
     }
 }
 
-void RangedUnit::State_Attack::Enter(GameObject* object)
+void SniperUnit::State_Attack::Enter(GameObject* object)
 {
 
 }
-void RangedUnit::State_Attack::Update(GameObject* object, double dt)
+void SniperUnit::State_Attack::Update(GameObject* object, double dt)
 {
 
 }
-void RangedUnit::State_Attack::CheckExit(GameObject* object)
+void SniperUnit::State_Attack::CheckExit(GameObject* object)
 {
 
 

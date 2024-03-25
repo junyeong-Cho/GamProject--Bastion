@@ -40,5 +40,10 @@ public:
 
 
 private:
+	std::unique_ptr<GAM200::Texture> trash;
 
+	std::unique_ptr<GAM200::Texture> time;
+	std::unique_ptr<GAM200::Texture> gold;
+	std::unique_ptr<GAM200::Texture> speed;
+	std::unique_ptr<GAM200::Texture> monsters;
 };

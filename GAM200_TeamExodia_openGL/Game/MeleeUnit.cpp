@@ -1,7 +1,21 @@
 
 #include "MeleeUnit.h"
 
+#include "Monster.h"
 
+#include "../Engine/Engine.h"
+#include "../Engine/GameObjectManager.h"
+
+
+MeleeUnit::MeleeUnit(double attack_time, int damage, Math::vec2 position, double range) :
+    attack_time(attack_time),
+    damage(damage),
+    Unit(range, position)
+{ 
+
+    current_state = &state_none;
+    current_state->Enter(this);
+}
 
 void MeleeUnit::Update(double dt)
 {
@@ -11,20 +25,70 @@ void MeleeUnit::Update(double dt)
     // Mouse events
     HandleMouseInput();
 
-    // Logger things to trace state
-    if (not_clicked)
-    {
-        Engine::GetLogger().LogDebug("Not click");
-    }
-    else if (drop)
-    {
-        Engine::GetLogger().LogDebug("Drop");
-    }
-    else if (is_moving)
-    {
-        Engine::GetLogger().LogDebug("Moving");
-    }
+}
 
+void MeleeUnit::ResolveCollision(GameObject* other_object)
+{
+    if (current_state->GetName() == "None")
+        return;
+    if (is_moving)
+        return;
+
+    /*Monster* target = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetClosestMonster(this);
+    if (target == nullptr)
+        return;
+    Engine::GetLogger().LogDebug("Melee Unit attacked the monster!");
+    target->TakeDamage(damage);
+    change_state(&state_none);*/
+    // TODO
+    Monster* target = static_cast<Monster*>(other_object);
+    Engine::GetLogger().LogDebug(TypeName() + "Attacked!");
+    target->TakeDamage(damage);
+    change_state(&state_none);
+}
+
+bool MeleeUnit::CanMergeWith(GameObjectTypes type)
+{
+    return false;
+}
+
+void MeleeUnit::ResolveMerge(GameObject* other_object)
+{
+
+}
+
+void MeleeUnit::State_None::Enter(GameObject* object)
+{
+    MeleeUnit* unit = static_cast<MeleeUnit*>(object);
+
+    unit->attack_count = 0;
+}
+void MeleeUnit::State_None::Update(GameObject* object, double dt)
+{
+    MeleeUnit* unit = static_cast<MeleeUnit*>(object);
+
+    unit->attack_count += dt;
+}
+void MeleeUnit::State_None::CheckExit(GameObject* object)
+{
+    MeleeUnit* unit = static_cast<MeleeUnit*>(object);
+
+    if (unit->attack_count >= unit->attack_time)
+    {
+        unit->change_state(&unit->state_attacking); 
+    }
+}
+
+void MeleeUnit::State_Attack::Enter(GameObject* object)
+{
+
+}
+void MeleeUnit::State_Attack::Update(GameObject* object, double dt)
+{
+
+}
+void MeleeUnit::State_Attack::CheckExit(GameObject* object)
+{
 
 
 }

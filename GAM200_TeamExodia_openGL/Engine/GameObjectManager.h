@@ -21,6 +21,7 @@ Updated:    September 26, 2023
 namespace Math { class TransformationMatrix; }
 
 class Unit;
+class Monster;
 
 namespace GAM200
 {
@@ -38,6 +39,11 @@ namespace GAM200
 
         Unit* GetClosestUnit(Unit* unit);
         Unit* GetClosestUnit(Math::vec2 position);
+
+        Monster* GetClosestMonster(Unit* unit);
+        Monster* GetClosestMonster(Math::vec2 position);
+
+        void WideDamage(Math::vec2 position, double radius, int damage);
 
     private:
         std::list<GameObject*> objects;

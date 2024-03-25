@@ -10,12 +10,18 @@
 #include "../Engine/MergeCollision.h"
 #include "../Engine/Collision.h"
 
-Unit::Unit(Math::vec2 position, double range) : GameObject(position), range(range)
+Unit::Unit(double range, Math::vec2 position) : GameObject(position), range(range)
 {
     AddGOComponent(new GAM200::MergeCircleCollision(radius, this));
     AddGOComponent(new GAM200::CircleCollision(range, this));
 
     Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
+}
+
+Unit::~Unit()
+{
+    RemoveGOComponent<GAM200::MergeCircleCollision>();
+    RemoveGOComponent<GAM200::CircleCollision>();
 }
 
 void Unit::Update(double dt)

@@ -24,6 +24,7 @@ public:
 	Monster(MonsterInfo info);
 	// Constructor with position, directoin (Spawn at the certain position, maybe boss)
 	Monster(MonsterInfo info, Math::vec2 position, Math::vec2 direction);
+	~Monster();
 
 
 	virtual bool CanCollideWith(GameObjectTypes other_object_type)
@@ -39,6 +40,10 @@ public:
 
 	bool IsInside(Math::vec2 target_position) const;
 
+	static int GetRemainingMonster() { return remaining_monster; }
+
+	void TakeDamage(int damage) { info.life -= damage; Engine::GetLogger().LogDebug(std::to_string(damage) + "damage! Remaining hp: " + std::to_string(info.life)); }
+
 protected:
 	MonsterInfo info;
 
@@ -46,6 +51,9 @@ protected:
 	static inline double speed = Map::basic_size;
 
 	static inline double offset = Map::basic_size;
+
+private:
+	static int remaining_monster;
 };
 
 class TestMonster : public Monster

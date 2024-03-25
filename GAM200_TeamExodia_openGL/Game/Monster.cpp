@@ -5,6 +5,10 @@
 #include "../Engine/DrawShape.h"
 #include "../Engine/Collision.h"
 
+#include "../Component/Gold.h"
+
+int Monster::remaining_monster = 0;
+
 Monster::Monster(MonsterInfo info) : GameObject(Map::middle_upper_left), info(info)
 {
 	SetPosition(Map::middle_upper_left);
@@ -12,6 +16,8 @@ Monster::Monster(MonsterInfo info) : GameObject(Map::middle_upper_left), info(in
 
 	AddGOComponent(new GAM200::CircleCollision(radius, this));
 	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
+
+	++remaining_monster;
 }
 
 Monster::Monster(MonsterInfo info, Math::vec2 position, Math::vec2 direction) : GameObject(position), info(info)
@@ -20,6 +26,12 @@ Monster::Monster(MonsterInfo info, Math::vec2 position, Math::vec2 direction) : 
 	SetVelocity({ direction.x * speed * info.speed_scale, direction.y * speed * info.speed_scale });
 }
 
+Monster::~Monster() 
+{
+	Engine::GetGameStateManager().GetGSComponent<Gold>()->Earn(1);
+	RemoveGOComponent<GAM200::CircleCollision>();
+	--remaining_monster;
+}
 
 void Monster::Update(double dt)
 {
@@ -42,6 +54,11 @@ void Monster::Update(double dt)
 	else if (IsInside(Map::outer_upper_left))
 	{
 		SetVelocity({ 0, -speed * info.speed_scale });
+	}
+
+	if (info.life <= 0)
+	{
+		Destroy();
 	}
 }
 

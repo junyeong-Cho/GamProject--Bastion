@@ -14,6 +14,16 @@ public:
 
     void NextSpeed() { (speed == 4) ? (speed = 1) : (++speed); }
 
+    virtual void Update(double) override
+    {
+        if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Tab))
+        {
+            NextSpeed();
+            Engine::GetLogger().LogDebug("Speed Changed to " + std::to_string(speed));
+            //Engine::Instance().SetGameSpeed(GetSpeed());
+        }
+    }
+
 private:
-    double speed = 1;
+    double speed = 1.0;
 };

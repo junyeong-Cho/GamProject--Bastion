@@ -1,14 +1,23 @@
 #pragma once
 
 #include "Unit.h"
-
+#include "Spear.h"
+#include "Transform.h"
 
 class MeleeUnit : public Unit
 {
 public:
+    MeleeUnit(double attack_time, int damage, Math::vec2 position = Map::middle_point, double range = Map::basic_size * 0.75);
 
     virtual void Update(double dt) override;
-    //virtual void Draw(Math::TransformationMatrix camera_matrix) override;
+
+
+    virtual void ResolveCollision(GameObject* other_object) override;
+    virtual bool CanMergeWith(GameObjectTypes type) override;
+    virtual void ResolveMerge(GameObject* other_object) override;
+
+    virtual GameObjectTypes Type() override { return GameObjectTypes::MeleeUnit; }
+    virtual std::string TypeName() override { return "MeleeUnit"; }
 
 protected:
     class State_None : public State
@@ -27,20 +36,56 @@ protected:
         virtual void CheckExit(GameObject* object) override;
         std::string GetName() override { return "Attack"; }
     };
-    class State_Skill : public State
-    {
-    public:
-        virtual void Enter(GameObject* object) override;
-        virtual void Update(GameObject* object, double dt) override;
-        virtual void CheckExit(GameObject* object) override;
-        std::string GetName() override { return "Skill"; }
-    };
 
     State_None      state_none;
     State_Attack    state_attacking;
-    State_Skill     state_skill;
 
-private:
+protected:
+    double attack_count = 0.0;
+    double attack_time = 0.0;
+    int damage = 0;
+
+};
 
 
+
+
+class Sword : public MeleeUnit
+{
+public:
+    Sword(Math::vec2 position = Map::middle_point) : MeleeUnit(1.0, 3, position) { }
+
+    GameObjectTypes Type() override { return GameObjectTypes::Sword; }
+    std::string TypeName() override { return "Sword"; }
+
+
+    bool CanMergeWith(GameObjectTypes type)
+    {
+        switch (type)
+        {
+        case GameObjectTypes::Bomb:
+            return true;
+
+        case GameObjectTypes::Bow:
+            return true;
+
+        default:
+            return false;
+        }
+    }
+    void ResolveMerge(GameObject* other_object)
+    {
+        if (other_object->Type() == GameObjectTypes::Bomb)
+        {
+            new Spear(GetPosition());
+            other_object->Destroy();
+            Destroy();
+        }
+        else if (other_object->Type() == GameObjectTypes::Bow)
+        {
+            new Transform(GetPosition());
+            other_object->Destroy();
+            Destroy();
+        }
+    }
 };
