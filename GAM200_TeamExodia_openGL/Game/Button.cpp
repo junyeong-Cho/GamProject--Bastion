@@ -12,27 +12,28 @@ Updated:    December 15, 2023
 #include "../Engine/GameObjectManager.h"
 
 #include "Button.h"
-#include "Map.h"
+#include "../Component/Map.h"
 
 #include "../Engine/DrawShape.h"
-#include "Wave.h"
+#include "../Component/Wave.h"
 
-#include "../Game/Gold.h"
-#include "../Game/Gold.h"
+#include "Gold.h"
+#include "Life.h"
 #include "../Game/States.h"
 
 Button::Button(Math::vec2 position, Math::vec2 size) : GameObject(position), position(position), size(size)
 {
-	//AddGOComponent(new GAM200::Sprite("assets/Buttons/Button.spt", (this)));
-	//Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
+
 }
+
+int Button::difficult = 0;
+
 void Button::Update(double dt)
 {
 	GameObject::Update(dt);
 	if (IsClicked()) {
 		func();
 	}
-
 }
 void Button::func()
 {
@@ -56,67 +57,57 @@ bool Button::IsClicked()
 	return false;
 }
 
-void Button::Draw(Math::TransformationMatrix camera_matrix)
-{
-	if (stage[0]) { // If stage == store
-		store_gold.Draw(100, 180, 200, 100);
-		store_life.Draw(350, 180, 200, 100);
-		store_menu.Draw(1030, 50, 200, 150);
-		store_game_start.Draw(830, 50, 200, 150);
-		store_easy.Draw(100, 420, 200, 150);
-		store_normal.Draw(400, 420, 200, 150);
-		store_hard.Draw(700, 420, 200, 150);
-		store_ingame.Draw(1000, 420, 200, 150);
-	}
-	//store_gold.Draw(100, 180, 300, 280);
-
-}
+//void Button::Draw(Math::TransformationMatrix camera_matrix)
+//{
+//	if (stage[0]) { // If stage == store
+//		//store_gold.Draw(100, 180, 200, 100);
+//		//store_life.Draw(350, 180, 200, 100);
+//		//store_menu.Draw(1030, 50, 200, 150);
+//		//store_game_start.Draw(830, 50, 200, 150);
+//		//store_easy.Draw(100, 420, 200, 150);
+//		//store_normal.Draw(400, 420, 200, 150);
+//		//store_hard.Draw(700, 420, 200, 150);
+//		//store_ingame.Draw(1000, 420, 200, 150);
+//	}
+//}
 
 Store_Easy_Button::Store_Easy_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
-	//stage[0] = true;
-	//stage[1] = false;
-	//AddGOComponent(new GAM200::Sprite("assets/Buttons/Store_Easy.spt", (this)));
+	AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Easy.spt", (this)));
 }
 
 void Store_Easy_Button::func() {
-
+	Button::difficult = 1;
+	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
 }
-
-void Store_Easy_Button::Draw(Math::TransformationMatrix camera_matrix) {
-	Draw(Math::TransformationMatrix());
-}
-
 
 Store_Normal_Button::Store_Normal_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
-	stage[0] = true;
-	stage[1] = false;
+	AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Normal.spt", (this)));
 }
 
 void Store_Normal_Button::func() {
-
+	Button::difficult = 2;
+	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
 }
 Store_Hard_Button::Store_Hard_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
-	stage[0] = true;
-	stage[1] = false;
+	AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Hard.spt", (this)));
 }
 
 void Store_Hard_Button::func() {
-
+	Button::difficult = 3;
+	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
 }
 
 Store_InGame_Button::Store_InGame_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
-	stage[0] = true;
-	stage[1] = false;
+	AddGOComponent(new GAM200::Sprite("assets/buttons/Store_InGame.spt", (this)));
 }
 
 void Store_InGame_Button::func() {
-
+	Button::difficult = 4;
+	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
 }
 
 Store_Gold_Button::Store_Gold_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
-	stage[0] = true;
-	stage[1] = false;
-
+	AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Gold.spt", (this)));
 }
 void Store_Gold_Button::func() {
 	if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() > 0) {
@@ -126,8 +117,7 @@ void Store_Gold_Button::func() {
 }
 
 Store_Life_Button::Store_Life_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
-	stage[0] = true;
-	stage[1] = false;
+	AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Life.spt", (this)));
 }
 void Store_Life_Button::func() {
 	if (Engine::GetGameStateManager().GetGSComponent<Life>()->Value() > 0) {
@@ -136,17 +126,16 @@ void Store_Life_Button::func() {
 }
 
 Store_Menu_Button::Store_Menu_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
-	stage[0] = true;
-	stage[1] = false;
+	AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Menu.spt", (this)));
 }
 void Store_Menu_Button::func() {
 	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
 }
 
 Store_GameStart_Button::Store_GameStart_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
-	stage[0] = true;
-	stage[1] = false;
+
 }
+
 void Store_GameStart_Button::func() {
 	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
 }

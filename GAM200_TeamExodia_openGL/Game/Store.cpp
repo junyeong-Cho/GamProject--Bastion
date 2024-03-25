@@ -14,6 +14,8 @@ Created:    March 14, 2024
 #include "../Engine/GameObject.h"
 #include "../Engine/GameObjectManager.h"
 #include "Fonts.h"
+#include "../Game/Button.h"
+
 
 #include <filesystem>
 #include <imgui.h>
@@ -24,7 +26,6 @@ Created:    March 14, 2024
 
 Store::Store()
 {
-	//Store_Gold = new Store_Gold_Button(Math::vec2(1120 - 40, 720 - 630), Math::vec2(180, 60));
 }
 
 void Store::Load()
@@ -34,16 +35,17 @@ void Store::Load()
 	AddGSComponent(new Gold());
 	AddGSComponent(new Life());
 
-	AddGSComponent(new HBG_Ui());
+	GetGSComponent<GAM200::GameObjectManager>()->Add(new Store_Easy_Button({ 100, 420 }, { 200, 150 }));
+	GetGSComponent<GAM200::GameObjectManager>()->Add(new Store_Normal_Button({ 400, 420 }, { 200, 150 }));
+	GetGSComponent<GAM200::GameObjectManager>()->Add(new Store_Hard_Button({ 700, 420 }, { 200, 150 }));
+	GetGSComponent<GAM200::GameObjectManager>()->Add(new Store_InGame_Button({ 1000, 420 }, { 200, 150 }));
+	GetGSComponent<GAM200::GameObjectManager>()->Add(new Store_Gold_Button({ 100, 180 }, { 200, 100 }));
+	GetGSComponent<GAM200::GameObjectManager>()->Add(new Store_Life_Button({ 350, 180 }, { 200, 100 }));
+	GetGSComponent<GAM200::GameObjectManager>()->Add(new Store_Menu_Button({ 1030, 50 }, { 200, 150 }));
 
     counter = 0;
 
-	store_background = Engine::Instance().GetTextureManager().Load("assets/images/store_background.png");
-
-	select1 = Engine::Instance().GetTextureManager().Load("assets/images/Select1.png");
-	select2 = Engine::Instance().GetTextureManager().Load("assets/images/Select2.png");
-	select3 = Engine::Instance().GetTextureManager().Load("assets/images/Select3.png");
-	select4 = Engine::Instance().GetTextureManager().Load("assets/images/Select4.png");
+	store_background = Engine::Instance().GetTextureManager().Load("assets/buttons/store_background.png");
 }
 
 void Store::Update(double dt)
@@ -51,19 +53,19 @@ void Store::Update(double dt)
 
 	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
 
-	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Escape))
-	{
-		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
-	}
+	//if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Escape))
+	//{
+	//	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
+	//}
 
-	if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Enter))
-	{
-		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
-	}
+	//if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Enter))
+	//{
+	//	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
+	//}
 
 
-	gold.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Gold :" + std::to_string(GetGSComponent<Gold>()->Value()), 0xFFFFFFFF));
-	life.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Life :" + std::to_string(GetGSComponent<Life>()->Value()), 0xFFFFFFFF));
+	gold.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Gold :" + std::to_string(GetGSComponent<Gold>()->Value()), 0xFFFFFFFF));
+	life.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Life :" + std::to_string(GetGSComponent<Life>()->Value()), 0xFFFFFFFF));
 	//difficulty.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Difficulty :" + SelectedDifficulty(), 0xFFFFFFFF));
 }
 
@@ -79,16 +81,6 @@ void Store::Draw()
 	//Engine::GetWindow().Clear(0.5, 0.5, 0.5, 1.0);
 	store_background->Draw(Math::TranslationMatrix(Math::ivec2{ 0 ,0 }));
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
-
-
-
-	//select1->Draw(Math::TranslationMatrix(Math::ivec2{ 100 ,Engine::GetWindow().GetSize().y/2 +60 }));
-	//select2->Draw(Math::TranslationMatrix(Math::ivec2{ 400 ,Engine::GetWindow().GetSize().y / 2 +60}));
-	//select3->Draw(Math::TranslationMatrix(Math::ivec2{ 700 ,Engine::GetWindow().GetSize().y / 2 +60}));
-	//select4->Draw(Math::TranslationMatrix(Math::ivec2{ 1000 ,Engine::GetWindow().GetSize().y / 2 +60}));
-
-	//menu->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 250 , 50 }));
-	//game_start->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x - 450 , 50 }));
 
 	gold->Draw(Math::TranslationMatrix(Math::ivec2{ 0, (Engine::GetWindow().GetSize().y) }));
 	life->Draw(Math::TranslationMatrix(Math::ivec2{ 0, (Engine::GetWindow().GetSize().y - 60) }));
