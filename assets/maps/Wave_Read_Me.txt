@@ -4,8 +4,8 @@ Tower Information Format:
 - Total Wave	: <value>
 
 - Wave Info	: <rest_time> <wave_time> <enemy_type> <enemy_num>
-  	     	  <rest_time> <wave_time> <enemy_type> <enemy_num>
-		  ...
+  	     	  	  <rest_time> <wave_time> <enemy_type> <enemy_num>
+		  	   ...
 
 Example:
 
