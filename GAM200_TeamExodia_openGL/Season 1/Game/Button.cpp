@@ -19,355 +19,128 @@ Updated:    December 15, 2023
 #include "Wave.h"
 #include "Tower.h"
 
+#include "../Season 1/Game/Gold.h"
+#include "../Season 1/Game/Life.h"
+#include "../Game/States.h"
+
 Button::Button(Math::vec2 position, Math::vec2 size) : GameObject(position), position(position), size(size)
 {
-	tile_size = Map::GetInstance().GetSize();
+	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 }
 void Button::Update(double dt)
 {
+	if (IsClicked()) {
+		func();
+	}
+
 }
-void Button::func(Math::ivec2 pos)
+void Button::func()
 {
 
 }
 bool Button::IsClicked()
 {
 	mouse_position = Engine::GetInput().GetMousePosition();
-	mouse_tile_position = Math::ivec2(static_cast<int>(mouse_position.x / tile_size.x), static_cast<int>(mouse_position.y / tile_size.y));
 
 	is_on = mouse_position.x >= position.x && mouse_position.x <= position.x + size.x && mouse_position.y >= position.y && mouse_position.y <= position.y + size.y;
 
-	if (is_on == false)
+	if (!is_on) {
 		return false;
+	}
 
-	if (Engine::GetInput().MouseJustReleased(GAM200::Input::MouseButtons::LEFT) && is_activated)
+	if (Engine::GetInput().MouseJustReleased(GAM200::Input::MouseButtons::LEFT) && is_on)
 	{
-		func(mouse_tile_position);
 		return true;
 	}
+
+	return false;
 }
 
 void Button::Draw(Math::TransformationMatrix camera_matrix)
 {
-	GAM200::DrawShape shape;
-
-
-	if (tower_type[0] == true)
-	{
-		basic.Draw(1120 - 40, 720 - 150, 179, 70);
+	if (stage[0]) { // If stage == store
+		store_gold.Draw(100, 180, 200, 100);
+		store_life.Draw(350, 180, 200, 100);
+		store_menu.Draw(1030, 50, 200, 150);
+		store_game_start.Draw(830, 50, 200, 150);
+		store_easy.Draw(100, 420, 200, 150);
+		store_normal.Draw(400, 420, 200, 150);
+		store_hard.Draw(700, 420, 200, 150);
+		store_ingame.Draw(1000, 420, 200, 150);
 	}
-	if (tower_type[1] == true)
-	{
-		double_tower.Draw(1120 - 40, 720 - 230, 179, 70);
+	//store_gold.Draw(100, 180, 300, 280);
+
+}
+
+Store_Easy_Button::Store_Easy_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
+	stage[0] = true;
+	stage[1] = false;
+}
+
+void Store_Easy_Button::func() {
+
+}
+
+Store_Normal_Button::Store_Normal_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
+	stage[0] = true;
+	stage[1] = false;
+}
+
+void Store_Normal_Button::func() {
+
+}
+Store_Hard_Button::Store_Hard_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
+	stage[0] = true;
+	stage[1] = false;
+}
+
+void Store_Hard_Button::func() {
+
+}
+
+Store_InGame_Button::Store_InGame_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
+	stage[0] = true;
+	stage[1] = false;
+}
+
+void Store_InGame_Button::func() {
+
+}
+
+Store_Gold_Button::Store_Gold_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
+	stage[0] = true;
+	stage[1] = false;
+}
+void Store_Gold_Button::func() {
+	if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() > 0) {
+		Engine::GetGameStateManager().GetGSComponent<Gold>()->Subtract(500);
 	}
-	if (tower_type[2] == true)
-	{
-		triple.Draw(1120 - 40, 720 - 310, 179, 70);
-	}
-	if (tower_type[3] == true)
-	{
-		delete_tower.Draw(1120, 720 - 390, 140, 70);
-	}
-	if (tower_type[4] == true)
-	{
-		change_t_P.Draw(1120 - 40, 720 - 470, 179, 70);
-	}
-	if (tower_type[5] == true)
-	{
-		change_t_b.Draw(1120, 720 - 550, 140, 70);
-	}
-	if (tower_type[6] == true)
-	{
-		next_wave.Draw(1120 - 40, 720 - 630, 180, 60);
-	}
-
-
-	//side.Draw(1060, 720 - 629, 40, 550);
-
-
+	
 }
 
-
-Wave_Start_Button::Wave_Start_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
-{
-
-	tower_type[6] = true;
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
+Store_Life_Button::Store_Life_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
+	stage[0] = true;
+	stage[1] = false;
 }
-void Wave_Start_Button::func(Math::ivec2 pos)
-{
-
-	GAM200::SoundEffect::Wave_Start().play();
-
-	Engine::GetGameStateManager().GetGSComponent<Wave>()->Start();
-}
-
-
-Basic_Tower_Button::Basic_Tower_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
-{
-	tower_type[0] = true;
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
-}
-void Basic_Tower_Button::func(Math::ivec2 pos)
-{
-	GAM200::SoundEffect::Button_1().Big_play();
-
-	Engine::GetGameStateManager().GetGSComponent<BuildMode>()->Build(GameObjectTypes::Basic_Tower);
-}
-
-
-Double_Tower_Button::Double_Tower_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
-{
-	tower_type[1] = true;
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
-}
-void Double_Tower_Button::func(Math::ivec2 pos)
-{
-	GAM200::SoundEffect::Button_1().Big_play();
-
-	Engine::GetGameStateManager().GetGSComponent<BuildMode>()->Build(GameObjectTypes::Push_Tower);
-}
-
-
-Triple_Tower_Button::Triple_Tower_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
-{
-	tower_type[2] = true;
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
-}
-void Triple_Tower_Button::func(Math::ivec2 pos)
-{
-	GAM200::SoundEffect::Button_1().Big_play();
-
-	Engine::GetGameStateManager().GetGSComponent<BuildMode>()->Build(GameObjectTypes::Wide_Tower);
-}
-
-
-Delete_Tower_Button::Delete_Tower_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
-{
-	tower_type[3] = true;
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
-}
-void Delete_Tower_Button::func(Math::ivec2 pos)
-{
-	GAM200::SoundEffect::Button_1().Big_play();
-
-	//Engine::GetGameStateManager().GetGSComponent<BuildMode>()->DeleteTower();
-	Tower_Adopter::GetInstance().Delete();
-}
-
-
-Pass_Tile_Button::Pass_Tile_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
-{
-	tower_type[4] = true;
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
-}
-void Pass_Tile_Button::func(Math::ivec2 pos)
-{
-	GAM200::SoundEffect::Button_1().Big_play();
-
-	Tower_Adopter::GetInstance().Upgrade();
-}
-
-
-Block_Tile_Button::Block_Tile_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
-{
-	tower_type[5] = true;
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
-}
-void Block_Tile_Button::func(Math::ivec2 pos)
-{
-	GAM200::SoundEffect::Button_1().Big_play();
-
-	Engine::GetGameStateManager().GetGSComponent<BuildMode>()->ChangeTile(GameObjectTypes::Obstacle);
-}
-
-
-Push_Tower_Button::Push_Tower_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
-{
-	//tower_type[0] = true;
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
-}
-void Push_Tower_Button::func(Math::ivec2 pos)
-{
-	GAM200::SoundEffect::Button_1().Big_play();
-
-	Engine::GetGameStateManager().GetGSComponent<BuildMode>()->Build(GameObjectTypes::Push_Tower);
-}
-
-
-Wide_Tower_Button::Wide_Tower_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
-{
-	//tower_type[0] = true;
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
-}
-void Wide_Tower_Button::func(Math::ivec2 pos)
-{
-	GAM200::SoundEffect::Button_1().Big_play();
-
-	Engine::GetGameStateManager().GetGSComponent<BuildMode>()->Build(GameObjectTypes::Wide_Tower);
-}
-
-
-Upgrade_Button::Upgrade_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
-{
-	//tower_type[0] = true;
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
-}
-void Upgrade_Button::func(Math::ivec2 pos)
-{
-	GAM200::SoundEffect::Button_1().Big_play();
-
-	Tower_Adopter::GetInstance().Upgrade();
-}
-
-
-Delete_Button::Delete_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
-{
-	//tower_type[0] = true;
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
-}
-void Delete_Button::func(Math::ivec2 pos)
-{
-	GAM200::SoundEffect::Button_1().Big_play();
-
-	Tower_Adopter::GetInstance().Delete();
-}
-
-
-Choice_1_Button::Choice_1_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
-{
-	//tower_type[0] = true;
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
-}
-void Choice_1_Button::func(Math::ivec2 pos)
-{
-	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
-	{
-		GAM200::SoundEffect::Button_3().play();
-		Engine::GetGameStateManager().GetGSComponent<Wave>()->Choice(1);
-	}
-}
-void Choice_1_Button::Draw(Math::TransformationMatrix camera_matrix)
-{
-	int current_wave = Engine::GetGameStateManager().GetGSComponent<Wave>()->GetCurrentWave() -1;
-
-	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
-	{
-		GAM200::DrawShape shape;
-		Engine::Instance().push();
-
-		shape.SetColor(255, 255, 255, 1);
-		//shape.DrawRectangle(50, 100, 361, 529);
-		if (current_wave <= 5) {
-			card1.Draw(50, 100, 300, 500);
-		}
-		else if (5 < current_wave && current_wave <= 10) {
-			card4.Draw(50, 100, 300, 500);
-		}
-		else if (current_wave > 10) {
-			card7.Draw(50, 100, 300, 500);
-		}
-
-		Engine::Instance().pop();
+void Store_Life_Button::func() {
+	if (Engine::GetGameStateManager().GetGSComponent<Life>()->Value() > 0) {
+		Engine::GetGameStateManager().GetGSComponent<Life>()->Subtract(5);
 	}
 }
 
-
-Choice_2_Button::Choice_2_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
-{
-	//tower_type[0] = true;
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
+Store_Menu_Button::Store_Menu_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
+	stage[0] = true;
+	stage[1] = false;
 }
-void Choice_2_Button::func(Math::ivec2 pos)
-{
-	Engine::GetLogger().LogDebug("Choice 2 Button func!");
-	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
-	{
-		GAM200::SoundEffect::Button_3().play();
-
-		Engine::GetGameStateManager().GetGSComponent<Wave>()->Choice(2);
-	}
-}
-void Choice_2_Button::Draw(Math::TransformationMatrix camera_matrix)
-{
-	int current_wave = Engine::GetGameStateManager().GetGSComponent<Wave>()->GetCurrentWave() -1;
-	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
-	{
-		GAM200::DrawShape shape;
-		Engine::Instance().push();
-
-		//shape.SetColor(255, 255, 255, 1);
-		if (current_wave <= 5) {
-			card2.Draw(400, 100, 300, 500);
-		}
-		else if (5 < current_wave && current_wave <= 10) {
-			card5.Draw(400, 100, 300, 500);
-		}
-		else if (current_wave > 10) {
-			card8.Draw(400, 100, 300, 500);
-		}
-
-		Engine::Instance().pop();
-	}
+void Store_Menu_Button::func() {
+	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
 }
 
-
-Choice_3_Button::Choice_3_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
-{
-	//tower_type[0] = true;
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
+Store_GameStart_Button::Store_GameStart_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
+	stage[0] = true;
+	stage[1] = false;
 }
-void Choice_3_Button::func(Math::ivec2 pos)
-{
-	Engine::GetLogger().LogDebug("Choice 3 Button func!");
-	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
-	{
-		GAM200::SoundEffect::Button_3().play();
-
-		Engine::GetGameStateManager().GetGSComponent<Wave>()->Choice(3);
-	}
-}
-void Choice_3_Button::Draw(Math::TransformationMatrix camera_matrix)
-{
-	int current_wave = Engine::GetGameStateManager().GetGSComponent<Wave>()->GetCurrentWave() -1;
-	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
-	{
-		GAM200::DrawShape shape;
-		Engine::Instance().push();
-
-		//shape.SetColor(255, 255, 255, 1);
-		if (current_wave <= 5) {
-			card3.Draw(750, 100, 300, 500);
-		}
-		else if (5 < current_wave && current_wave <= 10) {
-			card6.Draw(750, 100, 300, 500);
-		}
-		else if (current_wave > 10) {
-			card9.Draw(750, 100, 300, 500);
-		}
-		Engine::Instance().pop();
-	}
+void Store_GameStart_Button::func() {
+	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
 }
 
-
-void Choice_1_Button::Update(double dt)
-{
-	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
-		is_activated = true;
-	else
-		is_activated = false;
-}
-void Choice_2_Button::Update(double dt)
-{
-	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
-		is_activated = true;
-	else
-		is_activated = false;
-}
-void Choice_3_Button::Update(double dt)
-{
-	if (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState() == Wave::Wave_State::Upgrade)
-		is_activated = true;
-	else
-		is_activated = false;
-}

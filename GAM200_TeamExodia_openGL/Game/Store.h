@@ -14,6 +14,11 @@ Created:    March 14, 2024
 #include "../Engine/GameState.h"
 #include "../Engine/Texture.h"
 
+#include "../Season 1/Game/Gold.h"
+#include "../Season 1/Game/Life.h"
+#include "../Season 1/Game/Button.h"
+#include "../Season 1/Game/Hp_Boost_Gold_ui.h"
+
 class Store : public GAM200::GameState
 {
 public:
@@ -25,8 +30,6 @@ public:
 
     void ImguiDraw() override;
     void HandleEvent(SDL_Event& event) override;
-
-    virtual bool IsClicked(int x1, int y1, int x2, int y2);
 
     std::string GetName() override { return "Store"; }
 
@@ -47,9 +50,6 @@ public:
 
     GAM200::Texture* store_background;
 
-    GAM200::Texture* texture1;
-    GAM200::Texture* texture2;
-
     GAM200::Texture* select1;
     GAM200::Texture* select2;
     GAM200::Texture* select3;
@@ -60,6 +60,4 @@ public:
 
     Math::vec2 mouse_position;
     Math::ivec2 tile_size;
-
-    bool is_on = false;
 };
