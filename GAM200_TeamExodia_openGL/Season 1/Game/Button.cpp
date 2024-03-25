@@ -15,9 +15,7 @@ Updated:    December 15, 2023
 #include "Map.h"
 
 #include "../Engine/DrawShape.h"
-#include "BuildMode.h"
 #include "Wave.h"
-#include "Tower.h"
 
 #include "../Season 1/Game/Gold.h"
 #include "../Season 1/Game/Life.h"

@@ -42,6 +42,7 @@ enum class GameObjectTypes
     Sniper,
 
 
+    Button,
 
     
     //CS230
