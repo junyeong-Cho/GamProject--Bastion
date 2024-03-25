@@ -63,6 +63,7 @@ void TransformUnit::State_None::Enter(GameObject* object)
 {
     TransformUnit* unit = static_cast<TransformUnit*>(object);
 
+    unit->attack_count = 0;
 }
 void TransformUnit::State_None::Update(GameObject* object, double dt)
 {
