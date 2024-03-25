@@ -72,14 +72,14 @@ void TransformUnit::State_None::Update(GameObject* object, double dt)
     unit->attack_count += dt;
     unit->transform_count += dt;
 
-    if (unit->transformed)
+    if (!unit->transformed)
     {
         if (unit->transform_count >= unit->transform_cool)
         {
             unit->transformed = true;
         }
     }
-    else if (!unit->transformed)
+    else if (unit->transformed)
     {
         if (unit->transform_count >= unit->transform_time)
         {
