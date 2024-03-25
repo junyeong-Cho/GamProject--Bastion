@@ -3,14 +3,21 @@
 #include "../Engine/Component.h"
 #include "../Engine/Matrix.h"
 #include "../Engine/DrawShape.h"
+#include "../Engine/Texture.h"
 
 #include "vec2.h"
 
 class Map : public GAM200::Component
 {
 public:
+	Map() : game_background("assets/Background/game_tile.png")
+	{
+
+	}
+
 	void Draw()
 	{
+		/*
 		GAM200::DrawShape shape;
 		shape.SetColor(0.5f, 0.5f, 0.5f, 0.5f);
 		shape.DrawRectangle(static_cast<int>(Map::middle_point.x) - static_cast<int>(basic_size) * 3 / 8, static_cast<int>(Map::middle_point.y) - static_cast<int>(basic_size) * 3 / 8, static_cast<int>(basic_size) * 3 / 4, static_cast<int>(basic_size) * 3 / 4);
@@ -18,9 +25,16 @@ public:
 		shape.SetColor(0.0f, 0.0f, 0.0f, 1.0f);
 		shape.DrawRectangle_NoFill_WithPoints(static_cast<int>(Map::inner_left_end), static_cast<int>(Map::inner_bottom_end), static_cast<int>(Map::inner_rigiht_end), static_cast<int>(Map::inner_top_end));
 		shape.DrawRectangle_NoFill_WithPoints(static_cast<int>(Map::outer_left_end), static_cast<int>(Map::outer_bottom_end), static_cast<int>(Map::outer_rigiht_end), static_cast<int>(Map::outer_top_end));
+		*/
+		
+		
+		game_background.Draw(0, 0, 1280, 800);
 	}
 
 public:
+	GAM200::Texture game_background;
+
+
 	static inline double basic_size = 80;
 
 	static inline double outer_left_end = 380;

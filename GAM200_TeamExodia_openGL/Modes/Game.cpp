@@ -126,13 +126,18 @@ void Game::Unload()
 void Game::Draw()
 {
 	GetGSComponent<Map>()->Draw();
-	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
 
+	Engine::Instance().push();
+	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
+	Engine::Instance().pop();
+
+	Engine::Instance().push();
 	trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
 	time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 770 }));
 	gold->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 700 }));
 	speed->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 630 }));
 	monsters->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 560 }));
+	Engine::Instance().pop();
 }
 
 void Game::ImguiDraw()
