@@ -69,7 +69,7 @@ void HowToPlay::Update(double dt)
 		{
 			if (page == Page::End)
 			{
-				//Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Play));
+				Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
 			}
 			page += 1;
 		}

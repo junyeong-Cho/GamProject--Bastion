@@ -21,7 +21,7 @@ int main()
         // 16:9
         engine.Start("GAM200 - Team: Exodia", 1280, 800, OriginPosition::LEFT_DOWN);
 
-        //engine.AddFont("assets/Font_Simple.png");
+        engine.AddFont("assets/Font_Simple.png");
         engine.AddFont("assets/Font_Outlined.png");
 
         Splash splash;
