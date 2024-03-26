@@ -22,6 +22,11 @@ HowToPlay::HowToPlay()
 void HowToPlay::Load()
 {
 	UpdateMenuTextColors();
+
+	FirstPage = Engine::Instance().GetTextureManager().Load("assets/HowToPlay/Click_to_summon.png");
+	SecondPage = Engine::Instance().GetTextureManager().Load("assets/HowToPlay/Drag_to_move.png");
+	ThirdPage = Engine::Instance().GetTextureManager().Load("assets/HowToPlay/Merge_to_upgrade.png");
+
 }
 
 void HowToPlay::UpdateMenuTextColors()
@@ -75,7 +80,6 @@ void HowToPlay::Update(double dt)
 		}
 	}
 
-
 	if (shouldUpdateColors)
 	{
 		UpdateMenuTextColors();
@@ -93,6 +97,25 @@ void HowToPlay::Draw()
 	Engine::GetWindow().Clear(0.2f, 0.4f, 0.7f, 1.0f);
 
 	back->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x / 2 + 220, (Engine::GetWindow().GetSize().y / 2 - 220) }));
+
+	switch (page)
+	{
+	case Page::One:
+		FirstPage->Draw(0, 50, 1280, 800);
+		break;
+
+	case Page::Two:
+		SecondPage->Draw(0, 0, 1280, 800);
+		break;
+
+	case Page::Three:
+		ThirdPage->Draw(0, 0, 1280, 800);
+		break;
+
+	case Page::End:
+		break;
+	}
+
 
 
 	if (page == Page::End)
