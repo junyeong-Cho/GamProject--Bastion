@@ -7,15 +7,15 @@
 #include "../Engine/GameObjectManager.h"
 
 TransformUnit::TransformUnit(double transform_cool, double transform_time, double T_attack_time, double attack_time, int damage, Math::vec2 position, double range) :
-	transform_cool(transform_cool),
-	transform_time(transform_time),
-	T_attack_time(T_attack_time),
-	attack_time(attack_time),
-	damage(damage),
-	Unit(range, position)
+    transform_cool(transform_cool),
+    transform_time(transform_time),
+    T_attack_time(T_attack_time),
+    attack_time(attack_time),
+    damage(damage),
+    Unit(range, position)
 {
-	current_state = &state_none;
-	current_state->Enter(this);
+    current_state = &state_none;
+    current_state->Enter(this);
 }
 
 void TransformUnit::Update(double dt)

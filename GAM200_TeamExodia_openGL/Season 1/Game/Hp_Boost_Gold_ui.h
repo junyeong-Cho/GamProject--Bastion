@@ -18,9 +18,8 @@ Updated:    December	15, 2023
 #include "../Engine/Texture.h"
 #include "../Game/GameObjectTypes.h"
 
-#include "Button.h"
+#include "../Game/Button.h"
 
-class Button;
 class HBG_Ui : public GAM200::Component {
 public:
 
@@ -31,12 +30,4 @@ public:
     void Draw();
 
 private:
-    Button* store_easy = nullptr;
-    Button* store_normal = nullptr;
-    Button* store_hard = nullptr;
-    Button* store_ingame = nullptr;
-    Button* store_gold = nullptr;
-    Button* store_life = nullptr;
-    Button* store_menu = nullptr;
-    Button* store_game_start = nullptr;
 };

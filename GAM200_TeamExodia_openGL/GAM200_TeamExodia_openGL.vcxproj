@@ -137,7 +137,10 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClCompile Include="Engine\Vec2.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
     <ClCompile Include="Game\Background.cpp" />
+    <ClCompile Include="Game\Button.cpp" />
     <ClCompile Include="Game\Floor.cpp" />
+    <ClCompile Include="Game\Gold.cpp" />
+    <ClCompile Include="Game\Life.cpp" />
     <ClCompile Include="Game\MagicUnit.cpp" />
     <ClCompile Include="Game\HowToPlay.cpp" />
     <ClCompile Include="Game\MainMenu.cpp" />
@@ -154,10 +157,7 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClCompile Include="Game\Transform.cpp" />
     <ClCompile Include="Game\Unit.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Season 1\Game\Button.cpp" />
-    <ClCompile Include="Season 1\Game\Gold.cpp" />
     <ClCompile Include="Season 1\Game\Hp_Boost_Gold_ui.cpp" />
-    <ClCompile Include="Season 1\Game\Life.cpp" />
     <ClCompile Include="Modes\Game.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -199,11 +199,14 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClInclude Include="Engine\Vec2.h" />
     <ClInclude Include="Engine\Window.h" />
     <ClInclude Include="Game\Background.h" />
+    <ClInclude Include="Game\Button.h" />
     <ClInclude Include="Game\Floor.h" />
     <ClInclude Include="Game\Fonts.h" />
     <ClInclude Include="Game\GameObjectTypes.h" />
+    <ClInclude Include="Game\Gold.h" />
     <ClInclude Include="Game\Gravity.h" />
     <ClInclude Include="Game\HowToPlay.h" />
+    <ClInclude Include="Game\Life.h" />
     <ClInclude Include="Game\MagicUnit.h" />
     <ClInclude Include="Game\MainMenu.h" />
     <ClInclude Include="Game\MeleeUnit.h" />
@@ -218,10 +221,7 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClInclude Include="Game\Store.h" />
     <ClInclude Include="Game\Timer.h" />
     <ClInclude Include="Game\Transform.h" />
-    <ClInclude Include="Season 1\Game\Button.h" />
-    <ClInclude Include="Season 1\Game\Gold.h" />
     <ClInclude Include="Season 1\Game\Hp_Boost_Gold_ui.h" />
-    <ClInclude Include="Season 1\Game\Life.h" />
     <ClInclude Include="Game\Unit.h" />
     <ClInclude Include="Modes\Game.h" />
   </ItemGroup>

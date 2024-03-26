@@ -22,9 +22,6 @@
     <Filter Include="Engine\Input Handling">
       <UniqueIdentifier>{136ddc06-6340-4ccc-9363-5884b5a0603b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Math">
-      <UniqueIdentifier>{bb4a8a59-864a-462c-b556-0c73f3932234}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Game Components">
       <UniqueIdentifier>{fa86117b-c53f-4f39-9fdc-dce1b1d45c24}</UniqueIdentifier>
     </Filter>
@@ -39,6 +36,9 @@
     </Filter>
     <Filter Include="Game\Objects">
       <UniqueIdentifier>{f07a0d33-de28-438c-b9d6-08c2b3e57c66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Math">
+      <UniqueIdentifier>{bb4a8a59-864a-462c-b556-0c73f3932234}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -148,12 +148,6 @@
     <ClCompile Include="Game\Store.cpp">
       <Filter>Game\Modes</Filter>
     </ClCompile>
-    <ClCompile Include="Season 1\Game\Gold.cpp">
-      <Filter>Game\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Season 1\Game\Life.cpp">
-      <Filter>Game\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Game\MagicUnit.cpp" />
     <ClCompile Include="Game\MeleeUnit.cpp" />
     <ClCompile Include="Game\Monster.cpp" />
@@ -171,10 +165,16 @@
     <ClCompile Include="Game\Sniper.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Season 1\Game\Button.cpp">
+    <ClCompile Include="Season 1\Game\Hp_Boost_Gold_ui.cpp">
       <Filter>Game\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Season 1\Game\Hp_Boost_Gold_ui.cpp">
+    <ClCompile Include="Game\Button.cpp">
+      <Filter>Game\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Gold.cpp">
+      <Filter>Game\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Life.cpp">
       <Filter>Game\Objects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -329,10 +329,23 @@
     <ClInclude Include="Engine\MergeCollision.h">
       <Filter>Engine\Game Components</Filter>
     </ClInclude>
-    <ClInclude Include="Season 1\Game\Gold.h">
+    <ClInclude Include="Component\Wave.h" />
+    <ClInclude Include="Game\MagicUnit.h" />
+    <ClInclude Include="Game\MeleeUnit.h" />
+    <ClInclude Include="Game\Monster.h" />
+    <ClInclude Include="Game\RangedUnit.h" />
+    <ClInclude Include="Game\Sniper.h" />
+    <ClInclude Include="Game\Spear.h" />
+    <ClInclude Include="Game\Transform.h" />
+    <ClInclude Include="Season 1\Game\Hp_Boost_Gold_ui.h" />
+    <ClInclude Include="Game\Unit.h" />
+    <ClInclude Include="Game\Button.h">
       <Filter>Game\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Season 1\Game\Life.h">
+    <ClInclude Include="Game\Gold.h">
+      <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Life.h">
       <Filter>Game\Objects</Filter>
     </ClInclude>
   </ItemGroup>

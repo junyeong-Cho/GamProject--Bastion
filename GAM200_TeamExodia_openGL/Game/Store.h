@@ -14,10 +14,9 @@ Created:    March 14, 2024
 #include "../Engine/GameState.h"
 #include "../Engine/Texture.h"
 
-#include "../Season 1/Game/Gold.h"
-#include "../Season 1/Game/Life.h"
-#include "../Season 1/Game/Button.h"
-#include "../Season 1/Game/Hp_Boost_Gold_ui.h"
+#include "Gold.h"
+#include "Life.h"
+#include "Button.h"
 
 class Store : public GAM200::GameState
 {
@@ -43,20 +42,12 @@ public:
 
 public:
 
-    double counter = 0;
+    int counter = 0;
     std::unique_ptr<GAM200::Texture> gold;
     std::unique_ptr<GAM200::Texture> life;
     std::unique_ptr<GAM200::Texture> difficulty;
 
     GAM200::Texture* store_background;
-
-    GAM200::Texture* select1;
-    GAM200::Texture* select2;
-    GAM200::Texture* select3;
-    GAM200::Texture* select4;
-
-    GAM200::Texture* game_start;
-    GAM200::Texture* menu;
 
     Math::vec2 mouse_position;
     Math::ivec2 tile_size;

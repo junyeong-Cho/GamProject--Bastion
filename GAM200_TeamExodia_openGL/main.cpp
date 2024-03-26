@@ -28,12 +28,13 @@ int main()
         engine.GetGameStateManager().AddGameState(splash);
         Main_menu main_menu;
         engine.GetGameStateManager().AddGameState(main_menu);
+        Game game;
+        engine.GetGameStateManager().AddGameState(game);
         HowToPlay how_to_play;
         engine.GetGameStateManager().AddGameState(how_to_play);
         Store store;
         engine.GetGameStateManager().AddGameState(store);
-        Game game;
-        engine.GetGameStateManager().AddGameState(game);
+
 
         while (engine.HasGameEnded() == false)
         {
