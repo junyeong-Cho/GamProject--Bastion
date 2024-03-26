@@ -45,7 +45,7 @@ void Store::Load()
 
     counter = 0;
 
-	store_background = Engine::Instance().GetTextureManager().Load("assets/buttons/store_background.png");
+	store_background = Engine::Instance().GetTextureManager().Load("assets/Background/store_background.png");
 }
 
 void Store::Update(double dt)
