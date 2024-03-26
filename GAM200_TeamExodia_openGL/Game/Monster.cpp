@@ -65,11 +65,12 @@ void Monster::Update(double dt)
 // Draw
 void Monster::Draw(Math::TransformationMatrix camera_matrix)
 {
-	GAM200::DrawShape shape;
-	shape.SetColor(0.0f, 0.8f, 0.8f, 1.0f);
+	//GAM200::DrawShape shape;
+	//shape.SetColor(0.0f, 0.8f, 0.8f, 1.0f);
 
 	Math::vec2 position = GetPosition();
-	shape.DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(radius), static_cast<int>(radius));
+	default_enemy->Draw(static_cast<int>(position.x) - 528/8, static_cast<int>(position.y), 528/4, 350/4);
+	//shape.DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(radius), static_cast<int>(radius));
 }
 
 // Check to change direction

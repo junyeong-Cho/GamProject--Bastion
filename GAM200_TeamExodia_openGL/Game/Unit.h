@@ -4,6 +4,10 @@
 
 #include "GameObjectTypes.h"
 #include "../Component/Map.h"
+#include "../Engine/Component.h"
+#include "../Engine/Matrix.h"
+#include "../Engine/DrawShape.h"
+#include "../Engine/Texture.h"
 
 
 class Unit : public GAM200::GameObject
@@ -34,17 +38,21 @@ public:
 
     double GetRadius() const { return radius; }
 
+ double range;
+ static inline double radius = Map::basic_size * 3.0 / 4.0 / 2.0; 
+ bool is_moving = false;
+
 protected:
-    double range;
+   
 
     bool not_clicked = true;
 
-    bool is_moving = false;
+   
     bool drop = false;
     bool is_colliding = false;
     bool possible_to_merge = false;
 
-    static inline double radius = Map::basic_size * 3.0 / 4.0 / 2.0;
+   
 
     Math::vec2 position_gap;
 };
@@ -59,4 +67,6 @@ public:
 
     bool CanMergeWith(GameObjectTypes type) override { return false; }
     void ResolveMerge(GameObject* other_object) override { }
+
+
 };

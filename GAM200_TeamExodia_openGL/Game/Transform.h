@@ -58,4 +58,56 @@ public:
 
     virtual GameObjectTypes Type() override { return GameObjectTypes::Transform; }
     virtual std::string TypeName() override { return "Transform"; }
+
+
+    void Draw(Math::TransformationMatrix camera_matrix)
+    {
+        Math::vec2 position = GetPosition();
+        GAM200::DrawShape shape;
+
+
+        Engine::Instance().push();
+
+        shape.SetColor(0.0f, 0.0f, 0.0f, 0.2f);//타워 발판 표시
+        shape.DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(radius), static_cast<int>(radius));
+       Engine::Instance().pop();
+       
+       if (transformed == false)
+        {
+            if (current_state->GetName() == "None")
+            {
+                transform_default_melee_attack->Draw(static_cast<int>(position.x) - 130 / 2, static_cast<int>(position.y), 260 / 2, 155 / 2);
+            }
+            else
+            {
+                transform_default_melee_idle->Draw(static_cast<int>(position.x) - 130 / 2, static_cast<int>(position.y), 260 / 2, 155 / 2);
+            }
+        }
+        else
+        {
+            if (current_state->GetName() == "None")
+            {
+                transform_melee_attack->Draw(static_cast<int>(position.x) - 130 / 2, static_cast<int>(position.y), 260 / 2, 155 / 2);
+            }
+            else
+            {
+                transform_melee_idle->Draw(static_cast<int>(position.x) - 130 / 2, static_cast<int>(position.y), 260 / 2, 155 / 2);
+            }
+        }
+
+
+        if (is_moving)
+        {
+            shape.SetColor(0.977f, 0.157f, 0.569f, 0.3f);//범위 표시
+            shape.DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(range), static_cast<int>(range));
+        }
+       
+    }
+
+private:
+    GAM200::Texture* transform_default_melee_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/transform_default_melee_idle.png");
+    GAM200::Texture* transform_default_melee_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/transform_default_melee_attack.png");
+
+    GAM200::Texture* transform_melee_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/transform_melee_idle.png");
+    GAM200::Texture* transform_melee_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/transform_melee_attack.png");
 };

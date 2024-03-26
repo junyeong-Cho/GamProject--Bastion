@@ -2,7 +2,7 @@
 #include "Spear.h"
 
 #include "Monster.h"
-
+#include "../Engine/DrawShape.h"
 #include "../Engine/Engine.h"
 #include "../Engine/GameObjectManager.h"
 
@@ -16,6 +16,8 @@ SpearUnit::SpearUnit(double attack_time, int damage, Math::vec2 position, double
     current_state = &state_none;
     current_state->Enter(this);
 }
+
+
 
 void SpearUnit::Update(double dt)
 {

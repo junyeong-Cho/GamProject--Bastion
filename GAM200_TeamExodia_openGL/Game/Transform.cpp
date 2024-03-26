@@ -63,6 +63,7 @@ void TransformUnit::State_None::Enter(GameObject* object)
 {
     TransformUnit* unit = static_cast<TransformUnit*>(object);
 
+    unit->attack_count = 0;
 }
 void TransformUnit::State_None::Update(GameObject* object, double dt)
 {
@@ -71,14 +72,14 @@ void TransformUnit::State_None::Update(GameObject* object, double dt)
     unit->attack_count += dt;
     unit->transform_count += dt;
 
-    if (unit->transformed)
+    if (!unit->transformed)
     {
         if (unit->transform_count >= unit->transform_cool)
         {
             unit->transformed = true;
         }
     }
-    else if (!unit->transformed)
+    else if (unit->transformed)
     {
         if (unit->transform_count >= unit->transform_time)
         {
@@ -90,7 +91,7 @@ void TransformUnit::State_None::CheckExit(GameObject* object)
 {
     TransformUnit* unit = static_cast<TransformUnit*>(object);
 
-    if (unit->attack_count >= (unit->transformed ? unit->attack_time : unit->T_attack_time))
+    if (unit->attack_count >= (unit->transformed ? unit->T_attack_time : unit->attack_time))
     {
         unit->change_state(&unit->state_attacking);
     }
@@ -107,14 +108,14 @@ void TransformUnit::State_Attack::Update(GameObject* object, double dt)
 
     unit->transform_count += dt;
 
-    if (unit->transformed)
+    if (!unit->transformed)
     {
         if (unit->transform_count >= unit->transform_cool)
         {
             unit->transformed = true;
         }
     }
-    else if (!unit->transformed)
+    else if (unit->transformed)
     {
         if (unit->transform_count >= unit->transform_time)
         {

@@ -54,6 +54,7 @@ protected:
 
 private:
 	static int remaining_monster;
+	GAM200::Texture* default_enemy = Engine::Instance().GetTextureManager().Load("assets/enemy_s2/default_enemy.png");
 };
 
 class TestMonster : public Monster

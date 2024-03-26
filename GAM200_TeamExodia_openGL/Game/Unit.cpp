@@ -37,18 +37,19 @@ void Unit::Draw(Math::TransformationMatrix camera_matrix)
 
     Math::vec2 position = GetPosition();
 
-    
+    Engine::Instance().push();
     if (is_moving)
     {
-        shape.SetColor(0.0f, 0.0f, 0.0f, 0.5f);
+
+        shape.SetColor(0.0f, 0.0f, 0.0f, 0.5f);//타워 이동할떄 뜨는거
         shape.DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(radius), static_cast<int>(radius));
 
 
-        shape.SetColor(0.f, 0.f, 0.f, 1.0f);
+        shape.SetColor(0.f, 0.f, 0.f, 1.0f);//이전위치 표시 
         shape.DrawCircle(static_cast<int>(previous_position.x), static_cast<int>(previous_position.y), static_cast<int>(radius), static_cast<int>(radius));
 
 
-        shape.SetColor(0.3f, 0.3f, 0.3f, 0.3f);
+        shape.SetColor(0.3f, 0.3f, 0.3f, 0.3f);//범위 표시
         shape.DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(range), static_cast<int>(range));
     }
     else
@@ -56,6 +57,7 @@ void Unit::Draw(Math::TransformationMatrix camera_matrix)
         shape.SetColor(0.0f, 0.0f, 0.0f, 1.0f);
         shape.DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(radius), static_cast<int>(radius));
     }
+    Engine::Instance().pop();
 }
 
 void Unit::HandleMouseInput()
