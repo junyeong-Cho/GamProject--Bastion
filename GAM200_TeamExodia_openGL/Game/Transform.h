@@ -98,8 +98,10 @@ public:
 
         if (is_moving)
         {
+            Engine::Instance().push();
             shape.SetColor(0.977f, 0.157f, 0.569f, 0.3f);//범위 표시
             shape.DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(range), static_cast<int>(range));
+            Engine::Instance().pop();
         }
        
     }
