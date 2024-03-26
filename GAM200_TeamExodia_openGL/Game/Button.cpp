@@ -31,14 +31,17 @@ int Button::difficult = 0;
 void Button::Update(double dt)
 {
 	GameObject::Update(dt);
-	if (IsClicked()) {
+	if (IsClicked()) 
+	{
 		func();
 	}
 }
+
 void Button::func()
 {
 
 }
+
 bool Button::IsClicked()
 {
 	mouse_position = Engine::GetInput().GetMousePosition();
@@ -139,4 +142,17 @@ Store_GameStart_Button::Store_GameStart_Button(Math::vec2 position, Math::vec2 s
 void Store_GameStart_Button::func() {
 	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
 }
+
+
+//Example Code
+TestButton::TestButton(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+	AddGOComponent(new GAM200::Sprite("assets/buttons/TestButton.spt", (this)));
+}
+
+void TestButton::func()
+{
+	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
+}
+
 

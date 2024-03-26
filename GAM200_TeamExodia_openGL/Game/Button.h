@@ -46,6 +46,16 @@ private:
 
 };
 
+class TestButton : public Button 
+{
+public:
+	TestButton(Math::vec2 position, Math::vec2 size);
+
+	void func() override;
+};
+
+
+
 class Store_Easy_Button : public Button {
 public:
     Store_Easy_Button(Math::vec2 position, Math::vec2 size);

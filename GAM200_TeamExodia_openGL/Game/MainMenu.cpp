@@ -12,6 +12,7 @@ Updated:    March		 4, 2023
 #include "../Engine/Audio.h"
 #include "../Engine/Engine.h"
 
+#include "../Game/Button.h"
 
 #include "MainMenu.h"
 #include "Fonts.h"
@@ -25,6 +26,11 @@ Main_menu::Main_menu()
 
 void Main_menu::Load()
 {
+	//Example code - PLS DELETE THIS AFTER IMPLEMENTING YOUR OWN CODE!!!!!!
+	AddGSComponent(new GAM200::GameObjectManager());
+
+	GetGSComponent<GAM200::GameObjectManager>()->Add(new TestButton({ static_cast<float>(Engine::GetWindow().GetSize().x / 2 + 220) , static_cast<float>(Engine::GetWindow().GetSize().y / 2 - 100) }, {300, 300}));
+
 	main_title.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("They are season 2", 0xFFFFFFFF));
 	UpdateMenuTextColors();
 	
@@ -44,6 +50,10 @@ void Main_menu::UpdateMenuTextColors()
 
 void Main_menu::Update(double dt)
 {
+	//Example code - PLS DELETE THIS AFTER IMPLEMENTING YOUR OWN CODE!!!!!!
+	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
+
+
 	bool shouldUpdateColors = false;
 
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Down))
@@ -99,13 +109,17 @@ void Main_menu::Update(double dt)
 void Main_menu::Unload()
 {
 	//Unload Mode1
-
+	
 	//Unload Mode2
 }
 
 void Main_menu::Draw()
 {
 	Engine::GetWindow().Clear(0.2f, 0.4f, 0.7f, 1.0f);
+
+	//Example code - PLS DELETE THIS AFTER IMPLEMENTING YOUR OWN CODE!!!!!!
+	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
+
 
 	main_title->Draw(Math::TranslationMatrix(Math::ivec2{ 20, (Engine::GetWindow().GetSize().y - 20) }));
 
