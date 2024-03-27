@@ -53,4 +53,5 @@ private:
 	std::unique_ptr<GAM200::Texture> monsters;
 
 	bool condition[2] = { false, false }; //win, lose
+	double count = 0.0;
 };

@@ -33,7 +33,7 @@ namespace GAM200
 
         void UpdateAll(double dt);
         void DrawAll(Math::TransformationMatrix camera_matrix);
-
+        void DrawParticle(Math::TransformationMatrix camera_matrix);
         void CollisionTest();
         void MergeTest();
 

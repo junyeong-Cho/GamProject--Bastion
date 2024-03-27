@@ -28,6 +28,9 @@
 #include <glCheck.h>
 #include <imgui_impl_sdl.h>
 
+#include "../Engine/Particle.h"
+#include "../Game/Particles.h"
+
 Game::Game()
 {
 
@@ -46,6 +49,9 @@ void Game::Load()
 	GetGSComponent<GAM200::GameObjectManager>()->Add(new tower1_Button({ 490,35 }, { 78, 78 }));
     GetGSComponent<GAM200::GameObjectManager>()->Add(new tower2_Button({ 490 +102,35 }, { 78, 78 }));
 	GetGSComponent<GAM200::GameObjectManager>()->Add(new tower3_Button({ 490 +102*2,35 }, { 78, 78 }));
+
+	AddGSComponent(new GAM200::ParticleManager<Particles::Hit>());
+	AddGSComponent(new GAM200::ParticleManager<Particles::MeteorBit>());
 
 
 	// Components
@@ -72,6 +78,7 @@ void Game::Load()
 
 	//BGM
 	GAM200::SoundEffect::MainMenu_BGM().stopAll();
+	GAM200::SoundEffect::Game_BGM().loopplay();
 
 
 #ifdef _DEBUG
@@ -81,6 +88,8 @@ void Game::Load()
 
 void Game::Update(double dt)
 {
+	count += dt;
+
 	// TODO ?
 	GetGSComponent<GameSpeed>()->Update(dt);
 	dt *= GetGSComponent<GameSpeed>()->GetSpeed();
@@ -172,9 +181,27 @@ void Game::Draw()
 	GAM200::DrawShape shape;
 	GetGSComponent<Map>()->Draw();
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
+	GetGSComponent<GAM200::GameObjectManager>()->DrawParticle(Math::TransformationMatrix());
 
 
 	trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
+	time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 770 }));
+	gold->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 700 }));
+	speed->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 630 }));
+	monsters->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 560 }));
+
+
+	if(count < 3.0)
+	{
+		Engine::Instance().push();
+		GAM200::DrawShape shape;
+		Math::ivec2 window_size = Engine::GetWindow().GetSize();
+		shape.SetColor(0.f, 0.f, 0.f, 1.f);
+		shape.DrawRectangle(static_cast<int>(-count * 500), 0, window_size.x / 2, window_size.y);
+		shape.DrawRectangle(window_size.x / 2 + static_cast<int>(count * 500), 0, window_size.x / 2, window_size.y);
+		Engine::Instance().pop();
+	}
+	
 
 	currentwave->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 770 }));
 	time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 700 }));

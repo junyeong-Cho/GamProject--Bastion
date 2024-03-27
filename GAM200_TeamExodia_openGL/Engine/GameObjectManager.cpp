@@ -77,6 +77,16 @@ void GAM200::GameObjectManager::DrawAll(Math::TransformationMatrix camera_matrix
 	}
 }
 
+void GAM200::GameObjectManager::DrawParticle(Math::TransformationMatrix camera_matrix)
+{
+	for (GameObject* object : objects)
+	{
+		if(object->Type() != GameObjectTypes::Particle)
+			continue;
+		object->Draw(camera_matrix);
+	}
+}
+
 void GAM200::GameObjectManager::CollisionTest()
 {
 

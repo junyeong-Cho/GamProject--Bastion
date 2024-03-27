@@ -97,3 +97,91 @@ void MagicUnit::State_Attack::CheckExit(GameObject* object)
 
 
 }
+
+
+void Bomb_1::Draw(Math::TransformationMatrix camera_matrix)
+{
+    Unit::Draw(camera_matrix);
+
+    Math::vec2 position = GetPosition();
+
+    // Unit draw   
+    if (current_state->GetName() == "None")
+    {
+        bomb_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+    }
+    else
+    {
+        bomb_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+    }
+}
+
+bool Bomb_1::CanMergeWith(GameObjectTypes type)
+{
+    switch (type)
+    {
+    case GameObjectTypes::Sword_1:
+        return true;
+
+    case GameObjectTypes::Bow_1:
+        return true;
+
+    case GameObjectTypes::Bomb_1:
+        return true;
+
+    default:
+        return false;
+    }
+}
+void Bomb_1::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Sword_1)
+    {
+        new Spear_2(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+    else if (other_object->Type() == GameObjectTypes::Bow_1)
+    {
+        new Sniper_2(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+    else if (other_object->Type() == GameObjectTypes::Bomb_2)
+    {
+        new Bomb_2(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+}
+
+
+void Bomb_2::Draw(Math::TransformationMatrix camera_matrix)
+{
+    Unit::Draw(camera_matrix);
+
+    Math::vec2 position = GetPosition();
+
+    // Unit draw   
+    if (current_state->GetName() == "None")
+    {
+        bomb_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+    }
+    else
+    {
+        bomb_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+    }
+}
+
+bool Bomb_2::CanMergeWith(GameObjectTypes type)
+{
+    switch (type)
+    {
+    default:
+        return false;
+    }
+}
+void Bomb_2::ResolveMerge(GameObject* other_object)
+{
+
+}

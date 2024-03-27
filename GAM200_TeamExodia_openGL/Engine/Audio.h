@@ -47,6 +47,7 @@ namespace GAM200
         static SoundEffect& Wave_Start();
         static SoundEffect& Attack();
         static SoundEffect& MainMenu_BGM();
+        static SoundEffect& Game_BGM();
 
 
 

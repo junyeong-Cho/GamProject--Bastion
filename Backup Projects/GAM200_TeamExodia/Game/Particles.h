@@ -20,7 +20,7 @@ Updated:    September 26, 2023
 
 namespace Particles 
 {
-    class Smoke : public CS230::Particle 
+    class Smoke : public GAM200::Particle 
     {
     public:
         Smoke() : Particle("Assets/Smoke.spt") { };

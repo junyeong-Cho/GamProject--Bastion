@@ -11,7 +11,7 @@ public:
     void Earn(int earn) { diamond += earn; }
     void Spend(int spend) { diamond -= spend; }
 
-    int GetCurrentGold() const { return diamond; }
+    int GetCurrentDiamond() const { return diamond; }
 
 private:
     int diamond;
