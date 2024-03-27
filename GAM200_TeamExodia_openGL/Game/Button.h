@@ -128,4 +128,24 @@ public:
     GameSpeed_Button(Math::vec2 position, Math::vec2 size);
 
 	void func() override;
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+
+private:
+    GAM200::Texture* speed_1 = Engine::Instance().GetTextureManager().Load("assets/buttons/speed1.png");
+    GAM200::Texture* speed_2 = Engine::Instance().GetTextureManager().Load("assets/buttons/speed2.png");
+    GAM200::Texture* speed_3 = Engine::Instance().GetTextureManager().Load("assets/buttons/speed3.png");
+    GAM200::Texture* speed_4 = Engine::Instance().GetTextureManager().Load("assets/buttons/speed4.png");
+};
+
+class Skip_Button : public Button
+{
+public:
+    Skip_Button(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+
+private:
+    GAM200::Texture* skip_possible = Engine::Instance().GetTextureManager().Load("assets/buttons/skip_button.png");
+    GAM200::Texture* skip_impossible = Engine::Instance().GetTextureManager().Load("assets/buttons/none_skip.png");
 };

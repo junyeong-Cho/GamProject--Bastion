@@ -23,6 +23,9 @@ Updated:    November 2, 2023
 #include "../Engine/GameState.h"
 #include "../Engine/Sprite.h"
 
+class GameSpeed_Button;
+class Skip_Button;
+
 class Game : public GAM200::GameState
 {
 public:
@@ -45,6 +48,9 @@ public:
 	
 
 private:
+	GameSpeed_Button* game_speed_button = nullptr;
+	Skip_Button* skip_button = nullptr;
+
 	std::unique_ptr<GAM200::Texture> trash;
 
 	std::unique_ptr<GAM200::Texture> currentwave;

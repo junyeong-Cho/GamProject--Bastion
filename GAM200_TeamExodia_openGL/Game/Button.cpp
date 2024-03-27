@@ -184,14 +184,59 @@ void tower3_Button::func()
 
 GameSpeed_Button::GameSpeed_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
 {
-	int gameSpeed = static_cast<int>(Engine::GetGameStateManager().GetGSComponent<GameSpeed>()->GetSpeed());
 
-	AddGOComponent(new GAM200::Sprite("assets/buttons/GameSpeed" + std::to_string(gameSpeed) + ".spt", (this)));
 }
 
 void GameSpeed_Button::func()
 {
 	Engine::GetGameStateManager().GetGSComponent<GameSpeed>()->NextSpeed();
-	Engine::GetGameStateManager().GetGSComponent<GameSpeed>()->UnsetSpeedFlag();
+}
 
+void GameSpeed_Button::Draw(Math::TransformationMatrix camera_matrix)
+{
+	int speed = static_cast<int>(Engine::GetGameStateManager().GetGSComponent<GameSpeed>()->GetSpeed());
+
+	switch (speed)
+	{
+	case 1:
+		speed_1->Draw(camera_matrix);
+		break;
+	case 2:
+		speed_2->Draw(camera_matrix);
+		break;
+	case 3:
+		speed_3->Draw(camera_matrix);
+		break;
+	case 4:
+		speed_4->Draw(camera_matrix);
+		break;
+	}
+}
+
+Skip_Button::Skip_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+
+}
+
+void Skip_Button::func()
+{
+	Engine::GetGameStateManager().GetGSComponent<Wave>()->Skip();
+}
+
+void Skip_Button::Draw(Math::TransformationMatrix camera_matrix)
+{
+	switch (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState())
+	{
+	case Wave::Battle:
+		skip_impossible->Draw(camera_matrix);
+		break;
+
+	case Wave::Rest:
+		skip_possible->Draw(camera_matrix);
+		break;
+
+	case Wave::End:
+
+		break;
+	}
 }

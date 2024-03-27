@@ -50,7 +50,7 @@ namespace GAM200
     private:
         std::list<GameObject*> objects;
 
-        Unit* current_unit;
+        Unit* current_unit = nullptr;
     };
 }
 

@@ -60,8 +60,10 @@ void Game::Load()
 	AddGSComponent(new Map());
 	AddGSComponent(new Wave());
 
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new GameSpeed_Button({ 490 + 102 * 3 + 330, 748 }, { 55, 55 }));
-
+	game_speed_button = new GameSpeed_Button({ 1126, 748 }, { 55, 55 });
+	skip_button = new Skip_Button({ 1221, 748 }, { 55, 55 });
+	GetGSComponent<GAM200::GameObjectManager>()->Add(game_speed_button);
+	GetGSComponent<GAM200::GameObjectManager>()->Add(skip_button);
 
 	// In Game State
 	in_game_state = InProgress;
@@ -95,17 +97,7 @@ void Game::Update(double dt)
 {
 	count += dt;
 
-
-
-	// TODO ?
 	GetGSComponent<GameSpeed>()->Update(dt);
-	//dt *= GetGSComponent<GameSpeed>()->GetSpeed();
-
-	if (GetGSComponent<GameSpeed>()->IsChanged())
-	{
-		GetGSComponent<GAM200::GameObjectManager>()->Add(new GameSpeed_Button({ 490 + 102 * 3 + 330, 748 }, { 55, 55 }));
-	}
-
 
 	// Update things
 	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
@@ -191,6 +183,8 @@ void Game::Draw()
 
 	tower_ui.Draw(380, 35, 514, 108);
 
+	game_speed_button->Draw(Math::TranslationMatrix(game_speed_button->GetPosition()));
+	skip_button->Draw(Math::TranslationMatrix(skip_button->GetPosition()));
 
 	// Door effect
 	GAM200::DrawShape shape;
