@@ -49,6 +49,10 @@ private:
 	int state	= 0;
 
 
+	GAM200::Texture* FirstPage;
+	GAM200::Texture* SecondPage;
+	GAM200::Texture* ThirdPage;
+
 	std::unique_ptr<GAM200::Texture> next;
 	std::unique_ptr<GAM200::Texture> back;
 
