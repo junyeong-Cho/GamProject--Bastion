@@ -4,6 +4,7 @@
 #include "Gold.h"
 
 #include "../Engine/GameObjectManager.h"
+#include "../Engine/Audio.h"
 
 #include "../Game/States.h"
 #include "../Game/Monster.h"
@@ -112,6 +113,9 @@ void Wave::Update(double dt)
 
 			// Change the state
 			wave_state = Battle;
+
+			//Sound
+			GAM200::SoundEffect::Wave_Start().play();
 
 			return;
 		}

@@ -4,6 +4,7 @@
 #include "../Engine/GameObjectManager.h"
 #include "../Engine/DrawShape.h"
 #include "../Engine/Collision.h"
+#include "../Engine/Audio.h"
 
 #include "../Component/Gold.h"
 
@@ -59,6 +60,9 @@ void Monster::Update(double dt)
 	if (info.life <= 0)
 	{
 		Destroy();
+
+		//Sound
+		GAM200::SoundEffect::Monster_Die_2().play();
 	}
 }
 
