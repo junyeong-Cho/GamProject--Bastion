@@ -203,14 +203,14 @@ void Game::Draw()
 	}
 	
 
-	currentwave->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 770 }));
+	/*currentwave->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 770 }));
 	time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 700 }));
 	gold->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 630 }));
 	speed->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 560 }));
-	monsters->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 490 }));
+	monsters->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 490 }));*/
 	
 	tower_ui.Draw(380, 35, 514, 108);
-	if (GetGSComponent<Wave>()->GetCurWave() > GetGSComponent<Wave>()->GetMaxWave()) { //win
+	if (GetGSComponent<Wave>()->GetCurWave() >= GetGSComponent<Wave>()->GetMaxWave()) { //win
 		condition[0] = true;
 		win.Draw(0, 0, 1280, 800);
 

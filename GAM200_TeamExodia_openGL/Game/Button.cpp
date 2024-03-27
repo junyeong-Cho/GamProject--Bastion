@@ -23,8 +23,9 @@ Updated:    December 15, 2023
 #include "../Game/RangedUnit.h"
 #include "../Game/MagicUnit.h"
 
-#include "Gold.h"
-#include "Life.h"
+#include "../Component/Gold.h"
+
+
 #include "../Game/States.h"
 
 Button::Button(Math::vec2 position, Math::vec2 size) : GameObject(position), position(position), size(size)
@@ -119,20 +120,10 @@ Store_Gold_Button::Store_Gold_Button(Math::vec2 position, Math::vec2 size) : But
 	AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Gold.spt", (this)));
 }
 void Store_Gold_Button::func() {
-	if (Engine::GetGameStateManager().GetGSComponent<Gold>()->Value() > 0) {
-		Engine::GetGameStateManager().GetGSComponent<Gold>()->Subtract(500);
-	}
+
 	
 }
 
-Store_Life_Button::Store_Life_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
-	AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Life.spt", (this)));
-}
-void Store_Life_Button::func() {
-	if (Engine::GetGameStateManager().GetGSComponent<Life>()->Value() > 0) {
-		Engine::GetGameStateManager().GetGSComponent<Life>()->Subtract(5);
-	}
-}
 
 Store_Menu_Button::Store_Menu_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
 	AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Menu.spt", (this)));
@@ -150,28 +141,23 @@ void Store_GameStart_Button::func() {
 }
 
 
-//Example Code
-TestButton::TestButton(Math::vec2 position, Math::vec2 size) : Button(position, size)
-{
-	AddGOComponent(new GAM200::Sprite("assets/buttons/TestButton.spt", (this)));
-}
-
-void TestButton::func()
-{
-	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
-
-
-}
 
 ///////////
 
 tower1_Button::tower1_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
 {
-	//AddGOComponent(new GAM200::Sprite("assets/buttons/TestButton.spt", (this)));
+
 }
 
 void tower1_Button::func()
 {
+	//AddGOComponent(new GAM200::Sprite("assets/buttons/TestButton.spt", (this)));
+	Gold* gold = GetGOComponent<Gold>();
+
+	if (gold->GetCurrentGold() < 55)
+		return;
+
+	gold->Spend(55);
 	new Sword_1();
 }
 
@@ -183,6 +169,12 @@ tower2_Button::tower2_Button(Math::vec2 position, Math::vec2 size) : Button(posi
 
 void tower2_Button::func()
 {
+	Gold* gold = GetGOComponent<Gold>();
+
+	if (gold->GetCurrentGold() < 55)
+		return;
+
+	gold->Spend(55);
 	new Bow_1();
 }
 
@@ -193,5 +185,12 @@ tower3_Button::tower3_Button(Math::vec2 position, Math::vec2 size) : Button(posi
 
 void tower3_Button::func()
 {
+	Gold* gold = GetGOComponent<Gold>();
+
+	if (gold->GetCurrentGold() < 55)
+		return;
+
+	gold->Spend(55);
+
 	new Bomb_1();
 }

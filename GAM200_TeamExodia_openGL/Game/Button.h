@@ -46,13 +46,6 @@ private:
 
 };
 
-class TestButton : public Button 
-{
-public:
-	TestButton(Math::vec2 position, Math::vec2 size);
-
-	void func() override;
-};
 
 ///////
 
@@ -115,12 +108,6 @@ class Store_Gold_Button : public Button {
     void func() override;
 };
 
-class Store_Life_Button : public Button {
-public:
-    Store_Life_Button(Math::vec2 position, Math::vec2 size);
-
-    void func() override;
-};
 
 class Store_Menu_Button : public Button {
 public:

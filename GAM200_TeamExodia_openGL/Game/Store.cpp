@@ -39,8 +39,6 @@ void Store::Load()
 	GetGSComponent<GAM200::GameObjectManager>()->Add(new Store_Normal_Button({ 400, 420 }, { 200, 150 }));
 	GetGSComponent<GAM200::GameObjectManager>()->Add(new Store_Hard_Button({ 700, 420 }, { 200, 150 }));
 	GetGSComponent<GAM200::GameObjectManager>()->Add(new Store_InGame_Button({ 1000, 420 }, { 200, 150 }));
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new Store_Gold_Button({ 100, 180 }, { 200, 100 }));
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new Store_Life_Button({ 350, 180 }, { 200, 100 }));
 	GetGSComponent<GAM200::GameObjectManager>()->Add(new Store_Menu_Button({ 1030, 50 }, { 200, 150 }));
 
     counter = 0;
@@ -89,23 +87,7 @@ void Store::Draw()
 
 void Store::ImguiDraw()
 {
-	ImGui::Begin("Information");
-	{
-		int gold = GetGSComponent<Gold>()->Value();
-		int life = GetGSComponent<Life>()->Value();
-
-		ImGui::Text("Gold : %d", gold);
-		ImGui::Text("Life : %d", life);
-
-		if (ImGui::SliderInt("Adjust Gold", &gold, 0, 50000, "%d")) {
-			GetGSComponent<Gold>()->SetValue(gold);
-		}
-		if (ImGui::SliderInt("Adjust Life", &life, 1, 500, "%d")) {
-			GetGSComponent<Life>()->SetValue(life);
-		}
-
-	}
-	ImGui::End();
+	
 }
 
 void Store::HandleEvent(SDL_Event& event)

@@ -30,13 +30,13 @@ void Main_menu::Load()
 	//Example code - PLS DELETE THIS AFTER IMPLEMENTING YOUR OWN CODE!!!!!!
 	AddGSComponent(new GAM200::GameObjectManager());
 
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new TestButton({ static_cast<float>(Engine::GetWindow().GetSize().x / 2 + 220) , static_cast<float>(Engine::GetWindow().GetSize().y / 2 - 100) }, {300, 300}));
 
 	mainmenu_background = Engine::Instance().GetTextureManager().Load("assets/Background/mainmenu_background.png");
 	UpdateMenuTextColors();
 
 	//BGM
 	GAM200::SoundEffect::Game_BGM().stopAll();
+	GAM200::SoundEffect::MainMenu_BGM().stopAll();
 	GAM200::SoundEffect::MainMenu_BGM().loopplay();
 
 }
