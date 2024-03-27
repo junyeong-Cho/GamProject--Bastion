@@ -96,3 +96,89 @@ void RangedUnit::State_Attack::CheckExit(GameObject* object)
 
 
 }
+
+
+void Bow_1::Draw(Math::TransformationMatrix camera_matrix)
+{
+    Unit::Draw(camera_matrix);
+
+    Math::vec2 position = GetPosition();
+
+    // Unit draw   
+    if (current_state->GetName() == "None")
+    {
+        shooter_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+    }
+    else
+    {
+        shooter_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+    }
+}
+bool Bow_1::CanMergeWith(GameObjectTypes type)
+{
+    switch (type)
+    {
+    case GameObjectTypes::Sword_1:
+        return true;
+
+    case GameObjectTypes::Bow_1:
+        return true;
+
+    case GameObjectTypes::Bomb_1:
+        return true;
+
+    default:
+        return false;
+    }
+}
+void Bow_1::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Sword_1)
+    {
+        new Transform_2(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+    else if (other_object->Type() == GameObjectTypes::Bow_1)
+    {
+        new Bow_2(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+    else if (other_object->Type() == GameObjectTypes::Bomb_1)
+    {
+        new Sniper_2(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+}
+
+
+void Bow_2::Draw(Math::TransformationMatrix camera_matrix)
+{
+    Unit::Draw(camera_matrix);
+
+    Math::vec2 position = GetPosition();
+
+    // Unit draw   
+    if (current_state->GetName() == "None")
+    {
+        shooter_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+    }
+    else
+    {
+        shooter_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+    }
+}
+bool Bow_2::CanMergeWith(GameObjectTypes type)
+{
+    switch (type)
+    {
+    default:
+        return false;
+    }
+}
+void Bow_2::ResolveMerge(GameObject* other_object)
+{
+
+}

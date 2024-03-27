@@ -42,7 +42,7 @@ public:
 
 	static int GetRemainingMonster() { return remaining_monster; }
 
-	void TakeDamage(int damage) { info.life -= damage; Engine::GetLogger().LogDebug(std::to_string(damage) + "damage! Remaining hp: " + std::to_string(info.life)); }
+	void TakeDamage(int damage);
 
 protected:
 	MonsterInfo info;

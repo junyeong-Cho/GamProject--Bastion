@@ -37,27 +37,26 @@ void Unit::Draw(Math::TransformationMatrix camera_matrix)
 
     Math::vec2 position = GetPosition();
 
+    // Merge range
     Engine::Instance().push();
+    shape.SetColor(0.0f, 0.0f, 0.0f, 0.2f);
+    shape.DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(radius), static_cast<int>(radius));
+    Engine::Instance().pop();
+
     if (is_moving)
     {
-
-        shape.SetColor(0.0f, 0.0f, 0.0f, 0.5f);//타워 이동할떄 뜨는거
-        shape.DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(radius), static_cast<int>(radius));
-
-
-        shape.SetColor(0.f, 0.f, 0.f, 1.0f);//이전위치 표시 
-        shape.DrawCircle(static_cast<int>(previous_position.x), static_cast<int>(previous_position.y), static_cast<int>(radius), static_cast<int>(radius));
-
-
-        shape.SetColor(0.3f, 0.3f, 0.3f, 0.3f);//범위 표시
+        // Attack range
+        Engine::Instance().push();
+        shape.SetColor(0.977f, 0.157f, 0.569f, 0.3f);
         shape.DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(range), static_cast<int>(range));
+        Engine::Instance().pop();
+
+        // Previous position
+        Engine::Instance().push();
+        shape.SetColor(0.1f, 0.1f, 0.1f, 0.6f);
+        shape.DrawCircle(static_cast<int>(previous_position.x), static_cast<int>(previous_position.y), static_cast<int>(radius), static_cast<int>(radius));
+        Engine::Instance().pop();
     }
-    else
-    {
-        shape.SetColor(0.0f, 0.0f, 0.0f, 1.0f);
-        shape.DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(radius), static_cast<int>(radius));
-    }
-    Engine::Instance().pop();
 }
 
 void Unit::HandleMouseInput()

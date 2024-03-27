@@ -38,9 +38,9 @@ public:
 
     double GetRadius() const { return radius; }
 
- double range;
- static inline double radius = Map::basic_size * 3.0 / 4.0 / 2.0; 
- bool is_moving = false;
+    double range;
+    static inline double radius = Map::basic_size * 3.0 / 4.0 / 2.0; 
+    bool is_moving = false;
 
 protected:
    
@@ -52,7 +52,6 @@ protected:
     bool is_colliding = false;
     bool possible_to_merge = false;
 
-   
 
     Math::vec2 position_gap;
 };

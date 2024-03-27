@@ -18,9 +18,9 @@ Updated:    September 26, 2023
 
 
 
-namespace Particles 
+namespace Particles
 {
-    class Smoke : public GAM200::Particle 
+    class Smoke : public GAM200::Particle
     {
     public:
         Smoke() : Particle("Assets/Smoke.spt") { };
@@ -29,8 +29,8 @@ namespace Particles
         static constexpr double MaxLife = 5.0;
     };
 
-    
-    class Hit : public CS230::Particle 
+
+    class Hit : public GAM200::Particle
     {
     public:
         Hit() : Particle("Assets/Hit.spt") { };
@@ -40,7 +40,7 @@ namespace Particles
     };
 
 
-    class MeteorBit : public CS230::Particle 
+    class MeteorBit : public GAM200::Particle
     {
     public:
         MeteorBit() : Particle("Assets/MeteorBit.spt") { };
