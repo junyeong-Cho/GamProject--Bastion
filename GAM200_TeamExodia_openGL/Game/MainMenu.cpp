@@ -46,6 +46,7 @@ void Main_menu::UpdateMenuTextColors()
 	uint32_t colors[4] = { 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF };
 	colors[counter]    = 0x7EFACBFF;
 
+	trash.reset	   (Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture(".", colors[0]));
 	play.reset	   (Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Play",		 colors[0]));
 	howToPlay.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("How to play", colors[1]));
 	setting.reset  (Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Setting",	 colors[2]));
@@ -129,6 +130,7 @@ void Main_menu::Draw()
 	//Example code - PLS DELETE THIS AFTER IMPLEMENTING YOUR OWN CODE!!!!!!
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
 
+	trash	 ->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
 	play	 ->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x/2   + 220, (Engine::GetWindow().GetSize().y / 2 - 100)}));
 	howToPlay->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x / 2 + 220, (Engine::GetWindow().GetSize().y / 2 - 160) }));
 	setting  ->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x / 2 + 220, (Engine::GetWindow().GetSize().y / 2 - 220) }));

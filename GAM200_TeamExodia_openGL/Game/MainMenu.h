@@ -49,7 +49,7 @@ private:
 
 	GAM200::Texture* mainmenu_background;
 	
-	
+	std::unique_ptr<GAM200::Texture> trash;
 	std::unique_ptr<GAM200::Texture> play;
 	std::unique_ptr<GAM200::Texture> howToPlay;
 	std::unique_ptr<GAM200::Texture> setting;
