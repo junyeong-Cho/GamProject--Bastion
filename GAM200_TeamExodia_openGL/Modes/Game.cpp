@@ -60,10 +60,11 @@ void Game::Load()
 	AddGSComponent(new Map());
 	AddGSComponent(new Wave());
 
+	// TODO
 	game_speed_button = new GameSpeed_Button({ 1126, 748 }, { 55, 55 });
 	skip_button = new Skip_Button({ 1221, 748 }, { 55, 55 });
-	GetGSComponent<GAM200::GameObjectManager>()->Add(game_speed_button);
-	GetGSComponent<GAM200::GameObjectManager>()->Add(skip_button);
+	/*GetGSComponent<GAM200::GameObjectManager>()->Add(game_speed_button);
+	GetGSComponent<GAM200::GameObjectManager>()->Add(skip_button);*/
 
 	// In Game State
 	in_game_state = InProgress;
@@ -106,6 +107,8 @@ void Game::Update(double dt)
 
 	GetGSComponent<Wave>()->Update(dt);
 
+	game_speed_button->Update(dt);
+	skip_button->Update(dt);
 
 #ifdef _DEBUG
 	GetGSComponent<GAM200::ShowCollision>()->Update(dt);
@@ -178,7 +181,7 @@ void Game::Draw()
 	trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
 	time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 770 }));
 	gold->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 700 }));
-	speed->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 630 }));
+	//speed->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 630 }));
 	monsters->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 560 }));
 
 	tower_ui.Draw(380, 35, 514, 108);
