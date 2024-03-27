@@ -27,53 +27,54 @@ Updated:    November 2, 2023
 class HowToPlay : public GAM200::GameState
 {
 public:
-    HowToPlay();
+	HowToPlay();
 
-    void Load()                override;
-    void Update(double dt)  override;
-    void Unload()            override;
-    void Draw()                override;
+	void Load()				override;
+	void Update(double dt)  override;
+	void Unload()	        override;
+	void Draw()				override;
 
-    void ImguiDraw() override;
-    void HandleEvent(SDL_Event& event) override;
+	void ImguiDraw() override;
+	void HandleEvent(SDL_Event& event) override;
 
 
-    std::string GetName() override { return "HowToPlay"; }
+	std::string GetName() override { return "HowToPlay"; }
 
-    void UpdateMenuTextColors();
+	void UpdateMenuTextColors();
 
 private:
 
-    int page = 0;
-    //int counter = 0;
-    int state = 0;
+	int page	= 0;
+	//int counter = 0;
+	int state	= 0;
 
 
-    GAM200::Texture* FirstPage;
-    GAM200::Texture* SecondPage;
-    GAM200::Texture* ThirdPage;
-    GAM200::Texture* FourthPage;
+	GAM200::Texture* FirstPage;
+	GAM200::Texture* SecondPage;
+	GAM200::Texture* ThirdPage;
 
-    std::unique_ptr<GAM200::Texture> next;
-    std::unique_ptr<GAM200::Texture> back;
+	std::unique_ptr<GAM200::Texture> trash;
 
-
-    std::unique_ptr<GAM200::Texture> exit;
-    std::unique_ptr<GAM200::Texture> play;
+	std::unique_ptr<GAM200::Texture> next;
+	std::unique_ptr<GAM200::Texture> back;
 
 
-    enum Page
-    {
-        One,
-        Two,
-        Three,
-        Four
-    };
+	std::unique_ptr<GAM200::Texture> exit;
+	std::unique_ptr<GAM200::Texture> play;
 
-    enum State
-    {
-        Back,
-        Next
-    };
+
+	enum Page
+	{
+		One,
+		Two,
+		Three,
+		End
+	};
+
+	enum State
+	{
+		Back,
+		Next
+	};
 
 };
