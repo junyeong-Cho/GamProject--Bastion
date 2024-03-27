@@ -54,6 +54,8 @@ void Game::Load()
 
 void Game::Update(double dt)
 {
+	count += dt;
+
 	// TODO ?
 	GetGSComponent<GameSpeed>()->Update(dt);
 	dt *= GetGSComponent<GameSpeed>()->GetSpeed();
@@ -128,11 +130,24 @@ void Game::Draw()
 	GetGSComponent<Map>()->Draw();
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
 
+
 	trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
 	time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 770 }));
 	gold->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 700 }));
 	speed->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 630 }));
 	monsters->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 560 }));
+
+
+	if(count < 3.0)
+	{
+		Engine::Instance().push();
+		GAM200::DrawShape shape;
+		Math::ivec2 window_size = Engine::GetWindow().GetSize();
+		shape.SetColor(0.f, 0.f, 0.f, 1.f);
+		shape.DrawRectangle(static_cast<int>(-count * 500), 0, window_size.x / 2, window_size.y);
+		shape.DrawRectangle(window_size.x / 2 + static_cast<int>(count * 500), 0, window_size.x / 2, window_size.y);
+		Engine::Instance().pop();
+	}
 }
 
 void Game::ImguiDraw()

@@ -50,6 +50,8 @@ protected:
 
 };
 
+
+
 class Bow_1 : public RangedUnit
 {
 public:
@@ -58,62 +60,10 @@ public:
     GameObjectTypes Type() override { return GameObjectTypes::Bow_1; }
     std::string TypeName() override { return "Bow_1"; }
 
-    bool CanMergeWith(GameObjectTypes type)
-    {
-        switch (type)
-        {
-        case GameObjectTypes::Sword_1:
-            return true;
+    void Draw(Math::TransformationMatrix camera_matrix);
 
-        case GameObjectTypes::Bow_1:
-            return true;
-
-        case GameObjectTypes::Bomb_1:
-            return true;
-
-        default:
-            return false;
-        }
-    }
-    void ResolveMerge(GameObject* other_object)
-    {
-        if (other_object->Type() == GameObjectTypes::Sword_1)
-        {
-            new Transform_2(GetPosition());
-            other_object->Destroy();
-            Destroy();
-        }
-        else if (other_object->Type() == GameObjectTypes::Bow_1)
-        {
-            new Bow_2(GetPosition());
-            other_object->Destroy();
-            Destroy();
-        }
-        else if (other_object->Type() == GameObjectTypes::Bomb_1)
-        {
-            new Sniper_2(GetPosition());
-            other_object->Destroy();
-            Destroy();
-        }
-    }
-
-
-    void Draw(Math::TransformationMatrix camera_matrix)
-    {
-        Unit::Draw(camera_matrix);
-
-        Math::vec2 position = GetPosition();
-
-        // Unit draw   
-        if (current_state->GetName() == "None")
-        {
-            shooter_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
-        }
-        else
-        {
-            shooter_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
-        }
-    }
+    bool CanMergeWith(GameObjectTypes type);
+    void ResolveMerge(GameObject* other_object);
 
 private:
     GAM200::Texture* shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
@@ -130,36 +80,10 @@ public:
     GameObjectTypes Type() override { return GameObjectTypes::Bow_2; }
     std::string TypeName() override { return "Bow_2"; }
 
-    bool CanMergeWith(GameObjectTypes type)
-    {
-        switch (type)
-        {
-        default:
-            return false;
-        }
-    }
-    void ResolveMerge(GameObject* other_object)
-    {
-        
-    }
+    void Draw(Math::TransformationMatrix camera_matrix);
 
-
-    void Draw(Math::TransformationMatrix camera_matrix)
-    {
-        Unit::Draw(camera_matrix);
-
-        Math::vec2 position = GetPosition();
-
-        // Unit draw   
-        if (current_state->GetName() == "None")
-        {
-            shooter_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
-        }
-        else
-        {
-            shooter_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
-        }
-    }
+    bool CanMergeWith(GameObjectTypes type);
+    void ResolveMerge(GameObject* other_object);
 
 private:
     GAM200::Texture* shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");

@@ -46,4 +46,6 @@ private:
 	std::unique_ptr<GAM200::Texture> gold;
 	std::unique_ptr<GAM200::Texture> speed;
 	std::unique_ptr<GAM200::Texture> monsters;
+
+	double count = 0.0;
 };
