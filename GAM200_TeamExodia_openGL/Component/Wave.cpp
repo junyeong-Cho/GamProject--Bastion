@@ -69,17 +69,35 @@ void Wave::Update(double dt)
 		if (monster_spawn_time_count > monster_spawn_time_offset)
 		{
 			monster_spawn_time_count = 0;
-			// TODO
-			/*if (monster_name == "SOMETHING")
-			{
-				new Something();
-			}
-			else (monster_name == "ANOTHER")
-			{
-				new Another();
-			}*/
 
-			new TestMonster();
+			if (monster_name == "MONSTER1")
+			{
+				new Monster_1();
+			}
+			else if (monster_name == "MONSTER2")
+			{
+				new Monster_2();
+			}
+			else if (monster_name == "MONSTER3")
+			{
+				new Monster_3();
+			}
+			else if (monster_name == "MONSTER4")
+			{
+				new Monster_4();
+			}
+			else if (monster_name == "MONSTER5")
+			{
+				new Monster_5();
+			}
+			else if (monster_name == "MONSTER6")
+			{
+				new Monster_6();
+			}
+			else if (monster_name == "MONSTER7")
+			{
+				new Monster_7();
+			}
 		}
 
 

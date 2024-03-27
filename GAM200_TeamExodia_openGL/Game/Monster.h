@@ -46,6 +46,7 @@ public:
 
 protected:
 	MonsterInfo info;
+	GAM200::Texture* image;
 
 	static inline double radius = Map::basic_size * 3.0 / 4.0 / 2.0;
 	static inline double speed = Map::basic_size;
@@ -54,12 +55,61 @@ protected:
 
 private:
 	static int remaining_monster;
-	GAM200::Texture* default_enemy = Engine::Instance().GetTextureManager().Load("assets/enemy_s2/default_enemy.png");
+	GAM200::Texture* Monster_1	= Engine::Instance().GetTextureManager().Load("assets/enemy_s2/default_enemy.png");
+	GAM200::Texture* Monster_3		= Engine::Instance().GetTextureManager().Load("assets/enemy_s2/Monster_3.png");
+	GAM200::Texture* Monster_4		= Engine::Instance().GetTextureManager().Load("assets/enemy_s2/Monster_4.png");
+	GAM200::Texture* Monster_5		= Engine::Instance().GetTextureManager().Load("assets/enemy_s2/Monster_5.png");
+	GAM200::Texture* Monster_6		= Engine::Instance().GetTextureManager().Load("assets/enemy_s2/Monster_6.png");
+	GAM200::Texture* Monster_7		= Engine::Instance().GetTextureManager().Load("assets/enemy_s2/Monster_7.png");
 };
 
-class TestMonster : public Monster
+class Monster_1 : public Monster
 {
 public:
-	TestMonster() : Monster({ 5, 0, 0, 3.0 }) { }
+	Monster_1() : Monster({ 5, 0, 0, 3.0 }) { }
+private:
+};
+
+class Monster_2 : public Monster
+{
+public:
+	Monster_2() : Monster({ 6, 0, 0, 3.0 }) 
+	{image = Engine::Instance().GetTextureManager().Load("assets/enemy_s2/Monster_2.png");
+	}
+private:
+};
+
+class Monster_3 : public Monster
+{
+public:
+	Monster_3() : Monster({ 8, 0, 0, 3.5 }) { }
+private:
+};
+
+class Monster_4 : public Monster
+{
+public:
+	Monster_4() : Monster({ 10, 0, 0, 4.0 }) { }
+private:
+};
+
+class Monster_5 : public Monster
+{
+public:
+	Monster_5() : Monster({ 12, 0, 0, 4.0 }) { }
+private:
+};
+
+class Monster_6 : public Monster
+{
+public:
+	Monster_6() : Monster({ 20, 0, 0, 3.0 }) { }
+private:
+};
+
+class Monster_7 : public Monster
+{
+public:
+	Monster_7() : Monster({ 22, 0, 0, 3.5 }) { }
 private:
 };

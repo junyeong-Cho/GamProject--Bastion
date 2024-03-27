@@ -76,7 +76,7 @@ void Monster::Draw(Math::TransformationMatrix camera_matrix)
 	//shape.SetColor(0.0f, 0.8f, 0.8f, 1.0f);
 
 	Math::vec2 position = GetPosition();
-	default_enemy->Draw(static_cast<int>(position.x) - 528/8, static_cast<int>(position.y), 528/4, 350/4);
+	image->Draw(static_cast<int>(position.x) - 528/8, static_cast<int>(position.y), 528/4, 350/4);
 	//shape.DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(radius), static_cast<int>(radius));
 }
 
