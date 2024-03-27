@@ -26,7 +26,7 @@ namespace Particles
         Smoke() : Particle("Assets/Smoke.spt") { };
         std::string TypeName() override { return "Smoke Particle"; }
         static constexpr int MaxCount = 3;
-        static constexpr double MaxLife = 5.0;
+        static constexpr double MaxLife = 5;
     };
 
 
@@ -36,7 +36,7 @@ namespace Particles
         Hit() : Particle("Assets/Hit.spt") { };
         std::string TypeName() override { return "Hit Particle"; }
         static constexpr int MaxCount = 10;
-        static constexpr int MaxLife = 1.0;
+        static constexpr int MaxLife = 1;
     };
 
 
@@ -46,7 +46,7 @@ namespace Particles
         MeteorBit() : Particle("Assets/MeteorBit.spt") { };
         std::string TypeName() override { return "MeteorBit Particle"; }
         static constexpr int MaxCount = 150;
-        static constexpr int MaxLife = 1.25;
+        static constexpr int MaxLife = 1;
     };
 }
 
