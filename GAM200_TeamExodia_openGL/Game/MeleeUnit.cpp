@@ -182,11 +182,12 @@ void Sword_2::Draw(Math::TransformationMatrix camera_matrix)
 
 bool Sword_2::CanMergeWith(GameObjectTypes type)
 {
-    switch (type)
+    /*switch (type)
     {
     default:
         return false;
-    }
+    }*/
+    return false;
 }
 void Sword_2::ResolveMerge(GameObject* other_object)
 {

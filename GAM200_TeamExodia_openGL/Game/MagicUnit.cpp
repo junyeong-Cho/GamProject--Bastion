@@ -175,11 +175,12 @@ void Bomb_2::Draw(Math::TransformationMatrix camera_matrix)
 
 bool Bomb_2::CanMergeWith(GameObjectTypes type)
 {
-    switch (type)
+    /*switch (type)
     {
     default:
         return false;
-    }
+    }*/
+    return false;
 }
 void Bomb_2::ResolveMerge(GameObject* other_object)
 {

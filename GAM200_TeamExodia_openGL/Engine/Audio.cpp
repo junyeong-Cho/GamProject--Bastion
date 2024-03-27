@@ -171,10 +171,8 @@ void GAM200::SoundEffect::SeBGMVolume(float volume)
 
 void GAM200::SoundEffect::Big_play()
 {
-    // �� �̻� ������� �ʴ� ���� ����
     sounds.remove_if([](const sf::Sound& s) { return s.getStatus() == sf::Sound::Stopped; });
 
-    // �� ���� ���
     sounds.emplace_back();
     sounds.back().setBuffer(buffer);
     sounds.back().setVolume(BigVolume);
@@ -183,16 +181,13 @@ void GAM200::SoundEffect::Big_play()
 
 void GAM200::SoundEffect::loopplay()
 {
-    // �� �̻� ������� �ʴ� ���� ����
     sounds.remove_if([](const sf::Sound& s) { return s.getStatus() == sf::Sound::Stopped; });
 
-    // �� ���� ���
     sounds.emplace_back();
     sounds.back().setBuffer(buffer);
     sounds.back().setVolume(musicVolume);
     sounds.back().play();
 
-    // ����� ������ �ٽ� ���
     sounds.back().setLoop(true);
 }
 

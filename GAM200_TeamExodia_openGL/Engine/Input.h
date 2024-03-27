@@ -64,6 +64,8 @@ namespace GAM200
 		bool KeyJustPressed(Keys key);
 		bool KeyJustReleased(Keys key);
 
+		bool IsPressed() const { return is_pressed; }
+
 		bool MouseDown(MouseButtons button);
 		bool MouseJustPressed(MouseButtons button);
 		bool MouseJustReleased(MouseButtons button);

@@ -172,11 +172,12 @@ void Bow_2::Draw(Math::TransformationMatrix camera_matrix)
 }
 bool Bow_2::CanMergeWith(GameObjectTypes type)
 {
-    switch (type)
+    /*switch (type)
     {
     default:
         return false;
-    }
+    }*/
+    return false;
 }
 void Bow_2::ResolveMerge(GameObject* other_object)
 {

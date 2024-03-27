@@ -67,20 +67,6 @@ bool Button::IsClicked()
 	return false;
 }
 
-//void Button::Draw(Math::TransformationMatrix camera_matrix)
-//{
-//	if (stage[0]) { // If stage == store
-//		//store_gold.Draw(100, 180, 200, 100);
-//		//store_life.Draw(350, 180, 200, 100);
-//		//store_menu.Draw(1030, 50, 200, 150);
-//		//store_game_start.Draw(830, 50, 200, 150);
-//		//store_easy.Draw(100, 420, 200, 150);
-//		//store_normal.Draw(400, 420, 200, 150);
-//		//store_hard.Draw(700, 420, 200, 150);
-//		//store_ingame.Draw(1000, 420, 200, 150);
-//	}
-//}
-
 Store_Easy_Button::Store_Easy_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
 	AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Easy.spt", (this)));
 }
@@ -146,13 +132,12 @@ void Store_GameStart_Button::func() {
 
 tower1_Button::tower1_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
 {
-
+	AddGOComponent(new GAM200::Sprite("assets/buttons/TestButton.spt", (this)));
 }
 
 void tower1_Button::func()
 {
-	//AddGOComponent(new GAM200::Sprite("assets/buttons/TestButton.spt", (this)));
-	Gold* gold = GetGOComponent<Gold>();
+	Gold* gold = Engine::GetGameStateManager().GetGSComponent<Gold>();
 
 	if (gold->GetCurrentGold() < 55)
 		return;
@@ -164,12 +149,12 @@ void tower1_Button::func()
 
 tower2_Button::tower2_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
 {
-	//AddGOComponent(new GAM200::Sprite("assets/buttons/TestButton.spt", (this)));
+	AddGOComponent(new GAM200::Sprite("assets/buttons/TestButton.spt", (this)));
 }
 
 void tower2_Button::func()
 {
-	Gold* gold = GetGOComponent<Gold>();
+	Gold* gold = Engine::GetGameStateManager().GetGSComponent<Gold>();
 
 	if (gold->GetCurrentGold() < 55)
 		return;
@@ -180,12 +165,12 @@ void tower2_Button::func()
 
 tower3_Button::tower3_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
 {
-	//AddGOComponent(new GAM200::Sprite("assets/buttons/TestButton.spt", (this)));
+	AddGOComponent(new GAM200::Sprite("assets/buttons/TestButton.spt", (this)));
 }
 
 void tower3_Button::func()
 {
-	Gold* gold = GetGOComponent<Gold>();
+	Gold* gold = Engine::GetGameStateManager().GetGSComponent<Gold>();
 
 	if (gold->GetCurrentGold() < 55)
 		return;

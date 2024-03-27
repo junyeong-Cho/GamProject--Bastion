@@ -108,59 +108,33 @@ void Game::Update(double dt)
 
 	Engine::GetWindow().Clear(1.0f, 1.0f, 1.0f, 1.0f);
 
-	// Go to "Lose Scene" TODO
-	/*MonsterLimit* monster_limit = GetGSComponent<MonsterLimit>();
-	if (monster_limit->GameOver())
-	{
-		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Lose));
-	}*/
 
-	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::M))
-	{
-		new TestMonster();
-	}
-	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::U))
-	{
-		new TestUnit();
-	}
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::K))
 	{
 		GetGSComponent<Wave>()->Skip();
 	}
-	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::_1))
-	{
-		new Sword_1();
-	}
-	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::_2))
-	{
-		new Bow_1();
-	}
-	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::_3))
-	{
-		new Bomb_1();
-	}
 
-	trash.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("A", 0xFFFFFFFF));
 
+	trash.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("A", 0xFFFFFFFF));
 	if (!GetGSComponent<Wave>()->IsResting() &&	Button::difficult != 4)
-		time.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Next wave: ", 0xFFFFFFFF));
+		time.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Next wave: ", 0xFFFFFFFF));
 	else
-		time.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 0xFFFFFFFF));
-	
-	currentwave.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Wave: " + std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1) + "/" + std::to_string(GetGSComponent<Wave>()->GetMaxWave()), 0xFFFFFFFF));
-	gold.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Gold: " + std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 0xFFFFFFFF));
-	speed.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Speed: " + std::to_string(static_cast<int>(GetGSComponent<GameSpeed>()->GetSpeed())), 0xFFFFFFFF));
+		time.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 0xFFFFFFFF));
+	currentwave.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Wave: " + std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1) + "/" + std::to_string(GetGSComponent<Wave>()->GetMaxWave()), 0xFFFFFFFF));
+	gold.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Gold: " + std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 0xFFFFFFFF));
+	speed.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Speed: " + std::to_string(static_cast<int>(GetGSComponent<GameSpeed>()->GetSpeed())), 0xFFFFFFFF));
 	
 	if (Button::difficult == 4)
-		monsters.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Monster: " + std::to_string(Monster::GetRemainingMonster()), 0xFFFFFFFF));
+		monsters.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Monster: " + std::to_string(Monster::GetRemainingMonster()), 0xFFFFFFFF));
 	else
+		monsters.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Monster: " + std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 0xFFFFFFFF));
 		
-		monsters.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Monster: " + std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 0xFFFFFFFF));
-		
 
-
-
-	if (condition[0] || condition[1] && Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT)) {
+	if (
+		(condition[0] && (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT) || Engine::GetInput().IsPressed())) || 
+		(condition[1] && (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT) || Engine::GetInput().IsPressed()))
+		) 
+	{
 
 		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
 	}
