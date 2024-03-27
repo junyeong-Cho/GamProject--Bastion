@@ -75,7 +75,7 @@ private:
 class Sword_2 : public MeleeUnit
 {
 public:
-    Sword_2(Math::vec2 position = Map::middle_point) : MeleeUnit(1.0, 4, position) { }
+    Sword_2(Math::vec2 position = Map::middle_point) : MeleeUnit(1.0, 10, position) { }
 
     void Draw(Math::TransformationMatrix camera_matrix);
 

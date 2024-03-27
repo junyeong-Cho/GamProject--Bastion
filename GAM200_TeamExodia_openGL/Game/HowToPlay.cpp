@@ -76,7 +76,7 @@ void HowToPlay::Update(double dt)
 		{
 			if (page == Page::Four)
 			{
-				Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
+				Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Store));
 			}
 			page += 1;
 		}
