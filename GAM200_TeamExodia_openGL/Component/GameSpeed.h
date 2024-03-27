@@ -26,7 +26,7 @@ public:
         }
         if (Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetCurrentUnit() != nullptr)
         {
-            if (Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetCurrentUnit()->is_moving)
+            if (Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetCurrentUnit()->is_moving && Engine::GetInput().MouseDown(GAM200::Input::MouseButtons::LEFT))
             {
                 Engine::Instance().SetSpeed(0.5);
             }
