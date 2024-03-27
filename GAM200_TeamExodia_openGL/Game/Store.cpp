@@ -32,8 +32,7 @@ void Store::Load()
 {
 	AddGSComponent(new GAM200::GameObjectManager());
 
-	AddGSComponent(new Gold());
-	AddGSComponent(new Life());
+
 
 	GetGSComponent<GAM200::GameObjectManager>()->Add(new Store_Easy_Button({ 100, 420 }, { 200, 150 }));
 	GetGSComponent<GAM200::GameObjectManager>()->Add(new Store_Normal_Button({ 400, 420 }, { 200, 150 }));
@@ -62,9 +61,7 @@ void Store::Update(double dt)
 	//}
 
 
-	gold.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Gold :" + std::to_string(GetGSComponent<Gold>()->Value()), 0xFFFFFFFF));
-	life.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Life :" + std::to_string(GetGSComponent<Life>()->Value()), 0xFFFFFFFF));
-	//difficulty.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Difficulty :" + SelectedDifficulty(), 0xFFFFFFFF));
+	
 }
 
 void Store::Unload()
@@ -80,8 +77,8 @@ void Store::Draw()
 	store_background->Draw(Math::TranslationMatrix(Math::ivec2{ 0 ,0 }));
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
 
-	gold->Draw(Math::TranslationMatrix(Math::ivec2{ 0, (Engine::GetWindow().GetSize().y) }));
-	life->Draw(Math::TranslationMatrix(Math::ivec2{ 0, (Engine::GetWindow().GetSize().y - 60) }));
+
+
 	//difficulty->Draw(Math::TranslationMatrix(Math::ivec2{ 300, (Engine::GetWindow().GetSize().y) }));
 }
 

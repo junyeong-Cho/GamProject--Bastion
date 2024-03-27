@@ -184,6 +184,7 @@ void Game::Draw()
 	monsters->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 490 }));*/
 	
 	tower_ui.Draw(380, 35, 514, 108);
+
 	if (GetGSComponent<Wave>()->GetCurWave() >= GetGSComponent<Wave>()->GetMaxWave()) { //win
 		condition[0] = true;
 		win.Draw(0, 0, 1280, 800);

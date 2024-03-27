@@ -46,10 +46,10 @@ void Main_menu::UpdateMenuTextColors()
 	uint32_t colors[4] = { 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF };
 	colors[counter]    = 0x7EFACBFF;
 
-	play.reset	   (Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Play",		 colors[0]));
-	howToPlay.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("How to play", colors[1]));
-	setting.reset  (Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Setting",	 colors[2]));
-	exit.reset	   (Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Exit",	     colors[3]));
+	play.reset	   (Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Play",		 colors[0]));
+	howToPlay.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("How to play", colors[1]));
+	setting.reset  (Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Setting",	 colors[2]));
+	exit.reset	   (Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Exit",	     colors[3]));
 }
 
 void Main_menu::Update(double dt)

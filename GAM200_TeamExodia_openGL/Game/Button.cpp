@@ -132,7 +132,7 @@ void Store_GameStart_Button::func() {
 
 tower1_Button::tower1_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
 {
-	AddGOComponent(new GAM200::Sprite("assets/buttons/TestButton.spt", (this)));
+	//AddGOComponent(new GAM200::Sprite("assets/buttons/TestButton.spt", (this)));
 }
 
 void tower1_Button::func()
@@ -149,7 +149,7 @@ void tower1_Button::func()
 
 tower2_Button::tower2_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
 {
-	AddGOComponent(new GAM200::Sprite("assets/buttons/TestButton.spt", (this)));
+	//AddGOComponent(new GAM200::Sprite("assets/buttons/TestButton.spt", (this)));
 }
 
 void tower2_Button::func()
@@ -165,7 +165,7 @@ void tower2_Button::func()
 
 tower3_Button::tower3_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
 {
-	AddGOComponent(new GAM200::Sprite("assets/buttons/TestButton.spt", (this)));
+	//AddGOComponent(new GAM200::Sprite("assets/buttons/TestButton.spt", (this)));
 }
 
 void tower3_Button::func()
