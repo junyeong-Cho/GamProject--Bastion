@@ -68,6 +68,9 @@ public:
         case GameObjectTypes::Bow_1:
             return true;
 
+        case GameObjectTypes::Bomb_1:
+            return true;
+
         default:
             return false;
         }
@@ -86,6 +89,58 @@ public:
             other_object->Destroy();
             Destroy();
         }
+        else if (other_object->Type() == GameObjectTypes::Bomb_2)
+        {
+            new Bomb_2(GetPosition());
+            other_object->Destroy();
+            Destroy();
+        }
+    }
+
+    void Draw(Math::TransformationMatrix camera_matrix)
+    {
+        Unit::Draw(camera_matrix);
+
+        Math::vec2 position = GetPosition();
+
+        // Unit draw   
+        if (current_state->GetName() == "None")
+        {
+            bomb_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+        }
+        else
+        {
+            bomb_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+        }
+    }
+
+private:
+    GAM200::Texture* bomb_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_idle.png");
+    GAM200::Texture* bomb_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_attack.png");
+
+
+};
+
+
+class Bomb_2 : public MagicUnit
+{
+public:
+    Bomb_2(Math::vec2 position = Map::middle_point) : MagicUnit(1.0, 5, position) { }
+
+    GameObjectTypes Type() override { return GameObjectTypes::Bomb_2; }
+    std::string TypeName() override { return "Bomb_2"; }
+
+    bool CanMergeWith(GameObjectTypes type)
+    {
+        switch (type)
+        {
+        default:
+            return false;
+        }
+    }
+    void ResolveMerge(GameObject* other_object)
+    {
+
     }
 
     void Draw(Math::TransformationMatrix camera_matrix)
