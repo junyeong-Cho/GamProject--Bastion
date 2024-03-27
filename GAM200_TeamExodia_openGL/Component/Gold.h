@@ -12,6 +12,7 @@ public:
     void Spend(int spend) { gold -= spend; }
 
     int GetCurrentGold() const { return gold; }
+    void SetCurrentGold(int value) { gold = value; }
 
 private:
     int gold;

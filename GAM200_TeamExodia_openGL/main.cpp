@@ -9,6 +9,8 @@
 #include "../Modes/Game.h"
 #include "Game/HowToPlay.h"
 #include "Game/Store.h"
+#include "../Game/Win.h"
+#include "../Game/Lose.h"
 #include "Modes/Game.h"
 
 
@@ -35,7 +37,10 @@ int main()
         engine.GetGameStateManager().AddGameState(how_to_play);
         Store store;
         engine.GetGameStateManager().AddGameState(store);
-
+        Win win;
+        engine.GetGameStateManager().AddGameState(win);
+        Lose lose;
+        engine.GetGameStateManager().AddGameState(lose);
 
         while (engine.HasGameEnded() == false)
         {

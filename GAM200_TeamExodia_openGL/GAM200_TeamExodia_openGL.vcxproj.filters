@@ -42,7 +42,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\Engine.cpp">
       <Filter>Engine\Core Engine Components</Filter>
     </ClCompile>
@@ -177,6 +176,13 @@
     <ClCompile Include="Game\Life.cpp">
       <Filter>Game\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Lose.cpp">
+      <Filter>Game\Modes</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Win.cpp">
+      <Filter>Game\Modes</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -347,6 +353,12 @@
     </ClInclude>
     <ClInclude Include="Game\Life.h">
       <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Lose.h">
+      <Filter>Game\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Win.h">
+      <Filter>Game\Modes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

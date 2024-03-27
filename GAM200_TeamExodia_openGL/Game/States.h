@@ -23,14 +23,16 @@ enum class States
 	HowToPlay,
 	Store,
 
+	Win,
+	Lose,
+
 	Setting,
 
 
 
 	Stage,
 
-	Win,
-	Lose,
+
 	tower1,
 	tower2,
 	tower3

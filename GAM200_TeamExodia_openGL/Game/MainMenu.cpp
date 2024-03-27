@@ -32,7 +32,7 @@ void Main_menu::Load()
 
 	GetGSComponent<GAM200::GameObjectManager>()->Add(new TestButton({ static_cast<float>(Engine::GetWindow().GetSize().x / 2 + 220) , static_cast<float>(Engine::GetWindow().GetSize().y / 2 - 100) }, {300, 300}));
 
-	main_title.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("They are season 2", 0xFFFFFFFF));
+	mainmenu_background = Engine::Instance().GetTextureManager().Load("assets/Background/mainmenu_background.png");
 	UpdateMenuTextColors();
 
 	//BGM
@@ -124,13 +124,9 @@ void Main_menu::Unload()
 void Main_menu::Draw()
 {
 	Engine::GetWindow().Clear(0.2f, 0.4f, 0.7f, 1.0f);
-
+	mainmenu_background->Draw(Math::TranslationMatrix(Math::ivec2{ 0 ,0 }));
 	//Example code - PLS DELETE THIS AFTER IMPLEMENTING YOUR OWN CODE!!!!!!
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
-
-
-
-	main_title->Draw(Math::TranslationMatrix(Math::ivec2{ 20, (Engine::GetWindow().GetSize().y - 20) }));
 
 	play	 ->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x/2   + 220, (Engine::GetWindow().GetSize().y / 2 - 100)}));
 	howToPlay->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x / 2 + 220, (Engine::GetWindow().GetSize().y / 2 - 160) }));

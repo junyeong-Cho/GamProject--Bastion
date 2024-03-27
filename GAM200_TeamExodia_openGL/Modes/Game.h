@@ -40,13 +40,17 @@ public:
 
 
 GAM200::Texture tower_ui = GAM200::Texture("assets/buttons/tower_ui.png", GAM200::Texture::TextureType::RECTANGLE);
+GAM200::Texture   win = GAM200::Texture("assets/win.png", GAM200::Texture::TextureType::RECTANGLE);
+GAM200::Texture   lose = GAM200::Texture("assets/lose.png", GAM200::Texture::TextureType::RECTANGLE);
+	
 private:
 	std::unique_ptr<GAM200::Texture> trash;
 
+	std::unique_ptr<GAM200::Texture> currentwave;
 	std::unique_ptr<GAM200::Texture> time;
 	std::unique_ptr<GAM200::Texture> gold;
 	std::unique_ptr<GAM200::Texture> speed;
 	std::unique_ptr<GAM200::Texture> monsters;
 
-	
+	bool condition[2] = { false, false }; //win, lose
 };

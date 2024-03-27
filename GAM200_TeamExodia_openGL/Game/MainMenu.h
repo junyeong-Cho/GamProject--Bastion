@@ -47,7 +47,7 @@ private:
 	int counter = 0;
 
 
-	std::unique_ptr<GAM200::Texture> main_title;
+	GAM200::Texture* mainmenu_background;
 	
 	
 	std::unique_ptr<GAM200::Texture> play;

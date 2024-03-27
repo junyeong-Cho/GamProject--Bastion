@@ -23,6 +23,11 @@
 #include "../Game/Fonts.h"
 #include "../Game/Button.h"
 
+#include <imgui.h>
+#include <stb_image.h>
+#include <glCheck.h>
+#include <imgui_impl_sdl.h>
+
 Game::Game()
 {
 
@@ -30,6 +35,8 @@ Game::Game()
 
 void Game::Load()
 {
+	condition[0] = false;
+	condition[1] = false;
 	// Game Object
 	AddGSComponent(new GAM200::GameObjectManager());
 
@@ -48,7 +55,20 @@ void Game::Load()
 	AddGSComponent(new Diamond(100));		// Initial Diamond
 	AddGSComponent(new Map());
 	AddGSComponent(new Wave());
-	GetGSComponent<Wave>()->SetWave("assets/maps/Wave1.txt");
+
+	switch (Button::difficult) {
+	case 1:
+		GetGSComponent<Wave>()->SetWave("assets/maps/Wave1.txt");
+		break;
+	case 2:
+		GetGSComponent<Wave>()->SetWave("assets/maps/Wave2.txt");
+		break;
+	case 3:
+		GetGSComponent<Wave>()->SetWave("assets/maps/Wave3.txt");
+		break;
+	case 4:
+		break;
+	}
 
 	//BGM
 	GAM200::SoundEffect::MainMenu_BGM().stopAll();
@@ -111,20 +131,36 @@ void Game::Update(double dt)
 		new Bomb_1();
 	}
 
-	trash.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("A", 0xFFFFFFFF));
+	trash.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("A", 0xFFFFFFFF));
 
-	if (!GetGSComponent<Wave>()->IsResting())
-		time.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Next wave: ", 0xFFFFFFFF));
+	if (!GetGSComponent<Wave>()->IsResting() &&	Button::difficult != 4)
+		time.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Next wave: ", 0xFFFFFFFF));
 	else
-		time.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 0xFFFFFFFF));
-	gold.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Gold: " + std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 0xFFFFFFFF));
-	speed.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Speed: " + std::to_string(static_cast<int>(GetGSComponent<GameSpeed>()->GetSpeed())), 0xFFFFFFFF));
-	monsters.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Monster: " + std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 0xFFFFFFFF));
+		time.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 0xFFFFFFFF));
+	
+	currentwave.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Wave: " + std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1) + "/" + std::to_string(GetGSComponent<Wave>()->GetMaxWave()), 0xFFFFFFFF));
+	gold.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Gold: " + std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 0xFFFFFFFF));
+	speed.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Speed: " + std::to_string(static_cast<int>(GetGSComponent<GameSpeed>()->GetSpeed())), 0xFFFFFFFF));
+	
+	if (Button::difficult == 4)
+		monsters.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Monster: " + std::to_string(Monster::GetRemainingMonster()), 0xFFFFFFFF));
+	else
+		
+		monsters.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Monster: " + std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 0xFFFFFFFF));
+		
+
+
+
+	if (condition[0] || condition[1] && Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT)) {
+
+		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
+	}
 }
 
 
 void Game::Unload()
 {
+
 	GetGSComponent<GAM200::GameObjectManager>()->Unload();
 	ClearGSComponent();
 }
@@ -132,24 +168,49 @@ void Game::Unload()
 
 void Game::Draw()
 {
+
 	GAM200::DrawShape shape;
 	GetGSComponent<Map>()->Draw();
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
 
 
 	trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
-	time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 770 }));
-	gold->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 700 }));
-	speed->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 630 }));
-	monsters->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 560 }));
+
+	currentwave->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 770 }));
+	time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 700 }));
+	gold->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 630 }));
+	speed->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 560 }));
+	monsters->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 490 }));
 	
 	tower_ui.Draw(380, 35, 514, 108);
-	
+	if (GetGSComponent<Wave>()->GetCurWave() > GetGSComponent<Wave>()->GetMaxWave()) { //win
+		condition[0] = true;
+		win.Draw(0, 0, 1280, 800);
+
+	}
+	if (Monster::GetRemainingMonster() >= GetGSComponent<MonsterLimit>()->GetLimit()) { //lose
+		condition[1] = true;
+		lose.Draw(0, 0, 1280, 800);
+	}
 }
 
 void Game::ImguiDraw()
 {
+	if (Button::difficult == 4) {
 
+		ImGui::Begin("Information");
+		{
+			int gold = GetGSComponent<Gold>()->GetCurrentGold();
+
+			ImGui::Text("Gold : %d", gold);
+
+			if (ImGui::SliderInt("Adjust Gold", &gold, 0, 50000, "%d")) {
+				GetGSComponent<Gold>()->SetCurrentGold(gold);
+			}
+
+		}
+		ImGui::End();
+	}
 }
 
 void Game::HandleEvent(SDL_Event& event)
