@@ -34,13 +34,13 @@ void HowToPlay::UpdateMenuTextColors()
 	uint32_t colors[2] = { 0xFFFFFFFF, 0xFFFFFFFF };
 	colors[state] = 0x7EFACBFF;
 
-	trash.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture(",", colors[0]));
+	trash.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture(",", colors[0]));
 
-	back.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Back", colors[0]));
-	next.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Next", colors[1]));
+	back.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Back", colors[0]));
+	next.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Next", colors[1]));
 	
 	//exit.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Exit", colors[0]));
-	play.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Play", colors[1]));
+	play.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Play", colors[1]));
 	
 }
 
@@ -76,7 +76,7 @@ void HowToPlay::Update(double dt)
 		{
 			if (page == Page::End)
 			{
-				Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
+				Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Store));
 			}
 			page += 1;
 		}
