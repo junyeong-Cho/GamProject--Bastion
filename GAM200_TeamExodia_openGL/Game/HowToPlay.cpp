@@ -14,7 +14,7 @@ Updated:    November 2, 2023
 
 
 
-HowToPlay::HowToPlay()
+HowToPlay::HowToPlay() : FirstPage(), SecondPage(), ThirdPage()
 {
 
 }
@@ -33,6 +33,8 @@ void HowToPlay::UpdateMenuTextColors()
 {
 	uint32_t colors[2] = { 0xFFFFFFFF, 0xFFFFFFFF };
 	colors[state] = 0x7EFACBFF;
+
+	trash.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture(",", colors[0]));
 
 	back.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Back", colors[0]));
 	next.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Next", colors[1]));
@@ -96,6 +98,7 @@ void HowToPlay::Draw()
 {
 	Engine::GetWindow().Clear(0.2f, 0.4f, 0.7f, 1.0f);
 
+	trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
 	back->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x / 2 + 220, (Engine::GetWindow().GetSize().y / 2 - 220) }));
 
 	switch (page)

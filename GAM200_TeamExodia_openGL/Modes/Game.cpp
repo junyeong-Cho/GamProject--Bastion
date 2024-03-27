@@ -38,8 +38,6 @@ Game::Game()
 
 void Game::Load()
 {
-	condition[0] = false;
-	condition[1] = false;
 	// Game Object
 	AddGSComponent(new GAM200::GameObjectManager());
 
@@ -61,6 +59,10 @@ void Game::Load()
 	AddGSComponent(new Diamond(100));		// Initial Diamond
 	AddGSComponent(new Map());
 	AddGSComponent(new Wave());
+
+	// In Game State
+	in_game_state = InProgress;
+
 
 	switch (Button::difficult) {
 	case 1:
@@ -114,7 +116,7 @@ void Game::Update(double dt)
 		GetGSComponent<Wave>()->Skip();
 	}
 
-
+	// Words
 	trash.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("A", 0xFFFFFFFF));
 	if (!GetGSComponent<Wave>()->IsResting() &&	Button::difficult != 4)
 		time.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Next wave: ", 0xFFFFFFFF));
@@ -130,20 +132,33 @@ void Game::Update(double dt)
 		monsters.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Monster: " + std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 0xFFFFFFFF));
 		
 
-	if (
-		(condition[0] && (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT) || Engine::GetInput().IsPressed())) || 
-		(condition[1] && (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT) || Engine::GetInput().IsPressed()))
-		) 
+	// Win State
+	if (in_game_state == InProgress)
 	{
+		if (GetGSComponent<Wave>()->GetCurWave() >= GetGSComponent<Wave>()->GetMaxWave() && Monster::GetRemainingMonster() == 0)
+		{
+			in_game_state = Win;
+		}
+		// Lose State
+		if (Monster::GetRemainingMonster() >= GetGSComponent<MonsterLimit>()->GetLimit())
+		{
+			in_game_state = Lose;
+		}
+	}
 
-		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
+	// Change State
+	if (in_game_state != InProgress)
+	{
+		if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT) || 
+			Engine::GetInput().IsPressed()
+			)
+			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
 	}
 }
 
 
 void Game::Unload()
 {
-
 	GetGSComponent<GAM200::GameObjectManager>()->Unload();
 	ClearGSComponent();
 }
@@ -151,20 +166,25 @@ void Game::Unload()
 
 void Game::Draw()
 {
-
-	GAM200::DrawShape shape;
+	// Draw map
 	GetGSComponent<Map>()->Draw();
+	// Draw objects
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
+	// Draw particles later
 	GetGSComponent<GAM200::GameObjectManager>()->DrawParticle(Math::TransformationMatrix());
 
-
+	// UIs
 	trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
 	time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 770 }));
 	gold->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 700 }));
 	speed->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 630 }));
 	monsters->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 560 }));
 
+	tower_ui.Draw(380, 35, 514, 108);
 
+
+	// Door effect
+	GAM200::DrawShape shape;
 	if(count < 3.0)
 	{
 		Engine::Instance().push();
@@ -176,22 +196,12 @@ void Game::Draw()
 		Engine::Instance().pop();
 	}
 	
-
-	/*currentwave->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 770 }));
-	time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 700 }));
-	gold->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 630 }));
-	speed->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 560 }));
-	monsters->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 490 }));*/
-	
-	tower_ui.Draw(380, 35, 514, 108);
-
-	if (GetGSComponent<Wave>()->GetCurWave() >= GetGSComponent<Wave>()->GetMaxWave()) { //win
-		condition[0] = true;
+	if (in_game_state == Win)
+	{
 		win.Draw(0, 0, 1280, 800);
-
 	}
-	if (Monster::GetRemainingMonster() >= GetGSComponent<MonsterLimit>()->GetLimit()) { //lose
-		condition[1] = true;
+	if (in_game_state == Lose)
+	{
 		lose.Draw(0, 0, 1280, 800);
 	}
 }

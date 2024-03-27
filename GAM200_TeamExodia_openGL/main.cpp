@@ -20,7 +20,6 @@ int main()
     {
         Engine& engine = Engine::Instance();
 
-        float wow;
         // 16:9
         engine.Start("GAM200 - Team: Exodia", 1280, 800, OriginPosition::LEFT_DOWN);
 
