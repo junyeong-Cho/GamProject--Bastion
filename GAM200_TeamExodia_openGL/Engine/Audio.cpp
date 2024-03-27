@@ -154,10 +154,8 @@ GAM200::SoundEffect::SoundEffect(const std::string& path)
 
 void GAM200::SoundEffect::play()
 {
-    // �� �̻� ������� �ʴ� ���� ����
     sounds.remove_if([](const sf::Sound& s) { return s.getStatus() == sf::Sound::Stopped; });
 
-    // �� ���� ���
     sounds.emplace_back();
     sounds.back().setBuffer(buffer);
     sounds.back().setVolume(effectVolume);
