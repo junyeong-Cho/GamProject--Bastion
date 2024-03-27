@@ -53,14 +53,14 @@ protected:
 
 };
 
-class Spear : public SpearUnit
+class Spear_2 : public SpearUnit
 {
 public:
-    Spear(Math::vec2 position = Map::middle_point) : SpearUnit(1.2, 2, position) { }
+    Spear_2(Math::vec2 position = Map::middle_point) : SpearUnit(1.2, 2, position) { }
 
 
-    virtual GameObjectTypes Type() override { return GameObjectTypes::Spear; }
-    virtual std::string TypeName() override { return "Spear"; }
+    virtual GameObjectTypes Type() override { return GameObjectTypes::Spear_2; }
+    virtual std::string TypeName() override { return "Spear_2"; }
 
     void Draw(Math::TransformationMatrix camera_matrix)
     {

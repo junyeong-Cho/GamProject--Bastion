@@ -45,13 +45,13 @@ protected:
 
 };
 
-class Sniper : public SniperUnit
+class Sniper_2 : public SniperUnit
 {
 public:
-    Sniper(Math::vec2 position = Map::middle_point) : SniperUnit(5.0, 7, position) { }
+    Sniper_2(Math::vec2 position = Map::middle_point) : SniperUnit(5.0, 7, position) { }
 
-    virtual GameObjectTypes Type() override { return GameObjectTypes::Sniper; }
-    virtual std::string TypeName() override { return "Sniper"; }
+    virtual GameObjectTypes Type() override { return GameObjectTypes::Sniper_2; }
+    virtual std::string TypeName() override { return "Sniper_2"; }
 
 
     void Draw(Math::TransformationMatrix camera_matrix)

@@ -53,12 +53,12 @@ protected:
 
 
 
-class Sword : public MeleeUnit
+class Sword_1 : public MeleeUnit
 {
 public:
-    Sword(Math::vec2 position = Map::middle_point) : MeleeUnit(1.0, 3, position) { }
+    Sword_1(Math::vec2 position = Map::middle_point) : MeleeUnit(1.0, 3, position) { }
 
-    GameObjectTypes Type() override { return GameObjectTypes::Sword; }
+    GameObjectTypes Type() override { return GameObjectTypes::Sword_1; }
     std::string TypeName() override { return "Sword"; }
 
     void Draw(Math::TransformationMatrix camera_matrix)
@@ -97,10 +97,13 @@ public:
     {
         switch (type)
         {
-        case GameObjectTypes::Bomb:
+        case GameObjectTypes::Sword_1:
             return true;
 
-        case GameObjectTypes::Bow:
+        case GameObjectTypes::Bomb_1:
+            return true;
+
+        case GameObjectTypes::Bow_1:
             return true;
 
         default:
@@ -109,15 +112,15 @@ public:
     }
     void ResolveMerge(GameObject* other_object)
     {
-        if (other_object->Type() == GameObjectTypes::Bomb)
+        if (other_object->Type() == GameObjectTypes::Bomb_1)
         {
-            new Spear(GetPosition());
+            new Spear_2(GetPosition());
             other_object->Destroy();
             Destroy();
         }
-        else if (other_object->Type() == GameObjectTypes::Bow)
+        else if (other_object->Type() == GameObjectTypes::Bow_1)
         {
-            new Transform(GetPosition());
+            new Transform_2(GetPosition());
             other_object->Destroy();
             Destroy();
         }
@@ -125,6 +128,4 @@ public:
 private:
     GAM200::Texture* melee_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_idle.png");
     GAM200::Texture* melee_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_attack.png");
-
-    
 };

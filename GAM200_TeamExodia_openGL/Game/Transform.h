@@ -51,13 +51,13 @@ protected:
 
 };
 
-class Transform : public TransformUnit
+class Transform_2 : public TransformUnit
 {
 public:
-    Transform(Math::vec2 position = Map::middle_point) : TransformUnit(10.0, 5.0, 0.8, 1.2, 4, position) { }
+    Transform_2(Math::vec2 position = Map::middle_point) : TransformUnit(10.0, 5.0, 0.8, 1.2, 4, position) { }
 
-    virtual GameObjectTypes Type() override { return GameObjectTypes::Transform; }
-    virtual std::string TypeName() override { return "Transform"; }
+    virtual GameObjectTypes Type() override { return GameObjectTypes::Transform_2; }
+    virtual std::string TypeName() override { return "Transform_2"; }
 
 
     void Draw(Math::TransformationMatrix camera_matrix)

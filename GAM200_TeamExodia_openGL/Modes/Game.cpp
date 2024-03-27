@@ -93,15 +93,15 @@ void Game::Update(double dt)
 	}
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::_1))
 	{
-		new Sword();
+		new Sword_1();
 	}
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::_2))
 	{
-		new Bow();
+		new Bow_1();
 	}
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::_3))
 	{
-		new Bomb();
+		new Bomb_1();
 	}
 
 	trash.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("A", 0xFFFFFFFF));

@@ -50,22 +50,22 @@ protected:
 
 };
 
-class Bow : public RangedUnit
+class Bow_1 : public RangedUnit
 {
 public:
-    Bow(Math::vec2 position = Map::middle_point) : RangedUnit(0.8, 2, position) { }
+    Bow_1(Math::vec2 position = Map::middle_point) : RangedUnit(0.8, 2, position) { }
 
-    GameObjectTypes Type() override { return GameObjectTypes::Bow; }
-    std::string TypeName() override { return "Bow"; }
+    GameObjectTypes Type() override { return GameObjectTypes::Bow_1; }
+    std::string TypeName() override { return "Bow_1"; }
 
     bool CanMergeWith(GameObjectTypes type)
     {
         switch (type)
         {
-        case GameObjectTypes::Sword:
+        case GameObjectTypes::Sword_1:
             return true;
 
-        case GameObjectTypes::Bomb:
+        case GameObjectTypes::Bomb_1:
             return true;
 
         default:
@@ -74,15 +74,15 @@ public:
     }
     void ResolveMerge(GameObject* other_object)
     {
-        if (other_object->Type() == GameObjectTypes::Sword)
+        if (other_object->Type() == GameObjectTypes::Sword_1)
         {
-            new Transform(GetPosition());
+            new Transform_2(GetPosition());
             other_object->Destroy();
             Destroy();
         }
-        else if (other_object->Type() == GameObjectTypes::Bomb)
+        else if (other_object->Type() == GameObjectTypes::Bomb_1)
         {
-            new Sniper(GetPosition());
+            new Sniper_2(GetPosition());
             other_object->Destroy();
             Destroy();
         }
