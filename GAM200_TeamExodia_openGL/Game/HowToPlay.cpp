@@ -14,7 +14,7 @@ Updated:    November 2, 2023
 
 
 
-HowToPlay::HowToPlay() : FirstPage(), SecondPage(), ThirdPage()
+HowToPlay::HowToPlay()
 {
 
 }
@@ -26,6 +26,7 @@ void HowToPlay::Load()
 	FirstPage = Engine::Instance().GetTextureManager().Load("assets/HowToPlay/Click_to_summon.png");
 	SecondPage = Engine::Instance().GetTextureManager().Load("assets/HowToPlay/Drag_to_move.png");
 	ThirdPage = Engine::Instance().GetTextureManager().Load("assets/HowToPlay/Merge_to_upgrade.png");
+	FourthPage = Engine::Instance().GetTextureManager().Load("assets/HowToPlay/Lose_Condition.png");
 
 }
 
@@ -34,14 +35,12 @@ void HowToPlay::UpdateMenuTextColors()
 	uint32_t colors[2] = { 0xFFFFFFFF, 0xFFFFFFFF };
 	colors[state] = 0x7EFACBFF;
 
-	trash.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture(",", colors[0]));
+	back.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Back", colors[0]));
+	next.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Next", colors[1]));
 
-	back.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Back", colors[0]));
-	next.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Next", colors[1]));
-	
 	//exit.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Exit", colors[0]));
-	play.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Play", colors[1]));
-	
+	play.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("Play", colors[1]));
+
 }
 
 
@@ -74,9 +73,9 @@ void HowToPlay::Update(double dt)
 		}
 		else if (state == State::Next)
 		{
-			if (page == Page::End)
+			if (page == Page::Four)
 			{
-				Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Store));
+				Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
 			}
 			page += 1;
 		}
@@ -98,7 +97,6 @@ void HowToPlay::Draw()
 {
 	Engine::GetWindow().Clear(0.2f, 0.4f, 0.7f, 1.0f);
 
-	trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
 	back->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x / 2 + 220, (Engine::GetWindow().GetSize().y / 2 - 220) }));
 
 	switch (page)
@@ -115,13 +113,14 @@ void HowToPlay::Draw()
 		ThirdPage->Draw(0, 0, 1280, 800);
 		break;
 
-	case Page::End:
+	case Page::Four:
+		FourthPage->Draw(0, 0, 1280, 800);
 		break;
 	}
 
 
 
-	if (page == Page::End)
+	if (page == Page::Four)
 	{
 		//exit->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x / 2 + 220, (Engine::GetWindow().GetSize().y / 2 - 220) }));
 		play->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x / 2 + 220, (Engine::GetWindow().GetSize().y / 2 - 280) }));
