@@ -55,6 +55,7 @@ void Engine::Update()
 
     double FPSUpdate = 1 / TargetFPS;
 
+    dt *= speed;
 
     if (dt >= FPSUpdate)
     {

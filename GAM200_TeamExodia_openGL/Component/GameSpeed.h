@@ -20,7 +20,7 @@ public:
         {
             NextSpeed();
             Engine::GetLogger().LogDebug("Speed Changed to " + std::to_string(speed));
-            //Engine::Instance().SetGameSpeed(GetSpeed());
+            Engine::Instance().SetSpeed(speed);
         }
     }
 

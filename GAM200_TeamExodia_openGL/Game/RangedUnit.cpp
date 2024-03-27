@@ -29,6 +29,7 @@ void RangedUnit::Update(double dt)
     // Mouse events
     HandleMouseInput();
 
+    attack_animation_count -= dt;
 }
 
 void RangedUnit::ResolveCollision(GameObject* other_object)
@@ -48,6 +49,9 @@ void RangedUnit::ResolveCollision(GameObject* other_object)
     Monster* target = static_cast<Monster*>(other_object);
     Engine::GetLogger().LogDebug(TypeName() + "Attacked!");
     target->TakeDamage(damage);
+
+    attack_animation_count = attack_animation_time;
+
     change_state(&state_none);
 }
 
@@ -105,7 +109,7 @@ void Bow_1::Draw(Math::TransformationMatrix camera_matrix)
     Math::vec2 position = GetPosition();
 
     // Unit draw   
-    if (current_state->GetName() == "None")
+    if (attack_animation_count >= 0)
     {
         shooter_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
     }
@@ -161,7 +165,7 @@ void Bow_2::Draw(Math::TransformationMatrix camera_matrix)
     Math::vec2 position = GetPosition();
 
     // Unit draw   
-    if (current_state->GetName() == "None")
+    if (attack_animation_count >= 0)
     {
         shooter_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
     }

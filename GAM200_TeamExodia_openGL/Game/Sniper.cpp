@@ -29,6 +29,7 @@ void SniperUnit::Update(double dt)
     // Mouse events
     HandleMouseInput();
 
+    attack_animation_count -= dt;
 }
 
 void SniperUnit::ResolveCollision(GameObject* other_object)
@@ -48,6 +49,9 @@ void SniperUnit::ResolveCollision(GameObject* other_object)
     Monster* target = static_cast<Monster*>(other_object);
     Engine::GetLogger().LogDebug(TypeName() + "Attacked!");
     target->TakeDamage(damage);
+
+    attack_animation_count = attack_animation_time;
+
     change_state(&state_none);
 }
 

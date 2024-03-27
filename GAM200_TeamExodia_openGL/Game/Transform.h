@@ -66,6 +66,15 @@ public:
 
         Math::vec2 position = GetPosition();
 
+        //// Unit draw   
+        //if (attack_animation_count >= 0)
+        //{
+        //    sniper_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+        //}
+        //else
+        //{
+        //    sniper_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+        //}
         // Unit draw
 		if (transformed == false)
 		{

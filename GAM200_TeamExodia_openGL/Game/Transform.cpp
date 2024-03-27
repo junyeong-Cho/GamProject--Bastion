@@ -30,6 +30,7 @@ void TransformUnit::Update(double dt)
     // Mouse events
     HandleMouseInput();
 
+    attack_animation_count -= dt;
 }
 
 void TransformUnit::ResolveCollision(GameObject* other_object)
@@ -49,6 +50,9 @@ void TransformUnit::ResolveCollision(GameObject* other_object)
     Monster* target = static_cast<Monster*>(other_object);
     Engine::GetLogger().LogDebug(TypeName() + "Attacked!");
     Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(GetPosition(), range, damage);
+
+    attack_animation_count = attack_animation_time;
+
     change_state(&state_none);
 }
 

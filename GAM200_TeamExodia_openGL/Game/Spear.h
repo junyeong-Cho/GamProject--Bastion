@@ -69,13 +69,13 @@ public:
         Math::vec2 position = GetPosition();
 
         // Unit draw   
-        if (current_state->GetName() == "None")
+        if (attack_animation_count >= 0)
         {
-            spear_attack->Draw(static_cast<int>(position.x) - 130 / 2, static_cast<int>(position.y), 260 / 2, 155 / 2);
+            spear_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
         }
         else
         {
-            spear_attack->Draw(static_cast<int>(position.x) - 130 / 2, static_cast<int>(position.y), 260 / 2, 155 / 2);
+            spear_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
         }
     }
 

@@ -82,10 +82,10 @@ public:
     void pop();
 
     void AddFont(const std::filesystem::path& file_name);
-
+    void SetSpeed(double value) { speed = value; }
 
 private:
-
+    double speed = 1.0;
     std::vector<GAM200::Font> fonts;
 
 

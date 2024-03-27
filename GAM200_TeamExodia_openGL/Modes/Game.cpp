@@ -94,7 +94,7 @@ void Game::Update(double dt)
 
 	// TODO ?
 	GetGSComponent<GameSpeed>()->Update(dt);
-	dt *= GetGSComponent<GameSpeed>()->GetSpeed();
+	//dt *= GetGSComponent<GameSpeed>()->GetSpeed();
 
 	// Update things
 	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);

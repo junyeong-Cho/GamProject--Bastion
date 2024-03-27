@@ -43,7 +43,8 @@ public:
     bool is_moving = false;
 
 protected:
-   
+    double attack_animation_count = 0.0;
+    double attack_animation_time = 0.1;
 
     bool not_clicked = true;
 

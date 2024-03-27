@@ -31,6 +31,7 @@ void SpearUnit::Update(double dt)
     // Mouse events
     HandleMouseInput();
 
+    attack_animation_count -= dt;
 }
 
 void SpearUnit::ResolveCollision(GameObject* other_object)
@@ -51,6 +52,9 @@ void SpearUnit::ResolveCollision(GameObject* other_object)
     //target->TakeDamage(damage);
     Engine::GetLogger().LogDebug(TypeName() + "Attacked!");
     Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(GetPosition(), range, damage);
+
+    attack_animation_count = attack_animation_time;
+
     change_state(&state_none);
 }
 

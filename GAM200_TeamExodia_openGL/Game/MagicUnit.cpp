@@ -29,6 +29,7 @@ void MagicUnit::Update(double dt)
     // Mouse events
     HandleMouseInput();
 
+    attack_animation_count -= dt;
 }
 
 void MagicUnit::ResolveCollision(GameObject* other_object)
@@ -49,6 +50,9 @@ void MagicUnit::ResolveCollision(GameObject* other_object)
     //target->TakeDamage(damage);
     Engine::GetLogger().LogDebug(TypeName() + "Attacked!");
     Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
+
+    attack_animation_count = attack_animation_time;
+
     change_state(&state_none);
 }
 
@@ -106,7 +110,7 @@ void Bomb_1::Draw(Math::TransformationMatrix camera_matrix)
     Math::vec2 position = GetPosition();
 
     // Unit draw   
-    if (current_state->GetName() == "None")
+    if (attack_animation_count >= 0)
     {
         bomb_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
     }
@@ -147,7 +151,7 @@ void Bomb_1::ResolveMerge(GameObject* other_object)
         other_object->Destroy();
         Destroy();
     }
-    else if (other_object->Type() == GameObjectTypes::Bomb_2)
+    else if (other_object->Type() == GameObjectTypes::Bomb_1)
     {
         new Bomb_2(GetPosition());
         other_object->Destroy();
@@ -163,7 +167,7 @@ void Bomb_2::Draw(Math::TransformationMatrix camera_matrix)
     Math::vec2 position = GetPosition();
 
     // Unit draw   
-    if (current_state->GetName() == "None")
+    if (attack_animation_count >= 0)
     {
         bomb_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
     }
