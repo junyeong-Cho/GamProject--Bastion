@@ -5,6 +5,8 @@
 
 #include "../Engine/Input.h"
 
+#include "../Game/Unit.h"
+
 class GameSpeed : public GAM200::Component
 {
 public:
@@ -21,6 +23,17 @@ public:
             NextSpeed();
             Engine::GetLogger().LogDebug("Speed Changed to " + std::to_string(speed));
             Engine::Instance().SetSpeed(speed);
+        }
+        if (Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetCurrentUnit() != nullptr)
+        {
+            if (Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetCurrentUnit()->is_moving)
+            {
+                Engine::Instance().SetSpeed(0.5);
+            }
+            else
+            {
+                Engine::Instance().SetSpeed(speed);
+            }
         }
     }
 
