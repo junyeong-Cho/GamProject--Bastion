@@ -24,6 +24,7 @@ Updated:    December 15, 2023
 #include "../Game/MagicUnit.h"
 
 #include "../Component/Gold.h"
+#include "../Component/GameSpeed.h"
 
 
 #include "../Game/States.h"
@@ -178,4 +179,19 @@ void tower3_Button::func()
 	gold->Spend(55);
 
 	new Bomb_1();
+}
+
+
+GameSpeed_Button::GameSpeed_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+	int gameSpeed = static_cast<int>(Engine::GetGameStateManager().GetGSComponent<GameSpeed>()->GetSpeed());
+
+	AddGOComponent(new GAM200::Sprite("assets/buttons/GameSpeed" + std::to_string(gameSpeed) + ".spt", (this)));
+}
+
+void GameSpeed_Button::func()
+{
+	Engine::GetGameStateManager().GetGSComponent<GameSpeed>()->NextSpeed();
+	Engine::GetGameStateManager().GetGSComponent<GameSpeed>()->UnsetSpeedFlag();
+
 }

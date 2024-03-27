@@ -44,9 +44,9 @@ void Game::Load()
 	// No Camera
 
 	// No Map??		TODO
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new tower1_Button({ 490,35 }, { 78, 78 }));
-    GetGSComponent<GAM200::GameObjectManager>()->Add(new tower2_Button({ 490 +102,35 }, { 78, 78 }));
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new tower3_Button({ 490 +102*2,35 }, { 78, 78 }));
+	GetGSComponent<GAM200::GameObjectManager>()->Add(new tower1_Button	 ({ 490,35 }, { 78, 78 }));
+    GetGSComponent<GAM200::GameObjectManager>()->Add(new tower2_Button	 ({ 490 +102,35 }, { 78, 78 }));
+	GetGSComponent<GAM200::GameObjectManager>()->Add(new tower3_Button	 ({ 490 +102*2,35 }, { 78, 78 }));
 
 	AddGSComponent(new GAM200::ParticleManager<Particles::Hit>());
 	AddGSComponent(new GAM200::ParticleManager<Particles::MeteorBit>());
@@ -59,6 +59,9 @@ void Game::Load()
 	AddGSComponent(new Diamond(100));		// Initial Diamond
 	AddGSComponent(new Map());
 	AddGSComponent(new Wave());
+
+	GetGSComponent<GAM200::GameObjectManager>()->Add(new GameSpeed_Button({ 490 + 102 * 3 + 330, 748 }, { 55, 55 }));
+
 
 	// In Game State
 	in_game_state = InProgress;
@@ -92,9 +95,17 @@ void Game::Update(double dt)
 {
 	count += dt;
 
+
+
 	// TODO ?
 	GetGSComponent<GameSpeed>()->Update(dt);
 	//dt *= GetGSComponent<GameSpeed>()->GetSpeed();
+
+	if (GetGSComponent<GameSpeed>()->IsChanged())
+	{
+		GetGSComponent<GAM200::GameObjectManager>()->Add(new GameSpeed_Button({ 490 + 102 * 3 + 330, 748 }, { 55, 55 }));
+	}
+
 
 	// Update things
 	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);

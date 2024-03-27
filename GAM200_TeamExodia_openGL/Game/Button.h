@@ -123,3 +123,9 @@ public:
     void func() override;
 };
 
+class GameSpeed_Button : public Button {
+public:
+    GameSpeed_Button(Math::vec2 position, Math::vec2 size);
+
+	void func() override;
+};
