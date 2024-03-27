@@ -11,6 +11,7 @@ Updated:    March		 4, 2023
 
 #include "../Engine/Audio.h"
 #include "../Engine/Engine.h"
+#include "../Engine/Audio.h"
 
 #include "../Game/Button.h"
 
@@ -33,7 +34,9 @@ void Main_menu::Load()
 
 	main_title.reset(Engine::GetFont(static_cast<int>(Fonts::Simple)).PrintToTexture("They are season 2", 0xFFFFFFFF));
 	UpdateMenuTextColors();
-	
+
+	//BGM
+	//GAM200::SoundEffect::MainMenu_BGM().loopplay();
 
 }
 
@@ -60,11 +63,13 @@ void Main_menu::Update(double dt)
 	{
 		counter = (counter + 1) % 4;
 		shouldUpdateColors = true;
+		GAM200::SoundEffect::Button_1().play();
 	}
 	else if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Up))
 	{
 		counter = (counter - 1 + 4) % 4;
 		shouldUpdateColors = true;
+		GAM200::SoundEffect::Button_1().play();
 	}
 
 	if (shouldUpdateColors)
@@ -91,15 +96,18 @@ void Main_menu::Update(double dt)
 		{
 		case 0:
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Store));
+			GAM200::SoundEffect::Button_3().play();
 			break;
 		case 1:
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::HowToPlay));
+			GAM200::SoundEffect::Button_3().play();
 			break;
 		case 2:
 			//Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Setting));
 			break;
 		case 3:
 			Engine::GetGameStateManager().ClearNextGameState();
+			GAM200::SoundEffect::Button_3().play();
 			break;
 		}
 	}	

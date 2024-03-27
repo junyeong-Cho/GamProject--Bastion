@@ -5,6 +5,7 @@
 #include "../Engine/DrawShape.h"
 #include "../Engine/Font.h"
 #include "../Engine/Texture.h"
+#include "../Engine/Audio.h"
 
 #include "../Component/MonsterLimit.h"
 #include "../Component/Gold.h"
@@ -48,6 +49,9 @@ void Game::Load()
 	AddGSComponent(new Map());
 	AddGSComponent(new Wave());
 	GetGSComponent<Wave>()->SetWave("assets/maps/Wave1.txt");
+
+	//BGM
+	GAM200::SoundEffect::MainMenu_BGM().stopAll();
 
 
 #ifdef _DEBUG

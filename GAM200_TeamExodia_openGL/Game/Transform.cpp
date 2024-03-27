@@ -5,6 +5,7 @@
 
 #include "../Engine/Engine.h"
 #include "../Engine/GameObjectManager.h"
+#include "../Engine/Audio.h"
 
 TransformUnit::TransformUnit(double transform_cool, double transform_time, double T_attack_time, double attack_time, int damage, Math::vec2 position, double range) :
     transform_cool(transform_cool),
@@ -16,6 +17,9 @@ TransformUnit::TransformUnit(double transform_cool, double transform_time, doubl
 {
     current_state = &state_none;
     current_state->Enter(this);
+
+    //Sound
+    GAM200::SoundEffect::Tower_Placing().play();
 }
 
 void TransformUnit::Update(double dt)

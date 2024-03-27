@@ -5,6 +5,7 @@
 
 #include "../Engine/Engine.h"
 #include "../Engine/GameObjectManager.h"
+#include "../Engine/Audio.h"
 
 
 SniperUnit::SniperUnit(double attack_time, int damage, Math::vec2 position, double range) :
@@ -15,6 +16,9 @@ SniperUnit::SniperUnit(double attack_time, int damage, Math::vec2 position, doub
 
     current_state = &state_none;
     current_state->Enter(this);
+
+    //Sound
+    GAM200::SoundEffect::Tower_Placing().play();
 }
 
 void SniperUnit::Update(double dt)
