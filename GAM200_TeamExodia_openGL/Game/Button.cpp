@@ -172,7 +172,7 @@ tower1_Button::tower1_Button(Math::vec2 position, Math::vec2 size) : Button(posi
 
 void tower1_Button::func()
 {
-	new Sword();
+	new Sword_1();
 }
 
 
@@ -183,7 +183,7 @@ tower2_Button::tower2_Button(Math::vec2 position, Math::vec2 size) : Button(posi
 
 void tower2_Button::func()
 {
-	new Bow();
+	new Bow_1();
 }
 
 tower3_Button::tower3_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
@@ -193,5 +193,5 @@ tower3_Button::tower3_Button(Math::vec2 position, Math::vec2 size) : Button(posi
 
 void tower3_Button::func()
 {
-	new Bomb();
+	new Bomb_1();
 }
