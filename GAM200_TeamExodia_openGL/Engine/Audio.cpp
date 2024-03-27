@@ -129,7 +129,13 @@ GAM200::SoundEffect& GAM200::SoundEffect::Attack()
 
 GAM200::SoundEffect& GAM200::SoundEffect::MainMenu_BGM()
 {
-    static SoundEffect MainMenu_BGM("assets/Sounds/Theme/Hihi.wav");
+    static SoundEffect MainMenu_BGM("assets/Sounds/Theme/Maintheme_Reference.wav");
+    return MainMenu_BGM;
+}
+
+GAM200::SoundEffect& GAM200::SoundEffect::Game_BGM()
+{
+    static SoundEffect MainMenu_BGM("assets/Sounds/Theme/BattleTheme_Reference.wav");
     return MainMenu_BGM;
 }
 

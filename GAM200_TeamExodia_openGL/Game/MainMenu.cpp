@@ -36,7 +36,8 @@ void Main_menu::Load()
 	UpdateMenuTextColors();
 
 	//BGM
-	//GAM200::SoundEffect::MainMenu_BGM().loopplay();
+	GAM200::SoundEffect::Game_BGM().stopAll();
+	GAM200::SoundEffect::MainMenu_BGM().loopplay();
 
 }
 

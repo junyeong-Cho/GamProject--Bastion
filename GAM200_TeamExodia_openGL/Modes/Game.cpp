@@ -52,6 +52,7 @@ void Game::Load()
 
 	//BGM
 	GAM200::SoundEffect::MainMenu_BGM().stopAll();
+	GAM200::SoundEffect::Game_BGM().loopplay();
 
 
 #ifdef _DEBUG
