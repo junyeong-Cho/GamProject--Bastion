@@ -48,7 +48,7 @@ protected:
 class Sniper_2 : public SniperUnit
 {
 public:
-    Sniper_2(Math::vec2 position = Map::middle_point) : SniperUnit(5.0, 10, position) { }
+    Sniper_2(Math::vec2 position = Map::middle_point) : SniperUnit(5.0, 50, position) { }
 
     virtual GameObjectTypes Type() override { return GameObjectTypes::Sniper_2; }
     virtual std::string TypeName() override { return "Sniper_2"; }
