@@ -55,7 +55,7 @@ protected:
 class Bow_1 : public RangedUnit
 {
 public:
-    Bow_1(Math::vec2 position = Map::middle_point) : RangedUnit(0.8, 2, position) { }
+    Bow_1(Math::vec2 position = Map::middle_point) : RangedUnit(0.8, 4, position) { }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bow_1; }
     std::string TypeName() override { return "Bow_1"; }
@@ -75,7 +75,7 @@ private:
 class Bow_2 : public RangedUnit
 {
 public:
-    Bow_2(Math::vec2 position = Map::middle_point) : RangedUnit(0.7, 3, position) { }
+    Bow_2(Math::vec2 position = Map::middle_point) : RangedUnit(0.7, 5, position) { }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bow_2; }
     std::string TypeName() override { return "Bow_2"; }

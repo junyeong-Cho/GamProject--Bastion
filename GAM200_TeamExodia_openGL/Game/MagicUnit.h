@@ -55,7 +55,7 @@ protected:
 class Bomb_1 : public MagicUnit
 {
 public:
-    Bomb_1(Math::vec2 position = Map::middle_point) : MagicUnit(1.2, 4, position) { }
+    Bomb_1(Math::vec2 position = Map::middle_point) : MagicUnit(1.5, 4, position) { }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bomb_1; }
     std::string TypeName() override { return "Bomb_1"; }
@@ -76,7 +76,7 @@ private:
 class Bomb_2 : public MagicUnit
 {
 public:
-    Bomb_2(Math::vec2 position = Map::middle_point) : MagicUnit(1.0, 5, position) { }
+    Bomb_2(Math::vec2 position = Map::middle_point) : MagicUnit(1.0, 4, position) { }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bomb_2; }
     std::string TypeName() override { return "Bomb_2"; }

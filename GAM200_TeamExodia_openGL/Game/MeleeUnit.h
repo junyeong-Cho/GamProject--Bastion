@@ -56,7 +56,7 @@ protected:
 class Sword_1 : public MeleeUnit
 {
 public:
-    Sword_1(Math::vec2 position = Map::middle_point) : MeleeUnit(1.0, 3, position) { }
+    Sword_1(Math::vec2 position = Map::middle_point) : MeleeUnit(1.0, 5, position) { }
 
     GameObjectTypes Type() override { return GameObjectTypes::Sword_1; }
     std::string TypeName() override { return "Sword_1"; }
