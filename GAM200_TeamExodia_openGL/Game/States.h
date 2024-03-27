@@ -31,6 +31,9 @@ enum class States
 
 	Win,
 	Lose,
+	tower1,
+	tower2,
+	tower3
 
 	/*
 	ModeSelect,

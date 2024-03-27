@@ -17,6 +17,12 @@ Updated:    December 15, 2023
 #include "../Engine/DrawShape.h"
 #include "../Component/Wave.h"
 
+#include "../Game/Unit.h"
+#include "../Game/Monster.h"
+#include "../Game/MeleeUnit.h"
+#include "../Game/RangedUnit.h"
+#include "../Game/MagicUnit.h"
+
 #include "Gold.h"
 #include "Life.h"
 #include "../Game/States.h"
@@ -153,6 +159,39 @@ TestButton::TestButton(Math::vec2 position, Math::vec2 size) : Button(position, 
 void TestButton::func()
 {
 	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
+
+
+}
+
+///////////
+
+tower1_Button::tower1_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+	AddGOComponent(new GAM200::Sprite("assets/buttons/TestButton.spt", (this)));
+}
+
+void tower1_Button::func()
+{
+	new Sword();
 }
 
 
+tower2_Button::tower2_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+	AddGOComponent(new GAM200::Sprite("assets/buttons/TestButton.spt", (this)));
+}
+
+void tower2_Button::func()
+{
+	new Bow();
+}
+
+tower3_Button::tower3_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+	AddGOComponent(new GAM200::Sprite("assets/buttons/TestButton.spt", (this)));
+}
+
+void tower3_Button::func()
+{
+	new Bomb();
+}

@@ -54,6 +54,50 @@ public:
 	void func() override;
 };
 
+///////
+
+class tower1_Button : public Button
+{
+public:
+    tower1_Button(Math::vec2 position, Math::vec2 size);
+
+    void func();
+};
+
+class tower2_Button : public Button
+{
+public:
+    tower2_Button(Math::vec2 position, Math::vec2 size);
+
+    void func();
+};
+
+class tower3_Button : public Button
+{
+public:
+    tower3_Button(Math::vec2 position, Math::vec2 size);
+
+    void func();
+};
+
+
+
+//class tower2_Button : public Button
+//{
+//public:
+//    tower2_Button(Math::vec2 position, Math::vec2 size);
+//
+//    void check_button();
+//};
+//
+//class tower3_Button : public Button
+//{
+//public:
+//    tower3_Button(Math::vec2 position, Math::vec2 size);
+//
+//    void check_button();
+//};
+/////
 
 
 class Store_Easy_Button : public Button {

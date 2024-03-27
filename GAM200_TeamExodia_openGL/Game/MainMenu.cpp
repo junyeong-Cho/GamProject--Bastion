@@ -121,6 +121,7 @@ void Main_menu::Draw()
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
 
 
+
 	main_title->Draw(Math::TranslationMatrix(Math::ivec2{ 20, (Engine::GetWindow().GetSize().y - 20) }));
 
 	play	 ->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x/2   + 220, (Engine::GetWindow().GetSize().y / 2 - 100)}));

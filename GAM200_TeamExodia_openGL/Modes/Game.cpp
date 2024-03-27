@@ -20,7 +20,7 @@
 #include "../Game/RangedUnit.h"
 #include "../Game/MagicUnit.h"
 #include "../Game/Fonts.h"
-
+#include "../Game/Button.h"
 
 Game::Game()
 {
@@ -35,7 +35,9 @@ void Game::Load()
 	// No Camera
 
 	// No Map??		TODO
-
+	GetGSComponent<GAM200::GameObjectManager>()->Add(new tower1_Button({ 490,35 }, { 78, 78 }));
+    GetGSComponent<GAM200::GameObjectManager>()->Add(new tower2_Button({ 490 +102,35 }, { 78, 78 }));
+	GetGSComponent<GAM200::GameObjectManager>()->Add(new tower3_Button({ 490 +102*2,35 }, { 78, 78 }));
 
 
 	// Components
@@ -92,18 +94,18 @@ void Game::Update(double dt)
 	{
 		GetGSComponent<Wave>()->Skip();
 	}
-	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::_1))
-	{
-		new Sword();
-	}
-	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::_2))
-	{
-		new Bow();
-	}
-	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::_3))
-	{
-		new Bomb();
-	}
+	//if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::_1))
+	//{
+	//	new Sword();
+	//}
+	//if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::_2))
+	//{
+	//	new Bow();
+	//}
+	//if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::_3))
+	//{
+	//	new Bomb();
+	//}
 
 	trash.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("A", 0xFFFFFFFF));
 
@@ -126,14 +128,19 @@ void Game::Unload()
 
 void Game::Draw()
 {
+	GAM200::DrawShape shape;
 	GetGSComponent<Map>()->Draw();
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
+
 
 	trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
 	time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 770 }));
 	gold->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 700 }));
 	speed->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 630 }));
 	monsters->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 560 }));
+	
+	tower_ui.Draw(380, 35, 514, 108);
+	
 }
 
 void Game::ImguiDraw()

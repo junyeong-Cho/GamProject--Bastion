@@ -39,6 +39,7 @@ public:
 	std::string GetName() override { return "Game"; }
 
 
+GAM200::Texture tower_ui = GAM200::Texture("assets/buttons/tower_ui.png", GAM200::Texture::TextureType::RECTANGLE);
 private:
 	std::unique_ptr<GAM200::Texture> trash;
 
@@ -46,4 +47,6 @@ private:
 	std::unique_ptr<GAM200::Texture> gold;
 	std::unique_ptr<GAM200::Texture> speed;
 	std::unique_ptr<GAM200::Texture> monsters;
+
+	
 };
