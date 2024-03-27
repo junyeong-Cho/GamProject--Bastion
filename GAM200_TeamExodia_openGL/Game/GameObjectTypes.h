@@ -22,24 +22,24 @@ enum class GameObjectTypes
 
 
     MeleeUnit,
-    Sword,
+    Sword_1,
 
 
     RangedUnit,
-    Bow,
+    Bow_1,
 
 
     MagicUnit,
-    Bomb,
+    Bomb_1,
 
     SpearUnit,
-    Spear,
+    Spear_2,
 
     TransformUnit,
-    Transform,
+    Transform_2,
 
     SniperUnit,
-    Sniper,
+    Sniper_2,
 
 
     Button,

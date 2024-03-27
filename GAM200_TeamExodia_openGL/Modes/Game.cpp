@@ -98,18 +98,18 @@ void Game::Update(double dt)
 	{
 		GetGSComponent<Wave>()->Skip();
 	}
-	//if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::_1))
-	//{
-	//	new Sword();
-	//}
-	//if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::_2))
-	//{
-	//	new Bow();
-	//}
-	//if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::_3))
-	//{
-	//	new Bomb();
-	//}
+	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::_1))
+	{
+		new Sword_1();
+	}
+	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::_2))
+	{
+		new Bow_1();
+	}
+	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::_3))
+	{
+		new Bomb_1();
+	}
 
 	trash.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("A", 0xFFFFFFFF));
 
