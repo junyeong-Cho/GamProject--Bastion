@@ -44,8 +44,8 @@ private:
 
 	double current_time = 0.0;
 
-	double wave_time = 5.0;
-	double rest_time = 5.0;
+	double wave_time = 20.0;
+	double rest_time = 10.0;
 
 	double monster_spawn_time_offset = 0.0;
 	double monster_spawn_time_count = 0.0;

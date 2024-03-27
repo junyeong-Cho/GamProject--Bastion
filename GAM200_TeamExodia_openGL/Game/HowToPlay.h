@@ -54,6 +54,7 @@ private:
     GAM200::Texture* ThirdPage;
     GAM200::Texture* FourthPage;
 
+    std::unique_ptr<GAM200::Texture> trash;
     std::unique_ptr<GAM200::Texture> next;
     std::unique_ptr<GAM200::Texture> back;
 
