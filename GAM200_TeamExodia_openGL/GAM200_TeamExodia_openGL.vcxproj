@@ -211,6 +211,7 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClInclude Include="Game\MainMenu.h" />
     <ClInclude Include="Game\MeleeUnit.h" />
     <ClInclude Include="Game\Monster.h" />
+    <ClInclude Include="Game\Particles.h" />
     <ClInclude Include="Game\Portal.h" />
     <ClInclude Include="Game\RangedUnit.h" />
     <ClInclude Include="Game\ScreenWrap.h" />

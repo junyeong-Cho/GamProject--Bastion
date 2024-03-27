@@ -348,5 +348,8 @@
     <ClInclude Include="Game\Life.h">
       <Filter>Game\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Particles.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

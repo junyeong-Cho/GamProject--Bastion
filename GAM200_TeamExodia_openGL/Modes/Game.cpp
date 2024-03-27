@@ -21,6 +21,9 @@
 #include "../Game/MagicUnit.h"
 #include "../Game/Fonts.h"
 
+#include "../Engine/Particle.h"
+#include "../Game/Particles.h"
+
 Game::Game()
 {
 
@@ -35,6 +38,8 @@ void Game::Load()
 
 	// No Map??		TODO
 
+	AddGSComponent(new GAM200::ParticleManager<Particles::Hit>());
+	AddGSComponent(new GAM200::ParticleManager<Particles::MeteorBit>());
 
 
 	// Components
@@ -45,6 +50,7 @@ void Game::Load()
 	AddGSComponent(new Map());
 	AddGSComponent(new Wave());
 	GetGSComponent<Wave>()->SetWave("assets/maps/Wave1.txt");
+
 
 
 #ifdef _DEBUG
@@ -129,7 +135,7 @@ void Game::Draw()
 {
 	GetGSComponent<Map>()->Draw();
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
-
+	GetGSComponent<GAM200::GameObjectManager>()->DrawParticle(Math::TransformationMatrix());
 
 	trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
 	time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 770 }));
