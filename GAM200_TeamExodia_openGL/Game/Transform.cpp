@@ -84,14 +84,18 @@ void TransformUnit::State_None::Update(GameObject* object, double dt)
     {
         if (unit->transform_count >= unit->transform_cool)
         {
+            Engine::GetLogger().LogDebug("Transform!");
             unit->transformed = true;
+            unit->transform_count = 0;
         }
     }
     else if (unit->transformed)
     {
         if (unit->transform_count >= unit->transform_time)
         {
+            Engine::GetLogger().LogDebug("Not Transform!");
             unit->transformed = false;
+            unit->transform_count = 0;
         }
     }
 }
@@ -99,7 +103,7 @@ void TransformUnit::State_None::CheckExit(GameObject* object)
 {
     TransformUnit* unit = static_cast<TransformUnit*>(object);
 
-    if (unit->attack_count >= (unit->transformed ? unit->T_attack_time : unit->attack_time))
+    if (unit->attack_count >= (unit->transformed ? unit->attack_time : unit->T_attack_time))
     {
         unit->change_state(&unit->state_attacking);
     }
@@ -121,6 +125,7 @@ void TransformUnit::State_Attack::Update(GameObject* object, double dt)
         if (unit->transform_count >= unit->transform_cool)
         {
             unit->transformed = true;
+            unit->transform_count = 0;
         }
     }
     else if (unit->transformed)
@@ -128,6 +133,7 @@ void TransformUnit::State_Attack::Update(GameObject* object, double dt)
         if (unit->transform_count >= unit->transform_time)
         {
             unit->transformed = false;
+            unit->transform_count = 0;
         }
     }
 }

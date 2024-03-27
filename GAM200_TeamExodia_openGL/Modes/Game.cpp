@@ -55,7 +55,7 @@ void Game::Load()
 	// Components
 	AddGSComponent(new GameSpeed());
 	AddGSComponent(new MonsterLimit(40));	// Max Limit of Monster
-	AddGSComponent(new Gold(100));			// Initial Gold
+	AddGSComponent(new Gold(110));			// Initial Gold
 	AddGSComponent(new Diamond(100));		// Initial Diamond
 	AddGSComponent(new Map());
 	AddGSComponent(new Wave());
@@ -149,9 +149,7 @@ void Game::Update(double dt)
 	// Change State
 	if (in_game_state != InProgress)
 	{
-		if (Engine::GetInput().MouseJustPressed(GAM200::Input::MouseButtons::LEFT) || 
-			Engine::GetInput().IsPressed()
-			)
+		if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Enter))
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
 	}
 }

@@ -66,38 +66,29 @@ public:
 
         Math::vec2 position = GetPosition();
 
-        //// Unit draw   
-        //if (attack_animation_count >= 0)
-        //{
-        //    sniper_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
-        //}
-        //else
-        //{
-        //    sniper_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
-        //}
-        // Unit draw
-		if (transformed == false)
-		{
-			if (current_state->GetName() == "None")
-			{
-				transform_default_melee_attack->Draw(static_cast<int>(position.x) - 130 / 2, static_cast<int>(position.y), 260 / 2, 155 / 2);
-			}
-			else
-			{
-				transform_default_melee_idle->Draw(static_cast<int>(position.x) - 130 / 2, static_cast<int>(position.y), 260 / 2, 155 / 2);
-			}
-		}
-		else
-		{
-			if (current_state->GetName() == "None")
-			{
-				transform_melee_attack->Draw(static_cast<int>(position.x) - 130 / 2, static_cast<int>(position.y), 260 / 2, 155 / 2);
-			}
-			else
-			{
-				transform_melee_idle->Draw(static_cast<int>(position.x) - 130 / 2, static_cast<int>(position.y), 260 / 2, 155 / 2);
-			}
-		}
+        // unit draw   
+        if (transformed)
+        {
+            if (attack_animation_count >= 0)
+            {
+                transform_default_melee_attack->Draw(static_cast<int>(position.x) - 130 / 2, static_cast<int>(position.y), 300 / 2, 185 / 2);
+            }
+            else
+            {
+                transform_default_melee_idle->Draw(static_cast<int>(position.x) - 130 / 2, static_cast<int>(position.y), 300 / 2, 185 / 2);
+            }
+        }
+        else
+        {
+            if (attack_animation_count >= 0)
+            {
+                transform_melee_attack->Draw(static_cast<int>(position.x) - 130 / 2, static_cast<int>(position.y), 300 / 2, 185 / 2);
+            }
+            else
+            {
+                transform_melee_idle->Draw(static_cast<int>(position.x) - 130 / 2, static_cast<int>(position.y), 300 / 2, 185 / 2);
+            }
+        }
     }
 
 private:
