@@ -100,7 +100,7 @@ Store_InGame_Button::Store_InGame_Button(Math::vec2 position, Math::vec2 size) :
 
 void Store_InGame_Button::func() {
 	Button::difficult = 4;
-	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
+
 }
 
 Store_Gold_Button::Store_Gold_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {

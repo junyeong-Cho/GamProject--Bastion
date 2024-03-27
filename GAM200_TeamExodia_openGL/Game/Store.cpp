@@ -50,16 +50,6 @@ void Store::Update(double dt)
 
 	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
 
-	//if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Escape))
-	//{
-	//	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
-	//}
-
-	//if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Enter))
-	//{
-	//	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
-	//}
-
 
 	
 }
