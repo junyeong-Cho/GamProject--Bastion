@@ -44,6 +44,9 @@ bool GAM200::MergeCircleCollision::IsMergingWith(Math::vec2 point)
 
 bool GAM200::MergeCircleCollision::IsMergingWith(GameObject* other_object)
 {
+    if (other_object == nullptr)
+        return false;
+
     MergeCollision* other_collider = other_object->GetGOComponent<MergeCollision>();
 
     if (other_collider == nullptr)
