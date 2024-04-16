@@ -24,25 +24,44 @@ enum class GameObjectTypes
     MeleeUnit,
     Sword_1,
     Sword_2,
+    Sword_4,
+    Sword_8,
+    Sword_16,
+
 
 
     RangedUnit,
     Bow_1,
     Bow_2,
+    Bow_4,
+    Bow_8,
+    Bow_16,
 
 
     MagicUnit,
     Bomb_1,
     Bomb_2,
+    Bomb_4,
+    Bomb_8,
+    Bomb_16,
 
     SpearUnit,
     Spear_2,
+    Spear_4,
+    Spear_8,
+    Spear_16,
 
     TransformUnit,
     Transform_2,
+    Transform_4,
+    Transform_8,
+    Transform_16,
 
     SniperUnit,
     Sniper_2,
+    Sniper_4,
+    Sniper_8,
+    Sniper_16,
 
 
     Button,

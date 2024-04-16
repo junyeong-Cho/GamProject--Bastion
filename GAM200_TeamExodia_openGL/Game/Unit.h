@@ -56,17 +56,3 @@ protected:
 
     Math::vec2 position_gap;
 };
-
-class TestUnit : public Unit
-{
-public:
-    TestUnit(double range = Map::basic_size * 0.75, Math::vec2 position = Map::middle_point) : Unit(range, position) { }
-
-
-    void ResolveCollision(GameObject* other_object) override { }
-
-    bool CanMergeWith(GameObjectTypes type) override { return false; }
-    void ResolveMerge(GameObject* other_object) override { }
-
-
-};

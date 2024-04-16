@@ -32,6 +32,23 @@ void RangedUnit::Update(double dt)
     attack_animation_count -= dt;
 }
 
+void RangedUnit::Draw(Math::TransformationMatrix camera_matrix)
+{
+    Unit::Draw(camera_matrix);
+
+    Math::vec2 position = GetPosition();
+
+    // Unit draw   
+    if (attack_animation_count >= 0)
+    {
+        shooter_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+    }
+    else
+    {
+        shooter_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+    }
+}
+
 void RangedUnit::ResolveCollision(GameObject* other_object)
 {
     if (current_state->GetName() == "None")
@@ -102,22 +119,6 @@ void RangedUnit::State_Attack::CheckExit(GameObject* object)
 }
 
 
-void Bow_1::Draw(Math::TransformationMatrix camera_matrix)
-{
-    Unit::Draw(camera_matrix);
-
-    Math::vec2 position = GetPosition();
-
-    // Unit draw   
-    if (attack_animation_count >= 0)
-    {
-        shooter_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
-    }
-    else
-    {
-        shooter_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
-    }
-}
 bool Bow_1::CanMergeWith(GameObjectTypes type)
 {
     switch (type)
@@ -157,24 +158,67 @@ void Bow_1::ResolveMerge(GameObject* other_object)
     }
 }
 
-
-void Bow_2::Draw(Math::TransformationMatrix camera_matrix)
+bool Bow_2::CanMergeWith(GameObjectTypes type)
 {
-    Unit::Draw(camera_matrix);
-
-    Math::vec2 position = GetPosition();
-
-    // Unit draw   
-    if (attack_animation_count >= 0)
+    switch (type)
     {
-        shooter_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
-    }
-    else
-    {
-        shooter_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+    case GameObjectTypes::Bow_2:
+        return true;
+    default:
+        return false;
     }
 }
-bool Bow_2::CanMergeWith(GameObjectTypes type)
+void Bow_2::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Bow_2)
+    {
+        new Bow_4(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+}
+
+bool Bow_4::CanMergeWith(GameObjectTypes type)
+{
+    switch (type)
+    {
+    case GameObjectTypes::Bow_4:
+        return true;
+    default:
+        return false;
+    }
+}
+void Bow_4::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Bow_4)
+    {
+        new Bow_8(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+}
+
+bool Bow_8::CanMergeWith(GameObjectTypes type)
+{
+    switch (type)
+    {
+    case GameObjectTypes::Bow_8:
+        return true;
+    default:
+        return false;
+    }
+}
+void Bow_8::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Bow_8)
+    {
+        new Bow_16(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+}
+
+bool Bow_16::CanMergeWith(GameObjectTypes type)
 {
     /*switch (type)
     {
@@ -183,7 +227,7 @@ bool Bow_2::CanMergeWith(GameObjectTypes type)
     }*/
     return false;
 }
-void Bow_2::ResolveMerge(GameObject* other_object)
+void Bow_16::ResolveMerge(GameObject* other_object)
 {
 
 }

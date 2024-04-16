@@ -32,6 +32,23 @@ void SniperUnit::Update(double dt)
     attack_animation_count -= dt;
 }
 
+void SniperUnit::Draw(Math::TransformationMatrix camera_matrix)
+{
+    Unit::Draw(camera_matrix);
+
+    Math::vec2 position = GetPosition();
+
+    // Unit draw   
+    if (attack_animation_count >= 0)
+    {
+        sniper_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+    }
+    else
+    {
+        sniper_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+    }
+}
+
 void SniperUnit::ResolveCollision(GameObject* other_object)
 {
     if (current_state->GetName() == "None")
@@ -98,5 +115,83 @@ void SniperUnit::State_Attack::Update(GameObject* object, double dt)
 void SniperUnit::State_Attack::CheckExit(GameObject* object)
 {
 
+
+}
+
+
+bool Sniper_2::CanMergeWith(GameObjectTypes type)
+{
+    switch (type)
+    {
+    case GameObjectTypes::Sniper_2:
+        return true;
+    default:
+        return false;
+    }
+}
+void Sniper_2::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Sniper_2)
+    {
+        new Sniper_4(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+}
+
+
+bool Sniper_4::CanMergeWith(GameObjectTypes type)
+{
+    switch (type)
+    {
+    case GameObjectTypes::Sniper_4:
+        return true;
+    default:
+        return false;
+    }
+}
+void Sniper_4::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Sniper_4)
+    {
+        new Sniper_8(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+}
+
+
+bool Sniper_8::CanMergeWith(GameObjectTypes type)
+{
+    switch (type)
+    {
+    case GameObjectTypes::Sniper_8:
+        return true;
+    default:
+        return false;
+    }
+}
+void Sniper_8::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Sniper_8)
+    {
+        new Sniper_16(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+}
+
+
+bool Sniper_16::CanMergeWith(GameObjectTypes type)
+{
+    /*switch (type)
+    {
+    default:
+        return false;
+    }*/
+    return false;
+}
+void Sniper_16::ResolveMerge(GameObject* other_object)
+{
 
 }

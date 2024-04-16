@@ -48,6 +48,10 @@ protected:
     double attack_time = 0.0;
     int damage = 0;
 
+    GAM200::Texture* bomb_idle = nullptr;
+    GAM200::Texture* bomb_attack = nullptr;
+
+    virtual void Draw(Math::TransformationMatrix camera_matrix);
 };
 
 
@@ -55,20 +59,19 @@ protected:
 class Bomb_1 : public MagicUnit
 {
 public:
-    Bomb_1(Math::vec2 position = Map::middle_point) : MagicUnit(1.5, 4, position) { }
+    Bomb_1(Math::vec2 position = Map::middle_point) : MagicUnit(1.5, 4, position) 
+    {
+        bomb_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_idle.png");
+        bomb_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_attack.png");
+    }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bomb_1; }
     std::string TypeName() override { return "Bomb_1"; }
-
-    void Draw(Math::TransformationMatrix camera_matrix);
 
     bool CanMergeWith(GameObjectTypes type);
     void ResolveMerge(GameObject* other_object);
 
 private:
-    GAM200::Texture* bomb_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_idle.png");
-    GAM200::Texture* bomb_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_attack.png");
-
 
 };
 
@@ -76,19 +79,78 @@ private:
 class Bomb_2 : public MagicUnit
 {
 public:
-    Bomb_2(Math::vec2 position = Map::middle_point) : MagicUnit(1.0, 4, position) { }
+    Bomb_2(Math::vec2 position = Map::middle_point) : MagicUnit(1.0, 4, position)
+    {
+        bomb_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_idle.png");
+        bomb_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_attack.png");
+    }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bomb_2; }
     std::string TypeName() override { return "Bomb_2"; }
-
-    void Draw(Math::TransformationMatrix camera_matrix);
 
     bool CanMergeWith(GameObjectTypes type);
     void ResolveMerge(GameObject* other_object);
 
 private:
-    GAM200::Texture* bomb_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_idle.png");
-    GAM200::Texture* bomb_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_attack.png");
 
+};
+
+
+class Bomb_4 : public MagicUnit
+{
+public:
+    Bomb_4(Math::vec2 position = Map::middle_point) : MagicUnit(1.5, 10, position)
+    {
+        bomb_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_idle.png");
+        bomb_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_attack.png");
+    }
+
+    GameObjectTypes Type() override { return GameObjectTypes::Bomb_4; }
+    std::string TypeName() override { return "Bomb_4"; }
+
+    bool CanMergeWith(GameObjectTypes type);
+    void ResolveMerge(GameObject* other_object);
+
+private:
+
+};
+
+
+class Bomb_8 : public MagicUnit
+{
+public:
+    Bomb_8(Math::vec2 position = Map::middle_point) : MagicUnit(1.0, 20, position)
+    {
+        bomb_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_idle.png");
+        bomb_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_attack.png");
+    }
+
+    GameObjectTypes Type() override { return GameObjectTypes::Bomb_8; }
+    std::string TypeName() override { return "Bomb_8"; }
+
+    bool CanMergeWith(GameObjectTypes type);
+    void ResolveMerge(GameObject* other_object);
+
+private:
+
+};
+
+
+class Bomb_16 : public MagicUnit
+{
+public:
+    Bomb_16(Math::vec2 position = Map::middle_point) : MagicUnit(0.8, 30, position)
+    {
+        bomb_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_idle.png");
+        bomb_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_attack.png");
+    }
+
+    GameObjectTypes Type() override { return GameObjectTypes::Bomb_16; }
+    std::string TypeName() override { return "Bomb_16"; }
+
+    bool CanMergeWith(GameObjectTypes type);
+    void ResolveMerge(GameObject* other_object);
+
+private:
 
 };

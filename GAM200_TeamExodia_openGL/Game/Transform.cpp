@@ -33,6 +33,37 @@ void TransformUnit::Update(double dt)
     attack_animation_count -= dt;
 }
 
+void TransformUnit::Draw(Math::TransformationMatrix camera_matrix)
+{
+    Unit::Draw(camera_matrix);
+
+    Math::vec2 position = GetPosition();
+
+    // unit draw   
+    if (transformed)
+    {
+        if (attack_animation_count >= 0)
+        {
+            transform_default_melee_attack->Draw(static_cast<int>(position.x) - 130 / 2, static_cast<int>(position.y), 300 / 2, 185 / 2);
+        }
+        else
+        {
+            transform_default_melee_idle->Draw(static_cast<int>(position.x) - 130 / 2, static_cast<int>(position.y), 300 / 2, 185 / 2);
+        }
+    }
+    else
+    {
+        if (attack_animation_count >= 0)
+        {
+            transform_melee_attack->Draw(static_cast<int>(position.x) - 130 / 2, static_cast<int>(position.y), 300 / 2, 185 / 2);
+        }
+        else
+        {
+            transform_melee_idle->Draw(static_cast<int>(position.x) - 130 / 2, static_cast<int>(position.y), 300 / 2, 185 / 2);
+        }
+    }
+}
+
 void TransformUnit::ResolveCollision(GameObject* other_object)
 {
     if (current_state->GetName() == "None")
@@ -140,5 +171,85 @@ void TransformUnit::State_Attack::Update(GameObject* object, double dt)
 void TransformUnit::State_Attack::CheckExit(GameObject* object)
 {
     TransformUnit* unit = static_cast<TransformUnit*>(object);
+
+}
+
+
+
+
+bool Transform_2::CanMergeWith(GameObjectTypes type)
+{
+    switch (type)
+    {
+    case GameObjectTypes::Transform_2:
+        return true;
+    default:
+        return false;
+    }
+}
+void Transform_2::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Transform_2)
+    {
+        new Transform_4(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+}
+
+
+bool Transform_4::CanMergeWith(GameObjectTypes type)
+{
+    switch (type)
+    {
+    case GameObjectTypes::Transform_4:
+        return true;
+    default:
+        return false;
+    }
+}
+void Transform_4::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Transform_4)
+    {
+        new Transform_8(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+}
+
+
+bool Transform_8::CanMergeWith(GameObjectTypes type)
+{
+    switch (type)
+    {
+    case GameObjectTypes::Transform_8:
+        return true;
+    default:
+        return false;
+    }
+}
+void Transform_8::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Transform_8)
+    {
+        new Transform_16(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+}
+
+
+bool Transform_16::CanMergeWith(GameObjectTypes type)
+{
+    /*switch (type)
+    {
+    default:
+        return false;
+    }*/
+    return false;
+}
+void Transform_16::ResolveMerge(GameObject* other_object)
+{
 
 }

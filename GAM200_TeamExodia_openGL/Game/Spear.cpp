@@ -58,6 +58,23 @@ void SpearUnit::ResolveCollision(GameObject* other_object)
     change_state(&state_none);
 }
 
+void SpearUnit::Draw(Math::TransformationMatrix camera_matrix)
+{
+    Unit::Draw(camera_matrix);
+
+    Math::vec2 position = GetPosition();
+
+    // Unit draw   
+    if (attack_animation_count >= 0)
+    {
+        spear_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+    }
+    else
+    {
+        spear_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+    }
+}
+
 bool SpearUnit::CanMergeWith(GameObjectTypes type)
 {
     return false;
@@ -101,5 +118,82 @@ void SpearUnit::State_Attack::Update(GameObject* object, double dt)
 void SpearUnit::State_Attack::CheckExit(GameObject* object)
 {
 
+
+}
+
+
+bool Spear_2::CanMergeWith(GameObjectTypes type)
+{
+    switch (type)
+    {
+    case GameObjectTypes::Spear_2:
+        return true;
+    default:
+        return false;
+    }
+}
+void Spear_2::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Spear_2)
+    {
+        new Spear_4(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+}
+
+
+bool Spear_4::CanMergeWith(GameObjectTypes type)
+{
+    switch (type)
+    {
+    case GameObjectTypes::Spear_4:
+        return true;
+    default:
+        return false;
+    }
+}
+void Spear_4::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Spear_4)
+    {
+        new Spear_8(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+}
+
+
+bool Spear_8::CanMergeWith(GameObjectTypes type)
+{
+    /*switch (type)
+    {
+    default:
+        return false;
+    }*/
+    return false;
+}
+void Spear_8::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Spear_8)
+    {
+        new Spear_16(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+}
+
+
+bool Spear_16::CanMergeWith(GameObjectTypes type)
+{
+    /*switch (type)
+    {
+    default:
+        return false;
+    }*/
+    return false;
+}
+void Spear_16::ResolveMerge(GameObject* other_object)
+{
 
 }

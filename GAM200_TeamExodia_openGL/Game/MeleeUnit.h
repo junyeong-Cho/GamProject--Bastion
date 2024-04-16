@@ -48,6 +48,11 @@ protected:
     double attack_time = 0.0;
     int damage = 0;
 
+    GAM200::Texture* melee_idle = nullptr;
+    GAM200::Texture* melee_attack = nullptr;
+
+    virtual void Draw(Math::TransformationMatrix camera_matrix);
+
 };
 
 
@@ -56,28 +61,32 @@ protected:
 class Sword_1 : public MeleeUnit
 {
 public:
-    Sword_1(Math::vec2 position = Map::middle_point) : MeleeUnit(1.0, 5, position) { }
+    Sword_1(Math::vec2 position = Map::middle_point) : MeleeUnit(1.0, 5, position) 
+    {
+        melee_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_idle.png");
+        melee_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_attack.png");
+    }
 
     GameObjectTypes Type() override { return GameObjectTypes::Sword_1; }
     std::string TypeName() override { return "Sword_1"; }
-
-    void Draw(Math::TransformationMatrix camera_matrix);
 
     bool CanMergeWith(GameObjectTypes type);
     void ResolveMerge(GameObject* other_object);
 
 private:
-    GAM200::Texture* melee_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_idle.png");
-    GAM200::Texture* melee_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_attack.png");
+    /*GAM200::Texture* melee_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_idle.png");
+    GAM200::Texture* melee_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_attack.png");*/
 };
 
 
 class Sword_2 : public MeleeUnit
 {
 public:
-    Sword_2(Math::vec2 position = Map::middle_point) : MeleeUnit(1.0, 10, position) { }
-
-    void Draw(Math::TransformationMatrix camera_matrix);
+    Sword_2(Math::vec2 position = Map::middle_point) : MeleeUnit(1.0, 10, position)
+    {
+        melee_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_idle.png");
+        melee_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_attack.png");
+    }
 
     GameObjectTypes Type() override { return GameObjectTypes::Sword_2; }
     std::string TypeName() override { return "Sword_2"; }
@@ -87,6 +96,69 @@ public:
     void ResolveMerge(GameObject* other_object);
 
 private:
-    GAM200::Texture* melee_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_idle.png");
-    GAM200::Texture* melee_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_attack.png");
+    /*GAM200::Texture* melee_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_idle.png");
+    GAM200::Texture* melee_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_attack.png");*/
+};
+
+class Sword_4 : public MeleeUnit
+{
+public:
+    Sword_4(Math::vec2 position = Map::middle_point) : MeleeUnit(1.0, 25, position)
+    {
+        melee_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_idle.png");
+        melee_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_attack.png");
+    }
+
+    GameObjectTypes Type() override { return GameObjectTypes::Sword_4; }
+    std::string TypeName() override { return "Sword_4"; }
+
+
+    bool CanMergeWith(GameObjectTypes type);
+    void ResolveMerge(GameObject* other_object);
+
+private:
+    /*GAM200::Texture* melee_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_idle.png");
+    GAM200::Texture* melee_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_attack.png");*/
+};
+
+class Sword_8 : public MeleeUnit
+{
+public:
+    Sword_8(Math::vec2 position = Map::middle_point) : MeleeUnit(0.8, 60, position)
+    {
+        melee_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_idle.png");
+        melee_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_attack.png");
+    }
+
+    GameObjectTypes Type() override { return GameObjectTypes::Sword_8; }
+    std::string TypeName() override { return "Sword_8"; }
+
+
+    bool CanMergeWith(GameObjectTypes type);
+    void ResolveMerge(GameObject* other_object);
+
+private:
+    /*GAM200::Texture* melee_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_idle.png");
+    GAM200::Texture* melee_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_attack.png");*/
+};
+
+class Sword_16 : public MeleeUnit
+{
+public:
+    Sword_16(Math::vec2 position = Map::middle_point) : MeleeUnit(0.7, 200, position)
+    {
+        melee_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_idle.png");
+        melee_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_attack.png");
+    }
+
+    GameObjectTypes Type() override { return GameObjectTypes::Sword_16; }
+    std::string TypeName() override { return "Sword_16"; }
+
+
+    bool CanMergeWith(GameObjectTypes type);
+    void ResolveMerge(GameObject* other_object);
+
+private:
+    /*GAM200::Texture* melee_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_idle.png");
+    GAM200::Texture* melee_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_attack.png");*/
 };

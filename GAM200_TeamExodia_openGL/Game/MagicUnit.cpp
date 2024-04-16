@@ -32,6 +32,23 @@ void MagicUnit::Update(double dt)
     attack_animation_count -= dt;
 }
 
+void MagicUnit::Draw(Math::TransformationMatrix camera_matrix)
+{
+    Unit::Draw(camera_matrix);
+
+    Math::vec2 position = GetPosition();
+
+    // Unit draw   
+    if (attack_animation_count >= 0)
+    {
+        bomb_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+    }
+    else
+    {
+        bomb_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+    }
+}
+
 void MagicUnit::ResolveCollision(GameObject* other_object)
 {
     if (current_state->GetName() == "None")
@@ -103,23 +120,6 @@ void MagicUnit::State_Attack::CheckExit(GameObject* object)
 }
 
 
-void Bomb_1::Draw(Math::TransformationMatrix camera_matrix)
-{
-    Unit::Draw(camera_matrix);
-
-    Math::vec2 position = GetPosition();
-
-    // Unit draw   
-    if (attack_animation_count >= 0)
-    {
-        bomb_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
-    }
-    else
-    {
-        bomb_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
-    }
-}
-
 bool Bomb_1::CanMergeWith(GameObjectTypes type)
 {
     switch (type)
@@ -160,24 +160,70 @@ void Bomb_1::ResolveMerge(GameObject* other_object)
 }
 
 
-void Bomb_2::Draw(Math::TransformationMatrix camera_matrix)
+bool Bomb_2::CanMergeWith(GameObjectTypes type)
 {
-    Unit::Draw(camera_matrix);
-
-    Math::vec2 position = GetPosition();
-
-    // Unit draw   
-    if (attack_animation_count >= 0)
+    switch (type)
     {
-        bomb_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+    case GameObjectTypes::Bomb_2:
+        return true;
+    default:
+        return false;
     }
-    else
+}
+void Bomb_2::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Bomb_2)
     {
-        bomb_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+        new Bomb_4(GetPosition());
+        other_object->Destroy();
+        Destroy();
     }
 }
 
-bool Bomb_2::CanMergeWith(GameObjectTypes type)
+
+bool Bomb_4::CanMergeWith(GameObjectTypes type)
+{
+    switch (type)
+    {
+    case GameObjectTypes::Bomb_4:
+        return true;
+    default:
+        return false;
+    }
+}
+void Bomb_4::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Bomb_4)
+    {
+        new Bomb_8(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+}
+
+
+bool Bomb_8::CanMergeWith(GameObjectTypes type)
+{
+    switch (type)
+    {
+    case GameObjectTypes::Bomb_8:
+        return true;
+    default:
+        return false;
+    }
+}
+void Bomb_8::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Bomb_8)
+    {
+        new Bomb_16(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+}
+
+
+bool Bomb_16::CanMergeWith(GameObjectTypes type)
 {
     /*switch (type)
     {
@@ -186,7 +232,7 @@ bool Bomb_2::CanMergeWith(GameObjectTypes type)
     }*/
     return false;
 }
-void Bomb_2::ResolveMerge(GameObject* other_object)
+void Bomb_16::ResolveMerge(GameObject* other_object)
 {
 
 }

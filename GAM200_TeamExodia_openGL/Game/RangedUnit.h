@@ -48,6 +48,11 @@ protected:
     double attack_time = 0.0;
     int damage = 0;
 
+    GAM200::Texture* shooter_idle = nullptr;
+    GAM200::Texture* shooter_attack = nullptr;
+
+    virtual void Draw(Math::TransformationMatrix camera_matrix);
+
 };
 
 
@@ -55,19 +60,21 @@ protected:
 class Bow_1 : public RangedUnit
 {
 public:
-    Bow_1(Math::vec2 position = Map::middle_point) : RangedUnit(0.8, 4, position) { }
+    Bow_1(Math::vec2 position = Map::middle_point) : RangedUnit(0.8, 4, position) 
+    { 
+        shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
+        shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");
+    }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bow_1; }
     std::string TypeName() override { return "Bow_1"; }
-
-    void Draw(Math::TransformationMatrix camera_matrix);
 
     bool CanMergeWith(GameObjectTypes type);
     void ResolveMerge(GameObject* other_object);
 
 private:
-    GAM200::Texture* shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
-    GAM200::Texture* shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");
+    /*GAM200::Texture* shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
+    GAM200::Texture* shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");*/
 
 };
 
@@ -75,18 +82,86 @@ private:
 class Bow_2 : public RangedUnit
 {
 public:
-    Bow_2(Math::vec2 position = Map::middle_point) : RangedUnit(0.7, 5, position) { }
+    Bow_2(Math::vec2 position = Map::middle_point) : RangedUnit(0.7, 5, position)
+    {
+        shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
+        shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");
+    }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bow_2; }
     std::string TypeName() override { return "Bow_2"; }
-
-    void Draw(Math::TransformationMatrix camera_matrix);
 
     bool CanMergeWith(GameObjectTypes type);
     void ResolveMerge(GameObject* other_object);
 
 private:
-    GAM200::Texture* shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
-    GAM200::Texture* shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");
+    /*GAM200::Texture* shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
+    GAM200::Texture* shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");*/
+
+};
+
+
+class Bow_4 : public RangedUnit
+{
+public:
+    Bow_4(Math::vec2 position = Map::middle_point) : RangedUnit(0.7, 15, position)
+    {
+        shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
+        shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");
+    }
+
+    GameObjectTypes Type() override { return GameObjectTypes::Bow_4; }
+    std::string TypeName() override { return "Bow_4"; }
+
+    bool CanMergeWith(GameObjectTypes type);
+    void ResolveMerge(GameObject* other_object);
+
+private:
+    /*GAM200::Texture* shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
+    GAM200::Texture* shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");*/
+
+};
+
+
+class Bow_8 : public RangedUnit
+{
+public:
+    Bow_8(Math::vec2 position = Map::middle_point) : RangedUnit(0.7, 40, position)
+    {
+        shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
+        shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");
+    }
+
+    GameObjectTypes Type() override { return GameObjectTypes::Bow_8; }
+    std::string TypeName() override { return "Bow_8"; }
+
+    bool CanMergeWith(GameObjectTypes type);
+    void ResolveMerge(GameObject* other_object);
+
+private:
+    /*GAM200::Texture* shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
+    GAM200::Texture* shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");*/
+
+};
+
+
+class Bow_16 : public RangedUnit
+{
+public:
+    Bow_16(Math::vec2 position = Map::middle_point) : RangedUnit(0.5, 100, position)
+    {
+        shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
+        shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");
+    }
+
+    GameObjectTypes Type() override { return GameObjectTypes::Bow_16; }
+    std::string TypeName() override { return "Bow_16"; }
+
+    bool CanMergeWith(GameObjectTypes type);
+    void ResolveMerge(GameObject* other_object);
+
+private:
+    /*GAM200::Texture* shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
+    GAM200::Texture* shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");*/
 
 };

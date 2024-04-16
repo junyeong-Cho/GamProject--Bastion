@@ -32,6 +32,22 @@ void MeleeUnit::Update(double dt)
     attack_animation_count -= dt;
 }
 
+void MeleeUnit::Draw(Math::TransformationMatrix camera_matrix)
+{
+    Unit::Draw(camera_matrix);
+
+    Math::vec2 position = GetPosition();
+
+    if (attack_animation_count >= 0)
+    {
+        melee_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+    }
+    else
+    {
+        melee_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+    }
+}
+
 void MeleeUnit::ResolveCollision(GameObject* other_object)
 {
     if (current_state->GetName() == "None")
@@ -105,25 +121,6 @@ void MeleeUnit::State_Attack::CheckExit(GameObject* object)
 
 
 
-
-
-void Sword_1::Draw(Math::TransformationMatrix camera_matrix)
-{
-    Unit::Draw(camera_matrix);
-
-    Math::vec2 position = GetPosition();
-
-    if (attack_animation_count >= 0)
-    {
-        melee_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
-    }
-    else
-    {
-        melee_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
-    }
-}
-
-
 bool Sword_1::CanMergeWith(GameObjectTypes type)
 {
     switch (type)
@@ -164,26 +161,67 @@ void Sword_1::ResolveMerge(GameObject* other_object)
 }
 
 
-
-void Sword_2::Draw(Math::TransformationMatrix camera_matrix)
+bool Sword_2::CanMergeWith(GameObjectTypes type)
 {
-    Unit::Draw(camera_matrix);
-
-    Math::vec2 position = GetPosition();
-
-    // Unit draw        
-    if (attack_animation_count >= 0)
+    switch (type)
     {
-        melee_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+    case GameObjectTypes::Sword_2:
+        return true;
+    default:
+        return false;
     }
-    else
+}
+void Sword_2::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Sword_2)
     {
-        melee_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
+        new Sword_4(GetPosition());
+        other_object->Destroy();
+        Destroy();
     }
 }
 
+bool Sword_4::CanMergeWith(GameObjectTypes type)
+{
+    switch (type)
+    {
+    case GameObjectTypes::Sword_4:
+        return true;
+    default:
+        return false;
+    }
+}
+void Sword_4::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Sword_4)
+    {
+        new Sword_8(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+}
 
-bool Sword_2::CanMergeWith(GameObjectTypes type)
+bool Sword_8::CanMergeWith(GameObjectTypes type)
+{
+    switch (type)
+    {
+    case GameObjectTypes::Sword_8:
+        return true;
+    default:
+        return false;
+    }
+}
+void Sword_8::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Sword_8)
+    {
+        new Sword_16(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+}
+
+bool Sword_16::CanMergeWith(GameObjectTypes type)
 {
     /*switch (type)
     {
@@ -192,7 +230,7 @@ bool Sword_2::CanMergeWith(GameObjectTypes type)
     }*/
     return false;
 }
-void Sword_2::ResolveMerge(GameObject* other_object)
+void Sword_16::ResolveMerge(GameObject* other_object)
 {
 
 }

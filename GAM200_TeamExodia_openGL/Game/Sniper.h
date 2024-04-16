@@ -8,7 +8,7 @@ public:
     SniperUnit(double attack_time, int damage, Math::vec2 position = Map::middle_point, double range = Map::basic_size * 4.0);
 
     virtual void Update(double dt) override;
-
+    virtual void Draw(Math::TransformationMatrix camera_matrix);
 
     virtual void ResolveCollision(GameObject* other_object) override;
     virtual bool CanMergeWith(GameObjectTypes type) override;
@@ -43,37 +43,84 @@ protected:
     double attack_time = 0.0;
     int damage = 0;
 
+
+    GAM200::Texture* sniper_idle = nullptr;
+    GAM200::Texture* sniper_attack = nullptr;
+
 };
 
 class Sniper_2 : public SniperUnit
 {
 public:
-    Sniper_2(Math::vec2 position = Map::middle_point) : SniperUnit(5.0, 50, position) { }
+    Sniper_2(Math::vec2 position = Map::middle_point) : SniperUnit(5.0, 50, position)
+    {
+        sniper_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/sniper_idle.png");
+        sniper_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/sniper_attack.png");
+    }
 
     virtual GameObjectTypes Type() override { return GameObjectTypes::Sniper_2; }
     virtual std::string TypeName() override { return "Sniper_2"; }
 
-
-    void Draw(Math::TransformationMatrix camera_matrix)
-    {
-        Unit::Draw(camera_matrix);
-
-        Math::vec2 position = GetPosition();
-
-        // Unit draw   
-        if (attack_animation_count >= 0)
-        {
-            sniper_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
-        }
-        else
-        {
-            sniper_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
-        }
-    }
+    virtual bool CanMergeWith(GameObjectTypes type) override;
+    virtual void ResolveMerge(GameObject* other_object) override;
 
 private:
-    GAM200::Texture* sniper_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/sniper_idle.png");
-    GAM200::Texture* sniper_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/sniper_attack.png");
-    
+
+};
+
+class Sniper_4 : public SniperUnit
+{
+public:
+    Sniper_4(Math::vec2 position = Map::middle_point) : SniperUnit(4.0, 100, position)
+    {
+        sniper_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/sniper_idle.png");
+        sniper_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/sniper_attack.png");
+    }
+
+    virtual GameObjectTypes Type() override { return GameObjectTypes::Sniper_4; }
+    virtual std::string TypeName() override { return "Sniper_4"; }
+
+    virtual bool CanMergeWith(GameObjectTypes type) override;
+    virtual void ResolveMerge(GameObject* other_object) override;
+
+private:
+
+};
+
+class Sniper_8 : public SniperUnit
+{
+public:
+    Sniper_8(Math::vec2 position = Map::middle_point) : SniperUnit(4.0, 300, position)
+    {
+        sniper_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/sniper_idle.png");
+        sniper_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/sniper_attack.png");
+    }
+
+    virtual GameObjectTypes Type() override { return GameObjectTypes::Sniper_8; }
+    virtual std::string TypeName() override { return "Sniper_8"; }
+
+    virtual bool CanMergeWith(GameObjectTypes type) override;
+    virtual void ResolveMerge(GameObject* other_object) override;
+
+private:
+
+};
+
+class Sniper_16 : public SniperUnit
+{
+public:
+    Sniper_16(Math::vec2 position = Map::middle_point) : SniperUnit(4.0, 600, position)
+    {
+        sniper_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/sniper_idle.png");
+        sniper_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/sniper_attack.png");
+    }
+
+    virtual GameObjectTypes Type() override { return GameObjectTypes::Sniper_16; }
+    virtual std::string TypeName() override { return "Sniper_16"; }
+
+    virtual bool CanMergeWith(GameObjectTypes type) override;
+    virtual void ResolveMerge(GameObject* other_object) override;
+
+private:
 
 };

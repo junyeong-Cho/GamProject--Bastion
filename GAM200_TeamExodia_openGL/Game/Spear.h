@@ -49,37 +49,87 @@ protected:
     double attack_count = 0.0;
     double attack_time = 0.0;
     int damage = 0;
+
+
+    GAM200::Texture* spear_idle = nullptr;
+    GAM200::Texture* spear_attack = nullptr;
     
+    virtual void Draw(Math::TransformationMatrix camera_matrix);
 
 };
 
 class Spear_2 : public SpearUnit
 {
 public:
-    Spear_2(Math::vec2 position = Map::middle_point) : SpearUnit(1.2, 2, position) { }
+    Spear_2(Math::vec2 position = Map::middle_point) : SpearUnit(1.2, 2, position) 
+    {
+        spear_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/spear_idle.png");
+        spear_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/spear_attack.png");
+    }
+    virtual bool CanMergeWith(GameObjectTypes type) override;
+    virtual void ResolveMerge(GameObject* other_object) override;
 
 
     virtual GameObjectTypes Type() override { return GameObjectTypes::Spear_2; }
-    virtual std::string TypeName() override { return "Spear_2"; }
-
-    void Draw(Math::TransformationMatrix camera_matrix)
-    {
-        Unit::Draw(camera_matrix);
-
-        Math::vec2 position = GetPosition();
-
-        // Unit draw   
-        if (attack_animation_count >= 0)
-        {
-            spear_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
-        }
-        else
-        {
-            spear_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
-        }
-    }
+    virtual std::string TypeName() override { return "Spear_2"; };
 
 private:
-    GAM200::Texture* spear_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/spear_idle.png");
-    GAM200::Texture* spear_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/spear_attack.png");
+
+};
+
+class Spear_4 : public SpearUnit
+{
+public:
+    Spear_4(Math::vec2 position = Map::middle_point) : SpearUnit(1.2, 5, position)
+    {
+        spear_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/spear_idle.png");
+        spear_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/spear_attack.png");
+    }
+    virtual bool CanMergeWith(GameObjectTypes type) override;
+    virtual void ResolveMerge(GameObject* other_object) override;
+
+
+    virtual GameObjectTypes Type() override { return GameObjectTypes::Spear_4; }
+    virtual std::string TypeName() override { return "Spear_4"; };
+
+private:
+
+};
+
+class Spear_8 : public SpearUnit
+{
+public:
+    Spear_8(Math::vec2 position = Map::middle_point) : SpearUnit(1.0, 15, position)
+    {
+        spear_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/spear_idle.png");
+        spear_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/spear_attack.png");
+    }
+    virtual bool CanMergeWith(GameObjectTypes type) override;
+    virtual void ResolveMerge(GameObject* other_object) override;
+
+
+    virtual GameObjectTypes Type() override { return GameObjectTypes::Spear_8; }
+    virtual std::string TypeName() override { return "Spear_8"; };
+
+private:
+
+};
+
+class Spear_16 : public SpearUnit
+{
+public:
+    Spear_16(Math::vec2 position = Map::middle_point) : SpearUnit(1.0, 50, position)
+    {
+        spear_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/spear_idle.png");
+        spear_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/spear_attack.png");
+    }
+    virtual bool CanMergeWith(GameObjectTypes type) override;
+    virtual void ResolveMerge(GameObject* other_object) override;
+
+
+    virtual GameObjectTypes Type() override { return GameObjectTypes::Spear_16; }
+    virtual std::string TypeName() override { return "Spear_16"; };
+
+private:
+
 };
