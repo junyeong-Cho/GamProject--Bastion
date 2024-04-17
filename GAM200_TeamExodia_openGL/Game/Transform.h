@@ -40,14 +40,13 @@ protected:
 
 
 protected:
-    double attack_count = 0.0;
-    double attack_time = 0.0;
     double T_attack_time = 0.0;
+
     double transform_count = 0.0;
     double transform_time = 0.0;
     double transform_cool = 0.0;
+
     bool transformed = false;
-    int damage = 0;
 
 
 
@@ -70,6 +69,8 @@ public:
 
         transform_melee_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/transform_melee_idle.png");
         transform_melee_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/transform_melee_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     virtual GameObjectTypes Type() override { return GameObjectTypes::Transform_2; }
@@ -92,6 +93,8 @@ public:
 
         transform_melee_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/transform_melee_idle.png");
         transform_melee_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/transform_melee_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     virtual GameObjectTypes Type() override { return GameObjectTypes::Transform_4; }
@@ -114,6 +117,8 @@ public:
 
         transform_melee_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/transform_melee_idle.png");
         transform_melee_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/transform_melee_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     virtual GameObjectTypes Type() override { return GameObjectTypes::Transform_8; }
@@ -136,6 +141,8 @@ public:
 
         transform_melee_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/transform_melee_idle.png");
         transform_melee_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/transform_melee_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     virtual GameObjectTypes Type() override { return GameObjectTypes::Transform_16; }

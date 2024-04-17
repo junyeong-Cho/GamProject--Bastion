@@ -133,7 +133,7 @@ void GAM200::GameObjectManager::MergeTest()
 				Engine::GetLogger().LogDebug("Merge done!");
 
 				current_unit->ResolveMerge(target);
-
+				current_unit = nullptr;
 				return;
 			}
 			else
@@ -262,8 +262,10 @@ Monster* GAM200::GameObjectManager::GetClosestMonster(Math::vec2 position)
 }
 
 
-void GAM200::GameObjectManager::WideDamage(Math::vec2 position, double radius, int damage)
+int GAM200::GameObjectManager::WideDamage(Math::vec2 position, double radius, int damage)
 {
+	int totalDamage = 0;
+
 	for (GameObject* object : objects)
 	{
 		if (object->Type() != GameObjectTypes::Monster)
@@ -274,6 +276,9 @@ void GAM200::GameObjectManager::WideDamage(Math::vec2 position, double radius, i
 		{
 			Monster* monster = static_cast<Monster*>(object);
 			monster->TakeDamage(damage);
+			totalDamage += damage;
 		}
 	}
+
+	return totalDamage;
 }

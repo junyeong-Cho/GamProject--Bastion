@@ -44,9 +44,6 @@ protected:
     State_Attack    state_attacking;
 
 protected:
-    double attack_count = 0.0;
-    double attack_time = 0.0;
-    int damage = 0;
 
     GAM200::Texture* bomb_idle = nullptr;
     GAM200::Texture* bomb_attack = nullptr;
@@ -63,6 +60,8 @@ public:
     {
         bomb_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_idle.png");
         bomb_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bomb_1; }
@@ -83,6 +82,8 @@ public:
     {
         bomb_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_idle.png");
         bomb_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bomb_2; }
@@ -103,6 +104,8 @@ public:
     {
         bomb_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_idle.png");
         bomb_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bomb_4; }
@@ -123,6 +126,8 @@ public:
     {
         bomb_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_idle.png");
         bomb_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bomb_8; }
@@ -143,6 +148,8 @@ public:
     {
         bomb_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_idle.png");
         bomb_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/bomb_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bomb_16; }

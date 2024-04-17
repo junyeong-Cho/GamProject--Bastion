@@ -39,9 +39,6 @@ protected:
     State_Attack    state_attacking;
 
 protected:
-    double attack_count = 0.0;
-    double attack_time = 0.0;
-    int damage = 0;
 
 
     GAM200::Texture* sniper_idle = nullptr;
@@ -56,6 +53,8 @@ public:
     {
         sniper_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/sniper_idle.png");
         sniper_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/sniper_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     virtual GameObjectTypes Type() override { return GameObjectTypes::Sniper_2; }
@@ -75,6 +74,8 @@ public:
     {
         sniper_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/sniper_idle.png");
         sniper_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/sniper_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     virtual GameObjectTypes Type() override { return GameObjectTypes::Sniper_4; }
@@ -94,6 +95,8 @@ public:
     {
         sniper_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/sniper_idle.png");
         sniper_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/sniper_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     virtual GameObjectTypes Type() override { return GameObjectTypes::Sniper_8; }
@@ -113,6 +116,8 @@ public:
     {
         sniper_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/sniper_idle.png");
         sniper_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/sniper_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     virtual GameObjectTypes Type() override { return GameObjectTypes::Sniper_16; }

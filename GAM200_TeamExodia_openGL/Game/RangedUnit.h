@@ -21,6 +21,10 @@ public:
     virtual GameObjectTypes Type() override { return GameObjectTypes::RangedUnit; }
     virtual std::string TypeName() override { return "RangedUnit"; }
 
+    /*void ShowInfo() override
+    {
+
+    }*/
 
 protected:
     class State_None : public State
@@ -44,9 +48,6 @@ protected:
     State_Attack    state_attacking;
 
 protected:
-    double attack_count = 0.0;
-    double attack_time = 0.0;
-    int damage = 0;
 
     GAM200::Texture* shooter_idle = nullptr;
     GAM200::Texture* shooter_attack = nullptr;
@@ -64,6 +65,8 @@ public:
     { 
         shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
         shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bow_1; }
@@ -86,6 +89,8 @@ public:
     {
         shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
         shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bow_2; }
@@ -108,6 +113,8 @@ public:
     {
         shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
         shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bow_4; }
@@ -130,6 +137,8 @@ public:
     {
         shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
         shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bow_8; }
@@ -152,6 +161,8 @@ public:
     {
         shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
         shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bow_16; }

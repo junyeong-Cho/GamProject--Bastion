@@ -9,9 +9,7 @@
 
 
 MeleeUnit::MeleeUnit(double attack_time, int damage, Math::vec2 position, double range) :
-    attack_time(attack_time),
-    damage(damage),
-    Unit(range, position)
+    Unit(attack_time, damage, range, position)
 { 
 
     current_state = &state_none;
@@ -24,12 +22,7 @@ MeleeUnit::MeleeUnit(double attack_time, int damage, Math::vec2 position, double
 void MeleeUnit::Update(double dt)
 {
     // Update GameObject
-    GameObject::Update(dt);
-
-    // Mouse events
-    HandleMouseInput();
-
-    attack_animation_count -= dt;
+    Unit::Update(dt);
 }
 
 void MeleeUnit::Draw(Math::TransformationMatrix camera_matrix)
@@ -65,6 +58,7 @@ void MeleeUnit::ResolveCollision(GameObject* other_object)
     Monster* target = static_cast<Monster*>(other_object);
     Engine::GetLogger().LogDebug(TypeName() + "Attacked!");
     target->TakeDamage(damage);
+    InsertDPS(damage);
 
     attack_animation_count = attack_animation_time;
 

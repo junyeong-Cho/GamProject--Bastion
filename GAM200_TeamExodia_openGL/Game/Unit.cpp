@@ -10,12 +10,17 @@
 #include "../Engine/MergeCollision.h"
 #include "../Engine/Collision.h"
 
-Unit::Unit(double range, Math::vec2 position) : GameObject(position), range(range)
+#include "../Component/Time.h"
+
+Unit::Unit(double attack_time, int damage, double range, Math::vec2 position) : attack_time(attack_time), damage(damage), GameObject(position), range(range)
 {
     AddGOComponent(new GAM200::MergeCircleCollision(radius, this));
     AddGOComponent(new GAM200::CircleCollision(range, this));
 
     Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
+
+    dmg.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Damage: " + std::to_string(damage), 0xFFFFFFFF));
+    attackSpd.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Atk Spd: " + std::to_string(attack_time), 0xFFFFFFFF));
 }
 
 Unit::~Unit()
@@ -28,7 +33,13 @@ void Unit::Update(double dt)
 {
     GameObject::Update(dt);
 
+    attack_animation_count -= dt;
+
     HandleMouseInput();
+
+    UpdateDPS();
+
+    dps.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("DPS: " + std::to_string(GetDPS()), 0xFFFFFFFF));
 }
 
 void Unit::Draw(Math::TransformationMatrix camera_matrix)
@@ -56,7 +67,20 @@ void Unit::Draw(Math::TransformationMatrix camera_matrix)
         shape.SetColor(0.1f, 0.1f, 0.1f, 0.6f);
         shape.DrawCircle(static_cast<int>(previous_position.x), static_cast<int>(previous_position.y), static_cast<int>(radius), static_cast<int>(radius));
         Engine::Instance().pop();
+
+        ShowInfo();
     }
+}
+
+void Unit::ShowInfo()
+{
+    name->Draw(Math::TranslationMatrix(Math::ivec2{ 900, 350 }));
+
+    dmg->Draw(Math::TranslationMatrix(Math::ivec2{ 900, 280 }));
+
+    attackSpd->Draw(Math::TranslationMatrix(Math::ivec2{ 900, 210 }));
+
+    dps->Draw(Math::TranslationMatrix(Math::ivec2{ 900, 140 }));
 }
 
 void Unit::HandleMouseInput()
@@ -105,6 +129,8 @@ void Unit::HandleMouseInput()
         position_gap = mouse_position - previous_position;
         drop = false;
         not_clicked = false;
+
+        //Engine::GetGameStateManager().GetGSComponent<UnitInfo>()->Change(this);
     }
 
     if (is_moving)
@@ -130,4 +156,49 @@ bool Unit::IsInMap(Math::vec2 position) const
 bool Unit::IsMouseOverUnit() const
 {
     return ((Engine::GetInput().GetMousePosition() - GetPosition()).GetSquaredLength() <= radius * radius);
+}
+
+void Unit::UpdateDPS()
+{
+    //std::queue<std::pair<double, int>>temp = damageHolder;
+
+
+    while (!damageHolder.empty())
+    {
+        double currentTime = Engine::GetGameStateManager().GetGSComponent<Time>()->CurrentTime();
+        if (damageHolder.front().first + 10.0 < currentTime)
+        {
+            damageHolder.pop();
+        }
+        else
+        {
+            break;
+        }
+    }
+}
+
+
+double Unit::GetDPS()
+{
+    if (damageHolder.size() == 0)
+        return 0;
+
+    double totalDamage = 0;
+
+    std::queue<std::pair<double, int>>temp = damageHolder;
+
+    while(!temp.empty())
+    {
+        totalDamage += temp.front().second;
+        temp.pop();
+    }
+
+    return totalDamage / 10.0;
+}
+
+void Unit::InsertDPS(int damage)
+{
+    double currentTime = Engine::GetGameStateManager().GetGSComponent<Time>()->CurrentTime();
+
+    damageHolder.push(std::make_pair(currentTime, damage));
 }

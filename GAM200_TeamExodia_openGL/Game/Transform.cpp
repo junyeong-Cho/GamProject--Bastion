@@ -11,9 +11,7 @@ TransformUnit::TransformUnit(double transform_cool, double transform_time, doubl
     transform_cool(transform_cool),
     transform_time(transform_time),
     T_attack_time(T_attack_time),
-    attack_time(attack_time),
-    damage(damage),
-    Unit(range, position)
+    Unit(attack_time, damage, range, position)
 {
     current_state = &state_none;
     current_state->Enter(this);
@@ -25,12 +23,7 @@ TransformUnit::TransformUnit(double transform_cool, double transform_time, doubl
 void TransformUnit::Update(double dt)
 {
     // Update GameObject
-    GameObject::Update(dt);
-
-    // Mouse events
-    HandleMouseInput();
-
-    attack_animation_count -= dt;
+    Unit::Update(dt);
 }
 
 void TransformUnit::Draw(Math::TransformationMatrix camera_matrix)
@@ -80,7 +73,8 @@ void TransformUnit::ResolveCollision(GameObject* other_object)
     // TODO
     Monster* target = static_cast<Monster*>(other_object);
     Engine::GetLogger().LogDebug(TypeName() + "Attacked!");
-    Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(GetPosition(), range, damage);
+    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(GetPosition(), range, damage);
+    InsertDPS(dmg);
 
     attack_animation_count = attack_animation_time;
 

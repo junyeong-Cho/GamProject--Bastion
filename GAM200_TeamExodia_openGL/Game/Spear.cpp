@@ -9,9 +9,7 @@
 
 
 SpearUnit::SpearUnit(double attack_time, int damage, Math::vec2 position, double range) :
-    attack_time(attack_time),
-    damage(damage),
-    Unit(range, position)
+    Unit(attack_time, damage, range, position)
 {
 
     current_state = &state_none;
@@ -26,12 +24,7 @@ SpearUnit::SpearUnit(double attack_time, int damage, Math::vec2 position, double
 void SpearUnit::Update(double dt)
 {
     // Update GameObject
-    GameObject::Update(dt);
-
-    // Mouse events
-    HandleMouseInput();
-
-    attack_animation_count -= dt;
+    Unit::Update(dt);
 }
 
 void SpearUnit::ResolveCollision(GameObject* other_object)
@@ -51,7 +44,8 @@ void SpearUnit::ResolveCollision(GameObject* other_object)
     Monster* target = static_cast<Monster*>(other_object);
     //target->TakeDamage(damage);
     Engine::GetLogger().LogDebug(TypeName() + "Attacked!");
-    Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(GetPosition(), range, damage);
+    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(GetPosition(), range, damage);
+    InsertDPS(dmg);
 
     attack_animation_count = attack_animation_time;
 

@@ -46,9 +46,6 @@ protected:
  
 
 protected:
-    double attack_count = 0.0;
-    double attack_time = 0.0;
-    int damage = 0;
 
 
     GAM200::Texture* spear_idle = nullptr;
@@ -65,6 +62,8 @@ public:
     {
         spear_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/spear_idle.png");
         spear_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/spear_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
     virtual bool CanMergeWith(GameObjectTypes type) override;
     virtual void ResolveMerge(GameObject* other_object) override;
@@ -84,6 +83,8 @@ public:
     {
         spear_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/spear_idle.png");
         spear_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/spear_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
     virtual bool CanMergeWith(GameObjectTypes type) override;
     virtual void ResolveMerge(GameObject* other_object) override;
@@ -103,6 +104,8 @@ public:
     {
         spear_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/spear_idle.png");
         spear_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/spear_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
     virtual bool CanMergeWith(GameObjectTypes type) override;
     virtual void ResolveMerge(GameObject* other_object) override;
@@ -122,6 +125,8 @@ public:
     {
         spear_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/spear_idle.png");
         spear_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/spear_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
     virtual bool CanMergeWith(GameObjectTypes type) override;
     virtual void ResolveMerge(GameObject* other_object) override;

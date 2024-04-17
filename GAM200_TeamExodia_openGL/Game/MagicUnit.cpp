@@ -9,9 +9,7 @@
 
 
 MagicUnit::MagicUnit(double attack_time, int damage, Math::vec2 position, double range) :
-    attack_time(attack_time),
-    damage(damage),
-    Unit(range, position)
+    Unit(attack_time, damage, range, position)
 {
 
     current_state = &state_none;
@@ -24,12 +22,7 @@ MagicUnit::MagicUnit(double attack_time, int damage, Math::vec2 position, double
 void MagicUnit::Update(double dt)
 {
     // Update GameObject
-    GameObject::Update(dt);
-
-    // Mouse events
-    HandleMouseInput();
-
-    attack_animation_count -= dt;
+    Unit::Update(dt);
 }
 
 void MagicUnit::Draw(Math::TransformationMatrix camera_matrix)
@@ -66,7 +59,8 @@ void MagicUnit::ResolveCollision(GameObject* other_object)
     Monster* target = static_cast<Monster*>(other_object);
     //target->TakeDamage(damage);
     Engine::GetLogger().LogDebug(TypeName() + "Attacked!");
-    Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
+    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
+    InsertDPS(dmg);
 
     attack_animation_count = attack_animation_time;
 

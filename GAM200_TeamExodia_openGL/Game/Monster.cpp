@@ -98,7 +98,7 @@ bool Monster::IsInside(Math::vec2 target_position) const
 void Monster::TakeDamage(int damage) 
 { 
 	info.life -= damage; 
-	Engine::GetLogger().LogDebug(std::to_string(damage) + "damage! Remaining hp: " + std::to_string(info.life)); 
+	//Engine::GetLogger().LogDebug(std::to_string(damage) + "damage! Remaining hp: " + std::to_string(info.life)); 
 
 	Math::vec2 particle_posistion = GetPosition();
 

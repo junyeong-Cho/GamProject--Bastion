@@ -13,6 +13,7 @@
 #include "../Component/Diamond.h"
 #include "../Component/Map.h"
 #include "../Component/Wave.h"
+#include "../Component/Time.h"
 
 #include "../Game/Unit.h"
 
@@ -55,10 +56,11 @@ void Game::Load()
 	// Components
 	AddGSComponent(new GameSpeed());
 	AddGSComponent(new MonsterLimit(40));	// Max Limit of Monster
-	AddGSComponent(new Gold(110));			// Initial Gold
+	AddGSComponent(new Gold(110000));			// Initial Gold
 	AddGSComponent(new Diamond(100));		// Initial Diamond
 	AddGSComponent(new Map());
 	AddGSComponent(new Wave());
+	AddGSComponent(new Time());
 
 	// TODO
 	game_speed_button = new GameSpeed_Button({ 976, 708 }, { 77, 77 });
@@ -99,29 +101,19 @@ void Game::Update(double dt)
 {
 	count += dt;
 
-	GetGSComponent<GameSpeed>()->Update(dt);
-
 	// Update things
+	GetGSComponent<GameSpeed>()->Update(dt);
+	GetGSComponent<Time>()->Update(dt);
 	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
 	GetGSComponent<GAM200::GameObjectManager>()->CollisionTest();
 	GetGSComponent<GAM200::GameObjectManager>()->MergeTest();
-
 	GetGSComponent<Wave>()->Update(dt);
+	//if(GetGSComponent<UnitInfo>() != nullptr) GetGSComponent<UnitInfo>()->ShowInfo();
 
 	game_speed_button->Update(dt);
 	skip_button->Update(dt);
 
-#ifdef _DEBUG
-	GetGSComponent<GAM200::ShowCollision>()->Update(dt);
-#endif
-
 	Engine::GetWindow().Clear(1.0f, 1.0f, 1.0f, 1.0f);
-
-
-	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::K))
-	{
-		GetGSComponent<Wave>()->Skip();
-	}
 
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Escape))
 	{
@@ -130,24 +122,19 @@ void Game::Update(double dt)
 
 	// Words
 	trash.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("A", 0xFFFFFFFF));
-	if (!GetGSComponent<Wave>()->IsResting() &&	Button::difficult != 4)
-		time.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Next wave: ", 0xFFFFFFFF));
-	else
+	if (GetGSComponent<Wave>()->IsResting() ||	Button::difficult == 4)
 		time.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 0xFFFFFFFF));
 	currentwave.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Wave: " + std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1) + "/" + std::to_string(GetGSComponent<Wave>()->GetMaxWave()), 0xFFFFFFFF));
 	gold.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Gold: " + std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 0xFFFFFFFF));
 	speed.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Speed: " + std::to_string(static_cast<int>(GetGSComponent<GameSpeed>()->GetSpeed())), 0xFFFFFFFF));
 
-	if (Button::difficult == 4)
-		monsters.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Monster: " + std::to_string(Monster::GetRemainingMonster()), 0xFFFFFFFF));
-	else
+	if (Button::difficult != 4)
 		monsters.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Monster: " + std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 0xFFFFFFFF));
 		
-
 	// Win State
 	if (in_game_state == InProgress)
 	{
-		if (GetGSComponent<Wave>()->GetCurWave() >= GetGSComponent<Wave>()->GetMaxWave() && Monster::GetRemainingMonster() == 0)
+		if (GetGSComponent<Wave>()->GetState() == Wave::End && Monster::GetRemainingMonster() == 0)
 		{
 			in_game_state = Win;
 		}
@@ -189,12 +176,12 @@ void Game::Draw()
 	gold->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 630 }));
 	//speed->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 630 }));
 	monsters->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 560 }));
-
+	currentwave->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 490 }));
+	//Unit* unit = GetGSComponent<GAM200::GameObjectManager>()->GetCurrentUnit(); if (unit != nullptr) unit->ShowInfo();
 	tower_ui.Draw(380, 35, 514, 108);
 
 	game_speed_button->Draw(Math::TranslationMatrix(game_speed_button->GetPosition()));
 	skip_button->Draw(Math::TranslationMatrix(skip_button->GetPosition()));
-
 	// Door effect
 	GAM200::DrawShape shape;
 	if(count < 3.0)

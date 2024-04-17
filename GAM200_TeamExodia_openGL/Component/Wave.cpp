@@ -116,6 +116,7 @@ void Wave::Update(double dt)
 			if (current_wave >= total_wave)
 			{
 				wave_state = WaveState::End;
+				--current_wave;
 				return;
 			}
 

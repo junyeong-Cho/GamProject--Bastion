@@ -363,5 +363,6 @@
     <ClInclude Include="Game\Particles.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="Component\Time.h" />
   </ItemGroup>
 </Project>

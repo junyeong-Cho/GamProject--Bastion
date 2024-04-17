@@ -4,6 +4,8 @@
 #include "Spear.h"
 #include "Transform.h"
 
+#include "Fonts.h"
+
 class MeleeUnit : public Unit
 {
 public:
@@ -19,6 +21,24 @@ public:
     virtual GameObjectTypes Type() override { return GameObjectTypes::MeleeUnit; }
     virtual std::string TypeName() override { return "MeleeUnit"; }
 
+    /*virtual void ShowInfo() override
+    {
+        std::unique_ptr<GAM200::Texture> trash;
+        trash.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("!!!", 0xFFFFFFFF));
+        trash->Draw(Math::TranslationMatrix(Math::ivec2{ 50, 50 }));    
+
+        std::unique_ptr<GAM200::Texture> name;
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+        name->Draw(Math::TranslationMatrix(Math::ivec2{ 900, 420 }));
+
+        std::unique_ptr<GAM200::Texture> dmg;
+        dmg.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Damage: " + std::to_string(damage), 0xFFFFFFFF));
+        dmg->Draw(Math::TranslationMatrix(Math::ivec2{ 900, 350 }));
+
+        std::unique_ptr<GAM200::Texture> attackSpd;
+        attackSpd.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Attack Speed: " + std::to_string(attack_time), 0xFFFFFFFF));
+        attackSpd->Draw(Math::TranslationMatrix(Math::ivec2{ 900, 280 }));
+    }*/
     
 protected:
     class State_None : public State
@@ -44,9 +64,6 @@ protected:
   
 
 protected:
-    double attack_count = 0.0;
-    double attack_time = 0.0;
-    int damage = 0;
 
     GAM200::Texture* melee_idle = nullptr;
     GAM200::Texture* melee_attack = nullptr;
@@ -65,6 +82,8 @@ public:
     {
         melee_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_idle.png");
         melee_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Sword_1; }
@@ -86,6 +105,8 @@ public:
     {
         melee_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_idle.png");
         melee_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Sword_2; }
@@ -107,6 +128,8 @@ public:
     {
         melee_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_idle.png");
         melee_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Sword_4; }
@@ -128,6 +151,8 @@ public:
     {
         melee_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_idle.png");
         melee_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Sword_8; }
@@ -149,6 +174,8 @@ public:
     {
         melee_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_idle.png");
         melee_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/melee_attack.png");
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Sword_16; }

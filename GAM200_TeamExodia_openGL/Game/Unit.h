@@ -9,11 +9,14 @@
 #include "../Engine/DrawShape.h"
 #include "../Engine/Texture.h"
 
+#include "Fonts.h"
+
+#include <queue>
 
 class Unit : public GAM200::GameObject
 {
 public:
-    Unit(double range, Math::vec2 position);
+    Unit(double attack_time, int damage, double range, Math::vec2 position);
     ~Unit();
 
     virtual void Update(double dt);
@@ -31,6 +34,7 @@ public:
     virtual bool CanMergeWith(GameObjectTypes type) override = 0;
     virtual void ResolveMerge(GameObject* other_object) override = 0;
 
+    virtual void ShowInfo();
 
     void HandleMouseInput();
     bool IsInMap(Math::vec2 position) const;
@@ -38,11 +42,20 @@ public:
 
     double GetRadius() const { return radius; }
 
+    static constexpr double dps_time_cap = 10.0;
+    void UpdateDPS();
+    double GetDPS();
+    void InsertDPS(int damage);
+
     double range;
     static inline double radius = Map::basic_size * 3.0 / 4.0 / 2.0; 
     bool is_moving = false;
 
 protected:
+    double attack_count = 0.0;
+    double attack_time = 0.0;
+    int damage = 0;
+
     double attack_animation_count = 0.0;
     double attack_animation_time = 0.1;
 
@@ -53,6 +66,14 @@ protected:
     bool is_colliding = false;
     bool possible_to_merge = false;
 
-
+    std::queue<std::pair<double, int>>damageHolder;
+ 
     Math::vec2 position_gap;
+
+
+
+    std::unique_ptr<GAM200::Texture> name;
+    std::unique_ptr<GAM200::Texture> dmg;
+    std::unique_ptr<GAM200::Texture> attackSpd;
+    std::unique_ptr<GAM200::Texture> dps;
 };
