@@ -38,8 +38,6 @@ void Unit::Update(double dt)
     HandleMouseInput();
 
     UpdateDPS();
-
-    dps.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("DPS: " + std::to_string(GetDPS()), 0xFFFFFFFF));
 }
 
 void Unit::Draw(Math::TransformationMatrix camera_matrix)
@@ -175,6 +173,8 @@ void Unit::UpdateDPS()
             break;
         }
     }
+
+    dps.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("DPS: " + std::to_string(GetDPS()), 0xFFFFFFFF));
 }
 
 

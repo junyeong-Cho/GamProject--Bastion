@@ -43,7 +43,6 @@ void SpearUnit::ResolveCollision(GameObject* other_object)
     // TODO
     Monster* target = static_cast<Monster*>(other_object);
     //target->TakeDamage(damage);
-    Engine::GetLogger().LogDebug(TypeName() + "Attacked!");
     int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(GetPosition(), range, damage);
     InsertDPS(dmg);
 

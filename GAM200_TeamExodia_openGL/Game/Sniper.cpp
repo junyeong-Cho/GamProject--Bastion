@@ -57,7 +57,6 @@ void SniperUnit::ResolveCollision(GameObject* other_object)
     change_state(&state_none);*/
     // TODO
     Monster* target = static_cast<Monster*>(other_object);
-    Engine::GetLogger().LogDebug(TypeName() + "Attacked!");
     target->TakeDamage(damage);
     InsertDPS(damage);
 

@@ -72,7 +72,6 @@ void TransformUnit::ResolveCollision(GameObject* other_object)
     change_state(&state_none);*/
     // TODO
     Monster* target = static_cast<Monster*>(other_object);
-    Engine::GetLogger().LogDebug(TypeName() + "Attacked!");
     int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(GetPosition(), range, damage);
     InsertDPS(dmg);
 
