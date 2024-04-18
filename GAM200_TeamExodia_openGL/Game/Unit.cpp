@@ -91,12 +91,12 @@ void Unit::HandleMouseInput()
         {
             Engine::GetLogger().LogDebug("Drop!");
 
-            if (!IsInMap(mouse_position))
+            /*if (!IsInMap(mouse_position))
             {
                 Engine::GetLogger().LogDebug("The position is not on the map");
                 SetPosition(previous_position);
             }
-            else if (is_colliding)
+            else */if (is_colliding)
             {
                 Engine::GetLogger().LogDebug("Can not merge!");
                 SetPosition(previous_position);
@@ -104,7 +104,7 @@ void Unit::HandleMouseInput()
             else
             {
                 Engine::GetLogger().LogDebug("Changed Position!");
-                SetPosition(mouse_position - position_gap);
+                //SetPosition(mouse_position - position_gap);
             }
         }
         //Engine::GetLogger().LogDebug("Not clicking!");
@@ -132,7 +132,13 @@ void Unit::HandleMouseInput()
 
     if (is_moving)
     {
-        SetPosition(mouse_position - position_gap);
+        Math::vec2 position = mouse_position - position_gap;
+
+        if (!IsInMap(position))
+        {
+            position =  LimitInMap(position);
+        }
+        SetPosition(position);
     }
 }
 
@@ -140,14 +146,37 @@ void Unit::HandleMouseInput()
 bool Unit::IsInMap(Math::vec2 position) const
 {
     position -= position_gap;
-    if (position.x > Map::inner_left_end + radius &&
-        position.x < Map::inner_rigiht_end - radius &&
-        position.y > Map::inner_bottom_end + radius &&
-        position.y < Map::inner_top_end - radius
+    if (position.x >= Map::inner_left_end + radius &&
+        position.x <= Map::inner_rigiht_end - radius &&
+        position.y >= Map::inner_bottom_end + radius &&
+        position.y <= Map::inner_top_end - radius
         )
         return true;
     else
         return false;
+}
+
+Math::vec2 Unit::LimitInMap(Math::vec2 position)
+{
+    if (position.x < Map::inner_left_end + radius)
+    {
+        position.x = Map::inner_left_end + radius;
+    }
+    else if (position.x > Map::inner_rigiht_end - radius)
+    {
+        position.x = Map::inner_rigiht_end - radius;
+    }
+
+    if (position.y > Map::inner_top_end - radius)
+    {
+        position.y = Map::inner_top_end - radius;
+    }
+    else if (position.y < Map::inner_bottom_end + radius)
+    {
+        position.y = Map::inner_bottom_end + radius;
+    }
+
+    return position;
 }
 
 bool Unit::IsMouseOverUnit() const

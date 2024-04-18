@@ -38,6 +38,7 @@ public:
 
     void HandleMouseInput();
     bool IsInMap(Math::vec2 position) const;
+    Math::vec2 LimitInMap(Math::vec2 position);
     bool IsMouseOverUnit() const;
 
     double GetRadius() const { return radius; }
