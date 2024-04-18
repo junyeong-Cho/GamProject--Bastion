@@ -21,6 +21,7 @@ Unit::Unit(double attack_time, int damage, double range, Math::vec2 position) : 
 
     dmg.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Damage: " + std::to_string(damage), 0xFFFFFFFF));
     attackSpd.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Atk Spd: " + std::to_string(attack_time), 0xFFFFFFFF));
+    dps.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("DPS: " + std::to_string(GetDPS()), 0xFFFFFFFF));
 }
 
 Unit::~Unit()
@@ -36,8 +37,6 @@ void Unit::Update(double dt)
     attack_animation_count -= dt;
 
     HandleMouseInput();
-
-    UpdateDPS();
 }
 
 void Unit::Draw(Math::TransformationMatrix camera_matrix)
@@ -66,7 +65,7 @@ void Unit::Draw(Math::TransformationMatrix camera_matrix)
         shape.DrawCircle(static_cast<int>(previous_position.x), static_cast<int>(previous_position.y), static_cast<int>(radius), static_cast<int>(radius));
         Engine::Instance().pop();
 
-        ShowInfo();
+        //ShowInfo();
     }
 }
 
@@ -201,4 +200,6 @@ void Unit::InsertDPS(int damage)
     double currentTime = Engine::GetGameStateManager().GetGSComponent<Time>()->CurrentTime();
 
     damageHolder.push(std::make_pair(currentTime, damage));
+
+    UpdateDPS();
 }

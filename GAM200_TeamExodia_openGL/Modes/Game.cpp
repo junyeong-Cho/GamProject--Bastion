@@ -177,7 +177,7 @@ void Game::Draw()
 	//speed->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 630 }));
 	monsters->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 560 }));
 	currentwave->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 490 }));
-	//Unit* unit = GetGSComponent<GAM200::GameObjectManager>()->GetCurrentUnit(); if (unit != nullptr) unit->ShowInfo();
+	Unit* unit = GetGSComponent<GAM200::GameObjectManager>()->GetCurrentUnit(); if (unit != nullptr) unit->ShowInfo();
 	tower_ui.Draw(380, 35, 514, 108);
 
 	game_speed_button->Draw(Math::TranslationMatrix(game_speed_button->GetPosition()));

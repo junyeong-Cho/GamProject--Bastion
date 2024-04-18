@@ -35,7 +35,7 @@ namespace Particles
     public:
         Hit() : Particle("Assets/Hit.spt") { };
         std::string TypeName() override { return "Hit Particle"; }
-        static constexpr int MaxCount = 10;
+        static constexpr int MaxCount = 50;
         static constexpr int MaxLife = 1;
     };
 
