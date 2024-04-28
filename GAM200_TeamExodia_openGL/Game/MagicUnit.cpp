@@ -65,9 +65,7 @@ void Bomb_1::ResolveCollision(GameObject* other_object)
     int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
     InsertDPS(dmg);
 
-    attack_animation_count = attack_animation_time;
-
-    change_state(&state_none);
+    change_state(&state_attacking);
 }
 bool Bomb_1::CanMergeWith(GameObjectTypes type)
 {
@@ -168,9 +166,7 @@ void Bomb_2::ResolveCollision(GameObject* other_object)
     int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
     InsertDPS(dmg);
 
-    attack_animation_count = attack_animation_time;
-
-    change_state(&state_none);
+    change_state(&state_attacking);
 }
 bool Bomb_2::CanMergeWith(GameObjectTypes type)
 {
@@ -251,9 +247,7 @@ void Bomb_4::ResolveCollision(GameObject* other_object)
     int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
     InsertDPS(dmg);
 
-    attack_animation_count = attack_animation_time;
-
-    change_state(&state_none);
+    change_state(&state_attacking);
 }
 bool Bomb_4::CanMergeWith(GameObjectTypes type)
 {
@@ -334,9 +328,7 @@ void Bomb_8::ResolveCollision(GameObject* other_object)
     int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
     InsertDPS(dmg);
 
-    attack_animation_count = attack_animation_time;
-
-    change_state(&state_none);
+    change_state(&state_attacking);
 }
 bool Bomb_8::CanMergeWith(GameObjectTypes type)
 {
@@ -417,9 +409,7 @@ void Bomb_16::ResolveCollision(GameObject* other_object)
     int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
     InsertDPS(dmg);
 
-    attack_animation_count = attack_animation_time;
-
-    change_state(&state_none);
+    change_state(&state_attacking);
 }
 bool Bomb_16::CanMergeWith(GameObjectTypes type)
 {

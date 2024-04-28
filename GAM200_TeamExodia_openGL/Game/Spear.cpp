@@ -67,9 +67,7 @@ void Spear_2::ResolveCollision(GameObject* other_object)
     int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
     InsertDPS(dmg);
 
-    attack_animation_count = attack_animation_time;
-
-    change_state(&state_none);
+    change_state(&state_attacking);
 }
 bool Spear_2::CanMergeWith(GameObjectTypes type)
 {
@@ -150,9 +148,7 @@ void Spear_4::ResolveCollision(GameObject* other_object)
     int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
     InsertDPS(dmg);
 
-    attack_animation_count = attack_animation_time;
-
-    change_state(&state_none);
+    change_state(&state_attacking);
 }
 bool Spear_4::CanMergeWith(GameObjectTypes type)
 {
@@ -233,9 +229,7 @@ void Spear_8::ResolveCollision(GameObject* other_object)
     int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
     InsertDPS(dmg);
 
-    attack_animation_count = attack_animation_time;
-
-    change_state(&state_none);
+    change_state(&state_attacking);
 }
 bool Spear_8::CanMergeWith(GameObjectTypes type)
 {
@@ -316,9 +310,7 @@ void Spear_16::ResolveCollision(GameObject* other_object)
     int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
     InsertDPS(dmg);
 
-    attack_animation_count = attack_animation_time;
-
-    change_state(&state_none);
+    change_state(&state_attacking);
 }
 bool Spear_16::CanMergeWith(GameObjectTypes type)
 {
