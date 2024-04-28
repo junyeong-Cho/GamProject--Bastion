@@ -113,10 +113,6 @@ void Game::Update(double dt)
 
 	Engine::GetWindow().Clear(1.0f, 1.0f, 1.0f, 1.0f);
 
-	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Escape))
-	{
-		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Store));
-	}
 
 	// Words
 	trash.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("A", 0xFFFFFFFF));
