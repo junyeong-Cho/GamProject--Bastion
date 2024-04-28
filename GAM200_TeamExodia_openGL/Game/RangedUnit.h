@@ -29,6 +29,7 @@ public:
 
 protected:
     virtual void Draw(Math::TransformationMatrix camera_matrix);
+    bool restart = false;
 };
 
 
@@ -82,7 +83,6 @@ public:
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
         current_state = &state_none;
         current_state->Enter(this);
-
         name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 

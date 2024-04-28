@@ -42,6 +42,7 @@ namespace GAM200
 
         Unit* GetCurrentUnit() const { return current_unit; }
 
+        bool IsMonserNear(Unit* unit);
         Monster* GetClosestMonster(Unit* unit);
         Monster* GetClosestMonster(Math::vec2 position);
 
