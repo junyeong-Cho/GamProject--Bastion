@@ -67,7 +67,7 @@ void Game::Load()
 	skip_button = new Skip_Button({ 1071, 708 }, { 77, 77 });
 
     // Tower
-	rangedunit_ptr = new RangedUnit(0.8, 4,{ 1280 / 2,720 / 2 });
+	rangedunit_ptr = new Bow_1();
 	
 	// In Game State
 	in_game_state = InProgress;

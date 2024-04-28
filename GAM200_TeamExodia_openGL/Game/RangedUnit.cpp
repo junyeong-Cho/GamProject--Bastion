@@ -11,10 +11,10 @@
 RangedUnit::RangedUnit(double attack_time, int damage, Math::vec2 position, double range) :
     Unit(attack_time, damage, range, position)
 {
-
+    
+    AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
     current_state = &state_none;
     current_state->Enter(this);
-    AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
     //AddGOComponent(new GAM200::Sprite("assets/Cat.spt", (this)));// 
     //AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/test.spt", (this)));
    //Sound
