@@ -94,15 +94,6 @@ void Store_Hard_Button::func() {
 	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
 }
 
-Store_InGame_Button::Store_InGame_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
-	AddGOComponent(new GAM200::Sprite("assets/buttons/Store_InGame.spt", (this)));
-}
-
-void Store_InGame_Button::func() {
-	Button::difficult = 4;
-
-}
-
 Store_Gold_Button::Store_Gold_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
 	AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Gold.spt", (this)));
 }
