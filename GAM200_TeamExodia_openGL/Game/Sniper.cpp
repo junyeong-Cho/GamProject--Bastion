@@ -88,8 +88,8 @@ void Sniper_2::ResolveMerge(GameObject* other_object)
 }
 void Sniper_2::State_None::Enter(GameObject* object)
 {
+    Engine::GetLogger().LogDebug("None enter");
     Sniper_2* unit = static_cast<Sniper_2*>(object);
-    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
     unit->attack_count = 0;
 
 }
@@ -98,21 +98,29 @@ void Sniper_2::State_None::Update(GameObject* object, double dt)
     Sniper_2* unit = static_cast<Sniper_2*>(object);
 
     unit->attack_count += dt;
+
+    if ((!Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->IsMonserNear(unit) || unit->attack_count >= 5.0) && unit->attack_count > 1.0)
+    {
+        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+        unit->restart = true;
+    }
 }
 void Sniper_2::State_None::CheckExit(GameObject* object)
 {
     Sniper_2* unit = static_cast<Sniper_2*>(object);
 
-    if (unit->attack_count >= unit->attack_time)
-    {
-        unit->change_state(&unit->state_attacking);
-    }
 }
 void Sniper_2::State_Attack::Enter(GameObject* object)
 {
+    Engine::GetLogger().LogDebug("Attack enter");
     Sniper_2* unit = static_cast<Sniper_2*>(object);
 
-    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+    if (unit->restart == true)
+    {
+        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+        unit->restart = false;
+    }
+    unit->attack_count = 0;
 }
 void Sniper_2::State_Attack::Update(GameObject* object, double dt)
 {
@@ -124,10 +132,7 @@ void Sniper_2::State_Attack::CheckExit(GameObject* object)
 {
     Sniper_2* unit = static_cast<Sniper_2*>(object);
 
-    if (unit->attack_count < unit->attack_time)
-    {
-        unit->change_state(&unit->state_none);
-    }
+    unit->change_state(&unit->state_none);
 }
 
 void Sniper_4::ResolveCollision(GameObject* other_object)
@@ -164,8 +169,8 @@ void Sniper_4::ResolveMerge(GameObject* other_object)
 }
 void Sniper_4::State_None::Enter(GameObject* object)
 {
+    Engine::GetLogger().LogDebug("None enter");
     Sniper_4* unit = static_cast<Sniper_4*>(object);
-    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
     unit->attack_count = 0;
 
 }
@@ -174,21 +179,29 @@ void Sniper_4::State_None::Update(GameObject* object, double dt)
     Sniper_4* unit = static_cast<Sniper_4*>(object);
 
     unit->attack_count += dt;
+
+    if ((!Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->IsMonserNear(unit) || unit->attack_count >= 5.0) && unit->attack_count > 1.0)
+    {
+        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+        unit->restart = true;
+    }
 }
 void Sniper_4::State_None::CheckExit(GameObject* object)
 {
     Sniper_4* unit = static_cast<Sniper_4*>(object);
 
-    if (unit->attack_count >= unit->attack_time)
-    {
-        unit->change_state(&unit->state_attacking);
-    }
 }
 void Sniper_4::State_Attack::Enter(GameObject* object)
 {
+    Engine::GetLogger().LogDebug("Attack enter");
     Sniper_4* unit = static_cast<Sniper_4*>(object);
 
-    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+    if (unit->restart == true)
+    {
+        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+        unit->restart = false;
+    }
+    unit->attack_count = 0;
 }
 void Sniper_4::State_Attack::Update(GameObject* object, double dt)
 {
@@ -200,10 +213,7 @@ void Sniper_4::State_Attack::CheckExit(GameObject* object)
 {
     Sniper_4* unit = static_cast<Sniper_4*>(object);
 
-    if (unit->attack_count < unit->attack_time)
-    {
-        unit->change_state(&unit->state_none);
-    }
+    unit->change_state(&unit->state_none);
 }
 
 void Sniper_8::ResolveCollision(GameObject* other_object)
@@ -240,8 +250,8 @@ void Sniper_8::ResolveMerge(GameObject* other_object)
 }
 void Sniper_8::State_None::Enter(GameObject* object)
 {
+    Engine::GetLogger().LogDebug("None enter");
     Sniper_8* unit = static_cast<Sniper_8*>(object);
-    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
     unit->attack_count = 0;
 
 }
@@ -250,21 +260,29 @@ void Sniper_8::State_None::Update(GameObject* object, double dt)
     Sniper_8* unit = static_cast<Sniper_8*>(object);
 
     unit->attack_count += dt;
+
+    if ((!Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->IsMonserNear(unit) || unit->attack_count >= 5.0) && unit->attack_count > 1.0)
+    {
+        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+        unit->restart = true;
+    }
 }
 void Sniper_8::State_None::CheckExit(GameObject* object)
 {
     Sniper_8* unit = static_cast<Sniper_8*>(object);
 
-    if (unit->attack_count >= unit->attack_time)
-    {
-        unit->change_state(&unit->state_attacking);
-    }
 }
 void Sniper_8::State_Attack::Enter(GameObject* object)
 {
+    Engine::GetLogger().LogDebug("Attack enter");
     Sniper_8* unit = static_cast<Sniper_8*>(object);
 
-    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+    if (unit->restart == true)
+    {
+        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+        unit->restart = false;
+    }
+    unit->attack_count = 0;
 }
 void Sniper_8::State_Attack::Update(GameObject* object, double dt)
 {
@@ -276,10 +294,7 @@ void Sniper_8::State_Attack::CheckExit(GameObject* object)
 {
     Sniper_8* unit = static_cast<Sniper_8*>(object);
 
-    if (unit->attack_count < unit->attack_time)
-    {
-        unit->change_state(&unit->state_none);
-    }
+    unit->change_state(&unit->state_none);
 }
 
 void Sniper_16::ResolveCollision(GameObject* other_object)
@@ -310,8 +325,8 @@ void Sniper_16::ResolveMerge(GameObject* other_object)
 }
 void Sniper_16::State_None::Enter(GameObject* object)
 {
+    Engine::GetLogger().LogDebug("None enter");
     Sniper_16* unit = static_cast<Sniper_16*>(object);
-    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
     unit->attack_count = 0;
 
 }
@@ -320,21 +335,29 @@ void Sniper_16::State_None::Update(GameObject* object, double dt)
     Sniper_16* unit = static_cast<Sniper_16*>(object);
 
     unit->attack_count += dt;
+
+    if ((!Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->IsMonserNear(unit) || unit->attack_count >= 5.0) && unit->attack_count > 1.0)
+    {
+        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+        unit->restart = true;
+    }
 }
 void Sniper_16::State_None::CheckExit(GameObject* object)
 {
     Sniper_16* unit = static_cast<Sniper_16*>(object);
 
-    if (unit->attack_count >= unit->attack_time)
-    {
-        unit->change_state(&unit->state_attacking);
-    }
 }
 void Sniper_16::State_Attack::Enter(GameObject* object)
 {
+    Engine::GetLogger().LogDebug("Attack enter");
     Sniper_16* unit = static_cast<Sniper_16*>(object);
 
-    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+    if (unit->restart == true)
+    {
+        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+        unit->restart = false;
+    }
+    unit->attack_count = 0;
 }
 void Sniper_16::State_Attack::Update(GameObject* object, double dt)
 {
@@ -346,8 +369,5 @@ void Sniper_16::State_Attack::CheckExit(GameObject* object)
 {
     Sniper_16* unit = static_cast<Sniper_16*>(object);
 
-    if (unit->attack_count < unit->attack_time)
-    {
-        unit->change_state(&unit->state_none);
-    }
+    unit->change_state(&unit->state_none);
 }

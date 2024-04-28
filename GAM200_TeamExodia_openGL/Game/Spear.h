@@ -28,7 +28,7 @@ public:
    
 protected:
     virtual void Draw(Math::TransformationMatrix camera_matrix);
-
+    bool restart = false;
 };
 
 class Spear_2 : public SpearUnit

@@ -118,7 +118,7 @@ void Bomb_1::State_None::Update(GameObject* object, double dt)
 
     unit->attack_count += dt;
 
-    if (!Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->IsMonserNear(unit) || unit->attack_count >= 5.0)
+    if ((!Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->IsMonserNear(unit) || unit->attack_count >= 5.0) && unit->attack_count > 1.0)
     {
         unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
         unit->restart = true;
@@ -189,8 +189,8 @@ void Bomb_2::ResolveMerge(GameObject* other_object)
 }
 void Bomb_2::State_None::Enter(GameObject* object)
 {
+    Engine::GetLogger().LogDebug("None enter");
     Bomb_2* unit = static_cast<Bomb_2*>(object);
-    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
     unit->attack_count = 0;
 
 }
@@ -199,21 +199,29 @@ void Bomb_2::State_None::Update(GameObject* object, double dt)
     Bomb_2* unit = static_cast<Bomb_2*>(object);
 
     unit->attack_count += dt;
+
+    if ((!Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->IsMonserNear(unit) || unit->attack_count >= 5.0) && unit->attack_count > 1.0)
+    {
+        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+        unit->restart = true;
+    }
 }
 void Bomb_2::State_None::CheckExit(GameObject* object)
 {
     Bomb_2* unit = static_cast<Bomb_2*>(object);
 
-    if (unit->attack_count >= unit->attack_time)
-    {
-        unit->change_state(&unit->state_attacking);
-    }
 }
 void Bomb_2::State_Attack::Enter(GameObject* object)
 {
+    Engine::GetLogger().LogDebug("Attack enter");
     Bomb_2* unit = static_cast<Bomb_2*>(object);
 
-    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+    if (unit->restart == true)
+    {
+        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+        unit->restart = false;
+    }
+    unit->attack_count = 0;
 }
 void Bomb_2::State_Attack::Update(GameObject* object, double dt)
 {
@@ -225,10 +233,7 @@ void Bomb_2::State_Attack::CheckExit(GameObject* object)
 {
     Bomb_2* unit = static_cast<Bomb_2*>(object);
 
-    if (unit->attack_count < unit->attack_time)
-    {
-        unit->change_state(&unit->state_none);
-    }
+    unit->change_state(&unit->state_none);
 }
 
 void Bomb_4::ResolveCollision(GameObject* other_object)
@@ -265,8 +270,8 @@ void Bomb_4::ResolveMerge(GameObject* other_object)
 }
 void Bomb_4::State_None::Enter(GameObject* object)
 {
+    Engine::GetLogger().LogDebug("None enter");
     Bomb_4* unit = static_cast<Bomb_4*>(object);
-    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
     unit->attack_count = 0;
 
 }
@@ -275,21 +280,29 @@ void Bomb_4::State_None::Update(GameObject* object, double dt)
     Bomb_4* unit = static_cast<Bomb_4*>(object);
 
     unit->attack_count += dt;
+
+    if ((!Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->IsMonserNear(unit) || unit->attack_count >= 5.0) && unit->attack_count > 1.0)
+    {
+        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+        unit->restart = true;
+    }
 }
 void Bomb_4::State_None::CheckExit(GameObject* object)
 {
     Bomb_4* unit = static_cast<Bomb_4*>(object);
 
-    if (unit->attack_count >= unit->attack_time)
-    {
-        unit->change_state(&unit->state_attacking);
-    }
 }
 void Bomb_4::State_Attack::Enter(GameObject* object)
 {
+    Engine::GetLogger().LogDebug("Attack enter");
     Bomb_4* unit = static_cast<Bomb_4*>(object);
 
-    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+    if (unit->restart == true)
+    {
+        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+        unit->restart = false;
+    }
+    unit->attack_count = 0;
 }
 void Bomb_4::State_Attack::Update(GameObject* object, double dt)
 {
@@ -301,10 +314,7 @@ void Bomb_4::State_Attack::CheckExit(GameObject* object)
 {
     Bomb_4* unit = static_cast<Bomb_4*>(object);
 
-    if (unit->attack_count < unit->attack_time)
-    {
-        unit->change_state(&unit->state_none);
-    }
+    unit->change_state(&unit->state_none);
 }
 
 void Bomb_8::ResolveCollision(GameObject* other_object)
@@ -341,8 +351,8 @@ void Bomb_8::ResolveMerge(GameObject* other_object)
 }
 void Bomb_8::State_None::Enter(GameObject* object)
 {
+    Engine::GetLogger().LogDebug("None enter");
     Bomb_8* unit = static_cast<Bomb_8*>(object);
-    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
     unit->attack_count = 0;
 
 }
@@ -351,21 +361,29 @@ void Bomb_8::State_None::Update(GameObject* object, double dt)
     Bomb_8* unit = static_cast<Bomb_8*>(object);
 
     unit->attack_count += dt;
+
+    if ((!Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->IsMonserNear(unit) || unit->attack_count >= 5.0) && unit->attack_count > 1.0)
+    {
+        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+        unit->restart = true;
+    }
 }
 void Bomb_8::State_None::CheckExit(GameObject* object)
 {
     Bomb_8* unit = static_cast<Bomb_8*>(object);
 
-    if (unit->attack_count >= unit->attack_time)
-    {
-        unit->change_state(&unit->state_attacking);
-    }
 }
 void Bomb_8::State_Attack::Enter(GameObject* object)
 {
+    Engine::GetLogger().LogDebug("Attack enter");
     Bomb_8* unit = static_cast<Bomb_8*>(object);
 
-    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+    if (unit->restart == true)
+    {
+        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+        unit->restart = false;
+    }
+    unit->attack_count = 0;
 }
 void Bomb_8::State_Attack::Update(GameObject* object, double dt)
 {
@@ -377,10 +395,7 @@ void Bomb_8::State_Attack::CheckExit(GameObject* object)
 {
     Bomb_8* unit = static_cast<Bomb_8*>(object);
 
-    if (unit->attack_count < unit->attack_time)
-    {
-        unit->change_state(&unit->state_none);
-    }
+    unit->change_state(&unit->state_none);
 }
 
 void Bomb_16::ResolveCollision(GameObject* other_object)
@@ -411,8 +426,8 @@ void Bomb_16::ResolveMerge(GameObject* other_object)
 }
 void Bomb_16::State_None::Enter(GameObject* object)
 {
+    Engine::GetLogger().LogDebug("None enter");
     Bomb_16* unit = static_cast<Bomb_16*>(object);
-    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
     unit->attack_count = 0;
 
 }
@@ -421,21 +436,29 @@ void Bomb_16::State_None::Update(GameObject* object, double dt)
     Bomb_16* unit = static_cast<Bomb_16*>(object);
 
     unit->attack_count += dt;
+
+    if ((!Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->IsMonserNear(unit) || unit->attack_count >= 5.0) && unit->attack_count > 1.0)
+    {
+        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+        unit->restart = true;
+    }
 }
 void Bomb_16::State_None::CheckExit(GameObject* object)
 {
     Bomb_16* unit = static_cast<Bomb_16*>(object);
 
-    if (unit->attack_count >= unit->attack_time)
-    {
-        unit->change_state(&unit->state_attacking);
-    }
 }
 void Bomb_16::State_Attack::Enter(GameObject* object)
 {
+    Engine::GetLogger().LogDebug("Attack enter");
     Bomb_16* unit = static_cast<Bomb_16*>(object);
 
-    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+    if (unit->restart == true)
+    {
+        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+        unit->restart = false;
+    }
+    unit->attack_count = 0;
 }
 void Bomb_16::State_Attack::Update(GameObject* object, double dt)
 {
@@ -447,8 +470,5 @@ void Bomb_16::State_Attack::CheckExit(GameObject* object)
 {
     Bomb_16* unit = static_cast<Bomb_16*>(object);
 
-    if (unit->attack_count < unit->attack_time)
-    {
-        unit->change_state(&unit->state_none);
-    }
+    unit->change_state(&unit->state_none);
 }

@@ -24,6 +24,7 @@ public:
 
 protected:
     virtual void Draw(Math::TransformationMatrix camera_matrix);
+    bool restart = false;
 };
 
 class Sniper_2 : public SniperUnit

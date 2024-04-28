@@ -219,7 +219,6 @@ bool GAM200::GameObjectManager::IsMonserNear(Unit* unit)
 				return true;
 		}
 	}
-	Engine::GetLogger().LogDebug("Return false");
 	return false;
 }
 

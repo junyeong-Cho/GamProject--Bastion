@@ -31,6 +31,8 @@ protected:
     double transform_cool = 0.0;
 
     bool transformed = false;
+
+    bool restart = false;
 };
 
 class Transform_2 : public TransformUnit
@@ -50,6 +52,7 @@ public:
 
     virtual bool CanMergeWith(GameObjectTypes type) override;
     virtual void ResolveMerge(GameObject* other_object) override;
+    virtual void ResolveCollision(GameObject* other_object) override;
 
 private:
     class State_None : public State
@@ -90,6 +93,7 @@ public:
 
     virtual bool CanMergeWith(GameObjectTypes type) override;
     virtual void ResolveMerge(GameObject* other_object) override;
+    virtual void ResolveCollision(GameObject* other_object) override;
 
 private:
     class State_None : public State
@@ -130,6 +134,7 @@ public:
 
     virtual bool CanMergeWith(GameObjectTypes type) override;
     virtual void ResolveMerge(GameObject* other_object) override;
+    virtual void ResolveCollision(GameObject* other_object) override;
 
 private:
     class State_None : public State
@@ -170,6 +175,7 @@ public:
 
     virtual bool CanMergeWith(GameObjectTypes type) override;
     virtual void ResolveMerge(GameObject* other_object) override;
+    virtual void ResolveCollision(GameObject* other_object) override;
 
 private:
     class State_None : public State
