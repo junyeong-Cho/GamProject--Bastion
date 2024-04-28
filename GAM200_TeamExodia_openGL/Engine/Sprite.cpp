@@ -172,6 +172,7 @@ Math::ivec2 GAM200::Sprite::GetFrameSize()
 
 void GAM200::Sprite::PlayAnimation(int animation)
 {
+
     if (animation < 0 || animation >= animations.size())
     {
         Engine::Instance().GetLogger().LogError("The animation doesn't exist!");

@@ -392,7 +392,7 @@ void Player::State_Moving::CheckExit(GameObject* object) {
     //else if (player->GetVelocity().x == 0 || player->GetVelocity().y == 0)
     //{
     //    player->change_state(&player->state_idle);
-    //} // ÀÌ°Å ¾ø¾Ö´Ï±î ¾Æ¹«Æ° µÊ,.
+    //} // ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½Ö´Ï±ï¿½ ï¿½Æ¹ï¿½Æ° ï¿½ï¿½,.
 }
 
 // State Dashing

@@ -14,8 +14,10 @@ RangedUnit::RangedUnit(double attack_time, int damage, Math::vec2 position, doub
 
     current_state = &state_none;
     current_state->Enter(this);
-
-    //Sound
+    AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
+    //AddGOComponent(new GAM200::Sprite("assets/Cat.spt", (this)));// 
+    //AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/test.spt", (this)));
+   //Sound
     GAM200::SoundEffect::Tower_Placing().play();
 }
 
@@ -23,11 +25,14 @@ void RangedUnit::Update(double dt)
 {
     // Update GameObject
     Unit::Update(dt);
+    GetGOComponent<GAM200::Sprite>()->Update(dt);
 }
 
 void RangedUnit::Draw(Math::TransformationMatrix camera_matrix)
 {
     Unit::Draw(camera_matrix);
+    GAM200::GameObject::Draw(camera_matrix);
+    // GetGOComponent<GAM200::Sprite>()->Draw(GetMatrix());
 
     Math::vec2 position = GetPosition();
 
@@ -78,7 +83,7 @@ void RangedUnit::ResolveMerge(GameObject* other_object)
 void RangedUnit::State_None::Enter(GameObject* object)
 {
     RangedUnit* unit = static_cast<RangedUnit*>(object);
-
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(gunner_anm::none));
     unit->attack_count = 0;
 }
 void RangedUnit::State_None::Update(GameObject* object, double dt)
@@ -99,15 +104,23 @@ void RangedUnit::State_None::CheckExit(GameObject* object)
 
 void RangedUnit::State_Attack::Enter(GameObject* object)
 {
-
+    RangedUnit* unit = static_cast<RangedUnit*>(object);
+   unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(gunner_anm::attack));
 }
 void RangedUnit::State_Attack::Update(GameObject* object, double dt)
 {
+    RangedUnit* unit = static_cast<RangedUnit*>(object);
+   unit->attack_count += dt;
 
 }
 void RangedUnit::State_Attack::CheckExit(GameObject* object)
 {
+    RangedUnit* unit = static_cast<RangedUnit*>(object);
 
+    if (unit->attack_count < unit->attack_time)
+    {
+        unit->change_state(&unit->state_none);
+    }
 
 }
 

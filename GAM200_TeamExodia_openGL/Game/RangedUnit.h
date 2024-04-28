@@ -21,10 +21,11 @@ public:
     virtual GameObjectTypes Type() override { return GameObjectTypes::RangedUnit; }
     virtual std::string TypeName() override { return "RangedUnit"; }
 
-    /*void ShowInfo() override
+    enum class gunner_anm
     {
-
-    }*/
+       none,
+       attack
+    };
 
 protected:
     class State_None : public State
@@ -63,6 +64,7 @@ class Bow_1 : public RangedUnit
 public:
     Bow_1(Math::vec2 position = Map::middle_point) : RangedUnit(0.8, 4, position) 
     { 
+
         shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
         shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");
 

@@ -23,7 +23,7 @@ Updated:    November 1, 2023
 
 Cat::Cat(Math::vec2 start_position, GameObject* starting_floor_ptr = nullptr) : GameObject(start_position), standing_on(starting_floor_ptr)
 {
-    AddGOComponent(new GAM200::Sprite("assets/Cat.spt", (this)));
+    AddGOComponent(new GAM200::Sprite("assets/Cat.spt", (this)));//
     SetVelocity({ 0, 0 });
     SetPosition(start_position);
 

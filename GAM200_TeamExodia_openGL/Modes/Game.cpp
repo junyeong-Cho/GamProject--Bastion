@@ -65,9 +65,10 @@ void Game::Load()
 	// TODO
 	game_speed_button = new GameSpeed_Button({ 976, 708 }, { 77, 77 });
 	skip_button = new Skip_Button({ 1071, 708 }, { 77, 77 });
-	/*GetGSComponent<GAM200::GameObjectManager>()->Add(game_speed_button);
-	GetGSComponent<GAM200::GameObjectManager>()->Add(skip_button);*/
 
+    // Tower
+	rangedunit_ptr = new RangedUnit(0.8, 4,{ 1280 / 2,720 / 2 });
+	
 	// In Game State
 	in_game_state = InProgress;
 
@@ -169,6 +170,8 @@ void Game::Draw()
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
 	// Draw particles later
 	GetGSComponent<GAM200::GameObjectManager>()->DrawParticle(Math::TransformationMatrix());
+
+
 
 	// UIs
 	trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
