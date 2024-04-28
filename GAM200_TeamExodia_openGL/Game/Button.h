@@ -94,9 +94,9 @@ public:
     void func() override;
 };
 
-class Store_InGame_Button : public Button {
+class Store_Tutorial_Button : public Button {
 public:
-    Store_InGame_Button(Math::vec2 position, Math::vec2 size);
+    Store_Tutorial_Button(Math::vec2 position, Math::vec2 size);
 
     void func() override;
 };

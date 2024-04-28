@@ -159,6 +159,7 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClCompile Include="Game\Unit.cpp" />
     <ClCompile Include="Game\Win.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Modes\Tutorial.cpp" />
     <ClCompile Include="Season 1\Game\Hp_Boost_Gold_ui.cpp" />
     <ClCompile Include="Modes\Game.cpp" />
   </ItemGroup>
@@ -227,6 +228,7 @@ if $(Configuration) == Release xcopy /y "$(SolutionDir)external\SFML\dll\sfml-sy
     <ClInclude Include="Game\Timer.h" />
     <ClInclude Include="Game\Transform.h" />
     <ClInclude Include="Game\Win.h" />
+    <ClInclude Include="Modes\Tutorial.h" />
     <ClInclude Include="Season 1\Game\Hp_Boost_Gold_ui.h" />
     <ClInclude Include="Game\Unit.h" />
     <ClInclude Include="Modes\Game.h" />

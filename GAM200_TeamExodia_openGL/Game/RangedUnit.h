@@ -33,8 +33,6 @@ protected:
 
 
 
-
-
 class Bow_1 : public RangedUnit
 {
 public:

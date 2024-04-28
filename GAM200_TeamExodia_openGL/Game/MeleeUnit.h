@@ -6,7 +6,6 @@
 
 #include "Fonts.h"
 
-
 class MeleeUnit : public Unit
 {
 public:
@@ -41,7 +40,7 @@ class Sword_1 : public MeleeUnit
 public:
     Sword_1(Math::vec2 position = Map::middle_point) : MeleeUnit(1.0, 5, position) 
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/sword/sword_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
         current_state = &state_none;
         current_state->Enter(this);
 
@@ -83,7 +82,7 @@ class Sword_2 : public MeleeUnit
 public:
     Sword_2(Math::vec2 position = Map::middle_point) : MeleeUnit(1.0, 10, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/sword/sword_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
         current_state = &state_none;
         current_state->Enter(this);
 
@@ -125,7 +124,7 @@ class Sword_4 : public MeleeUnit
 public:
     Sword_4(Math::vec2 position = Map::middle_point) : MeleeUnit(1.0, 25, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/sword/sword_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
         current_state = &state_none;
         current_state->Enter(this);
 
@@ -167,7 +166,7 @@ class Sword_8 : public MeleeUnit
 public:
     Sword_8(Math::vec2 position = Map::middle_point) : MeleeUnit(0.8, 60, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/sword/sword_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
         current_state = &state_none;
         current_state->Enter(this);
 
@@ -209,7 +208,7 @@ class Sword_16 : public MeleeUnit
 public:
     Sword_16(Math::vec2 position = Map::middle_point) : MeleeUnit(0.7, 200, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/sword/sword_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
         current_state = &state_none;
         current_state->Enter(this);
 

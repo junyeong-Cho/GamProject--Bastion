@@ -12,11 +12,11 @@
 #include "../Game/Win.h"
 #include "../Game/Lose.h"
 #include "Modes/Game.h"
+#include "Modes/Tutorial.h"
 
 
 int main()
 {
-
     try
     {
         Engine& engine = Engine::Instance();
@@ -37,6 +37,8 @@ int main()
         engine.GetGameStateManager().AddGameState(how_to_play);
         Store store;
         engine.GetGameStateManager().AddGameState(store);
+        Tutorial tutorial;
+        engine.GetGameStateManager().AddGameState(tutorial);
         Win win;
         engine.GetGameStateManager().AddGameState(win);
         Lose lose;
