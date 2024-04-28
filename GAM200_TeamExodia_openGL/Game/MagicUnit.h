@@ -163,7 +163,7 @@ private:
 class Bomb_8 : public MagicUnit
 {
 public:
-    Bomb_8(Math::vec2 position = Map::middle_point) : MagicUnit(1.0, 20, position)
+    Bomb_8(Math::vec2 position = Map::middle_point) : MagicUnit(1.0, 30, position)
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
         current_state = &state_none;
@@ -205,7 +205,7 @@ private:
 class Bomb_16 : public MagicUnit
 {
 public:
-    Bomb_16(Math::vec2 position = Map::middle_point) : MagicUnit(0.8, 30, position)
+    Bomb_16(Math::vec2 position = Map::middle_point) : MagicUnit(0.8, 100, position)
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
         current_state = &state_none;

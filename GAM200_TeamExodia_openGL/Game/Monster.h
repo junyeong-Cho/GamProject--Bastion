@@ -105,3 +105,59 @@ public:
 	Monster_7() : Monster({ 100, 0, 0, 1.2 }) { image = Engine::Instance().GetTextureManager().Load("assets/enemy_s2/Monster_7.png"); }
 private:
 };
+
+class Monster_8 : public Monster
+{
+public:
+	Monster_8() : Monster({ 10, 0, 0, 2.0 }) { image = Engine::Instance().GetTextureManager().Load("assets/enemy_s2/Monster_8.png"); }
+private:
+};
+
+class Monster_9 : public Monster
+{
+public:
+	Monster_9() : Monster({ 20, 0, 0, 2.0 }) { image = Engine::Instance().GetTextureManager().Load("assets/enemy_s2/Monster_9.png"); }
+private:
+};
+
+class Monster_10 : public Monster
+{
+public:
+	Monster_10() : Monster({ 40, 0, 0, 2.2 }) { image = Engine::Instance().GetTextureManager().Load("assets/enemy_s2/Monster_10.png"); }
+private:
+};
+
+class Monster_11 : public Monster
+{
+public:
+	Monster_11() : Monster({ 100, 0, 0, 2.4 }) { image = Engine::Instance().GetTextureManager().Load("assets/enemy_s2/Monster_11.png"); }
+private:
+};
+
+class Monster_12 : public Monster
+{
+public:
+	Monster_12() : Monster({ 160, 0, 0, 2.4 }) { image = Engine::Instance().GetTextureManager().Load("assets/enemy_s2/Monster_12.png"); }
+private:
+};
+
+class Monster_13 : public Monster
+{
+public:
+	Monster_13() : Monster({ 200, 0, 0, 2.0 }) { image = Engine::Instance().GetTextureManager().Load("assets/enemy_s2/Monster_13.png"); }
+private:
+};
+
+class Monster_14 : public Monster
+{
+public:
+	Monster_14() : Monster({ 200, 0, 0, 2.0 }) { image = Engine::Instance().GetTextureManager().Load("assets/enemy_s2/Monster_14.png"); }
+private:
+};
+
+class Monster_15 : public Monster
+{
+public:
+	Monster_15() : Monster({ 400, 0, 0, 2.0 }) { image = Engine::Instance().GetTextureManager().Load("assets/enemy_s2/Monster_15.png"); }
+private:
+};
