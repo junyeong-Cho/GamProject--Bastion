@@ -11,10 +11,6 @@
 MeleeUnit::MeleeUnit(double attack_time, int damage, Math::vec2 position, double range) :
     Unit(attack_time, damage, range, position)
 { 
-
-    current_state = &state_none;
-    current_state->Enter(this);
-
     //Sound
     GAM200::SoundEffect::Tower_Placing().play();
 }
@@ -28,17 +24,7 @@ void MeleeUnit::Update(double dt)
 void MeleeUnit::Draw(Math::TransformationMatrix camera_matrix)
 {
     Unit::Draw(camera_matrix);
-
-    Math::vec2 position = GetPosition();
-
-    if (attack_animation_count >= 0)
-    {
-        melee_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
-    }
-    else
-    {
-        melee_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
-    }
+    GAM200::GameObject::Draw(camera_matrix);
 }
 
 void MeleeUnit::ResolveCollision(GameObject* other_object)
@@ -48,20 +34,13 @@ void MeleeUnit::ResolveCollision(GameObject* other_object)
     if (is_moving)
         return;
 
-    /*Monster* target = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetClosestMonster(this);
-    if (target == nullptr)
-        return;
-    Engine::GetLogger().LogDebug("Melee Unit attacked the monster!");
-    target->TakeDamage(damage);
-    change_state(&state_none);*/
-    // TODO
     Monster* target = static_cast<Monster*>(other_object);
     target->TakeDamage(damage);
     InsertDPS(damage);
 
     attack_animation_count = attack_animation_time;
 
-    change_state(&state_none);
+    //change_state(&state_none);
 }
 
 bool MeleeUnit::CanMergeWith(GameObjectTypes type)
@@ -73,45 +52,6 @@ void MeleeUnit::ResolveMerge(GameObject* other_object)
 {
 
 }
-
-void MeleeUnit::State_None::Enter(GameObject* object)
-{
-    MeleeUnit* unit = static_cast<MeleeUnit*>(object);
-
-    unit->attack_count = 0;
-}
-void MeleeUnit::State_None::Update(GameObject* object, double dt)
-{
-    MeleeUnit* unit = static_cast<MeleeUnit*>(object);
-
-    unit->attack_count += dt;
-}
-void MeleeUnit::State_None::CheckExit(GameObject* object)
-{
-    MeleeUnit* unit = static_cast<MeleeUnit*>(object);
-
-    if (unit->attack_count >= unit->attack_time)
-    {
-        unit->change_state(&unit->state_attacking); 
-    }
-}
-
-void MeleeUnit::State_Attack::Enter(GameObject* object)
-{
-
-}
-void MeleeUnit::State_Attack::Update(GameObject* object, double dt)
-{
-
-}
-void MeleeUnit::State_Attack::CheckExit(GameObject* object)
-{
-
-
-}
-
-
-
 
 
 bool Sword_1::CanMergeWith(GameObjectTypes type)
@@ -152,6 +92,49 @@ void Sword_1::ResolveMerge(GameObject* other_object)
         Destroy();
     }
 }
+void Sword_1::State_None::Enter(GameObject* object)
+{
+    Sword_1* unit = static_cast<Sword_1*>(object);
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+    unit->attack_count = 0;
+
+}
+void Sword_1::State_None::Update(GameObject* object, double dt)
+{
+    Sword_1* unit = static_cast<Sword_1*>(object);
+
+    unit->attack_count += dt;
+}
+void Sword_1::State_None::CheckExit(GameObject* object)
+{
+    Sword_1* unit = static_cast<Sword_1*>(object);
+
+    if (unit->attack_count >= unit->attack_time)
+    {
+        unit->change_state(&unit->state_attacking);
+    }
+}
+void Sword_1::State_Attack::Enter(GameObject* object)
+{
+    Sword_1* unit = static_cast<Sword_1*>(object);
+
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+}
+void Sword_1::State_Attack::Update(GameObject* object, double dt)
+{
+    Sword_1* unit = static_cast<Sword_1*>(object);
+
+    unit->attack_count += dt;
+}
+void Sword_1::State_Attack::CheckExit(GameObject* object)
+{
+    Sword_1* unit = static_cast<Sword_1*>(object);
+
+    if (unit->attack_count < unit->attack_time)
+    {
+        unit->change_state(&unit->state_none);
+    }
+}
 
 
 bool Sword_2::CanMergeWith(GameObjectTypes type)
@@ -171,6 +154,49 @@ void Sword_2::ResolveMerge(GameObject* other_object)
         new Sword_4(GetPosition());
         other_object->Destroy();
         Destroy();
+    }
+}
+void Sword_2::State_None::Enter(GameObject* object)
+{
+    Sword_2* unit = static_cast<Sword_2*>(object);
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+    unit->attack_count = 0;
+
+}
+void Sword_2::State_None::Update(GameObject* object, double dt)
+{
+    Sword_2* unit = static_cast<Sword_2*>(object);
+
+    unit->attack_count += dt;
+}
+void Sword_2::State_None::CheckExit(GameObject* object)
+{
+    Sword_2* unit = static_cast<Sword_2*>(object);
+
+    if (unit->attack_count >= unit->attack_time)
+    {
+        unit->change_state(&unit->state_attacking);
+    }
+}
+void Sword_2::State_Attack::Enter(GameObject* object)
+{
+    Sword_2* unit = static_cast<Sword_2*>(object);
+
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+}
+void Sword_2::State_Attack::Update(GameObject* object, double dt)
+{
+    Sword_2* unit = static_cast<Sword_2*>(object);
+
+    unit->attack_count += dt;
+}
+void Sword_2::State_Attack::CheckExit(GameObject* object)
+{
+    Sword_2* unit = static_cast<Sword_2*>(object);
+
+    if (unit->attack_count < unit->attack_time)
+    {
+        unit->change_state(&unit->state_none);
     }
 }
 
@@ -193,6 +219,49 @@ void Sword_4::ResolveMerge(GameObject* other_object)
         Destroy();
     }
 }
+void Sword_4::State_None::Enter(GameObject* object)
+{
+    Sword_4* unit = static_cast<Sword_4*>(object);
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+    unit->attack_count = 0;
+
+}
+void Sword_4::State_None::Update(GameObject* object, double dt)
+{
+    Sword_4* unit = static_cast<Sword_4*>(object);
+
+    unit->attack_count += dt;
+}
+void Sword_4::State_None::CheckExit(GameObject* object)
+{
+    Sword_4* unit = static_cast<Sword_4*>(object);
+
+    if (unit->attack_count >= unit->attack_time)
+    {
+        unit->change_state(&unit->state_attacking);
+    }
+}
+void Sword_4::State_Attack::Enter(GameObject* object)
+{
+    Sword_4* unit = static_cast<Sword_4*>(object);
+
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+}
+void Sword_4::State_Attack::Update(GameObject* object, double dt)
+{
+    Sword_4* unit = static_cast<Sword_4*>(object);
+
+    unit->attack_count += dt;
+}
+void Sword_4::State_Attack::CheckExit(GameObject* object)
+{
+    Sword_4* unit = static_cast<Sword_4*>(object);
+
+    if (unit->attack_count < unit->attack_time)
+    {
+        unit->change_state(&unit->state_none);
+    }
+}
 
 bool Sword_8::CanMergeWith(GameObjectTypes type)
 {
@@ -213,6 +282,49 @@ void Sword_8::ResolveMerge(GameObject* other_object)
         Destroy();
     }
 }
+void Sword_8::State_None::Enter(GameObject* object)
+{
+    Sword_8* unit = static_cast<Sword_8*>(object);
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+    unit->attack_count = 0;
+
+}
+void Sword_8::State_None::Update(GameObject* object, double dt)
+{
+    Sword_8* unit = static_cast<Sword_8*>(object);
+
+    unit->attack_count += dt;
+}
+void Sword_8::State_None::CheckExit(GameObject* object)
+{
+    Sword_8* unit = static_cast<Sword_8*>(object);
+
+    if (unit->attack_count >= unit->attack_time)
+    {
+        unit->change_state(&unit->state_attacking);
+    }
+}
+void Sword_8::State_Attack::Enter(GameObject* object)
+{
+    Sword_8* unit = static_cast<Sword_8*>(object);
+
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+}
+void Sword_8::State_Attack::Update(GameObject* object, double dt)
+{
+    Sword_8* unit = static_cast<Sword_8*>(object);
+
+    unit->attack_count += dt;
+}
+void Sword_8::State_Attack::CheckExit(GameObject* object)
+{
+    Sword_8* unit = static_cast<Sword_8*>(object);
+
+    if (unit->attack_count < unit->attack_time)
+    {
+        unit->change_state(&unit->state_none);
+    }
+}
 
 bool Sword_16::CanMergeWith(GameObjectTypes type)
 {
@@ -226,4 +338,47 @@ bool Sword_16::CanMergeWith(GameObjectTypes type)
 void Sword_16::ResolveMerge(GameObject* other_object)
 {
 
+}
+void Sword_16::State_None::Enter(GameObject* object)
+{
+    Sword_16* unit = static_cast<Sword_16*>(object);
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+    unit->attack_count = 0;
+
+}
+void Sword_16::State_None::Update(GameObject* object, double dt)
+{
+    Sword_16* unit = static_cast<Sword_16*>(object);
+
+    unit->attack_count += dt;
+}
+void Sword_16::State_None::CheckExit(GameObject* object)
+{
+    Sword_16* unit = static_cast<Sword_16*>(object);
+
+    if (unit->attack_count >= unit->attack_time)
+    {
+        unit->change_state(&unit->state_attacking);
+    }
+}
+void Sword_16::State_Attack::Enter(GameObject* object)
+{
+    Sword_16* unit = static_cast<Sword_16*>(object);
+
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+}
+void Sword_16::State_Attack::Update(GameObject* object, double dt)
+{
+    Sword_16* unit = static_cast<Sword_16*>(object);
+
+    unit->attack_count += dt;
+}
+void Sword_16::State_Attack::CheckExit(GameObject* object)
+{
+    Sword_16* unit = static_cast<Sword_16*>(object);
+
+    if (unit->attack_count < unit->attack_time)
+    {
+        unit->change_state(&unit->state_none);
+    }
 }

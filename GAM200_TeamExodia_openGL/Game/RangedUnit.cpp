@@ -11,13 +11,6 @@
 RangedUnit::RangedUnit(double attack_time, int damage, Math::vec2 position, double range) :
     Unit(attack_time, damage, range, position)
 {
-    
-    AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
-    current_state = &state_none;
-    current_state->Enter(this);
-    //AddGOComponent(new GAM200::Sprite("assets/Cat.spt", (this)));// 
-    //AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/test.spt", (this)));
-   //Sound
     GAM200::SoundEffect::Tower_Placing().play();
 }
 
@@ -32,19 +25,6 @@ void RangedUnit::Draw(Math::TransformationMatrix camera_matrix)
 {
     Unit::Draw(camera_matrix);
     GAM200::GameObject::Draw(camera_matrix);
-    // GetGOComponent<GAM200::Sprite>()->Draw(GetMatrix());
-
-    Math::vec2 position = GetPosition();
-
-    // Unit draw   
-    if (attack_animation_count >= 0)
-    {
-        shooter_attack->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
-    }
-    else
-    {
-        shooter_idle->Draw(static_cast<int>(position.x) - 85 / 2, static_cast<int>(position.y), 170 / 2, 185 / 2);
-    }
 }
 
 void RangedUnit::ResolveCollision(GameObject* other_object)
@@ -54,20 +34,13 @@ void RangedUnit::ResolveCollision(GameObject* other_object)
     if (is_moving)
         return;
 
-    /*Monster* target = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetClosestMonster(this);
-    if (target == nullptr)
-        return;
-    Engine::GetLogger().LogDebug("Melee Unit attacked the monster!");
-    target->TakeDamage(damage);
-    change_state(&state_none);*/
-    // TODO
     Monster* target = static_cast<Monster*>(other_object);
     target->TakeDamage(damage);
     InsertDPS(damage);
 
     attack_animation_count = attack_animation_time;
 
-    change_state(&state_none);
+    //change_state(&state_none);
 }
 
 bool RangedUnit::CanMergeWith(GameObjectTypes type)
@@ -80,51 +53,22 @@ void RangedUnit::ResolveMerge(GameObject* other_object)
 
 }
 
-void RangedUnit::State_None::Enter(GameObject* object)
+
+void Bow_1::ResolveCollision(GameObject* other_object)
 {
-    RangedUnit* unit = static_cast<RangedUnit*>(object);
-    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(gunner_anm::none));
-    unit->attack_count = 0;
+    if (current_state->GetName() == "None")
+        return;
+    if (is_moving)
+        return;
+
+    Monster* target = static_cast<Monster*>(other_object);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
+
+    attack_animation_count = attack_animation_time;
+
+    change_state(&state_none);
 }
-void RangedUnit::State_None::Update(GameObject* object, double dt)
-{
-    RangedUnit* unit = static_cast<RangedUnit*>(object);
-
-    unit->attack_count += dt;
-}
-void RangedUnit::State_None::CheckExit(GameObject* object)
-{
-    RangedUnit* unit = static_cast<RangedUnit*>(object);
-
-    if (unit->attack_count >= unit->attack_time)
-    {
-        unit->change_state(&unit->state_attacking);
-    }
-}
-
-void RangedUnit::State_Attack::Enter(GameObject* object)
-{
-    RangedUnit* unit = static_cast<RangedUnit*>(object);
-   unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(gunner_anm::attack));
-}
-void RangedUnit::State_Attack::Update(GameObject* object, double dt)
-{
-    RangedUnit* unit = static_cast<RangedUnit*>(object);
-   unit->attack_count += dt;
-
-}
-void RangedUnit::State_Attack::CheckExit(GameObject* object)
-{
-    RangedUnit* unit = static_cast<RangedUnit*>(object);
-
-    if (unit->attack_count < unit->attack_time)
-    {
-        unit->change_state(&unit->state_none);
-    }
-
-}
-
-
 bool Bow_1::CanMergeWith(GameObjectTypes type)
 {
     switch (type)
@@ -163,6 +107,52 @@ void Bow_1::ResolveMerge(GameObject* other_object)
         Destroy();
     }
 }
+void Bow_1::State_None::Enter(GameObject* object)
+{
+    Engine::GetLogger().LogDebug("None enter");
+    Bow_1* unit = static_cast<Bow_1*>(object);
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+    unit->attack_count = 0;
+
+}
+void Bow_1::State_None::Update(GameObject* object, double dt)
+{
+    Bow_1* unit = static_cast<Bow_1*>(object);
+
+    unit->attack_count += dt;
+}
+void Bow_1::State_None::CheckExit(GameObject* object)
+{
+    Bow_1* unit = static_cast<Bow_1*>(object);
+
+    if (unit->attack_count >= unit->attack_time)
+    {
+        unit->change_state(&unit->state_attacking);
+    }
+}
+void Bow_1::State_Attack::Enter(GameObject* object)
+{
+    Engine::GetLogger().LogDebug("Attack enter");
+    Bow_1* unit = static_cast<Bow_1*>(object);
+
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+}
+void Bow_1::State_Attack::Update(GameObject* object, double dt)
+{
+    Bow_1* unit = static_cast<Bow_1*>(object);
+
+    unit->attack_count += dt;
+}
+void Bow_1::State_Attack::CheckExit(GameObject* object)
+{
+    Bow_1* unit = static_cast<Bow_1*>(object);
+
+    if (unit->attack_count < unit->attack_time)
+    {
+        unit->change_state(&unit->state_none);
+    }
+}
+
 
 bool Bow_2::CanMergeWith(GameObjectTypes type)
 {
@@ -181,6 +171,49 @@ void Bow_2::ResolveMerge(GameObject* other_object)
         new Bow_4(GetPosition());
         other_object->Destroy();
         Destroy();
+    }
+}
+void Bow_2::State_None::Enter(GameObject* object)
+{
+    Bow_2* unit = static_cast<Bow_2*>(object);
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+    unit->attack_count = 0;
+
+}
+void Bow_2::State_None::Update(GameObject* object, double dt)
+{
+    Bow_2* unit = static_cast<Bow_2*>(object);
+
+    unit->attack_count += dt;
+}
+void Bow_2::State_None::CheckExit(GameObject* object)
+{
+    Bow_2* unit = static_cast<Bow_2*>(object);
+
+    if (unit->attack_count >= unit->attack_time)
+    {
+        unit->change_state(&unit->state_attacking);
+    }
+}
+void Bow_2::State_Attack::Enter(GameObject* object)
+{
+    Bow_2* unit = static_cast<Bow_2*>(object);
+
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+}
+void Bow_2::State_Attack::Update(GameObject* object, double dt)
+{
+    Bow_2* unit = static_cast<Bow_2*>(object);
+
+    unit->attack_count += dt;
+}
+void Bow_2::State_Attack::CheckExit(GameObject* object)
+{
+    Bow_2* unit = static_cast<Bow_2*>(object);
+
+    if (unit->attack_count < unit->attack_time)
+    {
+        unit->change_state(&unit->state_none);
     }
 }
 
@@ -203,6 +236,49 @@ void Bow_4::ResolveMerge(GameObject* other_object)
         Destroy();
     }
 }
+void Bow_4::State_None::Enter(GameObject* object)
+{
+    Bow_4* unit = static_cast<Bow_4*>(object);
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+    unit->attack_count = 0;
+
+}
+void Bow_4::State_None::Update(GameObject* object, double dt)
+{
+    Bow_4* unit = static_cast<Bow_4*>(object);
+
+    unit->attack_count += dt;
+}
+void Bow_4::State_None::CheckExit(GameObject* object)
+{
+    Bow_4* unit = static_cast<Bow_4*>(object);
+
+    if (unit->attack_count >= unit->attack_time)
+    {
+        unit->change_state(&unit->state_attacking);
+    }
+}
+void Bow_4::State_Attack::Enter(GameObject* object)
+{
+    Bow_4* unit = static_cast<Bow_4*>(object);
+
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+}
+void Bow_4::State_Attack::Update(GameObject* object, double dt)
+{
+    Bow_4* unit = static_cast<Bow_4*>(object);
+
+    unit->attack_count += dt;
+}
+void Bow_4::State_Attack::CheckExit(GameObject* object)
+{
+    Bow_4* unit = static_cast<Bow_4*>(object);
+
+    if (unit->attack_count < unit->attack_time)
+    {
+        unit->change_state(&unit->state_none);
+    }
+}
 
 bool Bow_8::CanMergeWith(GameObjectTypes type)
 {
@@ -223,6 +299,49 @@ void Bow_8::ResolveMerge(GameObject* other_object)
         Destroy();
     }
 }
+void Bow_8::State_None::Enter(GameObject* object)
+{
+    Bow_8* unit = static_cast<Bow_8*>(object);
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+    unit->attack_count = 0;
+
+}
+void Bow_8::State_None::Update(GameObject* object, double dt)
+{
+    Bow_8* unit = static_cast<Bow_8*>(object);
+
+    unit->attack_count += dt;
+}
+void Bow_8::State_None::CheckExit(GameObject* object)
+{
+    Bow_8* unit = static_cast<Bow_8*>(object);
+
+    if (unit->attack_count >= unit->attack_time)
+    {
+        unit->change_state(&unit->state_attacking);
+    }
+}
+void Bow_8::State_Attack::Enter(GameObject* object)
+{
+    Bow_8* unit = static_cast<Bow_8*>(object);
+
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+}
+void Bow_8::State_Attack::Update(GameObject* object, double dt)
+{
+    Bow_8* unit = static_cast<Bow_8*>(object);
+
+    unit->attack_count += dt;
+}
+void Bow_8::State_Attack::CheckExit(GameObject* object)
+{
+    Bow_8* unit = static_cast<Bow_8*>(object);
+
+    if (unit->attack_count < unit->attack_time)
+    {
+        unit->change_state(&unit->state_none);
+    }
+}
 
 bool Bow_16::CanMergeWith(GameObjectTypes type)
 {
@@ -236,4 +355,47 @@ bool Bow_16::CanMergeWith(GameObjectTypes type)
 void Bow_16::ResolveMerge(GameObject* other_object)
 {
 
+}
+void Bow_16::State_None::Enter(GameObject* object)
+{
+    Bow_16* unit = static_cast<Bow_16*>(object);
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+    unit->attack_count = 0;
+
+}
+void Bow_16::State_None::Update(GameObject* object, double dt)
+{
+    Bow_16* unit = static_cast<Bow_16*>(object);
+
+    unit->attack_count += dt;
+}
+void Bow_16::State_None::CheckExit(GameObject* object)
+{
+    Bow_16* unit = static_cast<Bow_16*>(object);
+
+    if (unit->attack_count >= unit->attack_time)
+    {
+        unit->change_state(&unit->state_attacking);
+    }
+}
+void Bow_16::State_Attack::Enter(GameObject* object)
+{
+    Bow_16* unit = static_cast<Bow_16*>(object);
+
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+}
+void Bow_16::State_Attack::Update(GameObject* object, double dt)
+{
+    Bow_16* unit = static_cast<Bow_16*>(object);
+
+    unit->attack_count += dt;
+}
+void Bow_16::State_Attack::CheckExit(GameObject* object)
+{
+    Bow_16* unit = static_cast<Bow_16*>(object);
+
+    if (unit->attack_count < unit->attack_time)
+    {
+        unit->change_state(&unit->state_none);
+    }
 }

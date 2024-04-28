@@ -21,13 +21,37 @@ public:
     virtual GameObjectTypes Type() override { return GameObjectTypes::RangedUnit; }
     virtual std::string TypeName() override { return "RangedUnit"; }
 
-    enum class gunner_anm
+    enum class anm
     {
        none,
        attack
     };
 
 protected:
+    virtual void Draw(Math::TransformationMatrix camera_matrix);
+};
+
+
+
+class Bow_1 : public RangedUnit
+{
+public:
+    Bow_1(Math::vec2 position = Map::middle_point) : RangedUnit(0.8, 4, position) 
+    { 
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
+        current_state = &state_none;
+        current_state->Enter(this);
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+    }
+
+    GameObjectTypes Type() override { return GameObjectTypes::Bow_1; }
+    std::string TypeName() override { return "Bow_1"; }
+
+    bool CanMergeWith(GameObjectTypes type);
+    void ResolveMerge(GameObject* other_object);
+    void ResolveCollision(GameObject* other_object) override;
+private:
     class State_None : public State
     {
     public:
@@ -47,40 +71,6 @@ protected:
 
     State_None      state_none;
     State_Attack    state_attacking;
-
-protected:
-
-    GAM200::Texture* shooter_idle = nullptr;
-    GAM200::Texture* shooter_attack = nullptr;
-
-    virtual void Draw(Math::TransformationMatrix camera_matrix);
-
-};
-
-
-
-class Bow_1 : public RangedUnit
-{
-public:
-    Bow_1(Math::vec2 position = Map::middle_point) : RangedUnit(0.8, 4, position) 
-    { 
-
-        shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
-        shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");
-
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
-    }
-
-    GameObjectTypes Type() override { return GameObjectTypes::Bow_1; }
-    std::string TypeName() override { return "Bow_1"; }
-
-    bool CanMergeWith(GameObjectTypes type);
-    void ResolveMerge(GameObject* other_object);
-
-private:
-    /*GAM200::Texture* shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
-    GAM200::Texture* shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");*/
-
 };
 
 
@@ -89,8 +79,9 @@ class Bow_2 : public RangedUnit
 public:
     Bow_2(Math::vec2 position = Map::middle_point) : RangedUnit(0.7, 5, position)
     {
-        shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
-        shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
+        current_state = &state_none;
+        current_state->Enter(this);
 
         name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
@@ -102,9 +93,25 @@ public:
     void ResolveMerge(GameObject* other_object);
 
 private:
-    /*GAM200::Texture* shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
-    GAM200::Texture* shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");*/
+    class State_None : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "None"; }
+    };
+    class State_Attack : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Attack"; }
+    };
 
+    State_None      state_none;
+    State_Attack    state_attacking;
 };
 
 
@@ -113,8 +120,9 @@ class Bow_4 : public RangedUnit
 public:
     Bow_4(Math::vec2 position = Map::middle_point) : RangedUnit(0.7, 15, position)
     {
-        shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
-        shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
+        current_state = &state_none;
+        current_state->Enter(this);
 
         name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
@@ -126,9 +134,25 @@ public:
     void ResolveMerge(GameObject* other_object);
 
 private:
-    /*GAM200::Texture* shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
-    GAM200::Texture* shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");*/
+    class State_None : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "None"; }
+    };
+    class State_Attack : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Attack"; }
+    };
 
+    State_None      state_none;
+    State_Attack    state_attacking;
 };
 
 
@@ -137,8 +161,9 @@ class Bow_8 : public RangedUnit
 public:
     Bow_8(Math::vec2 position = Map::middle_point) : RangedUnit(0.7, 40, position)
     {
-        shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
-        shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
+        current_state = &state_none;
+        current_state->Enter(this);
 
         name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
@@ -150,9 +175,25 @@ public:
     void ResolveMerge(GameObject* other_object);
 
 private:
-    /*GAM200::Texture* shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
-    GAM200::Texture* shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");*/
+    class State_None : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "None"; }
+    };
+    class State_Attack : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Attack"; }
+    };
 
+    State_None      state_none;
+    State_Attack    state_attacking;
 };
 
 
@@ -161,8 +202,9 @@ class Bow_16 : public RangedUnit
 public:
     Bow_16(Math::vec2 position = Map::middle_point) : RangedUnit(0.5, 100, position)
     {
-        shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
-        shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
+        current_state = &state_none;
+        current_state->Enter(this);
 
         name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
@@ -174,7 +216,23 @@ public:
     void ResolveMerge(GameObject* other_object);
 
 private:
-    /*GAM200::Texture* shooter_idle = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_idle.png");
-    GAM200::Texture* shooter_attack = Engine::Instance().GetTextureManager().Load("assets/tower_s2/shooter_attack.png");*/
+    class State_None : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "None"; }
+    };
+    class State_Attack : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Attack"; }
+    };
 
+    State_None      state_none;
+    State_Attack    state_attacking;
 };

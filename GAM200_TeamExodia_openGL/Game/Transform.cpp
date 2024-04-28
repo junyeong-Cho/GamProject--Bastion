@@ -13,9 +13,6 @@ TransformUnit::TransformUnit(double transform_cool, double transform_time, doubl
     T_attack_time(T_attack_time),
     Unit(attack_time, damage, range, position)
 {
-    current_state = &state_none;
-    current_state->Enter(this);
-
     //Sound
     GAM200::SoundEffect::Tower_Placing().play();
 }
@@ -29,32 +26,7 @@ void TransformUnit::Update(double dt)
 void TransformUnit::Draw(Math::TransformationMatrix camera_matrix)
 {
     Unit::Draw(camera_matrix);
-
-    Math::vec2 position = GetPosition();
-
-    // unit draw   
-    if (transformed)
-    {
-        if (attack_animation_count >= 0)
-        {
-            transform_default_melee_attack->Draw(static_cast<int>(position.x) - 130 / 2, static_cast<int>(position.y), 300 / 2, 185 / 2);
-        }
-        else
-        {
-            transform_default_melee_idle->Draw(static_cast<int>(position.x) - 130 / 2, static_cast<int>(position.y), 300 / 2, 185 / 2);
-        }
-    }
-    else
-    {
-        if (attack_animation_count >= 0)
-        {
-            transform_melee_attack->Draw(static_cast<int>(position.x) - 130 / 2, static_cast<int>(position.y), 300 / 2, 185 / 2);
-        }
-        else
-        {
-            transform_melee_idle->Draw(static_cast<int>(position.x) - 130 / 2, static_cast<int>(position.y), 300 / 2, 185 / 2);
-        }
-    }
+    GameObject::Draw(camera_matrix);
 }
 
 void TransformUnit::ResolveCollision(GameObject* other_object)
@@ -64,20 +36,13 @@ void TransformUnit::ResolveCollision(GameObject* other_object)
     if (is_moving)
         return;
 
-    /*Monster* target = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetClosestMonster(this);
-    if (target == nullptr)
-        return;
-    Engine::GetLogger().LogDebug("Melee Unit attacked the monster!");
-    target->TakeDamage(damage);
-    change_state(&state_none);*/
-    // TODO
     Monster* target = static_cast<Monster*>(other_object);
     int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(GetPosition(), range, damage);
     InsertDPS(dmg);
 
     attack_animation_count = attack_animation_time;
 
-    change_state(&state_none);
+    //change_state(&state_none);
 }
 
 bool TransformUnit::CanMergeWith(GameObjectTypes type)
@@ -89,84 +54,6 @@ void TransformUnit::ResolveMerge(GameObject* other_object)
 {
 
 }
-
-
-void TransformUnit::State_None::Enter(GameObject* object)
-{
-    TransformUnit* unit = static_cast<TransformUnit*>(object);
-
-    unit->attack_count = 0;
-}
-void TransformUnit::State_None::Update(GameObject* object, double dt)
-{
-    TransformUnit* unit = static_cast<TransformUnit*>(object);
-
-    unit->attack_count += dt;
-    unit->transform_count += dt;
-
-    if (!unit->transformed)
-    {
-        if (unit->transform_count >= unit->transform_cool)
-        {
-            Engine::GetLogger().LogDebug("Transform!");
-            unit->transformed = true;
-            unit->transform_count = 0;
-        }
-    }
-    else if (unit->transformed)
-    {
-        if (unit->transform_count >= unit->transform_time)
-        {
-            Engine::GetLogger().LogDebug("Not Transform!");
-            unit->transformed = false;
-            unit->transform_count = 0;
-        }
-    }
-}
-void TransformUnit::State_None::CheckExit(GameObject* object)
-{
-    TransformUnit* unit = static_cast<TransformUnit*>(object);
-
-    if (unit->attack_count >= (unit->transformed ? unit->attack_time : unit->T_attack_time))
-    {
-        unit->change_state(&unit->state_attacking);
-    }
-}
-
-
-void TransformUnit::State_Attack::Enter(GameObject* object)
-{
-
-}
-void TransformUnit::State_Attack::Update(GameObject* object, double dt)
-{
-    TransformUnit* unit = static_cast<TransformUnit*>(object);
-
-    unit->transform_count += dt;
-
-    if (!unit->transformed)
-    {
-        if (unit->transform_count >= unit->transform_cool)
-        {
-            unit->transformed = true;
-            unit->transform_count = 0;
-        }
-    }
-    else if (unit->transformed)
-    {
-        if (unit->transform_count >= unit->transform_time)
-        {
-            unit->transformed = false;
-            unit->transform_count = 0;
-        }
-    }
-}
-void TransformUnit::State_Attack::CheckExit(GameObject* object)
-{
-    TransformUnit* unit = static_cast<TransformUnit*>(object);
-
-}
-
 
 
 
@@ -187,6 +74,49 @@ void Transform_2::ResolveMerge(GameObject* other_object)
         new Transform_4(GetPosition());
         other_object->Destroy();
         Destroy();
+    }
+}
+void Transform_2::State_None::Enter(GameObject* object)
+{
+    Transform_2* unit = static_cast<Transform_2*>(object);
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+    unit->attack_count = 0;
+
+}
+void Transform_2::State_None::Update(GameObject* object, double dt)
+{
+    Transform_2* unit = static_cast<Transform_2*>(object);
+
+    unit->attack_count += dt;
+}
+void Transform_2::State_None::CheckExit(GameObject* object)
+{
+    Transform_2* unit = static_cast<Transform_2*>(object);
+
+    if (unit->attack_count >= unit->attack_time)
+    {
+        unit->change_state(&unit->state_attacking);
+    }
+}
+void Transform_2::State_Attack::Enter(GameObject* object)
+{
+    Transform_2* unit = static_cast<Transform_2*>(object);
+
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+}
+void Transform_2::State_Attack::Update(GameObject* object, double dt)
+{
+    Transform_2* unit = static_cast<Transform_2*>(object);
+
+    unit->attack_count += dt;
+}
+void Transform_2::State_Attack::CheckExit(GameObject* object)
+{
+    Transform_2* unit = static_cast<Transform_2*>(object);
+
+    if (unit->attack_count < unit->attack_time)
+    {
+        unit->change_state(&unit->state_none);
     }
 }
 
@@ -210,6 +140,49 @@ void Transform_4::ResolveMerge(GameObject* other_object)
         Destroy();
     }
 }
+void Transform_4::State_None::Enter(GameObject* object)
+{
+    Transform_4* unit = static_cast<Transform_4*>(object);
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+    unit->attack_count = 0;
+
+}
+void Transform_4::State_None::Update(GameObject* object, double dt)
+{
+    Transform_4* unit = static_cast<Transform_4*>(object);
+
+    unit->attack_count += dt;
+}
+void Transform_4::State_None::CheckExit(GameObject* object)
+{
+    Transform_4* unit = static_cast<Transform_4*>(object);
+
+    if (unit->attack_count >= unit->attack_time)
+    {
+        unit->change_state(&unit->state_attacking);
+    }
+}
+void Transform_4::State_Attack::Enter(GameObject* object)
+{
+    Transform_4* unit = static_cast<Transform_4*>(object);
+
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+}
+void Transform_4::State_Attack::Update(GameObject* object, double dt)
+{
+    Transform_4* unit = static_cast<Transform_4*>(object);
+
+    unit->attack_count += dt;
+}
+void Transform_4::State_Attack::CheckExit(GameObject* object)
+{
+    Transform_4* unit = static_cast<Transform_4*>(object);
+
+    if (unit->attack_count < unit->attack_time)
+    {
+        unit->change_state(&unit->state_none);
+    }
+}
 
 
 bool Transform_8::CanMergeWith(GameObjectTypes type)
@@ -231,6 +204,49 @@ void Transform_8::ResolveMerge(GameObject* other_object)
         Destroy();
     }
 }
+void Transform_8::State_None::Enter(GameObject* object)
+{
+    Transform_8* unit = static_cast<Transform_8*>(object);
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+    unit->attack_count = 0;
+
+}
+void Transform_8::State_None::Update(GameObject* object, double dt)
+{
+    Transform_8* unit = static_cast<Transform_8*>(object);
+
+    unit->attack_count += dt;
+}
+void Transform_8::State_None::CheckExit(GameObject* object)
+{
+    Transform_8* unit = static_cast<Transform_8*>(object);
+
+    if (unit->attack_count >= unit->attack_time)
+    {
+        unit->change_state(&unit->state_attacking);
+    }
+}
+void Transform_8::State_Attack::Enter(GameObject* object)
+{
+    Transform_8* unit = static_cast<Transform_8*>(object);
+
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+}
+void Transform_8::State_Attack::Update(GameObject* object, double dt)
+{
+    Transform_8* unit = static_cast<Transform_8*>(object);
+
+    unit->attack_count += dt;
+}
+void Transform_8::State_Attack::CheckExit(GameObject* object)
+{
+    Transform_8* unit = static_cast<Transform_8*>(object);
+
+    if (unit->attack_count < unit->attack_time)
+    {
+        unit->change_state(&unit->state_none);
+    }
+}
 
 
 bool Transform_16::CanMergeWith(GameObjectTypes type)
@@ -245,4 +261,47 @@ bool Transform_16::CanMergeWith(GameObjectTypes type)
 void Transform_16::ResolveMerge(GameObject* other_object)
 {
 
+}
+void Transform_16::State_None::Enter(GameObject* object)
+{
+    Transform_16* unit = static_cast<Transform_16*>(object);
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+    unit->attack_count = 0;
+
+}
+void Transform_16::State_None::Update(GameObject* object, double dt)
+{
+    Transform_16* unit = static_cast<Transform_16*>(object);
+
+    unit->attack_count += dt;
+}
+void Transform_16::State_None::CheckExit(GameObject* object)
+{
+    Transform_16* unit = static_cast<Transform_16*>(object);
+
+    if (unit->attack_count >= unit->attack_time)
+    {
+        unit->change_state(&unit->state_attacking);
+    }
+}
+void Transform_16::State_Attack::Enter(GameObject* object)
+{
+    Transform_16* unit = static_cast<Transform_16*>(object);
+
+    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+}
+void Transform_16::State_Attack::Update(GameObject* object, double dt)
+{
+    Transform_16* unit = static_cast<Transform_16*>(object);
+
+    unit->attack_count += dt;
+}
+void Transform_16::State_Attack::CheckExit(GameObject* object)
+{
+    Transform_16* unit = static_cast<Transform_16*>(object);
+
+    if (unit->attack_count < unit->attack_time)
+    {
+        unit->change_state(&unit->state_none);
+    }
 }
