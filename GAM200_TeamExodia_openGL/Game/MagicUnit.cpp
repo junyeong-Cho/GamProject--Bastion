@@ -91,18 +91,21 @@ void Bomb_1::ResolveMerge(GameObject* other_object)
         new Spear_2(GetPosition());
         other_object->Destroy();
         Destroy();
+        tutorial_merge = true;
     }
     else if (other_object->Type() == GameObjectTypes::Bow_1)
     {
         new Sniper_2(GetPosition());
         other_object->Destroy();
         Destroy();
+        tutorial_merge = true;
     }
     else if (other_object->Type() == GameObjectTypes::Bomb_1)
     {
         new Bomb_2(GetPosition());
         other_object->Destroy();
         Destroy();
+        tutorial_merge = true;
     }
 }
 void Bomb_1::State_None::Enter(GameObject* object)

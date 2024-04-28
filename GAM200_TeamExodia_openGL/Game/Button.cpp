@@ -29,6 +29,8 @@ Updated:    December 15, 2023
 
 #include "../Game/States.h"
 
+extern bool tower_summoned;
+
 Button::Button(Math::vec2 position, Math::vec2 size) : GameObject(position), position(position), size(size)
 {
 
@@ -94,6 +96,15 @@ void Store_Hard_Button::func() {
 	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
 }
 
+Store_Tutorial_Button::Store_Tutorial_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
+	AddGOComponent(new GAM200::Sprite("assets/buttons/Tutorial_Icon.spt", (this)));
+}
+
+void Store_Tutorial_Button::func() {
+	Button::difficult = 4;
+	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Tutorial));
+}
+
 Store_Gold_Button::Store_Gold_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
 	AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Gold.spt", (this)));
 }
@@ -136,6 +147,7 @@ void tower1_Button::func()
 
 	gold->Spend(55);
 	new Sword_1();
+	tower_summoned = true;
 }
 
 
@@ -153,6 +165,7 @@ void tower2_Button::func()
 
 	gold->Spend(55);
 	new Bow_1();
+	tower_summoned = true;
 }
 
 tower3_Button::tower3_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
@@ -170,6 +183,7 @@ void tower3_Button::func()
 	gold->Spend(55);
 
 	new Bomb_1();
+	tower_summoned = true;
 }
 
 

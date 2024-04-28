@@ -5,6 +5,7 @@
 #include "Sniper.h"
 
 
+extern bool tutorial_merge;
 
 class MagicUnit : public Unit
 {
