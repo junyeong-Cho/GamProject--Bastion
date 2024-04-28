@@ -54,6 +54,19 @@ void SniperUnit::ResolveMerge(GameObject* other_object)
 }
 
 
+void Sniper_2::ResolveCollision(GameObject* other_object)
+{
+    if (!AttackReady())
+        return;
+    if (is_moving)
+        return;
+
+    Monster* target = static_cast<Monster*>(other_object);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
+
+    change_state(&state_attacking);
+}
 bool Sniper_2::CanMergeWith(GameObjectTypes type)
 {
     switch (type)
@@ -117,7 +130,19 @@ void Sniper_2::State_Attack::CheckExit(GameObject* object)
     }
 }
 
+void Sniper_4::ResolveCollision(GameObject* other_object)
+{
+    if (!AttackReady())
+        return;
+    if (is_moving)
+        return;
 
+    Monster* target = static_cast<Monster*>(other_object);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
+
+    change_state(&state_attacking);
+}
 bool Sniper_4::CanMergeWith(GameObjectTypes type)
 {
     switch (type)
@@ -181,7 +206,19 @@ void Sniper_4::State_Attack::CheckExit(GameObject* object)
     }
 }
 
+void Sniper_8::ResolveCollision(GameObject* other_object)
+{
+    if (!AttackReady())
+        return;
+    if (is_moving)
+        return;
 
+    Monster* target = static_cast<Monster*>(other_object);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
+
+    change_state(&state_attacking);
+}
 bool Sniper_8::CanMergeWith(GameObjectTypes type)
 {
     switch (type)
@@ -245,7 +282,19 @@ void Sniper_8::State_Attack::CheckExit(GameObject* object)
     }
 }
 
+void Sniper_16::ResolveCollision(GameObject* other_object)
+{
+    if (!AttackReady())
+        return;
+    if (is_moving)
+        return;
 
+    Monster* target = static_cast<Monster*>(other_object);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
+
+    change_state(&state_attacking);
+}
 bool Sniper_16::CanMergeWith(GameObjectTypes type)
 {
     /*switch (type)

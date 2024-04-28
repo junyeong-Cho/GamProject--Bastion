@@ -44,6 +44,7 @@ public:
     }
     virtual bool CanMergeWith(GameObjectTypes type) override;
     virtual void ResolveMerge(GameObject* other_object) override;
+    void ResolveCollision(GameObject* other_object) override;
 
 
     virtual GameObjectTypes Type() override { return GameObjectTypes::Spear_2; }
@@ -84,6 +85,7 @@ public:
     }
     virtual bool CanMergeWith(GameObjectTypes type) override;
     virtual void ResolveMerge(GameObject* other_object) override;
+    void ResolveCollision(GameObject* other_object) override;
 
 
     virtual GameObjectTypes Type() override { return GameObjectTypes::Spear_4; }
@@ -124,6 +126,7 @@ public:
     }
     virtual bool CanMergeWith(GameObjectTypes type) override;
     virtual void ResolveMerge(GameObject* other_object) override;
+    void ResolveCollision(GameObject* other_object) override;
 
 
     virtual GameObjectTypes Type() override { return GameObjectTypes::Spear_8; }
@@ -164,6 +167,7 @@ public:
     }
     virtual bool CanMergeWith(GameObjectTypes type) override;
     virtual void ResolveMerge(GameObject* other_object) override;
+    void ResolveCollision(GameObject* other_object) override;
 
 
     virtual GameObjectTypes Type() override { return GameObjectTypes::Spear_16; }

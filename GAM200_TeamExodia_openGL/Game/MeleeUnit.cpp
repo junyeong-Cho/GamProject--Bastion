@@ -54,6 +54,19 @@ void MeleeUnit::ResolveMerge(GameObject* other_object)
 }
 
 
+void Sword_1::ResolveCollision(GameObject* other_object)
+{
+    if (!AttackReady())
+        return;
+    if (is_moving)
+        return;
+
+    Monster* target = static_cast<Monster*>(other_object);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
+
+    change_state(&state_attacking);
+}
 bool Sword_1::CanMergeWith(GameObjectTypes type)
 {
     switch (type)
@@ -61,10 +74,10 @@ bool Sword_1::CanMergeWith(GameObjectTypes type)
     case GameObjectTypes::Sword_1:
         return true;
 
-    case GameObjectTypes::Bomb_1:
+    case GameObjectTypes::Bow_1:
         return true;
 
-    case GameObjectTypes::Bow_1:
+    case GameObjectTypes::Bomb_1:
         return true;
 
     default:
@@ -94,8 +107,8 @@ void Sword_1::ResolveMerge(GameObject* other_object)
 }
 void Sword_1::State_None::Enter(GameObject* object)
 {
+    Engine::GetLogger().LogDebug("None enter");
     Sword_1* unit = static_cast<Sword_1*>(object);
-    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
     unit->attack_count = 0;
 
 }
@@ -104,21 +117,29 @@ void Sword_1::State_None::Update(GameObject* object, double dt)
     Sword_1* unit = static_cast<Sword_1*>(object);
 
     unit->attack_count += dt;
+
+    if (!Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->IsMonserNear(unit) || unit->attack_count >= 5.0)
+    {
+        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+        unit->restart = true;
+    }
 }
 void Sword_1::State_None::CheckExit(GameObject* object)
 {
     Sword_1* unit = static_cast<Sword_1*>(object);
 
-    if (unit->attack_count >= unit->attack_time)
-    {
-        unit->change_state(&unit->state_attacking);
-    }
 }
 void Sword_1::State_Attack::Enter(GameObject* object)
 {
+    Engine::GetLogger().LogDebug("Attack enter");
     Sword_1* unit = static_cast<Sword_1*>(object);
 
-    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+    if (unit->restart == true)
+    {
+        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+        unit->restart = false;
+    }
+    unit->attack_count = 0;
 }
 void Sword_1::State_Attack::Update(GameObject* object, double dt)
 {
@@ -130,13 +151,23 @@ void Sword_1::State_Attack::CheckExit(GameObject* object)
 {
     Sword_1* unit = static_cast<Sword_1*>(object);
 
-    if (unit->attack_count < unit->attack_time)
-    {
-        unit->change_state(&unit->state_none);
-    }
+    unit->change_state(&unit->state_none);
 }
 
 
+void Sword_2::ResolveCollision(GameObject* other_object)
+{
+    if (!AttackReady())
+        return;
+    if (is_moving)
+        return;
+
+    Monster* target = static_cast<Monster*>(other_object);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
+
+    change_state(&state_attacking);
+}
 bool Sword_2::CanMergeWith(GameObjectTypes type)
 {
     switch (type)
@@ -200,6 +231,19 @@ void Sword_2::State_Attack::CheckExit(GameObject* object)
     }
 }
 
+void Sword_4::ResolveCollision(GameObject* other_object)
+{
+    if (!AttackReady())
+        return;
+    if (is_moving)
+        return;
+
+    Monster* target = static_cast<Monster*>(other_object);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
+
+    change_state(&state_attacking);
+}
 bool Sword_4::CanMergeWith(GameObjectTypes type)
 {
     switch (type)
@@ -263,6 +307,19 @@ void Sword_4::State_Attack::CheckExit(GameObject* object)
     }
 }
 
+void Sword_8::ResolveCollision(GameObject* other_object)
+{
+    if (!AttackReady())
+        return;
+    if (is_moving)
+        return;
+
+    Monster* target = static_cast<Monster*>(other_object);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
+
+    change_state(&state_attacking);
+}
 bool Sword_8::CanMergeWith(GameObjectTypes type)
 {
     switch (type)
@@ -326,6 +383,19 @@ void Sword_8::State_Attack::CheckExit(GameObject* object)
     }
 }
 
+void Sword_16::ResolveCollision(GameObject* other_object)
+{
+    if (!AttackReady())
+        return;
+    if (is_moving)
+        return;
+
+    Monster* target = static_cast<Monster*>(other_object);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
+
+    change_state(&state_attacking);
+}
 bool Sword_16::CanMergeWith(GameObjectTypes type)
 {
     /*switch (type)

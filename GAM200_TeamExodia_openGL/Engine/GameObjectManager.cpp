@@ -205,8 +205,6 @@ Unit* GAM200::GameObjectManager::GetClosestUnit(Math::vec2 position)
 
 bool GAM200::GameObjectManager::IsMonserNear(Unit* unit)
 {
-	double current_distance = DBL_MAX;
-
 	for (GameObject* object : objects)
 	{
 		if (object->Type() != GameObjectTypes::Monster)
@@ -215,18 +213,15 @@ bool GAM200::GameObjectManager::IsMonserNear(Unit* unit)
 		{
 			Math::vec2 unit_position = unit->GetPosition();
 			Math::vec2 target_position = object->GetPosition();
-			double squared_distance = pow(unit_position.x - target_position.x, 2) + pow(unit_position.y - target_position.y, 2);
+			double squared_distance = pow((unit_position.x - target_position.x), 2) + pow((unit_position.y - target_position.y), 2);
 
-			if (pow(unit->GetRadius(), 2) > squared_distance)
-				continue;
-
-			return true;
+			if (pow(unit->GetRange(), 2) > squared_distance)
+				return true;
 		}
 	}
 	Engine::GetLogger().LogDebug("Return false");
 	return false;
 }
-
 
 Monster* GAM200::GameObjectManager::GetClosestMonster(Unit* unit)
 {

@@ -58,7 +58,7 @@ void Bow_1::ResolveCollision(GameObject* other_object)
         return;
     if (is_moving)
         return;
-    if (other_object == nullptr) Engine::GetLogger().LogDebug("¾¾~»¡");
+
     Monster* target = static_cast<Monster*>(other_object);
     target->TakeDamage(damage);
     InsertDPS(damage);
@@ -116,7 +116,7 @@ void Bow_1::State_None::Update(GameObject* object, double dt)
 
     unit->attack_count += dt;
 
-    if(unit->attack_count >= 5.0 || !Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->IsMonserNear(unit))
+    if(!Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->IsMonserNear(unit) || unit->attack_count >= 5.0)
     {
         unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
         unit->restart = true;
@@ -153,6 +153,19 @@ void Bow_1::State_Attack::CheckExit(GameObject* object)
 }
 
 
+void Bow_2::ResolveCollision(GameObject* other_object)
+{
+    if (!AttackReady())
+        return;
+    if (is_moving)
+        return;
+
+    Monster* target = static_cast<Monster*>(other_object);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
+
+    change_state(&state_attacking);
+}
 bool Bow_2::CanMergeWith(GameObjectTypes type)
 {
     switch (type)
@@ -216,6 +229,19 @@ void Bow_2::State_Attack::CheckExit(GameObject* object)
     }
 }
 
+void Bow_4::ResolveCollision(GameObject* other_object)
+{
+    if (!AttackReady())
+        return;
+    if (is_moving)
+        return;
+
+    Monster* target = static_cast<Monster*>(other_object);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
+
+    change_state(&state_attacking);
+}
 bool Bow_4::CanMergeWith(GameObjectTypes type)
 {
     switch (type)
@@ -279,6 +305,19 @@ void Bow_4::State_Attack::CheckExit(GameObject* object)
     }
 }
 
+void Bow_8::ResolveCollision(GameObject* other_object)
+{
+    if (!AttackReady())
+        return;
+    if (is_moving)
+        return;
+
+    Monster* target = static_cast<Monster*>(other_object);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
+
+    change_state(&state_attacking);
+}
 bool Bow_8::CanMergeWith(GameObjectTypes type)
 {
     switch (type)
@@ -342,6 +381,19 @@ void Bow_8::State_Attack::CheckExit(GameObject* object)
     }
 }
 
+void Bow_16::ResolveCollision(GameObject* other_object)
+{
+    if (!AttackReady())
+        return;
+    if (is_moving)
+        return;
+
+    Monster* target = static_cast<Monster*>(other_object);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
+
+    change_state(&state_attacking);
+}
 bool Bow_16::CanMergeWith(GameObjectTypes type)
 {
     /*switch (type)

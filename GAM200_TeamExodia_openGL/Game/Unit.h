@@ -42,6 +42,7 @@ public:
     bool IsMouseOverUnit() const;
 
     double GetRadius() const { return radius; }
+    double GetRange() const { return range; }
 
     static constexpr double dps_time_cap = 10.0;
     void UpdateDPS();

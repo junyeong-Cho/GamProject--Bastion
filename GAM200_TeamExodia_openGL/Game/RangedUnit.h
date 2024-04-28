@@ -13,7 +13,6 @@ public:
 
     virtual void Update(double dt) override;
 
-
     virtual void ResolveCollision(GameObject* other_object) override;
     virtual bool CanMergeWith(GameObjectTypes type) override;
     virtual void ResolveMerge(GameObject* other_object) override;
@@ -52,6 +51,7 @@ public:
     bool CanMergeWith(GameObjectTypes type);
     void ResolveMerge(GameObject* other_object);
     void ResolveCollision(GameObject* other_object) override;
+
 private:
     class State_None : public State
     {
@@ -91,6 +91,7 @@ public:
 
     bool CanMergeWith(GameObjectTypes type);
     void ResolveMerge(GameObject* other_object);
+    void ResolveCollision(GameObject* other_object) override;
 
 private:
     class State_None : public State
@@ -132,6 +133,7 @@ public:
 
     bool CanMergeWith(GameObjectTypes type);
     void ResolveMerge(GameObject* other_object);
+    void ResolveCollision(GameObject* other_object) override;
 
 private:
     class State_None : public State
@@ -173,6 +175,7 @@ public:
 
     bool CanMergeWith(GameObjectTypes type);
     void ResolveMerge(GameObject* other_object);
+    void ResolveCollision(GameObject* other_object) override;
 
 private:
     class State_None : public State
@@ -214,6 +217,7 @@ public:
 
     bool CanMergeWith(GameObjectTypes type);
     void ResolveMerge(GameObject* other_object);
+    void ResolveCollision(GameObject* other_object) override;
 
 private:
     class State_None : public State

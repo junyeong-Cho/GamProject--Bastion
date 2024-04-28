@@ -54,6 +54,19 @@ void MagicUnit::ResolveMerge(GameObject* other_object)
 }
 
 
+void Bomb_1::ResolveCollision(GameObject* other_object)
+{
+    if (!AttackReady())
+        return;
+    if (is_moving)
+        return;
+
+    Monster* target = static_cast<Monster*>(other_object);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
+
+    change_state(&state_attacking);
+}
 bool Bomb_1::CanMergeWith(GameObjectTypes type)
 {
     switch (type)
@@ -94,8 +107,8 @@ void Bomb_1::ResolveMerge(GameObject* other_object)
 }
 void Bomb_1::State_None::Enter(GameObject* object)
 {
+    Engine::GetLogger().LogDebug("None enter");
     Bomb_1* unit = static_cast<Bomb_1*>(object);
-    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
     unit->attack_count = 0;
 
 }
@@ -104,21 +117,29 @@ void Bomb_1::State_None::Update(GameObject* object, double dt)
     Bomb_1* unit = static_cast<Bomb_1*>(object);
 
     unit->attack_count += dt;
+
+    if (!Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->IsMonserNear(unit) || unit->attack_count >= 5.0)
+    {
+        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+        unit->restart = true;
+    }
 }
 void Bomb_1::State_None::CheckExit(GameObject* object)
 {
     Bomb_1* unit = static_cast<Bomb_1*>(object);
 
-    if (unit->attack_count >= unit->attack_time)
-    {
-        unit->change_state(&unit->state_attacking);
-    }
 }
 void Bomb_1::State_Attack::Enter(GameObject* object)
 {
+    Engine::GetLogger().LogDebug("Attack enter");
     Bomb_1* unit = static_cast<Bomb_1*>(object);
 
-    unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+    if (unit->restart == true)
+    {
+        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+        unit->restart = false;
+    }
+    unit->attack_count = 0;
 }
 void Bomb_1::State_Attack::Update(GameObject* object, double dt)
 {
@@ -130,13 +151,23 @@ void Bomb_1::State_Attack::CheckExit(GameObject* object)
 {
     Bomb_1* unit = static_cast<Bomb_1*>(object);
 
-    if (unit->attack_count < unit->attack_time)
-    {
-        unit->change_state(&unit->state_none);
-    }
+    unit->change_state(&unit->state_none);
 }
 
 
+void Bomb_2::ResolveCollision(GameObject* other_object)
+{
+    if (!AttackReady())
+        return;
+    if (is_moving)
+        return;
+
+    Monster* target = static_cast<Monster*>(other_object);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
+
+    change_state(&state_attacking);
+}
 bool Bomb_2::CanMergeWith(GameObjectTypes type)
 {
     switch (type)
@@ -200,7 +231,19 @@ void Bomb_2::State_Attack::CheckExit(GameObject* object)
     }
 }
 
+void Bomb_4::ResolveCollision(GameObject* other_object)
+{
+    if (!AttackReady())
+        return;
+    if (is_moving)
+        return;
 
+    Monster* target = static_cast<Monster*>(other_object);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
+
+    change_state(&state_attacking);
+}
 bool Bomb_4::CanMergeWith(GameObjectTypes type)
 {
     switch (type)
@@ -264,7 +307,19 @@ void Bomb_4::State_Attack::CheckExit(GameObject* object)
     }
 }
 
+void Bomb_8::ResolveCollision(GameObject* other_object)
+{
+    if (!AttackReady())
+        return;
+    if (is_moving)
+        return;
 
+    Monster* target = static_cast<Monster*>(other_object);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
+
+    change_state(&state_attacking);
+}
 bool Bomb_8::CanMergeWith(GameObjectTypes type)
 {
     switch (type)
@@ -328,7 +383,19 @@ void Bomb_8::State_Attack::CheckExit(GameObject* object)
     }
 }
 
+void Bomb_16::ResolveCollision(GameObject* other_object)
+{
+    if (!AttackReady())
+        return;
+    if (is_moving)
+        return;
 
+    Monster* target = static_cast<Monster*>(other_object);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
+
+    change_state(&state_attacking);
+}
 bool Bomb_16::CanMergeWith(GameObjectTypes type)
 {
     /*switch (type)

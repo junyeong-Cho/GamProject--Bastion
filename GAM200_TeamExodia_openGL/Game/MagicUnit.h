@@ -28,6 +28,7 @@ public:
     };
 
 protected:
+    bool restart = false;
     virtual void Draw(Math::TransformationMatrix camera_matrix);
 };
 
@@ -50,6 +51,7 @@ public:
 
     bool CanMergeWith(GameObjectTypes type);
     void ResolveMerge(GameObject* other_object);
+    void ResolveCollision(GameObject* other_object) override;
 
 private:
     class State_None : public State
@@ -91,6 +93,7 @@ public:
 
     bool CanMergeWith(GameObjectTypes type);
     void ResolveMerge(GameObject* other_object);
+    void ResolveCollision(GameObject* other_object) override;
 
 private:
     class State_None : public State
@@ -132,6 +135,7 @@ public:
 
     bool CanMergeWith(GameObjectTypes type);
     void ResolveMerge(GameObject* other_object);
+    void ResolveCollision(GameObject* other_object) override;
 
 private:
     class State_None : public State
@@ -173,6 +177,7 @@ public:
 
     bool CanMergeWith(GameObjectTypes type);
     void ResolveMerge(GameObject* other_object);
+    void ResolveCollision(GameObject* other_object) override;
 
 private:
     class State_None : public State
@@ -214,6 +219,7 @@ public:
 
     bool CanMergeWith(GameObjectTypes type);
     void ResolveMerge(GameObject* other_object);
+    void ResolveCollision(GameObject* other_object) override;
 
 private:
     class State_None : public State

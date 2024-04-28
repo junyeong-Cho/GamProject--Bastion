@@ -56,6 +56,19 @@ void SpearUnit::ResolveMerge(GameObject* other_object)
 }
 
 
+void Spear_2::ResolveCollision(GameObject* other_object)
+{
+    if (!AttackReady())
+        return;
+    if (is_moving)
+        return;
+
+    Monster* target = static_cast<Monster*>(other_object);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
+
+    change_state(&state_attacking);
+}
 bool Spear_2::CanMergeWith(GameObjectTypes type)
 {
     switch (type)
@@ -119,7 +132,19 @@ void Spear_2::State_Attack::CheckExit(GameObject* object)
     }
 }
 
+void Spear_4::ResolveCollision(GameObject* other_object)
+{
+    if (!AttackReady())
+        return;
+    if (is_moving)
+        return;
 
+    Monster* target = static_cast<Monster*>(other_object);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
+
+    change_state(&state_attacking);
+}
 bool Spear_4::CanMergeWith(GameObjectTypes type)
 {
     switch (type)
@@ -183,15 +208,28 @@ void Spear_4::State_Attack::CheckExit(GameObject* object)
     }
 }
 
+void Spear_8::ResolveCollision(GameObject* other_object)
+{
+    if (!AttackReady())
+        return;
+    if (is_moving)
+        return;
 
+    Monster* target = static_cast<Monster*>(other_object);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
+
+    change_state(&state_attacking);
+}
 bool Spear_8::CanMergeWith(GameObjectTypes type)
 {
-    /*switch (type)
+    switch (type)
     {
+    case GameObjectTypes::Spear_8:
+        return true;
     default:
         return false;
-    }*/
-    return false;
+    }
 }
 void Spear_8::ResolveMerge(GameObject* other_object)
 {
@@ -246,7 +284,19 @@ void Spear_8::State_Attack::CheckExit(GameObject* object)
     }
 }
 
+void Spear_16::ResolveCollision(GameObject* other_object)
+{
+    if (!AttackReady())
+        return;
+    if (is_moving)
+        return;
 
+    Monster* target = static_cast<Monster*>(other_object);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
+
+    change_state(&state_attacking);
+}
 bool Spear_16::CanMergeWith(GameObjectTypes type)
 {
     /*switch (type)
