@@ -7,7 +7,6 @@
 #include "../Engine/GameObjectManager.h"
 #include "../Engine/Audio.h"
 
-extern bool tutorial_merge;
 
 MeleeUnit::MeleeUnit(double attack_time, int damage, Math::vec2 position, double range) :
     Unit(attack_time, damage, range, position)
@@ -92,21 +91,18 @@ void Sword_1::ResolveMerge(GameObject* other_object)
         new Sword_2(GetPosition());
         other_object->Destroy();
         Destroy();
-        tutorial_merge = true;
     }
     else if (other_object->Type() == GameObjectTypes::Bow_1)
     {
         new Transform_2(GetPosition());
         other_object->Destroy();
         Destroy();
-        tutorial_merge = true;
     }
     else if (other_object->Type() == GameObjectTypes::Bomb_1)
     {
         new Spear_2(GetPosition());
         other_object->Destroy();
         Destroy();
-        tutorial_merge = true;
     }
 }
 void Sword_1::State_None::Enter(GameObject* object)

@@ -183,7 +183,6 @@
       <Filter>Game\Modes</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Modes\Tutorial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -365,6 +364,5 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Component\Time.h" />
-    <ClInclude Include="Modes\Tutorial.h" />
   </ItemGroup>
 </Project>

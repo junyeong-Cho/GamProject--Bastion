@@ -22,7 +22,6 @@ enum class States
 	//Play,
 	HowToPlay,
 	Store,
-	Tutorial,
 
 	Win,
 	Lose,

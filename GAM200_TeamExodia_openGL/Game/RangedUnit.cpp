@@ -7,7 +7,6 @@
 #include "../Engine/GameObjectManager.h"
 #include "../Engine/Audio.h"
 
-extern bool tutorial_merge;
 
 RangedUnit::RangedUnit(double attack_time, int damage, Math::vec2 position, double range) :
     Unit(attack_time, damage, range, position)
@@ -90,21 +89,18 @@ void Bow_1::ResolveMerge(GameObject* other_object)
         new Transform_2(GetPosition());
         other_object->Destroy();
         Destroy();
-        tutorial_merge = true;
     }
     else if (other_object->Type() == GameObjectTypes::Bow_1)
     {
         new Bow_2(GetPosition());
         other_object->Destroy();
         Destroy();
-        tutorial_merge = true;
     }
     else if (other_object->Type() == GameObjectTypes::Bomb_1)
     {
         new Sniper_2(GetPosition());
         other_object->Destroy();
         Destroy();
-        tutorial_merge = true;
     }
 }
 void Bow_1::State_None::Enter(GameObject* object)

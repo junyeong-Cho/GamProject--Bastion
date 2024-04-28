@@ -64,8 +64,8 @@ void Spear_2::ResolveCollision(GameObject* other_object)
         return;
 
     Monster* target = static_cast<Monster*>(other_object);
-    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
-    InsertDPS(dmg);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
 
     change_state(&state_attacking);
 }
@@ -145,8 +145,8 @@ void Spear_4::ResolveCollision(GameObject* other_object)
         return;
 
     Monster* target = static_cast<Monster*>(other_object);
-    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
-    InsertDPS(dmg);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
 
     change_state(&state_attacking);
 }
@@ -226,8 +226,8 @@ void Spear_8::ResolveCollision(GameObject* other_object)
         return;
 
     Monster* target = static_cast<Monster*>(other_object);
-    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
-    InsertDPS(dmg);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
 
     change_state(&state_attacking);
 }
@@ -307,8 +307,8 @@ void Spear_16::ResolveCollision(GameObject* other_object)
         return;
 
     Monster* target = static_cast<Monster*>(other_object);
-    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
-    InsertDPS(dmg);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
 
     change_state(&state_attacking);
 }

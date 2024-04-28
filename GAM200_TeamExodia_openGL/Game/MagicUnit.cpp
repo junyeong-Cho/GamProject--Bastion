@@ -62,8 +62,8 @@ void Bomb_1::ResolveCollision(GameObject* other_object)
         return;
 
     Monster* target = static_cast<Monster*>(other_object);
-    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
-    InsertDPS(dmg);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
 
     change_state(&state_attacking);
 }
@@ -91,21 +91,18 @@ void Bomb_1::ResolveMerge(GameObject* other_object)
         new Spear_2(GetPosition());
         other_object->Destroy();
         Destroy();
-        tutorial_merge = true;
     }
     else if (other_object->Type() == GameObjectTypes::Bow_1)
     {
         new Sniper_2(GetPosition());
         other_object->Destroy();
         Destroy();
-        tutorial_merge = true;
     }
     else if (other_object->Type() == GameObjectTypes::Bomb_1)
     {
         new Bomb_2(GetPosition());
         other_object->Destroy();
         Destroy();
-        tutorial_merge = true;
     }
 }
 void Bomb_1::State_None::Enter(GameObject* object)
@@ -166,8 +163,8 @@ void Bomb_2::ResolveCollision(GameObject* other_object)
         return;
 
     Monster* target = static_cast<Monster*>(other_object);
-    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
-    InsertDPS(dmg);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
 
     change_state(&state_attacking);
 }
@@ -247,8 +244,8 @@ void Bomb_4::ResolveCollision(GameObject* other_object)
         return;
 
     Monster* target = static_cast<Monster*>(other_object);
-    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
-    InsertDPS(dmg);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
 
     change_state(&state_attacking);
 }
@@ -328,8 +325,8 @@ void Bomb_8::ResolveCollision(GameObject* other_object)
         return;
 
     Monster* target = static_cast<Monster*>(other_object);
-    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
-    InsertDPS(dmg);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
 
     change_state(&state_attacking);
 }
@@ -409,8 +406,8 @@ void Bomb_16::ResolveCollision(GameObject* other_object)
         return;
 
     Monster* target = static_cast<Monster*>(other_object);
-    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
-    InsertDPS(dmg);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
 
     change_state(&state_attacking);
 }
