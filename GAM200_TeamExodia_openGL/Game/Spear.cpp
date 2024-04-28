@@ -64,10 +64,12 @@ void Spear_2::ResolveCollision(GameObject* other_object)
         return;
 
     Monster* target = static_cast<Monster*>(other_object);
-    target->TakeDamage(damage);
-    InsertDPS(damage);
+    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
+    InsertDPS(dmg);
 
-    change_state(&state_attacking);
+    attack_animation_count = attack_animation_time;
+
+    change_state(&state_none);
 }
 bool Spear_2::CanMergeWith(GameObjectTypes type)
 {
@@ -145,10 +147,12 @@ void Spear_4::ResolveCollision(GameObject* other_object)
         return;
 
     Monster* target = static_cast<Monster*>(other_object);
-    target->TakeDamage(damage);
-    InsertDPS(damage);
+    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
+    InsertDPS(dmg);
 
-    change_state(&state_attacking);
+    attack_animation_count = attack_animation_time;
+
+    change_state(&state_none);
 }
 bool Spear_4::CanMergeWith(GameObjectTypes type)
 {
@@ -226,10 +230,12 @@ void Spear_8::ResolveCollision(GameObject* other_object)
         return;
 
     Monster* target = static_cast<Monster*>(other_object);
-    target->TakeDamage(damage);
-    InsertDPS(damage);
+    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
+    InsertDPS(dmg);
 
-    change_state(&state_attacking);
+    attack_animation_count = attack_animation_time;
+
+    change_state(&state_none);
 }
 bool Spear_8::CanMergeWith(GameObjectTypes type)
 {
@@ -307,10 +313,12 @@ void Spear_16::ResolveCollision(GameObject* other_object)
         return;
 
     Monster* target = static_cast<Monster*>(other_object);
-    target->TakeDamage(damage);
-    InsertDPS(damage);
+    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
+    InsertDPS(dmg);
 
-    change_state(&state_attacking);
+    attack_animation_count = attack_animation_time;
+
+    change_state(&state_none);
 }
 bool Spear_16::CanMergeWith(GameObjectTypes type)
 {

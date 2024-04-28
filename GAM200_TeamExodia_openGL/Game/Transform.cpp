@@ -65,10 +65,12 @@ void Transform_2::ResolveCollision(GameObject* other_object)
         return;
 
     Monster* target = static_cast<Monster*>(other_object);
-    target->TakeDamage(damage);
-    InsertDPS(damage);
+    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
+    InsertDPS(dmg);
 
-    change_state(&state_attacking);
+    attack_animation_count = attack_animation_time;
+
+    change_state(&state_none);
 }
 bool Transform_2::CanMergeWith(GameObjectTypes type)
 {
@@ -146,10 +148,12 @@ void Transform_4::ResolveCollision(GameObject* other_object)
         return;
 
     Monster* target = static_cast<Monster*>(other_object);
-    target->TakeDamage(damage);
-    InsertDPS(damage);
+    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
+    InsertDPS(dmg);
 
-    change_state(&state_attacking);
+    attack_animation_count = attack_animation_time;
+
+    change_state(&state_none);
 }
 bool Transform_4::CanMergeWith(GameObjectTypes type)
 {
@@ -227,10 +231,12 @@ void Transform_8::ResolveCollision(GameObject* other_object)
         return;
 
     Monster* target = static_cast<Monster*>(other_object);
-    target->TakeDamage(damage);
-    InsertDPS(damage);
+    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
+    InsertDPS(dmg);
 
-    change_state(&state_attacking);
+    attack_animation_count = attack_animation_time;
+
+    change_state(&state_none);
 }
 bool Transform_8::CanMergeWith(GameObjectTypes type)
 {
@@ -308,10 +314,12 @@ void Transform_16::ResolveCollision(GameObject* other_object)
         return;
 
     Monster* target = static_cast<Monster*>(other_object);
-    target->TakeDamage(damage);
-    InsertDPS(damage);
+    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
+    InsertDPS(dmg);
 
-    change_state(&state_attacking);
+    attack_animation_count = attack_animation_time;
+
+    change_state(&state_none);
 }
 bool Transform_16::CanMergeWith(GameObjectTypes type)
 {
