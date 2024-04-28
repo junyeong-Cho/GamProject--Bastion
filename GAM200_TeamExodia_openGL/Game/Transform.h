@@ -40,7 +40,14 @@ class Transform_2 : public TransformUnit
 public:
     Transform_2(Math::vec2 position = Map::middle_point) : TransformUnit(10.0, 5.0, 0.8, 1.2, 4, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
+        if (transformed == false)
+        {
+            AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/deform_default/deform_default.spt", (this)));
+        }
+        else
+        {
+            AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/deform/deform.spt", (this)));
+        }
         current_state = &state_none;
         current_state->Enter(this);
 
@@ -81,7 +88,14 @@ class Transform_4 : public TransformUnit
 public:
     Transform_4(Math::vec2 position = Map::middle_point) : TransformUnit(10.0, 5.0, 1.2, 1.5, 10, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
+        if (transformed == false)
+        {
+            AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/deform_default/deform_default.spt", (this)));
+        }
+        else
+        {
+            AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/deform/deform.spt", (this)));
+        }
         current_state = &state_none;
         current_state->Enter(this);
 
@@ -122,7 +136,14 @@ class Transform_8 : public TransformUnit
 public:
     Transform_8(Math::vec2 position = Map::middle_point) : TransformUnit(10.0, 5.0, 1.2, 1.5, 30, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
+        if (transformed == false)
+        {
+            AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/deform_default/deform_default.spt", (this)));
+        }
+        else
+        {
+            AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/deform/deform.spt", (this)));
+        }
         current_state = &state_none;
         current_state->Enter(this);
 
@@ -163,7 +184,14 @@ class Transform_16 : public TransformUnit
 public:
     Transform_16(Math::vec2 position = Map::middle_point) : TransformUnit(10.0, 5.0, 1.0, 1.4, 70, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
+        if (transformed == false)
+        {
+            AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/deform_default/deform_default.spt", (this)));
+        }
+        else
+        {
+            AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/deform/deform.spt", (this)));
+        }
         current_state = &state_none;
         current_state->Enter(this);
 

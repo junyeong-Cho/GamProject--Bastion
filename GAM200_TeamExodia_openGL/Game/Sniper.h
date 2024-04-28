@@ -32,7 +32,7 @@ class Sniper_2 : public SniperUnit
 public:
     Sniper_2(Math::vec2 position = Map::middle_point) : SniperUnit(5.0, 50, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/sniper/sniper_default.spt", (this)));
         current_state = &state_none;
         current_state->Enter(this);
 
@@ -73,7 +73,7 @@ class Sniper_4 : public SniperUnit
 public:
     Sniper_4(Math::vec2 position = Map::middle_point) : SniperUnit(4.0, 50, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/sniper/sniper_default.spt", (this)));
         current_state = &state_none;
         current_state->Enter(this);
 
@@ -114,7 +114,7 @@ class Sniper_8 : public SniperUnit
 public:
     Sniper_8(Math::vec2 position = Map::middle_point) : SniperUnit(4.0, 100, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/sniper/sniper_default.spt", (this)));
         current_state = &state_none;
         current_state->Enter(this);
 
@@ -155,7 +155,7 @@ class Sniper_16 : public SniperUnit
 public:
     Sniper_16(Math::vec2 position = Map::middle_point) : SniperUnit(4.0, 300, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/sniper/sniper_default.spt", (this)));
         current_state = &state_none;
         current_state->Enter(this);
 

@@ -40,7 +40,7 @@ class Bomb_1 : public MagicUnit
 public:
     Bomb_1(Math::vec2 position = Map::middle_point) : MagicUnit(1.5, 4, position) 
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/bomb/bomb_default.spt", (this)));
         current_state = &state_none;
         current_state->Enter(this);
 
@@ -82,7 +82,7 @@ class Bomb_2 : public MagicUnit
 public:
     Bomb_2(Math::vec2 position = Map::middle_point) : MagicUnit(1.0, 4, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/bomb/bomb_default.spt", (this)));
         current_state = &state_none;
         current_state->Enter(this);
 
@@ -124,7 +124,7 @@ class Bomb_4 : public MagicUnit
 public:
     Bomb_4(Math::vec2 position = Map::middle_point) : MagicUnit(1.5, 10, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/bomb/bomb_default.spt", (this)));
         current_state = &state_none;
         current_state->Enter(this);
 
@@ -166,7 +166,7 @@ class Bomb_8 : public MagicUnit
 public:
     Bomb_8(Math::vec2 position = Map::middle_point) : MagicUnit(1.0, 30, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/bomb/bomb_default.spt", (this)));
         current_state = &state_none;
         current_state->Enter(this);
 
@@ -208,7 +208,7 @@ class Bomb_16 : public MagicUnit
 public:
     Bomb_16(Math::vec2 position = Map::middle_point) : MagicUnit(0.8, 100, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/bomb/bomb_default.spt", (this)));
         current_state = &state_none;
         current_state->Enter(this);
 

@@ -1,0 +1,8 @@
+assets/tower_s2/animation/bomb/bomb.png
+HotSpot 131 0
+FrameSize 262 118
+NumFrames 8
+
+Anim assets/tower_s2/animation/none.anm
+Anim assets/tower_s2/animation/bomb/bomb_attack.anm
+
