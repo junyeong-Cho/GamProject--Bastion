@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/the_glm-subbuild/CMakeFiles/the_glm-populate"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/the_glm-subbuild/CMakeFiles/eca4fac5b4cc129e2af9138555d296a9/the_glm-populate.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/the_glm-subbuild/CMakeFiles/265c0377f3d429cd621eb58bfda44794/the_glm-populate-complete.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/the_glm-subbuild/CMakeFiles/74e41807f90ed82ea3d4b5587cbbc68b/the_glm-populate-build.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/the_glm-subbuild/CMakeFiles/74e41807f90ed82ea3d4b5587cbbc68b/the_glm-populate-configure.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/the_glm-subbuild/CMakeFiles/74e41807f90ed82ea3d4b5587cbbc68b/the_glm-populate-download.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/the_glm-subbuild/CMakeFiles/74e41807f90ed82ea3d4b5587cbbc68b/the_glm-populate-install.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/the_glm-subbuild/CMakeFiles/74e41807f90ed82ea3d4b5587cbbc68b/the_glm-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/the_glm-subbuild/CMakeFiles/74e41807f90ed82ea3d4b5587cbbc68b/the_glm-populate-patch.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/the_glm-subbuild/CMakeFiles/74e41807f90ed82ea3d4b5587cbbc68b/the_glm-populate-test.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/the_glm-subbuild/CMakeFiles/74e41807f90ed82ea3d4b5587cbbc68b/the_glm-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"the_glm-populate"
+		],
+		"name" : "the_glm-populate"
+	}
+}

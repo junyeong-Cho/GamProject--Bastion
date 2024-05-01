@@ -1,0 +1,148 @@
+/*
+Copyright (C) 2023 DigiPen Institute of Technology
+Reproduction or distribution of this file or its contents without
+prior written consent is prohibited
+File Name:  Main_menu.cpp
+Project:    GAM200_TeamExodia_openGL
+Author:     Junyeong Cho
+Created:    October		10, 2023
+Updated:    March		 4, 2023
+*/
+
+
+#include "Engine/Engine.h"
+//#include "Engine/Audio.h"
+
+#include "Game/Objects/Button.h"
+#include "Game/Fonts.h"
+
+#include "MainMenu.h"
+
+#include <backends/imgui_impl_sdl2.h>
+
+
+Main_menu::Main_menu()
+{
+	
+}
+
+void Main_menu::Load()
+{
+	//Example code - PLS DELETE THIS AFTER IMPLEMENTING YOUR OWN CODE!!!!!!
+	AddGSComponent(new GAM200::GameObjectManager());
+
+
+	mainmenu_background = Engine::Instance().GetTextureManager().Load("assets/Background/mainmenu_background.png");
+	UpdateMenuTextColors();
+
+	//BGM
+	//GAM200::SoundEffect::Game_BGM().stopAll();
+	//GAM200::SoundEffect::MainMenu_BGM().stopAll();
+	//GAM200::SoundEffect::MainMenu_BGM().loopplay();
+
+}
+
+void Main_menu::UpdateMenuTextColors()
+{
+	uint32_t colors[4] = { 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF };
+	colors[counter] = 0x7EFACBFF;
+
+	trash.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture(".", colors[0]));
+	play.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Play", colors[0]));
+	howToPlay.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("How to play", colors[1]));
+	setting.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Setting", colors[2]));
+	exit.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Exit", colors[3]));
+}
+
+void Main_menu::Update(double dt)
+{
+	//Example code - PLS DELETE THIS AFTER IMPLEMENTING YOUR OWN CODE!!!!!!
+	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
+
+
+	bool shouldUpdateColors = false;
+
+	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Down))
+	{
+		counter = (counter + 1) % 4;
+		shouldUpdateColors = true;
+		//GAM200::SoundEffect::Button_1().play();
+	}
+	else if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Up))
+	{
+		counter = (counter - 1 + 4) % 4;
+		shouldUpdateColors = true;
+		//GAM200::SoundEffect::Button_1().play();
+	}
+
+	if (shouldUpdateColors)
+	{
+		UpdateMenuTextColors();
+	}
+
+
+
+	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Escape))
+	{
+		Engine::GetGameStateManager().ClearNextGameState();
+	}
+
+	//if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Enter))
+	//{
+	//	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
+	//}
+
+
+	if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Enter))
+	{
+		switch (counter)
+		{
+		case 0:
+			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Store));
+			//GAM200::SoundEffect::Button_3().play();
+			break;
+		case 1:
+			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::HowToPlay));
+			//GAM200::SoundEffect::Button_3().play();
+			break;
+		case 2:
+			//Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Setting));
+			break;
+		case 3:
+			Engine::GetGameStateManager().ClearNextGameState();
+			//GAM200::SoundEffect::Button_3().play();
+			break;
+		}
+	}
+
+}
+
+void Main_menu::Unload()
+{
+	//Unload Mode1
+
+	//Unload Mode2
+}
+
+void Main_menu::Draw()
+{
+	Engine::GetWindow().Clear(0.2f, 0.4f, 0.7f, 1.0f);
+	mainmenu_background->Draw(Math::TranslationMatrix(Math::ivec2{ 0 ,0 }));
+
+
+	trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
+	play->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x / 2 + 220, (Engine::GetWindow().GetSize().y / 2 - 100) }));
+	howToPlay->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x / 2 + 220, (Engine::GetWindow().GetSize().y / 2 - 160) }));
+	setting->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x / 2 + 220, (Engine::GetWindow().GetSize().y / 2 - 220) }));
+	exit->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x / 2 + 220, (Engine::GetWindow().GetSize().y / 2 - 280) }));
+}
+
+void Main_menu::ImguiDraw()
+{
+
+}
+
+void Main_menu::HandleEvent(SDL_Event& event)
+{
+
+}

@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/mnt/c/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/webdebug/_deps/the_gsl-subbuild/CMakeFiles/the_gsl-populate"
+		},
+		{
+			"file" : "/mnt/c/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/webdebug/_deps/the_gsl-subbuild/CMakeFiles/the_gsl-populate.rule"
+		},
+		{
+			"file" : "/mnt/c/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/webdebug/_deps/the_gsl-subbuild/CMakeFiles/the_gsl-populate-complete.rule"
+		},
+		{
+			"file" : "/mnt/c/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/webdebug/_deps/the_gsl-subbuild/the_gsl-populate-prefix/src/the_gsl-populate-stamp/the_gsl-populate-build.rule"
+		},
+		{
+			"file" : "/mnt/c/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/webdebug/_deps/the_gsl-subbuild/the_gsl-populate-prefix/src/the_gsl-populate-stamp/the_gsl-populate-configure.rule"
+		},
+		{
+			"file" : "/mnt/c/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/webdebug/_deps/the_gsl-subbuild/the_gsl-populate-prefix/src/the_gsl-populate-stamp/the_gsl-populate-download.rule"
+		},
+		{
+			"file" : "/mnt/c/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/webdebug/_deps/the_gsl-subbuild/the_gsl-populate-prefix/src/the_gsl-populate-stamp/the_gsl-populate-install.rule"
+		},
+		{
+			"file" : "/mnt/c/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/webdebug/_deps/the_gsl-subbuild/the_gsl-populate-prefix/src/the_gsl-populate-stamp/the_gsl-populate-mkdir.rule"
+		},
+		{
+			"file" : "/mnt/c/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/webdebug/_deps/the_gsl-subbuild/the_gsl-populate-prefix/src/the_gsl-populate-stamp/the_gsl-populate-patch.rule"
+		},
+		{
+			"file" : "/mnt/c/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/webdebug/_deps/the_gsl-subbuild/the_gsl-populate-prefix/src/the_gsl-populate-stamp/the_gsl-populate-test.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"the_gsl-populate"
+		],
+		"name" : "the_gsl-populate"
+	}
+}

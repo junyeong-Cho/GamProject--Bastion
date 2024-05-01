@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-subbuild\CMakeFiles\311c057e1c9a3b49dd9921af77d56a99\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{D80BF9AF-BED6-3B53-AE91-86504F4C501E}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

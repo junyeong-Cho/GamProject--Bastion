@@ -1,0 +1,12 @@
+C:/Users/user/Desktop/임시폴더/GAM250/build/CMakeFiles/copy_sdl2_dll.dir
+C:/Users/user/Desktop/임시폴더/GAM250/build/CMakeFiles/imgui.dir
+C:/Users/user/Desktop/임시폴더/GAM250/build/CMakeFiles/stb.dir
+C:/Users/user/Desktop/임시폴더/GAM250/build/CMakeFiles/INSTALL.dir
+C:/Users/user/Desktop/임시폴더/GAM250/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/user/Desktop/임시폴더/GAM250/build/CMakeFiles/ZERO_CHECK.dir
+C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/the_gsl-build/CMakeFiles/INSTALL.dir
+C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/the_gsl-build/CMakeFiles/ALL_BUILD.dir
+C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/the_gsl-build/include/CMakeFiles/INSTALL.dir
+C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/the_glm-build/CMakeFiles/INSTALL.dir
+C:/Users/user/Desktop/임시폴더/GAM250/build/source/CMakeFiles/GAM250_Exodia.dir
+C:/Users/user/Desktop/임시폴더/GAM250/build/source/CMakeFiles/INSTALL.dir

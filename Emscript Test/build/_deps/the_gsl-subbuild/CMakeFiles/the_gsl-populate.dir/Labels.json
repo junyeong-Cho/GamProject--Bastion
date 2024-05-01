@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/the_gsl-subbuild/CMakeFiles/the_gsl-populate"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/the_gsl-subbuild/CMakeFiles/85a6288ea8ca16fbec3064bb48ab9225/the_gsl-populate.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/the_gsl-subbuild/CMakeFiles/5ee1be450c08bc387b6ca8b634ced1c7/the_gsl-populate-complete.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/the_gsl-subbuild/CMakeFiles/82f8484d6ead6e36722c4e22ca0890ff/the_gsl-populate-build.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/the_gsl-subbuild/CMakeFiles/82f8484d6ead6e36722c4e22ca0890ff/the_gsl-populate-configure.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/the_gsl-subbuild/CMakeFiles/82f8484d6ead6e36722c4e22ca0890ff/the_gsl-populate-download.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/the_gsl-subbuild/CMakeFiles/82f8484d6ead6e36722c4e22ca0890ff/the_gsl-populate-install.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/the_gsl-subbuild/CMakeFiles/82f8484d6ead6e36722c4e22ca0890ff/the_gsl-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/the_gsl-subbuild/CMakeFiles/82f8484d6ead6e36722c4e22ca0890ff/the_gsl-populate-patch.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/the_gsl-subbuild/CMakeFiles/82f8484d6ead6e36722c4e22ca0890ff/the_gsl-populate-test.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/the_gsl-subbuild/CMakeFiles/82f8484d6ead6e36722c4e22ca0890ff/the_gsl-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"the_gsl-populate"
+		],
+		"name" : "the_gsl-populate"
+	}
+}

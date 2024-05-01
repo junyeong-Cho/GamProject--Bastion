@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\the_gsl-subbuild\CMakeFiles\82f8484d6ead6e36722c4e22ca0890ff\the_gsl-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\the_gsl-subbuild\CMakeFiles\82f8484d6ead6e36722c4e22ca0890ff\the_gsl-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\the_gsl-subbuild\CMakeFiles\82f8484d6ead6e36722c4e22ca0890ff\the_gsl-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\the_gsl-subbuild\CMakeFiles\82f8484d6ead6e36722c4e22ca0890ff\the_gsl-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\the_gsl-subbuild\CMakeFiles\82f8484d6ead6e36722c4e22ca0890ff\the_gsl-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\the_gsl-subbuild\CMakeFiles\82f8484d6ead6e36722c4e22ca0890ff\the_gsl-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\the_gsl-subbuild\CMakeFiles\82f8484d6ead6e36722c4e22ca0890ff\the_gsl-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\the_gsl-subbuild\CMakeFiles\82f8484d6ead6e36722c4e22ca0890ff\the_gsl-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\the_gsl-subbuild\CMakeFiles\5ee1be450c08bc387b6ca8b634ced1c7\the_gsl-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\the_gsl-subbuild\CMakeFiles\85a6288ea8ca16fbec3064bb48ab9225\the_gsl-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\the_gsl-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\the_gsl-subbuild\CMakeFiles\the_gsl-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{AF9B6024-8207-35D3-A411-02D471296343}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

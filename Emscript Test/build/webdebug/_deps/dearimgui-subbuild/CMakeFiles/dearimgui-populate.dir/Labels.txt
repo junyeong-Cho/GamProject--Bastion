@@ -1,0 +1,14 @@
+# Target labels
+ dearimgui-populate
+# Source files and their labels
+/mnt/c/Users/user/Desktop/임시폴더/GAM250/build/webdebug/_deps/dearimgui-subbuild/CMakeFiles/dearimgui-populate
+/mnt/c/Users/user/Desktop/임시폴더/GAM250/build/webdebug/_deps/dearimgui-subbuild/CMakeFiles/dearimgui-populate.rule
+/mnt/c/Users/user/Desktop/임시폴더/GAM250/build/webdebug/_deps/dearimgui-subbuild/CMakeFiles/dearimgui-populate-complete.rule
+/mnt/c/Users/user/Desktop/임시폴더/GAM250/build/webdebug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-build.rule
+/mnt/c/Users/user/Desktop/임시폴더/GAM250/build/webdebug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-configure.rule
+/mnt/c/Users/user/Desktop/임시폴더/GAM250/build/webdebug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-download.rule
+/mnt/c/Users/user/Desktop/임시폴더/GAM250/build/webdebug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-install.rule
+/mnt/c/Users/user/Desktop/임시폴더/GAM250/build/webdebug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-mkdir.rule
+/mnt/c/Users/user/Desktop/임시폴더/GAM250/build/webdebug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-patch.rule
+/mnt/c/Users/user/Desktop/임시폴더/GAM250/build/webdebug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-test.rule
+/mnt/c/Users/user/Desktop/임시폴더/GAM250/build/webdebug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-update.rule

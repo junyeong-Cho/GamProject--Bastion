@@ -1,0 +1,3 @@
+/mnt/c/Users/user/Desktop/임시폴더/GAM250/build/webdebug/_deps/dearimgui-subbuild/CMakeFiles/dearimgui-populate.dir
+/mnt/c/Users/user/Desktop/임시폴더/GAM250/build/webdebug/_deps/dearimgui-subbuild/CMakeFiles/edit_cache.dir
+/mnt/c/Users/user/Desktop/임시폴더/GAM250/build/webdebug/_deps/dearimgui-subbuild/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/sdl2-subbuild/CMakeFiles/sdl2-populate"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/sdl2-subbuild/CMakeFiles/bce11e09aaf4272cc56737a916050b4e/sdl2-populate.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/sdl2-subbuild/CMakeFiles/00cd898ed7c338dd43ff8edde34c2309/sdl2-populate-complete.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/sdl2-subbuild/CMakeFiles/c6a9259adb064c2853f1e0241a28c4b2/sdl2-populate-build.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/sdl2-subbuild/CMakeFiles/c6a9259adb064c2853f1e0241a28c4b2/sdl2-populate-configure.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/sdl2-subbuild/CMakeFiles/c6a9259adb064c2853f1e0241a28c4b2/sdl2-populate-download.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/sdl2-subbuild/CMakeFiles/c6a9259adb064c2853f1e0241a28c4b2/sdl2-populate-install.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/sdl2-subbuild/CMakeFiles/c6a9259adb064c2853f1e0241a28c4b2/sdl2-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/sdl2-subbuild/CMakeFiles/c6a9259adb064c2853f1e0241a28c4b2/sdl2-populate-patch.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/sdl2-subbuild/CMakeFiles/c6a9259adb064c2853f1e0241a28c4b2/sdl2-populate-test.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/sdl2-subbuild/CMakeFiles/c6a9259adb064c2853f1e0241a28c4b2/sdl2-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"sdl2-populate"
+		],
+		"name" : "sdl2-populate"
+	}
+}

@@ -1,0 +1,2 @@
+/home/junyeongcho/emsdk/upstream/emscripten/emar qc libstb.a CMakeFiles/stb.dir/stb_implementation.cpp.o
+/home/junyeongcho/emsdk/upstream/emscripten/emranlib libstb.a

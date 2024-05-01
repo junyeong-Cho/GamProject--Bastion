@@ -1,0 +1,451 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\assets\Path.cpp">
+      <Filter>assets</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\assets\Reloader.cpp">
+      <Filter>assets</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Component\Wave.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\opengl\GL.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\opengl\GLIndexBuffer.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\opengl\GLShader.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\opengl\GLTexture.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\opengl\GLVertexArray.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\opengl\GLVertexBuffer.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\opengl\GLFrameBuffer.cpp">
+      <Filter>opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\util\WatchFiles.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\util\Random.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Animation.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Collision.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\DrawShape.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Engine.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Font.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\GameObject.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\GameObjectManager.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\GameStateManager.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\ImGuiHelper.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Input.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Logger.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Matrix.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\MergeCollision.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Mouse.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Normalization.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Particle.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\ShowCollision.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Sprite.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Texture.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\TextureManager.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Vec2.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Window.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Components\Gold.cpp">
+      <Filter>Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Components\Life.cpp">
+      <Filter>Game\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Modes\Game.cpp">
+      <Filter>Game\Modes</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Modes\HowToPlay.cpp">
+      <Filter>Game\Modes</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Modes\Lose.cpp">
+      <Filter>Game\Modes</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Modes\MainMenu.cpp">
+      <Filter>Game\Modes</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Modes\Store.cpp">
+      <Filter>Game\Modes</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Modes\Tutorial.cpp">
+      <Filter>Game\Modes</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Modes\Win.cpp">
+      <Filter>Game\Modes</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Objects\Button.cpp">
+      <Filter>Game\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Objects\Monsters\Monster.cpp">
+      <Filter>Game\Objects\Monsters</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Objects\Units\MagicUnit.cpp">
+      <Filter>Game\Objects\Units</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Objects\Units\MeleeUnit.cpp">
+      <Filter>Game\Objects\Units</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Objects\Units\RangedUnit.cpp">
+      <Filter>Game\Objects\Units</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Objects\Units\Sniper.cpp">
+      <Filter>Game\Objects\Units</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Objects\Units\Spear.cpp">
+      <Filter>Game\Objects\Units</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Objects\Units\Transform.cpp">
+      <Filter>Game\Objects\Units</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Objects\Units\Unit.cpp">
+      <Filter>Game\Objects\Units</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Mode1.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Mode2.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Splash.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\source\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\assets\Path.hpp">
+      <Filter>assets</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\assets\Reloader.hpp">
+      <Filter>assets</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Component\Diamond.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Component\GameSpeed.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Component\Gold.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Component\Map.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Component\Time.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Component\Wave.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\opengl\GL.hpp">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\opengl\GLHandle.hpp">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\opengl\GLIndexBuffer.hpp">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\opengl\GLShader.hpp">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\opengl\GLTexture.hpp">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\opengl\GLVertexArray.hpp">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\opengl\GLVertexBuffer.hpp">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\opengl\GLFrameBuffer.hpp">
+      <Filter>opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\environment\Environment.hpp">
+      <Filter>environment</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\environment\Input.hpp">
+      <Filter>environment</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\environment\OpenGL.hpp">
+      <Filter>environment</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\util\FPS.hpp">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\util\Timer.hpp">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\util\WatchFiles.hpp">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\util\Random.hpp">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Animation.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Collision.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Component.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\ComponentManager.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Constants.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\DrawShape.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Engine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Font.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\GameObject.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\GameObjectManager.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\GameState.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\GameStateManager.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\ImGuiHelper.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Input.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\IProgram.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Logger.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Matrix.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\MergeCollision.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Mouse.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Normalization.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\not_null.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\OriginPosition.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\owner.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Particle.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Rect.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\ShowCollision.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Sprite.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Texture.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\TextureManager.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Vec2.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Engine\Window.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Components\Gold.h">
+      <Filter>Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Components\Life.h">
+      <Filter>Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Modes\Game.h">
+      <Filter>Game\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Modes\HowToPlay.h">
+      <Filter>Game\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Modes\Lose.h">
+      <Filter>Game\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Modes\MainMenu.h">
+      <Filter>Game\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Modes\Store.h">
+      <Filter>Game\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Modes\Tutorial.h">
+      <Filter>Game\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Modes\Win.h">
+      <Filter>Game\Modes</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Objects\Button.h">
+      <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Objects\Monsters\Monster.h">
+      <Filter>Game\Objects\Monsters</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Objects\Units\MagicUnit.h">
+      <Filter>Game\Objects\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Objects\Units\MeleeUnit.h">
+      <Filter>Game\Objects\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Objects\Units\RangedUnit.h">
+      <Filter>Game\Objects\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Objects\Units\Sniper.h">
+      <Filter>Game\Objects\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Objects\Units\Spear.h">
+      <Filter>Game\Objects\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Objects\Units\Transform.h">
+      <Filter>Game\Objects\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Objects\Units\Unit.h">
+      <Filter>Game\Objects\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Fonts.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\GameObjectTypes.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Mode1.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Mode2.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Particles.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\Splash.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\source\Game\States.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\source\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Component">
+      <UniqueIdentifier>{89050DB1-9C1A-3853-838A-1650F4EA75E1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{74D7AC3A-EB05-3CDA-9F40-A14C1831792F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{70CC340B-39DA-3AC1-BCE4-DA8C59E00142}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Components">
+      <UniqueIdentifier>{5B178334-4F1A-31E4-8DEF-83C9EB14B38F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Modes">
+      <UniqueIdentifier>{E2437412-4F8F-3C5F-8AFB-0EBD1C900B13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Objects">
+      <UniqueIdentifier>{2941B9F9-6890-34D7-9EB0-B59D643BFFC6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Objects\Monsters">
+      <UniqueIdentifier>{4CB512B0-B80D-394A-8804-DCE9F83B2B2E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Objects\Units">
+      <UniqueIdentifier>{17677DB4-72CD-3FFD-A990-EDB0F0D84C86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets">
+      <UniqueIdentifier>{996CEFCA-3296-3E6A-A26A-31C3CF9BAEA5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="environment">
+      <UniqueIdentifier>{08D73510-1C43-3C1D-B374-6E8FB19011E6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="opengl">
+      <UniqueIdentifier>{9E10A5B1-F5E9-3710-8C6F-523A54CAE492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{30149C97-EE51-360B-9B11-620CD5104A86}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

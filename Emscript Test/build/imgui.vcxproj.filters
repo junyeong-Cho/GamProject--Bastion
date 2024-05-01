@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-src\imgui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-src\imgui_draw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-src\imgui_tables.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-src\imgui_widgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-src\backends\imgui_impl_opengl3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-src\backends\imgui_impl_sdl2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-src\imgui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-src\imconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-src\imgui_internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-src\backends\imgui_impl_opengl3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-src\backends\imgui_impl_opengl3_loader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-src\backends\imgui_impl_sdl2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{336D9883-680E-3DCA-9EFA-F75904BDB023}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{B3BE0F87-621D-3DEC-8214-43E337190A8C}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

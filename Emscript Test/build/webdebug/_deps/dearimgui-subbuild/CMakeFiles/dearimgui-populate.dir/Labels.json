@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/mnt/c/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/webdebug/_deps/dearimgui-subbuild/CMakeFiles/dearimgui-populate"
+		},
+		{
+			"file" : "/mnt/c/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/webdebug/_deps/dearimgui-subbuild/CMakeFiles/dearimgui-populate.rule"
+		},
+		{
+			"file" : "/mnt/c/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/webdebug/_deps/dearimgui-subbuild/CMakeFiles/dearimgui-populate-complete.rule"
+		},
+		{
+			"file" : "/mnt/c/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/webdebug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-build.rule"
+		},
+		{
+			"file" : "/mnt/c/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/webdebug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-configure.rule"
+		},
+		{
+			"file" : "/mnt/c/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/webdebug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-download.rule"
+		},
+		{
+			"file" : "/mnt/c/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/webdebug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-install.rule"
+		},
+		{
+			"file" : "/mnt/c/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/webdebug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-mkdir.rule"
+		},
+		{
+			"file" : "/mnt/c/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/webdebug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-patch.rule"
+		},
+		{
+			"file" : "/mnt/c/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/webdebug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-test.rule"
+		},
+		{
+			"file" : "/mnt/c/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/webdebug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"dearimgui-populate"
+		],
+		"name" : "dearimgui-populate"
+	}
+}

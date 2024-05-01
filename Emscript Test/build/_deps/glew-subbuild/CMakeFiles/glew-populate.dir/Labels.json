@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/glew-subbuild/CMakeFiles/glew-populate"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/glew-subbuild/CMakeFiles/08d8348546878e4186b586689c3d1d17/glew-populate.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/glew-subbuild/CMakeFiles/5721108ceca1893ff68a27d993cd9d10/glew-populate-complete.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/glew-subbuild/CMakeFiles/42faac333f149052e800ce22ec3adcfa/glew-populate-build.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/glew-subbuild/CMakeFiles/42faac333f149052e800ce22ec3adcfa/glew-populate-configure.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/glew-subbuild/CMakeFiles/42faac333f149052e800ce22ec3adcfa/glew-populate-download.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/glew-subbuild/CMakeFiles/42faac333f149052e800ce22ec3adcfa/glew-populate-install.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/glew-subbuild/CMakeFiles/42faac333f149052e800ce22ec3adcfa/glew-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/glew-subbuild/CMakeFiles/42faac333f149052e800ce22ec3adcfa/glew-populate-patch.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/glew-subbuild/CMakeFiles/42faac333f149052e800ce22ec3adcfa/glew-populate-test.rule"
+		},
+		{
+			"file" : "C:/Users/user/Desktop/\uc784\uc2dc\ud3f4\ub354/GAM250/build/_deps/glew-subbuild/CMakeFiles/42faac333f149052e800ce22ec3adcfa/glew-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"glew-populate"
+		],
+		"name" : "glew-populate"
+	}
+}

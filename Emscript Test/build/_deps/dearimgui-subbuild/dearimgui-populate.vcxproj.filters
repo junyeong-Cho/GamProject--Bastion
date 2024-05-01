@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-subbuild\CMakeFiles\e3ab4621069b41fd1047d0cde09d6f99\dearimgui-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-subbuild\CMakeFiles\e3ab4621069b41fd1047d0cde09d6f99\dearimgui-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-subbuild\CMakeFiles\e3ab4621069b41fd1047d0cde09d6f99\dearimgui-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-subbuild\CMakeFiles\e3ab4621069b41fd1047d0cde09d6f99\dearimgui-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-subbuild\CMakeFiles\e3ab4621069b41fd1047d0cde09d6f99\dearimgui-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-subbuild\CMakeFiles\e3ab4621069b41fd1047d0cde09d6f99\dearimgui-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-subbuild\CMakeFiles\e3ab4621069b41fd1047d0cde09d6f99\dearimgui-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-subbuild\CMakeFiles\e3ab4621069b41fd1047d0cde09d6f99\dearimgui-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-subbuild\CMakeFiles\7bce30c0e5aec451266c0f3471458375\dearimgui-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-subbuild\CMakeFiles\311c057e1c9a3b49dd9921af77d56a99\dearimgui-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-subbuild\CMakeFiles\dearimgui-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{D80BF9AF-BED6-3B53-AE91-86504F4C501E}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
