@@ -98,12 +98,8 @@ bool Monster::IsInside(Math::vec2 target_position) const
 void Monster::TakeDamage(int damage) 
 { 
 	info.life -= damage; 
-	//Engine::GetLogger().LogDebug(std::to_string(damage) + "damage! Remaining hp: " + std::to_string(info.life)); 
 
 	Math::vec2 particle_posistion = GetPosition();
 
-
-	
 	Engine::GetGameStateManager().GetGSComponent<GAM200::ParticleManager<Particles::Hit>>()->Emit(1, particle_posistion, { 0, 0 }, { 0, 0 }, 3.14159265358979323846 / 2);
-	//Engine::GetGameStateManager().GetGSComponent<GAM200::ParticleManager<Particles::MeteorBit>>()->Emit(5, particle_posistion, { 0, 0 }, { 0, 100 }, 3.14159265358979323846 / 3);
 }

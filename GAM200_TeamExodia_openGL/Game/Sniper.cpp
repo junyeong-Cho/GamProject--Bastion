@@ -88,7 +88,7 @@ void Sniper_2::ResolveMerge(GameObject* other_object)
 }
 void Sniper_2::State_None::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("None enter");
+    
     Sniper_2* unit = static_cast<Sniper_2*>(object);
     unit->attack_count = 0;
 
@@ -112,7 +112,7 @@ void Sniper_2::State_None::CheckExit(GameObject* object)
 }
 void Sniper_2::State_Attack::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("Attack enter");
+    
     Sniper_2* unit = static_cast<Sniper_2*>(object);
 
     if (unit->restart == true)
@@ -169,7 +169,7 @@ void Sniper_4::ResolveMerge(GameObject* other_object)
 }
 void Sniper_4::State_None::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("None enter");
+    
     Sniper_4* unit = static_cast<Sniper_4*>(object);
     unit->attack_count = 0;
 
@@ -193,7 +193,7 @@ void Sniper_4::State_None::CheckExit(GameObject* object)
 }
 void Sniper_4::State_Attack::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("Attack enter");
+    
     Sniper_4* unit = static_cast<Sniper_4*>(object);
 
     if (unit->restart == true)
@@ -250,7 +250,7 @@ void Sniper_8::ResolveMerge(GameObject* other_object)
 }
 void Sniper_8::State_None::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("None enter");
+    
     Sniper_8* unit = static_cast<Sniper_8*>(object);
     unit->attack_count = 0;
 
@@ -274,7 +274,7 @@ void Sniper_8::State_None::CheckExit(GameObject* object)
 }
 void Sniper_8::State_Attack::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("Attack enter");
+    
     Sniper_8* unit = static_cast<Sniper_8*>(object);
 
     if (unit->restart == true)
@@ -325,7 +325,7 @@ void Sniper_16::ResolveMerge(GameObject* other_object)
 }
 void Sniper_16::State_None::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("None enter");
+    
     Sniper_16* unit = static_cast<Sniper_16*>(object);
     unit->attack_count = 0;
 
@@ -349,7 +349,7 @@ void Sniper_16::State_None::CheckExit(GameObject* object)
 }
 void Sniper_16::State_Attack::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("Attack enter");
+    
     Sniper_16* unit = static_cast<Sniper_16*>(object);
 
     if (unit->restart == true)

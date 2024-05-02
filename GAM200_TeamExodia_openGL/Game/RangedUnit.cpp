@@ -109,7 +109,7 @@ void Bow_1::ResolveMerge(GameObject* other_object)
 }
 void Bow_1::State_None::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("None enter");
+    
     Bow_1* unit = static_cast<Bow_1*>(object);
     unit->attack_count = 0;
 
@@ -133,7 +133,7 @@ void Bow_1::State_None::CheckExit(GameObject* object)
 }
 void Bow_1::State_Attack::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("Attack enter");
+    
     Bow_1* unit = static_cast<Bow_1*>(object);
 
     if (unit->restart == true)
@@ -191,7 +191,7 @@ void Bow_2::ResolveMerge(GameObject* other_object)
 }
 void Bow_2::State_None::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("None enter");
+    
     Bow_2* unit = static_cast<Bow_2*>(object);
     unit->attack_count = 0;
 
@@ -215,7 +215,7 @@ void Bow_2::State_None::CheckExit(GameObject* object)
 }
 void Bow_2::State_Attack::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("Attack enter");
+    
     Bow_2* unit = static_cast<Bow_2*>(object);
 
     if (unit->restart == true)
@@ -272,7 +272,7 @@ void Bow_4::ResolveMerge(GameObject* other_object)
 }
 void Bow_4::State_None::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("None enter");
+    
     Bow_4* unit = static_cast<Bow_4*>(object);
     unit->attack_count = 0;
 
@@ -296,7 +296,7 @@ void Bow_4::State_None::CheckExit(GameObject* object)
 }
 void Bow_4::State_Attack::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("Attack enter");
+    
     Bow_4* unit = static_cast<Bow_4*>(object);
 
     if (unit->restart == true)
@@ -353,7 +353,7 @@ void Bow_8::ResolveMerge(GameObject* other_object)
 }
 void Bow_8::State_None::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("None enter");
+    
     Bow_8* unit = static_cast<Bow_8*>(object);
     unit->attack_count = 0;
 
@@ -377,7 +377,7 @@ void Bow_8::State_None::CheckExit(GameObject* object)
 }
 void Bow_8::State_Attack::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("Attack enter");
+    
     Bow_8* unit = static_cast<Bow_8*>(object);
 
     if (unit->restart == true)
@@ -428,7 +428,7 @@ void Bow_16::ResolveMerge(GameObject* other_object)
 }
 void Bow_16::State_None::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("None enter");
+    
     Bow_16* unit = static_cast<Bow_16*>(object);
     unit->attack_count = 0;
 
@@ -452,7 +452,7 @@ void Bow_16::State_None::CheckExit(GameObject* object)
 }
 void Bow_16::State_Attack::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("Attack enter");
+    
     Bow_16* unit = static_cast<Bow_16*>(object);
 
     if (unit->restart == true)

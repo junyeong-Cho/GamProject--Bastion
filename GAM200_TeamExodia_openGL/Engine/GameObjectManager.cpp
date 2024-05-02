@@ -130,8 +130,6 @@ void GAM200::GameObjectManager::MergeTest()
 		{
 			if (current_unit->CanMergeWith(target->Type()))
 			{
-				Engine::GetLogger().LogDebug("Merge done!");
-
 				current_unit->ResolveMerge(target);
 				current_unit = nullptr;
 				return;

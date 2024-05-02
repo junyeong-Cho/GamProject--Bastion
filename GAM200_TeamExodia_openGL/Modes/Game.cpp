@@ -116,14 +116,12 @@ void Game::Update(double dt)
 
 	// Words
 	trash.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("A", 0xFFFFFFFF));
-	if (GetGSComponent<Wave>()->IsResting() ||	Button::difficult == 4)
+	if (GetGSComponent<Wave>()->IsResting())
 		time.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 0xFFFFFFFF));
 	currentwave.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Wave: " + std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1) + "/" + std::to_string(GetGSComponent<Wave>()->GetMaxWave()), 0xFFFFFFFF));
 	gold.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Gold: " + std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 0xFFFFFFFF));
 	speed.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Speed: " + std::to_string(static_cast<int>(GetGSComponent<GameSpeed>()->GetSpeed())), 0xFFFFFFFF));
-
-	if (Button::difficult != 4)
-		monsters.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Monster: " + std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 0xFFFFFFFF));
+	monsters.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Monster: " + std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 0xFFFFFFFF));
 		
 	// Win State
 	if (in_game_state == InProgress)
@@ -203,21 +201,7 @@ void Game::Draw()
 
 void Game::ImguiDraw()
 {
-	if (Button::difficult == 4) {
 
-		ImGui::Begin("Information");
-		{
-			int gold = GetGSComponent<Gold>()->GetCurrentGold();
-
-			ImGui::Text("Gold : %d", gold);
-
-			if (ImGui::SliderInt("Adjust Gold", &gold, 0, 50000, "%d")) {
-				GetGSComponent<Gold>()->SetCurrentGold(gold);
-			}
-
-		}
-		ImGui::End();
-	}
 }
 
 void Game::HandleEvent(SDL_Event& event)

@@ -90,7 +90,7 @@ void Spear_2::ResolveMerge(GameObject* other_object)
 }
 void Spear_2::State_None::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("None enter");
+    
     Spear_2* unit = static_cast<Spear_2*>(object);
     unit->attack_count = 0;
 
@@ -114,7 +114,7 @@ void Spear_2::State_None::CheckExit(GameObject* object)
 }
 void Spear_2::State_Attack::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("Attack enter");
+    
     Spear_2* unit = static_cast<Spear_2*>(object);
 
     if (unit->restart == true)
@@ -171,7 +171,7 @@ void Spear_4::ResolveMerge(GameObject* other_object)
 }
 void Spear_4::State_None::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("None enter");
+    
     Spear_4* unit = static_cast<Spear_4*>(object);
     unit->attack_count = 0;
 
@@ -195,7 +195,7 @@ void Spear_4::State_None::CheckExit(GameObject* object)
 }
 void Spear_4::State_Attack::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("Attack enter");
+    
     Spear_4* unit = static_cast<Spear_4*>(object);
 
     if (unit->restart == true)
@@ -252,7 +252,7 @@ void Spear_8::ResolveMerge(GameObject* other_object)
 }
 void Spear_8::State_None::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("None enter");
+    
     Spear_8* unit = static_cast<Spear_8*>(object);
     unit->attack_count = 0;
 
@@ -276,7 +276,7 @@ void Spear_8::State_None::CheckExit(GameObject* object)
 }
 void Spear_8::State_Attack::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("Attack enter");
+    
     Spear_8* unit = static_cast<Spear_8*>(object);
 
     if (unit->restart == true)
@@ -327,7 +327,7 @@ void Spear_16::ResolveMerge(GameObject* other_object)
 }
 void Spear_16::State_None::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("None enter");
+    
     Spear_16* unit = static_cast<Spear_16*>(object);
     unit->attack_count = 0;
 
@@ -351,7 +351,7 @@ void Spear_16::State_None::CheckExit(GameObject* object)
 }
 void Spear_16::State_Attack::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("Attack enter");
+    
     Spear_16* unit = static_cast<Spear_16*>(object);
 
     if (unit->restart == true)

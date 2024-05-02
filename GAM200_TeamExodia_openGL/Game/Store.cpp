@@ -63,14 +63,9 @@ void Store::Unload()
 
 void Store::Draw()
 {
-
 	//Engine::GetWindow().Clear(0.5, 0.5, 0.5, 1.0);
 	store_background->Draw(Math::TranslationMatrix(Math::ivec2{ 0 ,0 }));
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
-
-
-
-	//difficulty->Draw(Math::TranslationMatrix(Math::ivec2{ 300, (Engine::GetWindow().GetSize().y) }));
 }
 
 void Store::ImguiDraw()

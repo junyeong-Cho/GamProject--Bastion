@@ -91,7 +91,7 @@ void Transform_2::ResolveMerge(GameObject* other_object)
 }
 void Transform_2::State_None::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("None enter");
+    
     Transform_2* unit = static_cast<Transform_2*>(object);
     unit->attack_count = 0;
 
@@ -115,7 +115,7 @@ void Transform_2::State_None::CheckExit(GameObject* object)
 }
 void Transform_2::State_Attack::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("Attack enter");
+    
     Transform_2* unit = static_cast<Transform_2*>(object);
 
     if (unit->restart == true)
@@ -172,7 +172,7 @@ void Transform_4::ResolveMerge(GameObject* other_object)
 }
 void Transform_4::State_None::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("None enter");
+    
     Transform_4* unit = static_cast<Transform_4*>(object);
     unit->attack_count = 0;
 
@@ -196,7 +196,7 @@ void Transform_4::State_None::CheckExit(GameObject* object)
 }
 void Transform_4::State_Attack::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("Attack enter");
+    
     Transform_4* unit = static_cast<Transform_4*>(object);
 
     if (unit->restart == true)
@@ -253,7 +253,7 @@ void Transform_8::ResolveMerge(GameObject* other_object)
 }
 void Transform_8::State_None::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("None enter");
+    
     Transform_8* unit = static_cast<Transform_8*>(object);
     unit->attack_count = 0;
 
@@ -277,7 +277,7 @@ void Transform_8::State_None::CheckExit(GameObject* object)
 }
 void Transform_8::State_Attack::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("Attack enter");
+    
     Transform_8* unit = static_cast<Transform_8*>(object);
 
     if (unit->restart == true)
@@ -328,7 +328,7 @@ void Transform_16::ResolveMerge(GameObject* other_object)
 }
 void Transform_16::State_None::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("None enter");
+    
     Transform_16* unit = static_cast<Transform_16*>(object);
     unit->attack_count = 0;
 
@@ -352,7 +352,7 @@ void Transform_16::State_None::CheckExit(GameObject* object)
 }
 void Transform_16::State_Attack::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("Attack enter");
+    
     Transform_16* unit = static_cast<Transform_16*>(object);
 
     if (unit->restart == true)

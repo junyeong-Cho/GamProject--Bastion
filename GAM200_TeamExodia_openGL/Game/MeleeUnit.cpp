@@ -111,7 +111,7 @@ void Sword_1::ResolveMerge(GameObject* other_object)
 }
 void Sword_1::State_None::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("None enter");
+    
     Sword_1* unit = static_cast<Sword_1*>(object);
     unit->attack_count = 0;
 
@@ -135,7 +135,7 @@ void Sword_1::State_None::CheckExit(GameObject* object)
 }
 void Sword_1::State_Attack::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("Attack enter");
+    
     Sword_1* unit = static_cast<Sword_1*>(object);
 
     if (unit->restart == true)
@@ -193,7 +193,7 @@ void Sword_2::ResolveMerge(GameObject* other_object)
 }
 void Sword_2::State_None::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("None enter");
+    
     Sword_2* unit = static_cast<Sword_2*>(object);
     unit->attack_count = 0;
 
@@ -217,7 +217,7 @@ void Sword_2::State_None::CheckExit(GameObject* object)
 }
 void Sword_2::State_Attack::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("Attack enter");
+    
     Sword_2* unit = static_cast<Sword_2*>(object);
 
     if (unit->restart == true)
@@ -274,7 +274,7 @@ void Sword_4::ResolveMerge(GameObject* other_object)
 }
 void Sword_4::State_None::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("None enter");
+    
     Sword_4* unit = static_cast<Sword_4*>(object);
     unit->attack_count = 0;
 
@@ -298,7 +298,7 @@ void Sword_4::State_None::CheckExit(GameObject* object)
 }
 void Sword_4::State_Attack::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("Attack enter");
+    
     Sword_4* unit = static_cast<Sword_4*>(object);
 
     if (unit->restart == true)
@@ -355,7 +355,7 @@ void Sword_8::ResolveMerge(GameObject* other_object)
 }
 void Sword_8::State_None::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("None enter");
+    
     Sword_8* unit = static_cast<Sword_8*>(object);
     unit->attack_count = 0;
 
@@ -379,7 +379,7 @@ void Sword_8::State_None::CheckExit(GameObject* object)
 }
 void Sword_8::State_Attack::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("Attack enter");
+    
     Sword_8* unit = static_cast<Sword_8*>(object);
 
     if (unit->restart == true)
@@ -430,7 +430,7 @@ void Sword_16::ResolveMerge(GameObject* other_object)
 }
 void Sword_16::State_None::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("None enter");
+    
     Sword_16* unit = static_cast<Sword_16*>(object);
     unit->attack_count = 0;
 
@@ -454,7 +454,7 @@ void Sword_16::State_None::CheckExit(GameObject* object)
 }
 void Sword_16::State_Attack::Enter(GameObject* object)
 {
-    Engine::GetLogger().LogDebug("Attack enter");
+    
     Sword_16* unit = static_cast<Sword_16*>(object);
 
     if (unit->restart == true)

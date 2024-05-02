@@ -89,25 +89,11 @@ void Unit::HandleMouseInput()
     {
         if (is_moving) // Drop
         {
-            Engine::GetLogger().LogDebug("Drop!");
-
-            /*if (!IsInMap(mouse_position))
+            if (is_colliding)
             {
-                Engine::GetLogger().LogDebug("The position is not on the map");
                 SetPosition(previous_position);
-            }
-            else */if (is_colliding)
-            {
-                Engine::GetLogger().LogDebug("Can not merge!");
-                SetPosition(previous_position);
-            }
-            else
-            {
-                Engine::GetLogger().LogDebug("Changed Position!");
-                //SetPosition(mouse_position - position_gap);
             }
         }
-        //Engine::GetLogger().LogDebug("Not clicking!");
         not_clicked = true;
         is_moving = false;
         return;
@@ -119,15 +105,11 @@ void Unit::HandleMouseInput()
         if (Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetClosestUnit(mouse_position) != this)
             return;
 
-
-        Engine::GetLogger().LogDebug("Clicked! Saved previous position! Started moving");
         is_moving = true;
         previous_position = GetPosition();
         position_gap = mouse_position - previous_position;
         drop = false;
         not_clicked = false;
-
-        //Engine::GetGameStateManager().GetGSComponent<UnitInfo>()->Change(this);
     }
 
     if (is_moving)

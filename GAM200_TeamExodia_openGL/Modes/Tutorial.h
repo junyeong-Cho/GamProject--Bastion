@@ -82,8 +82,6 @@ private:
 		Info,
 		Done
 	} currentTask = SummonUnit;
-	bool taskChanged = false;
-
 
 	double count = 0.0;
 };

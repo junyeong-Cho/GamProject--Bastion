@@ -191,6 +191,10 @@ void Tutorial::Unload()
 {
 	GetGSComponent<GAM200::GameObjectManager>()->Unload();
 	ClearGSComponent();
+	currentTask = SummonUnit;
+
+	tutorial_merge = false;
+	tower_summoned = false;
 }
 
 
