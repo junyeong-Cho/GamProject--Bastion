@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\sdl2-subbuild\CMakeFiles\bce11e09aaf4272cc56737a916050b4e\generate.stamp.rule">
+    <CustomBuild Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sdl2-subbuild\CMakeFiles\9f77985e1c342061fa5b3c35be7b7215\generate.stamp.rule">
       <Filter>CMake Rules</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="CMake Rules">
-      <UniqueIdentifier>{B40EAE71-FF2D-34E2-B4C8-86123942F517}</UniqueIdentifier>
+      <UniqueIdentifier>{099D7A41-0B8E-3AF5-834A-B3FA2E8077F7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

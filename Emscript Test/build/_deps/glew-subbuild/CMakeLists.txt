@@ -20,8 +20,8 @@ project(glew-populate NONE)
 include(ExternalProject)
 ExternalProject_Add(glew-populate
                      "UPDATE_DISCONNECTED" "False" "DOWNLOAD_EXTRACT_TIMESTAMP" "TRUE" "EXTERNALPROJECT_INTERNAL_ARGUMENT_SEPARATOR" "URL" "https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0-win32.zip"
-                    SOURCE_DIR          "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/glew-src"
-                    BINARY_DIR          "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/glew-build"
+                    SOURCE_DIR          "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-src"
+                    BINARY_DIR          "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-build"
                     CONFIGURE_COMMAND   ""
                     BUILD_COMMAND       ""
                     INSTALL_COMMAND     ""

@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/the_gsl-src
+# Install script for directory: C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_gsl-src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,6 +34,6 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/the_gsl-build/include/cmake_install.cmake")
+  include("C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_gsl-build/include/cmake_install.cmake")
 endif()
 

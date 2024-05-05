@@ -10,7 +10,6 @@ Updated:    March		 4, 2023
 */
 
 
-#include "Engine/Engine.h"
 //#include "Engine/Audio.h"
 
 #include "Game/Objects/Button.h"
@@ -102,8 +101,10 @@ void Main_menu::Update(double dt)
 			//GAM200::SoundEffect::Button_3().play();
 			break;
 		case 1:
+
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::HowToPlay));
 			//GAM200::SoundEffect::Button_3().play();
+		
 			break;
 		case 2:
 			//Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Setting));

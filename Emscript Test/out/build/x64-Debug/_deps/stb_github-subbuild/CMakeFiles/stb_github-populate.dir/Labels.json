@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/stb_github-subbuild/CMakeFiles/stb_github-populate"
+		},
+		{
+			"file" : "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/stb_github-subbuild/CMakeFiles/stb_github-populate.rule"
+		},
+		{
+			"file" : "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/stb_github-subbuild/CMakeFiles/stb_github-populate-complete.rule"
+		},
+		{
+			"file" : "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/stb_github-subbuild/stb_github-populate-prefix/src/stb_github-populate-stamp/stb_github-populate-build.rule"
+		},
+		{
+			"file" : "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/stb_github-subbuild/stb_github-populate-prefix/src/stb_github-populate-stamp/stb_github-populate-configure.rule"
+		},
+		{
+			"file" : "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/stb_github-subbuild/stb_github-populate-prefix/src/stb_github-populate-stamp/stb_github-populate-download.rule"
+		},
+		{
+			"file" : "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/stb_github-subbuild/stb_github-populate-prefix/src/stb_github-populate-stamp/stb_github-populate-install.rule"
+		},
+		{
+			"file" : "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/stb_github-subbuild/stb_github-populate-prefix/src/stb_github-populate-stamp/stb_github-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/stb_github-subbuild/stb_github-populate-prefix/src/stb_github-populate-stamp/stb_github-populate-patch.rule"
+		},
+		{
+			"file" : "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/stb_github-subbuild/stb_github-populate-prefix/src/stb_github-populate-stamp/stb_github-populate-test.rule"
+		},
+		{
+			"file" : "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/stb_github-subbuild/stb_github-populate-prefix/src/stb_github-populate-stamp/stb_github-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"stb_github-populate"
+		],
+		"name" : "stb_github-populate"
+	}
+}

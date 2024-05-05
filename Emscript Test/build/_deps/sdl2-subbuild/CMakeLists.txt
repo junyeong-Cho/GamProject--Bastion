@@ -20,8 +20,8 @@ project(sdl2-populate NONE)
 include(ExternalProject)
 ExternalProject_Add(sdl2-populate
                      "UPDATE_DISCONNECTED" "False" "DOWNLOAD_EXTRACT_TIMESTAMP" "TRUE" "EXTERNALPROJECT_INTERNAL_ARGUMENT_SEPARATOR" "URL" "https://github.com/libsdl-org/SDL/releases/download/release-2.28.5/SDL2-devel-2.28.5-VC.zip"
-                    SOURCE_DIR          "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/sdl2-src"
-                    BINARY_DIR          "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/sdl2-build"
+                    SOURCE_DIR          "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/sdl2-src"
+                    BINARY_DIR          "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/sdl2-build"
                     CONFIGURE_COMMAND   ""
                     BUILD_COMMAND       ""
                     INSTALL_COMMAND     ""

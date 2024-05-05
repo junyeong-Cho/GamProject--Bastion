@@ -26,6 +26,7 @@ Updated:    MAy 1, 2024
 class Engine
 {
 public:
+
     static Engine& Instance()
     {
         static Engine instance;
@@ -70,7 +71,7 @@ public:
        //}
 
 
-    void Start(const char* window_title, int desired_width, int desired_height, OriginPosition position);
+    void Start(const char* window_title, int desired_width, int desired_height, OriginPosition position, bool ifWantShader);
     void Stop();
     void Update();
     bool HasGameEnded();
@@ -80,11 +81,13 @@ public:
 
     void AddFont(const std::filesystem::path& file_name);
     void SetSpeed(double value) { speed = value; }
+    bool GetIfWantShader() { return IfWantShader; }
 
 private:
     double speed = 1.0;
     std::vector<GAM200::Font> fonts;
 
+    bool IfWantShader;
 
     std::chrono::system_clock::time_point last_tick = std::chrono::system_clock::now();
     std::chrono::system_clock::time_point last_test;

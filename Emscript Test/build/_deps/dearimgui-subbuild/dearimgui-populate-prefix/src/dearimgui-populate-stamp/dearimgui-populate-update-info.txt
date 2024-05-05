@@ -2,6 +2,6 @@
 # The patch step will be re-executed if anything in this file changes.
 # No other meaning or use of this file is supported.
 
-command (connected)=C:/Program Files/CMake/bin/cmake.exe;-Dcan_fetch=YES;-P;C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/dearimgui-subbuild/dearimgui-populate-prefix/tmp/dearimgui-populate-gitupdate.cmake
-command (disconnected)=C:/Program Files/CMake/bin/cmake.exe;-Dcan_fetch=NO;-P;C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/dearimgui-subbuild/dearimgui-populate-prefix/tmp/dearimgui-populate-gitupdate.cmake
-work_dir=C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/dearimgui-src
+command (connected)=C:/Program Files/CMake/bin/cmake.exe;-Dcan_fetch=YES;-P;C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/dearimgui-subbuild/dearimgui-populate-prefix/tmp/dearimgui-populate-gitupdate.cmake
+command (disconnected)=C:/Program Files/CMake/bin/cmake.exe;-Dcan_fetch=NO;-P;C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/dearimgui-subbuild/dearimgui-populate-prefix/tmp/dearimgui-populate-gitupdate.cmake
+work_dir=C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/dearimgui-src

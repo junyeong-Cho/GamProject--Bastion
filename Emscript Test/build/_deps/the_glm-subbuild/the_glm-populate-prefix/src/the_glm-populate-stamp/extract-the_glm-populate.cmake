@@ -5,8 +5,8 @@ cmake_minimum_required(VERSION 3.5)
 
 # Make file names absolute:
 #
-get_filename_component(filename "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/the_glm-subbuild/the_glm-populate-prefix/src/glm-1.0.0-light.7z" ABSOLUTE)
-get_filename_component(directory "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/the_glm-src/glm" ABSOLUTE)
+get_filename_component(filename "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_glm-subbuild/the_glm-populate-prefix/src/glm-1.0.0-light.7z" ABSOLUTE)
+get_filename_component(directory "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_glm-src/glm" ABSOLUTE)
 
 message(STATUS "extracting...
      src='${filename}'

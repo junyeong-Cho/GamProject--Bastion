@@ -20,8 +20,8 @@ project(the_gsl-populate NONE)
 include(ExternalProject)
 ExternalProject_Add(the_gsl-populate
                      "UPDATE_DISCONNECTED" "False" "DOWNLOAD_EXTRACT_TIMESTAMP" "TRUE" "EXTERNALPROJECT_INTERNAL_ARGUMENT_SEPARATOR" "URL" "https://github.com/microsoft/GSL/archive/refs/tags/v4.0.0.tar.gz"
-                    SOURCE_DIR          "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/the_gsl-src"
-                    BINARY_DIR          "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/the_gsl-build"
+                    SOURCE_DIR          "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_gsl-src"
+                    BINARY_DIR          "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_gsl-build"
                     CONFIGURE_COMMAND   ""
                     BUILD_COMMAND       ""
                     INSTALL_COMMAND     ""

@@ -8,10 +8,13 @@ Author:     Junyeong Cho
 Created:    September 30, 2023
 Updated:    December 15, 2023
 */
+#define ifWantShader = true
+
 
 #include "Engine/Window.h"
 #include "Engine/ImGuiHelper.h"
 #include "Engine/Engine.h"
+#include "Engine/Drawing.h" 
 
 #include <GL/glew.h>
 #include <iostream>
@@ -152,6 +155,8 @@ namespace GAM200
 
         int width = 0, height = 0;
         SDL_GL_GetDrawableSize(ptr_window, &width, &height);
+
+        Drawing::DrawApp::init(ptr_window);
         // ptr_program = create_program(width, height);
 
     }

@@ -37,11 +37,13 @@ set(SOURCE_CODE
     Engine/Component.h
     Engine/ComponentManager.h
     Engine/Constants.h
+    Engine/Drawing.h            Engine/Drawing.cpp
     Engine/DrawShape.h          Engine/DrawShape.cpp
     Engine/Engine.h             Engine/Engine.cpp
     Engine/Font.h               Engine/Font.cpp
     Engine/GameObject.h         Engine/GameObject.cpp
     Engine/GameObjectManager.h  Engine/GameObjectManager.cpp
+    Engine/Image2D.h            Engine/Image2D.cpp
     Engine/GameState.h
     Engine/GameStateManager.h   Engine/GameStateManager.cpp
     Engine/ImGuiHelper.h        Engine/ImGuiHelper.cpp

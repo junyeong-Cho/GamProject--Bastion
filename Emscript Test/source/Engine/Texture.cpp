@@ -9,6 +9,7 @@ Created:    October 3, 2023
 Updated:    October 10, 2023
 */
 
+#define ifWantShader = true
 
 #include "Texture.h"
 
@@ -25,10 +26,16 @@ Updated:    October 10, 2023
 namespace GAM200
 {
 
-#if     !defined(__EMSCRIPTEN__)
+#if     !defined(__EMSCRIPTEN__) 
 #pragma region Constructor & Destructer
 
     //direct drawing image constructor
+#ifdef ifWantShader
+    Texture::Texture(const std::filesystem::path& file_path)
+    {
+        shaderImage = Drawing::Image{ file_path.string().c_str() };
+    }
+#else
     Texture::Texture(const std::filesystem::path& file_path)
     {
         image = LoadImageFromFile(file_path);
@@ -48,6 +55,9 @@ namespace GAM200
         image = nullptr;
 
     }
+
+#endif
+
 
     //font,text drawing image constructor
     Texture::Texture(const std::filesystem::path& file_path, Math::ivec2 text_size)
@@ -108,7 +118,6 @@ namespace GAM200
 
 #pragma endregion
 
-
     unsigned char* Texture::LoadImageFromFile(const std::filesystem::path& filePath)
     {
         if (!std::filesystem::exists(filePath))
@@ -135,6 +144,33 @@ namespace GAM200
 
 
 #pragma region Drawing & Mapping
+#ifdef ifWantShader
+    void Texture::Draw(Math::TransformationMatrix display_matrix)
+    {
+        Drawing::push();
+        Drawing::applyMatrix
+        (
+            display_matrix[0][0],
+            display_matrix[0][1],
+            display_matrix[0][2],
+            display_matrix[1][0],
+            display_matrix[1][1],
+            display_matrix[1][2]
+        );
+
+        Drawing::draw_image(shaderImage, 0, 0, shaderImage.GetWidth(), shaderImage.GetHeight());
+        Drawing::pop();
+    }
+
+    void Texture::Draw(Math::TransformationMatrix display_matrix, Math::ivec2 texel_position, Math::ivec2 frame_size) 
+    {
+        Drawing::push();
+        Drawing::applyMatrix(display_matrix[0][0], display_matrix[0][1], display_matrix[0][2], display_matrix[1][0], display_matrix[1][1], display_matrix[1][2]);
+        Drawing::draw_image(shaderImage, 0, 0, texel_position.x, texel_position.y, static_cast<double>(frame_size.x), static_cast<double>(frame_size.y));
+
+        Drawing::pop();
+    } 
+#else
 
     void Texture::Draw(Math::TransformationMatrix display_matrix, Math::ivec2 texel_position, Math::ivec2 frame_size)
     {
@@ -164,7 +200,7 @@ namespace GAM200
 
         Draw(display_matrix, { 0, 0 }, imageSize);
     }
-
+#endif
 
     //new version of texture mapping code
     void Texture::DrawRect(Math::vec2 topLeft, Math::vec2 topRight, Math::vec2 bottomLeft, Math::vec2 bottomRight, Math::ivec2 texel_position, Math::ivec2 frame_size)
@@ -265,7 +301,7 @@ namespace GAM200
 
         unsigned int pixelData = *(unsigned int*)(localBuffer + (texel.y * GetSize().x + texel.x) * 4);
 
-        delete[] localBuffer; // �����ϴ� �κ� �߰�
+        delete[] localBuffer; 
 
         glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -417,128 +453,8 @@ namespace GAM200
 
 #pragma endregion
 #else
-GLuint InitShader(const char* vertexShaderSource, const char* fragmentShaderSource) {
-    GLuint vertShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertShader, 1, &vertexShaderSource, NULL);
-    glCompileShader(vertShader);
-
-    GLuint fragShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragShader, 1, &fragmentShaderSource, NULL);
-    glCompileShader(fragShader);
-
-    GLuint shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertShader);
-    glAttachShader(shaderProgram, fragShader);
-    glLinkProgram(shaderProgram);
-
-    glDeleteShader(vertShader);
-    glDeleteShader(fragShader);
-
-    return shaderProgram;
-}
-
-// Constructor adapted for WebGL
-Texture::Texture(const std::filesystem::path& file_path) {
-    image = LoadImageFromFile(file_path);
-
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    imageSize.x = imageWidth;
-    imageSize.y = imageHeight;
-
-    stbi_image_free(image);
-    image = nullptr;
-}
-
-Texture::Texture(const std::filesystem::path& file_path, TextureType texturetype)
-    : texturetype(texturetype) {
-    image = LoadImageFromFile(file_path);
-
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    imageSize.x = imageWidth;
-    imageSize.y = imageHeight;
-
-    stbi_image_free(image);
-    image = nullptr;
-}
-
-// Destructor
-Texture::~Texture() {
-    if (textureID != 0) {
-        glDeleteTextures(1, &textureID);
-        textureID = 0;
-    }
-}
-
-// Method adapted for drawing in WebGL
-void Texture::DrawRect(Math::vec2 topLeft, Math::vec2 topRight, Math::vec2 bottomLeft, Math::vec2 bottomRight, Math::ivec2 texel_position, Math::ivec2 frame_size) {
-    GLuint shaderProgram = InitShader(
-        // Vertex shader
-        R"glsl(
-                attribute vec2 position;
-                attribute vec2 texCoord;
-                varying vec2 vTexCoord;
-                void main() {
-                    gl_Position = vec4(position, 0.0, 1.0);
-                    vTexCoord = texCoord;
-                }
-            )glsl",
-        // Fragment shader
-        R"glsl(
-                precision mediump float;
-                varying vec2 vTexCoord;
-                uniform sampler2D texture;
-                void main() {
-                    gl_FragColor = texture2D(texture, vTexCoord);
-                }
-            )glsl"
-    );
-
-    glUseProgram(shaderProgram);
-
-    float positions[] = {
-        topLeft.x, topLeft.y, 0.0f, 1.0f,
-        topRight.x, topRight.y, 1.0f, 1.0f,
-        bottomRight.x, bottomRight.y, 1.0f, 0.0f,
-        bottomLeft.x, bottomLeft.y, 0.0f, 0.0f,
-    };
-
-    GLuint vbo;
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW);
-
-    GLint posAttrib = glGetAttribLocation(shaderProgram, "position");
-    glEnableVertexAttribArray(posAttrib);
-    glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
-
-    GLint texAttrib = glGetAttribLocation(shaderProgram, "texCoord");
-    glEnableVertexAttribArray(texAttrib);
-    glVertexAttribPointer(texAttrib, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
-
-    glDrawArrays(GL_QUADS, 0, 4);
-
-    glDeleteBuffers(1, &vbo);
-    glUseProgram(0);
-    glDeleteProgram(shaderProgram);
-    }
-
 
 
 #endif
-
-
-
 
 }

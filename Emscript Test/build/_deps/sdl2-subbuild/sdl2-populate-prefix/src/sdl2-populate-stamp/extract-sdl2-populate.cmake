@@ -5,8 +5,8 @@ cmake_minimum_required(VERSION 3.5)
 
 # Make file names absolute:
 #
-get_filename_component(filename "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/sdl2-subbuild/sdl2-populate-prefix/src/SDL2-devel-2.28.5-VC.zip" ABSOLUTE)
-get_filename_component(directory "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/sdl2-src" ABSOLUTE)
+get_filename_component(filename "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/sdl2-subbuild/sdl2-populate-prefix/src/SDL2-devel-2.28.5-VC.zip" ABSOLUTE)
+get_filename_component(directory "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/sdl2-src" ABSOLUTE)
 
 message(STATUS "extracting...
      src='${filename}'

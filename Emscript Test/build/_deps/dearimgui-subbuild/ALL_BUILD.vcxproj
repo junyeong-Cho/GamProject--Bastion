@@ -13,7 +13,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{6BBA6165-1D33-370D-B5E5-111EDB5FB26E}</ProjectGuid>
+    <ProjectGuid>{C127A54B-37D7-3538-8070-C72156ABBBB2}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
@@ -48,11 +48,11 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-subbuild\CMakeLists.txt">
+    <CustomBuild Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\dearimgui-subbuild\CMakeLists.txt">
       <UseUtf8Encoding>Always</UseUtf8Encoding>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/dearimgui-subbuild/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/dearimgui-subbuild/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/user/Desktop/임시폴더/GAM250/build/_deps/dearimgui-subbuild -BC:/Users/user/Desktop/임시폴더/GAM250/build/_deps/dearimgui-subbuild --check-stamp-file C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/dearimgui-subbuild/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/dearimgui-subbuild" "-BC:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/dearimgui-subbuild" --check-stamp-file "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/dearimgui-subbuild/CMakeFiles/generate.stamp"
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -60,22 +60,22 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.29\Modules\CMakeDetermineSystem.cmake;C:\Program Files\CMake\share\cmake-3.29\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.29\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.29\Modules\CMakeSystem.cmake.in;C:\Program Files\CMake\share\cmake-3.29\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.29\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.29\Modules\ExternalProject.cmake;C:\Program Files\CMake\share\cmake-3.29\Modules\ExternalProject\PatchInfo.txt.in;C:\Program Files\CMake\share\cmake-3.29\Modules\ExternalProject\RepositoryInfo.txt.in;C:\Program Files\CMake\share\cmake-3.29\Modules\ExternalProject\UpdateInfo.txt.in;C:\Program Files\CMake\share\cmake-3.29\Modules\ExternalProject\cfgcmd.txt.in;C:\Program Files\CMake\share\cmake-3.29\Modules\ExternalProject\gitclone.cmake.in;C:\Program Files\CMake\share\cmake-3.29\Modules\ExternalProject\gitupdate.cmake.in;C:\Program Files\CMake\share\cmake-3.29\Modules\ExternalProject\mkdirs.cmake.in;C:\Program Files\CMake\share\cmake-3.29\Modules\ExternalProject\shared_internal_commands.cmake;C:\Program Files\CMake\share\cmake-3.29\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.29\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.29\Modules\Platform\WindowsPaths.cmake;C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-subbuild\CMakeFiles\3.29.0-rc3\CMakeSystem.cmake;C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-subbuild\dearimgui-populate-prefix\tmp\dearimgui-populate-mkdirs.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-subbuild\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.29\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.29\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.29\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.29\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.29\Modules\ExternalProject.cmake;C:\Program Files\CMake\share\cmake-3.29\Modules\ExternalProject\PatchInfo.txt.in;C:\Program Files\CMake\share\cmake-3.29\Modules\ExternalProject\RepositoryInfo.txt.in;C:\Program Files\CMake\share\cmake-3.29\Modules\ExternalProject\UpdateInfo.txt.in;C:\Program Files\CMake\share\cmake-3.29\Modules\ExternalProject\cfgcmd.txt.in;C:\Program Files\CMake\share\cmake-3.29\Modules\ExternalProject\gitclone.cmake.in;C:\Program Files\CMake\share\cmake-3.29\Modules\ExternalProject\gitupdate.cmake.in;C:\Program Files\CMake\share\cmake-3.29\Modules\ExternalProject\mkdirs.cmake.in;C:\Program Files\CMake\share\cmake-3.29\Modules\ExternalProject\shared_internal_commands.cmake;C:\Program Files\CMake\share\cmake-3.29\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.29\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.29\Modules\Platform\WindowsPaths.cmake;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\dearimgui-subbuild\CMakeFiles\3.29.0-rc3\CMakeSystem.cmake;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\dearimgui-subbuild\dearimgui-populate-prefix\tmp\dearimgui-populate-mkdirs.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\dearimgui-subbuild\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-subbuild\ZERO_CHECK.vcxproj">
-      <Project>{9E2732BC-8FAB-3AC5-AE80-660A70983B41}</Project>
+    <ProjectReference Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\dearimgui-subbuild\ZERO_CHECK.vcxproj">
+      <Project>{11645EDE-AE2C-383E-B6A8-13BC06132819}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\user\Desktop\임시폴더\GAM250\build\_deps\dearimgui-subbuild\dearimgui-populate.vcxproj">
-      <Project>{8336BAAD-B6D9-3F37-A057-EC33EB91F5B7}</Project>
+    <ProjectReference Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\dearimgui-subbuild\dearimgui-populate.vcxproj">
+      <Project>{3DE7802A-4482-35E9-ACFD-6CFBA4243BD7}</Project>
       <Name>dearimgui-populate</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

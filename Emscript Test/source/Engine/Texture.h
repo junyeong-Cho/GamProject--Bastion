@@ -20,6 +20,7 @@ Updated:    October 10, 2023
 #include "OriginPosition.h"
 
 #include "DrawShape.h"
+#include "Drawing.h"
 
 
 #include "Matrix.h"
@@ -61,9 +62,9 @@ namespace GAM200
 
 		void Draw(Math::TransformationMatrix display_matrix, Math::ivec2 texel_position, Math::ivec2 frame_size);
 
-		void DrawRect(Math::vec2 topLeft, Math::vec2 topRight, Math::vec2 bottomLeft, Math::vec2 bottomRight, Math::ivec2 texel_position, Math::ivec2 frame_size);
-
 		void Draw(Math::TransformationMatrix display_matrix);
+
+		void DrawRect(Math::vec2 topLeft, Math::vec2 topRight, Math::vec2 bottomLeft, Math::vec2 bottomRight, Math::ivec2 texel_position, Math::ivec2 frame_size);
 
 
 		//void DrawRect(Math::vec2 screenTopLeft, Math::vec2 screenTopRight, Math::vec2 screenBottomLeft, Math::vec2 screenBottomRight, Math::ivec2 texel_position, Math::ivec2 frame_size);
@@ -76,6 +77,8 @@ namespace GAM200
 
 
 	private:
+		Drawing::Image shaderImage;
+
 
 
 		Texture(const std::filesystem::path& file_path, Math::ivec2 text_size);

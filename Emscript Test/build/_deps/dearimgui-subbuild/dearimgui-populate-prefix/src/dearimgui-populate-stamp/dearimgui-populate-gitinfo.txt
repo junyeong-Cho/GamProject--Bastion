@@ -3,9 +3,9 @@
 # No other meaning or use of this file is supported.
 
 method=git
-command=C:/Program Files/CMake/bin/cmake.exe;-P;C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/dearimgui-subbuild/dearimgui-populate-prefix/tmp/dearimgui-populate-gitclone.cmake
-source_dir=C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/dearimgui-src
-work_dir=C:/Users/user/Desktop/임시폴더/GAM250/build/_deps
+command=C:/Program Files/CMake/bin/cmake.exe;-P;C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/dearimgui-subbuild/dearimgui-populate-prefix/tmp/dearimgui-populate-gitclone.cmake
+source_dir=C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/dearimgui-src
+work_dir=C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps
 repository=https://github.com/ocornut/imgui.git
 remote=origin
 init_submodules=TRUE

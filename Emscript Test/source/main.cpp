@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "Engine/Engine.h"
+#include "Engine/Drawing.h"
 
 #include "Game/Splash.h"
 #include "Game/Modes/MainMenu.h"
@@ -63,7 +64,7 @@ int main()
         Engine& engine = Engine::Instance();
 
         // 16:9
-        engine.Start("GAM200 - Team: Exodia", 1280, 800, OriginPosition::LEFT_DOWN);
+        engine.Start("GAM200 - Team: Exodia", 1280, 800, OriginPosition::LEFT_DOWN, true);
 
         engine.AddFont("assets/Font_Simple.png");
         engine.AddFont("assets/Font_Outlined.png");
@@ -91,6 +92,7 @@ int main()
             engine.Update();
         }
         engine.Stop();
+        Drawing::EndWIndow();
 #else
         // https://kripken.github.io/emscripten-site/docs/api_reference/emscripten.h.html#c.emscripten_set_main_loop_arg
         gApplicationWindow = &(engine.GetWindow());

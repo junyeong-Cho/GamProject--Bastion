@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/the_glm-src/glm
+# Install script for directory: C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_glm-src/glm
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

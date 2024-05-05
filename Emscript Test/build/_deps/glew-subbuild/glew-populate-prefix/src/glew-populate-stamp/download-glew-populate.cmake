@@ -22,14 +22,14 @@ function(check_file_hash has_hash hash_is_good)
   set("${has_hash}" TRUE PARENT_SCOPE)
 
   message(STATUS "verifying file...
-       file='C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0-win32.zip'")
+       file='C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0-win32.zip'")
 
-  file("" "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0-win32.zip" actual_value)
+  file("" "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0-win32.zip" actual_value)
 
   if(NOT "${actual_value}" STREQUAL "")
     set("${hash_is_good}" FALSE PARENT_SCOPE)
     message(STATUS " hash of
-    C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0-win32.zip
+    C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0-win32.zip
   does not match expected value
     expected: ''
       actual: '${actual_value}'")
@@ -71,32 +71,32 @@ function(sleep_before_download attempt)
   execute_process(COMMAND "${CMAKE_COMMAND}" -E sleep "${sleep_seconds}")
 endfunction()
 
-if(EXISTS "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0-win32.zip")
+if(EXISTS "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0-win32.zip")
   check_file_hash(has_hash hash_is_good)
   if(has_hash)
     if(hash_is_good)
       message(STATUS "File already exists and hash match (skip download):
-  file='C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0-win32.zip'
+  file='C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0-win32.zip'
   =''"
       )
       return()
     else()
       message(STATUS "File already exists but hash mismatch. Removing...")
-      file(REMOVE "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0-win32.zip")
+      file(REMOVE "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0-win32.zip")
     endif()
   else()
     message(STATUS "File already exists but no hash specified (use URL_HASH):
-  file='C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0-win32.zip'
+  file='C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0-win32.zip'
 Old file will be removed and new file downloaded from URL."
     )
-    file(REMOVE "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0-win32.zip")
+    file(REMOVE "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0-win32.zip")
   endif()
 endif()
 
 set(retry_number 5)
 
 message(STATUS "Downloading...
-   dst='C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0-win32.zip'
+   dst='C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0-win32.zip'
    timeout='none'
    inactivity timeout='none'"
 )
@@ -118,7 +118,7 @@ foreach(i RANGE ${retry_number})
 
       file(
         DOWNLOAD
-        "${url}" "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0-win32.zip"
+        "${url}" "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0-win32.zip"
         SHOW_PROGRESS
         # no TIMEOUT
         # no INACTIVITY_TIMEOUT
@@ -135,7 +135,7 @@ foreach(i RANGE ${retry_number})
         check_file_hash(has_hash hash_is_good)
         if(has_hash AND NOT hash_is_good)
           message(STATUS "Hash mismatch, removing...")
-          file(REMOVE "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0-win32.zip")
+          file(REMOVE "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0-win32.zip")
         else()
           message(STATUS "Downloading... done")
           return()

@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <CustomBuild Include="C:\Users\user\Desktop\임시폴더\GAM250\build\CMakeFiles\bdab6fe0d546bfbb769dba057156a042\INSTALL_force.rule">
+    <CustomBuild Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\CMakeFiles\22b2f82da7fa217d4790352003b41481\INSTALL_force.rule">
       <Filter>CMake Rules</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="CMake Rules">
-      <UniqueIdentifier>{F6DA905B-FB87-3028-9D94-EF4AE51F530E}</UniqueIdentifier>
+      <UniqueIdentifier>{19644480-3BF0-3016-8D12-0C48377E6B92}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

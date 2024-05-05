@@ -4,19 +4,19 @@
 cmake_minimum_required(VERSION 3.5)
 
 file(MAKE_DIRECTORY
-  "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/glew-src"
-  "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/glew-build"
-  "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/glew-subbuild/glew-populate-prefix"
-  "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/glew-subbuild/glew-populate-prefix/tmp"
-  "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-populate-stamp"
-  "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/glew-subbuild/glew-populate-prefix/src"
-  "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-populate-stamp"
+  "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-src"
+  "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-build"
+  "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-subbuild/glew-populate-prefix"
+  "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-subbuild/glew-populate-prefix/tmp"
+  "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-populate-stamp"
+  "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-subbuild/glew-populate-prefix/src"
+  "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-populate-stamp"
 )
 
 set(configSubDirs Debug)
 foreach(subDir IN LISTS configSubDirs)
-    file(MAKE_DIRECTORY "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-populate-stamp/${subDir}")
+    file(MAKE_DIRECTORY "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-populate-stamp/${subDir}")
 endforeach()
 if(cfgdir)
-  file(MAKE_DIRECTORY "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-populate-stamp${cfgdir}") # cfgdir has leading slash
+  file(MAKE_DIRECTORY "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-populate-stamp${cfgdir}") # cfgdir has leading slash
 endif()

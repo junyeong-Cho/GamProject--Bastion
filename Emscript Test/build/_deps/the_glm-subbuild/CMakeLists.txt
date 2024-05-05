@@ -20,8 +20,8 @@ project(the_glm-populate NONE)
 include(ExternalProject)
 ExternalProject_Add(the_glm-populate
                      "UPDATE_DISCONNECTED" "False" "DOWNLOAD_EXTRACT_TIMESTAMP" "TRUE" "EXTERNALPROJECT_INTERNAL_ARGUMENT_SEPARATOR" "URL" "https://github.com/g-truc/glm/releases/download/1.0.0/glm-1.0.0-light.7z"
-                    SOURCE_DIR          "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/the_glm-src/glm"
-                    BINARY_DIR          "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/the_glm-build"
+                    SOURCE_DIR          "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_glm-src/glm"
+                    BINARY_DIR          "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_glm-build"
                     CONFIGURE_COMMAND   ""
                     BUILD_COMMAND       ""
                     INSTALL_COMMAND     ""

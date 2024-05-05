@@ -1,1 +1,0 @@
- -lGL -lGLU ../libimgui.a -sUSE_SDL=2 ../libstb.a 

@@ -28,14 +28,16 @@ void Splash::Load()
 
 void Splash::Update(double dt)
 {
-    Engine::GetLogger().LogDebug(std::to_string(counter));
-    if (counter >= 2.40)
+    //Engine::GetLogger().LogDebug(std::to_string(counter));
+
+
+    /*if (counter >= 2.40)
     {
         Engine::GetGameStateManager().ClearNextGameState();
 
         Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
     }
-    counter += dt;
+    counter += dt;*/
 }
 
 void Splash::Unload()
@@ -46,8 +48,11 @@ void Splash::Unload()
 void Splash::Draw()
 {
     Engine::GetWindow().Clear(1.0, 1.0, 1.0, 1.0);
+    Drawing::set_coordinate_mode(Drawing::CoordinateSystem::LEFT_DOWN);
+    Drawing::set_image_mode(Drawing::DrawOriginMode::LEFT_DOWN);
 
     texture->Draw(Math::TranslationMatrix({ (Engine::GetWindow().GetSize() - texture->GetSize()) / 2.0 }));
+
 
 }
 

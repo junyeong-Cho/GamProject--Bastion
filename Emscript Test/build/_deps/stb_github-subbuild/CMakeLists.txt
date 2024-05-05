@@ -28,8 +28,8 @@ set_property(GLOBAL PROPERTY _CMAKE_FindGit_GIT_EXECUTABLE_VERSION
 include(ExternalProject)
 ExternalProject_Add(stb_github-populate
                      "UPDATE_DISCONNECTED" "False" "GIT_REPOSITORY" "https://github.com/nothings/stb.git" "EXTERNALPROJECT_INTERNAL_ARGUMENT_SEPARATOR" "GIT_TAG" "master" "GIT_SHALLOW" "TRUE"
-                    SOURCE_DIR          "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/stb_github-src"
-                    BINARY_DIR          "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/stb_github-build"
+                    SOURCE_DIR          "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/stb_github-src"
+                    BINARY_DIR          "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/stb_github-build"
                     CONFIGURE_COMMAND   ""
                     BUILD_COMMAND       ""
                     INSTALL_COMMAND     ""

@@ -5,8 +5,8 @@ cmake_minimum_required(VERSION 3.5)
 
 # Make file names absolute:
 #
-get_filename_component(filename "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/the_gsl-subbuild/the_gsl-populate-prefix/src/v4.0.0.tar.gz" ABSOLUTE)
-get_filename_component(directory "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/the_gsl-src" ABSOLUTE)
+get_filename_component(filename "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_gsl-subbuild/the_gsl-populate-prefix/src/v4.0.0.tar.gz" ABSOLUTE)
+get_filename_component(directory "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_gsl-src" ABSOLUTE)
 
 message(STATUS "extracting...
      src='${filename}'

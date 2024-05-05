@@ -5,8 +5,8 @@ cmake_minimum_required(VERSION 3.5)
 
 # Make file names absolute:
 #
-get_filename_component(filename "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0-win32.zip" ABSOLUTE)
-get_filename_component(directory "C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/glew-src" ABSOLUTE)
+get_filename_component(filename "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-subbuild/glew-populate-prefix/src/glew-2.2.0-win32.zip" ABSOLUTE)
+get_filename_component(directory "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-src" ABSOLUTE)
 
 message(STATUS "extracting...
      src='${filename}'

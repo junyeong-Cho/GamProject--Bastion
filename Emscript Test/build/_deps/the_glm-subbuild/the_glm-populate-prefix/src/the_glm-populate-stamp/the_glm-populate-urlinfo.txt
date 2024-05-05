@@ -3,9 +3,9 @@
 # No other meaning or use of this file is supported.
 
 method=url
-command=C:/Program Files/CMake/bin/cmake.exe;-P;C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/the_glm-subbuild/the_glm-populate-prefix/src/the_glm-populate-stamp/download-the_glm-populate.cmake;COMMAND;C:/Program Files/CMake/bin/cmake.exe;-P;C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/the_glm-subbuild/the_glm-populate-prefix/src/the_glm-populate-stamp/verify-the_glm-populate.cmake;COMMAND;C:/Program Files/CMake/bin/cmake.exe;-P;C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/the_glm-subbuild/the_glm-populate-prefix/src/the_glm-populate-stamp/extract-the_glm-populate.cmake
-source_dir=C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/the_glm-src/glm
-work_dir=C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/the_glm-src
+command=C:/Program Files/CMake/bin/cmake.exe;-P;C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_glm-subbuild/the_glm-populate-prefix/src/the_glm-populate-stamp/download-the_glm-populate.cmake;COMMAND;C:/Program Files/CMake/bin/cmake.exe;-P;C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_glm-subbuild/the_glm-populate-prefix/src/the_glm-populate-stamp/verify-the_glm-populate.cmake;COMMAND;C:/Program Files/CMake/bin/cmake.exe;-P;C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_glm-subbuild/the_glm-populate-prefix/src/the_glm-populate-stamp/extract-the_glm-populate.cmake
+source_dir=C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_glm-src/glm
+work_dir=C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_glm-src
 url(s)=https://github.com/g-truc/glm/releases/download/1.0.0/glm-1.0.0-light.7z
 hash=
 no_extract=

@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/user/Desktop/임시폴더/GAM250
+# Install script for directory: C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,17 +34,17 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/the_gsl-build/cmake_install.cmake")
+  include("C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_gsl-build/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/user/Desktop/임시폴더/GAM250/build/_deps/the_glm-build/cmake_install.cmake")
+  include("C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_glm-build/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/user/Desktop/임시폴더/GAM250/build/source/cmake_install.cmake")
+  include("C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/source/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -55,5 +55,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/user/Desktop/임시폴더/GAM250/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

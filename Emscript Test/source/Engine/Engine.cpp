@@ -12,9 +12,11 @@ Updated:    December 15, 2023
 
 
 #include "Engine.h"
+#include "Engine/Drawing.h"
 
 #include <GL/glew.h>
 #include <iostream>
+
 
 Engine::Engine() :
 #ifdef _DEBUG				
@@ -27,8 +29,10 @@ Engine::Engine() :
 Engine::~Engine() {}
 
 
-void Engine::Start(const char* window_title, int desired_width, int desired_height, OriginPosition position)
+void Engine::Start(const char* window_title, int desired_width, int desired_height, OriginPosition position, bool ifWantShader)
 {
+    IfWantShader = ifWantShader;
+
     logger.LogEvent("Engine Started");
     window.Start(window_title, desired_width, desired_height, position);
 
