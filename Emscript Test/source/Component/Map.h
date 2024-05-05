@@ -29,6 +29,8 @@ public:
 
 
 		game_background.Draw(0, 0, 1280, 800);
+
+		//game_background.Draw(Math::TranslationMatrix(Math::ivec2{0, 0}));
 	}
 
 public:

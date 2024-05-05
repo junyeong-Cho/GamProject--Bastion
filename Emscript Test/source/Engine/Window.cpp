@@ -8,7 +8,6 @@ Author:     Junyeong Cho
 Created:    September 30, 2023
 Updated:    December 15, 2023
 */
-#define ifWantShader = true
 
 
 #include "Engine/Window.h"
@@ -90,6 +89,7 @@ namespace GAM200
 
         origin_position = position;
 
+        
         switch (origin_position)
         {
         case OriginPosition::LEFT_DOWN:

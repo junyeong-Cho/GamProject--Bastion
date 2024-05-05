@@ -9,7 +9,7 @@ Created:    October 3, 2023
 Updated:    October 10, 2023
 */
 
-#define ifWantShader = true
+#define IfWantShader true
 
 #include "Texture.h"
 
@@ -25,21 +25,23 @@ Updated:    October 10, 2023
 
 namespace GAM200
 {
-
+   
 #if     !defined(__EMSCRIPTEN__) 
 #pragma region Constructor & Destructer
 
     //direct drawing image constructor
-#ifdef ifWantShader
+#if IfWantShader
     Texture::Texture(const std::filesystem::path& file_path)
     {
         shaderImage = Drawing::Image{ file_path.string().c_str() };
+
     }
 #else
     Texture::Texture(const std::filesystem::path& file_path)
     {
         image = LoadImageFromFile(file_path);
 
+        
 
         glGenTextures(1, &textureID);
         glBindTexture(GL_TEXTURE_2D, textureID);
@@ -57,7 +59,6 @@ namespace GAM200
     }
 
 #endif
-
 
     //font,text drawing image constructor
     Texture::Texture(const std::filesystem::path& file_path, Math::ivec2 text_size)
@@ -144,7 +145,7 @@ namespace GAM200
 
 
 #pragma region Drawing & Mapping
-#ifdef ifWantShader
+#if IfWantShader
     void Texture::Draw(Math::TransformationMatrix display_matrix)
     {
         Drawing::push();
@@ -157,6 +158,7 @@ namespace GAM200
             display_matrix[1][1],
             display_matrix[1][2]
         );
+
 
         Drawing::draw_image(shaderImage, 0, 0, shaderImage.GetWidth(), shaderImage.GetHeight());
         Drawing::pop();
@@ -289,12 +291,8 @@ namespace GAM200
 
     unsigned int Texture::GetPixel(Math::ivec2 texel)
     {
-
-
-        //    int index = texel.y * GetSize().x + texel.x;
-
-
-        glBindTexture(GL_TEXTURE_2D, textureID);
+        auto localID = shaderImage.GetTextureID();
+        glBindTexture(GL_TEXTURE_2D, localID);
 
         unsigned char* localBuffer = new unsigned char[GetSize().x * GetSize().y * 4]; // assuming RGBA format
         glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, localBuffer);
@@ -311,13 +309,36 @@ namespace GAM200
 
     Math::ivec2 Texture::GetSize()
     {
+    #if IfWantShader
+        return 
+        {
+            shaderImage.GetWidth(), shaderImage.GetHeight()
+        };
+    #else 
         return{ imageSize.x, imageSize.y };
+    #endif
     }
 
 
 
 #pragma region Drawing & Mapping for Direct Drawing 
+#if IfWantShader
+    void Texture::Draw(int x, int y, int width, int height)
+    {
+        Math::vec2 scaleFactors = { static_cast<double>(width) / GetSize().x,
+                                    static_cast<double>(height) / GetSize().y };
 
+        Math::ScaleMatrix scaleMatrix(scaleFactors);
+        Math::TranslationMatrix translationMatrix(Math::vec2(x, y));
+
+        // Combine the matrices to form the transformation matrix
+        Math::TransformationMatrix display_matrix = translationMatrix * scaleMatrix;
+
+        // Use the transformation matrix to draw the texture
+        Draw(display_matrix);
+    }
+
+#else
     void Texture::Draw(int x, int y, int width, int height)
     {
         glEnable(GL_TEXTURE_2D);
@@ -349,6 +370,7 @@ namespace GAM200
 
         glBindTexture(GL_TEXTURE_2D, 0);
     }
+
 
 
     void Texture::Draw(int x, int y, float radius, int points)
@@ -450,8 +472,11 @@ namespace GAM200
 
 
     }
+#endif
+
 
 #pragma endregion
+
 #else
 
 

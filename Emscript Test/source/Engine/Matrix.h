@@ -22,6 +22,7 @@ namespace Math
 		TransformationMatrix();
 
 		const double* operator[](int index) const { return matrix[index]; }
+		double* operator[](int index) { return matrix[index]; }
 
 		TransformationMatrix  operator *  (TransformationMatrix m) const;
 		TransformationMatrix& operator *= (TransformationMatrix m);

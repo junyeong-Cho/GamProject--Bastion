@@ -705,6 +705,65 @@ void Drawing::draw_image(Image& image, int x, int y, int width, int height)
 
 }
 
+void Drawing::draw_image_freely(Image& image, int x, int y, int width, int height)
+{
+    glm::mat3 scaleMat{ 1.f };
+
+    scaleMat[0][0] = static_cast<float>(width) / image.GetWidth(); 
+    scaleMat[1][1] = static_cast<float>(height) / image.GetHeight(); 
+
+    glm::mat3 translateMat{ 1.f };
+    translateMat[0][0] = 1.f;
+    translateMat[1][1] = 1.f;
+    translateMat[2][2] = 1.f;
+    translateMat[2][0] = static_cast<float>(x);
+    translateMat[2][1] = static_cast<float>(y);
+
+    glm::mat3 transApplyMatrix{ 1.f };
+    transApplyMatrix[2][0] = DrawApp::apply_Matrix[2][0];
+    transApplyMatrix[2][1] = DrawApp::apply_Matrix[2][1];
+
+    
+    DrawApp::apply_Matrix[2][0] = 0;
+    DrawApp::apply_Matrix[2][1] = 0;
+
+    glm::mat3 mdl_to_ndc_xform = DrawApp::world_to_ndc_xform * (transApplyMatrix * translateMat * DrawApp::apply_Matrix * scaleMat);
+
+    glUseProgram(DrawApp::textureBox.shdr_pgm);
+    glBindTextureUnit(1, image.textureID);
+
+    
+    glTextureParameteri(image.textureID, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTextureParameteri(image.textureID, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    glBindVertexArray(DrawApp::textureBox.vaoid[DrawApp::current_image_mode]);
+    GLint uniform_var_loc1 = glGetUniformLocation(DrawApp::textureBox.shdr_pgm, "uModelToNDC");
+
+    if (uniform_var_loc1 >= 0) 
+    {
+        glUniformMatrix3fv(uniform_var_loc1, 1, GL_FALSE, glm::value_ptr(mdl_to_ndc_xform));
+    }
+    else 
+    {
+        std::cerr << "Uniform variable doesn't exist!!!\n";
+        std::exit(EXIT_FAILURE);
+    }
+
+    GLuint tex_loc = glGetUniformLocation(DrawApp::textureBox.shdr_pgm, "uTex2d");
+    if (tex_loc >= 0) 
+    {
+        glUniform1i(tex_loc, 1);
+    }
+    else 
+    {
+        std::cerr << "Uniform variable doesn't exist!!!\n";
+        std::exit(EXIT_FAILURE);
+    }
+
+    glDrawElements(DrawApp::textureBox.primitive_type, DrawApp::textureBox.draw_cnt, GL_UNSIGNED_SHORT, NULL);
+    glBindVertexArray(0);
+    glUseProgram(0);
+}
 
 
 void Drawing::push()

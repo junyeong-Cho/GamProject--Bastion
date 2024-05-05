@@ -54,6 +54,7 @@ namespace Drawing
 		friend void draw_circle(int x, int y, int width, int height);
 		friend void draw_image(Drawing::Image& image, int x, int y, int width, int height);
 		friend void draw_image(Drawing::Image& image, int x, int y, int texelX, int texelY, int texelWidth, int texelHeight);
+		friend void draw_image_freely(Image& image, int x, int y, int width, int height);
 		friend void set_color(int red, int green, int blue, int alpha);
 		friend void set_rectangle_mode(DrawOriginMode mode);
 		friend void set_image_mode(DrawOriginMode mode);
@@ -124,6 +125,7 @@ namespace Drawing
 	void draw_circle(int x, int y, int widht, int height);
 	void draw_image(Drawing::Image& image, int x, int y, int width, int height);
 	void draw_image(Drawing::Image& image, int x, int y, int texelX, int texelY, int texelWidth, int texelHeight);
+	void draw_image_freely(Image& image, int x, int y, int width, int height);
 	void set_color(int red, int green, int blue, int alpha);
 	void applyMatrix(float a, float b, float c, float d, float e, float f);
 	void set_rectangle_mode(DrawOriginMode mode);

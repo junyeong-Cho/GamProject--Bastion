@@ -71,7 +71,7 @@ public:
        //}
 
 
-    void Start(const char* window_title, int desired_width, int desired_height, OriginPosition position, bool ifWantShader);
+    void Start(const char* window_title, int desired_width, int desired_height, OriginPosition position);
     void Stop();
     void Update();
     bool HasGameEnded();
@@ -81,13 +81,15 @@ public:
 
     void AddFont(const std::filesystem::path& file_name);
     void SetSpeed(double value) { speed = value; }
-    bool GetIfWantShader() { return IfWantShader; }
+
+    static constexpr bool IsShaderEnabled()
+    {
+		return EnableShader;
+	}
 
 private:
     double speed = 1.0;
     std::vector<GAM200::Font> fonts;
-
-    bool IfWantShader;
 
     std::chrono::system_clock::time_point last_tick = std::chrono::system_clock::now();
     std::chrono::system_clock::time_point last_test;
@@ -97,6 +99,8 @@ private:
     static constexpr double TargetFPS = 144.0;
     static constexpr int FPSDuration = 5;
     static constexpr int FPSTargetFrames = static_cast<int>(FPSDuration * TargetFPS);
+
+    static constexpr bool EnableShader = true;
 
     Engine();
     ~Engine();

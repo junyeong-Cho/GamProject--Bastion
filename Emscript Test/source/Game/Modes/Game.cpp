@@ -65,7 +65,7 @@ void Game::Load()
 
 	// TODO
 	game_speed_button = new GameSpeed_Button({ 976, 708 }, { 77, 77 });
-	skip_button = new Skip_Button({ 1071, 708 }, { 77, 77 });
+	skip_button       = new Skip_Button({ 1071, 708 }, { 77, 77 });
 
 	// In Game State
 	in_game_state = InProgress;

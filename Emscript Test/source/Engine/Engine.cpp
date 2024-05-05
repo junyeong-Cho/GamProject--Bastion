@@ -29,10 +29,8 @@ Engine::Engine() :
 Engine::~Engine() {}
 
 
-void Engine::Start(const char* window_title, int desired_width, int desired_height, OriginPosition position, bool ifWantShader)
+void Engine::Start(const char* window_title, int desired_width, int desired_height, OriginPosition position)
 {
-    IfWantShader = ifWantShader;
-
     logger.LogEvent("Engine Started");
     window.Start(window_title, desired_width, desired_height, position);
 

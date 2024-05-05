@@ -28,16 +28,16 @@ void Splash::Load()
 
 void Splash::Update(double dt)
 {
-    //Engine::GetLogger().LogDebug(std::to_string(counter));
+    Engine::GetLogger().LogDebug(std::to_string(counter));
 
 
-    /*if (counter >= 2.40)
+    if (counter >= 2.40)
     {
         Engine::GetGameStateManager().ClearNextGameState();
 
         Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
     }
-    counter += dt;*/
+    counter += dt;
 }
 
 void Splash::Unload()

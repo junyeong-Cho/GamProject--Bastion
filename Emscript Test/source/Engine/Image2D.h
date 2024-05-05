@@ -14,14 +14,17 @@ namespace Drawing
 	{
 	public:
 		Image(const char* filename);
-		Image() {
+		Image() 
+		{
 			iwidth = 0;
 			iheight = 0;
 			ichannels = 0;
 			image = nullptr;
 		};
+
 		friend void draw_image(Drawing::Image& image, int x, int y, int width, int height);
 		friend void draw_image(Drawing::Image& image, int x, int y, int texelX, int texelY, int texelWidth, int texelHeight);
+		friend void draw_image_freely(Image& image, int x, int y, int width, int height);
 		int GetWidth()
 		{
 			return iwidth;
@@ -32,6 +35,8 @@ namespace Drawing
 		}
 
 		void DeleteTexture();
+		unsigned int GetTextureID() { return textureID; }
+
 		unsigned char* image;
 
 

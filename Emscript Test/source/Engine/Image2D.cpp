@@ -14,7 +14,8 @@ Drawing::Image::Image(const char* filename)
     {
         std::cerr << "Failed to load image: " << "abc.png" << std::endl;
     }
-    else {
+    else 
+    {
         std::cout << iwidth << "," << iheight << std::endl;
     }
     glCreateTextures(GL_TEXTURE_2D, 1, &textureID);

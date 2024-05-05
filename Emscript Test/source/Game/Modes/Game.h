@@ -9,6 +9,7 @@ Created:    November 2, 2023
 Updated:    November 2, 2023
 */
 
+#define IfWantShader true
 
 #pragma once
 
@@ -44,10 +45,15 @@ public:
 	std::string GetName() override { return "Game"; }
 
 
+#if IfWantShader
+	GAM200::Texture tower_ui = GAM200::Texture("assets/buttons/tower_ui.png");
+	GAM200::Texture win      = GAM200::Texture("assets/win.png");
+	GAM200::Texture lose     = GAM200::Texture("assets/lose.png");
+#else
 	GAM200::Texture tower_ui = GAM200::Texture("assets/buttons/tower_ui.png", GAM200::Texture::TextureType::RECTANGLE);
 	GAM200::Texture win = GAM200::Texture("assets/win.png", GAM200::Texture::TextureType::RECTANGLE);
 	GAM200::Texture lose = GAM200::Texture("assets/lose.png", GAM200::Texture::TextureType::RECTANGLE);
-
+#endif
 
 private:
 	GameSpeed_Button* game_speed_button = nullptr;
