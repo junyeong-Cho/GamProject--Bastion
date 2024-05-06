@@ -8,7 +8,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 
-namespace Drawing
+namespace ShaderDrawing
 {
 	class Image
 	{
@@ -22,8 +22,8 @@ namespace Drawing
 			image = nullptr;
 		};
 
-		friend void draw_image(Drawing::Image& image, int x, int y, int width, int height);
-		friend void draw_image(Drawing::Image& image, int x, int y, int texelX, int texelY, int texelWidth, int texelHeight);
+		friend void draw_image(ShaderDrawing::Image& image, int x, int y, int width, int height);
+		friend void draw_image(ShaderDrawing::Image& image, int x, int y, int texelX, int texelY, int texelWidth, int texelHeight);
 		friend void draw_image_freely(Image& image, int x, int y, int width, int height);
 		int GetWidth()
 		{
@@ -35,7 +35,9 @@ namespace Drawing
 		}
 
 		void DeleteTexture();
-		unsigned int GetTextureID() { return textureID; }
+		unsigned int GetTextureID() const { return textureID; }
+
+		void SetTextureID(unsigned int id) { textureID = id; }
 
 		unsigned char* image;
 

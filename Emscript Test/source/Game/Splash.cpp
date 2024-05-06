@@ -48,8 +48,8 @@ void Splash::Unload()
 void Splash::Draw()
 {
     Engine::GetWindow().Clear(1.0, 1.0, 1.0, 1.0);
-    Drawing::set_coordinate_mode(Drawing::CoordinateSystem::LEFT_DOWN);
-    Drawing::set_image_mode(Drawing::DrawOriginMode::LEFT_DOWN);
+    ShaderDrawing::set_coordinate_mode(ShaderDrawing::CoordinateSystem::LEFT_DOWN);
+    ShaderDrawing::set_image_mode(ShaderDrawing::DrawOriginMode::LEFT_DOWN);
 
     texture->Draw(Math::TranslationMatrix({ (Engine::GetWindow().GetSize() - texture->GetSize()) / 2.0 }));
 

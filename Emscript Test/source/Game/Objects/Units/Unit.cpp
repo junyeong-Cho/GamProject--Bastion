@@ -19,9 +19,12 @@ Unit::Unit(double attack_time, int damage, double range, Math::vec2 position) : 
 
     Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 
+#if !IfWantShader
     dmg.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Damage: " + std::to_string(damage), 0xFFFFFFFF));
     attackSpd.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Atk Spd: " + std::to_string(attack_time), 0xFFFFFFFF));
     dps.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("DPS: " + std::to_string(GetDPS()), 0xFFFFFFFF));
+#endif
+
 }
 
 Unit::~Unit()
@@ -41,7 +44,9 @@ void Unit::Update(double dt)
 
 void Unit::Draw(Math::TransformationMatrix camera_matrix)
 {
+#if !IfWantShader
 #if !defined(__EMSCRIPTEN__)
+
     GAM200::DrawShape shape;
 
     Math::vec2 position = GetPosition();
@@ -69,10 +74,26 @@ void Unit::Draw(Math::TransformationMatrix camera_matrix)
         //ShowInfo();
     }
 #endif
+#else
+    Math::vec2 position = GetPosition();
+
+    ShaderDrawing::set_color(0, 0, 0, 51);
+    ShaderDrawing::draw_circle(position.x, position.y, radius, radius);
+
+    if (is_moving)
+	{
+        ShaderDrawing::set_color(249, 40, 145, 76);
+		ShaderDrawing::draw_circle(previous_position.x, previous_position.y, radius, radius);
+
+        ShaderDrawing::set_color(25, 25, 25, 153);
+		ShaderDrawing::draw_circle(position.x, position.y, range, range);
+	}
+#endif
 }
 
 void Unit::ShowInfo()
 {
+#if !IfWantShader
     name->Draw(Math::TranslationMatrix(Math::ivec2{ 900, 350 }));
 
     dmg->Draw(Math::TranslationMatrix(Math::ivec2{ 900, 280 }));
@@ -80,6 +101,11 @@ void Unit::ShowInfo()
     attackSpd->Draw(Math::TranslationMatrix(Math::ivec2{ 900, 210 }));
 
     dps->Draw(Math::TranslationMatrix(Math::ivec2{ 900, 140 }));
+#else
+    ShaderDrawing::draw_text("Damage: " + std::to_string(damage), 1100, 280, 40, 255, 255, 255);
+    ShaderDrawing::draw_text("Atk Spd: " + std::to_string(attack_time), 1100, 210, 40, 255, 255, 255);
+    ShaderDrawing::draw_text("DPS: " + std::to_string(GetDPS()), 1100, 140, 40, 255, 255, 255);
+#endif
 }
 
 void Unit::HandleMouseInput()
@@ -204,7 +230,11 @@ void Unit::UpdateDPS()
         }
     }
 
+#if !IfWantShader
     dps.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("DPS: " + std::to_string(GetDPS()), 0xFFFFFFFF));
+#else
+    ShaderDrawing::draw_text("DPS: " + std::to_string(GetDPS()), 1100, 140, 50, 255, 255, 255);
+#endif
 }
 
 

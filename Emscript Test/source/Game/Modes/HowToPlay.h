@@ -12,6 +12,7 @@ Updated:    November 2, 2023
 
 #pragma once
 
+#include "Engine/IfWantShader.h"
 #include "Game/States.h"
 
 #include "Engine/GameObjectManager.h"
@@ -47,12 +48,7 @@ private:
     //int counter = 0;
     int state = 0;
 
-
-    GAM200::Texture* FirstPage;
-    GAM200::Texture* SecondPage;
-    GAM200::Texture* ThirdPage;
-    GAM200::Texture* FourthPage;
-
+#if !IfWantShader
     std::unique_ptr<GAM200::Texture> trash;
     std::unique_ptr<GAM200::Texture> next;
     std::unique_ptr<GAM200::Texture> back;
@@ -60,6 +56,16 @@ private:
 
     std::unique_ptr<GAM200::Texture> exit;
     std::unique_ptr<GAM200::Texture> play;
+#endif
+
+
+    GAM200::Texture* FirstPage;
+    GAM200::Texture* SecondPage;
+    GAM200::Texture* ThirdPage;
+    GAM200::Texture* FourthPage;
+
+
+
 
 
     enum Page

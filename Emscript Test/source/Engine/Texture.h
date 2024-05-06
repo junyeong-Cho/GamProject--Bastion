@@ -76,8 +76,10 @@ namespace GAM200
 
 
 
+
+
 	private:
-		Drawing::Image shaderImage;
+		ShaderDrawing::Image shaderImage;
 
 
 

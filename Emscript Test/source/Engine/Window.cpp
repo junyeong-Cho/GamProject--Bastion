@@ -156,7 +156,8 @@ namespace GAM200
         int width = 0, height = 0;
         SDL_GL_GetDrawableSize(ptr_window, &width, &height);
 
-        Drawing::DrawApp::init(ptr_window);
+        ShaderDrawing::ShaderDraw::init(ptr_window);
+        ShaderDrawing::ShaderDraw::initFont();
         // ptr_program = create_program(width, height);
 
     }

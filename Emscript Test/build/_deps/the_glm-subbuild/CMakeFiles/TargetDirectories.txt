@@ -1,3 +1,0 @@
-C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_glm-subbuild/CMakeFiles/the_glm-populate.dir
-C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_glm-subbuild/CMakeFiles/ALL_BUILD.dir
-C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_glm-subbuild/CMakeFiles/ZERO_CHECK.dir

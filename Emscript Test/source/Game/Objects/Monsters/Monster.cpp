@@ -6,6 +6,7 @@
 #include "Engine/GameObjectManager.h"
 #include "Engine/DrawShape.h"
 #include "Engine/Collision.h"
+#include "Engine/Audio.h"
 
 #include "Engine/Particle.h"
 
@@ -65,7 +66,7 @@ void Monster::Update(double dt)
 		Destroy();
 
 		//Sound
-		//GAM200::SoundEffect::Monster_Die_2().play();
+		GAM200::SoundEffect::Monster_Die_2().play();
 	}
 }
 

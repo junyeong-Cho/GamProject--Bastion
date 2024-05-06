@@ -43,8 +43,11 @@ public:
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/bomb/bomb_default.spt", (this)));
         current_state = &state_none;
         current_state->Enter(this);
-
+    #if IfWantShader
+            //reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+    #else
         name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+    #endif
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bomb_1; }

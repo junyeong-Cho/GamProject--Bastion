@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Engine/IfWantShader.h"
 #include "Engine/GameObject.h"
 
 
@@ -79,10 +80,14 @@ protected:
 
     Math::vec2 position_gap;
 
-
-
     std::unique_ptr<GAM200::Texture> name;
+
+#if IfWantShader
+
+#else
     std::unique_ptr<GAM200::Texture> dmg;
     std::unique_ptr<GAM200::Texture> attackSpd;
     std::unique_ptr<GAM200::Texture> dps;
+
+#endif
 };

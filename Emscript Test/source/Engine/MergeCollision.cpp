@@ -9,6 +9,7 @@ Created:    March 8,  2023
 Updated:    November 06, 2023
 */
 
+#include "Engine/IfWantShader.h"
 
 #include "MergeCollision.h"
 
@@ -77,6 +78,7 @@ bool GAM200::MergeCircleCollision::IsMergingWith(GameObject* other_object)
 void GAM200::MergeCircleCollision::Draw(Math::TransformationMatrix display_matrix)
 {
 #if !defined(__EMSCRIPTEN__)
+#if !IfWantShader
     DrawShape draw_shape;
     draw_shape.SetColor(1.0f, 1.0f, 1.0f, 1.0f);  // White color
     draw_shape.SetLineWidth(50);
@@ -85,6 +87,9 @@ void GAM200::MergeCircleCollision::Draw(Math::TransformationMatrix display_matri
     glMultMatrixd(&(display_matrix[0][0]));
     draw_shape.DrawCircle((int)object->GetPosition().x, (int)object->GetPosition().y, (int)GetRadius(), 100);
     glPopMatrix();
+#endif
+    ShaderDrawing::draw_circle(object->GetPosition().x, object->GetPosition().y, GetRadius(), GetRadius());
+
 #endif
 }
 

@@ -11,7 +11,7 @@
 struct GLFWwindow;
 
 
-namespace Drawing
+namespace ShaderDrawing
 {
 
 	enum class CoordinateSystem
@@ -27,7 +27,7 @@ namespace Drawing
 	};
 
 
-	class DrawApp
+	class ShaderDraw
 	{
 	public:
 		struct GLModel 
@@ -52,8 +52,8 @@ namespace Drawing
 		friend void EndWIndow();
 		friend void draw_box(float x, float y, float width, float height);
 		friend void draw_circle(int x, int y, int width, int height);
-		friend void draw_image(Drawing::Image& image, int x, int y, int width, int height);
-		friend void draw_image(Drawing::Image& image, int x, int y, int texelX, int texelY, int texelWidth, int texelHeight);
+		friend void draw_image(ShaderDrawing::Image& image, int x, int y, int width, int height);
+		friend void draw_image(ShaderDrawing::Image& image, int x, int y, int texelX, int texelY, int texelWidth, int texelHeight);
 		friend void draw_image_freely(Image& image, int x, int y, int width, int height);
 		friend void set_color(int red, int green, int blue, int alpha);
 		friend void set_rectangle_mode(DrawOriginMode mode);
@@ -61,11 +61,14 @@ namespace Drawing
 		friend void set_coordinate_mode(CoordinateSystem mode);
 		friend void set_fill(bool set);
 		friend void set_line_color(int red, int green, int blue, int alpha);
+		friend void draw_text(std::string text, float x, float y, float scale, float r, float g, float b);
+		friend void draw_text(std::string text, float x, float y, float scale, double radians, float r, float g, float b);
 		void friend push();
 		void friend pop();
 		void friend translateView(float x, float y);
 		void friend applyMatrix(float a, float b, float c, float d, float e, float f);
 		static void init(SDL_Window* pWindow);
+		static void initFont();
 
 
 	private:
@@ -73,6 +76,7 @@ namespace Drawing
 		static GLModel textureBox;
 		static GLModel circle;
 		static GLModel fontBox;
+
 
 		static bool isfill;
 		static bool previous_isfill;
@@ -104,6 +108,8 @@ namespace Drawing
 		static void setBoxModel();
 		static void setCircleModel();
 		static void setTextureModel();
+
+
 		
 
 		static int task;
@@ -123,8 +129,8 @@ namespace Drawing
 
 	void draw_box(float x, float y, float width, float height);
 	void draw_circle(int x, int y, int widht, int height);
-	void draw_image(Drawing::Image& image, int x, int y, int width, int height);
-	void draw_image(Drawing::Image& image, int x, int y, int texelX, int texelY, int texelWidth, int texelHeight);
+	void draw_image(ShaderDrawing::Image& image, int x, int y, int width, int height);
+	void draw_image(ShaderDrawing::Image& image, int x, int y, int texelX, int texelY, int texelWidth, int texelHeight);
 	void draw_image_freely(Image& image, int x, int y, int width, int height);
 	void set_color(int red, int green, int blue, int alpha);
 	void applyMatrix(float a, float b, float c, float d, float e, float f);
@@ -133,6 +139,8 @@ namespace Drawing
 	void set_coordinate_mode(CoordinateSystem mode);
 	void set_fill(bool set);
 	void set_line_color(int red, int green, int blue, int alpha);
+	void draw_text(std::string text, float x, float y, float scale, float r, float g, float b);
+	void draw_text(std::string text, float x, float y, float scale, double radians, float r, float g, float b);
 	
 	void EndWIndow();
 

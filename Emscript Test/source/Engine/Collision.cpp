@@ -87,8 +87,8 @@ void GAM200::RectCollision::Draw(Math::TransformationMatrix display_matrix)
 {
 #if !defined(__EMSCRIPTEN__)
     DrawShape draw_shape;
-    //draw_shape.SetColor(1.0f, 1.0f, 1.0f, 1.0f);  // White color
-    //draw_shape.SetLineWidth(50);
+    draw_shape.SetColor(1.0f, 1.0f, 1.0f, 1.0f);  // White color
+    draw_shape.SetLineWidth(50);
 
     Math::rect world_boundary = WorldBoundary();
 

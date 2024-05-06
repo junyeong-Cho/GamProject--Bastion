@@ -45,6 +45,8 @@ public:
 private:
 
 	int counter = 0;
+	int currentSelect;
+
 
 
 	GAM200::Texture* mainmenu_background;

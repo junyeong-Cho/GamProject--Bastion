@@ -7,6 +7,8 @@ include(cmake/dependencies/DearImGUI.cmake) # defines target imgui   ;  note Dea
 include(cmake/dependencies/STB.cmake)       # defines target stb
 include(cmake/dependencies/GSL.cmake)       # defines target gsl
 include(cmake/dependencies/GLM.cmake)       # defines target GAM250_glm
+include(cmake/dependencies/freetype.cmake)  # defines target freetype
+include(cmake/dependencies/SFML.cmake)      # defines target GAM250_sfml
 
 add_library(dependencies INTERFACE)
 
@@ -18,4 +20,6 @@ target_link_libraries(dependencies INTERFACE
     stb
     gsl
     GAM250_glm
+    freetype  
+    GAM250_sfml
 )

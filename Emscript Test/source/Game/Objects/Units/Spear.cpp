@@ -5,6 +5,9 @@
 #include "Engine/DrawShape.h"
 #include "Engine/Engine.h"
 #include "Engine/GameObjectManager.h"
+#include "Engine/Audio.h"
+
+
 
 #include "Game/Objects/Monsters/Monster.h"
 
@@ -13,7 +16,7 @@ SpearUnit::SpearUnit(double attack_time, int damage, Math::vec2 position, double
     Unit(attack_time, damage, range, position)
 {
     //Sound
-    //GAM200::SoundEffect::Tower_Placing().play();
+    GAM200::SoundEffect::Tower_Placing().play();
 }
 
 

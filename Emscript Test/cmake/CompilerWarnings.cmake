@@ -3,7 +3,7 @@
 # https://github.com/lefticus/cppbestpractices/blob/master/02-Use_the_Tools_Available.md
 
 function(set_project_warnings project_name)
-  option(WARNINGS_AS_ERRORS "Treat compiler warnings as errors" TRUE)
+  option(WARNINGS_AS_ERRORS "Treat compiler warnings as errors" FALSE)
 
   # General MSVC warnings
   set(MSVC_WARNINGS
@@ -34,6 +34,7 @@ function(set_project_warnings project_name)
       -Wno-reorder-ctor
       -Wno-sign-compare
       -Wno-unused-variable
+      -Wno-dev
   )
 
   # Clang specific warnings
@@ -45,8 +46,8 @@ function(set_project_warnings project_name)
       -Wno-non-virtual-dtor
       -Wno-return-type
       -Wno-double-promotion
-      -Wno-inconsistent-missing-override  # 이 부분을 추가합니다.
-      -Wno-unused-private-field           # 이 부분을 추가합니다.
+      -Wno-inconsistent-missing-override  
+      -Wno-unused-private-field           
   )
 
   # GCC specific warnings

@@ -9,12 +9,12 @@ Created:    October 3, 2023
 Updated:    October 10, 2023
 */
 
-#define IfWantShader true
 
 #include "Texture.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
+#include "Engine/IfWantShader.h"
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
@@ -33,7 +33,7 @@ namespace GAM200
 #if IfWantShader
     Texture::Texture(const std::filesystem::path& file_path)
     {
-        shaderImage = Drawing::Image{ file_path.string().c_str() };
+        shaderImage = ShaderDrawing::Image{ file_path.string().c_str() };
 
     }
 #else
@@ -115,6 +115,23 @@ namespace GAM200
             glDeleteTextures(1, &textureID);
             textureID = 0;
         }
+
+        #if !IfWantShader
+        if (image != nullptr)
+        {
+            stbi_image_free(image);
+            image = nullptr;
+        }
+        #else
+        if (shaderImage.GetTextureID() != 0)
+		{
+            GLuint textureID = shaderImage.GetTextureID(); 
+            glDeleteTextures(1, &textureID);
+            shaderImage.SetTextureID(0);
+		}
+        #endif
+
+
     }
 
 #pragma endregion
@@ -148,8 +165,8 @@ namespace GAM200
 #if IfWantShader
     void Texture::Draw(Math::TransformationMatrix display_matrix)
     {
-        Drawing::push();
-        Drawing::applyMatrix
+        ShaderDrawing::push();
+        ShaderDrawing::applyMatrix
         (
             display_matrix[0][0],
             display_matrix[0][1],
@@ -160,17 +177,17 @@ namespace GAM200
         );
 
 
-        Drawing::draw_image(shaderImage, 0, 0, shaderImage.GetWidth(), shaderImage.GetHeight());
-        Drawing::pop();
+        ShaderDrawing::draw_image(shaderImage, 0, 0, shaderImage.GetWidth(), shaderImage.GetHeight());
+        ShaderDrawing::pop();
     }
 
     void Texture::Draw(Math::TransformationMatrix display_matrix, Math::ivec2 texel_position, Math::ivec2 frame_size) 
     {
-        Drawing::push();
-        Drawing::applyMatrix(display_matrix[0][0], display_matrix[0][1], display_matrix[0][2], display_matrix[1][0], display_matrix[1][1], display_matrix[1][2]);
-        Drawing::draw_image(shaderImage, 0, 0, texel_position.x, texel_position.y, static_cast<double>(frame_size.x), static_cast<double>(frame_size.y));
+        ShaderDrawing::push();
+        ShaderDrawing::applyMatrix(display_matrix[0][0], display_matrix[0][1], display_matrix[0][2], display_matrix[1][0], display_matrix[1][1], display_matrix[1][2]);
+        ShaderDrawing::draw_image(shaderImage, 0, 0, texel_position.x, texel_position.y, static_cast<double>(frame_size.x), static_cast<double>(frame_size.y));
 
-        Drawing::pop();
+        ShaderDrawing::pop();
     } 
 #else
 
@@ -292,7 +309,7 @@ namespace GAM200
     unsigned int Texture::GetPixel(Math::ivec2 texel)
     {
         auto localID = shaderImage.GetTextureID();
-        glBindTexture(GL_TEXTURE_2D, localID);
+        glBindTexture(GL_TEXTURE_2D, textureID);
 
         unsigned char* localBuffer = new unsigned char[GetSize().x * GetSize().y * 4]; // assuming RGBA format
         glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, localBuffer);

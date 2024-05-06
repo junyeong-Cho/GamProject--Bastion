@@ -5,7 +5,7 @@
 #include "Engine/DrawShape.h"
 #include "Engine/Font.h"
 #include "Engine/Texture.h"
-//#include "Engine/Audio.h"
+#include "Engine/Audio.h"
 
 #include "Component/MonsterLimit.h"
 #include "Component/Gold.h"
@@ -86,9 +86,9 @@ void Game::Load()
 	}
 
 	//BGM
-	//GAM200::SoundEffect::MainMenu_BGM().stopAll();
-	//GAM200::SoundEffect::Game_BGM().stopAll();
-	//GAM200::SoundEffect::Game_BGM().loopplay();
+	GAM200::SoundEffect::MainMenu_BGM().stopAll();
+	GAM200::SoundEffect::Game_BGM().stopAll();
+	GAM200::SoundEffect::Game_BGM().loopplay();
 
 
 #ifdef _DEBUG
@@ -116,6 +116,10 @@ void Game::Update(double dt)
 
 
 	// Words
+	#if IfWantShader
+
+
+	#else
 	trash.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("A", 0xFFFFFFFF));
 	if (GetGSComponent<Wave>()->IsResting() || Button::difficult == 4)
 		time.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 0xFFFFFFFF));
@@ -125,7 +129,8 @@ void Game::Update(double dt)
 
 	if (Button::difficult != 4)
 		monsters.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Monster: " + std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 0xFFFFFFFF));
-
+	#endif
+	
 	// Win State
 	if (in_game_state == InProgress)
 	{
@@ -168,12 +173,19 @@ void Game::Draw()
 
 
 	// UIs
+#if IfWantShader
+	if (GetGSComponent<Wave>()->IsResting() || Button::difficult == 4)
+		ShaderDrawing::draw_text("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 1100, 600, 50,255, 255, 255);
+	ShaderDrawing::draw_text("Wave: " + std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1) + "/" + std::to_string(GetGSComponent<Wave>()->GetMaxWave()), 1100, 390, 50, 255, 255, 255);
+	ShaderDrawing::draw_text("Gold: " + std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 1100, 530, 50, 255, 255, 255);
+#else
 	trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
 	time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 700 }));
 	gold->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 630 }));
 	//speed->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 630 }));
 	monsters->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 560 }));
 	currentwave->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 490 }));
+#endif
 	Unit* unit = GetGSComponent<GAM200::GameObjectManager>()->GetCurrentUnit(); if (unit != nullptr) unit->ShowInfo();
 	tower_ui.Draw(380, 35, 514, 108);
 
@@ -181,6 +193,8 @@ void Game::Draw()
 	skip_button->Draw(Math::TranslationMatrix(skip_button->GetPosition()));
 	// Door effect
 	
+
+
 #if !defined(__EMSCRIPTEN__)
 	if (count < 3.0)
 	{
@@ -206,7 +220,8 @@ void Game::Draw()
 
 void Game::ImguiDraw()
 {
-	if (Button::difficult == 4) {
+	if (Button::difficult == 4) 
+	{
 
 		ImGui::Begin("Information");
 		{
@@ -214,7 +229,8 @@ void Game::ImguiDraw()
 
 			ImGui::Text("Gold : %d", gold);
 
-			if (ImGui::SliderInt("Adjust Gold", &gold, 0, 50000, "%d")) {
+			if (ImGui::SliderInt("Adjust Gold", &gold, 0, 50000, "%d")) 
+			{
 				GetGSComponent<Gold>()->SetCurrentGold(gold);
 			}
 

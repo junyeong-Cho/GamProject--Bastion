@@ -1,5 +1,6 @@
 
 #include "Sniper.h"
+#include "Engine/Audio.h"
 
 #include "Game/Objects/Monsters/Monster.h"
 
@@ -12,7 +13,7 @@ SniperUnit::SniperUnit(double attack_time, int damage, Math::vec2 position, doub
     Unit(attack_time, damage, range, position)
 {
     //Sound
-    //GAM200::SoundEffect::Tower_Placing().play();
+    GAM200::SoundEffect::Tower_Placing().play();
 }
 
 void SniperUnit::Update(double dt)

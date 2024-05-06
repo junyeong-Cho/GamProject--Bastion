@@ -33,6 +33,7 @@ set(SOURCE_CODE
 
 
     Engine/Animation.h          Engine/Animation.cpp
+    Engine/Audio.h              Engine/Audio.cpp
     Engine/Collision.h          Engine/Collision.cpp
     Engine/Component.h
     Engine/ComponentManager.h
@@ -46,6 +47,7 @@ set(SOURCE_CODE
     Engine/Image2D.h            Engine/Image2D.cpp
     Engine/GameState.h
     Engine/GameStateManager.h   Engine/GameStateManager.cpp
+    Engine/IfWantShader.h
     Engine/ImGuiHelper.h        Engine/ImGuiHelper.cpp
     Engine/Input.h              Engine/Input.cpp
     Engine/IProgram.h

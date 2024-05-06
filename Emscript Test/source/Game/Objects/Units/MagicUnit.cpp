@@ -4,6 +4,7 @@
 #include "Game/Objects/Monsters/Monster.h"
 
 #include "Engine/Engine.h"
+#include "Engine/Audio.h"
 #include "Engine/GameObjectManager.h"
 
 
@@ -12,7 +13,7 @@ MagicUnit::MagicUnit(double attack_time, int damage, Math::vec2 position, double
     Unit(attack_time, damage, range, position)
 {
     //Sound
-    //GAM200::SoundEffect::Tower_Placing().play();
+    GAM200::SoundEffect::Tower_Placing().play();
 }
 
 void MagicUnit::Update(double dt)

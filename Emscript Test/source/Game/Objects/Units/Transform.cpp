@@ -5,6 +5,8 @@
 
 #include "Engine/Engine.h"
 #include "Engine/GameObjectManager.h"
+#include "Engine/Audio.h"
+
 
 
 TransformUnit::TransformUnit(double transform_cool, double transform_time, double T_attack_time, double attack_time, int damage, Math::vec2 position, double range) :
@@ -14,7 +16,7 @@ TransformUnit::TransformUnit(double transform_cool, double transform_time, doubl
     Unit(attack_time, damage, range, position)
 {
     //Sound
-    //GAM200::SoundEffect::Tower_Placing().play();
+    GAM200::SoundEffect::Tower_Placing().play();
 }
 
 void TransformUnit::Update(double dt)

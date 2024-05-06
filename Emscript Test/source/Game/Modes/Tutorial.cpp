@@ -5,7 +5,7 @@
 #include "Engine/DrawShape.h"
 #include "Engine/Font.h"
 #include "Engine/Texture.h"
-//#include "../Engine/Audio.h"
+#include "Engine/Audio.h"
 
 #include "Component/MonsterLimit.h"
 #include "Component/Gold.h"
@@ -78,9 +78,9 @@ void Tutorial::Load()
 	in_game_state = InProgress;
 
 	//BGM
-	/*GAM200::SoundEffect::MainMenu_BGM().stopAll();
+	GAM200::SoundEffect::MainMenu_BGM().stopAll();
 	GAM200::SoundEffect::Game_BGM().stopAll();
-	GAM200::SoundEffect::Game_BGM().loopplay();*/
+	GAM200::SoundEffect::Game_BGM().loopplay();
 
 	helper_trash.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture(".", 0xFF7878FF));
 	helper.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Click the button below ", 0xFF7878FF));

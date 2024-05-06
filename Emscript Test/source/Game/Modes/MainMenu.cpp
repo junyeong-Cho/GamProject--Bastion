@@ -10,7 +10,9 @@ Updated:    March		 4, 2023
 */
 
 
-//#include "Engine/Audio.h"
+#include "Engine/Audio.h"
+
+#include "Engine/IfWantShader.h"
 
 #include "Game/Objects/Button.h"
 #include "Game/Fonts.h"
@@ -35,9 +37,9 @@ void Main_menu::Load()
 	UpdateMenuTextColors();
 
 	//BGM
-	//GAM200::SoundEffect::Game_BGM().stopAll();
-	//GAM200::SoundEffect::MainMenu_BGM().stopAll();
-	//GAM200::SoundEffect::MainMenu_BGM().loopplay();
+	GAM200::SoundEffect::Game_BGM().stopAll();
+	GAM200::SoundEffect::MainMenu_BGM().stopAll();
+	GAM200::SoundEffect::MainMenu_BGM().loopplay();
 
 }
 
@@ -46,11 +48,17 @@ void Main_menu::UpdateMenuTextColors()
 	uint32_t colors[4] = { 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF };
 	colors[counter] = 0x7EFACBFF;
 
+#if IfWantShader
+
+
+#else
 	trash.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture(".", colors[0]));
 	play.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Play", colors[0]));
 	howToPlay.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("How to play", colors[1]));
 	setting.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Setting", colors[2]));
 	exit.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Exit", colors[3]));
+#endif
+
 }
 
 void Main_menu::Update(double dt)
@@ -65,13 +73,13 @@ void Main_menu::Update(double dt)
 	{
 		counter = (counter + 1) % 4;
 		shouldUpdateColors = true;
-		//GAM200::SoundEffect::Button_1().play();
+		GAM200::SoundEffect::Button_1().play();
 	}
 	else if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Up))
 	{
 		counter = (counter - 1 + 4) % 4;
 		shouldUpdateColors = true;
-		//GAM200::SoundEffect::Button_1().play();
+		GAM200::SoundEffect::Button_1().play();
 	}
 
 	if (shouldUpdateColors)
@@ -98,20 +106,20 @@ void Main_menu::Update(double dt)
 		{
 		case 0:
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Store));
-			//GAM200::SoundEffect::Button_3().play();
+			GAM200::SoundEffect::Button_3().play();
 			break;
 		case 1:
 
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::HowToPlay));
-			//GAM200::SoundEffect::Button_3().play();
+			GAM200::SoundEffect::Button_3().play();
 		
 			break;
 		case 2:
-			//Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Setting));
+			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Setting));
 			break;
 		case 3:
 			Engine::GetGameStateManager().ClearNextGameState();
-			//GAM200::SoundEffect::Button_3().play();
+			GAM200::SoundEffect::Button_3().play();
 			break;
 		}
 	}
@@ -123,6 +131,8 @@ void Main_menu::Unload()
 	//Unload Mode1
 
 	//Unload Mode2
+	GetGSComponent<GAM200::GameObjectManager>()->Unload();
+
 }
 
 void Main_menu::Draw()
@@ -131,11 +141,25 @@ void Main_menu::Draw()
 	mainmenu_background->Draw(Math::TranslationMatrix(Math::ivec2{ 0 ,0 }));
 
 
-	trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
+#if !IfWantShader
 	play->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x / 2 + 220, (Engine::GetWindow().GetSize().y / 2 - 100) }));
 	howToPlay->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x / 2 + 220, (Engine::GetWindow().GetSize().y / 2 - 160) }));
 	setting->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x / 2 + 220, (Engine::GetWindow().GetSize().y / 2 - 220) }));
 	exit->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x / 2 + 220, (Engine::GetWindow().GetSize().y / 2 - 280) }));
+#else
+	Math::vec2 color = counter == 0 ? Math::vec2{ 255,0 } : Math::vec2{ 0,0 };
+	ShaderDrawing::draw_text("Play", Engine::GetWindow().GetSize().x - 180 ,       Engine::GetWindow().GetSize().y / 2 - 150, 50, color.x, color.y, 0);
+
+	color = counter == 1 ? Math::vec2{ 255,0 } : Math::vec2{ 0,0 };
+	ShaderDrawing::draw_text("How to play", Engine::GetWindow().GetSize().x - 180, Engine::GetWindow().GetSize().y / 2 - 210, 50, color.x, color.y, 0);
+
+	color = counter == 2 ? Math::vec2{ 255,0 } : Math::vec2{ 0,0 };
+	ShaderDrawing::draw_text("Setting", Engine::GetWindow().GetSize().x - 180, Engine::GetWindow().GetSize().y / 2 - 270, 50, color.x, color.y, 0);
+
+	color = counter == 3 ? Math::vec2{ 255,0 } : Math::vec2{ 0,0 };
+	ShaderDrawing::draw_text("Exit", Engine::GetWindow().GetSize().x - 180,		 Engine::GetWindow().GetSize().y / 2 - 330, 50, color.x, color.y, 0);
+
+#endif
 }
 
 void Main_menu::ImguiDraw()

@@ -9,9 +9,9 @@ Created:    November 2, 2023
 Updated:    November 2, 2023
 */
 
-#define IfWantShader true
-
 #pragma once
+
+#include "Engine/IfWantShader.h"
 
 #include "Game/States.h"
 
@@ -60,7 +60,9 @@ private:
 	Skip_Button* skip_button = nullptr;
 	RangedUnit* rangedunit_ptr = nullptr;
 
+#if IfWantShader
 
+#else
 	std::unique_ptr<GAM200::Texture> trash;
 
 	std::unique_ptr<GAM200::Texture> currentwave;
@@ -68,6 +70,7 @@ private:
 	std::unique_ptr<GAM200::Texture> gold;
 	std::unique_ptr<GAM200::Texture> speed;
 	std::unique_ptr<GAM200::Texture> monsters;
+#endif
 
 	enum InGameStates
 	{

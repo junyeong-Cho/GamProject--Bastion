@@ -5,7 +5,7 @@
 
 #include "Engine/Engine.h"
 #include "Engine/GameObjectManager.h"
-//#include "Engine/Audio.h"
+#include "Engine/Audio.h"
 
 extern bool tutorial_merge;
 
@@ -13,7 +13,7 @@ MeleeUnit::MeleeUnit(double attack_time, int damage, Math::vec2 position, double
     Unit(attack_time, damage, range, position)
 {
     //Sound
-    //GAM200::SoundEffect::Tower_Placing().play();
+    GAM200::SoundEffect::Tower_Placing().play();
 }
 
 void MeleeUnit::Update(double dt)

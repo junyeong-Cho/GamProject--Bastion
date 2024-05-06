@@ -42,12 +42,14 @@ void HowToPlay::UpdateMenuTextColors()
 	uint32_t colors[2] = { 0xFFFFFFFF, 0xFFFFFFFF };
 	colors[state] = 0x7EFACBFF;
 
+#if !IfWantShader
 	trash.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture(",", colors[0]));
 	back.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Back", colors[0]));
 	next.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Next", colors[1]));
 
 	//exit.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Exit", colors[0]));
 	play.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Play", colors[1]));
+#endif
 
 }
 
@@ -99,14 +101,16 @@ void HowToPlay::Unload()
 {
 	state = 0;
 	page = 0;
+
+	Engine::GetTextureManager().Unload();
 }
 
 void HowToPlay::Draw()
 {
 	Engine::GetWindow().Clear(0.2f, 0.4f, 0.7f, 1.0f);
 
-	trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
-	back->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x / 2 + 220, (Engine::GetWindow().GetSize().y / 2 - 220) }));
+
+
 
 	switch (page)
 	{
@@ -128,6 +132,23 @@ void HowToPlay::Draw()
 	}
 
 
+#if IfWantShader
+	Math::vec2 color = state == 0 ? Math::vec2{ 255,0 } : Math::vec2{ 255,255 };
+	ShaderDrawing::draw_text("Back", Engine::GetWindow().GetSize().x - 120, 70, 50, color.x, color.y, 255);
+
+	if (page == Page::Four)
+	{
+		Math::vec2 color = state == 1 ? Math::vec2{ 255,0 } : Math::vec2{ 255,255 };
+		ShaderDrawing::draw_text("Play", Engine::GetWindow().GetSize().x - 120, 130, 50, color.x, color.y, 255);
+	}
+	else
+	{
+		Math::vec2 color = state == 1 ? Math::vec2{ 255,0 } : Math::vec2{ 255,255 };
+		ShaderDrawing::draw_text("Next", Engine::GetWindow().GetSize().x - 120, 130, 50, color.x, color.y, 255);
+	}
+
+#else
+	back->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x / 2 + 220, (Engine::GetWindow().GetSize().y / 2 - 220) }));
 
 	if (page == Page::Four)
 	{
@@ -138,6 +159,9 @@ void HowToPlay::Draw()
 	{
 		next->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x / 2 + 220, (Engine::GetWindow().GetSize().y / 2 - 280) }));
 	}
+#endif
+
+
 
 }
 
