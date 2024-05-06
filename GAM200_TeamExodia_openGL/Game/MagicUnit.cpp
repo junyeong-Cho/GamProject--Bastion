@@ -11,8 +11,7 @@
 MagicUnit::MagicUnit(double attack_time, int damage, Math::vec2 position, double range) :
     Unit(attack_time, damage, range, position)
 {
-    //Sound
-    GAM200::SoundEffect::Tower_Placing().play();
+
 }
 
 void MagicUnit::Update(double dt)

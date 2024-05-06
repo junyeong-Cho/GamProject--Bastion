@@ -13,8 +13,7 @@ TransformUnit::TransformUnit(double transform_cool, double transform_time, doubl
     T_attack_time(T_attack_time),
     Unit(attack_time, damage, range, position)
 {
-    //Sound
-    GAM200::SoundEffect::Tower_Placing().play();
+
 }
 
 void TransformUnit::Update(double dt)

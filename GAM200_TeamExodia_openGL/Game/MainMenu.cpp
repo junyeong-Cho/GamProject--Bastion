@@ -19,6 +19,10 @@ Updated:    March		 4, 2023
 #include "Fonts.h"
 #include <imgui_impl_sdl.h>
 
+GAM200::SoundEffect* Button1 = Engine::GetSFXManager().Load("assets/Sounds/SoundEffect/Button1.wav");
+GAM200::SoundEffect* Button3 = Engine::GetSFXManager().Load("assets/Sounds/SoundEffect/Button3.wav");
+GAM200::SoundEffect* audioPtr = Engine::GetSFXManager().Load("assets/Sounds/Theme/Maintheme_Reference.wav");
+
 
 Main_menu::Main_menu()
 {
@@ -34,10 +38,9 @@ void Main_menu::Load()
 	mainmenu_background = Engine::Instance().GetTextureManager().Load("assets/Background/mainmenu_background.png");
 	UpdateMenuTextColors();
 
+
 	//BGM
-	GAM200::SoundEffect::Game_BGM().stopAll();
-	GAM200::SoundEffect::MainMenu_BGM().stopAll();
-	GAM200::SoundEffect::MainMenu_BGM().loopplay();
+	audioPtr->Play();
 
 }
 
@@ -65,13 +68,13 @@ void Main_menu::Update(double dt)
 	{
 		counter = (counter + 1) % 4;
 		shouldUpdateColors = true;
-		GAM200::SoundEffect::Button_1().play();
+		Button1->Play();
 	}
 	else if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Up))
 	{
 		counter = (counter - 1 + 4) % 4;
 		shouldUpdateColors = true;
-		GAM200::SoundEffect::Button_1().play();
+		Button1->Play();
 	}
 
 	if (shouldUpdateColors)
@@ -98,18 +101,18 @@ void Main_menu::Update(double dt)
 		{
 		case 0:
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Store));
-			GAM200::SoundEffect::Button_3().play();
+			Button3->Play();
 			break;
 		case 1:
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::HowToPlay));
-			GAM200::SoundEffect::Button_3().play();
+			Button3->Play();
 			break;
 		case 2:
 			//Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Setting));
 			break;
 		case 3:
 			Engine::GetGameStateManager().ClearNextGameState();
-			GAM200::SoundEffect::Button_3().play();
+			Button3->Play();
 			break;
 		}
 	}	
@@ -119,8 +122,11 @@ void Main_menu::Update(double dt)
 void Main_menu::Unload()
 {
 	//Unload Mode1
-	
+	audioPtr->Stop();
+
 	//Unload Mode2
+
+
 }
 
 void Main_menu::Draw()

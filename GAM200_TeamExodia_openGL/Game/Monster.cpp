@@ -12,6 +12,8 @@
 #include "../Component/Gold.h"
 
 int Monster::remaining_monster = 0;
+GAM200::SoundEffect* Monster_Die_2 = Engine::GetSFXManager().Load("assets/Sounds/SoundEffect/Monster_Die_2.wav");
+
 
 Monster::Monster(MonsterInfo info) : GameObject(Map::middle_upper_left), info(info)
 {
@@ -65,7 +67,7 @@ void Monster::Update(double dt)
 		Destroy();
 
 		//Sound
-		GAM200::SoundEffect::Monster_Die_2().play();
+		Monster_Die_2->Play();
 	}
 }
 

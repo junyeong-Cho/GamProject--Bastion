@@ -32,6 +32,9 @@
 #include "../Engine/Particle.h"
 #include "../Game/Particles.h"
 
+GAM200::SoundEffect* Game_BGM = Engine::GetSFXManager().Load("assets/Sounds/Theme/BattleTheme_Reference.wav");
+
+
 Game::Game()
 {
 
@@ -84,11 +87,7 @@ void Game::Load()
 		break;
 	}
 
-	//BGM
-	GAM200::SoundEffect::MainMenu_BGM().stopAll();
-	GAM200::SoundEffect::Game_BGM().stopAll();
-	GAM200::SoundEffect::Game_BGM().loopplay();
-
+	Game_BGM->Play();
 
 #ifdef _DEBUG
 	AddGSComponent(new GAM200::ShowCollision());
@@ -152,6 +151,8 @@ void Game::Unload()
 {
 	GetGSComponent<GAM200::GameObjectManager>()->Unload();
 	ClearGSComponent();
+	Game_BGM->Stop();
+
 }
 
 

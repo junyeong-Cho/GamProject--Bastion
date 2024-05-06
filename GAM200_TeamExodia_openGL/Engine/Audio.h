@@ -12,56 +12,48 @@ Updated:    December	15, 2023
 #pragma once
 #include <SFML/Audio.hpp>
 #include <list>
-
+#include <filesystem>
+#include <map>
 
 
 namespace GAM200
 {
-    class SoundEffect
-    {
-    public:
+	class SoundEffect
+	{
+	private:
+		sf::SoundBuffer playsoundBuffer;
+		sf::Sound playsound;
+		float BGM_volume{ 20 };
+		float SE_volume{ 15 };
 
-        float effectVolume = 25;
-        float musicVolume = 20;
-        float BigVolume = 80;
+	public:
+		SoundEffect(const std::filesystem::path& filePath, bool bgm_se);
+		void Load(const std::filesystem::path& filePath, bool bgm_se);
+		void Play();
+		void Stop();
+		void Settings(float volume, bool loop);
+	};
 
-        //static SoundEffect Gem();
-        static SoundEffect& Button_1();
-        static SoundEffect& Button_2();
-        static SoundEffect& Button_3();
-        static SoundEffect& Dash_1();
-        static SoundEffect& Dash_2();
-        static SoundEffect& GameClear();
-        static SoundEffect& GameOver();
-        static SoundEffect& cannot_select();
-        static SoundEffect& Monster_Die_1();
-        static SoundEffect& Monster_Die_2();
-        static SoundEffect& Monster_Die_3();
-        static SoundEffect& Reload();
-        static SoundEffect& Select_MainMenu();
-        static SoundEffect& Select_Map();
-        static SoundEffect& Shotgun();
-        static SoundEffect& Tower_Delete();
-        static SoundEffect& Tower_Placing();
-        static SoundEffect& Tower_Upgrade();
-        static SoundEffect& Wave_Start();
-        static SoundEffect& Attack();
-        static SoundEffect& MainMenu_BGM();
-        static SoundEffect& Game_BGM();
+	class SFXManager
+	{
+	private:
+		std::map<std::string, SoundEffect*> pathToSFX_BGM;
+		std::map<std::string, SoundEffect*> pathToSFX_SE;
 
+		SoundEffect* SFX_BGM;
+		SoundEffect* SFX_SE;
 
+	public:
+		SFXManager();
+		void PrePareSFX(const std::filesystem::path& filePath);
+		SoundEffect* Load(const std::string);
+		void LoadFile(std::string filePath); // 파일 로드
+		void Stop();						 // 정지
+		// void Play_BGM(const std::string filePath); // 재생
+		// void Play_SE(const std::string filePath); // 재생
+		void Settings(float volume, bool loop); // 음량 및 루프 설정
+		void BGMController(float volume, bool loop);
+		void SEController(float volume, bool loop);
+	};
 
-
-        SoundEffect(const std::string& path);
-        void play();
-        void SeBGMVolume(float volume);
-        float GetBGMVolume() { return musicVolume; }
-        void Big_play();
-        void loopplay();
-        void stopAll();
-
-    private:
-        sf::SoundBuffer buffer;
-        std::list<sf::Sound> sounds;
-    };
 }

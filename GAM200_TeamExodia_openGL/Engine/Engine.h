@@ -16,7 +16,7 @@ Updated:    December 15, 2023
 #include "../Engine/Input.h"
 #include "../Engine/Font.h"
 #include "../Engine/Mouse.h"
-
+#include "../Engine/Audio.h"
 
 #include "../Engine/GameStateManager.h"
 #include "../Engine/TextureManager.h"
@@ -25,10 +25,11 @@ Updated:    December 15, 2023
 #include <chrono>
 
 
-
 class Engine
 {
 public:
+    static GAM200::SFXManager& GetSFXManager() { return Instance().sfxManager; }
+
     static Engine& Instance()
     {
         static Engine instance;
@@ -106,6 +107,7 @@ private:
     GAM200::GameStateManager gamestatemanager;
     GAM200::TextureManager   texturemanager;
     GAM200::Input input;
+    GAM200::SFXManager sfxManager;
     //GAM200::Mouse mouse;
 
 

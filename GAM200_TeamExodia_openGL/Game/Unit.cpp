@@ -22,6 +22,12 @@ Unit::Unit(double attack_time, int damage, double range, Math::vec2 position) : 
     dmg.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Damage: " + std::to_string(damage), 0xFFFFFFFF));
     attackSpd.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Atk Spd: " + std::to_string(attack_time), 0xFFFFFFFF));
     dps.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("DPS: " + std::to_string(GetDPS()), 0xFFFFFFFF));
+
+    //SFX
+    GAM200::SoundEffect* Tower_Placing = Engine::GetSFXManager().Load("assets/Sounds/SoundEffect/Tower_Placing.wav");
+    Tower_Placing->Play();
+
+
 }
 
 Unit::~Unit()

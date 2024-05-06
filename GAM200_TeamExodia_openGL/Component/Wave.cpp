@@ -13,6 +13,9 @@
 #include <fstream>
 #include <string>
 
+GAM200::SoundEffect* Wave_Start = Engine::GetSFXManager().Load("assets/Sounds/SoundEffect/Wave_Start.wav");
+
+
 void Wave::SetWave(std::string file_name)
 {
 	std::ifstream file(file_name);
@@ -166,8 +169,7 @@ void Wave::Update(double dt)
 			wave_state = Battle;
 
 			//Sound
-			GAM200::SoundEffect::Wave_Start().play();
-
+			Wave_Start->Play();
 			return;
 		}
 
