@@ -25,6 +25,27 @@ public:
 protected:
     virtual void Draw(Math::TransformationMatrix camera_matrix);
     bool restart = false;
+
+protected:
+    class State_None : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "None"; }
+    };
+    class State_Attack : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Attack"; }
+    };
+
+    State_None      state_none;
+    State_Attack    state_attacking;
 };  
 
 class Sniper_2 : public SniperUnit
@@ -44,28 +65,6 @@ public:
 
     virtual bool CanMergeWith(GameObjectTypes type) override;
     virtual void ResolveMerge(GameObject* other_object) override;
-    void ResolveCollision(GameObject* other_object) override;
-
-private:
-    class State_None : public State
-    {
-    public:
-        virtual void Enter(GameObject* object) override;
-        virtual void Update(GameObject* object, double dt) override;
-        virtual void CheckExit(GameObject* object) override;
-        std::string GetName() override { return "None"; }
-    };
-    class State_Attack : public State
-    {
-    public:
-        virtual void Enter(GameObject* object) override;
-        virtual void Update(GameObject* object, double dt) override;
-        virtual void CheckExit(GameObject* object) override;
-        std::string GetName() override { return "Attack"; }
-    };
-
-    State_None      state_none;
-    State_Attack    state_attacking;
 };
 
 class Sniper_4 : public SniperUnit
@@ -85,28 +84,6 @@ public:
 
     virtual bool CanMergeWith(GameObjectTypes type) override;
     virtual void ResolveMerge(GameObject* other_object) override;
-    void ResolveCollision(GameObject* other_object) override;
-
-private:
-    class State_None : public State
-    {
-    public:
-        virtual void Enter(GameObject* object) override;
-        virtual void Update(GameObject* object, double dt) override;
-        virtual void CheckExit(GameObject* object) override;
-        std::string GetName() override { return "None"; }
-    };
-    class State_Attack : public State
-    {
-    public:
-        virtual void Enter(GameObject* object) override;
-        virtual void Update(GameObject* object, double dt) override;
-        virtual void CheckExit(GameObject* object) override;
-        std::string GetName() override { return "Attack"; }
-    };
-
-    State_None      state_none;
-    State_Attack    state_attacking;
 };
 
 class Sniper_8 : public SniperUnit
@@ -126,28 +103,6 @@ public:
 
     virtual bool CanMergeWith(GameObjectTypes type) override;
     virtual void ResolveMerge(GameObject* other_object) override;
-    void ResolveCollision(GameObject* other_object) override;
-
-private:
-    class State_None : public State
-    {
-    public:
-        virtual void Enter(GameObject* object) override;
-        virtual void Update(GameObject* object, double dt) override;
-        virtual void CheckExit(GameObject* object) override;
-        std::string GetName() override { return "None"; }
-    };
-    class State_Attack : public State
-    {
-    public:
-        virtual void Enter(GameObject* object) override;
-        virtual void Update(GameObject* object, double dt) override;
-        virtual void CheckExit(GameObject* object) override;
-        std::string GetName() override { return "Attack"; }
-    };
-
-    State_None      state_none;
-    State_Attack    state_attacking;
 };
 
 class Sniper_16 : public SniperUnit
@@ -167,26 +122,4 @@ public:
 
     virtual bool CanMergeWith(GameObjectTypes type) override;
     virtual void ResolveMerge(GameObject* other_object) override;
-    void ResolveCollision(GameObject* other_object) override;
-
-private:
-    class State_None : public State
-    {
-    public:
-        virtual void Enter(GameObject* object) override;
-        virtual void Update(GameObject* object, double dt) override;
-        virtual void CheckExit(GameObject* object) override;
-        std::string GetName() override { return "None"; }
-    };
-    class State_Attack : public State
-    {
-    public:
-        virtual void Enter(GameObject* object) override;
-        virtual void Update(GameObject* object, double dt) override;
-        virtual void CheckExit(GameObject* object) override;
-        std::string GetName() override { return "Attack"; }
-    };
-
-    State_None      state_none;
-    State_Attack    state_attacking;
 };

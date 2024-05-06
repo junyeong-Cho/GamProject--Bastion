@@ -28,6 +28,11 @@ Monster::Monster(MonsterInfo info, Math::vec2 position, Math::vec2 direction) : 
 {
 	SetPosition(position);
 	SetVelocity({ direction.x * speed * info.speed_scale, direction.y * speed * info.speed_scale });
+
+	AddGOComponent(new GAM200::CircleCollision(radius, this));
+	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
+
+	++remaining_monster;
 }
 
 Monster::~Monster() 
@@ -46,18 +51,22 @@ void Monster::Update(double dt)
 	if (IsInside(Map::outer_lower_left))
 	{
 		SetVelocity({ speed * info.speed_scale, 0 });
+		SetScale({ 1, 1 });
 	}
 	else if (IsInside(Map::outer_lower_right))
 	{
 		SetVelocity({ 0, speed * info.speed_scale });
+		SetScale({ 1, 1 });
 	}
 	else if (IsInside(Map::outer_upper_right))
 	{
 		SetVelocity({ -speed * info.speed_scale, 0 });
+		SetScale({ -1, 1 });
 	}
 	else if (IsInside(Map::outer_upper_left))
 	{
 		SetVelocity({ 0, -speed * info.speed_scale });
+		SetScale({ -1, 1 });
 	}
 
 	if (info.life <= 0)
@@ -72,12 +81,8 @@ void Monster::Update(double dt)
 // Draw
 void Monster::Draw(Math::TransformationMatrix camera_matrix)
 {
-	//GAM200::DrawShape shape;
-	//shape.SetColor(0.0f, 0.8f, 0.8f, 1.0f);
-
 	Math::vec2 position = GetPosition();
 	image->Draw(static_cast<int>(position.x) - 528/8, static_cast<int>(position.y), 528/4, 350/4);
-	//shape.DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(radius), static_cast<int>(radius));
 }
 
 // Check to change direction
@@ -97,6 +102,7 @@ bool Monster::IsInside(Math::vec2 target_position) const
 
 void Monster::TakeDamage(int damage) 
 { 
+	damage = damage > info.defense ? damage - info.defense : 0;
 	info.life -= damage; 
 
 	Math::vec2 particle_posistion = GetPosition();

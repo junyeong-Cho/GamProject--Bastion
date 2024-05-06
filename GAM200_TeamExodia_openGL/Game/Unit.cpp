@@ -28,6 +28,7 @@ Unit::~Unit()
 {
     RemoveGOComponent<GAM200::MergeCircleCollision>();
     RemoveGOComponent<GAM200::CircleCollision>();
+    RemoveGOComponent<GAM200::Sprite>();
 }
 
 void Unit::Update(double dt)

@@ -14,49 +14,12 @@ SpearUnit::SpearUnit(double attack_time, int damage, Math::vec2 position, double
     //Sound
     GAM200::SoundEffect::Tower_Placing().play();
 }
-
-
-
 void SpearUnit::Update(double dt)
 {
     // Update GameObject
     Unit::Update(dt);
 }
-
 void SpearUnit::ResolveCollision(GameObject* other_object)
-{
-    if (current_state->GetName() == "None")
-        return;
-    if (is_moving)
-        return;
-
-    Monster* target = static_cast<Monster*>(other_object);
-    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(GetPosition(), range, damage);
-    InsertDPS(dmg);
-
-    attack_animation_count = attack_animation_time;
-
-    //change_state(&state_none);
-}
-
-void SpearUnit::Draw(Math::TransformationMatrix camera_matrix)
-{
-    Unit::Draw(camera_matrix);
-    GameObject::Draw(camera_matrix);
-}
-
-bool SpearUnit::CanMergeWith(GameObjectTypes type)
-{
-    return false;
-}
-
-void SpearUnit::ResolveMerge(GameObject* other_object)
-{
-
-}
-
-
-void Spear_2::ResolveCollision(GameObject* other_object)
 {
     if (!AttackReady())
         return;
@@ -67,8 +30,76 @@ void Spear_2::ResolveCollision(GameObject* other_object)
     int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
     InsertDPS(dmg);
 
+    if (GetPosition().x < target->GetPosition().x)
+        SetScale({ 1, 1 });
+    else
+        SetScale({ -1, 1 });
+
     change_state(&state_attacking);
 }
+void SpearUnit::Draw(Math::TransformationMatrix camera_matrix)
+{
+    Unit::Draw(camera_matrix);
+    GameObject::Draw(camera_matrix);
+}
+bool SpearUnit::CanMergeWith(GameObjectTypes type)
+{
+    return false;
+}
+void SpearUnit::ResolveMerge(GameObject* other_object)
+{
+
+}
+
+
+void SpearUnit::State_None::Enter(GameObject* object)
+{
+    SpearUnit* unit = static_cast<SpearUnit*>(object);
+    unit->attack_count = 0;
+}
+void SpearUnit::State_None::Update(GameObject* object, double dt)
+{
+    SpearUnit* unit = static_cast<SpearUnit*>(object);
+
+    unit->attack_count += dt;
+
+    if ((!Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->IsMonserNear(unit) || unit->attack_count >= 5.0) && unit->attack_count > 1.0)
+    {
+        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+        unit->restart = true;
+    }
+}
+void SpearUnit::State_None::CheckExit(GameObject* object)
+{
+    SpearUnit* unit = static_cast<SpearUnit*>(object);
+
+}
+void SpearUnit::State_Attack::Enter(GameObject* object)
+{
+
+    SpearUnit* unit = static_cast<SpearUnit*>(object);
+
+    if (unit->restart == true)
+    {
+        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+        unit->restart = false;
+    }
+    unit->attack_count = 0;
+}
+void SpearUnit::State_Attack::Update(GameObject* object, double dt)
+{
+    SpearUnit* unit = static_cast<SpearUnit*>(object);
+
+    unit->attack_count += dt;
+}
+void SpearUnit::State_Attack::CheckExit(GameObject* object)
+{
+    SpearUnit* unit = static_cast<SpearUnit*>(object);
+
+    unit->change_state(&unit->state_none);
+}
+
+
 bool Spear_2::CanMergeWith(GameObjectTypes type)
 {
     switch (type)
@@ -88,68 +119,8 @@ void Spear_2::ResolveMerge(GameObject* other_object)
         Destroy();
     }
 }
-void Spear_2::State_None::Enter(GameObject* object)
-{
-    
-    Spear_2* unit = static_cast<Spear_2*>(object);
-    unit->attack_count = 0;
 
-}
-void Spear_2::State_None::Update(GameObject* object, double dt)
-{
-    Spear_2* unit = static_cast<Spear_2*>(object);
 
-    unit->attack_count += dt;
-
-    if ((!Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->IsMonserNear(unit) || unit->attack_count >= 5.0) && unit->attack_count > 1.0)
-    {
-        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
-        unit->restart = true;
-    }
-}
-void Spear_2::State_None::CheckExit(GameObject* object)
-{
-    Spear_2* unit = static_cast<Spear_2*>(object);
-
-}
-void Spear_2::State_Attack::Enter(GameObject* object)
-{
-    
-    Spear_2* unit = static_cast<Spear_2*>(object);
-
-    if (unit->restart == true)
-    {
-        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
-        unit->restart = false;
-    }
-    unit->attack_count = 0;
-}
-void Spear_2::State_Attack::Update(GameObject* object, double dt)
-{
-    Spear_2* unit = static_cast<Spear_2*>(object);
-
-    unit->attack_count += dt;
-}
-void Spear_2::State_Attack::CheckExit(GameObject* object)
-{
-    Spear_2* unit = static_cast<Spear_2*>(object);
-
-    unit->change_state(&unit->state_none);
-}
-
-void Spear_4::ResolveCollision(GameObject* other_object)
-{
-    if (!AttackReady())
-        return;
-    if (is_moving)
-        return;
-
-    Monster* target = static_cast<Monster*>(other_object);
-    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
-    InsertDPS(dmg);
-
-    change_state(&state_attacking);
-}
 bool Spear_4::CanMergeWith(GameObjectTypes type)
 {
     switch (type)
@@ -169,68 +140,8 @@ void Spear_4::ResolveMerge(GameObject* other_object)
         Destroy();
     }
 }
-void Spear_4::State_None::Enter(GameObject* object)
-{
-    
-    Spear_4* unit = static_cast<Spear_4*>(object);
-    unit->attack_count = 0;
 
-}
-void Spear_4::State_None::Update(GameObject* object, double dt)
-{
-    Spear_4* unit = static_cast<Spear_4*>(object);
 
-    unit->attack_count += dt;
-
-    if ((!Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->IsMonserNear(unit) || unit->attack_count >= 5.0) && unit->attack_count > 1.0)
-    {
-        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
-        unit->restart = true;
-    }
-}
-void Spear_4::State_None::CheckExit(GameObject* object)
-{
-    Spear_4* unit = static_cast<Spear_4*>(object);
-
-}
-void Spear_4::State_Attack::Enter(GameObject* object)
-{
-    
-    Spear_4* unit = static_cast<Spear_4*>(object);
-
-    if (unit->restart == true)
-    {
-        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
-        unit->restart = false;
-    }
-    unit->attack_count = 0;
-}
-void Spear_4::State_Attack::Update(GameObject* object, double dt)
-{
-    Spear_4* unit = static_cast<Spear_4*>(object);
-
-    unit->attack_count += dt;
-}
-void Spear_4::State_Attack::CheckExit(GameObject* object)
-{
-    Spear_4* unit = static_cast<Spear_4*>(object);
-
-    unit->change_state(&unit->state_none);
-}
-
-void Spear_8::ResolveCollision(GameObject* other_object)
-{
-    if (!AttackReady())
-        return;
-    if (is_moving)
-        return;
-
-    Monster* target = static_cast<Monster*>(other_object);
-    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
-    InsertDPS(dmg);
-
-    change_state(&state_attacking);
-}
 bool Spear_8::CanMergeWith(GameObjectTypes type)
 {
     switch (type)
@@ -250,68 +161,8 @@ void Spear_8::ResolveMerge(GameObject* other_object)
         Destroy();
     }
 }
-void Spear_8::State_None::Enter(GameObject* object)
-{
-    
-    Spear_8* unit = static_cast<Spear_8*>(object);
-    unit->attack_count = 0;
 
-}
-void Spear_8::State_None::Update(GameObject* object, double dt)
-{
-    Spear_8* unit = static_cast<Spear_8*>(object);
 
-    unit->attack_count += dt;
-
-    if ((!Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->IsMonserNear(unit) || unit->attack_count >= 5.0) && unit->attack_count > 1.0)
-    {
-        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
-        unit->restart = true;
-    }
-}
-void Spear_8::State_None::CheckExit(GameObject* object)
-{
-    Spear_8* unit = static_cast<Spear_8*>(object);
-
-}
-void Spear_8::State_Attack::Enter(GameObject* object)
-{
-    
-    Spear_8* unit = static_cast<Spear_8*>(object);
-
-    if (unit->restart == true)
-    {
-        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
-        unit->restart = false;
-    }
-    unit->attack_count = 0;
-}
-void Spear_8::State_Attack::Update(GameObject* object, double dt)
-{
-    Spear_8* unit = static_cast<Spear_8*>(object);
-
-    unit->attack_count += dt;
-}
-void Spear_8::State_Attack::CheckExit(GameObject* object)
-{
-    Spear_8* unit = static_cast<Spear_8*>(object);
-
-    unit->change_state(&unit->state_none);
-}
-
-void Spear_16::ResolveCollision(GameObject* other_object)
-{
-    if (!AttackReady())
-        return;
-    if (is_moving)
-        return;
-
-    Monster* target = static_cast<Monster*>(other_object);
-    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
-    InsertDPS(dmg);
-
-    change_state(&state_attacking);
-}
 bool Spear_16::CanMergeWith(GameObjectTypes type)
 {
     /*switch (type)
@@ -324,52 +175,4 @@ bool Spear_16::CanMergeWith(GameObjectTypes type)
 void Spear_16::ResolveMerge(GameObject* other_object)
 {
 
-}
-void Spear_16::State_None::Enter(GameObject* object)
-{
-    
-    Spear_16* unit = static_cast<Spear_16*>(object);
-    unit->attack_count = 0;
-
-}
-void Spear_16::State_None::Update(GameObject* object, double dt)
-{
-    Spear_16* unit = static_cast<Spear_16*>(object);
-
-    unit->attack_count += dt;
-
-    if ((!Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->IsMonserNear(unit) || unit->attack_count >= 5.0) && unit->attack_count > 1.0)
-    {
-        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
-        unit->restart = true;
-    }
-}
-void Spear_16::State_None::CheckExit(GameObject* object)
-{
-    Spear_16* unit = static_cast<Spear_16*>(object);
-
-}
-void Spear_16::State_Attack::Enter(GameObject* object)
-{
-    
-    Spear_16* unit = static_cast<Spear_16*>(object);
-
-    if (unit->restart == true)
-    {
-        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
-        unit->restart = false;
-    }
-    unit->attack_count = 0;
-}
-void Spear_16::State_Attack::Update(GameObject* object, double dt)
-{
-    Spear_16* unit = static_cast<Spear_16*>(object);
-
-    unit->attack_count += dt;
-}
-void Spear_16::State_Attack::CheckExit(GameObject* object)
-{
-    Spear_16* unit = static_cast<Spear_16*>(object);
-
-    unit->change_state(&unit->state_none);
 }
