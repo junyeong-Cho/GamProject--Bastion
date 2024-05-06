@@ -115,7 +115,7 @@ void Main_menu::Update(double dt)
 		
 			break;
 		case 2:
-			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Setting));
+			//Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Setting));
 			break;
 		case 3:
 			Engine::GetGameStateManager().ClearNextGameState();
