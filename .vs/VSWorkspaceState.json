@@ -1,7 +1,18 @@
 {
+  "OutputFoldersPerTargetSystem": {
+    "Local Machine": [
+      "out\\build\\x64-Debug",
+      "out\\install\\x64-Debug"
+    ]
+  },
   "ExpandedNodes": [
     "",
-    "\\Emscript Test"
+    "\\source",
+    "\\source\\Game",
+    "\\source\\Game\\Objects",
+    "\\source\\Game\\Objects\\Monsters",
+    "\\source\\Game\\Objects\\Units"
   ],
+  "SelectedNode": "\\source\\Game\\Objects\\Units\\Unit.cpp",
   "PreviewInSolutionExplorer": false
 }

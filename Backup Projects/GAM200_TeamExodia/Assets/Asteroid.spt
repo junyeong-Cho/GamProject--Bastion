@@ -1,7 +1,0 @@
-Assets/Asteroid.png
-HotSpot 43 0
-RectCollision -31 0 36 64
-FrameSize 87 88
-NumFrames 3
-Anim Assets/None.anm
-Anim Assets/AsteroidLand.anm

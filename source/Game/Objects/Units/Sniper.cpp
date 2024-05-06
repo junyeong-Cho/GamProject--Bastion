@@ -1,0 +1,179 @@
+
+#include "Sniper.h"
+
+#include "Game/Objects/Monsters/Monster.h"
+
+
+#include "Engine/Engine.h"
+#include "Engine/GameObjectManager.h"
+#include "Engine/Audio.h"
+
+
+SniperUnit::SniperUnit(double attack_time, int damage, Math::vec2 position, double range) :
+    Unit(attack_time, damage, range, position)
+{
+    //Sound
+    GAM200::SoundEffect::Tower_Placing().play();
+}
+void SniperUnit::Update(double dt)
+{
+    // Update GameObject
+    Unit::Update(dt);
+}
+void SniperUnit::Draw(Math::TransformationMatrix camera_matrix)
+{
+    Unit::Draw(camera_matrix);
+    GameObject::Draw(camera_matrix);
+}
+void SniperUnit::ResolveCollision(GameObject* other_object)
+{
+    if (!AttackReady())
+        return;
+    if (is_moving)
+        return;
+
+    Monster* target = static_cast<Monster*>(other_object);
+    target->TakeDamage(damage);
+    InsertDPS(damage);
+
+    if (GetPosition().x < target->GetPosition().x)
+        SetScale({ 1, 1 });
+    else
+        SetScale({ -1, 1 });
+
+    change_state(&state_attacking);
+}
+bool SniperUnit::CanMergeWith(GameObjectTypes type)
+{
+    return false;
+}
+void SniperUnit::ResolveMerge(GameObject* other_object)
+{
+
+}
+
+
+void SniperUnit::State_None::Enter(GameObject* object)
+{
+    SniperUnit* unit = static_cast<SniperUnit*>(object);
+    unit->attack_count = 0;
+}
+void SniperUnit::State_None::Update(GameObject* object, double dt)
+{
+    SniperUnit* unit = static_cast<SniperUnit*>(object);
+
+    unit->attack_count += dt;
+
+    if ((!Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->IsMonserNear(unit) || unit->attack_count >= 5.0) && unit->attack_count > 1.0)
+    {
+        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+        unit->restart = true;
+    }
+}
+void SniperUnit::State_None::CheckExit(GameObject* object)
+{
+    SniperUnit* unit = static_cast<SniperUnit*>(object);
+
+}
+void SniperUnit::State_Attack::Enter(GameObject* object)
+{
+
+    SniperUnit* unit = static_cast<SniperUnit*>(object);
+
+    if (unit->restart == true)
+    {
+        unit->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::attack));
+        unit->restart = false;
+    }
+    unit->attack_count = 0;
+}
+void SniperUnit::State_Attack::Update(GameObject* object, double dt)
+{
+    SniperUnit* unit = static_cast<SniperUnit*>(object);
+
+    unit->attack_count += dt;
+}
+void SniperUnit::State_Attack::CheckExit(GameObject* object)
+{
+    SniperUnit* unit = static_cast<SniperUnit*>(object);
+
+    unit->change_state(&unit->state_none);
+}
+
+
+bool Sniper_2::CanMergeWith(GameObjectTypes type)
+{
+    switch (type)
+    {
+    case GameObjectTypes::Sniper_2:
+        return true;
+    default:
+        return false;
+    }
+}
+void Sniper_2::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Sniper_2)
+    {
+        new Sniper_4(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+}
+
+
+bool Sniper_4::CanMergeWith(GameObjectTypes type)
+{
+    switch (type)
+    {
+    case GameObjectTypes::Sniper_4:
+        return true;
+    default:
+        return false;
+    }
+}
+void Sniper_4::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Sniper_4)
+    {
+        new Sniper_8(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+}
+
+
+bool Sniper_8::CanMergeWith(GameObjectTypes type)
+{
+    switch (type)
+    {
+    case GameObjectTypes::Sniper_8:
+        return true;
+    default:
+        return false;
+    }
+}
+void Sniper_8::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Sniper_8)
+    {
+        new Sniper_16(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+}
+
+
+bool Sniper_16::CanMergeWith(GameObjectTypes type)
+{
+    /*switch (type)
+    {
+    default:
+        return false;
+    }*/
+    return false;
+}
+void Sniper_16::ResolveMerge(GameObject* other_object)
+{
+
+}
