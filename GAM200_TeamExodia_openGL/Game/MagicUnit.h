@@ -58,7 +58,7 @@ protected:
 class Bomb_1 : public MagicUnit
 {
 public:
-    Bomb_1(Math::vec2 position = Map::middle_point) : MagicUnit(1.5, 4, position) 
+    Bomb_1(Math::vec2 position = Map::middle_point) : MagicUnit(6.0, 4, position) 
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/bomb/bomb_default.spt", (this)));
         current_state = &state_none;
@@ -78,7 +78,7 @@ public:
 class Bomb_2 : public MagicUnit
 {
 public:
-    Bomb_2(Math::vec2 position = Map::middle_point) : MagicUnit(1.0, 4, position)
+    Bomb_2(Math::vec2 position = Map::middle_point) : MagicUnit(4.0, 4, position)
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/bomb/bomb_default.spt", (this)));
         current_state = &state_none;
@@ -98,7 +98,7 @@ public:
 class Bomb_4 : public MagicUnit
 {
 public:
-    Bomb_4(Math::vec2 position = Map::middle_point) : MagicUnit(1.5, 10, position)
+    Bomb_4(Math::vec2 position = Map::middle_point) : MagicUnit(4.0, 10, position)
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/bomb/bomb_default.spt", (this)));
         current_state = &state_none;
@@ -118,7 +118,7 @@ public:
 class Bomb_8 : public MagicUnit
 {
 public:
-    Bomb_8(Math::vec2 position = Map::middle_point) : MagicUnit(1.0, 30, position)
+    Bomb_8(Math::vec2 position = Map::middle_point) : MagicUnit(3.0, 30, position)
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/bomb/bomb_default.spt", (this)));
         current_state = &state_none;
@@ -138,7 +138,7 @@ public:
 class Bomb_16 : public MagicUnit
 {
 public:
-    Bomb_16(Math::vec2 position = Map::middle_point) : MagicUnit(0.8, 100, position)
+    Bomb_16(Math::vec2 position = Map::middle_point) : MagicUnit(3.0, 100, position)
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/bomb/bomb_default.spt", (this)));
         current_state = &state_none;
