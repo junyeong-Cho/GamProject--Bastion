@@ -1,0 +1,585 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineSystem.cmake:205 (message)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      The system is: Windows - 10.0.22631 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      msbuild 버전 17.9.5+33de0b227(.NET Framework용)
+      빌드 시작: 2024-05-06 오전 10:11:28
+      
+      1 노드의 "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\3.29.0-rc3\\CompilerIdC\\CompilerIdC.vcxproj" 프로젝트(기본 대상)입니다.
+      PrepareForBuild:
+        "Debug\\" 디렉터리를 만들고 있습니다.
+        구조적 출력을 사용할 수 있습니다. 컴파일러 진단의 서식은 오류 계층 구조를 반영합니다. 자세한 내용은 https://aka.ms/cpp/structured-output을 참조하세요.
+        "Debug\\CompilerIdC.tlog\\" 디렉터리를 만들고 있습니다.
+      InitializeBuildStatus:
+        "AlwaysCreate"이(가) 지정되었기 때문에 "Debug\\CompilerIdC.tlog\\unsuccessfulbuild"을(를) 만들고 있습니다.
+        "Debug\\CompilerIdC.tlog\\unsuccessfulbuild"에 연결(touching)하고 있습니다.
+      VcpkgTripletSelection:
+        Using triplet "x64-windows" from "C:\\dev\\vcpkg\\installed\\x64-windows\\"
+        Using normalized configuration "Release"
+      ClCompile:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\HostX64\\x64\\CL.exe /c /IC:\\doodle_development\\include /I"C:\\dev\\vcpkg\\installed\\x64-windows\\include" /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TC /FC /errorReport:queue CMakeCCompilerId.c
+        CMakeCCompilerId.c
+      Link:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:C:\\doodle_development\\bin\\Debug\\x64 /LIBPATH:"C:\\dev\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib doodle.lib Opengl32.lib Gdi32.lib User32.lib "C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdC.lib" /MACHINE:X64 Debug\\CMakeCCompilerId.obj
+        CompilerIdC.vcxproj -> C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\3.29.0-rc3\\CompilerIdC\\CompilerIdC.exe
+      AppLocalFromInstalled:
+        pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\dev\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\3.29.0-rc3\\CompilerIdC\\CompilerIdC.exe" "C:\\dev\\vcpkg\\installed\\x64-windows\\bin" "Debug\\CompilerIdC.tlog\\CompilerIdC.write.1u.tlog" "Debug\\vcpkg.applocal.log"
+        'pwsh.exe'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+        배치 파일이 아닙니다.
+        "pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\dev\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\3.29.0-rc3\\CompilerIdC\\CompilerIdC.exe" "C:\\dev\\vcpkg\\installed\\x64-windows\\bin" "Debug\\CompilerIdC.tlog\\CompilerIdC.write.1u.tlog" "Debug\\vcpkg.applocal.log"" 명령이 종료되었습니다(코드: 9009).
+        "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "C:\\dev\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\3.29.0-rc3\\CompilerIdC\\CompilerIdC.exe" "C:\\dev\\vcpkg\\installed\\x64-windows\\bin" "Debug\\CompilerIdC.tlog\\CompilerIdC.write.1u.tlog" "Debug\\vcpkg.applocal.log"
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_C_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        "Debug\\CompilerIdC.tlog\\unsuccessfulbuild" 파일을 삭제하고 있습니다.
+        "Debug\\CompilerIdC.tlog\\CompilerIdC.lastbuildstate"에 연결(touching)하고 있습니다.
+      "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\3.29.0-rc3\\CompilerIdC\\CompilerIdC.vcxproj" 프로젝트를 빌드했습니다(기본 대상).
+      
+      빌드했습니다.
+          경고 0개
+          오류 0개
+      
+      경과 시간: 00:00:01.35
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
+      
+      The C compiler identification is MSVC, found in:
+        C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/3.29.0-rc3/CompilerIdC/CompilerIdC.exe
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      msbuild 버전 17.9.5+33de0b227(.NET Framework용)
+      빌드 시작: 2024-05-06 오전 10:11:30
+      
+      1 노드의 "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\3.29.0-rc3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" 프로젝트(기본 대상)입니다.
+      PrepareForBuild:
+        "Debug\\" 디렉터리를 만들고 있습니다.
+        구조적 출력을 사용할 수 있습니다. 컴파일러 진단의 서식은 오류 계층 구조를 반영합니다. 자세한 내용은 https://aka.ms/cpp/structured-output을 참조하세요.
+        "Debug\\CompilerIdCXX.tlog\\" 디렉터리를 만들고 있습니다.
+      InitializeBuildStatus:
+        "AlwaysCreate"이(가) 지정되었기 때문에 "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild"을(를) 만들고 있습니다.
+        "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild"에 연결(touching)하고 있습니다.
+      VcpkgTripletSelection:
+        Using triplet "x64-windows" from "C:\\dev\\vcpkg\\installed\\x64-windows\\"
+        Using normalized configuration "Release"
+      ClCompile:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\HostX64\\x64\\CL.exe /c /IC:\\doodle_development\\include /I"C:\\dev\\vcpkg\\installed\\x64-windows\\include" /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++17 /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TP /FC /errorReport:queue CMakeCXXCompilerId.cpp
+        CMakeCXXCompilerId.cpp
+      Link:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:C:\\doodle_development\\bin\\Debug\\x64 /LIBPATH:"C:\\dev\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib doodle.lib Opengl32.lib Gdi32.lib User32.lib "C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdCXX.lib" /MACHINE:X64 Debug\\CMakeCXXCompilerId.obj
+        CompilerIdCXX.vcxproj -> C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\3.29.0-rc3\\CompilerIdCXX\\CompilerIdCXX.exe
+      AppLocalFromInstalled:
+        pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\dev\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\3.29.0-rc3\\CompilerIdCXX\\CompilerIdCXX.exe" "C:\\dev\\vcpkg\\installed\\x64-windows\\bin" "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.write.1u.tlog" "Debug\\vcpkg.applocal.log"
+        'pwsh.exe'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+        배치 파일이 아닙니다.
+        "pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\dev\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\3.29.0-rc3\\CompilerIdCXX\\CompilerIdCXX.exe" "C:\\dev\\vcpkg\\installed\\x64-windows\\bin" "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.write.1u.tlog" "Debug\\vcpkg.applocal.log"" 명령이 종료되었습니다(코드: 9009).
+        "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "C:\\dev\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\3.29.0-rc3\\CompilerIdCXX\\CompilerIdCXX.exe" "C:\\dev\\vcpkg\\installed\\x64-windows\\bin" "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.write.1u.tlog" "Debug\\vcpkg.applocal.log"
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_CXX_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild" 파일을 삭제하고 있습니다.
+        "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.lastbuildstate"에 연결(touching)하고 있습니다.
+      "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\3.29.0-rc3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" 프로젝트를 빌드했습니다(기본 대상).
+      
+      빌드했습니다.
+          경고 0개
+          오류 0개
+      
+      경과 시간: 00:00:01.31
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
+      
+      The CXX compiler identification is MSVC, found in:
+        C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/3.29.0-rc3/CompilerIdCXX/CompilerIdCXX.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:64 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:13 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-4d49ah"
+      binary: "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-4d49ah"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-4d49ah'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_63899.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        msbuild 버전 17.9.5+33de0b227(.NET Framework용)
+        빌드 시작: 2024-05-06 오전 10:11:31
+        
+        1 노드의 "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-4d49ah\\cmTC_63899.vcxproj" 프로젝트(기본 대상)입니다.
+        PrepareForBuild:
+          "cmTC_63899.dir\\Debug\\" 디렉터리를 만들고 있습니다.
+          구조적 출력을 사용할 수 있습니다. 컴파일러 진단의 서식은 오류 계층 구조를 반영합니다. 자세한 내용은 https://aka.ms/cpp/structured-output을 참조하세요.
+          "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-4d49ah\\Debug\\" 디렉터리를 만들고 있습니다.
+          "cmTC_63899.dir\\Debug\\cmTC_63899.tlog\\" 디렉터리를 만들고 있습니다.
+        InitializeBuildStatus:
+          "AlwaysCreate"이(가) 지정되었기 때문에 "cmTC_63899.dir\\Debug\\cmTC_63899.tlog\\unsuccessfulbuild"을(를) 만들고 있습니다.
+          "cmTC_63899.dir\\Debug\\cmTC_63899.tlog\\unsuccessfulbuild"에 연결(touching)하고 있습니다.
+        VcpkgTripletSelection:
+          Using triplet "x64-windows" from "C:\\dev\\vcpkg\\installed\\x64-windows\\"
+          Using normalized configuration "Release"
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\HostX64\\x64\\CL.exe /c /IC:\\doodle_development\\include /I"C:\\dev\\vcpkg\\installed\\x64-windows\\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_63899.dir\\Debug\\\\" /Fd"cmTC_63899.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.29\\Modules\\CMakeCCompilerABI.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33521 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /IC:\\doodle_development\\include /I"C:\\dev\\vcpkg\\installed\\x64-windows\\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_63899.dir\\Debug\\\\" /Fd"cmTC_63899.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.29\\Modules\\CMakeCCompilerABI.c"
+          CMakeCCompilerABI.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-4d49ah\\Debug\\cmTC_63899.exe" /INCREMENTAL /ILK:"cmTC_63899.dir\\Debug\\cmTC_63899.ilk" /NOLOGO /LIBPATH:C:\\doodle_development\\bin\\Debug\\x64 /LIBPATH:"C:\\dev\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-4d49ah/Debug/cmTC_63899.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-4d49ah/Debug/cmTC_63899.lib" /MACHINE:X64  /machine:x64 cmTC_63899.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_63899.vcxproj -> C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-4d49ah\\Debug\\cmTC_63899.exe
+        AppLocalFromInstalled:
+          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\dev\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-4d49ah\\Debug\\cmTC_63899.exe" "C:\\dev\\vcpkg\\installed\\x64-windows\\bin" "cmTC_63899.dir\\Debug\\cmTC_63899.tlog\\cmTC_63899.write.1u.tlog" "cmTC_63899.dir\\Debug\\vcpkg.applocal.log"
+          'pwsh.exe'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+          배치 파일이 아닙니다.
+          "pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\dev\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-4d49ah\\Debug\\cmTC_63899.exe" "C:\\dev\\vcpkg\\installed\\x64-windows\\bin" "cmTC_63899.dir\\Debug\\cmTC_63899.tlog\\cmTC_63899.write.1u.tlog" "cmTC_63899.dir\\Debug\\vcpkg.applocal.log"" 명령이 종료되었습니다(코드: 9009).
+          "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "C:\\dev\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-4d49ah\\Debug\\cmTC_63899.exe" "C:\\dev\\vcpkg\\installed\\x64-windows\\bin" "cmTC_63899.dir\\Debug\\cmTC_63899.tlog\\cmTC_63899.write.1u.tlog" "cmTC_63899.dir\\Debug\\vcpkg.applocal.log"
+        FinalizeBuildStatus:
+          "cmTC_63899.dir\\Debug\\cmTC_63899.tlog\\unsuccessfulbuild" 파일을 삭제하고 있습니다.
+          "cmTC_63899.dir\\Debug\\cmTC_63899.tlog\\cmTC_63899.lastbuildstate"에 연결(touching)하고 있습니다.
+        "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-4d49ah\\cmTC_63899.vcxproj" 프로젝트를 빌드했습니다(기본 대상).
+        
+        빌드했습니다.
+            경고 0개
+            오류 0개
+        
+        경과 시간: 00:00:01.37
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:170 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|link\\.exe|lld-link(\\.exe)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?|link\\.exe|lld-link(\\.exe)?))("|,| |$)]
+        linker tool for 'C': C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.39.33519/bin/HostX64/x64/link.exe
+        implicit libs: []
+        implicit objs: []
+        implicit dirs: []
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:207 (cmake_determine_linker_id)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Running the C compiler's linker: "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.39.33519/bin/HostX64/x64/link.exe" "-v"
+      Microsoft (R) Incremental Linker Version 14.39.33521.0
+      Copyright (C) Microsoft Corporation.  All rights reserved.
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:64 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:13 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-abtftn"
+      binary: "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-abtftn"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-abtftn'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_5d762.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        msbuild 버전 17.9.5+33de0b227(.NET Framework용)
+        빌드 시작: 2024-05-06 오전 10:11:33
+        
+        1 노드의 "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-abtftn\\cmTC_5d762.vcxproj" 프로젝트(기본 대상)입니다.
+        PrepareForBuild:
+          "cmTC_5d762.dir\\Debug\\" 디렉터리를 만들고 있습니다.
+          구조적 출력을 사용할 수 있습니다. 컴파일러 진단의 서식은 오류 계층 구조를 반영합니다. 자세한 내용은 https://aka.ms/cpp/structured-output을 참조하세요.
+          "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-abtftn\\Debug\\" 디렉터리를 만들고 있습니다.
+          "cmTC_5d762.dir\\Debug\\cmTC_5d762.tlog\\" 디렉터리를 만들고 있습니다.
+        InitializeBuildStatus:
+          "AlwaysCreate"이(가) 지정되었기 때문에 "cmTC_5d762.dir\\Debug\\cmTC_5d762.tlog\\unsuccessfulbuild"을(를) 만들고 있습니다.
+          "cmTC_5d762.dir\\Debug\\cmTC_5d762.tlog\\unsuccessfulbuild"에 연결(touching)하고 있습니다.
+        VcpkgTripletSelection:
+          Using triplet "x64-windows" from "C:\\dev\\vcpkg\\installed\\x64-windows\\"
+          Using normalized configuration "Release"
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\HostX64\\x64\\CL.exe /c /IC:\\doodle_development\\include /I"C:\\dev\\vcpkg\\installed\\x64-windows\\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++20 /Fo"cmTC_5d762.dir\\Debug\\\\" /Fd"cmTC_5d762.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.29\\Modules\\CMakeCXXCompilerABI.cpp"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33521 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /IC:\\doodle_development\\include /I"C:\\dev\\vcpkg\\installed\\x64-windows\\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /std:c++20 /Fo"cmTC_5d762.dir\\Debug\\\\" /Fd"cmTC_5d762.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.29\\Modules\\CMakeCXXCompilerABI.cpp"
+          CMakeCXXCompilerABI.cpp
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-abtftn\\Debug\\cmTC_5d762.exe" /INCREMENTAL /ILK:"cmTC_5d762.dir\\Debug\\cmTC_5d762.ilk" /NOLOGO /LIBPATH:C:\\doodle_development\\bin\\Debug\\x64 /LIBPATH:"C:\\dev\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-abtftn/Debug/cmTC_5d762.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-abtftn/Debug/cmTC_5d762.lib" /MACHINE:X64  /machine:x64 cmTC_5d762.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_5d762.vcxproj -> C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-abtftn\\Debug\\cmTC_5d762.exe
+        AppLocalFromInstalled:
+          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\dev\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-abtftn\\Debug\\cmTC_5d762.exe" "C:\\dev\\vcpkg\\installed\\x64-windows\\bin" "cmTC_5d762.dir\\Debug\\cmTC_5d762.tlog\\cmTC_5d762.write.1u.tlog" "cmTC_5d762.dir\\Debug\\vcpkg.applocal.log"
+          'pwsh.exe'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+          배치 파일이 아닙니다.
+          "pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\dev\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-abtftn\\Debug\\cmTC_5d762.exe" "C:\\dev\\vcpkg\\installed\\x64-windows\\bin" "cmTC_5d762.dir\\Debug\\cmTC_5d762.tlog\\cmTC_5d762.write.1u.tlog" "cmTC_5d762.dir\\Debug\\vcpkg.applocal.log"" 명령이 종료되었습니다(코드: 9009).
+          "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "C:\\dev\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-abtftn\\Debug\\cmTC_5d762.exe" "C:\\dev\\vcpkg\\installed\\x64-windows\\bin" "cmTC_5d762.dir\\Debug\\cmTC_5d762.tlog\\cmTC_5d762.write.1u.tlog" "cmTC_5d762.dir\\Debug\\vcpkg.applocal.log"
+        FinalizeBuildStatus:
+          "cmTC_5d762.dir\\Debug\\cmTC_5d762.tlog\\unsuccessfulbuild" 파일을 삭제하고 있습니다.
+          "cmTC_5d762.dir\\Debug\\cmTC_5d762.tlog\\cmTC_5d762.lastbuildstate"에 연결(touching)하고 있습니다.
+        "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-abtftn\\cmTC_5d762.vcxproj" 프로젝트를 빌드했습니다(기본 대상).
+        
+        빌드했습니다.
+            경고 0개
+            오류 0개
+        
+        경과 시간: 00:00:01.31
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:170 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|link\\.exe|lld-link(\\.exe)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?|link\\.exe|lld-link(\\.exe)?))("|,| |$)]
+        linker tool for 'CXX': C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.39.33519/bin/HostX64/x64/link.exe
+        implicit libs: []
+        implicit objs: []
+        implicit dirs: []
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:207 (cmake_determine_linker_id)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:13 (project)"
+    message: |
+      Running the CXX compiler's linker: "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.39.33519/bin/HostX64/x64/link.exe" "-v"
+      Microsoft (R) Incremental Linker Version 14.39.33521.0
+      Copyright (C) Microsoft Corporation.  All rights reserved.
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CheckTypeSize.cmake:250 (check_include_file)"
+      - "build/_deps/sfml-src/cmake/Config.cmake:10 (check_type_size)"
+      - "build/_deps/sfml-src/CMakeLists.txt:41 (include)"
+    checks:
+      - "Looking for sys/types.h"
+    directories:
+      source: "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-xip3nm"
+      binary: "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-xip3nm"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_OSX_SYSROOT: ""
+      CMAKE_USER_MAKE_RULES_OVERRIDE: "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/sfml-src/cmake/CompilerOptionsOverride.cmake"
+    buildResult:
+      variable: "HAVE_SYS_TYPES_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-xip3nm'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_944da.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        msbuild 버전 17.9.5+33de0b227(.NET Framework용)
+        빌드 시작: 2024-05-06 오전 10:12:21
+        
+        1 노드의 "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xip3nm\\cmTC_944da.vcxproj" 프로젝트(기본 대상)입니다.
+        PrepareForBuild:
+          "cmTC_944da.dir\\Debug\\" 디렉터리를 만들고 있습니다.
+          구조적 출력을 사용할 수 있습니다. 컴파일러 진단의 서식은 오류 계층 구조를 반영합니다. 자세한 내용은 https://aka.ms/cpp/structured-output을 참조하세요.
+          "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xip3nm\\Debug\\" 디렉터리를 만들고 있습니다.
+          "cmTC_944da.dir\\Debug\\cmTC_944da.tlog\\" 디렉터리를 만들고 있습니다.
+        InitializeBuildStatus:
+          "AlwaysCreate"이(가) 지정되었기 때문에 "cmTC_944da.dir\\Debug\\cmTC_944da.tlog\\unsuccessfulbuild"을(를) 만들고 있습니다.
+          "cmTC_944da.dir\\Debug\\cmTC_944da.tlog\\unsuccessfulbuild"에 연결(touching)하고 있습니다.
+        VcpkgTripletSelection:
+          Using triplet "x64-windows" from "C:\\dev\\vcpkg\\installed\\x64-windows\\"
+          Using normalized configuration "Release"
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\HostX64\\x64\\CL.exe /c /IC:\\doodle_development\\include /I"C:\\dev\\vcpkg\\installed\\x64-windows\\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_944da.dir\\Debug\\\\" /Fd"cmTC_944da.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xip3nm\\CheckIncludeFile.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33521 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /IC:\\doodle_development\\include /I"C:\\dev\\vcpkg\\installed\\x64-windows\\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_944da.dir\\Debug\\\\" /Fd"cmTC_944da.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xip3nm\\CheckIncludeFile.c"
+          CheckIncludeFile.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xip3nm\\Debug\\cmTC_944da.exe" /INCREMENTAL /ILK:"cmTC_944da.dir\\Debug\\cmTC_944da.ilk" /NOLOGO /LIBPATH:C:\\doodle_development\\bin\\Debug\\x64 /LIBPATH:"C:\\dev\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-xip3nm/Debug/cmTC_944da.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-xip3nm/Debug/cmTC_944da.lib" /MACHINE:X64  /machine:x64 cmTC_944da.dir\\Debug\\CheckIncludeFile.obj
+          cmTC_944da.vcxproj -> C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xip3nm\\Debug\\cmTC_944da.exe
+        AppLocalFromInstalled:
+          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\dev\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xip3nm\\Debug\\cmTC_944da.exe" "C:\\dev\\vcpkg\\installed\\x64-windows\\bin" "cmTC_944da.dir\\Debug\\cmTC_944da.tlog\\cmTC_944da.write.1u.tlog" "cmTC_944da.dir\\Debug\\vcpkg.applocal.log"
+          'pwsh.exe'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+          배치 파일이 아닙니다.
+          "pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\dev\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xip3nm\\Debug\\cmTC_944da.exe" "C:\\dev\\vcpkg\\installed\\x64-windows\\bin" "cmTC_944da.dir\\Debug\\cmTC_944da.tlog\\cmTC_944da.write.1u.tlog" "cmTC_944da.dir\\Debug\\vcpkg.applocal.log"" 명령이 종료되었습니다(코드: 9009).
+          "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "C:\\dev\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xip3nm\\Debug\\cmTC_944da.exe" "C:\\dev\\vcpkg\\installed\\x64-windows\\bin" "cmTC_944da.dir\\Debug\\cmTC_944da.tlog\\cmTC_944da.write.1u.tlog" "cmTC_944da.dir\\Debug\\vcpkg.applocal.log"
+        FinalizeBuildStatus:
+          "cmTC_944da.dir\\Debug\\cmTC_944da.tlog\\unsuccessfulbuild" 파일을 삭제하고 있습니다.
+          "cmTC_944da.dir\\Debug\\cmTC_944da.tlog\\cmTC_944da.lastbuildstate"에 연결(touching)하고 있습니다.
+        "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xip3nm\\cmTC_944da.vcxproj" 프로젝트를 빌드했습니다(기본 대상).
+        
+        빌드했습니다.
+            경고 0개
+            오류 0개
+        
+        경과 시간: 00:00:01.38
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CheckTypeSize.cmake:251 (check_include_file)"
+      - "build/_deps/sfml-src/cmake/Config.cmake:10 (check_type_size)"
+      - "build/_deps/sfml-src/CMakeLists.txt:41 (include)"
+    checks:
+      - "Looking for stdint.h"
+    directories:
+      source: "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-fqwmw2"
+      binary: "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-fqwmw2"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_OSX_SYSROOT: ""
+      CMAKE_USER_MAKE_RULES_OVERRIDE: "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/sfml-src/cmake/CompilerOptionsOverride.cmake"
+    buildResult:
+      variable: "HAVE_STDINT_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-fqwmw2'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_a0f75.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        msbuild 버전 17.9.5+33de0b227(.NET Framework용)
+        빌드 시작: 2024-05-06 오전 10:12:22
+        
+        1 노드의 "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-fqwmw2\\cmTC_a0f75.vcxproj" 프로젝트(기본 대상)입니다.
+        PrepareForBuild:
+          "cmTC_a0f75.dir\\Debug\\" 디렉터리를 만들고 있습니다.
+          구조적 출력을 사용할 수 있습니다. 컴파일러 진단의 서식은 오류 계층 구조를 반영합니다. 자세한 내용은 https://aka.ms/cpp/structured-output을 참조하세요.
+          "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-fqwmw2\\Debug\\" 디렉터리를 만들고 있습니다.
+          "cmTC_a0f75.dir\\Debug\\cmTC_a0f75.tlog\\" 디렉터리를 만들고 있습니다.
+        InitializeBuildStatus:
+          "AlwaysCreate"이(가) 지정되었기 때문에 "cmTC_a0f75.dir\\Debug\\cmTC_a0f75.tlog\\unsuccessfulbuild"을(를) 만들고 있습니다.
+          "cmTC_a0f75.dir\\Debug\\cmTC_a0f75.tlog\\unsuccessfulbuild"에 연결(touching)하고 있습니다.
+        VcpkgTripletSelection:
+          Using triplet "x64-windows" from "C:\\dev\\vcpkg\\installed\\x64-windows\\"
+          Using normalized configuration "Release"
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\HostX64\\x64\\CL.exe /c /IC:\\doodle_development\\include /I"C:\\dev\\vcpkg\\installed\\x64-windows\\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_a0f75.dir\\Debug\\\\" /Fd"cmTC_a0f75.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-fqwmw2\\CheckIncludeFile.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33521 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /IC:\\doodle_development\\include /I"C:\\dev\\vcpkg\\installed\\x64-windows\\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_a0f75.dir\\Debug\\\\" /Fd"cmTC_a0f75.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-fqwmw2\\CheckIncludeFile.c"
+          CheckIncludeFile.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-fqwmw2\\Debug\\cmTC_a0f75.exe" /INCREMENTAL /ILK:"cmTC_a0f75.dir\\Debug\\cmTC_a0f75.ilk" /NOLOGO /LIBPATH:C:\\doodle_development\\bin\\Debug\\x64 /LIBPATH:"C:\\dev\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-fqwmw2/Debug/cmTC_a0f75.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-fqwmw2/Debug/cmTC_a0f75.lib" /MACHINE:X64  /machine:x64 cmTC_a0f75.dir\\Debug\\CheckIncludeFile.obj
+          cmTC_a0f75.vcxproj -> C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-fqwmw2\\Debug\\cmTC_a0f75.exe
+        AppLocalFromInstalled:
+          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\dev\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-fqwmw2\\Debug\\cmTC_a0f75.exe" "C:\\dev\\vcpkg\\installed\\x64-windows\\bin" "cmTC_a0f75.dir\\Debug\\cmTC_a0f75.tlog\\cmTC_a0f75.write.1u.tlog" "cmTC_a0f75.dir\\Debug\\vcpkg.applocal.log"
+          'pwsh.exe'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+          배치 파일이 아닙니다.
+          "pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\dev\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-fqwmw2\\Debug\\cmTC_a0f75.exe" "C:\\dev\\vcpkg\\installed\\x64-windows\\bin" "cmTC_a0f75.dir\\Debug\\cmTC_a0f75.tlog\\cmTC_a0f75.write.1u.tlog" "cmTC_a0f75.dir\\Debug\\vcpkg.applocal.log"" 명령이 종료되었습니다(코드: 9009).
+          "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "C:\\dev\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-fqwmw2\\Debug\\cmTC_a0f75.exe" "C:\\dev\\vcpkg\\installed\\x64-windows\\bin" "cmTC_a0f75.dir\\Debug\\cmTC_a0f75.tlog\\cmTC_a0f75.write.1u.tlog" "cmTC_a0f75.dir\\Debug\\vcpkg.applocal.log"
+        FinalizeBuildStatus:
+          "cmTC_a0f75.dir\\Debug\\cmTC_a0f75.tlog\\unsuccessfulbuild" 파일을 삭제하고 있습니다.
+          "cmTC_a0f75.dir\\Debug\\cmTC_a0f75.tlog\\cmTC_a0f75.lastbuildstate"에 연결(touching)하고 있습니다.
+        "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-fqwmw2\\cmTC_a0f75.vcxproj" 프로젝트를 빌드했습니다(기본 대상).
+        
+        빌드했습니다.
+            경고 0개
+            오류 0개
+        
+        경과 시간: 00:00:01.38
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CheckTypeSize.cmake:252 (check_include_file)"
+      - "build/_deps/sfml-src/cmake/Config.cmake:10 (check_type_size)"
+      - "build/_deps/sfml-src/CMakeLists.txt:41 (include)"
+    checks:
+      - "Looking for stddef.h"
+    directories:
+      source: "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-ywdiul"
+      binary: "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-ywdiul"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_OSX_SYSROOT: ""
+      CMAKE_USER_MAKE_RULES_OVERRIDE: "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/sfml-src/cmake/CompilerOptionsOverride.cmake"
+    buildResult:
+      variable: "HAVE_STDDEF_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-ywdiul'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_f04f9.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        msbuild 버전 17.9.5+33de0b227(.NET Framework용)
+        빌드 시작: 2024-05-06 오전 10:12:24
+        
+        1 노드의 "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ywdiul\\cmTC_f04f9.vcxproj" 프로젝트(기본 대상)입니다.
+        PrepareForBuild:
+          "cmTC_f04f9.dir\\Debug\\" 디렉터리를 만들고 있습니다.
+          구조적 출력을 사용할 수 있습니다. 컴파일러 진단의 서식은 오류 계층 구조를 반영합니다. 자세한 내용은 https://aka.ms/cpp/structured-output을 참조하세요.
+          "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ywdiul\\Debug\\" 디렉터리를 만들고 있습니다.
+          "cmTC_f04f9.dir\\Debug\\cmTC_f04f9.tlog\\" 디렉터리를 만들고 있습니다.
+        InitializeBuildStatus:
+          "AlwaysCreate"이(가) 지정되었기 때문에 "cmTC_f04f9.dir\\Debug\\cmTC_f04f9.tlog\\unsuccessfulbuild"을(를) 만들고 있습니다.
+          "cmTC_f04f9.dir\\Debug\\cmTC_f04f9.tlog\\unsuccessfulbuild"에 연결(touching)하고 있습니다.
+        VcpkgTripletSelection:
+          Using triplet "x64-windows" from "C:\\dev\\vcpkg\\installed\\x64-windows\\"
+          Using normalized configuration "Release"
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\HostX64\\x64\\CL.exe /c /IC:\\doodle_development\\include /I"C:\\dev\\vcpkg\\installed\\x64-windows\\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_f04f9.dir\\Debug\\\\" /Fd"cmTC_f04f9.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ywdiul\\CheckIncludeFile.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33521 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /IC:\\doodle_development\\include /I"C:\\dev\\vcpkg\\installed\\x64-windows\\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_f04f9.dir\\Debug\\\\" /Fd"cmTC_f04f9.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ywdiul\\CheckIncludeFile.c"
+          CheckIncludeFile.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ywdiul\\Debug\\cmTC_f04f9.exe" /INCREMENTAL /ILK:"cmTC_f04f9.dir\\Debug\\cmTC_f04f9.ilk" /NOLOGO /LIBPATH:C:\\doodle_development\\bin\\Debug\\x64 /LIBPATH:"C:\\dev\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-ywdiul/Debug/cmTC_f04f9.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-ywdiul/Debug/cmTC_f04f9.lib" /MACHINE:X64  /machine:x64 cmTC_f04f9.dir\\Debug\\CheckIncludeFile.obj
+          cmTC_f04f9.vcxproj -> C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ywdiul\\Debug\\cmTC_f04f9.exe
+        AppLocalFromInstalled:
+          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\dev\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ywdiul\\Debug\\cmTC_f04f9.exe" "C:\\dev\\vcpkg\\installed\\x64-windows\\bin" "cmTC_f04f9.dir\\Debug\\cmTC_f04f9.tlog\\cmTC_f04f9.write.1u.tlog" "cmTC_f04f9.dir\\Debug\\vcpkg.applocal.log"
+          'pwsh.exe'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+          배치 파일이 아닙니다.
+          "pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\dev\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ywdiul\\Debug\\cmTC_f04f9.exe" "C:\\dev\\vcpkg\\installed\\x64-windows\\bin" "cmTC_f04f9.dir\\Debug\\cmTC_f04f9.tlog\\cmTC_f04f9.write.1u.tlog" "cmTC_f04f9.dir\\Debug\\vcpkg.applocal.log"" 명령이 종료되었습니다(코드: 9009).
+          "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "C:\\dev\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ywdiul\\Debug\\cmTC_f04f9.exe" "C:\\dev\\vcpkg\\installed\\x64-windows\\bin" "cmTC_f04f9.dir\\Debug\\cmTC_f04f9.tlog\\cmTC_f04f9.write.1u.tlog" "cmTC_f04f9.dir\\Debug\\vcpkg.applocal.log"
+        FinalizeBuildStatus:
+          "cmTC_f04f9.dir\\Debug\\cmTC_f04f9.tlog\\unsuccessfulbuild" 파일을 삭제하고 있습니다.
+          "cmTC_f04f9.dir\\Debug\\cmTC_f04f9.tlog\\cmTC_f04f9.lastbuildstate"에 연결(touching)하고 있습니다.
+        "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ywdiul\\cmTC_f04f9.vcxproj" 프로젝트를 빌드했습니다(기본 대상).
+        
+        빌드했습니다.
+            경고 0개
+            오류 0개
+        
+        경과 시간: 00:00:01.30
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CheckTypeSize.cmake:146 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CheckTypeSize.cmake:271 (__check_type_size_impl)"
+      - "build/_deps/sfml-src/cmake/Config.cmake:10 (check_type_size)"
+      - "build/_deps/sfml-src/CMakeLists.txt:41 (include)"
+    checks:
+      - "Check size of void*"
+    directories:
+      source: "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-ierbq0"
+      binary: "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-ierbq0"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_OSX_SYSROOT: ""
+      CMAKE_USER_MAKE_RULES_OVERRIDE: "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/sfml-src/cmake/CompilerOptionsOverride.cmake"
+    buildResult:
+      variable: "HAVE_SIZEOF_VOID_PTR"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-ierbq0'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_02362.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        msbuild 버전 17.9.5+33de0b227(.NET Framework용)
+        빌드 시작: 2024-05-06 오전 10:12:25
+        
+        1 노드의 "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ierbq0\\cmTC_02362.vcxproj" 프로젝트(기본 대상)입니다.
+        PrepareForBuild:
+          "cmTC_02362.dir\\Debug\\" 디렉터리를 만들고 있습니다.
+          구조적 출력을 사용할 수 있습니다. 컴파일러 진단의 서식은 오류 계층 구조를 반영합니다. 자세한 내용은 https://aka.ms/cpp/structured-output을 참조하세요.
+          "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ierbq0\\Debug\\" 디렉터리를 만들고 있습니다.
+          "cmTC_02362.dir\\Debug\\cmTC_02362.tlog\\" 디렉터리를 만들고 있습니다.
+        InitializeBuildStatus:
+          "AlwaysCreate"이(가) 지정되었기 때문에 "cmTC_02362.dir\\Debug\\cmTC_02362.tlog\\unsuccessfulbuild"을(를) 만들고 있습니다.
+          "cmTC_02362.dir\\Debug\\cmTC_02362.tlog\\unsuccessfulbuild"에 연결(touching)하고 있습니다.
+        VcpkgTripletSelection:
+          Using triplet "x64-windows" from "C:\\dev\\vcpkg\\installed\\x64-windows\\"
+          Using normalized configuration "Release"
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\HostX64\\x64\\CL.exe /c /IC:\\doodle_development\\include /I"C:\\dev\\vcpkg\\installed\\x64-windows\\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_02362.dir\\Debug\\\\" /Fd"cmTC_02362.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ierbq0\\SIZEOF_VOID_PTR.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.39.33521 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /IC:\\doodle_development\\include /I"C:\\dev\\vcpkg\\installed\\x64-windows\\include" /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_02362.dir\\Debug\\\\" /Fd"cmTC_02362.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ierbq0\\SIZEOF_VOID_PTR.c"
+          SIZEOF_VOID_PTR.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.39.33519\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ierbq0\\Debug\\cmTC_02362.exe" /INCREMENTAL /ILK:"cmTC_02362.dir\\Debug\\cmTC_02362.ilk" /NOLOGO /LIBPATH:C:\\doodle_development\\bin\\Debug\\x64 /LIBPATH:"C:\\dev\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib "C:\\dev\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-ierbq0/Debug/cmTC_02362.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/CMakeFiles/CMakeScratch/TryCompile-ierbq0/Debug/cmTC_02362.lib" /MACHINE:X64  /machine:x64 cmTC_02362.dir\\Debug\\SIZEOF_VOID_PTR.obj
+          cmTC_02362.vcxproj -> C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ierbq0\\Debug\\cmTC_02362.exe
+        AppLocalFromInstalled:
+          pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\dev\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ierbq0\\Debug\\cmTC_02362.exe" "C:\\dev\\vcpkg\\installed\\x64-windows\\bin" "cmTC_02362.dir\\Debug\\cmTC_02362.tlog\\cmTC_02362.write.1u.tlog" "cmTC_02362.dir\\Debug\\vcpkg.applocal.log"
+          'pwsh.exe'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+          배치 파일이 아닙니다.
+          "pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\dev\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ierbq0\\Debug\\cmTC_02362.exe" "C:\\dev\\vcpkg\\installed\\x64-windows\\bin" "cmTC_02362.dir\\Debug\\cmTC_02362.tlog\\cmTC_02362.write.1u.tlog" "cmTC_02362.dir\\Debug\\vcpkg.applocal.log"" 명령이 종료되었습니다(코드: 9009).
+          "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "C:\\dev\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ierbq0\\Debug\\cmTC_02362.exe" "C:\\dev\\vcpkg\\installed\\x64-windows\\bin" "cmTC_02362.dir\\Debug\\cmTC_02362.tlog\\cmTC_02362.write.1u.tlog" "cmTC_02362.dir\\Debug\\vcpkg.applocal.log"
+        FinalizeBuildStatus:
+          "cmTC_02362.dir\\Debug\\cmTC_02362.tlog\\unsuccessfulbuild" 파일을 삭제하고 있습니다.
+          "cmTC_02362.dir\\Debug\\cmTC_02362.tlog\\cmTC_02362.lastbuildstate"에 연결(touching)하고 있습니다.
+        "C:\\Users\\user\\Documents\\gam200-final-project-team_exodia\\Emscript Test\\build\\CMakeFiles\\CMakeScratch\\TryCompile-ierbq0\\cmTC_02362.vcxproj" 프로젝트를 빌드했습니다(기본 대상).
+        
+        빌드했습니다.
+            경고 0개
+            오류 0개
+        
+        경과 시간: 00:00:01.35
+        
+      exitCode: 0
+...

@@ -1,0 +1,576 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{0B21351A-E96C-3566-86BE-B7F9048470B1}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>GAM250_Exodia</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\executables\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">GAM250_Exodia.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">GAM250_Exodia</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\executables\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">GAM250_Exodia.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">GAM250_Exodia</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\executables\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">GAM250_Exodia.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">GAM250_Exodia</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\executables\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">GAM250_Exodia.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">GAM250_Exodia</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\.;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-build\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sfml-src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/stb_github-src" /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-src/include" /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/sdl2-src/include" /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/dearimgui-src" /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/dearimgui-src/backends" /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_gsl-src/include" /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_glm-src/glm/.."</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <ConformanceMode>true</ConformanceMode>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4201;4458;26439;4716</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;DEVELOPER_VERSION;GLEW_STATIC;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;DEVELOPER_VERSION;GLEW_STATIC;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\.;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-build\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sfml-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\stb_github-src;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\glew-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sdl2-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\dearimgui-src;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\dearimgui-src\backends;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_gsl-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_glm-src\glm\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\.;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-build\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sfml-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\stb_github-src;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\glew-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sdl2-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\dearimgui-src;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\dearimgui-src\backends;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_gsl-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_glm-src\glm\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/assets" "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/executables/Debug/assets"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;glew32s.lib;..\Debug\imgui.lib;SDL2.lib;..\Debug\stb.lib;..\_deps\freetype-build\Debug\freetyped.lib;..\_deps\sfml-build\lib\Debug\sfml-graphics-d.lib;..\_deps\sfml-build\lib\Debug\sfml-audio-d.lib;..\_deps\sfml-build\lib\Debug\sfml-window-d.lib;..\_deps\sfml-build\lib\Debug\sfml-network-d.lib;..\_deps\sfml-build\lib\Debug\sfml-system-d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-src/lib/Release/x64;C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-src/lib/Release/x64/$(Configuration);C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/sdl2-src/lib/x64;C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/sdl2-src/lib/x64/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/source/Debug/GAM250_Exodia.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/executables/Debug/GAM250_Exodia.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\.;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-build\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sfml-src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/stb_github-src" /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-src/include" /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/sdl2-src/include" /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/dearimgui-src" /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/dearimgui-src/backends" /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_gsl-src/include" /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_glm-src/glm/.."</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ConformanceMode>true</ConformanceMode>
+      <DisableSpecificWarnings>4201;4458;26439;4716</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;GLEW_STATIC;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;GLEW_STATIC;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\.;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-build\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sfml-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\stb_github-src;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\glew-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sdl2-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\dearimgui-src;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\dearimgui-src\backends;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_gsl-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_glm-src\glm\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\.;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-build\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sfml-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\stb_github-src;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\glew-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sdl2-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\dearimgui-src;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\dearimgui-src\backends;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_gsl-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_glm-src\glm\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/assets" "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/executables/Release/assets"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;glew32s.lib;..\Release\imgui.lib;SDL2.lib;..\Release\stb.lib;..\_deps\freetype-build\Release\freetype.lib;..\_deps\sfml-build\lib\Release\sfml-graphics.lib;..\_deps\sfml-build\lib\Release\sfml-audio.lib;..\_deps\sfml-build\lib\Release\sfml-window.lib;..\_deps\sfml-build\lib\Release\sfml-network.lib;..\_deps\sfml-build\lib\Release\sfml-system.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-src/lib/Release/x64;C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-src/lib/Release/x64/$(Configuration);C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/sdl2-src/lib/x64;C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/sdl2-src/lib/x64/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/source/Release/GAM250_Exodia.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/executables/Release/GAM250_Exodia.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\.;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-build\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sfml-src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/stb_github-src" /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-src/include" /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/sdl2-src/include" /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/dearimgui-src" /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/dearimgui-src/backends" /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_gsl-src/include" /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_glm-src/glm/.."</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ConformanceMode>true</ConformanceMode>
+      <DisableSpecificWarnings>4201;4458;26439;4716</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;DEVELOPER_VERSION;GLEW_STATIC;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;DEVELOPER_VERSION;GLEW_STATIC;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\.;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-build\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sfml-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\stb_github-src;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\glew-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sdl2-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\dearimgui-src;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\dearimgui-src\backends;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_gsl-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_glm-src\glm\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\.;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-build\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sfml-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\stb_github-src;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\glew-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sdl2-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\dearimgui-src;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\dearimgui-src\backends;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_gsl-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_glm-src\glm\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/assets" "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/executables/MinSizeRel/assets"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;glew32s.lib;..\MinSizeRel\imgui.lib;SDL2.lib;..\MinSizeRel\stb.lib;..\_deps\freetype-build\MinSizeRel\freetype.lib;..\_deps\sfml-build\lib\MinSizeRel\sfml-graphics.lib;..\_deps\sfml-build\lib\MinSizeRel\sfml-audio.lib;..\_deps\sfml-build\lib\MinSizeRel\sfml-window.lib;..\_deps\sfml-build\lib\MinSizeRel\sfml-network.lib;..\_deps\sfml-build\lib\MinSizeRel\sfml-system.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-src/lib/Release/x64;C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-src/lib/Release/x64/$(Configuration);C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/sdl2-src/lib/x64;C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/sdl2-src/lib/x64/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/source/MinSizeRel/GAM250_Exodia.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/executables/MinSizeRel/GAM250_Exodia.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\.;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-build\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sfml-src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/stb_github-src" /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-src/include" /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/sdl2-src/include" /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/dearimgui-src" /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/dearimgui-src/backends" /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_gsl-src/include" /external:I "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/the_glm-src/glm/.."</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ConformanceMode>true</ConformanceMode>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4201;4458;26439;4716</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;DEVELOPER_VERSION;GLEW_STATIC;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;DEVELOPER_VERSION;GLEW_STATIC;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\.;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-build\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sfml-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\stb_github-src;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\glew-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sdl2-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\dearimgui-src;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\dearimgui-src\backends;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_gsl-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_glm-src\glm\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\.;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-build\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sfml-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\stb_github-src;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\glew-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sdl2-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\dearimgui-src;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\dearimgui-src\backends;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_gsl-src\include;C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_glm-src\glm\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/assets" "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/executables/RelWithDebInfo/assets"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;glew32s.lib;..\RelWithDebInfo\imgui.lib;SDL2.lib;..\RelWithDebInfo\stb.lib;..\_deps\freetype-build\RelWithDebInfo\freetype.lib;..\_deps\sfml-build\lib\RelWithDebInfo\sfml-graphics.lib;..\_deps\sfml-build\lib\RelWithDebInfo\sfml-audio.lib;..\_deps\sfml-build\lib\RelWithDebInfo\sfml-window.lib;..\_deps\sfml-build\lib\RelWithDebInfo\sfml-network.lib;..\_deps\sfml-build\lib\RelWithDebInfo\sfml-system.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-src/lib/Release/x64;C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/glew-src/lib/Release/x64/$(Configuration);C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/sdl2-src/lib/x64;C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/_deps/sdl2-src/lib/x64/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/source/RelWithDebInfo/GAM250_Exodia.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/executables/RelWithDebInfo/GAM250_Exodia.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/source/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test" "-BC:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build" --check-stamp-file "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/source/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\source\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/source/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test" "-BC:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build" --check-stamp-file "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/source/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\source\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/source/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test" "-BC:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build" --check-stamp-file "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/source/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\source\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/source/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test" "-BC:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build" --check-stamp-file "C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/build/source/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\source\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\assets\Path.hpp" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\assets\Path.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\assets\Reloader.hpp" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\assets\Reloader.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Component\Diamond.h" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Component\GameSpeed.h" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Component\Gold.h" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Component\Map.h" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Component\Time.h" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Component\Wave.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Component\Wave.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\opengl\GL.hpp" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\opengl\GL.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\opengl\GLHandle.hpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\opengl\GLIndexBuffer.hpp" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\opengl\GLIndexBuffer.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\opengl\GLShader.hpp" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\opengl\GLShader.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\opengl\GLTexture.hpp" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\opengl\GLTexture.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\opengl\GLVertexArray.hpp" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\opengl\GLVertexArray.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\opengl\GLVertexBuffer.hpp" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\opengl\GLVertexBuffer.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\opengl\GLFrameBuffer.hpp" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\opengl\GLFrameBuffer.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\environment\Environment.hpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\environment\Input.hpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\environment\OpenGL.hpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\util\FPS.hpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\util\Timer.hpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\util\WatchFiles.hpp" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\util\WatchFiles.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\util\Random.hpp" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\util\Random.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Animation.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Animation.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Audio.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Audio.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Collision.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Collision.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Component.h" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\ComponentManager.h" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Constants.h" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Drawing.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Drawing.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\DrawShape.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\DrawShape.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Engine.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Engine.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Font.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Font.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\GameObject.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\GameObject.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\GameObjectManager.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\GameObjectManager.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Image2D.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Image2D.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\GameState.h" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\GameStateManager.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\GameStateManager.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\IfWantShader.h" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\ImGuiHelper.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\ImGuiHelper.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Input.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Input.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\IProgram.h" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Logger.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Logger.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Matrix.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Matrix.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\MergeCollision.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\MergeCollision.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Mouse.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Mouse.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Normalization.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Normalization.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\not_null.h" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\OriginPosition.h" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\owner.h" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Particle.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Particle.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Rect.h" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\ShowCollision.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\ShowCollision.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Sprite.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Sprite.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Texture.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Texture.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\TextureManager.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\TextureManager.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Vec2.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Vec2.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Window.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Engine\Window.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Components\Gold.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Components\Gold.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Components\Life.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Components\Life.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Modes\Game.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Modes\Game.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Modes\HowToPlay.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Modes\HowToPlay.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Modes\Lose.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Modes\Lose.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Modes\MainMenu.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Modes\MainMenu.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Modes\Store.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Modes\Store.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Modes\Tutorial.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Modes\Tutorial.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Modes\Win.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Modes\Win.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Objects\Button.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Objects\Button.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Objects\Monsters\Monster.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Objects\Monsters\Monster.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Objects\Units\MagicUnit.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Objects\Units\MagicUnit.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Objects\Units\MeleeUnit.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Objects\Units\MeleeUnit.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Objects\Units\RangedUnit.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Objects\Units\RangedUnit.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Objects\Units\Sniper.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Objects\Units\Sniper.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Objects\Units\Spear.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Objects\Units\Spear.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Objects\Units\Transform.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Objects\Units\Transform.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Objects\Units\Unit.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Objects\Units\Unit.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Fonts.h" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\GameObjectTypes.h" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Mode1.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Mode1.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Mode2.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Mode2.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Particles.h" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Splash.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\Splash.cpp" />
+    <ClInclude Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\Game\States.h" />
+    <ClCompile Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\source\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\ZERO_CHECK.vcxproj">
+      <Project>{C00269F4-E320-35A7-AA9B-404E467F8B4B}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\copy_sdl2_dll.vcxproj">
+      <Project>{91486474-247D-3EDE-BDC0-3EE704A0D9BD}</Project>
+      <Name>copy_sdl2_dll</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\freetype-build\freetype.vcxproj">
+      <Project>{9B8EA8FB-AA2B-38AD-9827-1A4A1E6BC947}</Project>
+      <Name>freetype</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\imgui.vcxproj">
+      <Project>{74A98012-C625-394F-AF02-35030561C04B}</Project>
+      <Name>imgui</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sfml-build\src\SFML\Audio\sfml-audio.vcxproj">
+      <Project>{6DCF875E-1060-3C79-8D07-8C2DD23ADBDA}</Project>
+      <Name>sfml-audio</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sfml-build\src\SFML\Graphics\sfml-graphics.vcxproj">
+      <Project>{2869759E-E66A-3429-8B1D-FFAE4705E551}</Project>
+      <Name>sfml-graphics</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sfml-build\src\SFML\Network\sfml-network.vcxproj">
+      <Project>{2153737F-DD62-3952-9AB4-B840E6A65BCB}</Project>
+      <Name>sfml-network</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sfml-build\src\SFML\System\sfml-system.vcxproj">
+      <Project>{287CD78D-C734-3336-AA0A-A0CABD3D51C6}</Project>
+      <Name>sfml-system</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\sfml-build\src\SFML\Window\sfml-window.vcxproj">
+      <Project>{E037248A-8CDA-3F47-80A7-2D553EFF3296}</Project>
+      <Name>sfml-window</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\stb.vcxproj">
+      <Project>{40BC130C-A27D-3FFA-A56F-638C2DC8C3D9}</Project>
+      <Name>stb</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -333,6 +333,10 @@ FETCHCONTENT_SOURCE_DIR_FREETYPE:PATH=
 FETCHCONTENT_SOURCE_DIR_GLEW:PATH=
 
 //When not empty, overrides where to find pre-populated content
+// for openal
+FETCHCONTENT_SOURCE_DIR_OPENAL:PATH=
+
+//When not empty, overrides where to find pre-populated content
 // for sdl2
 FETCHCONTENT_SOURCE_DIR_SDL2:PATH=
 
@@ -363,6 +367,9 @@ FETCHCONTENT_UPDATES_DISCONNECTED_FREETYPE:BOOL=OFF
 
 //Enables UPDATE_DISCONNECTED behavior just for population of glew
 FETCHCONTENT_UPDATES_DISCONNECTED_GLEW:BOOL=OFF
+
+//Enables UPDATE_DISCONNECTED behavior just for population of openal
+FETCHCONTENT_UPDATES_DISCONNECTED_OPENAL:BOOL=OFF
 
 //Enables UPDATE_DISCONNECTED behavior just for population of sdl2
 FETCHCONTENT_UPDATES_DISCONNECTED_SDL2:BOOL=OFF
@@ -484,6 +491,9 @@ OGG_INCLUDE_DIR:PATH=C:/Users/user/Documents/gam200-final-project-team_exodia/Em
 
 //Path to a library.
 OGG_LIBRARY:FILEPATH=C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-src/extlibs/libs-msvc-universal/x64/ogg.lib
+
+//Path to a file.
+OPENAL_DLL:FILEPATH=OPENAL_DLL-NOTFOUND
 
 //Path to a file.
 OPENAL_INCLUDE_DIR:PATH=C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-src/extlibs/headers/AL

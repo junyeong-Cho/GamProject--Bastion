@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_gsl-subbuild\CMakeFiles\7b589c653af69aaab7d212b2e21e1377\the_gsl-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_gsl-subbuild\CMakeFiles\7b589c653af69aaab7d212b2e21e1377\the_gsl-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_gsl-subbuild\CMakeFiles\7b589c653af69aaab7d212b2e21e1377\the_gsl-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_gsl-subbuild\CMakeFiles\7b589c653af69aaab7d212b2e21e1377\the_gsl-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_gsl-subbuild\CMakeFiles\7b589c653af69aaab7d212b2e21e1377\the_gsl-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_gsl-subbuild\CMakeFiles\7b589c653af69aaab7d212b2e21e1377\the_gsl-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_gsl-subbuild\CMakeFiles\7b589c653af69aaab7d212b2e21e1377\the_gsl-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_gsl-subbuild\CMakeFiles\7b589c653af69aaab7d212b2e21e1377\the_gsl-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_gsl-subbuild\CMakeFiles\a6e85ed7965d685fd9b53c24fe0bdca7\the_gsl-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_gsl-subbuild\CMakeFiles\09d68076a46c6217538e04f91e550496\the_gsl-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_gsl-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\user\Documents\gam200-final-project-team_exodia\Emscript Test\build\_deps\the_gsl-subbuild\CMakeFiles\the_gsl-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{CE70A795-3E70-341F-AE1F-EE2B625B4134}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

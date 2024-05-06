@@ -1,37 +1,37 @@
 # ninja log v5
 1	50	7365997000847652	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-mkdir	5c441d60abac8588
 1	50	7365997000847652	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-mkdir	5c441d60abac8588
-1359	1403	7366597366830207	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-build	34a782456d4dd24b
+1451	1503	7366621531222234	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-build	34a782456d4dd24b
 50	4901	7365997049359810	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-download	8eb7fa190bbbc1d8
 50	4901	7365997049359810	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-download	8eb7fa190bbbc1d8
-1218	1309	7366597365881836	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-patch	b4940ce718a7bc23
-1448	1492	7366597367724510	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-test	b7cb1e61f3c41b5f
-6	1218	0	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-update	20a5c5d5c4f2ca1f
-6	1218	0	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-update	20a5c5d5c4f2ca1f
-1218	1309	7366597365881836	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-patch	b4940ce718a7bc23
-1403	1448	7366597367279062	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-install	bc98ea20dd8ab546
-1309	1358	7366597366387600	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-configure	6caa64789697bd09
-1403	1448	7366597367279062	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-install	bc98ea20dd8ab546
-1309	1358	7366597366387600	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-configure	6caa64789697bd09
-1359	1403	7366597366830207	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-build	34a782456d4dd24b
-1448	1492	7366597367724510	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-test	b7cb1e61f3c41b5f
-1492	1560	7366597368390541	CMakeFiles/dearimgui-populate-complete	c5100692ee6f074e
-1492	1560	7366597368390541	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-done	c5100692ee6f074e
-1492	1560	7366597368390541	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/CMakeFiles/dearimgui-populate-complete	c5100692ee6f074e
-1492	1560	7366597368390541	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-done	c5100692ee6f074e
-7	1154	0	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-update	20a5c5d5c4f2ca1f
-7	1154	0	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-update	20a5c5d5c4f2ca1f
-1155	1203	7366597539951104	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-patch	b4940ce718a7bc23
-1155	1203	7366597539951104	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-patch	b4940ce718a7bc23
-1203	1246	7366597540381293	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-configure	6caa64789697bd09
-1203	1246	7366597540381293	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-configure	6caa64789697bd09
-1246	1291	7366597540836526	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-build	34a782456d4dd24b
-1246	1291	7366597540836526	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-build	34a782456d4dd24b
-1291	1338	7366597541296716	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-install	bc98ea20dd8ab546
-1291	1338	7366597541296716	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-install	bc98ea20dd8ab546
-1338	1395	7366597541857089	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-test	b7cb1e61f3c41b5f
-1338	1395	7366597541857089	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-test	b7cb1e61f3c41b5f
-1395	1463	7366597542552607	CMakeFiles/dearimgui-populate-complete	c5100692ee6f074e
-1395	1463	7366597542552607	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-done	c5100692ee6f074e
-1395	1463	7366597542552607	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/CMakeFiles/dearimgui-populate-complete	c5100692ee6f074e
-1395	1463	7366597542552607	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-done	c5100692ee6f074e
+1334	1399	7366621530175628	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-patch	b4940ce718a7bc23
+1554	1607	7366621532256623	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-test	b7cb1e61f3c41b5f
+7	1333	0	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-update	20a5c5d5c4f2ca1f
+7	1333	0	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-update	20a5c5d5c4f2ca1f
+1334	1399	7366621530175628	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-patch	b4940ce718a7bc23
+1503	1554	7366621531723281	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-install	bc98ea20dd8ab546
+1399	1451	7366621530694201	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-configure	6caa64789697bd09
+1503	1554	7366621531723281	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-install	bc98ea20dd8ab546
+1399	1451	7366621530694201	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-configure	6caa64789697bd09
+1451	1503	7366621531222234	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-build	34a782456d4dd24b
+1554	1607	7366621532256623	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-test	b7cb1e61f3c41b5f
+1608	1695	7366621533135025	CMakeFiles/dearimgui-populate-complete	c5100692ee6f074e
+1608	1695	7366621533135025	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-done	c5100692ee6f074e
+1608	1695	7366621533135025	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/CMakeFiles/dearimgui-populate-complete	c5100692ee6f074e
+1608	1695	7366621533135025	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-done	c5100692ee6f074e
+8	1329	0	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-update	20a5c5d5c4f2ca1f
+8	1329	0	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-update	20a5c5d5c4f2ca1f
+1329	1386	7366621754202438	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-patch	b4940ce718a7bc23
+1329	1386	7366621754202438	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-patch	b4940ce718a7bc23
+1386	1447	7366621754814438	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-configure	6caa64789697bd09
+1386	1447	7366621754814438	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-configure	6caa64789697bd09
+1447	1507	7366621755409049	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-build	34a782456d4dd24b
+1447	1507	7366621755409049	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-build	34a782456d4dd24b
+1507	1562	7366621755964807	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-install	bc98ea20dd8ab546
+1507	1562	7366621755964807	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-install	bc98ea20dd8ab546
+1562	1629	7366621756632672	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-test	b7cb1e61f3c41b5f
+1562	1629	7366621756632672	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-test	b7cb1e61f3c41b5f
+1629	1708	7366621757422775	CMakeFiles/dearimgui-populate-complete	c5100692ee6f074e
+1629	1708	7366621757422775	dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-done	c5100692ee6f074e
+1629	1708	7366621757422775	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/CMakeFiles/dearimgui-populate-complete	c5100692ee6f074e
+1629	1708	7366621757422775	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/dearimgui-subbuild/dearimgui-populate-prefix/src/dearimgui-populate-stamp/dearimgui-populate-done	c5100692ee6f074e

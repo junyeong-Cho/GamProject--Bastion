@@ -1,6 +1,7 @@
 C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/CMakeFiles/copy_sdl2_dll.dir
 C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/CMakeFiles/imgui.dir
 C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/CMakeFiles/stb.dir
+C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/CMakeFiles/copy_openal32_dll.dir
 C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/CMakeFiles/package.dir
 C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/CMakeFiles/package_source.dir
 C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/CMakeFiles/edit_cache.dir

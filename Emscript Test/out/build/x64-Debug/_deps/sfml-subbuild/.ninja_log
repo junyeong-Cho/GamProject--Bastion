@@ -1,37 +1,37 @@
 # ninja log v5
-348	416	7366597432586236	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	73169c7f4c80920c
+404	472	7366621607716000	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	73169c7f4c80920c
 1	63	7366547649751723	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-mkdir	38a9ad7003101674
-5	97	0	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	49ee1d15f8f777e
+8	124	0	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	49ee1d15f8f777e
 1	63	7366547649751723	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-mkdir	38a9ad7003101674
-197	243	7366597430858802	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	2fe244a00c811756
+245	301	7366621606013206	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	2fe244a00c811756
 64	7800	7366547727107070	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-download	b262348149cb23f3
-5	97	0	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	49ee1d15f8f777e
-97	149	7366597429905928	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	aaa1de20cebe3393
+8	124	0	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	49ee1d15f8f777e
+124	181	7366621604811434	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	aaa1de20cebe3393
 64	7800	7366547727107070	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-download	b262348149cb23f3
-97	149	7366597429905928	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	aaa1de20cebe3393
-149	197	7366597430386895	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	4d1ffc819cc69cec
-149	197	7366597430386895	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	4d1ffc819cc69cec
-348	416	7366597432586236	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	73169c7f4c80920c
-197	243	7366597430858802	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	2fe244a00c811756
-243	292	7366597431335071	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	5b5a40442982ec8f
-243	292	7366597431335071	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	5b5a40442982ec8f
-292	348	7366597431895920	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	6d6e21bf0d23cb6e
-292	348	7366597431895920	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	6d6e21bf0d23cb6e
-348	416	7366597432586236	CMakeFiles/sfml-populate-complete	73169c7f4c80920c
-348	416	7366597432586236	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/CMakeFiles/sfml-populate-complete	73169c7f4c80920c
-5	114	0	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	49ee1d15f8f777e
-5	114	0	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	49ee1d15f8f777e
-115	166	7366597604085754	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	aaa1de20cebe3393
-115	166	7366597604085754	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	aaa1de20cebe3393
-166	214	7366597604569318	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	4d1ffc819cc69cec
-166	214	7366597604569318	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	4d1ffc819cc69cec
-214	261	7366597605046046	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	2fe244a00c811756
-214	261	7366597605046046	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	2fe244a00c811756
-261	307	7366597605498016	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	5b5a40442982ec8f
-261	307	7366597605498016	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	5b5a40442982ec8f
-307	352	7366597605945457	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	6d6e21bf0d23cb6e
-307	352	7366597605945457	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	6d6e21bf0d23cb6e
-352	417	7366597606605843	CMakeFiles/sfml-populate-complete	73169c7f4c80920c
-352	417	7366597606605843	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	73169c7f4c80920c
-352	417	7366597606605843	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/CMakeFiles/sfml-populate-complete	73169c7f4c80920c
-352	417	7366597606605843	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	73169c7f4c80920c
+124	181	7366621604811434	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	aaa1de20cebe3393
+181	245	7366621605445180	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	4d1ffc819cc69cec
+181	245	7366621605445180	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	4d1ffc819cc69cec
+404	472	7366621607716000	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	73169c7f4c80920c
+245	301	7366621606013206	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	2fe244a00c811756
+302	353	7366621606525327	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	5b5a40442982ec8f
+302	353	7366621606525327	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	5b5a40442982ec8f
+353	404	7366621607035031	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	6d6e21bf0d23cb6e
+353	404	7366621607035031	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	6d6e21bf0d23cb6e
+404	472	7366621607716000	CMakeFiles/sfml-populate-complete	73169c7f4c80920c
+404	472	7366621607716000	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/CMakeFiles/sfml-populate-complete	73169c7f4c80920c
+17	178	0	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	49ee1d15f8f777e
+17	178	0	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	49ee1d15f8f777e
+178	239	7366621834602803	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	aaa1de20cebe3393
+178	239	7366621834602803	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	aaa1de20cebe3393
+239	290	7366621835101750	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	4d1ffc819cc69cec
+239	290	7366621835101750	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	4d1ffc819cc69cec
+291	352	7366621835733228	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	2fe244a00c811756
+291	352	7366621835733228	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	2fe244a00c811756
+352	404	7366621836253894	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	5b5a40442982ec8f
+352	404	7366621836253894	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	5b5a40442982ec8f
+404	457	7366621836779379	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	6d6e21bf0d23cb6e
+404	457	7366621836779379	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	6d6e21bf0d23cb6e
+457	539	7366621837599748	CMakeFiles/sfml-populate-complete	73169c7f4c80920c
+457	539	7366621837599748	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	73169c7f4c80920c
+457	539	7366621837599748	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/CMakeFiles/sfml-populate-complete	73169c7f4c80920c
+457	539	7366621837599748	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	73169c7f4c80920c
