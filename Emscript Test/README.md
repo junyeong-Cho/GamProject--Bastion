@@ -1,27 +1,8 @@
-# CS250 Assignments
+# GAM250 Engine
 
-For the class assignments you will make a series of graphics demo programs that showcases all the topics discussed in the course.
-
-Each topic will have applicable sliders and/or modifiers to play around with the parameters which affect the topic.
-
-The topics will be presented and implemented with OpenGL.
+This engine is based on OpenGL and offers both version 4.2, which uses shaders, and version 2.2, which does not use shaders, simultaneously.
 
 This will be a cross platform targeting Windows & Web platforms as a minimum and possibly the Ubuntu & Mac platforms.
-
-Your topics include but are not limited to:
-
-1. Procedural Geometric Modeling
-	- Plane, Cube, Sphere, Torus, Cylinder, and Cone
-2. Fog
-	- Linear and Exponential
-3. Toon / Cell Shading
-4. Shadow Mapping
-	- From a Directional light with position
-5. Geometry and Tessellation Shaders
-6. Compute Shaders
-7. Value noise, Gradient noise / Perlin noise
-	- Generating textures and meshes
-8. Hermite Curves / Catmull-Rom Splines
 
 
 ## How to Build and Run
