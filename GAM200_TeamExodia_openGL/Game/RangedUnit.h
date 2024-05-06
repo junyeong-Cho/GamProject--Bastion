@@ -36,7 +36,7 @@ protected:
 class Bow_1 : public RangedUnit
 {
 public:
-    Bow_1(Math::vec2 position = Map::middle_point) : RangedUnit(0.8, 4, position) 
+    Bow_1(Math::vec2 position = Map::middle_point) : RangedUnit(3.2, 4, position) 
     { 
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
         current_state = &state_none;
@@ -78,7 +78,7 @@ private:
 class Bow_2 : public RangedUnit
 {
 public:
-    Bow_2(Math::vec2 position = Map::middle_point) : RangedUnit(0.7, 5, position)
+    Bow_2(Math::vec2 position = Map::middle_point) : RangedUnit(2.8, 5, position)
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
         current_state = &state_none;
@@ -119,7 +119,7 @@ private:
 class Bow_4 : public RangedUnit
 {
 public:
-    Bow_4(Math::vec2 position = Map::middle_point) : RangedUnit(0.7, 15, position)
+    Bow_4(Math::vec2 position = Map::middle_point) : RangedUnit(2.8, 15, position)
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
         current_state = &state_none;
@@ -161,7 +161,7 @@ private:
 class Bow_8 : public RangedUnit
 {
 public:
-    Bow_8(Math::vec2 position = Map::middle_point) : RangedUnit(0.7, 40, position)
+    Bow_8(Math::vec2 position = Map::middle_point) : RangedUnit(2.8, 40, position)
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
         current_state = &state_none;
@@ -203,7 +203,7 @@ private:
 class Bow_16 : public RangedUnit
 {
 public:
-    Bow_16(Math::vec2 position = Map::middle_point) : RangedUnit(0.5, 100, position)
+    Bow_16(Math::vec2 position = Map::middle_point) : RangedUnit(2.0, 100, position)
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
         current_state = &state_none;
