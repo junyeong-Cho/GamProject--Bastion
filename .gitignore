@@ -14,6 +14,7 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Bb]uild/
+out/
 
 # imgui gen files
 imgui.ini
