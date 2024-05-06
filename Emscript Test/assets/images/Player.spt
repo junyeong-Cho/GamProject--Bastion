@@ -1,0 +1,28 @@
+assets/images/player_sheet.png
+FrameSize 420 420
+HotSpot 210 210
+HotSpot 210 210
+HotSpot 210 210
+ HotSpot -60 160
+RectCollision -210 -210 210 210
+
+Frame 0 420
+Frame 420 420
+Frame 840 420
+Frame 1260 420
+Frame 1680 420
+
+Frame 0 0
+Frame 420 0
+Frame 840 0
+Frame 1260 0
+Frame 1680 0
+
+
+
+
+Anim assets/images/None.anm
+Anim assets/images/front_move.anm
+Anim assets/images/back_move.anm
+Anim assets/images/left_move.anm
+Anim assets/images/right_move.anm

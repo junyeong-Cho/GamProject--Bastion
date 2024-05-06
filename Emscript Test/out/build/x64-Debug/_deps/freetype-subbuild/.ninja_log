@@ -1,0 +1,39 @@
+# ninja log v5
+105	155	7366714336691455	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-patch	a94899c9563a34d3
+2	59	7366413249321177	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-mkdir	37fe1f70d608cb43
+2	59	7366413249321177	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-mkdir	37fe1f70d608cb43
+6	5998	7366525721103632	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-download	41611529cec8b0c
+7	105	0	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-update	cfbfae1d61b0f89f
+155	202	7366714337173136	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-configure	c57a43eb0a104f41
+6	5998	7366525721103632	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-download	41611529cec8b0c
+59	1555	7366413264292460	freetype-populate-prefix/src/v4.0.7.zip	a4c4d5b84bd9b034
+59	1555	7366413264292460	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/v4.0.7.zip	a4c4d5b84bd9b034
+7	105	0	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-update	cfbfae1d61b0f89f
+105	155	7366714336691455	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-patch	a94899c9563a34d3
+155	202	7366714337173136	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-configure	c57a43eb0a104f41
+202	250	7366714337646961	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-build	a12cba54c8fbe99f
+202	250	7366714337646961	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-build	a12cba54c8fbe99f
+250	296	7366714338102144	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-install	56440389c3831381
+250	296	7366714338102144	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-install	56440389c3831381
+296	343	7366714338578191	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-test	66f7c71b87902570
+296	343	7366714338578191	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-test	66f7c71b87902570
+343	410	7366714339246970	CMakeFiles/freetype-populate-complete	6d11a77b42148b56
+343	410	7366714339246970	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-done	6d11a77b42148b56
+343	410	7366714339246970	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/freetype-subbuild/CMakeFiles/freetype-populate-complete	6d11a77b42148b56
+343	410	7366714339246970	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-done	6d11a77b42148b56
+6	98	0	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-update	cfbfae1d61b0f89f
+6	98	0	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-update	cfbfae1d61b0f89f
+98	143	7366719469267610	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-patch	a94899c9563a34d3
+98	143	7366719469267610	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-patch	a94899c9563a34d3
+144	189	7366719469731584	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-configure	c57a43eb0a104f41
+144	189	7366719469731584	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-configure	c57a43eb0a104f41
+189	233	7366719470167151	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-build	a12cba54c8fbe99f
+189	233	7366719470167151	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-build	a12cba54c8fbe99f
+233	277	7366719470607548	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-install	56440389c3831381
+233	277	7366719470607548	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-install	56440389c3831381
+277	324	7366719471073181	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-test	66f7c71b87902570
+277	324	7366719471073181	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-test	66f7c71b87902570
+324	393	7366719471766620	CMakeFiles/freetype-populate-complete	6d11a77b42148b56
+324	393	7366719471766620	freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-done	6d11a77b42148b56
+324	393	7366719471766620	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/freetype-subbuild/CMakeFiles/freetype-populate-complete	6d11a77b42148b56
+324	393	7366719471766620	C:/Users/user/Documents/gam200-final-project-team_exodia/Emscript Test/out/build/x64-Debug/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-done	6d11a77b42148b56
