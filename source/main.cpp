@@ -92,7 +92,9 @@ int main()
             engine.Update();
         }
         engine.Stop();
+#if     IfWantShader
         ShaderDrawing::EndWIndow();
+#endif
 #else
         // https://kripken.github.io/emscripten-site/docs/api_reference/emscripten.h.html#c.emscripten_set_main_loop_arg
         gApplicationWindow = &(engine.GetWindow());

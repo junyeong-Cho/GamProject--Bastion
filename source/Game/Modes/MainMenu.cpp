@@ -131,8 +131,6 @@ void Main_menu::Unload()
 	//Unload Mode1
 
 	//Unload Mode2
-	GetGSComponent<GAM200::GameObjectManager>()->Unload();
-
 }
 
 void Main_menu::Draw()
