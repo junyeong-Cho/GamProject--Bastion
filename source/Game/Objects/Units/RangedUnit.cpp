@@ -23,7 +23,20 @@ void RangedUnit::Update(double dt)
 void RangedUnit::Draw(Math::TransformationMatrix camera_matrix)
 {
     Unit::Draw(camera_matrix);
-    GAM200::GameObject::Draw(camera_matrix);
+    //GAM200::GameObject::Draw(camera_matrix);
+    GetGOComponent<GAM200::Sprite>()->Draw(camera_matrix * GetMatrix());
+
+    
+
+    Engine::GetLogger().LogDebug("Own matrix");
+    Engine::GetLogger().LogDebug(std::to_string(GetMatrix()[0][0]) + ", " + std::to_string(GetMatrix()[0][1]) + ", " + std::to_string(GetMatrix()[0][2]));
+    Engine::GetLogger().LogDebug(std::to_string(GetMatrix()[1][0]) + ", " + std::to_string(GetMatrix()[1][1]) + ", " + std::to_string(GetMatrix()[1][2]));
+    Engine::GetLogger().LogDebug(std::to_string(GetMatrix()[2][0]) + ", " + std::to_string(GetMatrix()[2][1]) + ", " + std::to_string(GetMatrix()[2][2]));
+
+    Engine::GetLogger().LogDebug("Camera matrix");
+    Engine::GetLogger().LogDebug(std::to_string(camera_matrix[0][0]) + ", " + std::to_string(camera_matrix[0][1]) + ", " + std::to_string(camera_matrix[0][2]));
+    Engine::GetLogger().LogDebug(std::to_string(camera_matrix[1][0]) + ", " + std::to_string(camera_matrix[1][1]) + ", " + std::to_string(camera_matrix[1][2]));
+    Engine::GetLogger().LogDebug(std::to_string(camera_matrix[2][0]) + ", " + std::to_string(camera_matrix[2][1]) + ", " + std::to_string(camera_matrix[2][2]));
 }
 void RangedUnit::ResolveCollision(GameObject* other_object)
 {

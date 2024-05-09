@@ -30,12 +30,13 @@ Unit::~Unit()
 {
     RemoveGOComponent<GAM200::MergeCircleCollision>();
     RemoveGOComponent<GAM200::CircleCollision>();
+    RemoveGOComponent<GAM200::Sprite>();
 }
 
 void Unit::Update(double dt)
 {
     GameObject::Update(dt);
-
+    GetGOComponent<GAM200::Sprite>()->Update(dt);
     attack_animation_count -= dt;
 
     HandleMouseInput();

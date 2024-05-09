@@ -1,11 +1,17 @@
 
 #include "Game.h"
 
+#include <imgui.h>
+#include <stb_image.h>
+#include <backends/imgui_impl_sdl2.h>
+
 #include "Engine/ShowCollision.h"
 #include "Engine/DrawShape.h"
 #include "Engine/Font.h"
 #include "Engine/Texture.h"
 #include "Engine/Audio.h"
+#include "Engine/Particle.h"
+#include "Engine/Camera.h"
 
 #include "Component/MonsterLimit.h"
 #include "Component/Gold.h"
@@ -24,14 +30,9 @@
 
 #include "Game/Fonts.h"
 #include "Game/Objects/Button.h"
-
-#include <imgui.h>
-#include <stb_image.h>
-
-#include <backends/imgui_impl_sdl2.h>
-
-#include "Engine/Particle.h"
 #include "Game/Particles.h"
+
+
 
 Game::Game()
 {
@@ -40,36 +41,29 @@ Game::Game()
 
 void Game::Load()
 {
-	// Game Object
 	AddGSComponent(new GAM200::GameObjectManager());
 
-	// No Camera
+	AddGSComponent(new GAM200::Camera({}));
 
-	// No Map??		TODO
 	GetGSComponent<GAM200::GameObjectManager>()->Add(new tower1_Button({ 490,35 }, { 78, 78 }));
 	GetGSComponent<GAM200::GameObjectManager>()->Add(new tower2_Button({ 490 + 102,35 }, { 78, 78 }));
 	GetGSComponent<GAM200::GameObjectManager>()->Add(new tower3_Button({ 490 + 102 * 2,35 }, { 78, 78 }));
 
 	AddGSComponent(new GAM200::ParticleManager<Particles::Hit>());
-	AddGSComponent(new GAM200::ParticleManager<Particles::MeteorBit>());
+    AddGSComponent(new GAM200::ParticleManager<Particles::FontParticle>());
 
-
-	// Components
 	AddGSComponent(new GameSpeed());
-	AddGSComponent(new MonsterLimit(40));	// Max Limit of Monster
-	AddGSComponent(new Gold(110));			// Initial Gold
-	AddGSComponent(new Diamond(100));		// Initial Diamond
+	AddGSComponent(new MonsterLimit(40));
+	AddGSComponent(new Gold(110));
+	AddGSComponent(new Diamond(100));
 	AddGSComponent(new Map());
 	AddGSComponent(new Wave());
 	AddGSComponent(new Time());
 
-	// TODO
 	game_speed_button = new GameSpeed_Button({ 976, 708 }, { 77, 77 });
 	skip_button       = new Skip_Button({ 1071, 708 }, { 77, 77 });
 
-	// In Game State
 	in_game_state = InProgress;
-
 
 	switch (Button::difficult) {
 	case 1:
@@ -85,11 +79,9 @@ void Game::Load()
 		break;
 	}
 
-	//BGM
 	GAM200::SoundEffect::MainMenu_BGM().stopAll();
 	GAM200::SoundEffect::Game_BGM().stopAll();
 	GAM200::SoundEffect::Game_BGM().loopplay();
-
 
 #ifdef _DEBUG
 	AddGSComponent(new GAM200::ShowCollision());
@@ -100,24 +92,19 @@ void Game::Update(double dt)
 {
 	count += dt;
 
-	// Update things
 	GetGSComponent<GameSpeed>()->Update(dt);
 	GetGSComponent<Time>()->Update(dt);
 	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
 	GetGSComponent<GAM200::GameObjectManager>()->CollisionTest();
 	GetGSComponent<GAM200::GameObjectManager>()->MergeTest();
 	GetGSComponent<Wave>()->Update(dt);
-	//if(GetGSComponent<UnitInfo>() != nullptr) GetGSComponent<UnitInfo>()->ShowInfo();
 
 	game_speed_button->Update(dt);
 	skip_button->Update(dt);
 
 	Engine::GetWindow().Clear(1.0f, 1.0f, 1.0f, 1.0f);
 
-
-	// Words
 	#if IfWantShader
-
 
 	#else
 	trash.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("A", 0xFFFFFFFF));
@@ -131,25 +118,27 @@ void Game::Update(double dt)
 		monsters.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Monster: " + std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 0xFFFFFFFF));
 	#endif
 	
-	// Win State
 	if (in_game_state == InProgress)
 	{
 		if (GetGSComponent<Wave>()->GetState() == Wave::End && Monster::GetRemainingMonster() == 0)
 		{
 			in_game_state = Win;
 		}
-		// Lose State
 		if (Monster::GetRemainingMonster() >= GetGSComponent<MonsterLimit>()->GetLimit())
 		{
 			in_game_state = Lose;
 		}
 	}
 
-	// Change State
 	if (in_game_state != InProgress)
 	{
 		if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Enter))
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
+	}
+
+	if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Z))
+	{
+        GetGSComponent<GAM200::Camera>()->SetScale({2.0, 2.0});
 	}
 }
 
@@ -163,16 +152,11 @@ void Game::Unload()
 
 void Game::Draw()
 {
-	// Draw map
+    Math::TransformationMatrix camera_matrix = GetGSComponent<GAM200::Camera>()->GetMatrix();
 	GetGSComponent<Map>()->Draw();
-	// Draw objects
-	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
-	// Draw particles later
-	GetGSComponent<GAM200::GameObjectManager>()->DrawParticle(Math::TransformationMatrix());
+    GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
+    GetGSComponent<GAM200::GameObjectManager>()->DrawParticle(camera_matrix);
 
-
-
-	// UIs
 #if IfWantShader
 	if (GetGSComponent<Wave>()->IsResting() || Button::difficult == 4)
 		ShaderDrawing::draw_text("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 1100, 600, 50,255, 255, 255);
@@ -191,9 +175,6 @@ void Game::Draw()
 
 	game_speed_button->Draw(Math::TranslationMatrix(game_speed_button->GetPosition()));
 	skip_button->Draw(Math::TranslationMatrix(skip_button->GetPosition()));
-	// Door effect
-	
-
 
 #if !defined(__EMSCRIPTEN__)
 	if (count < 3.0)
@@ -207,7 +188,6 @@ void Game::Draw()
 		Engine::Instance().pop();
 	}
 #endif
-
 	if (in_game_state == Win)
 	{
 		win.Draw(0, 0, 1280, 800);
@@ -220,23 +200,7 @@ void Game::Draw()
 
 void Game::ImguiDraw()
 {
-	if (Button::difficult == 4) 
-	{
 
-		ImGui::Begin("Information");
-		{
-			int gold = GetGSComponent<Gold>()->GetCurrentGold();
-
-			ImGui::Text("Gold : %d", gold);
-
-			if (ImGui::SliderInt("Adjust Gold", &gold, 0, 50000, "%d")) 
-			{
-				GetGSComponent<Gold>()->SetCurrentGold(gold);
-			}
-
-		}
-		ImGui::End();
-	}
 }
 
 void Game::HandleEvent(SDL_Event& event)

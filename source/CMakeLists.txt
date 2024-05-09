@@ -34,6 +34,7 @@ set(SOURCE_CODE
 
     Engine/Animation.h          Engine/Animation.cpp
     Engine/Audio.h              Engine/Audio.cpp
+    Engine/Camera.h	      Engine/Camer.cpp
     Engine/Collision.h          Engine/Collision.cpp
     Engine/Component.h
     Engine/ComponentManager.h

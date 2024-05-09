@@ -34,6 +34,22 @@ void GAM200::Particle::Start(Math::vec2 position, Math::vec2 velocity, double ma
 
 }
 
+void GAM200::Particle::Start(Math::vec2 position, Math::vec2 velocity, double max_life, int dmg)
+{
+    SetPosition({ position.x, position.y });
+    SetVelocity({ (double)velocity.x, (double)velocity.y });
+
+    life = max_life;
+    num  = dmg;
+
+    GAM200::Sprite* sprite = GetGOComponent<GAM200::Sprite>();
+
+    if (sprite != nullptr)
+    {
+        sprite->PlayAnimation(0);
+    }
+}
+
 void GAM200::Particle::Update(double dt)
 {
 	if (Alive() == true)

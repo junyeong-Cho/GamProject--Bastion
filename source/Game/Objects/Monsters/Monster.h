@@ -46,7 +46,7 @@ public:
 
 protected:
 	MonsterInfo info;
-	GAM200::Texture* image;
+	GAM200::Texture* image = nullptr;
 
 	static inline double radius = Map::basic_size * 3.0 / 4.0 / 2.0;
 	static inline double speed = Map::basic_size;

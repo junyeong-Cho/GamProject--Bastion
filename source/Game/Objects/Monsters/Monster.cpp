@@ -47,18 +47,22 @@ void Monster::Update(double dt)
 	if (IsInside(Map::outer_lower_left))
 	{
 		SetVelocity({ speed * info.speed_scale, 0 });
+        SetScale({ 1, 1 });
 	}
 	else if (IsInside(Map::outer_lower_right))
 	{
-		SetVelocity({ 0, speed * info.speed_scale });
+        SetVelocity({ 0, speed * info.speed_scale });
+        SetScale({ 1, 1 });
 	}
 	else if (IsInside(Map::outer_upper_right))
 	{
-		SetVelocity({ -speed * info.speed_scale, 0 });
+        SetVelocity({ -speed * info.speed_scale, 0 });
+        SetScale({ -1, 1 });
 	}
 	else if (IsInside(Map::outer_upper_left))
 	{
-		SetVelocity({ 0, -speed * info.speed_scale });
+        SetVelocity({ 0, -speed * info.speed_scale });
+        SetScale({ -1, 1 });
 	}
 
 	if (info.life <= 0)
@@ -73,12 +77,10 @@ void Monster::Update(double dt)
 // Draw
 void Monster::Draw(Math::TransformationMatrix camera_matrix)
 {
-	//GAM200::DrawShape shape;
-	//shape.SetColor(0.0f, 0.8f, 0.8f, 1.0f);
-
 	Math::vec2 position = GetPosition();
 	image->Draw(static_cast<int>(position.x) - 528 / 8, static_cast<int>(position.y), 528 / 4, 350 / 4);
-	//shape.DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(radius), static_cast<int>(radius));
+    //image->Draw(camera_matrix * Math::TranslationMatrix(Math::ivec2{ static_cast<int>(position.x) - 528 / 8, static_cast<int>(position.y) }));
+    //GAM200::GameObject::Draw(camera_matrix);
 }
 
 // Check to change direction
@@ -99,12 +101,9 @@ bool Monster::IsInside(Math::vec2 target_position) const
 void Monster::TakeDamage(int damage)
 {
 	info.life -= damage;
-	//Engine::GetLogger().LogDebug(std::to_string(damage) + "damage! Remaining hp: " + std::to_string(info.life)); 
 
 	Math::vec2 particle_posistion = GetPosition();
 
-
-
-	Engine::GetGameStateManager().GetGSComponent<GAM200::ParticleManager<Particles::Hit>>()->Emit(1, particle_posistion, { 0, 0 }, { 0, 0 }, 3.14159265358979323846 / 2);
-	//Engine::GetGameStateManager().GetGSComponent<GAM200::ParticleManager<Particles::MeteorBit>>()->Emit(5, particle_posistion, { 0, 0 }, { 0, 100 }, 3.14159265358979323846 / 3);
+	//Engine::GetGameStateManager().GetGSComponent<GAM200::ParticleManager<Particles::Hit>>()->Emit(1, particle_posistion, { 0, 0 }, { 0, 0 }, 3.14159265358979323846 / 2);
+    Engine::GetGameStateManager().GetGSComponent<GAM200::ParticleManager<Particles::FontParticle>>()->Emit(1, particle_posistion, { 0, 0 }, { rand() % 30 - 15.0, 50.0 }, 3.14159265358979323846 / 2, damage);
 }
