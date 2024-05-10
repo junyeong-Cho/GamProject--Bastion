@@ -57,13 +57,33 @@ namespace Particles
 
         std::string TypeName() override { return "Font Particle"; }
         static constexpr int MaxCount = 150;
-        static constexpr double MaxLife  = 0.3;
+        static constexpr double MaxLife  = 0.7;
 
         void Draw(Math::TransformationMatrix camera_matrix) override
         {
             if (Alive())
             {
-                ShaderDrawing::draw_text(std::to_string(num), GetPosition().x, GetPosition().y, 25, 1.0, 1.0, 1.0);
+                float r, g, b;
+                float scale;
+                if (num <= 20)
+                {
+                    r = g = b = 1.0f;
+                    scale     = 20;
+                }
+                else if (num <= 50)
+                {
+                    r = 1.0f;
+                    g     = 0.5f;
+                    b     = 0.0f;
+                    scale = 25;
+                }
+                else
+                {
+                    r = 1.0f;
+                    g = b = 0.0f;
+                    scale = 30;
+                }
+                ShaderDrawing::draw_text(std::to_string(num), static_cast<float>(GetPosition().x), static_cast<float>(GetPosition().y), scale, r, g, b);
             }
         }
     };
