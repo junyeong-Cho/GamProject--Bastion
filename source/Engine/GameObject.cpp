@@ -49,7 +49,8 @@ void GAM200::GameObject::Draw(Math::TransformationMatrix camera_matrix)
 
     if (sprite != nullptr)
     {
-        sprite->Draw(camera_matrix * GetMatrix());
+        //sprite->Draw(camera_matrix * GetMatrix());
+        sprite->Draw(GetMatrix() * camera_matrix);
     }
 
     ShowCollision* show_collision = Engine::GetGameStateManager().GetGSComponent<ShowCollision>();

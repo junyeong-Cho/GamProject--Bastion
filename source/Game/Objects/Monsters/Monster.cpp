@@ -65,6 +65,13 @@ void Monster::Update(double dt)
         SetScale({ -1, 1 });
 	}
 
+	if (tilt_count > 0.0)
+    {
+        tilt_count -= dt;
+        tilt_amount -= tilt_decrease * dt;
+		SetRotation(tilt_amount);
+	}
+
 	if (info.life <= 0)
 	{
 		Destroy();
@@ -78,9 +85,9 @@ void Monster::Update(double dt)
 void Monster::Draw(Math::TransformationMatrix camera_matrix)
 {
 	Math::vec2 position = GetPosition();
-	image->Draw(static_cast<int>(position.x) - 528 / 8, static_cast<int>(position.y), 528 / 4, 350 / 4);
+	//image->Draw(static_cast<int>(position.x) - 528 / 8, static_cast<int>(position.y), 528 / 4, 350 / 4);
     //image->Draw(camera_matrix * Math::TranslationMatrix(Math::ivec2{ static_cast<int>(position.x) - 528 / 8, static_cast<int>(position.y) }));
-    //GAM200::GameObject::Draw(camera_matrix);
+    GAM200::GameObject::Draw(camera_matrix);
 }
 
 // Check to change direction
@@ -103,7 +110,9 @@ void Monster::TakeDamage(int damage)
 	info.life -= damage;
 
 	Math::vec2 particle_posistion = GetPosition();
-
+    tilt_amount                   = (rand() % 20 - 10) / 80.0 * PI;
+    tilt_count                    = tilt_time;
+    tilt_decrease                 = tilt_amount / tilt_time;
 	//Engine::GetGameStateManager().GetGSComponent<GAM200::ParticleManager<Particles::Hit>>()->Emit(1, particle_posistion, { 0, 0 }, { 0, 0 }, 3.14159265358979323846 / 2);
     Engine::GetGameStateManager().GetGSComponent<GAM200::ParticleManager<Particles::FontParticle>>()->Emit(1, particle_posistion, { 0, 0 }, { rand() % 30 - 15.0, 50.0 }, 3.14159265358979323846 / 2, damage);
 }
