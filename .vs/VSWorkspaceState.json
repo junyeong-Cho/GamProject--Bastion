@@ -13,6 +13,10 @@
     "\\source\\Game\\Objects\\Monsters",
     "\\source\\Game\\Objects\\Units"
   ],
+<<<<<<< Updated upstream
   "SelectedNode": "\\source\\Game\\Objects\\Units\\Unit.cpp",
+=======
+  "SelectedNode": "\\GAM250_PROJECT_EXODIA.sln",
+>>>>>>> Stashed changes
   "PreviewInSolutionExplorer": false
 }

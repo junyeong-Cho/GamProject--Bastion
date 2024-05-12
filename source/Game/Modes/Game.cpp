@@ -57,7 +57,7 @@ void Game::Load()
 	// Components
 	AddGSComponent(new GameSpeed());
 	AddGSComponent(new MonsterLimit(40));	// Max Limit of Monster
-	AddGSComponent(new Gold(110000));			// Initial Gold
+	AddGSComponent(new Gold(110));			// Initial Gold
 	AddGSComponent(new Diamond(100));		// Initial Diamond
 	AddGSComponent(new Map());
 	AddGSComponent(new Wave());
