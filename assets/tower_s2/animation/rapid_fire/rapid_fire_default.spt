@@ -1,0 +1,7 @@
+assets/tower_s2/animation/rapid_fire/rapid_fire.png
+HotSpot 169 0 
+FrameSize 337 160
+NumFrames 48
+Anim assets/tower_s2/animation/none.anm
+Anim assets/tower_s2/animation/rapid_fire/rapid_fire_attack.anm
+

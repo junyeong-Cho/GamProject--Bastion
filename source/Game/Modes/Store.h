@@ -15,7 +15,6 @@ Created:    March 14, 2024
 #include "Engine/Texture.h"
 
 #include "Component/Gold.h"
-#include "Game/Components/Life.h"
 #include "Game/Objects/Button.h"
 
 class Store : public GAM200::GameState
@@ -43,9 +42,6 @@ public:
 public:
 
     int counter = 0;
-    std::unique_ptr<GAM200::Texture> gold;
-    std::unique_ptr<GAM200::Texture> life;
-    std::unique_ptr<GAM200::Texture> difficulty;
 
     GAM200::Texture* store_background;
 

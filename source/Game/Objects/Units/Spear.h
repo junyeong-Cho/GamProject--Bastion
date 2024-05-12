@@ -52,7 +52,7 @@ protected:
 class Spear_2 : public SpearUnit
 {
 public:
-    Spear_2(Math::vec2 position = Map::middle_point) : SpearUnit(1.2, 2, position) 
+    Spear_2(Math::vec2 position = Map::middle_point) : SpearUnit(6.0, 2, position) 
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/spear/spear_default.spt", (this)));
         current_state = &state_none;
@@ -71,7 +71,7 @@ public:
 class Spear_4 : public SpearUnit
 {
 public:
-    Spear_4(Math::vec2 position = Map::middle_point) : SpearUnit(1.2, 5, position)
+    Spear_4(Math::vec2 position = Map::middle_point) : SpearUnit(6.0, 4, position)
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/spear/spear_default.spt", (this)));
         current_state = &state_none;
@@ -90,7 +90,7 @@ public:
 class Spear_8 : public SpearUnit
 {
 public:
-    Spear_8(Math::vec2 position = Map::middle_point) : SpearUnit(1.0, 15, position)
+    Spear_8(Math::vec2 position = Map::middle_point) : SpearUnit(5.5, 6, position)
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/spear/spear_default.spt", (this)));
         current_state = &state_none;
@@ -109,7 +109,7 @@ public:
 class Spear_16 : public SpearUnit
 {
 public:
-    Spear_16(Math::vec2 position = Map::middle_point) : SpearUnit(1.0, 50, position)
+    Spear_16(Math::vec2 position = Map::middle_point) : SpearUnit(5.5, 10, position)
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/spear/spear_default.spt", (this)));
         current_state = &state_none;

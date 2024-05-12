@@ -11,6 +11,7 @@ set(SOURCE_CODE
     Component/Map.h
     Component/Time.h
     Component/Wave.h   Component/Wave.cpp
+    Component/StartGold.h
     
 
     opengl/GL.hpp opengl/GL.cpp
@@ -34,6 +35,7 @@ set(SOURCE_CODE
 
     Engine/Animation.h          Engine/Animation.cpp
     Engine/Audio.h              Engine/Audio.cpp
+    Engine/Camera.h	      Engine/Camera.cpp
     Engine/Collision.h          Engine/Collision.cpp
     Engine/Component.h
     Engine/ComponentManager.h
@@ -92,6 +94,7 @@ set(SOURCE_CODE
     Game/Objects/Units/Sniper.h         Game/Objects/Units/Sniper.cpp
     Game/Objects/Units/Spear.h          Game/Objects/Units/Spear.cpp
     Game/Objects/Units/Transform.h      Game/Objects/Units/Transform.cpp
+    Game/Objects/Units/BuffUnit.h		Game/Objects/Units/BuffUnit.cpp
     Game/Objects/Units/Unit.h           Game/Objects/Units/Unit.cpp
 
 

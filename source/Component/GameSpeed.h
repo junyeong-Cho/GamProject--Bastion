@@ -10,7 +10,7 @@
 class GameSpeed : public GAM200::Component
 {
 public:
-    GameSpeed() { }
+    GameSpeed() : speed(1.0) { }
 
     double GetSpeed() const { return speed; }
 

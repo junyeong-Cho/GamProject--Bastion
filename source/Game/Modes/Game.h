@@ -56,9 +56,6 @@ public:
 #endif
 
 private:
-	GameSpeed_Button* game_speed_button = nullptr;
-	Skip_Button* skip_button = nullptr;
-	RangedUnit* rangedunit_ptr = nullptr;
 
 #if IfWantShader
 

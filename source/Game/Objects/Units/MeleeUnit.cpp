@@ -34,8 +34,8 @@ void MeleeUnit::ResolveCollision(GameObject* other_object)
         return;
 
     Monster* target = static_cast<Monster*>(other_object);
-    target->TakeDamage(damage);
-    InsertDPS(damage);
+    target->TakeDamage(GetDamage());
+    InsertDPS(GetDamage());
 
     if (GetPosition().x < target->GetPosition().x)
         SetScale({ 1, 1 });

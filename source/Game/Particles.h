@@ -48,5 +48,54 @@ namespace Particles
         static constexpr int MaxCount = 150;
         static constexpr int MaxLife = 1;
     };
+
+
+    class FontParticle : public GAM200::Particle
+    {
+    public:
+        FontParticle() : Particle("Assets/MeteorBit.spt") { };
+
+        std::string TypeName() override { return "Font Particle"; }
+        static constexpr int MaxCount = 150;
+        static constexpr double MaxLife  = 0.7;
+
+        void Draw(Math::TransformationMatrix camera_matrix) override
+        {
+            if (Alive())
+            {
+                if (num <= 20)
+                {
+                    r = g = b = 1.0f;
+                    scale     = 20;
+                }
+                else if (num <= 50)
+                {
+                    r = 1.0f;
+                    g     = 0.5f;
+                    b     = 0.0f;
+                    scale = 25;
+                }
+                else
+                {
+                    r = 1.0f;
+                    g = b = 0.0f;
+                    scale = 30;
+                }
+                a *= 0.99f;
+
+                
+                std::ostringstream stream;
+                stream << std::fixed << std::setprecision(1) << num;
+                std::string result = stream.str();
+                ShaderDrawing::draw_text(result, static_cast<float>(GetPosition().x), static_cast<float>(GetPosition().y), scale, r, g, b, a);
+            }
+        }
+
+    private:
+        float r, g, b = 1.0f;
+        float a = 1.0f;
+        float scale = 10.0;
+
+    };
 }
 

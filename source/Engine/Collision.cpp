@@ -145,7 +145,11 @@ bool GAM200::CircleCollision::IsCollidingWith(GameObject* other_object)
     double distance_squared = pow(circle_1.x - circle_2.x, 2) + pow(circle_1.y - circle_2.y, 2);
 
     // Calculate the squared sum of the radii
-    double radius_sum_squared = pow(radius + dynamic_cast<CircleCollision*>(other_collider)->radius, 2);
+    double radius_sum_squared;
+    if (object->Type() > GameObjectTypes::BuffUnit && object->Type() < GameObjectTypes::BuffUnitEnd)
+        radius_sum_squared = pow(radius, 2);
+    else
+        radius_sum_squared = pow(radius + dynamic_cast<CircleCollision*>(other_collider)->radius, 2);
 
     // Check if the two circles are colliding
     if (distance_squared < radius_sum_squared)

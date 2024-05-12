@@ -41,17 +41,23 @@ namespace GAM200
         Unit* GetClosestUnit(Math::vec2 position);
 
         Unit* GetCurrentUnit() const { return current_unit; }
+        void ResetCurrentUnit() { current_unit = nullptr; }
+
+        Unit* GetInfoTarget() const { return info_target; }
+        Unit* SetInfoTarget(Unit* unit) { info_target = unit; }
+        void ResetInfoTarget() { info_target = nullptr; }
 
         bool IsMonserNear(Unit* unit);
         Monster* GetClosestMonster(Unit* unit);
         Monster* GetClosestMonster(Math::vec2 position);
 
-        int WideDamage(Math::vec2 position, double radius, int damage);
+        double WideDamage(Math::vec2 position, double radius, double damage);
 
     private:
         std::list<GameObject*> objects;
 
         Unit* current_unit = nullptr;
+        Unit* info_target  = nullptr;
     };
 }
 
