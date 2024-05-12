@@ -1,2 +1,2 @@
 #pragma once
-#define IfWantShader false
+#define IfWantShader true
