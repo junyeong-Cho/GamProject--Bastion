@@ -31,6 +31,9 @@ Unit::~Unit()
     RemoveGOComponent<GAM200::MergeCircleCollision>();
     RemoveGOComponent<GAM200::CircleCollision>();
     RemoveGOComponent<GAM200::Sprite>();
+
+    Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->ResetCurrentUnit();
+    Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->ResetInfoTarget();
 }
 
 void Unit::Update(double dt)
@@ -126,6 +129,13 @@ void Unit::HandleMouseInput()
     // Mouse is not being clicked
     if (!Engine::GetInput().MouseDown(GAM200::Input::MouseButtons::LEFT))
     {
+        if (Engine::GetInput().MouseDown(GAM200::Input::MouseButtons::RIGHT))
+        {
+            if (Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetClosestUnit(mouse_position) == this)
+                Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->SetInfoTarget(this);
+        }
+
+
         if (is_moving) // Drop
         {
             if (is_colliding)

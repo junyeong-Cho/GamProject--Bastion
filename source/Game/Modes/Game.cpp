@@ -167,7 +167,7 @@ void Game::Draw()
 	monsters->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 560 }));
 	currentwave->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 490 }));
 #endif
-	Unit* unit = GetGSComponent<GAM200::GameObjectManager>()->GetCurrentUnit(); if (unit != nullptr) unit->ShowInfo();
+	Unit* unit = GetGSComponent<GAM200::GameObjectManager>()->GetInfoTarget(); if (unit != nullptr) unit->ShowInfo();
 	tower_ui.Draw(380, 35, 514, 108);
 
 #if !defined(__EMSCRIPTEN__)
