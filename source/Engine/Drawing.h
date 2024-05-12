@@ -61,7 +61,7 @@ namespace ShaderDrawing
 		friend void set_coordinate_mode(CoordinateSystem mode);
 		friend void set_fill(bool set);
 		friend void set_line_color(int red, int green, int blue, int alpha);
-		friend void draw_text(std::string text, float x, float y, float scale, float r, float g, float b);
+		friend void draw_text(std::string text, float x, float y, float scale, float r, float g, float b, float a);
 		friend void draw_text(std::string text, float x, float y, float scale, double radians, float r, float g, float b);
 		void friend push();
 		void friend pop();
@@ -139,7 +139,7 @@ namespace ShaderDrawing
 	void set_coordinate_mode(CoordinateSystem mode);
 	void set_fill(bool set);
 	void set_line_color(int red, int green, int blue, int alpha);
-	void draw_text(std::string text, float x, float y, float scale, float r, float g, float b);
+    void draw_text(std::string text, float x, float y, float scale, float r, float g, float b, float a = 1.0f);
 	void draw_text(std::string text, float x, float y, float scale, double radians, float r, float g, float b);
 	
 	void EndWIndow();

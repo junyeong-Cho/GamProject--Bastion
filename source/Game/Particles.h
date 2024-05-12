@@ -63,8 +63,6 @@ namespace Particles
         {
             if (Alive())
             {
-                float r, g, b;
-                float scale;
                 if (num <= 20)
                 {
                     r = g = b = 1.0f;
@@ -83,9 +81,16 @@ namespace Particles
                     g = b = 0.0f;
                     scale = 30;
                 }
-                ShaderDrawing::draw_text(std::to_string(num), static_cast<float>(GetPosition().x), static_cast<float>(GetPosition().y), scale, r, g, b);
+                a *= 0.99f;
+                ShaderDrawing::draw_text(std::to_string(num), static_cast<float>(GetPosition().x), static_cast<float>(GetPosition().y), scale, r, g, b, a);
             }
         }
+
+    private:
+        float r, g, b;
+        float a = 1.0f;
+        float scale;
+
     };
 }
 

@@ -133,12 +133,12 @@ in vec2 TexCoords;
 out vec4 color;
 
 uniform sampler2D text;
-uniform vec3 textColor;
+uniform vec4 textColor;
 
 void main()
 {    
     vec4 sampled = vec4(1.0, 1.0, 1.0, texture(text, TexCoords).r);
-    color = vec4(textColor, 1.0) * sampled;
+    color = vec4(textColor) * sampled;
 } 
 )";
 
@@ -1022,7 +1022,7 @@ void ShaderDrawing::set_line_color(int red, int green, int blue, int alpha)
 }
 
 
-void ShaderDrawing::draw_text(std::string text, float x, float y, float scale, float r, float g, float b)
+void ShaderDrawing::draw_text(std::string text, float x, float y, float scale, float r, float g, float b, float a)
 {
 
     glUseProgram(ShaderDraw::fontBox.shdr_pgm);
@@ -1064,7 +1064,7 @@ void ShaderDrawing::draw_text(std::string text, float x, float y, float scale, f
 
 
     //glUniformMatrix4fv(glGetUniformLocation(ShaderDraw::fontBox.shdr_pgm, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-    glUniform3f(glGetUniformLocation(ShaderDraw::fontBox.shdr_pgm, "textColor"), r, g, b);
+    glUniform4f(glGetUniformLocation(ShaderDraw::fontBox.shdr_pgm, "textColor"), r, g, b, a);
 
     glActiveTexture(GL_TEXTURE0);
 
