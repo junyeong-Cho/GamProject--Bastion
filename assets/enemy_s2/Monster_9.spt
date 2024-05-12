@@ -1,3 +1,7 @@
 assets/enemy_s2/Monster_9.png
-HotSpot 87 0
-FrameSize 165 120
+HotSpot 50 50
+FrameSize 100 100
+NumFrames 13
+
+Anim assets/enemy_s2/Monster_none789.anm
+Anim assets/enemy_s2/Monster_dead13.anm

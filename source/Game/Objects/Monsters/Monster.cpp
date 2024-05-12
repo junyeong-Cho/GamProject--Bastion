@@ -20,7 +20,7 @@ Monster::Monster(MonsterInfo info) : GameObject(Map::middle_upper_left), info(in
 	SetVelocity({ 0, -speed * info.speed_scale });
 
 	AddGOComponent(new GAM200::CircleCollision(radius, this));
-	Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
+    Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 
 	++remaining_monster;
 }
@@ -42,43 +42,6 @@ void Monster::Update(double dt)
 {
 	// Update Position 
 	GameObject::Update(dt);
-
-	// Update Velocity
-	if (IsInside(Map::outer_lower_left))
-	{
-		SetVelocity({ speed * info.speed_scale, 0 });
-        SetScale({ 1, 1 });
-	}
-	else if (IsInside(Map::outer_lower_right))
-	{
-        SetVelocity({ 0, speed * info.speed_scale });
-        SetScale({ 1, 1 });
-	}
-	else if (IsInside(Map::outer_upper_right))
-	{
-        SetVelocity({ -speed * info.speed_scale, 0 });
-        SetScale({ -1, 1 });
-	}
-	else if (IsInside(Map::outer_upper_left))
-	{
-        SetVelocity({ 0, -speed * info.speed_scale });
-        SetScale({ -1, 1 });
-	}
-
-	if (tilt_count > 0.0)
-    {
-        tilt_count -= dt;
-        tilt_amount -= tilt_decrease * dt;
-		SetRotation(tilt_amount);
-	}
-
-	if (info.life <= 0)
-	{
-		Destroy();
-
-		//Sound
-		GAM200::SoundEffect::Monster_Die_2().play();
-	}
 }
 
 // Draw
@@ -115,4 +78,73 @@ void Monster::TakeDamage(int damage)
     tilt_decrease                 = tilt_amount / tilt_time;
 	//Engine::GetGameStateManager().GetGSComponent<GAM200::ParticleManager<Particles::Hit>>()->Emit(1, particle_posistion, { 0, 0 }, { 0, 0 }, 3.14159265358979323846 / 2);
     Engine::GetGameStateManager().GetGSComponent<GAM200::ParticleManager<Particles::FontParticle>>()->Emit(1, particle_posistion, { 0, 0 }, { rand() % 30 - 15.0, 50.0 }, 3.14159265358979323846 / 2, damage);
+}
+
+void Monster::State_None::Enter(GameObject* object)
+{
+    Monster* monster = static_cast<Monster*>(object);
+
+    monster->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::none));
+}
+void Monster::State_None::Update(GameObject* object, double dt)
+{
+    Monster* monster = static_cast<Monster*>(object);
+
+    // Update Velocity
+    if (monster->IsInside(Map::outer_lower_left))
+    {
+        monster->SetVelocity({ speed * monster->info.speed_scale, 0 });
+        monster->SetScale({ 1, 1 });
+    }
+    else if (monster->IsInside(Map::outer_lower_right))
+    {
+        monster->SetVelocity({ 0, speed * monster->info.speed_scale });
+        monster->SetScale({ 1, 1 });
+    }
+    else if (monster->IsInside(Map::outer_upper_right))
+    {
+        monster->SetVelocity({ -speed * monster->info.speed_scale, 0 });
+        monster->SetScale({ -1, 1 });
+    }
+    else if (monster->IsInside(Map::outer_upper_left))
+    {
+        monster->SetVelocity({ 0, -speed * monster->info.speed_scale });
+        monster->SetScale({ -1, 1 });
+    }
+
+    if (monster->tilt_count > 0.0)
+    {
+        monster->tilt_count -= dt;
+        monster->tilt_amount -= monster->tilt_decrease * dt;
+        monster->SetRotation(monster->tilt_amount);
+    }
+}
+void Monster::State_None::CheckExit(GameObject* object)
+{
+    Monster* monster = static_cast<Monster*>(object);
+	if (monster->info.life <= 0)
+	{
+        monster->change_state(&monster->state_dead);
+        GAM200::SoundEffect::Monster_Die_2().play();
+	}
+}
+
+void Monster::State_Dead::Enter(GameObject* object)
+{
+    Monster* monster = static_cast<Monster*>(object);
+    monster->death_count = monster->death_time;
+    monster->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::dead));
+}
+void Monster::State_Dead::Update(GameObject* object, double dt)
+{
+    Monster* monster = static_cast<Monster*>(object);
+    monster->death_count -= dt;
+}
+void Monster::State_Dead::CheckExit(GameObject* object)
+{
+    Monster* monster = static_cast<Monster*>(object);
+    if (monster->death_count <= 0.0)
+    {
+        monster->Destroy();
+    }
 }

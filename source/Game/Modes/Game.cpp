@@ -46,7 +46,7 @@ void Game::Load()
 
     AddGSComponent(new GameSpeed());
     AddGSComponent(new MonsterLimit(40));
-    AddGSComponent(new Gold(1100));
+    AddGSComponent(new Gold(110));
     AddGSComponent(new Diamond(100));
     AddGSComponent(new Map());
     AddGSComponent(new Wave());
