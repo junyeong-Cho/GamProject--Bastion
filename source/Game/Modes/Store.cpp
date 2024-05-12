@@ -24,7 +24,8 @@ Created:    March 14, 2024
 #include <imgui.h>
 #include <stb_image.h>
 
-
+extern int startGold;
+int        diamond = 100;
 
 Store::Store()
 {
@@ -34,14 +35,18 @@ void Store::Load()
 {
 	AddGSComponent(new GAM200::GameObjectManager());
 
+	GAM200::GameObjectManager* gameobjectmanager = GetGSComponent<GAM200::GameObjectManager>();
+	gameobjectmanager->Add(new Store_Easy_Button({ 100, 420 }, { 200, 150 }));
+	gameobjectmanager->Add(new Store_Normal_Button({ 400, 420 }, { 200, 150 }));
+	gameobjectmanager->Add(new Store_Hard_Button({ 700, 420 }, { 200, 150 }));
 
+	gameobjectmanager->Add(new Store_Item_1({ 100, 140 }, { 200, 150 }));
+    gameobjectmanager->Add(new Store_Item_2({ 400, 140 }, { 200, 150 }));
+    gameobjectmanager->Add(new Store_Item_3({ 700, 140 }, { 200, 150 }));
 
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new Store_Easy_Button({ 100, 420 }, { 200, 150 }));
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new Store_Normal_Button({ 400, 420 }, { 200, 150 }));
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new Store_Hard_Button({ 700, 420 }, { 200, 150 }));
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new Store_Tutorial_Button({ 1000, 420 }, { 200, 150 }));
-	//GetGSComponent<GAM200::GameObjectManager>()->Add(new Store_InGame_Button({ 1000, 420 }, { 200, 150 }));
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new Store_Menu_Button({ 1030, 50 }, { 200, 150 }));
+	gameobjectmanager->Add(new Store_Tutorial_Button({ 1000, 420 }, { 200, 150 }));
+	gameobjectmanager->Add(new Store_Menu_Button({ 1030, 50 }, { 200, 150 }));
+	
 
 	counter = 0;
 
@@ -54,11 +59,12 @@ void Store::Load()
 
 void Store::Update(double dt)
 {
-
 	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
 
-
-
+	if(Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::P))
+	{
+        startGold += 50;
+	}
 }
 
 void Store::Unload()
@@ -69,14 +75,10 @@ void Store::Unload()
 
 void Store::Draw()
 {
-
-	//Engine::GetWindow().Clear(0.5, 0.5, 0.5, 1.0);
 	store_background->Draw(Math::TranslationMatrix(Math::ivec2{ 0 ,0 }));
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
 
-
-
-	//difficulty->Draw(Math::TranslationMatrix(Math::ivec2{ 300, (Engine::GetWindow().GetSize().y) }));
+	ShaderDrawing::draw_text("Gold: " + std::to_string(diamond), 1100, 700, 50, 1.0f, 1.0f, 0.0f);
 }
 
 void Store::ImguiDraw()
@@ -88,6 +90,3 @@ void Store::HandleEvent(SDL_Event& event)
 {
 
 }
-
-
-

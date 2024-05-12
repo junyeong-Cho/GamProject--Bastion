@@ -11,9 +11,8 @@ class Monster : public GAM200::GameObject
 public:
 	struct MonsterInfo
 	{
-		int life;
-		int physicalDefence;
-		int magicDefence;
+		double life;
+		double defense;
 
 		double speed_scale;
 	};
@@ -41,7 +40,7 @@ public:
 
 	static int GetRemainingMonster() { return remaining_monster; }
 
-	void TakeDamage(int damage);
+	void TakeDamage(double damage);
 
     enum class anm
     {

@@ -14,6 +14,7 @@ Updated:    November 1, 2023
 GAM200::Particle::Particle(const std::filesystem::path& sprite_file) : GameObject({ 0, 0 })
 {
 	life = 0.0;
+    num  = 0.0;
 	AddGOComponent(new GAM200::Sprite(sprite_file, (this)));
 }
 
@@ -34,7 +35,7 @@ void GAM200::Particle::Start(Math::vec2 position, Math::vec2 velocity, double ma
 
 }
 
-void GAM200::Particle::Start(Math::vec2 position, Math::vec2 velocity, double max_life, int dmg)
+void GAM200::Particle::Start(Math::vec2 position, Math::vec2 velocity, double max_life, double dmg)
 {
     SetPosition({ position.x, position.y });
     SetVelocity({ (double)velocity.x, (double)velocity.y });

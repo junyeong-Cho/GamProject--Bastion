@@ -48,18 +48,35 @@ public:
     static constexpr double dps_time_cap = 10.0;
     void UpdateDPS();
     double GetDPS();
-    void InsertDPS(int damage);
+    void InsertDPS(double damage);
+
+    void BuffDmg(double dmg);
+    void BuffAtkspd(double atkspd);
+    void ResetBuff();
+
+    double GetDamage() const
+    {
+        return damage * damage_buff;
+    }
+
+    double GetAtkSpd() const
+    {
+        return attack_time * atkspd_buff;
+    }
 
     double range;
     static inline double radius = Map::basic_size * 3.0 / 4.0 / 2.0; 
     bool is_moving = false;
 
-    bool AttackReady() const { return attack_count >= attack_time; }
+    bool AttackReady() const { return attack_count >= GetAtkSpd(); }
 
 protected:
     double attack_count = 0.0;
     double attack_time = 0.0;
-    int damage = 0;
+    double damage = 0.0;
+
+    double damage_buff = 1.0;
+    double atkspd_buff = 1.0;
 
     double attack_animation_count = 0.0;
     double attack_animation_time = 0.1;
@@ -71,7 +88,7 @@ protected:
     bool is_colliding = false;
     bool possible_to_merge = false;
 
-    std::queue<std::pair<double, int>>damageHolder;
+    std::queue<std::pair<double, double>>damageHolder;
  
     Math::vec2 position_gap;
 

@@ -82,14 +82,19 @@ namespace Particles
                     scale = 30;
                 }
                 a *= 0.99f;
-                ShaderDrawing::draw_text(std::to_string(num), static_cast<float>(GetPosition().x), static_cast<float>(GetPosition().y), scale, r, g, b, a);
+
+                
+                std::ostringstream stream;
+                stream << std::fixed << std::setprecision(1) << num;
+                std::string result = stream.str();
+                ShaderDrawing::draw_text(result, static_cast<float>(GetPosition().x), static_cast<float>(GetPosition().y), scale, r, g, b, a);
             }
         }
 
     private:
-        float r, g, b;
+        float r, g, b = 1.0f;
         float a = 1.0f;
-        float scale;
+        float scale = 10.0;
 
     };
 }

@@ -26,13 +26,17 @@
 #include "Game/Objects/Units/RangedUnit.h"
 #include "Game/Objects/Units/MagicUnit.h"
 
+#include "Game/Objects/Units/BuffUnit.h"
+
 #include "Game/Objects/Monsters/Monster.h"
 
 #include "Game/Fonts.h"
 #include "Game/Objects/Button.h"
 #include "Game/Particles.h"
 
-
+int startGold = 110;
+int monsterLimit = 40;
+extern int diamond;
 
 Game::Game()
 {
@@ -45,8 +49,8 @@ void Game::Load()
     AddGSComponent(new GAM200::Camera({}));
 
     AddGSComponent(new GameSpeed());
-    AddGSComponent(new MonsterLimit(40));
-    AddGSComponent(new Gold(110));
+    AddGSComponent(new MonsterLimit(monsterLimit));
+    AddGSComponent(new Gold(startGold));
     AddGSComponent(new Diamond(100));
     AddGSComponent(new Map());
     AddGSComponent(new Wave());
@@ -89,7 +93,6 @@ void Game::Update(double dt)
 	GetGSComponent<GameSpeed>()->Update(dt);
 	GetGSComponent<Time>()->Update(dt);
 	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
-	GetGSComponent<GAM200::GameObjectManager>()->CollisionTest();
 	GetGSComponent<GAM200::GameObjectManager>()->MergeTest();
 	GetGSComponent<Wave>()->Update(dt);
 
@@ -124,7 +127,10 @@ void Game::Update(double dt)
 	if (in_game_state != InProgress)
 	{
 		if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Enter))
-			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
+        {
+            diamond += (GetGSComponent<Wave>()->GetCurWave() + 1) * 5;
+            Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
+        }
 	}
 
 	if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Z))
@@ -166,7 +172,7 @@ void Game::Draw()
 	monsters->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 560 }));
 	currentwave->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 490 }));
 #endif
-	Unit* unit = GetGSComponent<GAM200::GameObjectManager>()->GetCurrentUnit(); if (unit != nullptr) unit->ShowInfo();
+	Unit* unit = GetGSComponent<GAM200::GameObjectManager>()->GetInfoTarget(); if (unit != nullptr) unit->ShowInfo();
 	tower_ui.Draw(380, 35, 514, 108);
 
 #if !defined(__EMSCRIPTEN__)

@@ -22,7 +22,7 @@ namespace GAM200
     public:
         Particle(const std::filesystem::path& sprite_file);
         void Start(Math::vec2 position, Math::vec2 velocity, double max_life);
-        void Start(Math::vec2 position, Math::vec2 velocity, double max_life, int dmg);
+        void Start(Math::vec2 position, Math::vec2 velocity, double max_life, double dmg);
         void Update(double dt) override;
         void Draw(Math::TransformationMatrix camera_matrix) override;
 
@@ -34,7 +34,7 @@ namespace GAM200
         GameObjectTypes Type() { return GameObjectTypes::Particle; }
 
     protected:
-        int    num;
+        double num;
         double life;
     };
 
@@ -45,7 +45,7 @@ namespace GAM200
     public:
         ParticleManager();
         ~ParticleManager();
-        void Emit(int count, Math::vec2 emitter_position, Math::vec2 emitter_velocity, Math::vec2 direction, double spread, int dmg = 0);
+        void Emit(int count, Math::vec2 emitter_position, Math::vec2 emitter_velocity, Math::vec2 direction, double spread, double dmg = 0.0);
 
     private:
         std::vector<T*> particles;
@@ -79,7 +79,7 @@ namespace GAM200
     }
 
     template<typename T>
-    void ParticleManager<T>::Emit(int count, Math::vec2 emitter_position, Math::vec2 emitter_velocity, Math::vec2 direction, double spread, int dmg)
+    void ParticleManager<T>::Emit(int count, Math::vec2 emitter_position, Math::vec2 emitter_velocity, Math::vec2 direction, double spread, double dmg)
     {
         for (int i = 0; i < count; i++)
         {

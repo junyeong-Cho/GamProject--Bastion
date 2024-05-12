@@ -38,6 +38,9 @@ enum class GameObjectTypes
     Bow_8,
     Bow_16,
 
+    Rambo_4,
+    Rambo_8,
+    Rambo_16,
 
     MagicUnit,
     Bomb_1,
@@ -64,6 +67,16 @@ enum class GameObjectTypes
     Sniper_8,
     Sniper_16,
 
+    BuffUnit,
+    DmgBuff_4,
+    DmgBuff_8,
+    DmgBuff_16,
+    AtkspdBuff_4,
+    AtkspdBuff_8,
+    AtkspdBuff_16,
+    BuffUnitEnd,
+
+    UnitEnd,
 
     Button,
 
