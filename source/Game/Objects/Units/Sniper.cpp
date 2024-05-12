@@ -1,6 +1,7 @@
 
 #include "Sniper.h"
 #include "BuffUnit.h"
+#include "RangedUnit.h"
 
 #include "Game/Objects/Monsters/Monster.h"
 
@@ -110,6 +111,8 @@ bool Sniper_2::CanMergeWith(GameObjectTypes type)
         return true;
     case GameObjectTypes::Transform_2:
         return true;
+    case GameObjectTypes::Spear_2:
+        return true;
     default:
         return false;
     }
@@ -125,6 +128,12 @@ void Sniper_2::ResolveMerge(GameObject* other_object)
     else if (other_object->Type() == GameObjectTypes::Transform_2)
     {
         new DmgBuff_4(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+    else if (other_object->Type() == GameObjectTypes::Spear_2)
+    {
+        new Rambo_4(GetPosition());
         other_object->Destroy();
         Destroy();
     }
