@@ -219,3 +219,58 @@ void Bow_16::ResolveMerge(GameObject* other_object)
 {
 
 }
+
+
+
+
+bool Rambo_4::CanMergeWith(GameObjectTypes type)
+{
+    switch (type)
+    {
+        case GameObjectTypes::Rambo_4: return true;
+        default: return false;
+    }
+}
+
+void Rambo_4::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Rambo_4)
+    {
+        new Rambo_8(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+}
+
+bool Rambo_8::CanMergeWith(GameObjectTypes type)
+{
+    switch (type)
+    {
+        case GameObjectTypes::Rambo_8: return true;
+        default: return false;
+    }
+}
+
+void Rambo_8::ResolveMerge(GameObject* other_object)
+{
+    if (other_object->Type() == GameObjectTypes::Rambo_8)
+    {
+        new Rambo_16(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+}
+
+bool Rambo_16::CanMergeWith(GameObjectTypes type)
+{
+    /*switch (type)
+    {
+    default:
+        return false;
+    }*/
+    return false;
+}
+
+void Rambo_16::ResolveMerge(GameObject* other_object)
+{
+}

@@ -38,6 +38,9 @@ enum class GameObjectTypes
     Bow_8,
     Bow_16,
 
+    Rambo_4,
+    Rambo_8,
+    Rambo_16,
 
     MagicUnit,
     Bomb_1,
