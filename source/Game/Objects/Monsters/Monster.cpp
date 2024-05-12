@@ -105,7 +105,7 @@ bool Monster::IsInside(Math::vec2 target_position) const
 		return false;
 }
 
-void Monster::TakeDamage(int damage)
+void Monster::TakeDamage(double damage)
 {
 	info.life -= damage;
 

@@ -35,6 +35,7 @@ Unit::~Unit()
 
 void Unit::Update(double dt)
 {
+    ResetBuff();
     GameObject::Update(dt);
     GetGOComponent<GAM200::Sprite>()->Update(dt);
     attack_animation_count -= dt;
@@ -78,16 +79,16 @@ void Unit::Draw(Math::TransformationMatrix camera_matrix)
     Math::vec2 position = GetPosition();
 
     ShaderDrawing::set_color(0, 0, 0, 51);
-    ShaderDrawing::draw_circle(position.x, position.y, radius, radius);
+    ShaderDrawing::draw_circle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(radius), static_cast<int>(radius));
 
     if (is_moving)
 	{
         ShaderDrawing::set_color(249, 40, 145, 76);
-		ShaderDrawing::draw_circle(previous_position.x, previous_position.y, radius, radius);
+        ShaderDrawing::draw_circle(static_cast<int>(previous_position.x), static_cast<int>(previous_position.y), static_cast<int>(radius), static_cast<int>(radius));
 
         ShaderDrawing::set_color(25, 25, 25, 153);
-		ShaderDrawing::draw_circle(position.x, position.y, range, range);
-}
+        ShaderDrawing::draw_circle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(range), static_cast<int>(range));
+    }
 #endif
 }
 
@@ -102,9 +103,19 @@ void Unit::ShowInfo()
 
     dps->Draw(Math::TranslationMatrix(Math::ivec2{ 900, 140 }));
 #else
-    ShaderDrawing::draw_text("Damage: " + std::to_string(damage), 1100, 280, 40, 255, 255, 255);
-    ShaderDrawing::draw_text("Atk Spd: " + std::to_string(attack_time), 1100, 210, 40, 255, 255, 255);
-    ShaderDrawing::draw_text("DPS: " + std::to_string(GetDPS()), 1100, 140, 40, 255, 255, 255);
+    ShaderDrawing::draw_text(TypeName(), 1100, 340, 40, 255, 255, 255);
+    std::ostringstream stream1;
+    stream1 << std::fixed << std::setprecision(2) << GetDamage();
+    std::string result1 = stream1.str();
+    ShaderDrawing::draw_text("Damage: " + result1, 1100, 280, 40, 255, 255, 255);
+    std::ostringstream stream2;
+    stream2 << std::fixed << std::setprecision(2) << GetAtkSpd();
+    std::string result2 = stream2.str();
+    ShaderDrawing::draw_text("Atk Spd: " + result2, 1100, 210, 40, 255, 255, 255);
+    std::ostringstream stream3;
+    stream3 << std::fixed << std::setprecision(2) << GetDPS();
+    std::string result3 = stream3.str();
+    ShaderDrawing::draw_text("DPS: " + result3, 1100, 140, 40, 255, 255, 255);
 #endif
 }
 
@@ -227,7 +238,7 @@ double Unit::GetDPS()
 
     double totalDamage = 0;
 
-    std::queue<std::pair<double, int>>temp = damageHolder;
+    std::queue<std::pair<double, double>>temp = damageHolder;
 
     while(!temp.empty())
     {
@@ -238,11 +249,27 @@ double Unit::GetDPS()
     return totalDamage / 10.0;
 }
 
-void Unit::InsertDPS(int damage)
+void Unit::InsertDPS(double damage)
 {
     double currentTime = Engine::GetGameStateManager().GetGSComponent<Time>()->CurrentTime();
 
     damageHolder.push(std::make_pair(currentTime, damage));
 
     UpdateDPS();
+}
+
+void Unit::BuffDmg(double dmg)
+{
+    damage_buff *= dmg;
+}
+
+void Unit::BuffAtkspd(double atkspd)
+{
+    atkspd_buff *= atkspd;
+}
+
+void Unit::ResetBuff()
+{
+    damage_buff = 1.0;
+    atkspd_buff = 1.0;
 }

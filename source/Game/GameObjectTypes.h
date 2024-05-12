@@ -64,6 +64,16 @@ enum class GameObjectTypes
     Sniper_8,
     Sniper_16,
 
+    BuffUnit,
+    DmgBuff_4,
+    DmgBuff_8,
+    DmgBuff_16,
+    AtkspdBuff_4,
+    AtkspdBuff_8,
+    AtkspdBuff_16,
+    BuffUnitEnd,
+
+    UnitEnd,
 
     Button,
 

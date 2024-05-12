@@ -26,6 +26,8 @@
 #include "Game/Objects/Units/RangedUnit.h"
 #include "Game/Objects/Units/MagicUnit.h"
 
+#include "Game/Objects/Units/BuffUnit.h"
+
 #include "Game/Objects/Monsters/Monster.h"
 
 #include "Game/Fonts.h"
@@ -89,7 +91,6 @@ void Game::Update(double dt)
 	GetGSComponent<GameSpeed>()->Update(dt);
 	GetGSComponent<Time>()->Update(dt);
 	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
-	GetGSComponent<GAM200::GameObjectManager>()->CollisionTest();
 	GetGSComponent<GAM200::GameObjectManager>()->MergeTest();
 	GetGSComponent<Wave>()->Update(dt);
 

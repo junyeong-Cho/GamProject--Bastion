@@ -1,5 +1,6 @@
 
 #include "Spear.h"
+#include "BuffUnit.h"
 
 #include "Game/Objects/Monsters/Monster.h"
 
@@ -28,7 +29,7 @@ void SpearUnit::ResolveCollision(GameObject* other_object)
         return;
 
     Monster* target = static_cast<Monster*>(other_object);
-    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
+    double   dmg    = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, GetDamage());
     InsertDPS(dmg);
 
     if (GetPosition().x < target->GetPosition().x)
@@ -107,6 +108,8 @@ bool Spear_2::CanMergeWith(GameObjectTypes type)
     {
     case GameObjectTypes::Spear_2:
         return true;
+    case GameObjectTypes::Transform_2:
+        return true;
     default:
         return false;
     }
@@ -116,6 +119,12 @@ void Spear_2::ResolveMerge(GameObject* other_object)
     if (other_object->Type() == GameObjectTypes::Spear_2)
     {
         new Spear_4(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+    else if (other_object->Type() == GameObjectTypes::Transform_2)
+    {
+        new AtkspdBuff_4(GetPosition());
         other_object->Destroy();
         Destroy();
     }

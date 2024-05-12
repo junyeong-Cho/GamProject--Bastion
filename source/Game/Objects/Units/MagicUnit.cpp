@@ -32,7 +32,7 @@ void MagicUnit::ResolveCollision(GameObject* other_object)
         return;
 
     Monster* target = static_cast<Monster*>(other_object);
-    int dmg = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, damage);
+    double   dmg    = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->WideDamage(target->GetPosition(), Map::basic_size * 1.5, GetDamage());
     InsertDPS(dmg);
 
     if (GetPosition().x < target->GetPosition().x)

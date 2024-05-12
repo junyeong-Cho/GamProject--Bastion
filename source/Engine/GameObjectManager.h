@@ -46,7 +46,7 @@ namespace GAM200
         Monster* GetClosestMonster(Unit* unit);
         Monster* GetClosestMonster(Math::vec2 position);
 
-        int WideDamage(Math::vec2 position, double radius, int damage);
+        double WideDamage(Math::vec2 position, double radius, double damage);
 
     private:
         std::list<GameObject*> objects;
