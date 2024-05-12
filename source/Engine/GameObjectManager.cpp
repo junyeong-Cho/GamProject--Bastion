@@ -88,7 +88,6 @@ void GAM200::GameObjectManager::DrawParticle(Math::TransformationMatrix camera_m
 
 void GAM200::GameObjectManager::CollisionTest()
 {
-
 	for (GameObject* object_1 : objects)
 	{
 		for (GameObject* object_2 : objects)
@@ -272,9 +271,9 @@ Monster* GAM200::GameObjectManager::GetClosestMonster(Math::vec2 position)
 }
 
 
-int GAM200::GameObjectManager::WideDamage(Math::vec2 position, double radius, int damage)
+double GAM200::GameObjectManager::WideDamage(Math::vec2 position, double radius, double damage)
 {
-	int totalDamage = 0;
+	double totalDamage = 0;
 
 	for (GameObject* object : objects)
 	{

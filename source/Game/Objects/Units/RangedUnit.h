@@ -151,3 +151,82 @@ public:
     bool CanMergeWith(GameObjectTypes type);
     void ResolveMerge(GameObject* other_object);
 };
+
+
+class Rambo_4 : public RangedUnit
+{
+public:
+    Rambo_4(Math::vec2 position = Map::middle_point) : RangedUnit(2.8, 15, position)
+    {
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
+        current_state = &state_none;
+        current_state->Enter(this);
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+    }
+
+    GameObjectTypes Type() override
+    {
+        return GameObjectTypes::Rambo_4;
+    }
+
+    std::string TypeName() override
+    {
+        return "Rambo_4";
+    }
+
+    bool CanMergeWith(GameObjectTypes type);
+    void ResolveMerge(GameObject* other_object);
+};
+
+class Rambo_8 : public RangedUnit
+{
+public:
+    Rambo_8(Math::vec2 position = Map::middle_point) : RangedUnit(2.8, 40, position)
+    {
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
+        current_state = &state_none;
+        current_state->Enter(this);
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+    }
+
+    GameObjectTypes Type() override
+    {
+        return GameObjectTypes::Rambo_8;
+    }
+
+    std::string TypeName() override
+    {
+        return "Rambo_8";
+    }
+
+    bool CanMergeWith(GameObjectTypes type);
+    void ResolveMerge(GameObject* other_object);
+};
+
+class Rambo_16 : public RangedUnit
+{
+public:
+    Rambo_16(Math::vec2 position = Map::middle_point) : RangedUnit(2.0, 100, position)
+    {
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
+        current_state = &state_none;
+        current_state->Enter(this);
+
+        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+    }
+
+    GameObjectTypes Type() override
+    {
+        return GameObjectTypes::Rambo_16;
+    }
+
+    std::string TypeName() override
+    {
+        return "Rambo_16";
+    }
+
+    bool CanMergeWith(GameObjectTypes type);
+    void ResolveMerge(GameObject* other_object);
+};

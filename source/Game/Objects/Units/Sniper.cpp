@@ -1,5 +1,7 @@
 
 #include "Sniper.h"
+#include "BuffUnit.h"
+#include "RangedUnit.h"
 
 #include "Game/Objects/Monsters/Monster.h"
 
@@ -33,8 +35,8 @@ void SniperUnit::ResolveCollision(GameObject* other_object)
         return;
 
     Monster* target = static_cast<Monster*>(other_object);
-    target->TakeDamage(damage);
-    InsertDPS(damage);
+    target->TakeDamage(GetDamage());
+    InsertDPS(GetDamage());
 
     if (GetPosition().x < target->GetPosition().x)
         SetScale({ 1, 1 });
@@ -107,6 +109,10 @@ bool Sniper_2::CanMergeWith(GameObjectTypes type)
     {
     case GameObjectTypes::Sniper_2:
         return true;
+    case GameObjectTypes::Transform_2:
+        return true;
+    case GameObjectTypes::Spear_2:
+        return true;
     default:
         return false;
     }
@@ -116,6 +122,18 @@ void Sniper_2::ResolveMerge(GameObject* other_object)
     if (other_object->Type() == GameObjectTypes::Sniper_2)
     {
         new Sniper_4(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+    else if (other_object->Type() == GameObjectTypes::Transform_2)
+    {
+        new DmgBuff_4(GetPosition());
+        other_object->Destroy();
+        Destroy();
+    }
+    else if (other_object->Type() == GameObjectTypes::Spear_2)
+    {
+        new Rambo_4(GetPosition());
         other_object->Destroy();
         Destroy();
     }
