@@ -57,7 +57,9 @@ class Bow_1 : public RangedUnit
 public:
     Bow_1(Math::vec2 position = Map::middle_point) : RangedUnit(3.2, 2, position) 
     { 
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/rapid_fire/rapid_fire_default.spt", (this)));
+        //AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/support_damage/support_damage_default.spt", (this)));
+       // AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/support_speed/support_speed_default.spt", (this)));
         current_state = &state_none;
         current_state->Enter(this);
 
