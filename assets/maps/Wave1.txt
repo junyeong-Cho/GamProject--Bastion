@@ -1,7 +1,7 @@
 30
 
-10.0    40.0    MONSTER7        4
-30.0    60.0    MONSTER10        30
+10.0    40.0    MONSTER1        40
+30.0    60.0    MONSTER1        30
 30.0    30.0    MONSTER2        30
 30.0    90.0    MONSTER2        45
 40.0    30.0    MONSTER9        10

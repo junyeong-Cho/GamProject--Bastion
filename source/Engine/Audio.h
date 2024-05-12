@@ -23,7 +23,7 @@ namespace GAM200
     public:
 
         float effectVolume = 25;
-        float musicVolume = 0;
+        float musicVolume = 30;
         float BigVolume = 80;
 
         //static SoundEffect Gem();
