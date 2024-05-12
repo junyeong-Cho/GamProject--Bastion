@@ -31,14 +31,16 @@ Updated:    December 15, 2023
 #include "Game/States.h"
 
 extern bool tower_summoned;
+extern int  startGold;
+extern int  monsterLimit;
+extern int  diamond;
+int         unit_cost = 55;
 
 Button::Button(Math::vec2 position, Math::vec2 size) : GameObject(position), position(position), size(size)
 {
 
 }
-
 int Button::difficult = 0;
-
 void Button::Update(double dt)
 {
 	GameObject::Update(dt);
@@ -47,12 +49,10 @@ void Button::Update(double dt)
 		func();
 	}
 }
-
 void Button::func()
 {
 
 }
-
 bool Button::IsClicked()
 {
 	mouse_position = Engine::GetInput().GetMousePosition();
@@ -71,40 +71,84 @@ bool Button::IsClicked()
 	return false;
 }
 
+
 Store_Easy_Button::Store_Easy_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
 	AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Easy.spt", (this)));
 }
-
 void Store_Easy_Button::func() {
 	Button::difficult = 1;
 	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
 }
 
+
 Store_Normal_Button::Store_Normal_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
 	AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Normal.spt", (this)));
 }
-
 void Store_Normal_Button::func() {
 	Button::difficult = 2;
 	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
 }
+
+
 Store_Hard_Button::Store_Hard_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
 	AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Hard.spt", (this)));
 }
-
 void Store_Hard_Button::func() {
 	Button::difficult = 3;
 	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
 }
 
+
+Store_Item_1::Store_Item_1(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+    AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Hard.spt", (this)));
+}
+void Store_Item_1::func()
+{
+    if (diamond < 20)
+        return;
+    diamond -= 20;
+
+    startGold += 50;
+}
+
+
+Store_Item_2::Store_Item_2(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+    AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Hard.spt", (this)));
+}
+void Store_Item_2::func()
+{
+    if (diamond < 20)
+        return;
+    diamond -= 20;
+
+    monsterLimit += 5;
+}
+
+
+Store_Item_3::Store_Item_3(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+    AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Hard.spt", (this)));
+}
+void Store_Item_3::func()
+{
+    if (diamond < 20)
+        return;
+    diamond -= 20;
+
+    --unit_cost;
+}
+
+
 Store_Tutorial_Button::Store_Tutorial_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
 	AddGOComponent(new GAM200::Sprite("assets/buttons/Tutorial_Icon.spt", (this)));
 }
-
 void Store_Tutorial_Button::func() {
 	Button::difficult = 4;
 	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Tutorial));
 }
+
 
 Store_Gold_Button::Store_Gold_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
 	AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Gold.spt", (this)));
@@ -122,10 +166,10 @@ void Store_Menu_Button::func() {
 	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
 }
 
+
 Store_GameStart_Button::Store_GameStart_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
 
 }
-
 void Store_GameStart_Button::func() {
 	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
 }
@@ -138,15 +182,14 @@ tower1_Button::tower1_Button(Math::vec2 position, Math::vec2 size) : Button(posi
 {
 	//AddGOComponent(new GAM200::Sprite("assets/buttons/TestButton.spt", (this)));
 }
-
 void tower1_Button::func()
 {
 	Gold* gold = Engine::GetGameStateManager().GetGSComponent<Gold>();
 
-	if (gold->GetCurrentGold() < 55)
+	if (gold->GetCurrentGold() < unit_cost)
 		return;
 
-	gold->Spend(55);
+	gold->Spend(unit_cost);
 	new Sword_1();
 	tower_summoned = true;
 }
@@ -156,32 +199,31 @@ tower2_Button::tower2_Button(Math::vec2 position, Math::vec2 size) : Button(posi
 {
 	//AddGOComponent(new GAM200::Sprite("assets/buttons/TestButton.spt", (this)));
 }
-
 void tower2_Button::func()
 {
 	Gold* gold = Engine::GetGameStateManager().GetGSComponent<Gold>();
 
-	if (gold->GetCurrentGold() < 55)
+	if (gold->GetCurrentGold() < unit_cost)
 		return;
 
-	gold->Spend(55);
+	gold->Spend(unit_cost);
 	new Bow_1();
 	tower_summoned = true;
 }
+
 
 tower3_Button::tower3_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
 {
 	//AddGOComponent(new GAM200::Sprite("assets/buttons/TestButton.spt", (this)));
 }
-
 void tower3_Button::func()
 {
 	Gold* gold = Engine::GetGameStateManager().GetGSComponent<Gold>();
 
-	if (gold->GetCurrentGold() < 55)
+	if (gold->GetCurrentGold() < unit_cost)
 		return;
 
-	gold->Spend(55);
+	gold->Spend(unit_cost);
 
 	new Bomb_1();
 	tower_summoned = true;
@@ -192,12 +234,10 @@ GameSpeed_Button::GameSpeed_Button(Math::vec2 position, Math::vec2 size) : Butto
 {
 
 }
-
 void GameSpeed_Button::func()
 {
 	Engine::GetGameStateManager().GetGSComponent<GameSpeed>()->NextSpeed();
 }
-
 void GameSpeed_Button::Draw(Math::TransformationMatrix camera_matrix)
 {
 	int speed = static_cast<int>(Engine::GetGameStateManager().GetGSComponent<GameSpeed>()->GetSpeed());
@@ -219,16 +259,15 @@ void GameSpeed_Button::Draw(Math::TransformationMatrix camera_matrix)
 	}
 }
 
+
 Skip_Button::Skip_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
 {
 
 }
-
 void Skip_Button::func()
 {
 	Engine::GetGameStateManager().GetGSComponent<Wave>()->Skip();
 }
-
 void Skip_Button::Draw(Math::TransformationMatrix camera_matrix)
 {
 	switch (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState())

@@ -94,6 +94,30 @@ public:
     void func() override;
 };
 
+class Store_Item_1 : public Button
+{
+public:
+    Store_Item_1(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
+};
+
+class Store_Item_2 : public Button
+{
+public:
+    Store_Item_2(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
+};
+
+class Store_Item_3 : public Button
+{
+public:
+    Store_Item_3(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
+};
+
 class Store_Tutorial_Button : public Button {
 public:
     Store_Tutorial_Button(Math::vec2 position, Math::vec2 size);

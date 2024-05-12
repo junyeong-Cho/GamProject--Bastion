@@ -34,7 +34,9 @@
 #include "Game/Objects/Button.h"
 #include "Game/Particles.h"
 
-
+int startGold = 110;
+int monsterLimit = 40;
+extern int diamond;
 
 Game::Game()
 {
@@ -47,8 +49,8 @@ void Game::Load()
     AddGSComponent(new GAM200::Camera({}));
 
     AddGSComponent(new GameSpeed());
-    AddGSComponent(new MonsterLimit(40));
-    AddGSComponent(new Gold(1100));
+    AddGSComponent(new MonsterLimit(monsterLimit));
+    AddGSComponent(new Gold(startGold));
     AddGSComponent(new Diamond(100));
     AddGSComponent(new Map());
     AddGSComponent(new Wave());
@@ -125,7 +127,10 @@ void Game::Update(double dt)
 	if (in_game_state != InProgress)
 	{
 		if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Enter))
-			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
+        {
+            diamond += (GetGSComponent<Wave>()->GetCurWave() + 1) * 5;
+            Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
+        }
 	}
 
 	if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Z))
