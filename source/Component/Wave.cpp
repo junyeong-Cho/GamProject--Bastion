@@ -154,11 +154,6 @@ void Wave::Update(double dt)
 
 			std::tie(rest_time, wave_time, monster_name, monster_num) = wave_info[current_wave];
 
-
-			Engine::GetLogger().LogDebug("Current Time: " + std::to_string(current_time));
-			Engine::GetLogger().LogDebug("Rest Time: " + std::to_string(rest_time));
-			Engine::GetLogger().LogDebug("Current Wave: " + std::to_string(current_wave) + '\n');
-
 			// Calc the values
 			monster_spawn_time_offset = wave_time / monster_num;
 
@@ -174,7 +169,7 @@ void Wave::Update(double dt)
 		break;
 
 	case End:
-		Engine::GetLogger().LogDebug("It's end!");
+
 		break;
 
 	}

@@ -54,8 +54,8 @@ protected:
 
     static inline double tilt_time = 0.5;
     double               tilt_count = 0.0;
-    double               tilt_amount;
-    double               tilt_decrease;
+    double               tilt_amount = 0.0;
+    double               tilt_decrease = 0.0;
 
 private:
 	static int remaining_monster;

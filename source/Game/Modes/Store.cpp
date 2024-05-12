@@ -17,6 +17,7 @@ Created:    March 14, 2024
 #include "Engine/GameObject.h"
 #include "Engine/GameObjectManager.h"
 
+#include "Engine/Audio.h"
 
 
 #include <filesystem>
@@ -45,6 +46,10 @@ void Store::Load()
 	counter = 0;
 
 	store_background = Engine::Instance().GetTextureManager().Load("assets/Background/store_background.png");
+
+    GAM200::SoundEffect::MainMenu_BGM().stopAll();
+    GAM200::SoundEffect::Game_BGM().stopAll();
+    GAM200::SoundEffect::MainMenu_BGM().loopplay();
 }
 
 void Store::Update(double dt)

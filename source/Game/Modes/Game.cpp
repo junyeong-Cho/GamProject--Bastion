@@ -36,32 +36,30 @@
 
 Game::Game()
 {
-
 }
 
 void Game::Load()
 {
-	AddGSComponent(new GAM200::GameObjectManager());
+    AddGSComponent(new GAM200::GameObjectManager());
 
-	AddGSComponent(new GAM200::Camera({}));
+    AddGSComponent(new GAM200::Camera({}));
 
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new tower1_Button({ 490,35 }, { 78, 78 }));
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new tower2_Button({ 490 + 102,35 }, { 78, 78 }));
-	GetGSComponent<GAM200::GameObjectManager>()->Add(new tower3_Button({ 490 + 102 * 2,35 }, { 78, 78 }));
-
-	AddGSComponent(new GAM200::ParticleManager<Particles::Hit>());
+    AddGSComponent(new GameSpeed());
+    AddGSComponent(new MonsterLimit(40));
+    AddGSComponent(new Gold(1100));
+    AddGSComponent(new Diamond(100));
+    AddGSComponent(new Map());
+    AddGSComponent(new Wave());
+    AddGSComponent(new Time());
+    AddGSComponent(new GAM200::ParticleManager<Particles::Hit>());
     AddGSComponent(new GAM200::ParticleManager<Particles::FontParticle>());
 
-	AddGSComponent(new GameSpeed());
-	AddGSComponent(new MonsterLimit(40));
-	AddGSComponent(new Gold(1100));
-	AddGSComponent(new Diamond(100));
-	AddGSComponent(new Map());
-	AddGSComponent(new Wave());
-	AddGSComponent(new Time());
-
-	game_speed_button = new GameSpeed_Button({ 976, 708 }, { 77, 77 });
-	skip_button       = new Skip_Button({ 1071, 708 }, { 77, 77 });
+    GAM200::GameObjectManager* gameobjectmanager = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>();
+	gameobjectmanager->Add(new tower1_Button({ 490,35 }, { 78, 78 }));
+	gameobjectmanager->Add(new tower2_Button({ 490 + 102,35 }, { 78, 78 }));
+	gameobjectmanager->Add(new tower3_Button({ 490 + 102 * 2,35 }, { 78, 78 }));
+    gameobjectmanager->Add(new GameSpeed_Button({ 976, 708 }, { 77, 77 }));
+    gameobjectmanager->Add(new Skip_Button({ 1071, 708 }, { 77, 77 }));
 
 	in_game_state = InProgress;
 
@@ -82,10 +80,6 @@ void Game::Load()
 	GAM200::SoundEffect::MainMenu_BGM().stopAll();
 	GAM200::SoundEffect::Game_BGM().stopAll();
 	GAM200::SoundEffect::Game_BGM().loopplay();
-
-#ifdef _DEBUG
-	AddGSComponent(new GAM200::ShowCollision());
-#endif
 }
 
 void Game::Update(double dt)
@@ -98,9 +92,6 @@ void Game::Update(double dt)
 	GetGSComponent<GAM200::GameObjectManager>()->CollisionTest();
 	GetGSComponent<GAM200::GameObjectManager>()->MergeTest();
 	GetGSComponent<Wave>()->Update(dt);
-
-	game_speed_button->Update(dt);
-	skip_button->Update(dt);
 
 	Engine::GetWindow().Clear(1.0f, 1.0f, 1.0f, 1.0f);
 
@@ -140,6 +131,11 @@ void Game::Update(double dt)
 	{
         GetGSComponent<GAM200::Camera>()->SetScale({2.0, 2.0});
 	}
+
+	if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Escape))
+    {
+        Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Store));
+	}
 }
 
 
@@ -172,9 +168,6 @@ void Game::Draw()
 #endif
 	Unit* unit = GetGSComponent<GAM200::GameObjectManager>()->GetCurrentUnit(); if (unit != nullptr) unit->ShowInfo();
 	tower_ui.Draw(380, 35, 514, 108);
-
-	game_speed_button->Draw(Math::TranslationMatrix(game_speed_button->GetPosition()));
-	skip_button->Draw(Math::TranslationMatrix(skip_button->GetPosition()));
 
 #if !defined(__EMSCRIPTEN__)
 	if (count < 3.0)
