@@ -32,7 +32,7 @@ public:
 
     virtual bool IsClicked();
 
-    static int difficult;
+    static bool random;
 protected:
     virtual void func();
 private:
@@ -73,16 +73,17 @@ public:
     void func();
 };
 
+class random_tower_Button : public Button
+{
+public:
+    random_tower_Button(Math::vec2 position, Math::vec2 size);
+
+    void func();
+};
+
 class Store_Easy_Button : public Button {
 public:
     Store_Easy_Button(Math::vec2 position, Math::vec2 size);
-
-    void func() override;
-};
-
-class Store_Normal_Button : public Button {
-public:
-    Store_Normal_Button(Math::vec2 position, Math::vec2 size);
 
     void func() override;
 };
@@ -100,6 +101,10 @@ public:
     Store_Item_1(Math::vec2 position, Math::vec2 size);
 
     void func() override;
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+
+private:
+    int cost = 20;
 };
 
 class Store_Item_2 : public Button
@@ -108,6 +113,10 @@ public:
     Store_Item_2(Math::vec2 position, Math::vec2 size);
 
     void func() override;
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+
+private:
+    int cost = 30;
 };
 
 class Store_Item_3 : public Button
@@ -116,6 +125,10 @@ public:
     Store_Item_3(Math::vec2 position, Math::vec2 size);
 
     void func() override;
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+
+private:
+    int cost = 30;
 };
 
 class Store_Tutorial_Button : public Button {
@@ -172,4 +185,20 @@ public:
 private:
     GAM200::Texture* skip_possible = Engine::Instance().GetTextureManager().Load("assets/buttons/skip_button.png");
     GAM200::Texture* skip_impossible = Engine::Instance().GetTextureManager().Load("assets/buttons/none_skip.png");
+};
+
+class Tutorial_Next_Step_Button : public Button
+{
+public:
+    Tutorial_Next_Step_Button(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
+};
+
+class Tutorial_Prev_Step_Button : public Button
+{
+public:
+    Tutorial_Prev_Step_Button(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
 };

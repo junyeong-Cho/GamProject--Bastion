@@ -36,15 +36,14 @@ void Store::Load()
 	AddGSComponent(new GAM200::GameObjectManager());
 
 	GAM200::GameObjectManager* gameobjectmanager = GetGSComponent<GAM200::GameObjectManager>();
-	gameobjectmanager->Add(new Store_Easy_Button({ 100, 420 }, { 200, 150 }));
-	gameobjectmanager->Add(new Store_Normal_Button({ 400, 420 }, { 200, 150 }));
-	gameobjectmanager->Add(new Store_Hard_Button({ 700, 420 }, { 200, 150 }));
+    gameobjectmanager->Add(new Store_Tutorial_Button({ 100, 420 }, { 200, 150 }));
+	gameobjectmanager->Add(new Store_Easy_Button({ 400, 420 }, { 200, 150 }));
+    gameobjectmanager->Add(new Store_Hard_Button({ 700, 420 }, { 200, 150 }));
 
 	gameobjectmanager->Add(new Store_Item_1({ 100, 140 }, { 200, 150 }));
     gameobjectmanager->Add(new Store_Item_2({ 400, 140 }, { 200, 150 }));
     gameobjectmanager->Add(new Store_Item_3({ 700, 140 }, { 200, 150 }));
 
-	gameobjectmanager->Add(new Store_Tutorial_Button({ 1000, 420 }, { 200, 150 }));
 	gameobjectmanager->Add(new Store_Menu_Button({ 1030, 50 }, { 200, 150 }));
 	
 

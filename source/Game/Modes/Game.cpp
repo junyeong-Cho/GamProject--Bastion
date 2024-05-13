@@ -37,6 +37,7 @@
 int startGold = 110;
 int monsterLimit = 40;
 extern int diamond;
+extern int unit_cost;
 
 Game::Game()
 {
@@ -59,27 +60,24 @@ void Game::Load()
     AddGSComponent(new GAM200::ParticleManager<Particles::FontParticle>());
 
     GAM200::GameObjectManager* gameobjectmanager = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>();
-	gameobjectmanager->Add(new tower1_Button({ 490,35 }, { 78, 78 }));
-	gameobjectmanager->Add(new tower2_Button({ 490 + 102,35 }, { 78, 78 }));
-	gameobjectmanager->Add(new tower3_Button({ 490 + 102 * 2,35 }, { 78, 78 }));
+	if (Button::random == false)
+    {
+        gameobjectmanager->Add(new tower1_Button({ 490, 35 }, { 78, 78 }));
+        gameobjectmanager->Add(new tower2_Button({ 490 + 102, 35 }, { 78, 78 }));
+        gameobjectmanager->Add(new tower3_Button({ 490 + 102 * 2, 35 }, { 78, 78 }));
+        //tower_ui = GAM200::Texture("assets/buttons/tower_ui.png");
+	}
+	else
+	{
+        gameobjectmanager->Add(new random_tower_Button({ 490 + 102, 35 }, { 78, 78 }));
+        //tower_ui = GAM200::Texture("assets/buttons/tower_ui.png");
+	}
     gameobjectmanager->Add(new GameSpeed_Button({ 976, 708 }, { 77, 77 }));
     gameobjectmanager->Add(new Skip_Button({ 1071, 708 }, { 77, 77 }));
 
 	in_game_state = InProgress;
 
-	switch (Button::difficult) {
-	case 1:
-		GetGSComponent<Wave>()->SetWave("assets/maps/Wave1.txt");
-		break;
-	case 2:
-		GetGSComponent<Wave>()->SetWave("assets/maps/Wave2.txt");
-		break;
-	case 3:
-		GetGSComponent<Wave>()->SetWave("assets/maps/Wave3.txt");
-		break;
-	case 4:
-		break;
-	}
+	GetGSComponent<Wave>()->SetWave("assets/maps/Wave1.txt");
 
 	GAM200::SoundEffect::MainMenu_BGM().stopAll();
 	GAM200::SoundEffect::Game_BGM().stopAll();
@@ -132,16 +130,6 @@ void Game::Update(double dt)
             Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
         }
 	}
-
-	if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Z))
-	{
-        GetGSComponent<GAM200::Camera>()->SetScale({2.0, 2.0});
-	}
-
-	if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Escape))
-    {
-        Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Store));
-	}
 }
 
 
@@ -159,11 +147,18 @@ void Game::Draw()
     GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
     GetGSComponent<GAM200::GameObjectManager>()->DrawParticle(camera_matrix);
 
+    Unit* unit = GetGSComponent<GAM200::GameObjectManager>()->GetInfoTarget(); if (unit != nullptr) unit->ShowInfo();
+    tower_ui.Draw(380, 35, 514, 108);
+
 #if IfWantShader
-	if (GetGSComponent<Wave>()->IsResting() || Button::difficult == 4)
-		ShaderDrawing::draw_text("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 1100, 600, 50,255, 255, 255);
+	if (GetGSComponent<Wave>()->IsResting())
+        ShaderDrawing::draw_text("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 1100, 600, 50, 255, 255, 255);
+    ShaderDrawing::draw_text("Gold: " + std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 1100, 530, 50, 255, 255, 255);
+    ShaderDrawing::draw_text("Monster: " + std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 1100, 460, 50, 255, 255, 255);
 	ShaderDrawing::draw_text("Wave: " + std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1) + "/" + std::to_string(GetGSComponent<Wave>()->GetMaxWave()), 1100, 390, 50, 255, 255, 255);
-	ShaderDrawing::draw_text("Gold: " + std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 1100, 530, 50, 255, 255, 255);
+    ShaderDrawing::draw_text(std::to_string(unit_cost), 531, 64, 25, 1.0f, 1.0f, 0.0f);
+    ShaderDrawing::draw_text(std::to_string(unit_cost), 638, 64, 25, 1.0f, 1.0f, 0.0f);
+    ShaderDrawing::draw_text(std::to_string(unit_cost), 745, 64, 25, 1.0f, 1.0f, 0.0f);
 #else
 	trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
 	time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 700 }));
@@ -172,8 +167,6 @@ void Game::Draw()
 	monsters->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 560 }));
 	currentwave->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 490 }));
 #endif
-	Unit* unit = GetGSComponent<GAM200::GameObjectManager>()->GetInfoTarget(); if (unit != nullptr) unit->ShowInfo();
-	tower_ui.Draw(380, 35, 514, 108);
 
 #if !defined(__EMSCRIPTEN__)
 	if (count < 3.0)

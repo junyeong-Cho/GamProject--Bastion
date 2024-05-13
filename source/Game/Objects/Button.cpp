@@ -24,6 +24,8 @@ Updated:    December 15, 2023
 
 #include "Game/Objects/Monsters/Monster.h"
 
+#include "Game/Modes/Tutorial.h"
+
 #include "Component/Gold.h"
 #include "Component/GameSpeed.h"
 
@@ -40,7 +42,7 @@ Button::Button(Math::vec2 position, Math::vec2 size) : GameObject(position), pos
 {
 
 }
-int Button::difficult = 0;
+bool Button::random = false;
 void Button::Update(double dt)
 {
 	GameObject::Update(dt);
@@ -76,68 +78,72 @@ Store_Easy_Button::Store_Easy_Button(Math::vec2 position, Math::vec2 size) : But
 	AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Easy.spt", (this)));
 }
 void Store_Easy_Button::func() {
-	Button::difficult = 1;
+	Button::random = false;
 	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
 }
-
-
-Store_Normal_Button::Store_Normal_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
-	AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Normal.spt", (this)));
-}
-void Store_Normal_Button::func() {
-	Button::difficult = 2;
-	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
-}
-
 
 Store_Hard_Button::Store_Hard_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
 	AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Hard.spt", (this)));
 }
 void Store_Hard_Button::func() {
-	Button::difficult = 3;
+	Button::random = true;
 	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
 }
 
 
 Store_Item_1::Store_Item_1(Math::vec2 position, Math::vec2 size) : Button(position, size)
 {
-    AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Hard.spt", (this)));
+    AddGOComponent(new GAM200::Sprite("assets/buttons/InitialGoldPlus.spt", (this)));
 }
 void Store_Item_1::func()
 {
-    if (diamond < 20)
+    if (diamond < cost)
         return;
-    diamond -= 20;
+    diamond -= cost;
 
     startGold += 50;
 }
-
+void Store_Item_1::Draw(Math::TransformationMatrix camera_matrix)
+{
+    GameObject::Draw(camera_matrix);
+    ShaderDrawing::draw_text("$" +  std::to_string(cost), GetPosition().x + 100, GetPosition().y - 30, 40, 1.0f, 1.0f, 0.0f);
+}
 
 Store_Item_2::Store_Item_2(Math::vec2 position, Math::vec2 size) : Button(position, size)
 {
-    AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Hard.spt", (this)));
+    AddGOComponent(new GAM200::Sprite("assets/buttons/MonsterLimitPlus.spt", (this)));
 }
 void Store_Item_2::func()
 {
-    if (diamond < 20)
+    if (diamond < cost)
         return;
-    diamond -= 20;
+    diamond -= cost;
 
     monsterLimit += 5;
+}
+void Store_Item_2::Draw(Math::TransformationMatrix camera_matrix)
+{
+    GameObject::Draw(camera_matrix);
+    ShaderDrawing::draw_text("$" + std::to_string(cost), GetPosition().x + 100, GetPosition().y - 30, 40, 1.0f, 1.0f, 0.0f);
 }
 
 
 Store_Item_3::Store_Item_3(Math::vec2 position, Math::vec2 size) : Button(position, size)
 {
-    AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Hard.spt", (this)));
+    AddGOComponent(new GAM200::Sprite("assets/buttons/UnitCostMinus.spt", (this)));
 }
 void Store_Item_3::func()
 {
-    if (diamond < 20)
+    if (diamond < cost)
         return;
-    diamond -= 20;
+    diamond -= cost;
 
     --unit_cost;
+}
+void Store_Item_3::Draw(Math::TransformationMatrix camera_matrix)
+{
+    GameObject::Draw(camera_matrix);
+    ShaderDrawing::draw_text("$" + std::to_string(cost), GetPosition().x + 100, GetPosition().y - 30, 40, 1.0f, 1.0f, 0.0f);
 }
 
 
@@ -145,7 +151,7 @@ Store_Tutorial_Button::Store_Tutorial_Button(Math::vec2 position, Math::vec2 siz
 	AddGOComponent(new GAM200::Sprite("assets/buttons/Tutorial_Icon.spt", (this)));
 }
 void Store_Tutorial_Button::func() {
-	Button::difficult = 4;
+	Button::random = false;
 	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Tutorial));
 }
 
@@ -229,6 +235,37 @@ void tower3_Button::func()
 	tower_summoned = true;
 }
 
+random_tower_Button::random_tower_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+    // AddGOComponent(new GAM200::Sprite("assets/buttons/TestButton.spt", (this)));
+}
+
+void random_tower_Button::func()
+{
+    Gold* gold = Engine::GetGameStateManager().GetGSComponent<Gold>();
+
+    if (gold->GetCurrentGold() < unit_cost)
+        return;
+
+    gold->Spend(unit_cost);
+
+    int random_value = rand() % 3;
+    switch (random_value)
+    {
+        case 0:
+			new Sword_1();
+			break;
+        case 1:
+			new Bow_1();
+			break;
+        case 2:
+			new Bomb_1();
+			break;
+	}
+
+    tower_summoned = true;
+}
+
 
 GameSpeed_Button::GameSpeed_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
 {
@@ -284,4 +321,25 @@ void Skip_Button::Draw(Math::TransformationMatrix camera_matrix)
 
 		break;
 	}
+}
+
+
+Tutorial_Next_Step_Button::Tutorial_Next_Step_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+
+}
+
+void Tutorial_Next_Step_Button::func()
+{
+    Tutorial::NextStep();
+}
+
+Tutorial_Prev_Step_Button::Tutorial_Prev_Step_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+
+}
+
+void Tutorial_Prev_Step_Button::func()
+{
+    Tutorial::PrevStep();
 }
