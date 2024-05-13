@@ -8,26 +8,33 @@ This will be a cross platform targeting Windows & Web platforms as a minimum and
 ## How to Build and Run
 
 First Setup your [Development Environment](docs/DevEnvironment.md)
+And then follow the instructions below to build and run the project.
+
+
 
 ### Command Line Build
 
 #### General Steps
 
 **Release**
+run the following commands in the terminal not bash(a.k.a Ubuntu on Windows)
+If the build is successful, the .sln file will be in the build folder.
 ```sh
 cmake -B build -S . -DCMAKE_BUILD_TYPE=Release
 cmake --build build --config Release
-./build/executables/Release/graphics_fun
 ```
 
 **Debug**
+run the following commands in the terminal not bash(a.k.a Ubuntu on Windows)
+If the build is successful, the .sln file will be in the build folder.
 ```sh
 cmake -B build -S . -DCMAKE_BUILD_TYPE=Debug
 cmake --build build/build --config Debug
-./build/executables/Debug/graphics_fun
 ```
 
 **Emscripten**
+PLS DO NOT USE THIS COMMAND 
+THIS MAY CAUSE ERRORS
 ```sh
 source /path/to/emsdk/emsdk_env.sh
 emcmake cmake -B build -S . -DCMAKE_BUILD_TYPE=Release

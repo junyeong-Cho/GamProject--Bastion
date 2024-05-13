@@ -100,8 +100,6 @@ set(SOURCE_CODE
 
     Game/Fonts.h
     Game/GameObjectTypes.h
-    Game/Mode1.h                       Game/Mode1.cpp
-    Game/Mode2.h                       Game/Mode2.cpp
     Game/Particles.h  
     Game/Splash.h                      Game/Splash.cpp
     Game/States.h
