@@ -216,9 +216,9 @@ void Tutorial::Draw()
     ShaderDrawing::draw_text("Gold: " + std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 1100, 530, 50, 255, 255, 255);
     ShaderDrawing::draw_text("Monster: " + std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 1100, 460, 50, 255, 255, 255);
     ShaderDrawing::draw_text("Wave: " + std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1) + "/" + std::to_string(GetGSComponent<Wave>()->GetMaxWave()), 1100, 390, 50, 255, 255, 255);
-    ShaderDrawing::draw_text(std::to_string(unit_cost), 531, 64, 25, 1.0f, 1.0f, 0.0f);
-    ShaderDrawing::draw_text(std::to_string(unit_cost), 638, 64, 25, 1.0f, 1.0f, 0.0f);
-    ShaderDrawing::draw_text(std::to_string(unit_cost), 745, 64, 25, 1.0f, 1.0f, 0.0f);
+    ShaderDrawing::draw_text(std::to_string(unit_cost), 531, 34, 25, 1.0f, 1.0f, 0.0f);
+    ShaderDrawing::draw_text(std::to_string(unit_cost), 638, 34, 25, 1.0f, 1.0f, 0.0f);
+    ShaderDrawing::draw_text(std::to_string(unit_cost), 745, 34, 25, 1.0f, 1.0f, 0.0f);
 #else
     trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
     time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 700 }));

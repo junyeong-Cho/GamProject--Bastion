@@ -70,7 +70,7 @@ void Game::Load()
 	else
 	{
         gameobjectmanager->Add(new random_tower_Button({ 490 + 102, 35 }, { 78, 78 }));
-        //tower_ui = GAM200::Texture("assets/buttons/tower_ui.png");
+        //tower_ui = GAM200::Texture("assets/buttons/tower_ui_random.png");
 	}
     gameobjectmanager->Add(new GameSpeed_Button({ 976, 708 }, { 77, 77 }));
     gameobjectmanager->Add(new Skip_Button({ 1071, 708 }, { 77, 77 }));
@@ -148,7 +148,10 @@ void Game::Draw()
     GetGSComponent<GAM200::GameObjectManager>()->DrawParticle(camera_matrix);
 
     Unit* unit = GetGSComponent<GAM200::GameObjectManager>()->GetInfoTarget(); if (unit != nullptr) unit->ShowInfo();
-    tower_ui.Draw(380, 35, 514, 108);
+    if (Button::random)
+        tower_ui_random.Draw(380, 35, 514, 108);
+    else
+		tower_ui_no_random.Draw(380, 35, 514, 108);
 
 #if IfWantShader
 	if (GetGSComponent<Wave>()->IsResting())
@@ -156,9 +159,12 @@ void Game::Draw()
     ShaderDrawing::draw_text("Gold: " + std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 1100, 530, 50, 255, 255, 255);
     ShaderDrawing::draw_text("Monster: " + std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 1100, 460, 50, 255, 255, 255);
 	ShaderDrawing::draw_text("Wave: " + std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1) + "/" + std::to_string(GetGSComponent<Wave>()->GetMaxWave()), 1100, 390, 50, 255, 255, 255);
-    ShaderDrawing::draw_text(std::to_string(unit_cost), 531, 64, 25, 1.0f, 1.0f, 0.0f);
-    ShaderDrawing::draw_text(std::to_string(unit_cost), 638, 64, 25, 1.0f, 1.0f, 0.0f);
-    ShaderDrawing::draw_text(std::to_string(unit_cost), 745, 64, 25, 1.0f, 1.0f, 0.0f);
+    if (!Button::random)
+    {
+        ShaderDrawing::draw_text(std::to_string(unit_cost), 531, 34, 25, 1.0f, 1.0f, 0.0f);
+        ShaderDrawing::draw_text(std::to_string(unit_cost), 745, 34, 25, 1.0f, 1.0f, 0.0f);
+    }
+    ShaderDrawing::draw_text(std::to_string(unit_cost), 638, 34, 25, 1.0f, 1.0f, 0.0f);
 #else
 	trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
 	time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 700 }));
