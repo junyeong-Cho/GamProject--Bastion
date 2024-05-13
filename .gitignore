@@ -22,4 +22,3 @@ imgui.ini
 # mac os files
 .DS_STORE
 /.vs/slnx.sqlite
-/source/Engine
