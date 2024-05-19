@@ -72,6 +72,9 @@ void Engine::Update()
         //mouse.Update();
         input.Update();
 
+        ShaderDrawing::ShaderDraw::updateShaders();
+
+
         window.Update();
 
         if (frame_count >= FPSTargetFrames)

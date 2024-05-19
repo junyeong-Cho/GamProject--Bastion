@@ -4,6 +4,7 @@
 #include <map>
 #include <SDL.h>
 
+
 #include "Engine/Normalization.h"
 #include "Image2D.h"
 
@@ -38,8 +39,12 @@ namespace ShaderDrawing
 			unsigned int vaoid[2];
 			unsigned int vboid[2];
 			unsigned int draw_cnt;
-            unsigned int compileShader(unsigned int shaderType, const char* sourceCode);
-			unsigned int createShaderProgram(unsigned int vertexShader, unsigned int fragmentShader);
+
+
+            static unsigned int  compileShader(unsigned int shaderType, const char* sourceCode);
+            static unsigned int  createShaderProgram(unsigned int vertexShader, unsigned int fragmentShader);
+            void                 reloadShaders(const std::string& vertexShaderPath, const std::string& fragmentShaderPath);
+
 		};
 		
 		struct Character 
@@ -78,6 +83,8 @@ namespace ShaderDrawing
 
 		static std::string readShaderFile(const std::string& filePath);
 
+		static void updateShaders();
+
 
 
 	private:
@@ -85,7 +92,6 @@ namespace ShaderDrawing
 		static GLModel textureBox;
 		static GLModel circle;
 		static GLModel fontBox;
-
 
 		static bool isfill;
 		static bool previous_isfill;
@@ -119,13 +125,26 @@ namespace ShaderDrawing
 		static void setTextureModel();
 
 
-		
-
-		static int task;
-		static int previous_task;
-
-
 		static std::map<char, Character> Characters;
+
+
+
+	    struct ShaderFile
+        {
+            std::string                     path;
+            std::filesystem::file_time_type lastWriteTime;
+        };
+
+        static ShaderFile vertexShaderBox;
+        static ShaderFile fragmentShaderBox;
+        static ShaderFile vertexShaderCircle;
+        static ShaderFile fragmentShaderCircle;
+        static ShaderFile vertexShaderTexture;
+        static ShaderFile fragmentShaderTexture;
+        static ShaderFile vertexShaderFont;
+        static ShaderFile fragmentShaderFont;
+
+        static void checkAndReloadShaders();
 	};
 
 

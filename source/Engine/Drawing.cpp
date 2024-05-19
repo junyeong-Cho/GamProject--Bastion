@@ -1,9 +1,11 @@
 #include "Drawing.h"
 #include <SDL_vulkan.h>
 
-#include <vector>
 #include <array>
 #include <sstream>
+#include <vector>
+#include <filesystem> 
+#include <chrono> 
 
 #include <GL/glew.h>
 #include <ft2build.h>
@@ -14,10 +16,21 @@
 #include <iostream>
 
 
+ShaderDrawing::ShaderDraw::ShaderFile ShaderDrawing::ShaderDraw::vertexShaderBox       = { "assets/shaders/box.vert", std::filesystem::last_write_time("assets/shaders/box.vert") };
+ShaderDrawing::ShaderDraw::ShaderFile ShaderDrawing::ShaderDraw::fragmentShaderBox     = { "assets/shaders/box.frag", std::filesystem::last_write_time("assets/shaders/box.frag") };
+ShaderDrawing::ShaderDraw::ShaderFile ShaderDrawing::ShaderDraw::vertexShaderCircle    = { "assets/shaders/circle.vert", std::filesystem::last_write_time("assets/shaders/circle.vert") };
+ShaderDrawing::ShaderDraw::ShaderFile ShaderDrawing::ShaderDraw::fragmentShaderCircle  = { "assets/shaders/circle.frag", std::filesystem::last_write_time("assets/shaders/circle.frag") };
+ShaderDrawing::ShaderDraw::ShaderFile ShaderDrawing::ShaderDraw::vertexShaderTexture   = { "assets/shaders/texture.vert", std::filesystem::last_write_time("assets/shaders/texture.vert") };
+ShaderDrawing::ShaderDraw::ShaderFile ShaderDrawing::ShaderDraw::fragmentShaderTexture = { "assets/shaders/texture.frag", std::filesystem::last_write_time("assets/shaders/texture.frag") };
+ShaderDrawing::ShaderDraw::ShaderFile ShaderDrawing::ShaderDraw::vertexShaderFont      = { "assets/shaders/font.vert", std::filesystem::last_write_time("assets/shaders/font.vert") };
+ShaderDrawing::ShaderDraw::ShaderFile ShaderDrawing::ShaderDraw::fragmentShaderFont    = { "assets/shaders/font.frag", std::filesystem::last_write_time("assets/shaders/font.frag") };
 
-std::string loadShaderSource(const std::string& filePath) {
+
+std::string loadShaderSource(const std::string& filePath)
+{
     std::ifstream file(filePath);
-    if (!file.is_open()) {
+    if (!file.is_open())
+    {
         std::cerr << "Failed to open shader file: " << filePath << std::endl;
         return "";
     }
@@ -26,18 +39,65 @@ std::string loadShaderSource(const std::string& filePath) {
     return buffer.str();
 }
 
+void ShaderDrawing::ShaderDraw::checkAndReloadShaders()
+{
+    auto reloadShader = [](ShaderFile& vertexShaderFile, ShaderFile& fragmentShaderFile, GLModel& model)
+    {
+        auto currentVertexWriteTime   = std::filesystem::last_write_time(vertexShaderFile.path);
+        auto currentFragmentWriteTime = std::filesystem::last_write_time(fragmentShaderFile.path);
+
+        if (currentVertexWriteTime != vertexShaderFile.lastWriteTime || currentFragmentWriteTime != fragmentShaderFile.lastWriteTime)
+        {
+            vertexShaderFile.lastWriteTime   = currentVertexWriteTime;
+            fragmentShaderFile.lastWriteTime = currentFragmentWriteTime;
+
+            model.reloadShaders(vertexShaderFile.path, fragmentShaderFile.path);
+
+            Engine::GetLogger().LogDebug(vertexShaderFile.path + " and " + fragmentShaderFile.path + " reloaded.");
+            
+        }
+    };
+
+    reloadShader(vertexShaderBox, fragmentShaderBox, box);
+    reloadShader(vertexShaderCircle, fragmentShaderCircle, circle);
+    reloadShader(vertexShaderTexture, fragmentShaderTexture, textureBox);
+    reloadShader(vertexShaderFont, fragmentShaderFont, fontBox);
+}
+
+
+void ShaderDrawing::ShaderDraw::GLModel::reloadShaders(const std::string& vertexShaderPath, const std::string& fragmentShaderPath)
+{
+    std::string vertexShaderSource   = loadShaderSource(vertexShaderPath);
+    std::string fragmentShaderSource = loadShaderSource(fragmentShaderPath);
+    GLuint      vertexShader         = compileShader(GL_VERTEX_SHADER, vertexShaderSource.c_str());
+    GLuint      fragmentShader       = compileShader(GL_FRAGMENT_SHADER, fragmentShaderSource.c_str());
+
+    GLuint newProgram = createShaderProgram(vertexShader, fragmentShader);
+    if (newProgram)
+    {
+        glDeleteProgram(shdr_pgm);
+        shdr_pgm = newProgram;
+    }
+}
+
+
+void ShaderDrawing::ShaderDraw::updateShaders()
+{
+    checkAndReloadShaders();
+}
+
 
 ShaderDrawing::ShaderDraw::GLModel ShaderDrawing::ShaderDraw::box;
 ShaderDrawing::ShaderDraw::GLModel ShaderDrawing::ShaderDraw::circle;
 ShaderDrawing::ShaderDraw::GLModel ShaderDrawing::ShaderDraw::textureBox;
 ShaderDrawing::ShaderDraw::GLModel ShaderDrawing::ShaderDraw::fontBox;
-glm::vec4 ShaderDrawing::ShaderDraw::color{ 1.0f,1.0f,1.0f,1.0f };
-glm::vec4 ShaderDrawing::ShaderDraw::previous_color;
+glm::vec4                          ShaderDrawing::ShaderDraw::color{ 1.0f, 1.0f, 1.0f, 1.0f };
+glm::vec4                          ShaderDrawing::ShaderDraw::previous_color;
 
 glm::vec4 ShaderDrawing::ShaderDraw::outlineColor{ 0.f, 0.f, 0.f, 1.0f };
 glm::vec4 ShaderDrawing::ShaderDraw::previous_Outlinecolor;
 
-GLfloat ShaderDrawing::ShaderDraw::ar;
+GLfloat   ShaderDrawing::ShaderDraw::ar;
 glm::mat3 ShaderDrawing::ShaderDraw::camwin_to_ndc_xform;
 glm::mat3 ShaderDrawing::ShaderDraw::world_to_ndc_xform;
 glm::mat3 ShaderDrawing::ShaderDraw::view_xform[2];
@@ -48,7 +108,6 @@ glm::mat3 ShaderDrawing::ShaderDraw::previous_Matrix;
 
 std::map<char, ShaderDrawing::ShaderDraw::Character> ShaderDrawing::ShaderDraw::Characters;
 
-
 bool ShaderDrawing::ShaderDraw::isfill          = true;
 bool ShaderDrawing::ShaderDraw::previous_isfill = true;
 
@@ -58,12 +117,6 @@ unsigned int ShaderDrawing::ShaderDraw::previous_image_mode      = 0;
 unsigned int ShaderDrawing::ShaderDraw::previous_rectangle_mode  = 0;
 unsigned int ShaderDrawing::ShaderDraw::current_coordinate_mode  = 0;
 unsigned int ShaderDrawing::ShaderDraw::previous_coordinate_mode = 0;
-
-
-int ShaderDrawing::ShaderDraw::task          = 0;
-int ShaderDrawing::ShaderDraw::previous_task = 0;
-
-
 
 
 void ShaderDrawing::ShaderDraw::initFont()
@@ -120,6 +173,7 @@ void ShaderDrawing::ShaderDraw::initFont()
     ShaderDraw::fontBox.vaoid[0] = vao;
     ShaderDraw::fontBox.vboid[0] = buffer;
 
+
     std::string vertexShaderSource   = loadShaderSource("assets/shaders/font.vert");
     std::string fragmentShaderSource = loadShaderSource("assets/shaders/font.frag");
     GLuint      vertexShader         = fontBox.compileShader(GL_VERTEX_SHADER, vertexShaderSource.c_str());
@@ -127,8 +181,6 @@ void ShaderDrawing::ShaderDraw::initFont()
 
     fontBox.shdr_pgm = fontBox.createShaderProgram(vertexShader, fragmentShader);
 }
-
-
 
 std::string ShaderDrawing::ShaderDraw::readShaderFile(const std::string& filePath)
 {
@@ -144,12 +196,9 @@ std::string ShaderDrawing::ShaderDraw::readShaderFile(const std::string& filePat
     return buffer.str();
 }
 
-
-
 void ShaderDrawing::ShaderDraw::setBoxModel()
 {
-    std::vector<glm::vec2> pos_vtx = 
-    {
+    std::vector<glm::vec2> pos_vtx = {
         { 0.5f, -0.5f},
         { 0.5f,  0.5f},
         {-0.5f,  0.5f},
@@ -187,8 +236,7 @@ void ShaderDrawing::ShaderDraw::setBoxModel()
     box.vaoid[0]       = VAO;
     box.primitive_type = GL_TRIANGLES;
 
-    std::vector<glm::vec2> pos_vtx2 = 
-    {
+    std::vector<glm::vec2> pos_vtx2 = {
         {1.0f, 0.0f},
         {1.0f, 1.0f},
         {0.0f, 1.0f},
@@ -212,15 +260,13 @@ void ShaderDrawing::ShaderDraw::setBoxModel()
     box.vaoid[1] = VAO1;
 }
 
-
 void ShaderDrawing::ShaderDraw::setCircleModel()
 {
     const int              count    = 30 + 1;
-    std::vector<glm::vec2> cpos_vtx = 
-    {
+    std::vector<glm::vec2> cpos_vtx = {
         {0, 0}
     };
-    
+
     float offset = 360.0f / 30.0f;
     for (int i = 1; i < count; i++)
     {
@@ -268,18 +314,15 @@ void ShaderDrawing::ShaderDraw::setCircleModel()
     circle.draw_cnt       = static_cast<GLuint>(cidx_vtx.size());
 }
 
-
 void ShaderDrawing::ShaderDraw::setTextureModel()
 {
-    std::vector<glm::vec2> tpos_vtx = 
-    {
+    std::vector<glm::vec2> tpos_vtx = {
         {-.5f,  .5f},
         { .5f,  .5f},
         {-.5f, -.5f},
         { .5f, -.5f}
     };
-    std::vector<glm::vec2> tpos_tex = 
-    {
+    std::vector<glm::vec2> tpos_tex = {
         {0.f, 1.f},
         {1.f, 1.f},
         {0.f, 0.f},
@@ -324,8 +367,7 @@ void ShaderDrawing::ShaderDraw::setTextureModel()
     textureBox.draw_cnt       = static_cast<GLuint>(tidx_vtx.size());
     textureBox.vaoid[0]       = tVAO;
 
-    std::vector<glm::vec2> tpos_vtx2 = 
-    {
+    std::vector<glm::vec2> tpos_vtx2 = {
         {.0f, 1.f},
         {1.f, 1.f},
         {.0f, .0f},
@@ -357,7 +399,6 @@ void ShaderDrawing::ShaderDraw::setTextureModel()
     textureBox.vboid[1] = tVBO2;
 }
 
-
 void ShaderDrawing::ShaderDraw::init(SDL_Window* pWindow)
 {
     setBoxModel();
@@ -385,7 +426,6 @@ void ShaderDrawing::ShaderDraw::init(SDL_Window* pWindow)
     world_to_ndc_xform = camwin_to_ndc_xform * view_xform[ShaderDraw::current_coordinate_mode];
 }
 
-
 GLuint ShaderDrawing::ShaderDraw::GLModel::compileShader(unsigned int shaderType, const char* sourceCode)
 {
     GLuint shader = glCreateShader(shaderType);
@@ -407,7 +447,6 @@ GLuint ShaderDrawing::ShaderDraw::GLModel::compileShader(unsigned int shaderType
     }
     return shader;
 }
-
 
 GLuint ShaderDrawing::ShaderDraw::GLModel::createShaderProgram(unsigned int vertexShader, unsigned int fragmentShader)
 {
@@ -438,7 +477,6 @@ GLuint ShaderDrawing::ShaderDraw::GLModel::createShaderProgram(unsigned int vert
     return program;
 }
 
-
 void ShaderDrawing::draw_box(float x, float y, float width, float height)
 {
     glm::mat3 scaleMat{ 1.f };
@@ -466,29 +504,25 @@ void ShaderDrawing::draw_box(float x, float y, float width, float height)
 
     glm::mat3 mdl_to_ndc_xform = ShaderDraw::world_to_ndc_xform * (transApplyMatrix * translateMat * ShaderDraw::apply_Matrix * scaleMat);
 
-
-    //glm::mat3 mdl_to_ndc_xform = DrawApp::world_to_ndc_xform * translateMat * rotateMat * scaleMat * DrawApp::apply_Matrix;;
-
     glUseProgram(ShaderDraw::box.shdr_pgm);
     glBindVertexArray(ShaderDraw::box.vaoid[ShaderDraw::current_rectangle_mode]);
-    GLint uniform_var_loc1 =
-        glGetUniformLocation(ShaderDraw::box.shdr_pgm,
-            "uModelToNDC");
-    if (uniform_var_loc1 >= 0) {
-        glUniformMatrix3fv(uniform_var_loc1, 1, GL_FALSE,
-            glm::value_ptr(mdl_to_ndc_xform));
+    GLint uniform_var_loc1 = glGetUniformLocation(ShaderDraw::box.shdr_pgm, "uModelToNDC");
+    if (uniform_var_loc1 >= 0)
+    {
+        glUniformMatrix3fv(uniform_var_loc1, 1, GL_FALSE, glm::value_ptr(mdl_to_ndc_xform));
     }
-    else {
+    else
+    {
         std::cout << "Uniform variable doesn't exist!!!\n";
         std::exit(EXIT_FAILURE);
     }
-    GLint uniformOutlinedColor =
-        glGetUniformLocation(ShaderDraw::box.shdr_pgm,
-            "color");
-    if (uniformOutlinedColor >= 0) {
+    GLint uniformOutlinedColor = glGetUniformLocation(ShaderDraw::box.shdr_pgm, "color");
+    if (uniformOutlinedColor >= 0)
+    {
         glUniform4f(uniformOutlinedColor, ShaderDraw::outlineColor.x, ShaderDraw::outlineColor.y, ShaderDraw::outlineColor.z, ShaderDraw::outlineColor.w);
     }
-    else {
+    else
+    {
         std::cout << "Uniform variable doesn't exist!!!\n";
         std::exit(EXIT_FAILURE);
     }
@@ -497,9 +531,7 @@ void ShaderDrawing::draw_box(float x, float y, float width, float height)
 
     if (ShaderDraw::isfill == true)
     {
-        GLint uniformColor =
-            glGetUniformLocation(ShaderDraw::box.shdr_pgm,
-                "color");
+        GLint uniformColor = glGetUniformLocation(ShaderDraw::box.shdr_pgm, "color");
         if (uniformColor >= 0)
         {
             glUniform4f(uniformColor, ShaderDraw::color.x, ShaderDraw::color.y, ShaderDraw::color.z, ShaderDraw::color.w);
@@ -514,7 +546,6 @@ void ShaderDrawing::draw_box(float x, float y, float width, float height)
     }
     glBindVertexArray(0);
     glUseProgram(0);
-
 }
 
 void ShaderDrawing::draw_circle(int x, int y, int width, int height)
@@ -544,51 +575,43 @@ void ShaderDrawing::draw_circle(int x, int y, int width, int height)
 
     glm::mat3 mdl_to_ndc_xform = ShaderDraw::world_to_ndc_xform * (transApplyMatrix * translateMat * ShaderDraw::apply_Matrix * scaleMat);
 
-    //glm::mat3 mdl_to_ndc_xform = DrawApp::world_to_ndc_xform * translateMat * rotateMat * scaleMat;
-    //mdl_to_ndc_xform *= DrawApp::apply_Matrix;
-
     glUseProgram(ShaderDraw::circle.shdr_pgm);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glBindVertexArray(ShaderDraw::circle.vaoid[0]);
-    GLint uniform_var_loc1 =
-        glGetUniformLocation(ShaderDraw::circle.shdr_pgm,
-            "uModelToNDC");
-    if (uniform_var_loc1 >= 0) {
-        glUniformMatrix3fv(uniform_var_loc1, 1, GL_FALSE,
-            glm::value_ptr(mdl_to_ndc_xform));
+    GLint uniform_var_loc1 = glGetUniformLocation(ShaderDraw::circle.shdr_pgm, "uModelToNDC");
+    if (uniform_var_loc1 >= 0)
+    {
+        glUniformMatrix3fv(uniform_var_loc1, 1, GL_FALSE, glm::value_ptr(mdl_to_ndc_xform));
     }
-    else {
+    else
+    {
         std::cout << "Uniform variable doesn't exist!!!\n";
         std::exit(EXIT_FAILURE);
     }
 
-    GLint uniformOutlinedColor =
-        glGetUniformLocation(ShaderDraw::box.shdr_pgm,
-            "color");
-    if (uniformOutlinedColor >= 0) {
+    GLint uniformOutlinedColor = glGetUniformLocation(ShaderDraw::box.shdr_pgm, "color");
+    if (uniformOutlinedColor >= 0)
+    {
         glUniform4f(uniformOutlinedColor, ShaderDraw::outlineColor.x, ShaderDraw::outlineColor.y, ShaderDraw::outlineColor.z, ShaderDraw::outlineColor.w);
     }
-    else {
+    else
+    {
         std::cout << "Uniform variable doesn't exist!!!\n";
         std::exit(EXIT_FAILURE);
     }
     glLineWidth(1.5f);
     glDrawElements(GL_LINE_STRIP_ADJACENCY, ShaderDraw::circle.draw_cnt, GL_UNSIGNED_SHORT, NULL);
 
-
-
-
-
     if (ShaderDraw::isfill == true)
     {
-        GLint uniformColor =
-            glGetUniformLocation(ShaderDraw::circle.shdr_pgm,
-                "color");
-        if (uniformColor >= 0) {
+        GLint uniformColor = glGetUniformLocation(ShaderDraw::circle.shdr_pgm, "color");
+        if (uniformColor >= 0)
+        {
             glUniform4f(uniformColor, ShaderDraw::color.x, ShaderDraw::color.y, ShaderDraw::color.z, ShaderDraw::color.w);
         }
-        else {
+        else
+        {
             std::cout << "Uniform variable doesn't exist!!!\n";
             std::exit(EXIT_FAILURE);
         }
@@ -606,7 +629,6 @@ void ShaderDrawing::draw_image(Image& image, int x, int y, int width, int height
 
     scaleMat[0][0] = static_cast<float>(width);
     scaleMat[1][1] = static_cast<float>(height);
-
 
     glm::mat3 translateMat{ 1.f };
     translateMat[0][0] = 1.f;
@@ -627,41 +649,24 @@ void ShaderDrawing::draw_image(Image& image, int x, int y, int width, int height
 
     glm::mat3 mdl_to_ndc_xform = ShaderDraw::world_to_ndc_xform * (transApplyMatrix * translateMat * ShaderDraw::apply_Matrix * scaleMat);
 
-
     glUseProgram(ShaderDraw::textureBox.shdr_pgm);
     glBindTextureUnit(1, image.textureID);
 
     glTextureParameteri(image.textureID, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTextureParameteri(image.textureID, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-
     glBindVertexArray(ShaderDraw::textureBox.vaoid[ShaderDraw::current_image_mode]);
-    GLint uniform_var_loc1 =
-        glGetUniformLocation(ShaderDraw::textureBox.shdr_pgm,
-            "uModelToNDC");
+    GLint uniform_var_loc1 = glGetUniformLocation(ShaderDraw::textureBox.shdr_pgm, "uModelToNDC");
 
     if (uniform_var_loc1 >= 0)
     {
-        glUniformMatrix3fv(uniform_var_loc1, 1, GL_FALSE,
-            glm::value_ptr(mdl_to_ndc_xform));
+        glUniformMatrix3fv(uniform_var_loc1, 1, GL_FALSE, glm::value_ptr(mdl_to_ndc_xform));
     }
     else
     {
         std::cout << "Uniform variable doesn't exist!!!\n";
         std::exit(EXIT_FAILURE);
     }
-
-
-    GLint uniform_task = glGetUniformLocation(ShaderDraw::textureBox.shdr_pgm, "task");
-    if (uniform_task >= 0)
-    {
-        glUniform1i(uniform_task, ShaderDraw::task);
-    }
-    else
-    {
-        std::cout << "Error with shader";
-    }
-
 
     GLuint tex_loc = glGetUniformLocation(ShaderDraw::textureBox.shdr_pgm, "uTex2d");
     if (tex_loc >= 0)
@@ -678,7 +683,6 @@ void ShaderDrawing::draw_image(Image& image, int x, int y, int width, int height
     glBindVertexArray(0);
     glDisable(GL_BLEND);
     glUseProgram(0);
-
 }
 
 void ShaderDrawing::draw_image_freely(Image& image, int x, int y, int width, int height)
@@ -699,7 +703,6 @@ void ShaderDrawing::draw_image_freely(Image& image, int x, int y, int width, int
     transApplyMatrix[2][0] = ShaderDraw::apply_Matrix[2][0];
     transApplyMatrix[2][1] = ShaderDraw::apply_Matrix[2][1];
 
-
     ShaderDraw::apply_Matrix[2][0] = 0;
     ShaderDraw::apply_Matrix[2][1] = 0;
 
@@ -707,7 +710,6 @@ void ShaderDrawing::draw_image_freely(Image& image, int x, int y, int width, int
 
     glUseProgram(ShaderDraw::textureBox.shdr_pgm);
     glBindTextureUnit(1, image.textureID);
-
 
     glTextureParameteri(image.textureID, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTextureParameteri(image.textureID, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -741,34 +743,29 @@ void ShaderDrawing::draw_image_freely(Image& image, int x, int y, int width, int
     glUseProgram(0);
 }
 
-
 void ShaderDrawing::push()
 {
     ShaderDraw::privous_view_xform[ShaderDraw::current_coordinate_mode] = ShaderDraw::view_xform[ShaderDraw::current_coordinate_mode];
-    ShaderDraw::previous_color = ShaderDraw::color;
-    ShaderDraw::previous_Outlinecolor = ShaderDraw::outlineColor;
-    ShaderDraw::previous_Matrix = ShaderDraw::apply_Matrix;
-    ShaderDraw::previous_image_mode = ShaderDraw::current_image_mode;
-    ShaderDraw::previous_rectangle_mode = ShaderDraw::current_rectangle_mode;
-    ShaderDraw::previous_coordinate_mode = ShaderDraw::current_coordinate_mode;
-    ShaderDraw::previous_isfill = ShaderDraw::isfill;
-    ShaderDraw::previous_task = ShaderDraw::task;
-
+    ShaderDraw::previous_color                                          = ShaderDraw::color;
+    ShaderDraw::previous_Outlinecolor                                   = ShaderDraw::outlineColor;
+    ShaderDraw::previous_Matrix                                         = ShaderDraw::apply_Matrix;
+    ShaderDraw::previous_image_mode                                     = ShaderDraw::current_image_mode;
+    ShaderDraw::previous_rectangle_mode                                 = ShaderDraw::current_rectangle_mode;
+    ShaderDraw::previous_coordinate_mode                                = ShaderDraw::current_coordinate_mode;
+    ShaderDraw::previous_isfill                                         = ShaderDraw::isfill;
 }
 
 void ShaderDrawing::pop()
 {
-
-    ShaderDraw::current_coordinate_mode = ShaderDraw::previous_coordinate_mode;
+    ShaderDraw::current_coordinate_mode                         = ShaderDraw::previous_coordinate_mode;
     ShaderDraw::view_xform[ShaderDraw::current_coordinate_mode] = ShaderDraw::privous_view_xform[ShaderDraw::current_coordinate_mode];
-    ShaderDraw::color = ShaderDraw::previous_color;
-    ShaderDraw::outlineColor = ShaderDraw::previous_Outlinecolor;
-    ShaderDraw::apply_Matrix = ShaderDraw::previous_Matrix;
-    ShaderDraw::current_image_mode = ShaderDraw::previous_image_mode;
-    ShaderDraw::current_rectangle_mode = ShaderDraw::previous_rectangle_mode;
-    ShaderDraw::isfill = ShaderDraw::previous_isfill;
-    ShaderDraw::world_to_ndc_xform = ShaderDraw::camwin_to_ndc_xform * ShaderDraw::view_xform[ShaderDraw::current_coordinate_mode];
-    ShaderDraw::task = ShaderDraw::previous_task;
+    ShaderDraw::color                                           = ShaderDraw::previous_color;
+    ShaderDraw::outlineColor                                    = ShaderDraw::previous_Outlinecolor;
+    ShaderDraw::apply_Matrix                                    = ShaderDraw::previous_Matrix;
+    ShaderDraw::current_image_mode                              = ShaderDraw::previous_image_mode;
+    ShaderDraw::current_rectangle_mode                          = ShaderDraw::previous_rectangle_mode;
+    ShaderDraw::isfill                                          = ShaderDraw::previous_isfill;
+    ShaderDraw::world_to_ndc_xform                              = ShaderDraw::camwin_to_ndc_xform * ShaderDraw::view_xform[ShaderDraw::current_coordinate_mode];
 }
 
 void ShaderDrawing::translateView(float x, float y)
@@ -782,7 +779,7 @@ void ShaderDrawing::translateView(float x, float y)
 
 void ShaderDrawing::set_color(int red, int green, int blue, int alpha)
 {
-    ShaderDraw::color = glm::vec4{ red / 255.f, green / 255.f,blue / 255.f, alpha / 255.f };
+    ShaderDraw::color = glm::vec4{ red / 255.f, green / 255.f, blue / 255.f, alpha / 255.f };
 }
 
 void ShaderDrawing::applyMatrix(float a, float b, float c, float d, float e, float f)
@@ -801,6 +798,7 @@ void ShaderDrawing::set_rectangle_mode(DrawOriginMode mode)
 {
     ShaderDraw::current_rectangle_mode = static_cast<unsigned int>(mode);
 }
+
 void ShaderDrawing::set_image_mode(DrawOriginMode mode)
 {
     ShaderDraw::current_image_mode = static_cast<unsigned int>(mode);
@@ -809,35 +807,28 @@ void ShaderDrawing::set_image_mode(DrawOriginMode mode)
 void ShaderDrawing::set_coordinate_mode(CoordinateSystem mode)
 {
     ShaderDraw::current_coordinate_mode = static_cast<unsigned int>(mode);
-    ShaderDraw::world_to_ndc_xform = ShaderDraw::camwin_to_ndc_xform * ShaderDraw::view_xform[ShaderDraw::current_coordinate_mode];
+    ShaderDraw::world_to_ndc_xform      = ShaderDraw::camwin_to_ndc_xform * ShaderDraw::view_xform[ShaderDraw::current_coordinate_mode];
 }
 
 void ShaderDrawing::draw_image(ShaderDrawing::Image& image, int x, int y, int texelX, int texelY, int texelWidth, int texelHeight)
 {
-
-
     std::vector<glm::vec2> tpos_vtx;
-    tpos_vtx.push_back(glm::vec2{ (static_cast<float>(texelX) / static_cast<float>(image.GetWidth())),
-                                  static_cast<float>((image.GetHeight() - texelY)) / static_cast<float>(image.GetHeight()) });
+    tpos_vtx.push_back(glm::vec2{ (static_cast<float>(texelX) / static_cast<float>(image.GetWidth())), static_cast<float>((image.GetHeight() - texelY)) / static_cast<float>(image.GetHeight()) });
 
-    tpos_vtx.push_back(glm::vec2{ (static_cast<float>(texelX + texelWidth) / static_cast<float>(image.GetWidth())), static_cast<float>((image.GetHeight() - texelY)) / static_cast<float>(image.GetHeight()) });
-    tpos_vtx.push_back(glm::vec2{ (static_cast<float>(texelX) / static_cast<float>(image.GetWidth())), static_cast<float>((image.GetHeight() - texelY - texelHeight)) / static_cast<float>(image.GetHeight()) });
-    tpos_vtx.push_back(glm::vec2{ (static_cast<float>(texelX + texelWidth) / static_cast<float>(image.GetWidth())), static_cast<float>((image.GetHeight() - texelY - texelHeight)) / static_cast<float>(image.GetHeight()) });
-
-
+    tpos_vtx.push_back(
+        glm::vec2{ (static_cast<float>(texelX + texelWidth) / static_cast<float>(image.GetWidth())), static_cast<float>((image.GetHeight() - texelY)) / static_cast<float>(image.GetHeight()) });
+    tpos_vtx.push_back(
+        glm::vec2{ (static_cast<float>(texelX) / static_cast<float>(image.GetWidth())), static_cast<float>((image.GetHeight() - texelY - texelHeight)) / static_cast<float>(image.GetHeight()) });
+    tpos_vtx.push_back(glm::vec2{ (static_cast<float>(texelX + texelWidth) / static_cast<float>(image.GetWidth())),
+                                  static_cast<float>((image.GetHeight() - texelY - texelHeight)) / static_cast<float>(image.GetHeight()) });
 
     glNamedBufferSubData(ShaderDraw::textureBox.vboid[ShaderDraw::current_image_mode], sizeof(glm::vec2) * 4, sizeof(glm::vec2) * tpos_vtx.size(), tpos_vtx.data());
-
 
     glm::mat3 scaleMat{ 1.f };
 
     scaleMat[0][0] = static_cast<float>(texelWidth);
     scaleMat[1][1] = static_cast<float>(texelHeight);
-    /*glm::mat3 rotateMat{1.f};
-    rotateMat[0][0] = cos(.0f);
-    rotateMat[1][0] = -sin(.0f);
-    rotateMat[0][1] = sin(.0f);
-    rotateMat[1][1] = cos(.0f);*/
+
     glm::mat3 translateMat{ 1.f };
     translateMat[0][0] = 1.f;
     translateMat[1][1] = 1.f;
@@ -857,24 +848,19 @@ void ShaderDrawing::draw_image(ShaderDrawing::Image& image, int x, int y, int te
 
     glm::mat3 mdl_to_ndc_xform = ShaderDraw::world_to_ndc_xform * (transApplyMatrix * translateMat * ShaderDraw::apply_Matrix * scaleMat);
 
-    /*std::cout << (scaleMat * ShaderDraw::apply_Matrix)[0][0] << " " << (scaleMat * ShaderDraw::apply_Matrix)[0][1] << " " << (scaleMat * ShaderDraw::apply_Matrix)[0][2] << std::endl;
-    std::cout << (scaleMat * ShaderDraw::apply_Matrix)[1][0] << " " << (scaleMat * ShaderDraw::apply_Matrix)[1][1] << " " << (scaleMat * ShaderDraw::apply_Matrix)[1][2] << std::endl;
-    std::cout << (scaleMat * ShaderDraw::apply_Matrix)[2][0] << " " << (scaleMat * ShaderDraw::apply_Matrix)[2][1] << " " << (scaleMat * ShaderDraw::apply_Matrix)[2][2] << std::endl;*/
     glUseProgram(ShaderDraw::textureBox.shdr_pgm);
     glBindTextureUnit(1, image.textureID);
     glTextureParameteri(image.textureID, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTextureParameteri(image.textureID, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-
     glBindVertexArray(ShaderDraw::textureBox.vaoid[ShaderDraw::current_image_mode]);
-    GLint uniform_var_loc1 =
-        glGetUniformLocation(ShaderDraw::textureBox.shdr_pgm,
-            "uModelToNDC");
-    if (uniform_var_loc1 >= 0) {
-        glUniformMatrix3fv(uniform_var_loc1, 1, GL_FALSE,
-            glm::value_ptr(mdl_to_ndc_xform));
+    GLint uniform_var_loc1 = glGetUniformLocation(ShaderDraw::textureBox.shdr_pgm, "uModelToNDC");
+    if (uniform_var_loc1 >= 0)
+    {
+        glUniformMatrix3fv(uniform_var_loc1, 1, GL_FALSE, glm::value_ptr(mdl_to_ndc_xform));
     }
-    else {
+    else
+    {
         std::cout << "Uniform variable doesn't exist!!!\n";
         std::exit(EXIT_FAILURE);
     }
@@ -884,37 +870,23 @@ void ShaderDrawing::draw_image(ShaderDrawing::Image& image, int x, int y, int te
     {
         glUniform1i(tex_loc, 1);
     }
-    else {
+    else
+    {
         std::cout << "Uniform variable doesn't exist!!!\n";
         std::exit(EXIT_FAILURE);
     }
-    GLint uniform_task = glGetUniformLocation(ShaderDraw::textureBox.shdr_pgm, "task");
-    if (uniform_task >= 0)
-    {
-        glUniform1i(uniform_task, ShaderDraw::task);
-    }
-    else 
-    {
-        std::cout << "Fail to connect!";
-    }
-
 
     glDrawElements(ShaderDraw::textureBox.primitive_type, ShaderDraw::textureBox.draw_cnt, GL_UNSIGNED_SHORT, NULL);
     glBindVertexArray(0);
     glDisable(GL_BLEND);
     glUseProgram(0);
     std::vector<glm::vec2> tpos_tex;
-    tpos_tex.push_back({ 0.f,1.f });
-    tpos_tex.push_back({ 1.f,1.f });
-    tpos_tex.push_back({ 0.f,0.f });
-    tpos_tex.push_back({ 1.f,0.f });
+    tpos_tex.push_back({ 0.f, 1.f });
+    tpos_tex.push_back({ 1.f, 1.f });
+    tpos_tex.push_back({ 0.f, 0.f });
+    tpos_tex.push_back({ 1.f, 0.f });
     glNamedBufferSubData(ShaderDraw::textureBox.vboid[ShaderDraw::current_image_mode], sizeof(glm::vec2) * 4, sizeof(glm::vec2) * tpos_tex.size(), tpos_tex.data());
-
-
-
-
 }
-
 
 void ShaderDrawing::set_fill(bool set)
 {
@@ -923,18 +895,15 @@ void ShaderDrawing::set_fill(bool set)
 
 void ShaderDrawing::set_line_color(int red, int green, int blue, int alpha)
 {
-    ShaderDraw::outlineColor = glm::vec4{ red / 255.f, green / 255.f,blue / 255.f, alpha / 255.f };
+    ShaderDraw::outlineColor = glm::vec4{ red / 255.f, green / 255.f, blue / 255.f, alpha / 255.f };
 }
-
 
 void ShaderDrawing::draw_text(std::string text, float x, float y, float scale, float r, float g, float b, float a)
 {
-
     glUseProgram(ShaderDraw::fontBox.shdr_pgm);
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 
     glm::mat3 translateMat{ 1.f };
     translateMat[0][0] = 1.f;
@@ -942,8 +911,6 @@ void ShaderDrawing::draw_text(std::string text, float x, float y, float scale, f
     translateMat[2][2] = 1.f;
     translateMat[2][0] = static_cast<float>(x);
     translateMat[2][1] = static_cast<float>(y);
-
-
 
     glm::mat3 transApplyMatrix{ 1.f };
     transApplyMatrix[2][0] = ShaderDraw::apply_Matrix[2][0];
@@ -954,21 +921,17 @@ void ShaderDrawing::draw_text(std::string text, float x, float y, float scale, f
     glBindVertexArray(ShaderDraw::fontBox.vaoid[0]);
     glm::mat3 mdl_to_ndc_xform = ShaderDraw::world_to_ndc_xform * (translateMat);
 
-
-
-    GLint check =
-        glGetUniformLocation(ShaderDraw::fontBox.shdr_pgm, "uModelToNDC");
-    if (check >= 0) {
-        glUniformMatrix3fv(check, 1, GL_FALSE,
-            glm::value_ptr(mdl_to_ndc_xform));
+    GLint check = glGetUniformLocation(ShaderDraw::fontBox.shdr_pgm, "uModelToNDC");
+    if (check >= 0)
+    {
+        glUniformMatrix3fv(check, 1, GL_FALSE, glm::value_ptr(mdl_to_ndc_xform));
     }
-    else {
+    else
+    {
         std::cout << "model Uniform doesn't exist!!! \n";
         std::exit(EXIT_FAILURE);
     }
 
-
-    //glUniformMatrix4fv(glGetUniformLocation(ShaderDraw::fontBox.shdr_pgm, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
     glUniform4f(glGetUniformLocation(ShaderDraw::fontBox.shdr_pgm, "textColor"), r, g, b, a);
 
     glActiveTexture(GL_TEXTURE0);
@@ -976,44 +939,32 @@ void ShaderDrawing::draw_text(std::string text, float x, float y, float scale, f
     scale = scale / 40;
 
     float firstX = -x / 2;
-    float X = 0;
-    float Y = 0;
+    float X      = 0;
+    float Y      = 0;
 
-    // iterate through all characters
-    std::string::const_iterator c;
-    for (c = text.begin(); c != text.end(); c++) {
-
-        ShaderDrawing::ShaderDraw::Character ch = ShaderDrawing::ShaderDraw::Characters[*c];
-        GLfloat xpos = X + ch.Bearing.x * scale;
-        GLfloat ypos = Y - (ch.Size.y - ch.Bearing.y) * scale;
+    for (auto c = text.begin(); c != text.end(); c++)
+    {
+        ShaderDrawing::ShaderDraw::Character ch   = ShaderDrawing::ShaderDraw::Characters[*c];
+        GLfloat                              xpos = X + ch.Bearing.x * scale;
+        GLfloat                              ypos = Y - (ch.Size.y - ch.Bearing.y) * scale;
         X += (ch.Advance >> 6) * scale;
-
-
-
     }
-    X = -X / 2;
+    X      = -X / 2;
     firstX = X;
 
-
-    for (c = text.begin(); c != text.end(); c++) {
+    for (auto c = text.begin(); c != text.end(); c++)
+    {
         if (*c != '\n')
         {
-            ShaderDrawing::ShaderDraw::Character ch = ShaderDrawing::ShaderDraw::Characters[*c];
-            GLfloat xpos = X + ch.Bearing.x * scale;
-            GLfloat ypos = Y - (ch.Size.y - ch.Bearing.y) * scale;
+            ShaderDrawing::ShaderDraw::Character ch   = ShaderDrawing::ShaderDraw::Characters[*c];
+            GLfloat                              xpos = X + ch.Bearing.x * scale;
+            GLfloat                              ypos = Y - (ch.Size.y - ch.Bearing.y) * scale;
 
-            GLfloat w = ch.Size.x * scale;
-            GLfloat h = ch.Size.y * scale;
-            // Update VBO for each character
-            GLfloat vertices[6 * 4] = {
-                 xpos,     ypos + h,   0.0f, 0.0f ,
-                 xpos,     ypos,       0.0f, 1.0f ,
-                 xpos + w, ypos,       1.0f, 1.0f ,
+            GLfloat w               = ch.Size.x * scale;
+            GLfloat h               = ch.Size.y * scale;
+            GLfloat vertices[6 * 4] = { xpos, ypos + h, 0.0f, 0.0f, xpos,     ypos, 0.0f, 1.0f, xpos + w, ypos,     1.0f, 1.0f,
 
-                 xpos,     ypos + h,   0.0f, 0.0f ,
-                 xpos + w, ypos,       1.0f, 1.0f ,
-                 xpos + w, ypos + h,   1.0f, 0.0f
-            };
+                                        xpos, ypos + h, 0.0f, 0.0f, xpos + w, ypos, 1.0f, 1.0f, xpos + w, ypos + h, 1.0f, 0.0f };
 
             glNamedBufferSubData(ShaderDraw::fontBox.vboid[0], 0, sizeof(GLfloat) * 6 * 4, vertices);
             glBindTexture(GL_TEXTURE_2D, ch.TextureID);
@@ -1023,31 +974,22 @@ void ShaderDrawing::draw_text(std::string text, float x, float y, float scale, f
         else if (*c == '\n')
         {
             ShaderDrawing::ShaderDraw::Character ch = ShaderDrawing::ShaderDraw::Characters['Z'];
-            GLfloat h = ch.Size.y * scale + 5.0f;
+            GLfloat                              h  = ch.Size.y * scale + 5.0f;
             Y -= h;
             X = firstX;
         }
-
-
     }
     glBindVertexArray(0);
     glUseProgram(0);
     glBindTexture(GL_TEXTURE_2D, 0);
-
-
-
-
 }
-
 
 void ShaderDrawing::draw_text(std::string text, float x, float y, float scale, double radians, float r, float g, float b)
 {
-
     glUseProgram(ShaderDraw::fontBox.shdr_pgm);
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 
     glm::mat3 translateMat{ 1.f };
     translateMat[0][0] = 1.f;
@@ -1062,33 +1004,26 @@ void ShaderDrawing::draw_text(std::string text, float x, float y, float scale, d
     rotateMat[0][1] = sin(radians);
     rotateMat[1][1] = cos(radians);
 
-
     glm::mat3 transApplyMatrix{ 1.f };
     transApplyMatrix[2][0] = ShaderDraw::apply_Matrix[2][0];
     transApplyMatrix[2][1] = ShaderDraw::apply_Matrix[2][1];
-
-
 
     ShaderDraw::apply_Matrix[2][0] = 0;
     ShaderDraw::apply_Matrix[2][1] = 0;
     glBindVertexArray(ShaderDraw::fontBox.vaoid[0]);
     glm::mat3 mdl_to_ndc_xform = ShaderDraw::world_to_ndc_xform * (translateMat * rotateMat * transApplyMatrix);
 
-
-
-    GLint check =
-        glGetUniformLocation(ShaderDraw::fontBox.shdr_pgm, "uModelToNDC");
-    if (check >= 0) {
-        glUniformMatrix3fv(check, 1, GL_FALSE,
-            glm::value_ptr(mdl_to_ndc_xform));
+    GLint check = glGetUniformLocation(ShaderDraw::fontBox.shdr_pgm, "uModelToNDC");
+    if (check >= 0)
+    {
+        glUniformMatrix3fv(check, 1, GL_FALSE, glm::value_ptr(mdl_to_ndc_xform));
     }
-    else {
+    else
+    {
         std::cout << "model Uniform doesn't exist!!! \n";
         std::exit(EXIT_FAILURE);
     }
 
-
-    //glUniformMatrix4fv(glGetUniformLocation(ShaderDraw::fontBox.shdr_pgm, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
     glUniform3f(glGetUniformLocation(ShaderDraw::fontBox.shdr_pgm, "textColor"), r, g, b);
 
     glActiveTexture(GL_TEXTURE0);
@@ -1096,32 +1031,28 @@ void ShaderDrawing::draw_text(std::string text, float x, float y, float scale, d
     scale = scale / 40;
 
     float firstX = -x / 2;
-    float X = 0;
-    float Y = 0;
-
-    // iterate through all characters
+    float X      = 0;
+    float Y      = 0;
 
     std::vector<float> set = { 0.0f };
-    int i = 0;
+    int                i   = 0;
 
-    std::string::const_iterator c;
-    for (c = text.begin(); c != text.end(); c++) {
-
+    for (auto c = text.begin(); c != text.end(); c++)
+    {
         if (*c != '\n')
         {
-            ShaderDrawing::ShaderDraw::Character ch = ShaderDrawing::ShaderDraw::Characters[*c];
-            GLfloat xpos = set[i] + ch.Bearing.x * scale;
-            GLfloat ypos = Y - (ch.Size.y - ch.Bearing.y) * scale;
+            ShaderDrawing::ShaderDraw::Character ch   = ShaderDrawing::ShaderDraw::Characters[*c];
+            GLfloat                              xpos = set[i] + ch.Bearing.x * scale;
+            GLfloat                              ypos = Y - (ch.Size.y - ch.Bearing.y) * scale;
             set[i] += (ch.Advance >> 6) * scale;
         }
-        else if (*c == '\n') {
+        else if (*c == '\n')
+        {
             i++;
             set.push_back(0.0f);
         }
-
-
     }
-    X = set[0];
+    X           = set[0];
     size_t size = set.size();
     for (size_t i = 0; i < size; i++)
     {
@@ -1130,29 +1061,22 @@ void ShaderDrawing::draw_text(std::string text, float x, float y, float scale, d
             X = set[i];
         }
     }
-    X = -X / 2;
+    X      = -X / 2;
     firstX = X;
 
-
-    for (c = text.begin(); c != text.end(); c++) {
+    for (auto c = text.begin(); c != text.end(); c++)
+    {
         if (*c != '\n')
         {
-            ShaderDrawing::ShaderDraw::Character ch = ShaderDrawing::ShaderDraw::Characters[*c];
-            GLfloat xpos = X + ch.Bearing.x * scale;
-            GLfloat ypos = Y - (ch.Size.y - ch.Bearing.y) * scale;
+            ShaderDrawing::ShaderDraw::Character ch   = ShaderDrawing::ShaderDraw::Characters[*c];
+            GLfloat                              xpos = X + ch.Bearing.x * scale;
+            GLfloat                              ypos = Y - (ch.Size.y - ch.Bearing.y) * scale;
 
-            GLfloat w = ch.Size.x * scale;
-            GLfloat h = ch.Size.y * scale;
-            // Update VBO for each character
-            GLfloat vertices[6 * 4] = {
-                 xpos,     ypos + h,   0.0f, 0.0f ,
-                 xpos,     ypos,       0.0f, 1.0f ,
-                 xpos + w, ypos,       1.0f, 1.0f ,
+            GLfloat w               = ch.Size.x * scale;
+            GLfloat h               = ch.Size.y * scale;
+            GLfloat vertices[6 * 4] = { xpos, ypos + h, 0.0f, 0.0f, xpos,     ypos, 0.0f, 1.0f, xpos + w, ypos,     1.0f, 1.0f,
 
-                 xpos,     ypos + h,   0.0f, 0.0f ,
-                 xpos + w, ypos,       1.0f, 1.0f ,
-                 xpos + w, ypos + h,   1.0f, 0.0f
-            };
+                                        xpos, ypos + h, 0.0f, 0.0f, xpos + w, ypos, 1.0f, 1.0f, xpos + w, ypos + h, 1.0f, 0.0f };
 
             glNamedBufferSubData(ShaderDraw::fontBox.vboid[0], 0, sizeof(GLfloat) * 6 * 4, vertices);
             glBindTexture(GL_TEXTURE_2D, ch.TextureID);
@@ -1162,24 +1086,16 @@ void ShaderDrawing::draw_text(std::string text, float x, float y, float scale, d
         else if (*c == '\n')
         {
             ShaderDrawing::ShaderDraw::Character ch = ShaderDrawing::ShaderDraw::Characters['Z'];
-            GLfloat h = ch.Size.y * scale + 5.0f;
+            GLfloat                              h  = ch.Size.y * scale + 5.0f;
             Y -= h;
             X = firstX;
         }
-
-
     }
-
 
     glBindVertexArray(0);
     glUseProgram(0);
     glBindTexture(GL_TEXTURE_2D, 0);
-
-
-
-
 }
-
 
 void ShaderDrawing::EndWIndow()
 {
