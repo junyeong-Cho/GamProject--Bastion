@@ -1,6 +1,7 @@
 # VS Code / Visual Studio Hidden folders
 .vs/
 .vscode/
+/.vs/
 
 # Build results
 [Dd]ebug/
@@ -22,3 +23,4 @@ imgui.ini
 # mac os files
 .DS_STORE
 /.vs/slnx.sqlite
+/.vs/VSWorkspaceState.json
