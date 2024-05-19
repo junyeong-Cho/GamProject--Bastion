@@ -38,7 +38,7 @@ namespace ShaderDrawing
 			unsigned int vaoid[2];
 			unsigned int vboid[2];
 			unsigned int draw_cnt;
-			unsigned int compileShader(unsigned int shaderType, const char* sourceCode);
+            unsigned int compileShader(unsigned int shaderType, const char* sourceCode);
 			unsigned int createShaderProgram(unsigned int vertexShader, unsigned int fragmentShader);
 		};
 		
@@ -49,26 +49,35 @@ namespace ShaderDrawing
 			glm::ivec2   Bearing;    // Offset from baseline to left/top of glyph
 			unsigned int Advance;    // Offset to advance to next glyph
 		};
+
 		friend void EndWIndow();
+
 		friend void draw_box(float x, float y, float width, float height);
 		friend void draw_circle(int x, int y, int width, int height);
 		friend void draw_image(ShaderDrawing::Image& image, int x, int y, int width, int height);
 		friend void draw_image(ShaderDrawing::Image& image, int x, int y, int texelX, int texelY, int texelWidth, int texelHeight);
 		friend void draw_image_freely(Image& image, int x, int y, int width, int height);
+
 		friend void set_color(int red, int green, int blue, int alpha);
 		friend void set_rectangle_mode(DrawOriginMode mode);
 		friend void set_image_mode(DrawOriginMode mode);
 		friend void set_coordinate_mode(CoordinateSystem mode);
 		friend void set_fill(bool set);
 		friend void set_line_color(int red, int green, int blue, int alpha);
+
 		friend void draw_text(std::string text, float x, float y, float scale, float r, float g, float b, float a);
 		friend void draw_text(std::string text, float x, float y, float scale, double radians, float r, float g, float b);
+
 		void friend push();
 		void friend pop();
+
 		void friend translateView(float x, float y);
 		void friend applyMatrix(float a, float b, float c, float d, float e, float f);
 		static void init(SDL_Window* pWindow);
 		static void initFont();
+
+		static std::string readShaderFile(const std::string& filePath);
+
 
 
 	private:

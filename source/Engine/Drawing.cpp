@@ -1,17 +1,30 @@
 #include "Drawing.h"
-
 #include <SDL_vulkan.h>
-
 
 #include <vector>
 #include <array>
 #include <sstream>
-#include <GL/glew.h>
 
+#include <GL/glew.h>
 #include <ft2build.h>
+
 #include FT_FREETYPE_H
 
+#include <fstream>
+#include <iostream>
 
+
+
+std::string loadShaderSource(const std::string& filePath) {
+    std::ifstream file(filePath);
+    if (!file.is_open()) {
+        std::cerr << "Failed to open shader file: " << filePath << std::endl;
+        return "";
+    }
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    return buffer.str();
+}
 
 
 ShaderDrawing::ShaderDraw::GLModel ShaderDrawing::ShaderDraw::box;
@@ -35,112 +48,22 @@ glm::mat3 ShaderDrawing::ShaderDraw::previous_Matrix;
 
 std::map<char, ShaderDrawing::ShaderDraw::Character> ShaderDrawing::ShaderDraw::Characters;
 
-bool ShaderDrawing::ShaderDraw::isfill = true;
+
+bool ShaderDrawing::ShaderDraw::isfill          = true;
 bool ShaderDrawing::ShaderDraw::previous_isfill = true;
 
-unsigned int ShaderDrawing::ShaderDraw::current_image_mode = 0;
-unsigned int ShaderDrawing::ShaderDraw::current_rectangle_mode = 0;
-unsigned int ShaderDrawing::ShaderDraw::previous_image_mode = 0;
-unsigned int ShaderDrawing::ShaderDraw::previous_rectangle_mode = 0;
-unsigned int ShaderDrawing::ShaderDraw::current_coordinate_mode = 0;
+unsigned int ShaderDrawing::ShaderDraw::current_image_mode       = 0;
+unsigned int ShaderDrawing::ShaderDraw::current_rectangle_mode   = 0;
+unsigned int ShaderDrawing::ShaderDraw::previous_image_mode      = 0;
+unsigned int ShaderDrawing::ShaderDraw::previous_rectangle_mode  = 0;
+unsigned int ShaderDrawing::ShaderDraw::current_coordinate_mode  = 0;
 unsigned int ShaderDrawing::ShaderDraw::previous_coordinate_mode = 0;
 
-int ShaderDrawing::ShaderDraw::task = 0;
+
+int ShaderDrawing::ShaderDraw::task          = 0;
 int ShaderDrawing::ShaderDraw::previous_task = 0;
 
-const char* vertexShaderSource = R"(
-    #version 410
-layout (location = 0) in vec2 vVertexPosition;
 
-uniform mat3 uModelToNDC;
-void main() {
-gl_Position = vec4(vec2(uModelToNDC * vec3(vVertexPosition, 1.f)), 0.0,
-1.0);
-}
-)";
-
-const char* fragmentShaderSource = "#version 410\n"
-"uniform vec4 color;\n"
-"out vec4 fFragClr;\n"
-"void main()\n"
-"{\n"
-"   fFragClr = color;\n"
-"}\n\0";
-
-
-const char* vertexTextureShader = R"(
-#version 410
-
-layout (location=0) in vec2 vVertexPosition;
-layout (location=1) in vec2 vVertexTexturePosition;
-
-layout (location=0) out vec2 vTexCoord;
-
-uniform mat3 uModelToNDC;
-
-void main() {
-  gl_Position = vec4(vec2(uModelToNDC * vec3(vVertexPosition, 1.f)), 0.0, 1.0);
-  vTexCoord = vVertexTexturePosition;
-}
-)";
-
-const char* fragmentTextureShader = R"(
-#version 410
-
-layout(location=0) in vec2 vTexCoord;
-uniform int task;
-uniform sampler2D uTex2d;
-
-layout (location=0) out vec4 fFragClr;
-void main () 
-{
-    fFragClr = texture(uTex2d, vTexCoord);
-    if(task == 1)
-    {
-        //fFragClr *= vec4(0.35f * fFragClr.x / 1.0f * fFragClr.w / 1.0f ,0.35f* fFragClr.y / 1.0f* fFragClr.w / 1.0f ,0.35f* fFragClr.z / 1.0f* fFragClr.w / 1.0f,1.f );
-        fFragClr *= vec4(1.0f * fFragClr.w / 1.0f , 0.65f* fFragClr.w / 1.0f,  fFragClr.z,1.f );
-        
-    }
-    else if(task == 2)
-    {
-        fFragClr *= vec4(0.3f * fFragClr.x / 1.0f * fFragClr.w / 1.0f ,0.3f* fFragClr.y / 1.0f* fFragClr.w / 1.0f ,fFragClr.z,1.f );
-    }   
-    
-}
-)";
-
-const char* fontVertexShader = R"(
-#version 410
-layout (location = 0) in vec4 vertex; // <vec2 pos, vec2 tex>
-
-uniform mat3 uModelToNDC;
-
-layout (location=0) out vec2 TexCoords;
-
-
-
-
-void main()
-{
-    gl_Position = vec4(vec2(uModelToNDC * vec3(vertex.xy, 1.0)), 0.0, 1.0);
-    TexCoords = vertex.zw;
-}  
-)";
-
-const char* fontFragmentShader = R"(
-#version 410
-in vec2 TexCoords;
-out vec4 color;
-
-uniform sampler2D text;
-uniform vec4 textColor;
-
-void main()
-{    
-    vec4 sampled = vec4(1.0, 1.0, 1.0, texture(text, TexCoords).r);
-    color = vec4(textColor) * sampled;
-} 
-)";
 
 
 void ShaderDrawing::ShaderDraw::initFont()
@@ -159,7 +82,8 @@ void ShaderDrawing::ShaderDraw::initFont()
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-    for (GLubyte c = 0; c < 128; c++) {
+    for (GLubyte c = 0; c < 128; c++)
+    {
         FT_Load_Char(face, c, FT_LOAD_RENDER);
 
         GLuint texture;
@@ -174,22 +98,15 @@ void ShaderDrawing::ShaderDraw::initFont()
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glBindTexture(GL_TEXTURE_2D, 0);
 
-        Character character = {
-        texture,
-        glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
-        glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-        static_cast<unsigned int>(face->glyph->advance.x)
-        };
+        Character character = { texture, glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows), glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
+                                static_cast<unsigned int>(face->glyph->advance.x) };
         Characters.insert(std::pair<GLchar, Character>(c, character));
-
-
     }
     FT_Done_Face(face);
     FT_Done_FreeType(ft);
 
     GLuint vao;
     glCreateVertexArrays(1, &vao);
-    //glBindVertexArray(vao);
 
     GLuint buffer;
     glCreateBuffers(1, &buffer);
@@ -202,30 +119,48 @@ void ShaderDrawing::ShaderDraw::initFont()
 
     ShaderDraw::fontBox.vaoid[0] = vao;
     ShaderDraw::fontBox.vboid[0] = buffer;
-    GLuint vertexShader = fontBox.compileShader(GL_VERTEX_SHADER, fontVertexShader);
-    GLuint fragmentShader = fontBox.compileShader(GL_FRAGMENT_SHADER, fontFragmentShader);
 
-    // 셰이더 프로그램 생성 및 링크
+    std::string vertexShaderSource   = loadShaderSource("assets/shaders/font.vert");
+    std::string fragmentShaderSource = loadShaderSource("assets/shaders/font.frag");
+    GLuint      vertexShader         = fontBox.compileShader(GL_VERTEX_SHADER, vertexShaderSource.c_str());
+    GLuint      fragmentShader       = fontBox.compileShader(GL_FRAGMENT_SHADER, fragmentShaderSource.c_str());
+
     fontBox.shdr_pgm = fontBox.createShaderProgram(vertexShader, fragmentShader);
+}
+
+
+
+std::string ShaderDrawing::ShaderDraw::readShaderFile(const std::string& filePath)
+{
+    std::ifstream file(filePath);
+    if (!file.is_open())
+    {
+        std::cerr << "Failed to open shader file: " << filePath << std::endl;
+        return "";
+    }
+
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    return buffer.str();
 }
 
 
 
 void ShaderDrawing::ShaderDraw::setBoxModel()
 {
-    std::vector<glm::vec2> pos_vtx;
-    pos_vtx.push_back({ 0.5f,-0.5f });
-    pos_vtx.push_back({ 0.5f,0.5f });
-    pos_vtx.push_back({ -0.5f,0.5f });
-    pos_vtx.push_back({ -0.5f,-0.5f });
-
-
-
+    std::vector<glm::vec2> pos_vtx = 
+    {
+        { 0.5f, -0.5f},
+        { 0.5f,  0.5f},
+        {-0.5f,  0.5f},
+        {-0.5f, -0.5f}
+    };
 
     GLuint VBO;
     glCreateBuffers(1, &VBO);
     glNamedBufferStorage(VBO, sizeof(glm::vec2) * pos_vtx.size(), nullptr, GL_DYNAMIC_STORAGE_BIT);
     glNamedBufferSubData(VBO, 0, sizeof(glm::vec2) * pos_vtx.size(), pos_vtx.data());
+
     GLuint VAO;
     glCreateVertexArrays(1, &VAO);
     glEnableVertexArrayAttrib(VAO, 0);
@@ -233,38 +168,38 @@ void ShaderDrawing::ShaderDraw::setBoxModel()
     glVertexArrayAttribFormat(VAO, 0, 2, GL_FLOAT, GL_FALSE, 0);
     glVertexArrayAttribBinding(VAO, 0, 0);
 
-    std::vector<GLushort> idx_vtx{ 0, 1, 2, 2, 3, 0 };
-
-
-    GLuint EBO;
+    std::vector<GLushort> idx_vtx = { 0, 1, 2, 2, 3, 0 };
+    GLuint                EBO;
     glCreateBuffers(1, &EBO);
-    glNamedBufferStorage(EBO,
-        sizeof(GLushort) * idx_vtx.size(),
-        idx_vtx.data(),
-        GL_DYNAMIC_STORAGE_BIT);
+    glNamedBufferStorage(EBO, sizeof(GLushort) * idx_vtx.size(), idx_vtx.data(), GL_DYNAMIC_STORAGE_BIT);
     glVertexArrayElementBuffer(VAO, EBO);
     glBindVertexArray(0);
-    GLuint vertexShader = box.compileShader(GL_VERTEX_SHADER, vertexShaderSource);
-    GLuint fragmentShader = box.compileShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
 
-    // 셰이더 프로그램 생성 및 링크
+    std::string vertexShaderSource   = loadShaderSource("assets/shaders/box.vert");
+    std::string fragmentShaderSource = loadShaderSource("assets/shaders/box.frag");
+    GLuint      vertexShader         = box.compileShader(GL_VERTEX_SHADER, vertexShaderSource.c_str());
+    GLuint      fragmentShader       = box.compileShader(GL_FRAGMENT_SHADER, fragmentShaderSource.c_str());
+
     box.shdr_pgm = box.createShaderProgram(vertexShader, fragmentShader);
 
-
-    box.draw_cnt = 6;
-    box.primitive_cnt = 4;
-    box.vaoid[0] = VAO;
+    box.draw_cnt       = 6;
+    box.primitive_cnt  = 4;
+    box.vaoid[0]       = VAO;
     box.primitive_type = GL_TRIANGLES;
 
-    std::vector<glm::vec2> pos_vtx2;
-    pos_vtx2.push_back({ 1.0f,0.0f });
-    pos_vtx2.push_back({ 1.0f,1.0f });
-    pos_vtx2.push_back({ 0.0f,1.0f });
-    pos_vtx2.push_back({ 0.0f,0.0f });
+    std::vector<glm::vec2> pos_vtx2 = 
+    {
+        {1.0f, 0.0f},
+        {1.0f, 1.0f},
+        {0.0f, 1.0f},
+        {0.0f, 0.0f}
+    };
+
     GLuint VBO1;
     glCreateBuffers(1, &VBO1);
     glNamedBufferStorage(VBO1, sizeof(glm::vec2) * pos_vtx2.size(), nullptr, GL_DYNAMIC_STORAGE_BIT);
     glNamedBufferSubData(VBO1, 0, sizeof(glm::vec2) * pos_vtx2.size(), pos_vtx2.data());
+
     GLuint VAO1;
     glCreateVertexArrays(1, &VAO1);
     glEnableVertexArrayAttrib(VAO1, 0);
@@ -275,35 +210,29 @@ void ShaderDrawing::ShaderDraw::setBoxModel()
     glBindVertexArray(0);
 
     box.vaoid[1] = VAO1;
-
-
-
 }
+
 
 void ShaderDrawing::ShaderDraw::setCircleModel()
 {
-
-    int const count{ 30 + 1 };
-    std::vector<glm::vec2> cpos_vtx;
-    float offset = 360 / static_cast<float>(30);
-    cpos_vtx.push_back({ 0,0 });
+    const int              count    = 30 + 1;
+    std::vector<glm::vec2> cpos_vtx = 
+    {
+        {0, 0}
+    };
+    
+    float offset = 360.0f / 30.0f;
     for (int i = 1; i < count; i++)
     {
-        float degree = i * offset;
-        double radians = degree * 3.14159 / 180;
+        float  degree  = i * offset;
+        double radians = degree * 3.14159 / 180.0;
         cpos_vtx.push_back({ cos(radians), sin(radians) });
     }
 
-
-
-
     GLuint cVBO;
     glCreateBuffers(1, &cVBO);
-    glNamedBufferStorage(cVBO,
-        sizeof(glm::vec2) * cpos_vtx.size(),
-        nullptr, GL_DYNAMIC_STORAGE_BIT);
-    glNamedBufferSubData(cVBO, 0,
-        sizeof(glm::vec2) * cpos_vtx.size(), cpos_vtx.data());
+    glNamedBufferStorage(cVBO, sizeof(glm::vec2) * cpos_vtx.size(), nullptr, GL_DYNAMIC_STORAGE_BIT);
+    glNamedBufferSubData(cVBO, 0, sizeof(glm::vec2) * cpos_vtx.size(), cpos_vtx.data());
 
     GLuint cVAO;
     glCreateVertexArrays(1, &cVAO);
@@ -311,8 +240,6 @@ void ShaderDrawing::ShaderDraw::setCircleModel()
     glVertexArrayVertexBuffer(cVAO, 0, cVBO, 0, sizeof(glm::vec2));
     glVertexArrayAttribFormat(cVAO, 0, 2, GL_FLOAT, GL_FALSE, 0);
     glVertexArrayAttribBinding(cVAO, 0, 0);
-
-
 
     std::vector<GLushort> cidx_vtx;
     for (GLushort i = 0; i < count; i++)
@@ -322,43 +249,49 @@ void ShaderDrawing::ShaderDraw::setCircleModel()
     cidx_vtx.push_back(1);
     cidx_vtx.push_back(1);
 
-
     GLuint cebo_hdl;
     glCreateBuffers(1, &cebo_hdl);
-    glNamedBufferStorage(cebo_hdl,
-        sizeof(GLushort) * cidx_vtx.size(),
-        cidx_vtx.data(),
-        GL_DYNAMIC_STORAGE_BIT);
+    glNamedBufferStorage(cebo_hdl, sizeof(GLushort) * cidx_vtx.size(), cidx_vtx.data(), GL_DYNAMIC_STORAGE_BIT);
     glVertexArrayElementBuffer(cVAO, cebo_hdl);
     glBindVertexArray(0);
 
-    circle.primitive_type = GL_TRIANGLE_FAN;
-    circle.primitive_cnt = 30;
+    std::string vertexShaderSource   = loadShaderSource("assets/shaders/circle.vert");
+    std::string fragmentShaderSource = loadShaderSource("assets/shaders/circle.frag");
+    GLuint      vertexShader         = circle.compileShader(GL_VERTEX_SHADER, vertexShaderSource.c_str());
+    GLuint      fragmentShader       = circle.compileShader(GL_FRAGMENT_SHADER, fragmentShaderSource.c_str());
 
-    circle.vaoid[0] = cVAO;
-    circle.draw_cnt = static_cast<GLuint>(cidx_vtx.size());
-    GLuint cvertexShader = circle.compileShader(GL_VERTEX_SHADER, vertexShaderSource);
-    GLuint cfragmentShader = circle.compileShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
-    circle.shdr_pgm = circle.createShaderProgram(cvertexShader, cfragmentShader);
+    circle.shdr_pgm = circle.createShaderProgram(vertexShader, fragmentShader);
+
+    circle.primitive_type = GL_TRIANGLE_FAN;
+    circle.primitive_cnt  = 30;
+    circle.vaoid[0]       = cVAO;
+    circle.draw_cnt       = static_cast<GLuint>(cidx_vtx.size());
 }
 
 
 void ShaderDrawing::ShaderDraw::setTextureModel()
 {
-    std::vector<glm::vec2> tpos_vtx;
-    std::vector<glm::vec2> tpos_tex;
-    tpos_vtx.push_back({ -.5f,.5f }); tpos_tex.push_back({ 0.f,1.f });
-    tpos_vtx.push_back({ .5f,.5f }); tpos_tex.push_back({ 1.f,1.f });
-    tpos_vtx.push_back({ -.5f,-.5f }); tpos_tex.push_back({ 0.f,0.f });
-    tpos_vtx.push_back({ .5f,-.5f }); tpos_tex.push_back({ 1.f,0.f });
-
-
+    std::vector<glm::vec2> tpos_vtx = 
+    {
+        {-.5f,  .5f},
+        { .5f,  .5f},
+        {-.5f, -.5f},
+        { .5f, -.5f}
+    };
+    std::vector<glm::vec2> tpos_tex = 
+    {
+        {0.f, 1.f},
+        {1.f, 1.f},
+        {0.f, 0.f},
+        {1.f, 0.f}
+    };
 
     GLuint tVBO;
     glCreateBuffers(1, &tVBO);
     glNamedBufferStorage(tVBO, sizeof(glm::vec2) * tpos_vtx.size() + sizeof(glm::vec2) * tpos_tex.size(), nullptr, GL_DYNAMIC_STORAGE_BIT);
     glNamedBufferSubData(tVBO, 0, sizeof(glm::vec2) * tpos_vtx.size(), tpos_vtx.data());
     glNamedBufferSubData(tVBO, sizeof(glm::vec2) * tpos_vtx.size(), sizeof(glm::vec2) * tpos_tex.size(), tpos_tex.data());
+
     GLuint tVAO;
     glCreateVertexArrays(1, &tVAO);
     glEnableVertexArrayAttrib(tVAO, 0);
@@ -371,44 +304,40 @@ void ShaderDrawing::ShaderDraw::setTextureModel()
     glVertexArrayAttribFormat(tVAO, 1, 2, GL_FLOAT, GL_FALSE, 0);
     glVertexArrayAttribBinding(tVAO, 1, 1);
 
-
-    std::array<GLushort, 4> tidx_vtx;
-
-    tidx_vtx[0] = { 0 };
-    tidx_vtx[1] = { 2 };
-    tidx_vtx[2] = { 1 };
-    tidx_vtx[3] = { 3 };
-
+    std::array<GLushort, 4> tidx_vtx = { 0, 2, 1, 3 };
 
     GLuint tEBO;
     glCreateBuffers(1, &tEBO);
-    glNamedBufferStorage(tEBO,
-        sizeof(GLushort) * tidx_vtx.size(),
-        tidx_vtx.data(),
-        GL_DYNAMIC_STORAGE_BIT);
+    glNamedBufferStorage(tEBO, sizeof(GLushort) * tidx_vtx.size(), tidx_vtx.data(), GL_DYNAMIC_STORAGE_BIT);
     glVertexArrayElementBuffer(tVAO, tEBO);
     glBindVertexArray(0);
 
-    GLuint tvertexShader = textureBox.compileShader(GL_VERTEX_SHADER, vertexTextureShader);
-    GLuint tfragmentShader = textureBox.compileShader(GL_FRAGMENT_SHADER, fragmentTextureShader);
-    textureBox.shdr_pgm = textureBox.createShaderProgram(tvertexShader, tfragmentShader);
+    std::string vertexShaderSource   = loadShaderSource("assets/shaders/texture.vert");
+    std::string fragmentShaderSource = loadShaderSource("assets/shaders/texture.frag");
+    GLuint      vertexShader         = textureBox.compileShader(GL_VERTEX_SHADER, vertexShaderSource.c_str());
+    GLuint      fragmentShader       = textureBox.compileShader(GL_FRAGMENT_SHADER, fragmentShaderSource.c_str());
+
+    textureBox.shdr_pgm = textureBox.createShaderProgram(vertexShader, fragmentShader);
 
     textureBox.primitive_type = GL_TRIANGLE_STRIP;
-    textureBox.primitive_cnt = 4;
-    textureBox.draw_cnt = static_cast<GLuint>(tidx_vtx.size());
-    textureBox.vaoid[0] = tVAO;
+    textureBox.primitive_cnt  = 4;
+    textureBox.draw_cnt       = static_cast<GLuint>(tidx_vtx.size());
+    textureBox.vaoid[0]       = tVAO;
 
-    std::vector<glm::vec2> tpos_vtx2;
-    tpos_vtx2.push_back({ .0f,1.f });
-    tpos_vtx2.push_back({ 1.f,1.f });
-    tpos_vtx2.push_back({ .0f,.0f });
-    tpos_vtx2.push_back({ 1.f,.0f });
+    std::vector<glm::vec2> tpos_vtx2 = 
+    {
+        {.0f, 1.f},
+        {1.f, 1.f},
+        {.0f, .0f},
+        {1.f, .0f}
+    };
 
     GLuint tVBO2;
     glCreateBuffers(1, &tVBO2);
     glNamedBufferStorage(tVBO2, sizeof(glm::vec2) * tpos_vtx2.size() + sizeof(glm::vec2) * tpos_tex.size(), nullptr, GL_DYNAMIC_STORAGE_BIT);
     glNamedBufferSubData(tVBO2, 0, sizeof(glm::vec2) * tpos_vtx2.size(), tpos_vtx2.data());
     glNamedBufferSubData(tVBO2, sizeof(glm::vec2) * tpos_vtx2.size(), sizeof(glm::vec2) * tpos_tex.size(), tpos_tex.data());
+
     GLuint tVAO2;
     glCreateVertexArrays(1, &tVAO2);
     glEnableVertexArrayAttrib(tVAO2, 0);
@@ -417,7 +346,7 @@ void ShaderDrawing::ShaderDraw::setTextureModel()
     glVertexArrayAttribBinding(tVAO2, 0, 0);
 
     glEnableVertexArrayAttrib(tVAO2, 1);
-    glVertexArrayVertexBuffer(tVAO2, 1, tVBO2, sizeof(glm::vec2) * tpos_vtx.size(), sizeof(glm::vec2));
+    glVertexArrayVertexBuffer(tVAO2, 1, tVBO2, sizeof(glm::vec2) * tpos_vtx2.size(), sizeof(glm::vec2));
     glVertexArrayAttribFormat(tVAO2, 1, 2, GL_FLOAT, GL_FALSE, 0);
     glVertexArrayAttribBinding(tVAO2, 1, 1);
     textureBox.vaoid[1] = tVAO2;
@@ -426,8 +355,6 @@ void ShaderDrawing::ShaderDraw::setTextureModel()
 
     textureBox.vboid[0] = tVBO;
     textureBox.vboid[1] = tVBO2;
-
-
 }
 
 
@@ -437,37 +364,26 @@ void ShaderDrawing::ShaderDraw::init(SDL_Window* pWindow)
     setCircleModel();
     setTextureModel();
 
-
-
-
     GLsizei fb_width, fb_height;
     SDL_Vulkan_GetDrawableSize(pWindow, &fb_width, &fb_height);
     ar = static_cast<GLfloat>(fb_width) / fb_height;
 
-    view_xform[0] = glm::mat3{ 1.f };
+    view_xform[0]                   = glm::mat3{ 1.f };
     ShaderDraw::view_xform[0][2][0] = 0.0f;
     ShaderDraw::view_xform[0][2][1] = 0.0f;
+    reset_view_xform[0]             = view_xform[0];
 
-    reset_view_xform[0] = view_xform[0];
-
-
-    view_xform[1] = glm::mat3{ 1.f };
+    view_xform[1]       = glm::mat3{ 1.f };
     view_xform[1][2][0] = static_cast<float>(-fb_width / 2);
     view_xform[1][2][1] = static_cast<float>(-fb_height / 2);
-
     reset_view_xform[1] = view_xform[1];
 
-
-
-    camwin_to_ndc_xform = glm::mat3{ 1.f };
+    camwin_to_ndc_xform       = glm::mat3{ 1.f };
     camwin_to_ndc_xform[0][0] = 2 / static_cast<float>(ar * fb_height);
     camwin_to_ndc_xform[1][1] = 2 / static_cast<float>(fb_height);
 
-
     world_to_ndc_xform = camwin_to_ndc_xform * view_xform[ShaderDraw::current_coordinate_mode];
-
 }
-
 
 
 GLuint ShaderDrawing::ShaderDraw::GLModel::compileShader(unsigned int shaderType, const char* sourceCode)
@@ -476,7 +392,6 @@ GLuint ShaderDrawing::ShaderDraw::GLModel::compileShader(unsigned int shaderType
     glShaderSource(shader, 1, &sourceCode, NULL);
     glCompileShader(shader);
 
-    // 컴파일 상태 확인
     GLint compileStatus;
     glGetShaderiv(shader, GL_COMPILE_STATUS, &compileStatus);
 
@@ -484,21 +399,16 @@ GLuint ShaderDrawing::ShaderDraw::GLModel::compileShader(unsigned int shaderType
     {
         GLint logLength;
         glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &logLength);
-
         std::vector<char> log(logLength);
         glGetShaderInfoLog(shader, logLength, NULL, log.data());
-
-        std::cerr << "Shader 컴파일 오류:\n" << log.data() << std::endl;
-
+        std::cerr << "Shader compile error:\n" << log.data() << std::endl;
         glDeleteShader(shader);
-
         return 0;
     }
     return shader;
 }
 
 
-// 셰이더 프로그램 생성 및 링크 함수
 GLuint ShaderDrawing::ShaderDraw::GLModel::createShaderProgram(unsigned int vertexShader, unsigned int fragmentShader)
 {
     GLuint program = glCreateProgram();
@@ -506,7 +416,6 @@ GLuint ShaderDrawing::ShaderDraw::GLModel::createShaderProgram(unsigned int vert
     glAttachShader(program, fragmentShader);
     glLinkProgram(program);
 
-    // 링크 결과 확인
     GLint linkStatus;
     glGetProgramiv(program, GL_LINK_STATUS, &linkStatus);
     if (linkStatus == GL_FALSE)
@@ -523,16 +432,11 @@ GLuint ShaderDrawing::ShaderDraw::GLModel::createShaderProgram(unsigned int vert
         {
             std::cerr << "Shader program linking failed with no error log." << std::endl;
         }
-
-
         glDeleteProgram(program);
         return 0;
     }
-
     return program;
 }
-
-
 
 
 void ShaderDrawing::draw_box(float x, float y, float width, float height)
@@ -755,7 +659,7 @@ void ShaderDrawing::draw_image(Image& image, int x, int y, int width, int height
     }
     else
     {
-        std::cout << "돌아가 시발";
+        std::cout << "Error with shader";
     }
 
 
@@ -989,8 +893,9 @@ void ShaderDrawing::draw_image(ShaderDrawing::Image& image, int x, int y, int te
     {
         glUniform1i(uniform_task, ShaderDraw::task);
     }
-    else {
-        std::cout << "없다 시발아";
+    else 
+    {
+        std::cout << "Fail to connect!";
     }
 
 
