@@ -282,16 +282,16 @@ void GameSpeed_Button::Draw(Math::TransformationMatrix camera_matrix)
 	switch (speed)
 	{
 	case 1: 
-		speed_1->Draw(GetMatrix() * camera_matrix);
+		speed_1->Draw(GetMatrix());
 		break;
 	case 2:
-		speed_2->Draw(GetMatrix() * camera_matrix);
+		speed_2->Draw(GetMatrix());
 		break;
 	case 3:
-		speed_3->Draw(GetMatrix() * camera_matrix);
+		speed_3->Draw(GetMatrix());
 		break;
 	case 4:
-		speed_4->Draw(GetMatrix() * camera_matrix);
+		speed_4->Draw(GetMatrix());
 		break;
 	}
 }
@@ -310,11 +310,11 @@ void Skip_Button::Draw(Math::TransformationMatrix camera_matrix)
 	switch (Engine::GetGameStateManager().GetGSComponent<Wave>()->GetState())
 	{
 	case Wave::Battle:
-		skip_impossible->Draw(GetMatrix() * camera_matrix);
+		skip_impossible->Draw(GetMatrix());
 		break;
 
 	case Wave::Rest:
-		skip_possible->Draw(GetMatrix() * camera_matrix);
+		skip_possible->Draw(GetMatrix());
 		break;
 
 	case Wave::End:

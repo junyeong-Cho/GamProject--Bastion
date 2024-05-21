@@ -1,18 +1,26 @@
 
 #include "Camera.h"
+#include "Component/Map.h"
 
-GAM200::Camera::Camera(Math::rect player_zone) : player_zone(player_zone), position({ 0, 0 }), matrix_outdated(true), scale({1, 1})
+
+GAM200::Camera::Camera(Math::rect player_zone) : player_zone(player_zone), position(Map::middle_point), matrix_outdated(true), scale({1, 1})
 {
 }
 
 void GAM200::Camera::SetPosition(Math::vec2 new_position)
 {
-    position = new_position;
+    position        = new_position;
+    matrix_outdated = true;
 }
 
 const Math::vec2& GAM200::Camera::GetPosition() const
 {
     return position;
+}
+
+const Math::vec2& GAM200::Camera::GetScale() const
+{
+    return scale;
 }
 
 Math::TransformationMatrix& GAM200::Camera::GetMatrix()
@@ -47,6 +55,12 @@ void GAM200::Camera::UpdateScale(Math::vec2 delta)
 {
     scale += delta;
     matrix_outdated = true;
+}
+
+void GAM200::Camera::Reset()
+{
+    SetScale({ 1, 1 });
+    SetPosition(Map::middle_point);
 }
 
 void GAM200::Camera::Update(const Math::vec2& player_position)

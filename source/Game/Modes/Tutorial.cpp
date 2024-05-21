@@ -174,7 +174,7 @@ void Tutorial::Unload()
 void Tutorial::Draw()
 {
     Math::TransformationMatrix camera_matrix = GetGSComponent<GAM200::Camera>()->GetMatrix();
-    GetGSComponent<Map>()->Draw();
+    GetGSComponent<Map>()->Draw(camera_matrix);
     GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
     GetGSComponent<GAM200::GameObjectManager>()->DrawParticle(camera_matrix);
 

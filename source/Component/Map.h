@@ -4,25 +4,26 @@
 #include "Engine/Matrix.h"
 #include "Engine/DrawShape.h"
 #include "Engine/Texture.h"
+#include "Engine/Sprite.h"
 
 #include "Engine/Vec2.h"
 
 class Map : public GAM200::Component
 {
 public:
-	Map() : game_background("assets/Background/game_tile.png")
+	Map() : game_background("assets/Background/game_tile.spt", nullptr)
 	{
 
 	}
 
-	void Draw()
+	void Draw(Math::TransformationMatrix camera_matrix)
 	{
-		game_background.Draw(0, 0, 1280, 800);
+        //game_background.Draw(0, 0, 1280, 800);
+        game_background.Draw(/*Math::TranslationMatrix(middle_point) * */camera_matrix);
 	}
 
 public:
-	GAM200::Texture game_background;
-
+	GAM200::Sprite game_background;
 
 	static inline double basic_size = 80;
 

@@ -15,7 +15,8 @@ namespace GAM200
         Camera(Math::rect player_zone);
 
         void                       SetPosition(Math::vec2 new_position);
-        const Math::vec2&          GetPosition() const;
+        const Math::vec2&           GetPosition() const;
+        const Math::vec2&           GetScale() const;
         Math::TransformationMatrix& GetMatrix();
 
         void SetLimit(Math::irect new_limit);
@@ -24,6 +25,8 @@ namespace GAM200
         void UpdatePosition(Math::vec2 delta);
         void SetScale(Math::vec2 new_scale);
         void UpdateScale(Math::vec2 delta);
+
+        void Reset();
 
     private:
         Math::irect limit;

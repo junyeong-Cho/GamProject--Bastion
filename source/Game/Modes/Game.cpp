@@ -86,50 +86,105 @@ void Game::Load()
 
 void Game::Update(double dt)
 {
-	count += dt;
+    count += dt;
 
-	GetGSComponent<GameSpeed>()->Update(dt);
-	GetGSComponent<Time>()->Update(dt);
-	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
-	GetGSComponent<GAM200::GameObjectManager>()->MergeTest();
-	GetGSComponent<Wave>()->Update(dt);
+    GetGSComponent<GameSpeed>()->Update(dt);
+    GetGSComponent<Time>()->Update(dt);
+    GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
+    GetGSComponent<GAM200::GameObjectManager>()->MergeTest();
+    GetGSComponent<Wave>()->Update(dt);
 
-	Engine::GetWindow().Clear(1.0f, 1.0f, 1.0f, 1.0f);
+    Engine::GetWindow().Clear(1.0f, 1.0f, 1.0f, 1.0f);
 
-	#if IfWantShader
+#if IfWantShader
 
-	#else
-	trash.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("A", 0xFFFFFFFF));
-	if (GetGSComponent<Wave>()->IsResting())
-		time.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 0xFFFFFFFF));
-	currentwave.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Wave: " + std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1) + "/" + std::to_string(GetGSComponent<Wave>()->GetMaxWave()), 0xFFFFFFFF));
-	gold.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Gold: " + std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 0xFFFFFFFF));
-	speed.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Speed: " + std::to_string(static_cast<int>(GetGSComponent<GameSpeed>()->GetSpeed())), 0xFFFFFFFF));
-	monsters.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Monster: " + std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 0xFFFFFFFF));
-	#endif
-	
-	if (in_game_state == InProgress)
-	{
-		if (GetGSComponent<Wave>()->GetState() == Wave::End && Monster::GetRemainingMonster() == 0)
-		{
-			in_game_state = Win;
-		}
-		if (Monster::GetRemainingMonster() >= GetGSComponent<MonsterLimit>()->GetLimit())
-		{
-			in_game_state = Lose;
-		}
-	}
+#else
+    trash.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("A", 0xFFFFFFFF));
+    if (GetGSComponent<Wave>()->IsResting())
+        time.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined))
+                       .PrintToTexture("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 0xFFFFFFFF));
+    currentwave.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined))
+                          .PrintToTexture("Wave: " + std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1) + "/" + std::to_string(GetGSComponent<Wave>()->GetMaxWave()), 0xFFFFFFFF));
+    gold.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Gold: " + std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 0xFFFFFFFF));
+    speed.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Speed: " + std::to_string(static_cast<int>(GetGSComponent<GameSpeed>()->GetSpeed())), 0xFFFFFFFF));
+    monsters.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined))
+                       .PrintToTexture("Monster: " + std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 0xFFFFFFFF));
+#endif
 
-	if (in_game_state != InProgress)
-	{
-		if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Enter))
+    if (in_game_state == InProgress)
+    {
+        if (GetGSComponent<Wave>()->GetState() == Wave::End && Monster::GetRemainingMonster() == 0)
+        {
+            in_game_state = Win;
+        }
+        if (Monster::GetRemainingMonster() >= GetGSComponent<MonsterLimit>()->GetLimit())
+        {
+            in_game_state = Lose;
+        }
+    }
+
+    if (in_game_state != InProgress)
+    {
+        if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Enter))
         {
             diamond += (GetGSComponent<Wave>()->GetCurWave() + 1) * 5;
             Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
         }
-	}
-}
+    }
 
+    GAM200::Camera* camera = GetGSComponent<GAM200::Camera>();
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::Right))
+    {
+        camera->SetPosition({ camera->GetPosition().x - 1 * camera->GetScale().x, camera->GetPosition().y });
+        Engine::GetLogger().LogDebug("Camera: ");
+        Engine::GetLogger().LogDebug(std::to_string(camera->GetPosition().x) + ", " + std::to_string(camera->GetPosition().y));
+    }
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::Left))
+    {
+        camera->SetPosition({ camera->GetPosition().x + 1 * camera->GetScale().x, camera->GetPosition().y });
+        Engine::GetLogger().LogDebug("Camera: ");
+        Engine::GetLogger().LogDebug(std::to_string(camera->GetPosition().x) + ", " + std::to_string(camera->GetPosition().y));
+    }
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::Up))
+    {
+        camera->SetPosition({ camera->GetPosition().x, camera->GetPosition().y - 1 * camera->GetScale().x });
+        Engine::GetLogger().LogDebug("Camera: ");
+        Engine::GetLogger().LogDebug(std::to_string(camera->GetPosition().x) + ", " + std::to_string(camera->GetPosition().y));
+    }
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::Down))
+    {
+        camera->SetPosition({ camera->GetPosition().x, camera->GetPosition().y + 1 * camera->GetScale().x });
+        Engine::GetLogger().LogDebug("Camera: ");
+        Engine::GetLogger().LogDebug(std::to_string(camera->GetPosition().x) + ", " + std::to_string(camera->GetPosition().y));
+    }
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::I))
+    {
+        camera->SetScale({ camera->GetScale().x + 0.01, camera->GetScale().y + 0.01 });
+        Engine::GetLogger().LogDebug("Camera: ");
+        Engine::GetLogger().LogDebug(std::to_string(camera->GetScale().x) + ", " + std::to_string(camera->GetScale().y));
+    }
+    if (Engine::GetInput().keyDown(GAM200::Input::Keys::O))
+    {
+        camera->SetScale({ camera->GetScale().x - 0.01, camera->GetScale().y - 0.01 });
+        Engine::GetLogger().LogDebug("Camera: ");
+        Engine::GetLogger().LogDebug(std::to_string(camera->GetScale().x) + ", " + std::to_string(camera->GetScale().y));
+    }
+
+    Unit* target = GetGSComponent<GAM200::GameObjectManager>()->GetInfoTarget();
+    if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Z) && target != nullptr)
+    {
+        camera->SetPosition(Map::middle_point - target->GetPosition());
+        camera->SetScale({ 2, 2 });
+        Engine::GetLogger().LogDebug("Camera: ");
+        Engine::GetLogger().LogDebug(std::to_string(camera->GetScale().x) + ", " + std::to_string(camera->GetScale().y));
+    }
+
+
+    if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::R))
+    {
+        camera->Reset();
+    }
+}
 
 void Game::Unload()
 {
@@ -141,7 +196,7 @@ void Game::Unload()
 void Game::Draw()
 {
     Math::TransformationMatrix camera_matrix = GetGSComponent<GAM200::Camera>()->GetMatrix();
-	GetGSComponent<Map>()->Draw();
+    GetGSComponent<Map>()->Draw(camera_matrix);
     GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
     GetGSComponent<GAM200::GameObjectManager>()->DrawParticle(camera_matrix);
 
