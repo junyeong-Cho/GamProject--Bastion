@@ -15,6 +15,7 @@ Updated:    MAy 1, 2024
 #include "Input.h"
 #include "Font.h"
 #include "Mouse.h"
+#include "Audio.h"
 
 
 #include "GameStateManager.h"
@@ -65,6 +66,11 @@ public:
     }
 
 
+    static GAM200::AudioManager& GetAudioManager()
+    {
+        return Instance().audiomanager;
+    }
+
     //   static GAM200::Mouse& GetMouse()
     //   {
        //	return Instance().mouse;
@@ -110,6 +116,8 @@ private:
     GAM200::GameStateManager gamestatemanager;
     GAM200::TextureManager   texturemanager;
     GAM200::Input input;
+    GAM200::AudioManager     audiomanager;
+
     //GAM200::Mouse mouse;
 
 

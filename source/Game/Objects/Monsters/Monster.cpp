@@ -125,8 +125,8 @@ void Monster::State_None::CheckExit(GameObject* object)
 	if (monster->info.life <= 0)
 	{
         monster->change_state(&monster->state_dead);
-        GAM200::SoundEffect::Monster_Die_2().play();
-	}
+        Engine::GetAudioManager().PlaySound(GAM200::AudioID::Monster_Die_2);
+    }
 }
 
 void Monster::State_Dead::Enter(GameObject* object)

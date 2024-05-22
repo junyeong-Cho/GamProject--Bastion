@@ -12,8 +12,9 @@ extern bool tutorial_merge;
 RangedUnit::RangedUnit(double attack_time, int damage, Math::vec2 position, double range) :
     Unit(attack_time, damage, range, position)
 {
-    GAM200::SoundEffect::Tower_Placing().play();
+    Engine::GetAudioManager().PlaySound(GAM200::AudioID::Tower_Placing);
 }
+
 void RangedUnit::Update(double dt)
 {
     // Update GameObject

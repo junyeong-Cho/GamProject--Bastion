@@ -51,9 +51,7 @@ void Store::Load()
 
 	store_background = Engine::Instance().GetTextureManager().Load("assets/Background/store_background.png");
 
-    GAM200::SoundEffect::MainMenu_BGM().stopAll();
-    GAM200::SoundEffect::Game_BGM().stopAll();
-    GAM200::SoundEffect::MainMenu_BGM().loopplay();
+	Engine::GetAudioManager().StopMusic(GAM200::AudioID::Game_BGM);
 }
 
 void Store::Update(double dt)

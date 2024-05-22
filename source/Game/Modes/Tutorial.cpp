@@ -79,9 +79,9 @@ void Tutorial::Load()
 
     GetGSComponent<Wave>()->SetWave("assets/maps/Wave1.txt");
 
-    GAM200::SoundEffect::MainMenu_BGM().stopAll();
-    GAM200::SoundEffect::Game_BGM().stopAll();
-    GAM200::SoundEffect::Game_BGM().loopplay();
+    Engine::GetAudioManager().StopMusic(GAM200::AudioID::Maintheme_Reference);
+    Engine::GetAudioManager().PlayMusic(GAM200::AudioID::Game_BGM);
+
 }
 
 void Tutorial::Update(double dt)

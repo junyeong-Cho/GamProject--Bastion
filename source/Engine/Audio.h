@@ -1,68 +1,105 @@
-/*
-Copyright (C) 2023 DigiPen Institute of Technology
-Reproduction or distribution of this file or its contents without
-prior written consent is prohibited
-File Name:  Audio.h
-Project:    GAM200_TeamExodia_openGL
-Author:     Jaeyong Lee
-Created:    December	15, 2023
-Updated:    December	15, 2023
-*/
-
 #pragma once
 
-
-
-#include "SFML/Audio.hpp"
-#include <list>
+#include "../Engine/ComponentManager.h"
+#include "AudioList.h"
+#include <SFML/Audio.hpp>
+#include <memory>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 namespace GAM200
 {
-    class SoundEffect
+    class MusicEffect : public GAM200::Component
     {
     public:
+        MusicEffect();
+        void AddMusicFile(const std::string& filename, AudioID id);
+        void LoadFile(const std::string& filename);
+        void Play(AudioID id);
 
-        float effectVolume = 25;
-        float musicVolume = 30;
-        float BigVolume = 80;
+        void Stop(AudioID id);
+        void StopAll();
 
-        //static SoundEffect Gem();
-        static SoundEffect& Button_1();
-        static SoundEffect& Button_2();
-        static SoundEffect& Button_3();
-        static SoundEffect& Dash_1();
-        static SoundEffect& Dash_2();
-        static SoundEffect& GameClear();
-        static SoundEffect& GameOver();
-        static SoundEffect& cannot_select();
-        static SoundEffect& Monster_Die_1();
-        static SoundEffect& Monster_Die_2();
-        static SoundEffect& Monster_Die_3();
-        static SoundEffect& Reload();
-        static SoundEffect& Select_MainMenu();
-        static SoundEffect& Select_Map();
-        static SoundEffect& Shotgun();
-        static SoundEffect& Tower_Delete();
-        static SoundEffect& Tower_Placing();
-        static SoundEffect& Tower_Upgrade();
-        static SoundEffect& Wave_Start();
-        static SoundEffect& Attack();
-        static SoundEffect& MainMenu_BGM();
-        static SoundEffect& Game_BGM();
+        void SetVolume(float volume);
 
+        float* GetMusicVolume()
+        {
+            return &defaultVolume;
+        }
 
-
-
-        SoundEffect(const std::string& path);
-        void play();
-        void SeBGMVolume(float volume);
-        float GetBGMVolume() { return musicVolume; }
-        void Big_play();
-        void loopplay();
-        void stopAll();
+        bool IsMusicPlaying(AudioID id) const
+        {
+            auto it = musicMap.find(id);
+            if (it != musicMap.end())
+            {
+                return it->second->getStatus() == sf::Music::Playing;
+            }
+            return false;
+        }
 
     private:
-        sf::SoundBuffer buffer;
-        std::list<sf::Sound> sounds;
+        float                                                   defaultVolume = 0.f;
+        std::unordered_map<AudioID, std::unique_ptr<sf::Music>> musicMap;
+        bool                                                    isMusicPlaying = false;
+    };
+
+    class SoundEffect : public GAM200::Component
+    {
+    public:
+        SoundEffect();
+        void AddSoundFile(const std::string& filename, AudioID id);
+        void LoadFile(const std::string& filename);
+        void SetVolume(float volume);
+        void Play(AudioID id);
+
+    private:
+        float                                        defaultVolume = 40.f;
+        std::unordered_map<AudioID, sf::SoundBuffer> bufferMap;
+        std::unordered_map<AudioID, sf::Sound>       soundMap;
+        bool                                         isSoundPlaying = false;
+    };
+
+    class AudioManager
+    {
+    public:
+        AudioManager()
+        {
+            PreloadAudioFiles();
+        }
+
+        ~AudioManager() = default;
+
+
+        void AddMusicFile(AudioID id);
+        void AddSoundFile(AudioID id);
+        
+        void PlayMusic(AudioID id);
+
+        void StopMusic(AudioID id);
+        void StopAllMusic();
+
+        void SetSoundVolume(float volume);
+        void SetMusicVolume(float volume);
+        void PlaySound(AudioID id);
+
+        bool IsMusicPlaying(AudioID id) const
+        {
+            return musicEffect.IsMusicPlaying(id);
+        }
+
+        static AudioManager& Instance()
+        {
+            static AudioManager instance;
+            return instance;
+        }
+
+        void PreloadAudioFiles();
+
+    private:
+        
+        
+        MusicEffect musicEffect;
+        SoundEffect soundEffect;
     };
 }

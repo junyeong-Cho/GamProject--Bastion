@@ -37,10 +37,13 @@ void Main_menu::Load()
 	UpdateMenuTextColors();
 
 	//BGM
-	GAM200::SoundEffect::Game_BGM().stopAll();
-	GAM200::SoundEffect::MainMenu_BGM().stopAll();
-	GAM200::SoundEffect::MainMenu_BGM().loopplay();
-
+    if (!Engine::GetAudioManager().IsMusicPlaying(GAM200::AudioID::MainMenu_BGM))
+    {
+        Engine::GetAudioManager().PlayMusic(GAM200::AudioID::MainMenu_BGM);
+    } 
+	
+	// GAM200::SoundEffect::Game_BGM().stopAll();
+	
 }
 
 void Main_menu::UpdateMenuTextColors()
@@ -73,14 +76,14 @@ void Main_menu::Update(double dt)
 	{
 		counter = (counter + 1) % 4;
 		shouldUpdateColors = true;
-		GAM200::SoundEffect::Button_1().play();
-	}
+        Engine::GetAudioManager().PlaySound(GAM200::AudioID::Button_1);
+    }
 	else if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Up))
 	{
 		counter = (counter - 1 + 4) % 4;
 		shouldUpdateColors = true;
-		GAM200::SoundEffect::Button_1().play();
-	}
+        Engine::GetAudioManager().PlaySound(GAM200::AudioID::Button_1);
+    }
 
 	if (shouldUpdateColors)
 	{
@@ -94,10 +97,6 @@ void Main_menu::Update(double dt)
 		Engine::GetGameStateManager().ClearNextGameState();
 	}
 
-	//if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Enter))
-	//{
-	//	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
-	//}
 
 
 	if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Enter))
@@ -106,21 +105,21 @@ void Main_menu::Update(double dt)
 		{
 		case 0:
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Store));
-			GAM200::SoundEffect::Button_3().play();
-			break;
+            Engine::GetAudioManager().PlaySound(GAM200::AudioID::Button_3);
+            break;
 		case 1:
 
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::HowToPlay));
-			GAM200::SoundEffect::Button_3().play();
-		
+            Engine::GetAudioManager().PlaySound(GAM200::AudioID::Button_3);		
 			break;
 		case 2:
-			//Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Setting));
+			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Setting));
+            Engine::GetAudioManager().PlaySound(GAM200::AudioID::Button_3);		
 			break;
 		case 3:
 			Engine::GetGameStateManager().ClearNextGameState();
-			GAM200::SoundEffect::Button_3().play();
-			break;
+            Engine::GetAudioManager().PlaySound(GAM200::AudioID::Button_3);
+            break;
 		}
 	}
 
