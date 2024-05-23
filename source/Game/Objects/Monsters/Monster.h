@@ -40,6 +40,8 @@ public:
 
 	static int GetRemainingMonster() { return remaining_monster; }
 
+    void SetSpeedScale(double scale) { info.speed_scale = scale; }
+    double GetSpeedScale() const { return info.speed_scale; }
 	void TakeDamage(double damage);
 
     enum class anm
@@ -50,7 +52,6 @@ public:
 
 protected:
 	MonsterInfo info;
-
 	static inline double radius = Map::basic_size * 3.0 / 4.0 / 2.0;
 	static inline double speed = Map::basic_size;
 
@@ -102,7 +103,7 @@ class Monster_1 : public Monster
 public:
     Monster_1() : Monster({ 3, 0, 1.0 })
     {
-        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Monster_1.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Jewel1.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
@@ -117,7 +118,7 @@ class Monster_2 : public Monster
 public:
     Monster_2() : Monster({ 5, 0, 1.0 })
     {
-        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Monster_2.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Jewel2.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
@@ -131,7 +132,7 @@ class Monster_3 : public Monster
 public:
     Monster_3() : Monster({ 7, 0, 1.0 })
     {
-        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Monster_3.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Jewel3.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
@@ -145,7 +146,7 @@ class Monster_4 : public Monster
 public:
     Monster_4() : Monster({ 4, 0, 1.5 })
     {
-        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Monster_4.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Jewel4.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
@@ -159,7 +160,7 @@ class Monster_5 : public Monster
 public:
     Monster_5() : Monster({ 7, 0, 1.5 })
     {
-        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Monster_5.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Jewel5.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
@@ -173,7 +174,7 @@ class Monster_6 : public Monster
 public:
     Monster_6() : Monster({ 10, 0, 1.5 })
     {
-        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Monster_6.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Jewel6.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
@@ -187,7 +188,7 @@ class Monster_7 : public Monster
 public:
     Monster_7() : Monster({ 8, 0, 1.2 })
     {
-        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Monster_7.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Robot1.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
@@ -201,7 +202,7 @@ class Monster_8 : public Monster
 public:
     Monster_8() : Monster({ 12, 0, 1.2 })
     {
-        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Monster_8.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Robot2.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
@@ -215,7 +216,7 @@ class Monster_9 : public Monster
 public:
     Monster_9() : Monster({ 16, 0, 1.2 })
     {
-        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Monster_9.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Robot3.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
@@ -229,7 +230,7 @@ class Monster_10 : public Monster
 public:
     Monster_10() : Monster({ 30, 0, 1.0 })
     {
-        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Monster_10.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Devil.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
@@ -243,7 +244,7 @@ class Monster_11 : public Monster
 public:
     Monster_11() : Monster({ 40, 0, 1.0 })
     {
-        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Monster_11.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Devil2.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
@@ -257,7 +258,63 @@ class Monster_12 : public Monster
 public:
     Monster_12() : Monster({ 50, 0, 1.0 })
     {
-        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Monster_12.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Akuma.spt", (this)));
+
+        current_state = &state_none;
+        current_state->Enter(this);
+    }
+
+private:
+};
+
+class Monster_13 : public Monster
+{
+public:
+    Monster_13() : Monster({ 50, 0, 1.0 })
+    {
+        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Akuma2.spt", (this)));
+
+        current_state = &state_none;
+        current_state->Enter(this);
+    }
+
+private:
+};
+
+class Monster_14 : public Monster
+{
+public:
+    Monster_14() : Monster({ 50, 0, 1.0 })
+    {
+        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/mimic.spt", (this)));
+
+        current_state = &state_none;
+        current_state->Enter(this);
+    }
+
+private:
+};
+
+class Monster_15 : public Monster
+{
+public:
+    Monster_15() : Monster({ 50, 0, 1.0 })
+    {
+        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/BanBanMon.spt", (this)));
+
+        current_state = &state_none;
+        current_state->Enter(this);
+    }
+
+private:
+};
+
+class Monster_16 : public Monster
+{
+public:
+    Monster_16() : Monster({ 50, 0, 1.0 })
+    {
+        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Boss.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);

@@ -122,6 +122,7 @@ void Monster::State_None::Update(GameObject* object, double dt)
 void Monster::State_None::CheckExit(GameObject* object)
 {
     Monster* monster = static_cast<Monster*>(object);
+
 	if (monster->info.life <= 0)
 	{
         monster->change_state(&monster->state_dead);

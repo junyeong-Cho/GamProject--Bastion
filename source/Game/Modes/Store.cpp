@@ -64,6 +64,10 @@ void Store::Update(double dt)
 	{
         startGold += 50;
 	}
+    if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::_1))
+    {
+        Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Editor));
+    }
 }
 
 void Store::Unload()

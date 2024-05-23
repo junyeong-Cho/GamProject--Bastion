@@ -59,7 +59,7 @@ protected:
 class Transform_2 : public TransformUnit
 {
 public:
-    Transform_2(Math::vec2 position = Map::middle_point) : TransformUnit(10.0, 5.0, 0.8, 1.2, 4, position)
+    Transform_2(Math::vec2 position = Map::middle_point) : TransformUnit(10.0, 5.0, 0.8, 1.5, 4, position)
     {
         if (transformed == false)
         {
@@ -85,7 +85,7 @@ public:
 class Transform_4 : public TransformUnit
 {
 public:
-    Transform_4(Math::vec2 position = Map::middle_point) : TransformUnit(10.0, 5.0, 1.2, 1.5, 10, position)
+    Transform_4(Math::vec2 position = Map::middle_point) : TransformUnit(10.0, 5.0, 1.2, 2.5, 10, position)
     {
         if (transformed == false)
         {
@@ -111,7 +111,7 @@ public:
 class Transform_8 : public TransformUnit
 {
 public:
-    Transform_8(Math::vec2 position = Map::middle_point) : TransformUnit(10.0, 5.0, 1.2, 1.5, 30, position)
+    Transform_8(Math::vec2 position = Map::middle_point) : TransformUnit(10.0, 5.0, 1.2, 1.5, 5, position)
     {
         if (transformed == false)
         {
@@ -137,7 +137,7 @@ public:
 class Transform_16 : public TransformUnit
 {
 public:
-    Transform_16(Math::vec2 position = Map::middle_point) : TransformUnit(10.0, 5.0, 1.0, 1.4, 70, position)
+    Transform_16(Math::vec2 position = Map::middle_point) : TransformUnit(10.0, 5.0, 1.0, 1.4, 10, position)
     {
         if (transformed == false)
         {

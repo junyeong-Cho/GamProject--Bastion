@@ -93,7 +93,7 @@ void Game::Update(double dt)
 	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
 	GetGSComponent<GAM200::GameObjectManager>()->MergeTest();
 	GetGSComponent<Wave>()->Update(dt);
-
+    GetGSComponent<MonsterLimit>()->GetCurrentMonster();
 	Engine::GetWindow().Clear(1.0f, 1.0f, 1.0f, 1.0f);
 
 	#if IfWantShader
@@ -137,6 +137,7 @@ void Game::Unload()
 {
 	GetGSComponent<GAM200::GameObjectManager>()->Unload();
 	ClearGSComponent();
+
 }
 
 
