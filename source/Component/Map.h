@@ -29,7 +29,7 @@ public:
 
 	static inline double outer_left_end = 380;
 	static inline double outer_rigiht_end = 900;
-	static inline double outer_top_end = 740;
+	static inline double outer_top_end = 740; //700
 	static inline double outer_bottom_end = 100;
 
 	static inline double inner_left_end = outer_left_end + basic_size;

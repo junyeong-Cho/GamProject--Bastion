@@ -159,24 +159,27 @@ void Game::Update(double dt)
     }
     if (Engine::GetInput().keyDown(GAM200::Input::Keys::I))
     {
-        camera->SetScale({ camera->GetScale().x + 0.01, camera->GetScale().y + 0.01 });
+        camera->SetScale({ camera->GetScale().x * 1.01, camera->GetScale().y * 1.01 });
         Engine::GetLogger().LogDebug("Camera: ");
         Engine::GetLogger().LogDebug(std::to_string(camera->GetScale().x) + ", " + std::to_string(camera->GetScale().y));
+        Engine::GetLogger().LogDebug(std::to_string(camera->GetPosition().x) + ", " + std::to_string(camera->GetPosition().y));
     }
     if (Engine::GetInput().keyDown(GAM200::Input::Keys::O))
     {
-        camera->SetScale({ camera->GetScale().x - 0.01, camera->GetScale().y - 0.01 });
+        camera->SetScale({ camera->GetScale().x * 0.99, camera->GetScale().y * 0.99 });
         Engine::GetLogger().LogDebug("Camera: ");
         Engine::GetLogger().LogDebug(std::to_string(camera->GetScale().x) + ", " + std::to_string(camera->GetScale().y));
+        Engine::GetLogger().LogDebug(std::to_string(camera->GetPosition().x) + ", " + std::to_string(camera->GetPosition().y));
     }
 
     Unit* target = GetGSComponent<GAM200::GameObjectManager>()->GetInfoTarget();
     if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Z) && target != nullptr)
     {
-        camera->SetPosition(Map::middle_point - target->GetPosition());
-        camera->SetScale({ 2, 2 });
-        Engine::GetLogger().LogDebug("Camera: ");
-        Engine::GetLogger().LogDebug(std::to_string(camera->GetScale().x) + ", " + std::to_string(camera->GetScale().y));
+        camera->SetPosition(target->GetPosition());
+        camera->SetScale({ 3, 3 });
+
+        Engine::GetLogger().LogDebug("Object: " + std::to_string(target->GetPosition().x) + ", " + std::to_string(target->GetPosition().y));
+        Engine::GetLogger().LogDebug("Camera: " + std::to_string(camera->GetPosition().x) + ", " + std::to_string(camera->GetPosition().y));
     }
 
 
@@ -247,6 +250,9 @@ void Game::Draw()
 	{
 		lose.Draw(0, 0, 1280, 800);
 	}
+
+    GAM200::DrawShape shape;
+    shape.DrawCircle(Map::middle_point.x, Map::middle_point.y, 10, 10);
 }
 
 void Game::ImguiDraw()

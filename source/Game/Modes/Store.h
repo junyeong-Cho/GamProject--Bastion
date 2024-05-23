@@ -43,7 +43,7 @@ public:
 
     int counter = 0;
 
-    GAM200::Texture* store_background;
+    GAM200::Texture* store_background = nullptr;
 
     Math::vec2 mouse_position;
     Math::ivec2 tile_size;

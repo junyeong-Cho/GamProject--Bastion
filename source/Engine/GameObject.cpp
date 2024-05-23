@@ -50,44 +50,10 @@ void GAM200::GameObject::Draw(Math::TransformationMatrix camera_matrix)
 
     if (sprite != nullptr)
     {
-        // camera matrix of CS230   : translation
-        // camera matrix of current : translation + scale
-        // object matrix            : translation + scale
+        Math::TranslationMatrix to_middle(Math::vec2{ -Map::middle_point.x * camera_matrix[0][0], -Map::middle_point.y * camera_matrix[1][1] });
+        //Math::TranslationMatrix to_middle(Math::vec2{ -camera_matrix[0][2] * camera_matrix[0][0], -camera_matrix[1][2] * camera_matrix[1][1] });
 
-        // this is previous code from CS230
-        // it doesn't apply scaling of camera; scaling affects the translation of object
-        // sprite->Draw(camera_matrix * GetMatrix());
-
-        // this is the very current code
-        // it should be fixed because object's matrix of scaling affects the camera matrix
-        // sprite->Draw(GetMatrix() * camera_matrix);
-
-        // So should use CS230 style but also calculate the camera's scale matrix
-        /*Math::ScaleMatrix camera_scale(Math::vec2{ camera_matrix[0][0], camera_matrix[1][1] });
-        Math::TranslationMatrix camera_translation(Math::vec2{ camera_matrix[0][2], camera_matrix[1][2] });
-        sprite->Draw(camera_translation * GetMatrix() * camera_scale);*/
-
-        // This doesn't work either. Found the problem. What is the issue?
-        // Somehow the code runs as written. However, the problem is,
-        // when applying the camera matrix's scale (zoom in & out), distant objects should appear farther away, but
-        // in the current code, it just scales everything, making all objects just increase or decrease in size. In other words,
-        // it doesn't feel like zooming in or out; it just scales all objects at their positions.
-        // Therefore, the above code scales the object and then applies s, r, t, and camera translation,
-        // which means the object translation is not affected by the camera scale.
-        // Using the previous code applies the camera scale to the object translation based on the origin, causing issues.
-        // So, let's do additional calculations based on the camera's translate position for object translation,
-        // then scale and translate again.
-        Math::ScaleMatrix       camera_scale(Math::vec2{ camera_matrix[0][0], camera_matrix[1][1] });
-        Math::vec2              camera_position(Math::vec2(camera_matrix[0][2], camera_matrix[1][2]));
-        Math::TranslationMatrix camera_translation(camera_position);
-
-        Math::ScaleMatrix       object_scale(scale);
-        Math::RotationMatrix    object_rotate(rotation);
-        Math::TranslationMatrix object_translate(position);
-
-        Math::TranslationMatrix centered_translation(Math::vec2{ position.x - camera_matrix[0][2], position.y - camera_matrix[1][2]});
-
-        sprite->Draw(camera_translation * camera_scale * centered_translation * object_rotate * object_scale);
+        sprite->Draw(to_middle * camera_matrix * GetMatrix());
     }
 
 

@@ -19,6 +19,7 @@ Created:    March 14, 2024
 
 #include "Engine/Audio.h"
 
+#include "Component/Map.h"
 
 #include <filesystem>
 #include <imgui.h>
@@ -74,8 +75,12 @@ void Store::Unload()
 
 void Store::Draw()
 {
-	store_background->Draw(Math::TranslationMatrix(Math::ivec2{ 0 ,0 }));
-	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
+    Math::vec2 camera_position = Map::middle_point;
+    Math::TranslationMatrix    camera_translate{ camera_position };
+	Math::TransformationMatrix matrix{camera_translate};
+
+    store_background->Draw(0, 0, 1280, 800);
+    GetGSComponent<GAM200::GameObjectManager>()->DrawAll(matrix);
 
 	ShaderDrawing::draw_text("Gold: " + std::to_string(diamond), 1100, 700, 50, 1.0f, 1.0f, 0.0f);
 }
