@@ -8,6 +8,7 @@
 #include "Game/Splash.h"
 #include "Game/Modes/MainMenu.h"
 #include "Game/Modes/Game.h"
+#include "Game/Modes/Setting.h"
 #include "Game/Modes/HowToPlay.h"
 #include "Game/Modes/Store.h"
 #include "Game/Modes/Win.h"
@@ -69,6 +70,8 @@ int main()
         engine.AddFont("assets/Font_Simple.png");
         engine.AddFont("assets/Font_Outlined.png");
 
+        engine.GetAudioManager().SetMusicVolume(30.f);
+
         Splash splash;
         engine.GetGameStateManager().AddGameState(splash);
         Main_menu main_menu;
@@ -85,6 +88,8 @@ int main()
         engine.GetGameStateManager().AddGameState(win);
         Lose lose;
         engine.GetGameStateManager().AddGameState(lose);
+        Setting setting;
+        engine.GetGameStateManager().AddGameState(setting);
 
 #if     !defined(__EMSCRIPTEN__)
         while (engine.HasGameEnded() == false)

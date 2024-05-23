@@ -35,6 +35,7 @@ set(SOURCE_CODE
 
     Engine/Animation.h          Engine/Animation.cpp
     Engine/Audio.h              Engine/Audio.cpp
+    Engine/AudioList.h
     Engine/Camera.h	      Engine/Camera.cpp
     Engine/Collision.h          Engine/Collision.cpp
     Engine/Component.h
@@ -79,6 +80,7 @@ set(SOURCE_CODE
     Game/Modes/HowToPlay.h             Game/Modes/HowToPlay.cpp
     Game/Modes/Lose.h                  Game/Modes/Lose.cpp
     Game/Modes/MainMenu.h              Game/Modes/MainMenu.cpp
+    Game/Modes/Setting.h               Game/Modes/Setting.cpp
     Game/Modes/Store.h                 Game/Modes/Store.cpp
     Game/Modes/Tutorial.h              Game/Modes/Tutorial.cpp
     Game/Modes/Win.h                   Game/Modes/Win.cpp

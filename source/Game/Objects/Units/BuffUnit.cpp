@@ -11,8 +11,9 @@
 DmgBuffUnit::DmgBuffUnit(double buff_amount, Math::vec2 position, double range) : Unit(0.0, 0, range, position), buff_amount(buff_amount)
 {
     // Sound
-    GAM200::SoundEffect::Tower_Placing().play();
+    Engine::GetAudioManager().PlaySound(GAM200::AudioID::Tower_Placing);
 }
+
 void DmgBuffUnit::Update(double dt)
 {
     // Update GameObject
@@ -95,7 +96,7 @@ void DmgBuff_16::ResolveMerge(GameObject* other_object)
 AtkspdBuffUnit::AtkspdBuffUnit(double buff_amount, Math::vec2 position, double range) : Unit(0.0, 0, range, position), buff_amount(buff_amount)
 {
     // Sound
-    GAM200::SoundEffect::Tower_Placing().play();
+    Engine::GetAudioManager().PlaySound(GAM200::AudioID::Tower_Placing);
 }
 
 void AtkspdBuffUnit::Update(double dt)

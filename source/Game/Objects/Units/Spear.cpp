@@ -16,8 +16,9 @@ SpearUnit::SpearUnit(double attack_time, int damage, Math::vec2 position, double
     Unit(attack_time, damage, range, position)
 {
     //Sound
-    GAM200::SoundEffect::Tower_Placing().play();
+    Engine::GetAudioManager().PlaySound(GAM200::AudioID::Tower_Placing);
 }
+
 void SpearUnit::Update(double dt)
 {
     // Update GameObject

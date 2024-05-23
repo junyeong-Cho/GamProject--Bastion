@@ -79,9 +79,8 @@ void Game::Load()
 
 	GetGSComponent<Wave>()->SetWave("assets/maps/Wave1.txt");
 
-	GAM200::SoundEffect::MainMenu_BGM().stopAll();
-	GAM200::SoundEffect::Game_BGM().stopAll();
-	GAM200::SoundEffect::Game_BGM().loopplay();
+    Engine::GetAudioManager().StopMusic(GAM200::AudioID::MainMenu_BGM);
+    Engine::GetAudioManager().PlayMusic(GAM200::AudioID::Game_BGM);
 }
 
 void Game::Update(double dt)
@@ -192,6 +191,7 @@ void Game::Update(double dt)
 void Game::Unload()
 {
 	GetGSComponent<GAM200::GameObjectManager>()->Unload();
+    Engine::GetAudioManager().StopAllMusic();
 	ClearGSComponent();
 }
 

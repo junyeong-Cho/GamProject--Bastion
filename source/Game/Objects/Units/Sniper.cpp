@@ -15,7 +15,7 @@ SniperUnit::SniperUnit(double attack_time, int damage, Math::vec2 position, doub
     Unit(attack_time, damage, range, position)
 {
     //Sound
-    GAM200::SoundEffect::Tower_Placing().play();
+    Engine::GetAudioManager().PlaySound(GAM200::AudioID::Tower_Placing);
 }
 void SniperUnit::Update(double dt)
 {

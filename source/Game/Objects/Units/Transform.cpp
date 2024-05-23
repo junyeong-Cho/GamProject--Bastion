@@ -15,8 +15,9 @@ TransformUnit::TransformUnit(double transform_cool, double transform_time, doubl
     Unit(attack_time, damage, range, position)
 {
     //Sound
-    GAM200::SoundEffect::Tower_Placing().play();
+    Engine::GetAudioManager().PlaySound(GAM200::AudioID::Tower_Placing);
 }
+
 void TransformUnit::Update(double dt)
 {
     // Update GameObject
