@@ -94,61 +94,64 @@ enum class GameObjectTypes
     Laser,
     Particle,
 
-    /*
-    //Exodia
-
-    // Button
-    Button,
-
-    // Player
-    Player,
-
-    // Monsters
-    Monster,
-    Basic_Monster,
-    Fast_Monster,
-    Slow_Monster,
-    Mother_Monster,
-    Weak_Monster,
-    Heal_Monster,
-    Stealth_Monster,
-    Bomb_Monster,
-
-    Monster_End,
-
-    // Tiles
-    Tile,
-    Pass__Tile,
-    Block_Tile,
-    Obstacle,
-    Cliff,
-
-    Tile_End,
-
-    // Towers
-    Tower,
-    Basic_Tower,
-    Double_Tower,
-    Triple_Tower,
-    Push_Tower,
-    Wide_Tower,
-    Auto_Tower,
-
-    Tower_End,
-
-    // Bullets
-    Bullet,
-    Basic_Bullet,
-    Wide_Range_Bullet,
-    Pushing_Bullet,
-
-    Bullet_End,
-
-    // Others
-    Monster_Heal,
-
-
-    HBG_Ui,
-    */
-
 };
+
+static std::string toString(GameObjectTypes type)
+{
+    switch (type)
+    {
+        case GameObjectTypes::MeleeUnit: return "MeleeUnit";
+        case GameObjectTypes::Sword_1: return "Sword_1";
+        case GameObjectTypes::Sword_2: return "Sword_2";
+        case GameObjectTypes::Sword_4: return "Sword_4";
+        case GameObjectTypes::Sword_8: return "Sword_8";
+        case GameObjectTypes::Sword_16: return "Sword_16";
+
+        case GameObjectTypes::RangedUnit: return "RangedUnit";
+        case GameObjectTypes::Bow_1: return "Bow_1";
+        case GameObjectTypes::Bow_2: return "Bow_2";
+        case GameObjectTypes::Bow_4: return "Bow_4";
+        case GameObjectTypes::Bow_8: return "Bow_8";
+        case GameObjectTypes::Bow_16: return "Bow_16";
+
+        case GameObjectTypes::Rambo_4: return "Rambo_4";
+        case GameObjectTypes::Rambo_8: return "Rambo_8";
+        case GameObjectTypes::Rambo_16: return "Rambo_16";
+
+        case GameObjectTypes::MagicUnit: return "MagicUnit";
+        case GameObjectTypes::Bomb_1: return "Bomb_1";
+        case GameObjectTypes::Bomb_2: return "Bomb_2";
+        case GameObjectTypes::Bomb_4: return "Bomb_4";
+        case GameObjectTypes::Bomb_8: return "Bomb_8";
+        case GameObjectTypes::Bomb_16: return "Bomb_16";
+
+        case GameObjectTypes::SpearUnit: return "SpearUnit";
+        case GameObjectTypes::Spear_2: return "Spear_2";
+        case GameObjectTypes::Spear_4: return "Spear_4";
+        case GameObjectTypes::Spear_8: return "Spear_8";
+        case GameObjectTypes::Spear_16: return "Spear_16";
+
+        case GameObjectTypes::TransformUnit: return "TransformUnit";
+        case GameObjectTypes::Transform_2: return "Transform_2";
+        case GameObjectTypes::Transform_4: return "Transform_4";
+        case GameObjectTypes::Transform_8: return "Transform_8";
+        case GameObjectTypes::Transform_16: return "Transform_16";
+
+        case GameObjectTypes::SniperUnit: return "SniperUnit";
+        case GameObjectTypes::Sniper_2: return "Sniper_2";
+        case GameObjectTypes::Sniper_4: return "Sniper_4";
+        case GameObjectTypes::Sniper_8: return "Sniper_8";
+        case GameObjectTypes::Sniper_16: return "Sniper_16";
+
+        case GameObjectTypes::BuffUnit: return "BuffUnit";
+        case GameObjectTypes::DmgBuff_4: return "DmgBuff_4";
+        case GameObjectTypes::DmgBuff_8: return "DmgBuff_8";
+        case GameObjectTypes::DmgBuff_16: return "DmgBuff_16";
+        case GameObjectTypes::AtkspdBuff_4: return "AtkspdBuff_4";
+        case GameObjectTypes::AtkspdBuff_8: return "AtkspdBuff_8";
+        case GameObjectTypes::AtkspdBuff_16: return "AtkspdBuff_16";
+        case GameObjectTypes::BuffUnitEnd: return "BuffUnitEnd";
+
+        default: return "Unknown";
+    }
+}

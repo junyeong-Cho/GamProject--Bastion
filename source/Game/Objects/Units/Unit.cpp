@@ -95,6 +95,24 @@ void Unit::Draw(Math::TransformationMatrix camera_matrix)
 #endif
 }
 
+void Unit::DrawMergeList()
+{
+    float initial_x_value = 600;
+    float initial_y_value = 600;
+
+    for (const auto& pair : merge_list)
+    {
+        GameObjectTypes target = pair.first;
+        GameObjectTypes result = pair.second;
+
+        std::string string = TypeName() + " + " + toString(target) + " = " + toString(result);
+
+        ShaderDrawing::draw_text(string, initial_x_value, initial_y_value, 20, 0.0, 0.0, 0.0);
+        //Engine::GetLogger().LogDebug(TypeName() + " + " + toString(target) + " = " + toString(result));
+        initial_y_value -= 30;
+    }
+}
+
 void Unit::ShowInfo()
 {
 #if !IfWantShader
@@ -132,7 +150,9 @@ void Unit::HandleMouseInput()
         if (Engine::GetInput().MouseDown(GAM200::Input::MouseButtons::RIGHT))
         {
             if (Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->GetClosestUnit(mouse_position) == this)
+            {
                 Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->SetInfoTarget(this);
+            }
         }
 
 

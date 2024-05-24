@@ -203,7 +203,12 @@ void Game::Draw()
     GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
     GetGSComponent<GAM200::GameObjectManager>()->DrawParticle(camera_matrix);
 
-    Unit* unit = GetGSComponent<GAM200::GameObjectManager>()->GetInfoTarget(); if (unit != nullptr) unit->ShowInfo();
+    Unit* unit = GetGSComponent<GAM200::GameObjectManager>()->GetInfoTarget();
+    if (unit != nullptr)
+    {
+        unit->ShowInfo();
+        unit->DrawMergeList();
+    }
     if (Button::random)
         tower_ui_random.Draw(380, 35, 514, 108);
     else

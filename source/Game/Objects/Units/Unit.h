@@ -35,6 +35,8 @@ public:
     virtual bool CanMergeWith(GameObjectTypes type) override = 0;
     virtual void ResolveMerge(GameObject* other_object) override = 0;
 
+    void DrawMergeList();
+
     virtual void ShowInfo();
 
     void HandleMouseInput();
