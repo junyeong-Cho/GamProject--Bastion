@@ -61,7 +61,9 @@ public:
         current_state = &state_none;
         current_state->Enter(this);
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+        merge_list.insert({ GameObjectTypes::Sword_1, GameObjectTypes::Transform_2 });
+        merge_list.insert({ GameObjectTypes::Bow_1, GameObjectTypes::Bow_2 });
+        merge_list.insert({ GameObjectTypes::Bomb_1, GameObjectTypes::Sniper_2 });
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bow_1; }
@@ -80,7 +82,8 @@ public:
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/gunner_default.spt", (this)));
         current_state = &state_none;
         current_state->Enter(this);
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+
+        merge_list.insert({ GameObjectTypes::Bow_2, GameObjectTypes::Bow_4 });
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bow_2; }
@@ -100,7 +103,7 @@ public:
         current_state = &state_none;
         current_state->Enter(this);
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+        merge_list.insert({ GameObjectTypes::Bow_4, GameObjectTypes::Bow_8 });
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bow_4; }
@@ -120,7 +123,7 @@ public:
         current_state = &state_none;
         current_state->Enter(this);
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+        merge_list.insert({ GameObjectTypes::Bow_8, GameObjectTypes::Bow_16 });
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bow_8; }
@@ -140,7 +143,6 @@ public:
         current_state = &state_none;
         current_state->Enter(this);
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bow_16; }
@@ -160,7 +162,7 @@ public:
         current_state = &state_none;
         current_state->Enter(this);
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+        merge_list.insert({ GameObjectTypes::Rambo_4, GameObjectTypes::Rambo_8 });
     }
 
     GameObjectTypes Type() override
@@ -186,7 +188,7 @@ public:
         current_state = &state_none;
         current_state->Enter(this);
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+        merge_list.insert({ GameObjectTypes::Rambo_8, GameObjectTypes::Rambo_16 });
     }
 
     GameObjectTypes Type() override
@@ -212,7 +214,6 @@ public:
         current_state = &state_none;
         current_state->Enter(this);
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     GameObjectTypes Type() override

@@ -45,7 +45,7 @@ public:
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/spear/spear_default.spt", (this)));
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+        merge_list.insert({ GameObjectTypes::DmgBuff_4, GameObjectTypes::DmgBuff_8 });
     }
 
     GameObjectTypes Type() override
@@ -69,7 +69,7 @@ public:
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/spear/spear_default.spt", (this)));
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+        merge_list.insert({ GameObjectTypes::DmgBuff_8, GameObjectTypes::DmgBuff_16 });
     }
 
     GameObjectTypes Type() override
@@ -93,7 +93,6 @@ public:
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/spear/spear_default.spt", (this)));
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     GameObjectTypes Type() override
@@ -151,7 +150,6 @@ public:
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/spear/spear_default.spt", (this)));
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     GameObjectTypes Type() override
@@ -175,7 +173,6 @@ public:
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/spear/spear_default.spt", (this)));
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     GameObjectTypes Type() override
@@ -199,7 +196,6 @@ public:
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/spear/spear_default.spt", (this)));
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     GameObjectTypes Type() override

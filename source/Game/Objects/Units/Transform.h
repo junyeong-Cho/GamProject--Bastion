@@ -72,7 +72,9 @@ public:
         current_state = &state_none;
         current_state->Enter(this);
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+        merge_list.insert({ GameObjectTypes::Transform_2, GameObjectTypes::Transform_4 });
+        merge_list.insert({ GameObjectTypes::Spear_2, GameObjectTypes::AtkspdBuff_4 });
+        merge_list.insert({ GameObjectTypes::Sniper_2, GameObjectTypes::DmgBuff_4 });
     }
 
     virtual GameObjectTypes Type() override { return GameObjectTypes::Transform_2; }
@@ -98,7 +100,7 @@ public:
         current_state = &state_none;
         current_state->Enter(this);
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+        merge_list.insert({ GameObjectTypes::Transform_4, GameObjectTypes::Transform_8 });
     }
 
     virtual GameObjectTypes Type() override { return GameObjectTypes::Transform_4; }
@@ -124,7 +126,7 @@ public:
         current_state = &state_none;
         current_state->Enter(this);
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+        merge_list.insert({ GameObjectTypes::Transform_8, GameObjectTypes::Transform_16 });
     }
 
     virtual GameObjectTypes Type() override { return GameObjectTypes::Transform_8; }
@@ -150,7 +152,6 @@ public:
         current_state = &state_none;
         current_state->Enter(this);
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     virtual GameObjectTypes Type() override { return GameObjectTypes::Transform_16; }

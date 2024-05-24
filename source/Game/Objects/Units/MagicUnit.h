@@ -64,7 +64,9 @@ public:
         current_state = &state_none;
         current_state->Enter(this);
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+        merge_list.insert({ GameObjectTypes::Sword_1, GameObjectTypes::Spear_2 });
+        merge_list.insert({ GameObjectTypes::Bow_1, GameObjectTypes::Sniper_2 });
+        merge_list.insert({ GameObjectTypes::Bomb_1, GameObjectTypes::Bomb_2 });
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bomb_1; }
@@ -84,7 +86,7 @@ public:
         current_state = &state_none;
         current_state->Enter(this);
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+        merge_list.insert({ GameObjectTypes::Bomb_2, GameObjectTypes::Bomb_4 });
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bomb_2; }
@@ -104,7 +106,7 @@ public:
         current_state = &state_none;
         current_state->Enter(this);
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+        merge_list.insert({ GameObjectTypes::Bomb_4, GameObjectTypes::Bomb_8 });
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bomb_4; }
@@ -124,7 +126,7 @@ public:
         current_state = &state_none;
         current_state->Enter(this);
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+        merge_list.insert({ GameObjectTypes::Bomb_8, GameObjectTypes::Bomb_16 });
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bomb_8; }
@@ -144,7 +146,6 @@ public:
         current_state = &state_none;
         current_state->Enter(this);
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Bomb_16; }

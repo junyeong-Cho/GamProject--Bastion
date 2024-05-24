@@ -92,7 +92,7 @@ protected:
  
     Math::vec2 position_gap;
 
-    std::unique_ptr<GAM200::Texture> name;
+    std::unordered_map<GameObjectTypes, GameObjectTypes> merge_list;
 
 #if IfWantShader
 

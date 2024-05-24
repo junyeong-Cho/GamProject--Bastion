@@ -63,8 +63,10 @@ public:
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/sword/sword_default.spt", (this)));
         current_state = &state_none;
         current_state->Enter(this);
-
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+        
+        merge_list.insert({ GameObjectTypes::Sword_1, GameObjectTypes::Sword_2 });
+        merge_list.insert({ GameObjectTypes::Bow_1, GameObjectTypes::Transform_2 });
+        merge_list.insert({ GameObjectTypes::Bomb_1, GameObjectTypes::Spear_2 });
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Sword_1; }
@@ -84,7 +86,7 @@ public:
         current_state = &state_none;
         current_state->Enter(this);
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+        merge_list.insert({ GameObjectTypes::Sword_2, GameObjectTypes::Sword_4 });
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Sword_2; }
@@ -103,7 +105,7 @@ public:
         current_state = &state_none;
         current_state->Enter(this);
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+        merge_list.insert({ GameObjectTypes::Sword_4, GameObjectTypes::Sword_8 });
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Sword_4; }
@@ -122,7 +124,7 @@ public:
         current_state = &state_none;
         current_state->Enter(this);
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
+        merge_list.insert({ GameObjectTypes::Sword_8, GameObjectTypes::Sword_16 });
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Sword_8; }
@@ -141,7 +143,6 @@ public:
         current_state = &state_none;
         current_state->Enter(this);
 
-        name.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Name: " + TypeName(), 0xFFFFFFFF));
     }
 
     GameObjectTypes Type() override { return GameObjectTypes::Sword_16; }
