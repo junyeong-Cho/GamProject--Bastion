@@ -63,9 +63,9 @@ void Editor::Load()
     GAM200::GameObjectManager* gameobjectmanager = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>();
     if (Button::random == false)
     {
-        gameobjectmanager->Add(new tower1_Button({ 490, 35 }, { 78, 78 }));
-        gameobjectmanager->Add(new tower2_Button({ 490 + 102, 35 }, { 78, 78 }));
-        gameobjectmanager->Add(new tower3_Button({ 490 + 102 * 2, 35 }, { 78, 78 }));
+        gameobjectmanager->Add(new tower1_Button({ 530.918, 31.5268 }, { 88, 88 }));
+        gameobjectmanager->Add(new tower2_Button({ 658.918, 31.5268 }, { 88, 88 }));
+        gameobjectmanager->Add(new tower3_Button({ 786.918, 31.5268 }, { 88, 88 }));
         // tower_ui = GAM200::Texture("assets/buttons/tower_ui.png");
     }
     else
@@ -73,8 +73,9 @@ void Editor::Load()
         gameobjectmanager->Add(new random_tower_Button({ 490 + 102, 35 }, { 78, 78 }));
         // tower_ui = GAM200::Texture("assets/buttons/tower_ui.png");
     }
-    gameobjectmanager->Add(new GameSpeed_Button({ 976, 708 }, { 77, 77 }));
-    gameobjectmanager->Add(new Skip_Button({ 1071, 708 }, { 77, 77 }));
+    gameobjectmanager->Add(new GameSpeed_Button({ 1016.4631, 688.3434 }, { 74.1758, 74.1758 }));
+    gameobjectmanager->Add(new Skip_Button({ 1144.4631, 688.3434 }, { 74.1758, 74.1758 }));
+    gameobjectmanager->Add(new Setting_Button({ 61.3611, 688.3434 }, { 74.1758, 74.1758 }));
 
     in_game_state = InProgress;
 
@@ -161,7 +162,7 @@ void Editor::Draw()
     Unit* unit = GetGSComponent<GAM200::GameObjectManager>()->GetInfoTarget();
     if (unit != nullptr)
         unit->ShowInfo();
-    tower_ui.Draw(380, 35, 514, 108);
+    //tower_ui.Draw(380, 35, 514, 108);
 
 #if IfWantShader
     //if (GetGSComponent<Wave>()->IsResting())
@@ -172,9 +173,9 @@ void Editor::Draw()
     }
     ShaderDrawing::draw_text("Gold: " + std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 1100, 530, 50, 255, 255, 255);
     ShaderDrawing::draw_text("Monster: " + std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 1100, 460, 50, 255, 255, 255);
-    ShaderDrawing::draw_text(std::to_string(unit_cost), 531, 64, 25, 1.0f, 1.0f, 0.0f);
-    ShaderDrawing::draw_text(std::to_string(unit_cost), 638, 64, 25, 1.0f, 1.0f, 0.0f);
-    ShaderDrawing::draw_text(std::to_string(unit_cost), 745, 64, 25, 1.0f, 1.0f, 0.0f);
+    ShaderDrawing::draw_text(std::to_string(unit_cost), 563.2783, 31.0342, 20, 0.196f, 0.196f, 0.196f);
+    ShaderDrawing::draw_text(std::to_string(unit_cost), 691.2783, 31.0342, 20, 0.196f, 0.196f, 0.196f);
+    ShaderDrawing::draw_text(std::to_string(unit_cost), 819.2773, 31.0342, 20, 0.196f, 0.196f, 0.196f);
 #else
     trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
     time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 700 }));

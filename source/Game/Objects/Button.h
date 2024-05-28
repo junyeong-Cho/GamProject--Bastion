@@ -160,6 +160,82 @@ public:
     void func() override;
 };
 
+class Base_Item_Button : public Button
+{
+public:
+    Base_Item_Button(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
+};
+
+class Selected_Stage0_Button : public Button
+{
+public:
+    Selected_Stage0_Button(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
+};
+
+class Selected_Stage1_Button : public Button
+{
+public:
+    Selected_Stage1_Button(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
+};
+
+class Selected_Stage2_Button : public Button
+{
+public:
+    Selected_Stage2_Button(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
+};
+
+class Base_Map0_Button : public Button
+{
+public:
+    Base_Map0_Button(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+private:
+};
+
+class Base_Map1_Button : public Button
+{
+public:
+    Base_Map1_Button(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+private:
+};
+
+class Base_Map2_Button : public Button
+{
+public:
+    Base_Map2_Button(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+
+private:
+};
+
+class Base_Map3_Button : public Button
+{
+public:
+    Base_Map3_Button(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+
+private:
+};
+
+
+/////////////////////////////////////
 class GameSpeed_Button : public Button {
 public:
     GameSpeed_Button(Math::vec2 position, Math::vec2 size);
@@ -170,7 +246,7 @@ public:
 private:
     GAM200::Texture* speed_1 = Engine::Instance().GetTextureManager().Load("assets/buttons/speed1.png");
     GAM200::Texture* speed_2 = Engine::Instance().GetTextureManager().Load("assets/buttons/speed2.png");
-    GAM200::Texture* speed_3 = Engine::Instance().GetTextureManager().Load("assets/buttons/speed3.png");
+    //GAM200::Texture* speed_3 = Engine::Instance().GetTextureManager().Load("assets/buttons/speed3.png");
     GAM200::Texture* speed_4 = Engine::Instance().GetTextureManager().Load("assets/buttons/speed4.png");
 };
 
@@ -187,6 +263,16 @@ private:
     GAM200::Texture* skip_impossible = Engine::Instance().GetTextureManager().Load("assets/buttons/none_skip.png");
 };
 
+class Setting_Button : public Button
+{
+public:
+    Setting_Button(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
+
+private:
+};
+
 class Tutorial_Next_Step_Button : public Button
 {
 public:
@@ -199,6 +285,38 @@ class Tutorial_Prev_Step_Button : public Button
 {
 public:
     Tutorial_Prev_Step_Button(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
+};
+
+class Wave_Enemy2 : public Button
+{
+public:
+    Wave_Enemy2(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
+};
+
+class Wave_Enemy3 : public Button
+{
+public:
+    Wave_Enemy3(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
+};
+
+class Current_Wave1 : public Button
+{
+public:
+    Current_Wave1(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
+};
+
+class Current_Wave2 : public Button
+{
+public:
+    Current_Wave2(Math::vec2 position, Math::vec2 size);
 
     void func() override;
 };

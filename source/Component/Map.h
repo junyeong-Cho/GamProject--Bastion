@@ -10,7 +10,7 @@
 class Map : public GAM200::Component
 {
 public:
-	Map() : game_background("assets/Background/game_tile.png")
+    Map() : game_background("assets/Background/game_tile2.png"), blur("assets/Background/blur.png"), ui("assets/Background/ingame_ui.png")
 	{
 
 	}
@@ -18,11 +18,14 @@ public:
 	void Draw()
 	{
 		game_background.Draw(0, 0, 1280, 800);
+        blur.Draw(0, 0, 1280, 800);
+        ui.Draw(0, 0, 1280, 800);
 	}
 
 public:
 	GAM200::Texture game_background;
-
+    GAM200::Texture blur;
+    GAM200::Texture ui;
 
 	static inline double basic_size = 80;
 
