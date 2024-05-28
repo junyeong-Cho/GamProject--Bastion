@@ -291,3 +291,66 @@ double GAM200::GameObjectManager::WideDamage(Math::vec2 position, double radius,
 
 	return totalDamage;
 }
+
+void GAM200::GameObjectManager::DeleteAllMonster()
+{
+    std::vector<GameObject*> monsters_to_destroy;
+
+    for (GameObject* object : objects)
+    {
+        if (object->Type() == GameObjectTypes::Monster)
+        {
+            monsters_to_destroy.push_back(object);
+        }
+    }
+
+    for (GameObject* monster : monsters_to_destroy)
+    {
+        auto it = std::find(objects.begin(), objects.end(), monster);
+        if (it != objects.end())
+        {
+            objects.erase(it);
+        }
+        delete monster;
+    }
+}
+
+void GAM200::GameObjectManager::ReduceSpeedAndAttackRateIfBottom(bool enable, double thresholdY, double speedReductionFactor)
+{
+    if (enable)
+    {
+        for (GameObject* object : objects)
+        {
+            Math::vec2 position = object->GetPosition();
+
+            // Check if the object is at the bottom of the map
+            if (position.y <= thresholdY)
+            {
+                if (object->Type() == GameObjectTypes::Monster)
+                {
+                    Monster* monster = static_cast<Monster*>(object);
+                    // Save initial speed scale if not already saved
+                    if (initialSpeedScales.find(object) == initialSpeedScales.end())
+                    {
+                        initialSpeedScales[object] = monster->GetSpeedScale();
+                    }
+                    monster->SetSpeedScale(monster->GetSpeedScale() * speedReductionFactor);
+                }
+            }
+            else
+            {
+                if (object->Type() == GameObjectTypes::Monster)
+                {
+                    Monster* monster = static_cast<Monster*>(object);
+                    // Restore initial speed scale if it was saved
+                    auto     it      = initialSpeedScales.find(object);
+                    if (it != initialSpeedScales.end())
+                    {
+                        monster->SetSpeedScale(it->second);
+                        initialSpeedScales.erase(it); // Remove from map after restoring
+                    }
+                }
+            }
+        }
+    }
+}

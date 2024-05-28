@@ -118,6 +118,22 @@ void Wave::Update(double dt)
 			{
 				new Monster_12();
 			}
+            else if (monster_name == "MONSTER13")
+            {
+                new Monster_13();
+            }
+            else if (monster_name == "MONSTER14")
+            {
+                new Monster_14();
+            }
+            else if (monster_name == "MONSTER15")
+            {
+                new Monster_15();
+            }
+            else if (monster_name == "MONSTER16")
+            {
+                new Monster_16();
+            }
 		}
 
 

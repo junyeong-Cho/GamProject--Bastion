@@ -11,19 +11,22 @@
 class Map : public GAM200::Component
 {
 public:
-	Map() : game_background("assets/Background/game_tile.spt", nullptr)
+    Map() : game_background("assets/Background/game_tile2.png"), blur("assets/Background/blur.png"), ui("assets/Background/ingame_ui.png")
 	{
 
 	}
 
 	void Draw(Math::TransformationMatrix camera_matrix)
 	{
-        //game_background.Draw(0, 0, 1280, 800);
-        game_background.Draw(/*Math::TranslationMatrix(middle_point) * */camera_matrix);
+		game_background.Draw(0, 0, 1280, 800);
+        blur.Draw(0, 0, 1280, 800);
+        ui.Draw(0, 0, 1280, 800);
 	}
 
 public:
-	GAM200::Sprite game_background;
+	GAM200::Texture game_background;
+    GAM200::Texture blur;
+    GAM200::Texture ui;
 
 	static inline double basic_size = 80;
 

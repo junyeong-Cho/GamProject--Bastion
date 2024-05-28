@@ -12,6 +12,7 @@ public:
 
     int GetCurrentMonster() const { return Monster::GetRemainingMonster(); }
     int GetLimit() const { return max_limit; }
+
     bool GameOver() const { return Monster::GetRemainingMonster() >= max_limit ? true : false; }
 
 private:

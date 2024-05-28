@@ -16,7 +16,18 @@ public:
 
     void NextSpeed()
     {
-        (speed == 4) ? (speed = 1) : (++speed);
+        if (speed == 1.0)
+        {
+            speed = 2.0;
+        }
+        else if (speed == 2.0)
+        {
+            speed = 4.0;
+        }
+        else if (speed == 4.0)
+        {
+            speed = 1.0;
+        }
 
         Engine::Instance().SetSpeed(speed);
     }

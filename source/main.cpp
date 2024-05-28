@@ -15,7 +15,7 @@
 #include "Game/Modes/Lose.h"
 #include "Game/Modes/Game.h"
 #include "Game/Modes/Tutorial.h"
-
+#include "Game/Modes/Editor.h"
 
 #if defined(__EMSCRIPTEN__)
 #    include <emscripten.h>
@@ -78,6 +78,8 @@ int main()
         engine.GetGameStateManager().AddGameState(main_menu);
         Game game;
         engine.GetGameStateManager().AddGameState(game);
+        Editor editor;
+        engine.GetGameStateManager().AddGameState(editor);
         HowToPlay how_to_play;
         engine.GetGameStateManager().AddGameState(how_to_play);
         Store store;

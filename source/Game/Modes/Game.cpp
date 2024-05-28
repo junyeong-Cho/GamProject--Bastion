@@ -62,18 +62,19 @@ void Game::Load()
     GAM200::GameObjectManager* gameobjectmanager = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>();
 	if (Button::random == false)
     {
-        gameobjectmanager->Add(new tower1_Button({ 490, 35 }, { 78, 78 }));
-        gameobjectmanager->Add(new tower2_Button({ 490 + 102, 35 }, { 78, 78 }));
-        gameobjectmanager->Add(new tower3_Button({ 490 + 102 * 2, 35 }, { 78, 78 }));
+        gameobjectmanager->Add(new tower1_Button({ 530.918, 31.5268 }, { 88, 88 }));
+        gameobjectmanager->Add(new tower2_Button({ 658.918, 31.5268 }, { 88, 88 }));
+        gameobjectmanager->Add(new tower3_Button({ 786.918, 31.5268 }, { 88, 88 }));
         //tower_ui = GAM200::Texture("assets/buttons/tower_ui.png");
 	}
 	else
 	{
-        gameobjectmanager->Add(new random_tower_Button({ 490 + 102, 35 }, { 78, 78 }));
-        //tower_ui = GAM200::Texture("assets/buttons/tower_ui_random.png");
+        gameobjectmanager->Add(new random_tower_Button({ 402.9181, 31.5268 }, { 88, 88 }));
+        //tower_ui = GAM200::Texture("assets/buttons/tower_ui.png");
 	}
-    gameobjectmanager->Add(new GameSpeed_Button({ 976, 708 }, { 77, 77 }));
-    gameobjectmanager->Add(new Skip_Button({ 1071, 708 }, { 77, 77 }));
+    gameobjectmanager->Add(new GameSpeed_Button({ 1016.4631, 688.3434 }, { 74.1758, 74.1758 }));
+    gameobjectmanager->Add(new Skip_Button({ 1144.4631, 688.3434 }, { 74.1758, 74.1758 }));
+    gameobjectmanager->Add(new Setting_Button({ 61.3611, 688.3434 }, { 74.1758, 74.1758 }));
 
 	in_game_state = InProgress;
 
@@ -87,13 +88,13 @@ void Game::Update(double dt)
 {
     count += dt;
 
-    GetGSComponent<GameSpeed>()->Update(dt);
-    GetGSComponent<Time>()->Update(dt);
-    GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
-    GetGSComponent<GAM200::GameObjectManager>()->MergeTest();
-    GetGSComponent<Wave>()->Update(dt);
-
-    Engine::GetWindow().Clear(1.0f, 1.0f, 1.0f, 1.0f);
+	GetGSComponent<GameSpeed>()->Update(dt);
+	GetGSComponent<Time>()->Update(dt);
+	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
+	GetGSComponent<GAM200::GameObjectManager>()->MergeTest();
+	GetGSComponent<Wave>()->Update(dt);
+    GetGSComponent<MonsterLimit>()->GetCurrentMonster();
+	Engine::GetWindow().Clear(1.0f, 1.0f, 1.0f, 1.0f);
 
 #if IfWantShader
 
@@ -193,6 +194,7 @@ void Game::Unload()
 	GetGSComponent<GAM200::GameObjectManager>()->Unload();
     Engine::GetAudioManager().StopAllMusic();
 	ClearGSComponent();
+
 }
 
 

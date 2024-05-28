@@ -36,6 +36,8 @@ extern bool tower_summoned;
 extern int  startGold;
 extern int  monsterLimit;
 extern int  diamond;
+int			selected_stage = 0;
+int         selected_map   = -1;
 int         unit_cost = 55;
 
 Button::Button(Math::vec2 position, Math::vec2 size) : GameObject(position), position(position), size(size)
@@ -106,7 +108,7 @@ void Store_Item_1::func()
 void Store_Item_1::Draw(Math::TransformationMatrix camera_matrix)
 {
     GameObject::Draw(camera_matrix);
-    ShaderDrawing::draw_text("$" +  std::to_string(cost), GetPosition().x + 100, GetPosition().y - 30, 40, 1.0f, 1.0f, 0.0f);
+    ShaderDrawing::draw_text("$" + std::to_string(cost), GetPosition().x + 32.3603, GetPosition().y - 0.4926, 40, 0.196f, 0.196f, 0.196f);
 }
 
 Store_Item_2::Store_Item_2(Math::vec2 position, Math::vec2 size) : Button(position, size)
@@ -124,7 +126,7 @@ void Store_Item_2::func()
 void Store_Item_2::Draw(Math::TransformationMatrix camera_matrix)
 {
     GameObject::Draw(camera_matrix);
-    ShaderDrawing::draw_text("$" + std::to_string(cost), GetPosition().x + 100, GetPosition().y - 30, 40, 1.0f, 1.0f, 0.0f);
+    ShaderDrawing::draw_text("$" + std::to_string(cost), GetPosition().x + 32.3603, GetPosition().y - 0.4926, 40, 0.196f, 0.196f, 0.196f);
 }
 
 
@@ -143,7 +145,7 @@ void Store_Item_3::func()
 void Store_Item_3::Draw(Math::TransformationMatrix camera_matrix)
 {
     GameObject::Draw(camera_matrix);
-    ShaderDrawing::draw_text("$" + std::to_string(cost), GetPosition().x + 100, GetPosition().y - 30, 40, 1.0f, 1.0f, 0.0f);
+    ShaderDrawing::draw_text("$" + std::to_string(cost), GetPosition().x + 32.3603, GetPosition().y - 0.4926, 40, 0.196f, 0.196f, 0.196f);
 }
 
 
@@ -166,21 +168,156 @@ void Store_Gold_Button::func() {
 
 
 Store_Menu_Button::Store_Menu_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
-	AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Menu.spt", (this)));
+	//AddGOComponent(new GAM200::Sprite("assets/buttons/Store_Menu.spt", (this)));
 }
 void Store_Menu_Button::func() {
 	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
 }
 
 
-Store_GameStart_Button::Store_GameStart_Button(Math::vec2 position, Math::vec2 size) : Button(position, size) {
+Store_GameStart_Button::Store_GameStart_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
 
 }
 void Store_GameStart_Button::func() {
-	Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
+
+    if (selected_stage == 0 && selected_map == 0)
+    {
+        Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Tutorial));
+    }
+    else if (selected_stage == 1 && selected_map > 0 && selected_map < 4)
+    {
+        Button::random = false;
+        Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
+	}
+
 }
 
 
+Base_Item_Button::Base_Item_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+    AddGOComponent(new GAM200::Sprite("assets/buttons/Itembox.spt", (this)));
+}
+
+void Base_Item_Button::func()
+{
+    //Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
+}
+
+Selected_Stage0_Button::Selected_Stage0_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+}
+
+void Selected_Stage0_Button::func()
+{
+    selected_stage = 0;
+    selected_map   = -1;
+}
+
+Selected_Stage1_Button::Selected_Stage1_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+}
+
+void Selected_Stage1_Button::func()
+{
+    selected_stage = 1;
+    selected_map   = -1;
+}
+
+Selected_Stage2_Button::Selected_Stage2_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+}
+
+void Selected_Stage2_Button::func()
+{
+    selected_stage = 2;
+    selected_map   = -1;
+}
+
+Base_Map0_Button::Base_Map0_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+    AddGOComponent(new GAM200::Sprite("assets/buttons/Selected.spt", (this)));
+}
+
+void Base_Map0_Button::func()
+{
+    if (selected_stage == 0)
+    {
+        selected_map = 0;
+	}
+}
+
+void Base_Map0_Button::Draw(Math::TransformationMatrix camera_matrix)
+{
+    if (selected_map == 0)
+    {
+        GameObject::Draw(camera_matrix);
+    }
+}
+
+Base_Map1_Button::Base_Map1_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+    AddGOComponent(new GAM200::Sprite("assets/buttons/Selected.spt", (this)));
+}
+
+void Base_Map1_Button::func()
+{
+    if (selected_stage == 1)
+    {
+        selected_map = 1;
+	}
+
+}
+
+void Base_Map1_Button::Draw(Math::TransformationMatrix camera_matrix)
+{
+    if (selected_map == 1)
+    {
+        GameObject::Draw(camera_matrix);
+    }
+}
+
+Base_Map2_Button::Base_Map2_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+    AddGOComponent(new GAM200::Sprite("assets/buttons/Selected.spt", (this)));
+}
+
+void Base_Map2_Button::func()
+{
+    if (selected_stage == 1)
+    {
+        selected_map = 2;
+    }
+}
+
+void Base_Map2_Button::Draw(Math::TransformationMatrix camera_matrix)
+{
+    if (selected_map == 2)
+    {
+        GameObject::Draw(camera_matrix);
+    }
+}
+
+Base_Map3_Button::Base_Map3_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+    AddGOComponent(new GAM200::Sprite("assets/buttons/Selected.spt", (this)));
+}
+
+void Base_Map3_Button::func()
+{
+    if (selected_stage == 1)
+    {
+        selected_map = 3;
+    }
+}
+
+void Base_Map3_Button::Draw(Math::TransformationMatrix camera_matrix)
+{
+    if (selected_map == 3)
+    {
+        GameObject::Draw(camera_matrix);
+    }
+}
 
 ///////////
 
@@ -287,9 +424,9 @@ void GameSpeed_Button::Draw(Math::TransformationMatrix camera_matrix)
 	case 2:
 		speed_2->Draw(GetMatrix());
 		break;
-	case 3:
-		speed_3->Draw(GetMatrix());
-		break;
+	//case 3:
+	//	//speed_3->Draw(GetMatrix() * camera_matrix);
+	//	break;
 	case 4:
 		speed_4->Draw(GetMatrix());
 		break;
@@ -323,6 +460,15 @@ void Skip_Button::Draw(Math::TransformationMatrix camera_matrix)
 	}
 }
 
+Setting_Button::Setting_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+
+}
+
+void Setting_Button::func()
+{
+    Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Store));
+}
 
 Tutorial_Next_Step_Button::Tutorial_Next_Step_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
 {
@@ -342,4 +488,38 @@ Tutorial_Prev_Step_Button::Tutorial_Prev_Step_Button(Math::vec2 position, Math::
 void Tutorial_Prev_Step_Button::func()
 {
     Tutorial::PrevStep();
+}
+
+Wave_Enemy2::Wave_Enemy2(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+
+}
+
+void Wave_Enemy2::func()
+{
+
+}
+
+Wave_Enemy3::Wave_Enemy3(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+}
+
+void Wave_Enemy3::func()
+{
+}
+
+Current_Wave1::Current_Wave1(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+}
+
+void Current_Wave1::func()
+{
+}
+
+Current_Wave2::Current_Wave2(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+}
+
+void Current_Wave2::func()
+{
 }

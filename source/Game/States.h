@@ -19,7 +19,7 @@ enum class States
 	MainMenu,
 	Game,
 
-	//Play,
+	Editor,
 	HowToPlay,
 	Store,
 	Tutorial,
