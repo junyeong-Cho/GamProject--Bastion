@@ -97,7 +97,7 @@ void Unit::Draw(Math::TransformationMatrix camera_matrix)
 
 void Unit::DrawMergeList()
 {
-    float initial_x_value = 600;
+    float initial_x_value = 200;
     float initial_y_value = 600;
 
     for (const auto& pair : merge_list)
