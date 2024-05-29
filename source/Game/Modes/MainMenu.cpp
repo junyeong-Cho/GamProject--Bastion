@@ -41,7 +41,7 @@ void Main_menu::Load()
     {
         Engine::GetAudioManager().PlayMusic(GAM200::AudioID::MainMenu_BGM);
     } 
-	
+	Engine::GetAudioManager().StopMusic(GAM200::AudioID::Game_BGM);
 	// GAM200::SoundEffect::Game_BGM().stopAll();
 	
 }
