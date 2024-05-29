@@ -212,10 +212,13 @@ void Game::Draw()
         unit->DrawMergeList();
     }
     if (Button::random)
-        tower_ui_random.Draw(380, 35, 514, 108);
+    {
+        //tower_ui_random.Draw(380, 35, 514, 108);
+    }
     else
-		tower_ui_no_random.Draw(380, 35, 514, 108);
-
+    {
+        //tower_ui_no_random.Draw(380, 35, 514, 108);
+    }
 #if IfWantShader
 	if (GetGSComponent<Wave>()->IsResting())
         ShaderDrawing::draw_text("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 1100, 600, 50, 255, 255, 255);

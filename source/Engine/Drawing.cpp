@@ -2,10 +2,10 @@
 #include <SDL_vulkan.h>
 
 #include <array>
+#include <chrono>
+#include <filesystem>
 #include <sstream>
 #include <vector>
-#include <filesystem> 
-#include <chrono> 
 
 #include <GL/glew.h>
 #include <ft2build.h>
@@ -24,7 +24,6 @@ ShaderDrawing::ShaderDraw::ShaderFile ShaderDrawing::ShaderDraw::vertexShaderTex
 ShaderDrawing::ShaderDraw::ShaderFile ShaderDrawing::ShaderDraw::fragmentShaderTexture = { "assets/shaders/texture.frag", std::filesystem::last_write_time("assets/shaders/texture.frag") };
 ShaderDrawing::ShaderDraw::ShaderFile ShaderDrawing::ShaderDraw::vertexShaderFont      = { "assets/shaders/font.vert", std::filesystem::last_write_time("assets/shaders/font.vert") };
 ShaderDrawing::ShaderDraw::ShaderFile ShaderDrawing::ShaderDraw::fragmentShaderFont    = { "assets/shaders/font.frag", std::filesystem::last_write_time("assets/shaders/font.frag") };
-
 
 std::string loadShaderSource(const std::string& filePath)
 {
@@ -54,7 +53,6 @@ void ShaderDrawing::ShaderDraw::checkAndReloadShaders()
             model.reloadShaders(vertexShaderFile.path, fragmentShaderFile.path);
 
             Engine::GetLogger().LogDebug(vertexShaderFile.path + " and " + fragmentShaderFile.path + " reloaded.");
-            
         }
     };
 
@@ -63,7 +61,6 @@ void ShaderDrawing::ShaderDraw::checkAndReloadShaders()
     reloadShader(vertexShaderTexture, fragmentShaderTexture, textureBox);
     reloadShader(vertexShaderFont, fragmentShaderFont, fontBox);
 }
-
 
 void ShaderDrawing::ShaderDraw::GLModel::reloadShaders(const std::string& vertexShaderPath, const std::string& fragmentShaderPath)
 {
@@ -80,12 +77,10 @@ void ShaderDrawing::ShaderDraw::GLModel::reloadShaders(const std::string& vertex
     }
 }
 
-
 void ShaderDrawing::ShaderDraw::updateShaders()
 {
     checkAndReloadShaders();
 }
-
 
 ShaderDrawing::ShaderDraw::GLModel ShaderDrawing::ShaderDraw::box;
 ShaderDrawing::ShaderDraw::GLModel ShaderDrawing::ShaderDraw::circle;
@@ -118,47 +113,37 @@ unsigned int ShaderDrawing::ShaderDraw::previous_rectangle_mode  = 0;
 unsigned int ShaderDrawing::ShaderDraw::current_coordinate_mode  = 0;
 unsigned int ShaderDrawing::ShaderDraw::previous_coordinate_mode = 0;
 
-
 void ShaderDrawing::ShaderDraw::initFont()
 {
     FT_Library ft;
     FT_Init_FreeType(&ft);
 
-
-    const char* fontFiles[] = { 
-        "assets/font/Maplestory_Light.ttf",
-        "assets/font/Eina01-Bold.ttf",
-        "assets/font/Eina01-SemiBold.ttf"
-    };
-
-    for (const char* fontFile : fontFiles)
+    FT_Face face;
+    if (FT_New_Face(ft, "assets/font/Maplestory_Light.ttf", 0, &face))
     {
-        FT_Face face;
-        if (FT_New_Face(ft, fontFile, 0, &face))
-        {
-            std::cout << "ERROR::FREETYPE: Failed to load font " << fontFile << std::endl;
-            continue;
-        }
+        std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
+        return;
+    }
 
-        FT_Set_Pixel_Sizes(face, 0, 40);
+    FT_Set_Pixel_Sizes(face, 0, 40);
 
-        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
     for (GLubyte c = 0; c < 128; c++)
     {
         FT_Load_Char(face, c, FT_LOAD_RENDER);
 
-            GLuint texture;
-            glCreateTextures(GL_TEXTURE_2D, 1, &texture);
-            glTextureStorage2D(texture, 1, GL_R8, face->glyph->bitmap.width, face->glyph->bitmap.rows);
-            glTextureSubImage2D(texture, 0, 0, 0, face->glyph->bitmap.width, face->glyph->bitmap.rows, GL_RED, GL_UNSIGNED_BYTE, face->glyph->bitmap.buffer);
+        GLuint texture;
+        glCreateTextures(GL_TEXTURE_2D, 1, &texture);
+        glTextureStorage2D(texture, 1, GL_R8, face->glyph->bitmap.width, face->glyph->bitmap.rows);
+        glTextureSubImage2D(texture, 0, 0, 0, face->glyph->bitmap.width, face->glyph->bitmap.rows, GL_RED, GL_UNSIGNED_BYTE, face->glyph->bitmap.buffer);
 
-            glBindTexture(GL_TEXTURE_2D, texture);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-            glBindTexture(GL_TEXTURE_2D, 0);
+        glBindTexture(GL_TEXTURE_2D, texture);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glBindTexture(GL_TEXTURE_2D, 0);
 
         Character character = { texture, glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows), glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
                                 static_cast<unsigned int>(face->glyph->advance.x) };

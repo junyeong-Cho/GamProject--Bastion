@@ -77,6 +77,7 @@ set(SOURCE_CODE
 
 
     Game/Modes/Game.h                  Game/Modes/Game.cpp
+    Game/Modes/Editor.h			Game/Modes/Editor.cpp
     Game/Modes/HowToPlay.h             Game/Modes/HowToPlay.cpp
     Game/Modes/Lose.h                  Game/Modes/Lose.cpp
     Game/Modes/MainMenu.h              Game/Modes/MainMenu.cpp

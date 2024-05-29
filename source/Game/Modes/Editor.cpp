@@ -81,9 +81,8 @@ void Editor::Load()
 
     GetGSComponent<Wave>()->SetWave("assets/maps/Wave_Editor.txt");
 
-    GAM200::SoundEffect::MainMenu_BGM().stopAll();
-    GAM200::SoundEffect::Game_BGM().stopAll();
-    GAM200::SoundEffect::Game_BGM().loopplay();
+    Engine::GetAudioManager().StopMusic(GAM200::AudioID::MainMenu_BGM);
+    Engine::GetAudioManager().PlayMusic(GAM200::AudioID::Game_BGM);
 }
 
 void Editor::Update(double dt)
@@ -155,7 +154,7 @@ void Editor::Unload()
 void Editor::Draw()
 {
     Math::TransformationMatrix camera_matrix = GetGSComponent<GAM200::Camera>()->GetMatrix();
-    GetGSComponent<Map>()->Draw();
+    GetGSComponent<Map>()->Draw(camera_matrix);
     GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
     GetGSComponent<GAM200::GameObjectManager>()->DrawParticle(camera_matrix);
 
