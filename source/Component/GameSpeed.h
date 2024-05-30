@@ -12,6 +12,12 @@ class GameSpeed : public GAM200::Component
 public:
     GameSpeed() : speed(1.0) { }
 
+    ~GameSpeed()
+    {
+        Engine::Instance().SetSpeed(1.0);
+    }
+
+
     double GetSpeed() const { return speed; }
 
     void NextSpeed()

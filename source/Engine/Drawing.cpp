@@ -118,6 +118,8 @@ void ShaderDrawing::ShaderDraw::initFont()
     FT_Library ft;
     FT_Init_FreeType(&ft);
 
+
+
     FT_Face face;
     if (FT_New_Face(ft, "assets/font/Maplestory_Light.ttf", 0, &face))
     {

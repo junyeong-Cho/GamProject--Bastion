@@ -62,8 +62,14 @@ void Engine::Update()
 
     if (dt >= FPSUpdate)
     {
+        //Maybe a hack?
+        if (dt > FPSUpdate * 2)
+        {
+            dt = FPSUpdate * speed;
+        }
         logger.LogVerbose("Engine Update");
         last_tick = now;
+
 
         // dt -= FPSUpdate;
         frame_count++;
