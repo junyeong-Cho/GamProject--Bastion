@@ -3,7 +3,11 @@
 #include <string>
 #include <map>
 #include <SDL.h>
-
+#include <ft2build.h>
+#include FT_FREETYPE_H
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <filesystem>
 
 #include "Engine/Normalization.h"
 #include "Image2D.h"
@@ -54,6 +58,12 @@ namespace ShaderDrawing
 			glm::ivec2   Bearing;    // Offset from baseline to left/top of glyph
 			unsigned int Advance;    // Offset to advance to next glyph
 		};
+		
+		struct Font
+        {
+            std::map<char, Character> Characters;
+            FT_Face                   face;
+        };
 
 		friend void EndWIndow();
 
@@ -80,6 +90,9 @@ namespace ShaderDrawing
 		void friend applyMatrix(float a, float b, float c, float d, float e, float f);
 		static void init(SDL_Window* pWindow);
 		static void initFont();
+        static void initFont(const std::string& fontPath);
+
+        static void setFont(const std::string& fontPath);
 
 		static std::string readShaderFile(const std::string& filePath);
 
@@ -124,8 +137,11 @@ namespace ShaderDrawing
 		static void setCircleModel();
 		static void setTextureModel();
 
+		static std::map<std::string, Font> Fonts;
+        static std::string                 currentFont;
 
-		static std::map<char, Character> Characters;
+
+		//static std::map<char, Character> Characters;
 
 
 

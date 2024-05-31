@@ -101,7 +101,7 @@ glm::mat3 ShaderDrawing::ShaderDraw::privous_view_xform[2];
 glm::mat3 ShaderDrawing::ShaderDraw::apply_Matrix{ 1.f };
 glm::mat3 ShaderDrawing::ShaderDraw::previous_Matrix;
 
-std::map<char, ShaderDrawing::ShaderDraw::Character> ShaderDrawing::ShaderDraw::Characters;
+//std::map<char, ShaderDrawing::ShaderDraw::Character> ShaderDrawing::ShaderDraw::Characters;
 
 bool ShaderDrawing::ShaderDraw::isfill          = true;
 bool ShaderDrawing::ShaderDraw::previous_isfill = true;
@@ -113,25 +113,46 @@ unsigned int ShaderDrawing::ShaderDraw::previous_rectangle_mode  = 0;
 unsigned int ShaderDrawing::ShaderDraw::current_coordinate_mode  = 0;
 unsigned int ShaderDrawing::ShaderDraw::previous_coordinate_mode = 0;
 
+std::map<std::string, ShaderDrawing::ShaderDraw::Font> ShaderDrawing::ShaderDraw::Fonts;
+std::string                                            ShaderDrawing::ShaderDraw::currentFont = "";
+
 void ShaderDrawing::ShaderDraw::initFont()
 {
+    initFont("assets/font/Maplestory_Light.ttf");
+    initFont("assets/font/Eina01-Bold.ttf");
+    initFont("assets/font/Eina01-SemiBold.ttf");
+}
+
+
+void ShaderDrawing::ShaderDraw::initFont(const std::string& fontPath)
+{
     FT_Library ft;
-    FT_Init_FreeType(&ft);
+    if (FT_Init_FreeType(&ft))
+    {
+        std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
+        return;
+    }
 
     FT_Face face;
-    if (FT_New_Face(ft, "assets/font/Maplestory_Light.ttf", 0, &face))
+    if (FT_New_Face(ft, fontPath.c_str(), 0, &face))
     {
-        std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
+        std::cout << "ERROR::FREETYPE: Failed to load font " << fontPath << std::endl;
         return;
     }
 
     FT_Set_Pixel_Sizes(face, 0, 40);
-
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+    Font newFont;
+    newFont.face = face;
 
     for (GLubyte c = 0; c < 128; c++)
     {
-        FT_Load_Char(face, c, FT_LOAD_RENDER);
+        if (FT_Load_Char(face, c, FT_LOAD_RENDER))
+        {
+            std::cout << "ERROR::FREETYPE: Failed to load Glyph " << c << std::endl;
+            continue;
+        }
 
         GLuint texture;
         glCreateTextures(GL_TEXTURE_2D, 1, &texture);
@@ -147,9 +168,16 @@ void ShaderDrawing::ShaderDraw::initFont()
 
         Character character = { texture, glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows), glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
                                 static_cast<unsigned int>(face->glyph->advance.x) };
-        Characters.insert(std::pair<GLchar, Character>(c, character));
+        newFont.Characters.insert(std::pair<GLchar, Character>(c, character));
     }
-    FT_Done_Face(face);
+
+    Fonts[fontPath] = newFont;
+
+    if (currentFont.empty())
+    {
+        currentFont = fontPath;
+    }
+
     FT_Done_FreeType(ft);
 
     GLuint vao;
@@ -167,13 +195,24 @@ void ShaderDrawing::ShaderDraw::initFont()
     ShaderDraw::fontBox.vaoid[0] = vao;
     ShaderDraw::fontBox.vboid[0] = buffer;
 
-
-    std::string vertexShaderSource   = loadShaderSource("assets/shaders/font.vert");
-    std::string fragmentShaderSource = loadShaderSource("assets/shaders/font.frag");
+    std::string vertexShaderSource   = readShaderFile("assets/shaders/font.vert");
+    std::string fragmentShaderSource = readShaderFile("assets/shaders/font.frag");
     GLuint      vertexShader         = fontBox.compileShader(GL_VERTEX_SHADER, vertexShaderSource.c_str());
     GLuint      fragmentShader       = fontBox.compileShader(GL_FRAGMENT_SHADER, fragmentShaderSource.c_str());
 
     fontBox.shdr_pgm = fontBox.createShaderProgram(vertexShader, fragmentShader);
+}
+
+void ShaderDrawing::ShaderDraw::setFont(const std::string& fontPath)
+{
+    if (Fonts.find(fontPath) != Fonts.end())
+    {
+        currentFont = fontPath;
+    }
+    else
+    {
+        std::cout << "Font not loaded: " << fontPath << std::endl;
+    }
 }
 
 std::string ShaderDrawing::ShaderDraw::readShaderFile(const std::string& filePath)
@@ -938,7 +977,7 @@ void ShaderDrawing::draw_text(std::string text, float x, float y, float scale, f
 
     for (auto c = text.begin(); c != text.end(); c++)
     {
-        ShaderDrawing::ShaderDraw::Character ch   = ShaderDrawing::ShaderDraw::Characters[*c];
+        ShaderDrawing::ShaderDraw::Character ch   = ShaderDrawing::ShaderDraw::Fonts[ShaderDrawing::ShaderDraw::currentFont].Characters[*c];
         GLfloat                              xpos = X + ch.Bearing.x * scale;
         GLfloat                              ypos = Y - (ch.Size.y - ch.Bearing.y) * scale;
         X += (ch.Advance >> 6) * scale;
@@ -950,7 +989,7 @@ void ShaderDrawing::draw_text(std::string text, float x, float y, float scale, f
     {
         if (*c != '\n')
         {
-            ShaderDrawing::ShaderDraw::Character ch   = ShaderDrawing::ShaderDraw::Characters[*c];
+            ShaderDrawing::ShaderDraw::Character ch   = ShaderDrawing::ShaderDraw::Fonts[ShaderDrawing::ShaderDraw::currentFont].Characters[*c];
             GLfloat                              xpos = X + ch.Bearing.x * scale;
             GLfloat                              ypos = Y - (ch.Size.y - ch.Bearing.y) * scale;
 
@@ -967,7 +1006,7 @@ void ShaderDrawing::draw_text(std::string text, float x, float y, float scale, f
         }
         else if (*c == '\n')
         {
-            ShaderDrawing::ShaderDraw::Character ch = ShaderDrawing::ShaderDraw::Characters['Z'];
+            ShaderDrawing::ShaderDraw::Character ch = ShaderDrawing::ShaderDraw::Fonts[ShaderDrawing::ShaderDraw::currentFont].Characters[*c];
             GLfloat                              h  = ch.Size.y * scale + 5.0f;
             Y -= h;
             X = firstX;
@@ -978,118 +1017,118 @@ void ShaderDrawing::draw_text(std::string text, float x, float y, float scale, f
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void ShaderDrawing::draw_text(std::string text, float x, float y, float scale, double radians, float r, float g, float b)
-{
-    glUseProgram(ShaderDraw::fontBox.shdr_pgm);
-
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    glm::mat3 translateMat{ 1.f };
-    translateMat[0][0] = 1.f;
-    translateMat[1][1] = 1.f;
-    translateMat[2][2] = 1.f;
-    translateMat[2][0] = static_cast<float>(x);
-    translateMat[2][1] = static_cast<float>(y);
-
-    glm::mat3 rotateMat{ 1.f };
-    rotateMat[0][0] = cos(radians);
-    rotateMat[1][0] = -sin(radians);
-    rotateMat[0][1] = sin(radians);
-    rotateMat[1][1] = cos(radians);
-
-    glm::mat3 transApplyMatrix{ 1.f };
-    transApplyMatrix[2][0] = ShaderDraw::apply_Matrix[2][0];
-    transApplyMatrix[2][1] = ShaderDraw::apply_Matrix[2][1];
-
-    ShaderDraw::apply_Matrix[2][0] = 0;
-    ShaderDraw::apply_Matrix[2][1] = 0;
-    glBindVertexArray(ShaderDraw::fontBox.vaoid[0]);
-    glm::mat3 mdl_to_ndc_xform = ShaderDraw::world_to_ndc_xform * (translateMat * rotateMat * transApplyMatrix);
-
-    GLint check = glGetUniformLocation(ShaderDraw::fontBox.shdr_pgm, "uModelToNDC");
-    if (check >= 0)
+    void ShaderDrawing::draw_text(std::string text, float x, float y, float scale, double radians, float r, float g, float b)
     {
-        glUniformMatrix3fv(check, 1, GL_FALSE, glm::value_ptr(mdl_to_ndc_xform));
-    }
-    else
-    {
-        std::cout << "model Uniform doesn't exist!!! \n";
-        std::exit(EXIT_FAILURE);
-    }
+        glUseProgram(ShaderDraw::fontBox.shdr_pgm);
 
-    glUniform3f(glGetUniformLocation(ShaderDraw::fontBox.shdr_pgm, "textColor"), r, g, b);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    glActiveTexture(GL_TEXTURE0);
+        glm::mat3 translateMat{ 1.f };
+        translateMat[0][0] = 1.f;
+        translateMat[1][1] = 1.f;
+        translateMat[2][2] = 1.f;
+        translateMat[2][0] = static_cast<float>(x);
+        translateMat[2][1] = static_cast<float>(y);
 
-    scale = scale / 40;
+        glm::mat3 rotateMat{ 1.f };
+        rotateMat[0][0] = cos(radians);
+        rotateMat[1][0] = -sin(radians);
+        rotateMat[0][1] = sin(radians);
+        rotateMat[1][1] = cos(radians);
 
-    float firstX = -x / 2;
-    float X      = 0;
-    float Y      = 0;
+        glm::mat3 transApplyMatrix{ 1.f };
+        transApplyMatrix[2][0] = ShaderDraw::apply_Matrix[2][0];
+        transApplyMatrix[2][1] = ShaderDraw::apply_Matrix[2][1];
 
-    std::vector<float> set = { 0.0f };
-    int                i   = 0;
+        ShaderDraw::apply_Matrix[2][0] = 0;
+        ShaderDraw::apply_Matrix[2][1] = 0;
+        glBindVertexArray(ShaderDraw::fontBox.vaoid[0]);
+        glm::mat3 mdl_to_ndc_xform = ShaderDraw::world_to_ndc_xform * (translateMat * rotateMat * transApplyMatrix);
 
-    for (auto c = text.begin(); c != text.end(); c++)
-    {
-        if (*c != '\n')
+        GLint check = glGetUniformLocation(ShaderDraw::fontBox.shdr_pgm, "uModelToNDC");
+        if (check >= 0)
         {
-            ShaderDrawing::ShaderDraw::Character ch   = ShaderDrawing::ShaderDraw::Characters[*c];
-            GLfloat                              xpos = set[i] + ch.Bearing.x * scale;
-            GLfloat                              ypos = Y - (ch.Size.y - ch.Bearing.y) * scale;
-            set[i] += (ch.Advance >> 6) * scale;
+            glUniformMatrix3fv(check, 1, GL_FALSE, glm::value_ptr(mdl_to_ndc_xform));
         }
-        else if (*c == '\n')
+        else
         {
-            i++;
-            set.push_back(0.0f);
+            std::cout << "model Uniform doesn't exist!!! \n";
+            std::exit(EXIT_FAILURE);
         }
+
+        glUniform3f(glGetUniformLocation(ShaderDraw::fontBox.shdr_pgm, "textColor"), r, g, b);
+
+        glActiveTexture(GL_TEXTURE0);
+
+        scale = scale / 40;
+
+        float firstX = -x / 2;
+        float X      = 0;
+        float Y      = 0;
+
+        std::vector<float> set = { 0.0f };
+        int                i   = 0;
+
+        for (auto c = text.begin(); c != text.end(); c++)
+        {
+            if (*c != '\n')
+            {
+                ShaderDrawing::ShaderDraw::Character ch   = ShaderDrawing::ShaderDraw::Fonts[ShaderDrawing::ShaderDraw::currentFont].Characters[*c];
+                GLfloat                              xpos = set[i] + ch.Bearing.x * scale;
+                GLfloat                              ypos = Y - (ch.Size.y - ch.Bearing.y) * scale;
+                set[i] += (ch.Advance >> 6) * scale;
+            }
+            else if (*c == '\n')
+            {
+                i++;
+                set.push_back(0.0f);
+            }
+        }
+        X           = set[0];
+        size_t size = set.size();
+        for (size_t i = 0; i < size; i++)
+        {
+            if (set[i] > X)
+            {
+                X = set[i];
+            }
+        }
+        X      = -X / 2;
+        firstX = X;
+
+        for (auto c = text.begin(); c != text.end(); c++)
+        {
+            if (*c != '\n')
+            {
+                ShaderDrawing::ShaderDraw::Character ch   = ShaderDrawing::ShaderDraw::Fonts[ShaderDrawing::ShaderDraw::currentFont].Characters[*c];
+                GLfloat                              xpos = X + ch.Bearing.x * scale;
+                GLfloat                              ypos = Y - (ch.Size.y - ch.Bearing.y) * scale;
+
+                GLfloat w               = ch.Size.x * scale;
+                GLfloat h               = ch.Size.y * scale;
+                GLfloat vertices[6 * 4] = { xpos, ypos + h, 0.0f, 0.0f, xpos,     ypos, 0.0f, 1.0f, xpos + w, ypos,     1.0f, 1.0f,
+
+                                            xpos, ypos + h, 0.0f, 0.0f, xpos + w, ypos, 1.0f, 1.0f, xpos + w, ypos + h, 1.0f, 0.0f };
+
+                glNamedBufferSubData(ShaderDraw::fontBox.vboid[0], 0, sizeof(GLfloat) * 6 * 4, vertices);
+                glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+                glDrawArrays(GL_TRIANGLES, 0, 6);
+                X += (ch.Advance >> 6) * scale;
+            }
+            else if (*c == '\n')
+            {
+                ShaderDrawing::ShaderDraw::Character ch = ShaderDrawing::ShaderDraw::Fonts[ShaderDrawing::ShaderDraw::currentFont].Characters[*c];
+                GLfloat                              h  = ch.Size.y * scale + 5.0f;
+                Y -= h;
+                X = firstX;
+            }
+        }
+
+        glBindVertexArray(0);
+        glUseProgram(0);
+        glBindTexture(GL_TEXTURE_2D, 0);
     }
-    X           = set[0];
-    size_t size = set.size();
-    for (size_t i = 0; i < size; i++)
-    {
-        if (set[i] > X)
-        {
-            X = set[i];
-        }
-    }
-    X      = -X / 2;
-    firstX = X;
-
-    for (auto c = text.begin(); c != text.end(); c++)
-    {
-        if (*c != '\n')
-        {
-            ShaderDrawing::ShaderDraw::Character ch   = ShaderDrawing::ShaderDraw::Characters[*c];
-            GLfloat                              xpos = X + ch.Bearing.x * scale;
-            GLfloat                              ypos = Y - (ch.Size.y - ch.Bearing.y) * scale;
-
-            GLfloat w               = ch.Size.x * scale;
-            GLfloat h               = ch.Size.y * scale;
-            GLfloat vertices[6 * 4] = { xpos, ypos + h, 0.0f, 0.0f, xpos,     ypos, 0.0f, 1.0f, xpos + w, ypos,     1.0f, 1.0f,
-
-                                        xpos, ypos + h, 0.0f, 0.0f, xpos + w, ypos, 1.0f, 1.0f, xpos + w, ypos + h, 1.0f, 0.0f };
-
-            glNamedBufferSubData(ShaderDraw::fontBox.vboid[0], 0, sizeof(GLfloat) * 6 * 4, vertices);
-            glBindTexture(GL_TEXTURE_2D, ch.TextureID);
-            glDrawArrays(GL_TRIANGLES, 0, 6);
-            X += (ch.Advance >> 6) * scale;
-        }
-        else if (*c == '\n')
-        {
-            ShaderDrawing::ShaderDraw::Character ch = ShaderDrawing::ShaderDraw::Characters['Z'];
-            GLfloat                              h  = ch.Size.y * scale + 5.0f;
-            Y -= h;
-            X = firstX;
-        }
-    }
-
-    glBindVertexArray(0);
-    glUseProgram(0);
-    glBindTexture(GL_TEXTURE_2D, 0);
-}
 
 void ShaderDrawing::EndWIndow()
 {

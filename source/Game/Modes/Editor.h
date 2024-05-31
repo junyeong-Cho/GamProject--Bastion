@@ -69,4 +69,5 @@ private:
     double count = 0.0;
     int    monsterLimit = 40;
     int    adjusted_monsterLimit = 40;
+    bool   Debuff                = false;
 };

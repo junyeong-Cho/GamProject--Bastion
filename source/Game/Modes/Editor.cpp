@@ -142,6 +142,10 @@ void Editor::Update(double dt)
     {
         Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->DeleteAllMonster();
     }
+    if (Monster::GetRemainingMonster() >= 3)
+    {
+        Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->ApplyDebuff(0.1);
+    }
 
 }
 
@@ -170,11 +174,16 @@ void Editor::Draw()
     {
         ShaderDrawing::draw_text("Excessive monster", 1100, 600, 25, 255, 255, 255);
     }
-    ShaderDrawing::draw_text("Gold: " + std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 1100, 530, 50, 255, 255, 255);
-    ShaderDrawing::draw_text("Monster: " + std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 1100, 460, 50, 255, 255, 255);
-    ShaderDrawing::draw_text(std::to_string(unit_cost), 563.2783, 31.0342, 20, 0.196f, 0.196f, 0.196f);
-    ShaderDrawing::draw_text(std::to_string(unit_cost), 691.2783, 31.0342, 20, 0.196f, 0.196f, 0.196f);
-    ShaderDrawing::draw_text(std::to_string(unit_cost), 819.2773, 31.0342, 20, 0.196f, 0.196f, 0.196f);
+    ShaderDrawing::draw_text(std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 960, 65, 31.36, 255, 255, 255);
+    ShaderDrawing::draw_text(std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 615.9102, 736.3091, 31.36, 50, 50, 50);
+    ShaderDrawing::draw_text(std::to_string(unit_cost), 566, 34, 20, 0.196f, 0.196f, 0.196f);
+    ShaderDrawing::draw_text(std::to_string(unit_cost), 698, 34, 20, 0.196f, 0.196f, 0.196f);
+    ShaderDrawing::draw_text(std::to_string(unit_cost), 830, 34, 20, 0.196f, 0.196f, 0.196f);
+
+    if (Debuff)
+        ShaderDrawing::draw_circle(600, 600, 100, 100);
+
+
 #else
     trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
     time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 700 }));
@@ -280,14 +289,15 @@ void Editor::ImguiDraw()
     {
         monsterLimit = adjusted_monsterLimit;
     }
-    if (ImGui::Button("Enable Speed Reduction"))
+    if (ImGui::Button("Enable Debuffs"))
     {
-        ShaderDrawing::draw_box(640, 200, 1280, 400);
-        Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->ReduceSpeedAndAttackRateIfBottom(true, 400, 0.5);
+        Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->ApplyDebuff(0.1);
+        //Debuff = true;
     }
-    if (ImGui::Button("Disable Speed Reduction"))
+    ImGui::SameLine();
+    if (ImGui::Button("Disable Debuffs"))
     {
-        Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->ReduceSpeedAndAttackRateIfBottom(false, 400, 0.5);
+        //Debuff = false;
     }
 }
 
