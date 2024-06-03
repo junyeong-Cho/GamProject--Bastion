@@ -178,7 +178,7 @@ void Tutorial::Draw()
     GetGSComponent<Map>()->Draw(camera_matrix);
     GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
     GetGSComponent<GAM200::GameObjectManager>()->DrawParticle(camera_matrix);
-
+    ui.Draw(0, 0, 1280, 800);
     Engine::GetLogger().LogDebug("Current task: " + std::to_string(currentTask));
     switch (currentTask)
     {

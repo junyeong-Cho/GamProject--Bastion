@@ -39,6 +39,7 @@ public:
     //GAM200::Texture tower_ui = GAM200::Texture("assets/buttons/tower_ui.png");
     GAM200::Texture win      = GAM200::Texture("assets/win.png");
     GAM200::Texture lose     = GAM200::Texture("assets/lose.png");
+    GAM200::Texture ui       = GAM200::Texture("assets/Background/ingame_ui.png");
 #else
     GAM200::Texture                  tower_ui = GAM200::Texture("assets/buttons/tower_ui.png", GAM200::Texture::TextureType::RECTANGLE);
     GAM200::Texture                  win      = GAM200::Texture("assets/win.png", GAM200::Texture::TextureType::RECTANGLE);

@@ -11,7 +11,7 @@
 class Map : public GAM200::Component
 {
 public:
-    Map() : game_background("assets/Background/game_tile2.png"), blur("assets/Background/blur.png"), ui("assets/Background/ingame_ui.png"), enemy_wave("assets/Background/enemy_wave_ui.png")
+    Map() : game_background("assets/Background/game_tile2.png"), blur("assets/Background/blur.png"), enemy_wave("assets/Background/enemy_wave_ui.png")
 	{
 
 	}
@@ -20,14 +20,14 @@ public:
 	{
 		game_background.Draw(0, 0, 1280, 800);
         blur.Draw(0, 0, 1280, 800);
-        ui.Draw(0, 0, 1280, 800);
+        //ui.Draw(0, 0, 1280, 800);
         enemy_wave.Draw(477.3428, 723.9637, 328, 50);
 	}
 
 public:
 	GAM200::Texture game_background;
     GAM200::Texture blur;
-    GAM200::Texture ui;
+    //GAM200::Texture ui;
     GAM200::Texture enemy_wave;
 
 	static inline double basic_size = 80;
