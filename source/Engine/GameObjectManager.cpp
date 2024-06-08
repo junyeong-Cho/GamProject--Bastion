@@ -322,9 +322,7 @@ void GAM200::GameObjectManager::ApplyDebuff(double debuff_multiplier)
         if (object->Type() == GameObjectTypes::Unit)
         {
             Unit*  unit            = static_cast<Unit*>(object);
-            double original_damage = unit->GetDamage();
-            double debuffed_damage = original_damage * debuff_multiplier;
-            unit->SetDamage(debuffed_damage);
+			unit->SetDamage(debuff_multiplier);
         }
     }
 }

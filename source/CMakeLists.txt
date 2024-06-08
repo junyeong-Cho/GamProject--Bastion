@@ -12,6 +12,7 @@ set(SOURCE_CODE
     Component/Time.h
     Component/Wave.h   Component/Wave.cpp
     Component/StartGold.h
+    Component/Interface.h
     
 
     opengl/GL.hpp opengl/GL.cpp

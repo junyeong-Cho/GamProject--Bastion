@@ -68,7 +68,7 @@ public:
 
     void SetDamage(double new_damage)
     {
-        damage = new_damage / damage_buff;
+        damage = new_damage;
     }
    
     void SetAtkSpd(double newAttackTime)

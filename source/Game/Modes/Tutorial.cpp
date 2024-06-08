@@ -17,6 +17,7 @@
 #include "Component/GameSpeed.h"
 #include "Component/Gold.h"
 #include "Component/Map.h"
+#include "Component/Interface.h"
 #include "Component/MonsterLimit.h"
 #include "Component/Time.h"
 #include "Component/Wave.h"
@@ -61,6 +62,7 @@ void Tutorial::Load()
     AddGSComponent(new Gold(startGold));
     AddGSComponent(new Diamond(100));
     AddGSComponent(new Map());
+    AddGSComponent(new Interface());
     AddGSComponent(new Wave());
     AddGSComponent(new Time());
     AddGSComponent(new GAM200::ParticleManager<Particles::Hit>());
@@ -178,7 +180,7 @@ void Tutorial::Draw()
     GetGSComponent<Map>()->Draw(camera_matrix);
     GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
     GetGSComponent<GAM200::GameObjectManager>()->DrawParticle(camera_matrix);
-    ui.Draw(0, 0, 1280, 800);
+    GetGSComponent<Interface>()->Draw(camera_matrix);
     Engine::GetLogger().LogDebug("Current task: " + std::to_string(currentTask));
     switch (currentTask)
     {

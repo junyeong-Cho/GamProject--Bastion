@@ -16,6 +16,7 @@
 #include "Component/GameSpeed.h"
 #include "Component/Gold.h"
 #include "Component/Map.h"
+#include "Component/Interface.h"
 #include "Component/MonsterLimit.h"
 #include "Component/Time.h"
 #include "Component/Wave.h"
@@ -55,6 +56,7 @@ void Editor::Load()
     AddGSComponent(new Diamond(100));
     AddGSComponent(new MonsterLimit(monsterLimit));
     AddGSComponent(new Map());
+    AddGSComponent(new Interface());
     AddGSComponent(new Wave());
     AddGSComponent(new Time());
     AddGSComponent(new GAM200::ParticleManager<Particles::Hit>());
@@ -73,9 +75,9 @@ void Editor::Load()
         gameobjectmanager->Add(new random_tower_Button({ 490 + 102, 35 }, { 78, 78 }));
         // tower_ui = GAM200::Texture("assets/buttons/tower_ui.png");
     }
-    gameobjectmanager->Add(new GameSpeed_Button({ 1016.4631, 688.3434 }, { 74.1758, 74.1758 }));
-    gameobjectmanager->Add(new Skip_Button({ 1144.4631, 688.3434 }, { 74.1758, 74.1758 }));
-    gameobjectmanager->Add(new Setting_Button({ 61.3611, 688.3434 }, { 74.1758, 74.1758 }));
+    //gameobjectmanager->Add(new GameSpeed_Button({ 1016.4631, 688.3434 }, { 74.1758, 74.1758 }));
+    //gameobjectmanager->Add(new Skip_Button({ 1144.4631, 688.3434 }, { 74.1758, 74.1758 }));
+    //gameobjectmanager->Add(new Setting_Button({ 61.3611, 688.3434 }, { 74.1758, 74.1758 }));
 
     in_game_state = InProgress;
 
@@ -159,9 +161,9 @@ void Editor::Draw()
 {
     Math::TransformationMatrix camera_matrix = GetGSComponent<GAM200::Camera>()->GetMatrix();
     GetGSComponent<Map>()->Draw(camera_matrix);
-    ui.Draw(0, 0, 1280, 800);
     GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
     GetGSComponent<GAM200::GameObjectManager>()->DrawParticle(camera_matrix);
+    GetGSComponent<Interface>()->Draw(camera_matrix);
 
     Unit* unit = GetGSComponent<GAM200::GameObjectManager>()->GetInfoTarget();
     if (unit != nullptr)
@@ -292,7 +294,7 @@ void Editor::ImguiDraw()
     }
     if (ImGui::Button("Enable Debuffs"))
     {
-        Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->ApplyDebuff(0.1);
+        //Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->ApplyDebuff(0.1);
         //Debuff = true;
     }
     ImGui::SameLine();

@@ -63,6 +63,12 @@ void Engine::Update()
     if (dt >= FPSUpdate)
     {
         dt *= speed;
+
+        if (dt > FPSUpdate * 2)
+        {
+            dt = FPSUpdate * speed;
+        }
+
         logger.LogVerbose("Engine Update");
         last_tick = now;
 
