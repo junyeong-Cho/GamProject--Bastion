@@ -5,13 +5,17 @@
 #include "Engine/DrawShape.h"
 #include "Engine/Texture.h"
 #include "Engine/Sprite.h"
-
 #include "Engine/Vec2.h"
+
+#include "Game/Objects/Button.h"
 
 class Map : public GAM200::Component
 {
 public:
-    Map() : game_background("assets/Background/game_tile2.png"), blur("assets/Background/blur.png"), enemy_wave("assets/Background/enemy_wave_ui.png")
+    Map()
+        : game_background("assets/Background/game_tile2.png"), blur("assets/Background/blur.png"), enemy_wave("assets/Background/enemy_wave_ui.png"),
+          gameSpeedButton(Math::vec2(100, 100), Math::vec2(50, 50)), // Example positions and sizes
+          skipButton(Math::vec2(200, 100), Math::vec2(50, 50)), settingButton(Math::vec2(300, 100), Math::vec2(50, 50))
 	{
 
 	}
@@ -22,6 +26,9 @@ public:
         blur.Draw(0, 0, 1280, 800);
         //ui.Draw(0, 0, 1280, 800);
         enemy_wave.Draw(477.3428, 723.9637, 328, 50);
+        gameSpeedButton.Draw(camera_matrix);
+        skipButton.Draw(camera_matrix);
+        settingButton.Draw(camera_matrix);
 	}
 
 public:
@@ -29,6 +36,10 @@ public:
     GAM200::Texture blur;
     //GAM200::Texture ui;
     GAM200::Texture enemy_wave;
+
+	GameSpeed_Button gameSpeedButton;
+    Skip_Button      skipButton;
+    Setting_Button   settingButton;
 
 	static inline double basic_size = 80;
 
