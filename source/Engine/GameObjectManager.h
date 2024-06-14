@@ -53,14 +53,11 @@ namespace GAM200
         Monster* GetClosestMonster(Unit* unit);
         Monster* GetClosestMonster(Math::vec2 position);
         void DeleteAllMonster();
-        void ReduceSpeedAndAttackRateIfBottom(bool enable, double thresholdY, double speedReductionFactor);
         double WideDamage(Math::vec2 position, double radius, double damage);
+        void ApplyDebuff(double debuffFactor);
 
     private:
         std::list<GameObject*> objects;
-
-        std::unordered_map<GameObject*, double> initialSpeedScales;
-        std::unordered_map<GameObject*, double> initialAttackRates;
 
         Unit* current_unit = nullptr;
         Unit* info_target  = nullptr;

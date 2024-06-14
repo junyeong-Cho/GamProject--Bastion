@@ -27,6 +27,7 @@ Created:    March 14, 2024
 
 extern int startGold;
 int        diamond = 100;
+extern int stock;
 extern int selected_stage;
 extern int selected_map;
 
@@ -57,6 +58,9 @@ void Store::Load()
     gameobjectmanager->Add(new Base_Map1_Button({ 319.4276, 551.8026 }, { 103.3583, 39.3964 }));
     gameobjectmanager->Add(new Base_Map2_Button({ 542.6742, 475.5447 }, { 103.3583, 39.3964 }));
     gameobjectmanager->Add(new Base_Map3_Button({ 952.8322, 570.4922 }, { 103.3583, 39.3964 }));
+    gameobjectmanager->Add(new Base_Map4_Button({ 237.3569, 577.3824 }, { 103.3583, 39.3964 }));
+    gameobjectmanager->Add(new Base_Map5_Button({ 610.9922, 496.4798 }, { 103.3583, 39.3964 }));
+    gameobjectmanager->Add(new Base_Map6_Button({ 1004.6903, 588.7157 }, { 103.3583, 39.3964 }));
 
 	counter = 0;
 
@@ -105,6 +109,10 @@ void Store::Draw()
     
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
 
+    ShaderDrawing::ShaderDraw::setFont("assets/font/Eina01-SemiBold.ttf");
+    ShaderDrawing::draw_text("Stock: " + std::to_string(stock), 302.041, 262.7529, 10, 0.0f, 0.0f, 0.0f);
+
+    ShaderDrawing::ShaderDraw::setFont("assets/font/Eina01-Bold.ttf");
 	ShaderDrawing::draw_text("Gold: " + std::to_string(diamond), 1100, 700, 50, 1.0f, 1.0f, 0.0f);
 }
 

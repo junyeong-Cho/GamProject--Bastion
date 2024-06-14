@@ -18,6 +18,7 @@
 #include "Component/GameSpeed.h"
 #include "Component/Diamond.h"
 #include "Component/Map.h"
+#include "Component/Interface.h"
 #include "Component/Wave.h"
 #include "Component/Time.h"
 #include "Component/Timer.h"
@@ -30,6 +31,7 @@
 #include "Game/Objects/Units/BuffUnit.h"
 
 #include "Game/Objects/Monsters/Monster.h"
+#include "Game/Objects/Button.h"
 
 #include "Game/Fonts.h"
 #include "Game/Objects/Button.h"
@@ -55,6 +57,7 @@ void Game::Load()
     AddGSComponent(new Gold(startGold));
     AddGSComponent(new Diamond(100));
     AddGSComponent(new Map());
+    AddGSComponent(new Interface());
     AddGSComponent(new Wave());
     AddGSComponent(new Time());
     AddGSComponent(new GAM200::ParticleManager<Particles::Hit>());
@@ -158,9 +161,12 @@ void Game::Unload()
 void Game::Draw()
 {
     Math::TransformationMatrix camera_matrix = GetGSComponent<GAM200::Camera>()->GetMatrix();
+    
     GetGSComponent<Map>()->Draw(camera_matrix);
     GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
     GetGSComponent<GAM200::GameObjectManager>()->DrawParticle(camera_matrix);
+    GetGSComponent<Interface>()->Draw(camera_matrix);
+
 
     Unit* unit = GetGSComponent<GAM200::GameObjectManager>()->GetInfoTarget();
     if (unit != nullptr)
@@ -186,10 +192,19 @@ void Game::Draw()
         ShaderDrawing::draw_text("Time Limit: " + std::to_string(GetGSComponent<Timer>()->CurrentTimeInt()), 500, 500, 50, 255, 255, 255);
     if (!Button::random)
     {
-        ShaderDrawing::draw_text(std::to_string(unit_cost), 531, 34, 25, 1.0f, 1.0f, 0.0f);
-        ShaderDrawing::draw_text(std::to_string(unit_cost), 745, 34, 25, 1.0f, 1.0f, 0.0f);
+        ShaderDrawing::draw_text(std::to_string(unit_cost), 566, 34, 25, 1.0f, 1.0f, 0.0f);
+        ShaderDrawing::draw_text(std::to_string(unit_cost), 830, 34, 25, 1.0f, 1.0f, 0.0f);
     }
-    ShaderDrawing::draw_text(std::to_string(unit_cost), 638, 34, 25, 1.0f, 1.0f, 0.0f);
+    ShaderDrawing::draw_text(std::to_string(unit_cost), 698, 34, 25, 1.0f, 1.0f, 0.0f);
+    if (GetGSComponent<Wave>()->IsResting() &&
+        (GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()) <= 1 &&
+        (GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()) >= 0)
+    {
+        if ((GetGSComponent<Wave>()->GetCurWave() + 1 > 9))
+        {
+            ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1), 715.377, 340.6201, 127.01, 1.0f, 0.423529f, 0.0f, 0.392157);
+        }
+    }
 #else
 	trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
 	time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 700 }));
@@ -219,6 +234,24 @@ void Game::Draw()
 	{
 		lose.Draw(0, 0, 1280, 800);
 	}
+
+    if (GetGSComponent<Wave>()->IsResting() &&
+        (GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()) <= 2 &&
+        (GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()) > 1)
+    {
+        if ((GetGSComponent<Wave>()->GetCurWave() + 1 > 9)) {
+            wave2.Draw(0, 302.3333, 1280, 200);
+            ShaderDrawing::ShaderDraw::setFont("assets/font/Eina01-Bold.ttf");
+            //ShaderDrawing::draw_text("Wave: " + std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1), 715.377, 340.6201, 127.01, 255, 108, 255,100);
+            ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1), 715.377, 340.6201, 127.01, 1.0f, 0.423529f, 0.0f, 0.392157);
+        }
+        else {
+            wave1.Draw(0, 302.3333, 1280, 200);
+        }
+    }
+    //GameSpeed_Button gameSpeedButton;
+    //Skip_Button      skipButton;
+    //Setting_Button   settingButton;
 }
 
 void Game::ImguiDraw()

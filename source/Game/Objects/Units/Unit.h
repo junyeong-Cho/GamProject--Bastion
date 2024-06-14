@@ -66,6 +66,16 @@ public:
         return attack_time * atkspd_buff;
     }
 
+    void SetDamage(double new_damage)
+    {
+        damage = new_damage;
+    }
+   
+    void SetAtkSpd(double newAttackTime)
+    {
+        attack_time *= newAttackTime;
+    }
+
     double range;
     static inline double radius = Map::basic_size * 3.0 / 4.0 / 2.0; 
     bool is_moving = false;

@@ -16,6 +16,7 @@
 #include "Component/GameSpeed.h"
 #include "Component/Gold.h"
 #include "Component/Map.h"
+#include "Component/Interface.h"
 #include "Component/MonsterLimit.h"
 #include "Component/Time.h"
 #include "Component/Wave.h"
@@ -55,6 +56,7 @@ void Editor::Load()
     AddGSComponent(new Diamond(100));
     AddGSComponent(new MonsterLimit(monsterLimit));
     AddGSComponent(new Map());
+    AddGSComponent(new Interface());
     AddGSComponent(new Wave());
     AddGSComponent(new Time());
     AddGSComponent(new GAM200::ParticleManager<Particles::Hit>());
@@ -73,9 +75,9 @@ void Editor::Load()
         gameobjectmanager->Add(new random_tower_Button({ 490 + 102, 35 }, { 78, 78 }));
         // tower_ui = GAM200::Texture("assets/buttons/tower_ui.png");
     }
-    gameobjectmanager->Add(new GameSpeed_Button({ 1016.4631, 688.3434 }, { 74.1758, 74.1758 }));
-    gameobjectmanager->Add(new Skip_Button({ 1144.4631, 688.3434 }, { 74.1758, 74.1758 }));
-    gameobjectmanager->Add(new Setting_Button({ 61.3611, 688.3434 }, { 74.1758, 74.1758 }));
+    //gameobjectmanager->Add(new GameSpeed_Button({ 1016.4631, 688.3434 }, { 74.1758, 74.1758 }));
+    //gameobjectmanager->Add(new Skip_Button({ 1144.4631, 688.3434 }, { 74.1758, 74.1758 }));
+    //gameobjectmanager->Add(new Setting_Button({ 61.3611, 688.3434 }, { 74.1758, 74.1758 }));
 
     in_game_state = InProgress;
 
@@ -142,6 +144,10 @@ void Editor::Update(double dt)
     {
         Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->DeleteAllMonster();
     }
+    if (Monster::GetRemainingMonster() >= 3)
+    {
+        Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->ApplyDebuff(0.1);
+    }
 
 }
 
@@ -157,6 +163,7 @@ void Editor::Draw()
     GetGSComponent<Map>()->Draw(camera_matrix);
     GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
     GetGSComponent<GAM200::GameObjectManager>()->DrawParticle(camera_matrix);
+    GetGSComponent<Interface>()->Draw(camera_matrix);
 
     Unit* unit = GetGSComponent<GAM200::GameObjectManager>()->GetInfoTarget();
     if (unit != nullptr)
@@ -170,11 +177,16 @@ void Editor::Draw()
     {
         ShaderDrawing::draw_text("Excessive monster", 1100, 600, 25, 255, 255, 255);
     }
-    ShaderDrawing::draw_text("Gold: " + std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 1100, 530, 50, 255, 255, 255);
-    ShaderDrawing::draw_text("Monster: " + std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 1100, 460, 50, 255, 255, 255);
-    ShaderDrawing::draw_text(std::to_string(unit_cost), 563.2783, 31.0342, 20, 0.196f, 0.196f, 0.196f);
-    ShaderDrawing::draw_text(std::to_string(unit_cost), 691.2783, 31.0342, 20, 0.196f, 0.196f, 0.196f);
-    ShaderDrawing::draw_text(std::to_string(unit_cost), 819.2773, 31.0342, 20, 0.196f, 0.196f, 0.196f);
+    ShaderDrawing::draw_text(std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 960, 65, 31.36, 255, 255, 255);
+    ShaderDrawing::draw_text(std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 615.9102, 736.3091, 31.36, 50, 50, 50);
+    ShaderDrawing::draw_text(std::to_string(unit_cost), 566, 34, 20, 0.196f, 0.196f, 0.196f);
+    ShaderDrawing::draw_text(std::to_string(unit_cost), 698, 34, 20, 0.196f, 0.196f, 0.196f);
+    ShaderDrawing::draw_text(std::to_string(unit_cost), 830, 34, 20, 0.196f, 0.196f, 0.196f);
+
+    if (Debuff)
+        ShaderDrawing::draw_circle(600, 600, 100, 100);
+
+
 #else
     trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
     time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 700 }));
@@ -280,14 +292,15 @@ void Editor::ImguiDraw()
     {
         monsterLimit = adjusted_monsterLimit;
     }
-    if (ImGui::Button("Enable Speed Reduction"))
+    if (ImGui::Button("Enable Debuffs"))
     {
-        ShaderDrawing::draw_box(640, 200, 1280, 400);
-        Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->ReduceSpeedAndAttackRateIfBottom(true, 400, 0.5);
+        //Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->ApplyDebuff(0.1);
+        //Debuff = true;
     }
-    if (ImGui::Button("Disable Speed Reduction"))
+    ImGui::SameLine();
+    if (ImGui::Button("Disable Debuffs"))
     {
-        Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->ReduceSpeedAndAttackRateIfBottom(false, 400, 0.5);
+        //Debuff = false;
     }
 }
 

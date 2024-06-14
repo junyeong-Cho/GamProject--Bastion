@@ -335,42 +335,14 @@ void GAM200::GameObjectManager::DeleteAllMonster()
     }
 }
 
-void GAM200::GameObjectManager::ReduceSpeedAndAttackRateIfBottom(bool enable, double thresholdY, double speedReductionFactor)
+void GAM200::GameObjectManager::ApplyDebuff(double debuff_multiplier)
 {
-    if (enable)
+    for (GameObject* object : objects)
     {
-        for (GameObject* object : objects)
+        if (object->Type() == GameObjectTypes::Unit)
         {
-            Math::vec2 position = object->GetPosition();
-
-            // Check if the object is at the bottom of the map
-            if (position.y <= thresholdY)
-            {
-                if (object->Type() == GameObjectTypes::Monster)
-                {
-                    Monster* monster = static_cast<Monster*>(object);
-                    // Save initial speed scale if not already saved
-                    if (initialSpeedScales.find(object) == initialSpeedScales.end())
-                    {
-                        initialSpeedScales[object] = monster->GetSpeedScale();
-                    }
-                    monster->SetSpeedScale(monster->GetSpeedScale() * speedReductionFactor);
-                }
-            }
-            else
-            {
-                if (object->Type() == GameObjectTypes::Monster)
-                {
-                    Monster* monster = static_cast<Monster*>(object);
-                    // Restore initial speed scale if it was saved
-                    auto     it      = initialSpeedScales.find(object);
-                    if (it != initialSpeedScales.end())
-                    {
-                        monster->SetSpeedScale(it->second);
-                        initialSpeedScales.erase(it); // Remove from map after restoring
-                    }
-                }
-            }
+            Unit*  unit            = static_cast<Unit*>(object);
+			unit->SetDamage(debuff_multiplier);
         }
     }
 }

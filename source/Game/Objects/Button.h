@@ -166,6 +166,7 @@ public:
     Base_Item_Button(Math::vec2 position, Math::vec2 size);
 
     void func() override;
+    void Draw(Math::TransformationMatrix camera_matrix) override;
 };
 
 class Selected_Stage0_Button : public Button
@@ -227,6 +228,39 @@ class Base_Map3_Button : public Button
 {
 public:
     Base_Map3_Button(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+
+private:
+};
+
+class Base_Map4_Button : public Button
+{
+public:
+    Base_Map4_Button(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+
+private:
+};
+
+class Base_Map5_Button : public Button
+{
+public:
+    Base_Map5_Button(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+
+private:
+};
+
+class Base_Map6_Button : public Button
+{
+public:
+    Base_Map6_Button(Math::vec2 position, Math::vec2 size);
 
     void func() override;
     void Draw(Math::TransformationMatrix camera_matrix) override;
@@ -301,22 +335,6 @@ class Wave_Enemy3 : public Button
 {
 public:
     Wave_Enemy3(Math::vec2 position, Math::vec2 size);
-
-    void func() override;
-};
-
-class Current_Wave1 : public Button
-{
-public:
-    Current_Wave1(Math::vec2 position, Math::vec2 size);
-
-    void func() override;
-};
-
-class Current_Wave2 : public Button
-{
-public:
-    Current_Wave2(Math::vec2 position, Math::vec2 size);
 
     void func() override;
 };

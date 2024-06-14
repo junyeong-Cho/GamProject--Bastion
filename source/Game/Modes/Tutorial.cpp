@@ -17,6 +17,7 @@
 #include "Component/GameSpeed.h"
 #include "Component/Gold.h"
 #include "Component/Map.h"
+#include "Component/Interface.h"
 #include "Component/MonsterLimit.h"
 #include "Component/Time.h"
 #include "Component/Wave.h"
@@ -61,6 +62,7 @@ void Tutorial::Load()
     AddGSComponent(new Gold(startGold));
     AddGSComponent(new Diamond(100));
     AddGSComponent(new Map());
+    AddGSComponent(new Interface());
     AddGSComponent(new Wave());
     AddGSComponent(new Time());
     AddGSComponent(new GAM200::ParticleManager<Particles::Hit>());
@@ -178,7 +180,7 @@ void Tutorial::Draw()
     GetGSComponent<Map>()->Draw(camera_matrix);
     GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
     GetGSComponent<GAM200::GameObjectManager>()->DrawParticle(camera_matrix);
-
+    GetGSComponent<Interface>()->Draw(camera_matrix);
     Engine::GetLogger().LogDebug("Current task: " + std::to_string(currentTask));
     switch (currentTask)
     {
@@ -210,12 +212,12 @@ void Tutorial::Draw()
 #if IfWantShader
     if (GetGSComponent<Wave>()->IsResting())
         ShaderDrawing::draw_text("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 1100, 600, 50, 255, 255, 255);
-    ShaderDrawing::draw_text("Gold: " + std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 1100, 530, 50, 255, 255, 255);
-    ShaderDrawing::draw_text("Monster: " + std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 1100, 460, 50, 255, 255, 255);
-    ShaderDrawing::draw_text("Wave: " + std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1) + "/" + std::to_string(GetGSComponent<Wave>()->GetMaxWave()), 1100, 390, 50, 255, 255, 255);
-    ShaderDrawing::draw_text(std::to_string(unit_cost), 563.2783, 31.0342, 20, 0.196f, 0.196f, 0.196f);
-    ShaderDrawing::draw_text(std::to_string(unit_cost), 691.2783, 31.0342, 20, 0.196f, 0.196f, 0.196f);
-    ShaderDrawing::draw_text(std::to_string(unit_cost), 819.2773, 31.0342, 20, 0.196f, 0.196f, 0.196f);
+    ShaderDrawing::draw_text(std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 960, 65, 31.36, 255, 255, 255);
+    ShaderDrawing::draw_text(std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 615.9102, 736.3091, 31.36, 50, 50, 50);
+    ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1) + "/" + std::to_string(GetGSComponent<Wave>()->GetMaxWave()), 735, 736.3091, 31.36, 255, 255, 255);
+    ShaderDrawing::draw_text(std::to_string(unit_cost), 566, 34, 25, 1.0f, 1.0f, 0.0f);
+    ShaderDrawing::draw_text(std::to_string(unit_cost), 698, 34, 25, 1.0f, 1.0f, 0.0f);
+    ShaderDrawing::draw_text(std::to_string(unit_cost), 830, 34, 25, 1.0f, 1.0f, 0.0f);
 #else
     trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
     time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 700 }));

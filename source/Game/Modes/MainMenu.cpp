@@ -147,15 +147,16 @@ void Main_menu::Draw()
 	exit->Draw(Math::TranslationMatrix(Math::ivec2{ Engine::GetWindow().GetSize().x / 2 + 220, (Engine::GetWindow().GetSize().y / 2 - 280) }));
 #else
 	Math::vec2 color = counter == 0 ? Math::vec2{ 255,0 } : Math::vec2{ 0,0 };
+    ShaderDrawing::ShaderDraw::setFont("assets/font/Eina01-Bold.ttf");
 	ShaderDrawing::draw_text("Play", Engine::GetWindow().GetSize().x - 180 ,       Engine::GetWindow().GetSize().y / 2 - 150, 50, color.x, color.y, 0);
-
 	color = counter == 1 ? Math::vec2{ 255,0 } : Math::vec2{ 0,0 };
+    ShaderDrawing::ShaderDraw::setFont("assets/font/Eina01-SemiBold.ttf");
 	ShaderDrawing::draw_text("How to play", Engine::GetWindow().GetSize().x - 180, Engine::GetWindow().GetSize().y / 2 - 210, 50, color.x, color.y, 0);
-
 	color = counter == 2 ? Math::vec2{ 255,0 } : Math::vec2{ 0,0 };
-	ShaderDrawing::draw_text("Setting", Engine::GetWindow().GetSize().x - 180, Engine::GetWindow().GetSize().y / 2 - 270, 50, color.x, color.y, 0);
 
+	ShaderDrawing::draw_text("Setting", Engine::GetWindow().GetSize().x - 180, Engine::GetWindow().GetSize().y / 2 - 270, 50, color.x, color.y, 0);
 	color = counter == 3 ? Math::vec2{ 255,0 } : Math::vec2{ 0,0 };
+    ShaderDrawing::ShaderDraw::setFont("assets/font/Maplestory_Light.ttf");
 	ShaderDrawing::draw_text("Exit", Engine::GetWindow().GetSize().x - 180,		 Engine::GetWindow().GetSize().y / 2 - 330, 50, color.x, color.y, 0);
 
 #endif
