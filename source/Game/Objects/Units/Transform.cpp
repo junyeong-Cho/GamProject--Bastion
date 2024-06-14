@@ -78,7 +78,10 @@ void TransformUnit::State_None::Update(GameObject* object, double dt)
 void TransformUnit::State_None::CheckExit(GameObject* object)
 {
     TransformUnit* unit = static_cast<TransformUnit*>(object);
-
+    if (unit->stunned == true)
+    {
+        unit->change_state(&unit->state_stun);
+    }
 }
 void TransformUnit::State_Attack::Enter(GameObject* object)
 {
@@ -103,6 +106,28 @@ void TransformUnit::State_Attack::CheckExit(GameObject* object)
     TransformUnit* unit = static_cast<TransformUnit*>(object);
 
     unit->change_state(&unit->state_none);
+}
+void TransformUnit::State_Stun::Enter(GameObject* object)
+{
+    TransformUnit* unit = static_cast<TransformUnit*>(object);
+
+    unit->stun_count = 0;
+}
+void TransformUnit::State_Stun::Update(GameObject* object, double dt)
+{
+    TransformUnit* unit = static_cast<TransformUnit*>(object);
+
+    unit->stun_count += dt;
+}
+void TransformUnit::State_Stun::CheckExit(GameObject* object)
+{
+    TransformUnit* unit = static_cast<TransformUnit*>(object);
+
+    if (unit->stun_count >= unit->stun_time)
+    {
+        unit->change_state(&unit->state_none);
+        unit->stunned = false;
+    }
 }
 
 

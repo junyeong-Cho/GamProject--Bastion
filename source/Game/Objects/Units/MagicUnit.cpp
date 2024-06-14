@@ -75,7 +75,10 @@ void MagicUnit::State_None::Update(GameObject* object, double dt)
 void MagicUnit::State_None::CheckExit(GameObject* object)
 {
     MagicUnit* unit = static_cast<MagicUnit*>(object);
-
+    if (unit->stunned == true)
+    {
+        unit->change_state(&unit->state_stun);
+    }
 }
 void MagicUnit::State_Attack::Enter(GameObject* object)
 {
@@ -100,6 +103,28 @@ void MagicUnit::State_Attack::CheckExit(GameObject* object)
     MagicUnit* unit = static_cast<MagicUnit*>(object);
 
     unit->change_state(&unit->state_none);
+}
+void MagicUnit::State_Stun::Enter(GameObject* object)
+{
+    MagicUnit* unit = static_cast<MagicUnit*>(object);
+
+    unit->stun_count = 0;
+}
+void MagicUnit::State_Stun::Update(GameObject* object, double dt)
+{
+    MagicUnit* unit = static_cast<MagicUnit*>(object);
+
+    unit->stun_count += dt;
+}
+void MagicUnit::State_Stun::CheckExit(GameObject* object)
+{
+    MagicUnit* unit = static_cast<MagicUnit*>(object);
+
+    if (unit->stun_count >= unit->stun_time)
+    {
+        unit->change_state(&unit->state_none);
+        unit->stunned = false;
+    }
 }
 
 

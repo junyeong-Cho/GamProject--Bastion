@@ -77,7 +77,10 @@ void SpearUnit::State_None::Update(GameObject* object, double dt)
 void SpearUnit::State_None::CheckExit(GameObject* object)
 {
     SpearUnit* unit = static_cast<SpearUnit*>(object);
-
+    if (unit->stunned == true)
+    {
+        unit->change_state(&unit->state_stun);
+    }
 }
 void SpearUnit::State_Attack::Enter(GameObject* object)
 {
@@ -102,6 +105,28 @@ void SpearUnit::State_Attack::CheckExit(GameObject* object)
     SpearUnit* unit = static_cast<SpearUnit*>(object);
 
     unit->change_state(&unit->state_none);
+}
+void SpearUnit::State_Stun::Enter(GameObject* object)
+{
+    SpearUnit* unit = static_cast<SpearUnit*>(object);
+
+    unit->stun_count = 0;
+}
+void SpearUnit::State_Stun::Update(GameObject* object, double dt)
+{
+    SpearUnit* unit = static_cast<SpearUnit*>(object);
+
+    unit->stun_count += dt;
+}
+void SpearUnit::State_Stun::CheckExit(GameObject* object)
+{
+    SpearUnit* unit = static_cast<SpearUnit*>(object);
+
+    if (unit->stun_count >= unit->stun_time)
+    {
+        unit->change_state(&unit->state_none);
+        unit->stunned = false;
+    }
 }
 
 

@@ -72,6 +72,8 @@ public:
 
     bool AttackReady() const { return attack_count >= GetAtkSpd(); }
 
+    bool stunned = false;
+
 protected:
     double attack_count = 0.0;
     double attack_time = 0.0;

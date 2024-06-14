@@ -20,6 +20,7 @@
 #include "Component/Map.h"
 #include "Component/Wave.h"
 #include "Component/Time.h"
+#include "Component/Timer.h"
 
 #include "Game/Objects/Units/Unit.h"
 #include "Game/Objects/Units/MeleeUnit.h"
@@ -58,6 +59,7 @@ void Game::Load()
     AddGSComponent(new Time());
     AddGSComponent(new GAM200::ParticleManager<Particles::Hit>());
     AddGSComponent(new GAM200::ParticleManager<Particles::FontParticle>());
+    AddGSComponent(new Timer());
 
     GAM200::GameObjectManager* gameobjectmanager = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>();
 	if (Button::random == false)
@@ -111,81 +113,36 @@ void Game::Update(double dt)
                        .PrintToTexture("Monster: " + std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 0xFFFFFFFF));
 #endif
 
-    if (in_game_state == InProgress)
+    if (Monster::GetRemainingMonster() >= GetGSComponent<MonsterLimit>()->GetLimit())
     {
-        if (GetGSComponent<Wave>()->GetState() == Wave::End && Monster::GetRemainingMonster() == 0)
-        {
-            in_game_state = Win;
-        }
-        if (Monster::GetRemainingMonster() >= GetGSComponent<MonsterLimit>()->GetLimit())
-        {
-            in_game_state = Lose;
-        }
+        in_game_state = Lose;
     }
+    switch (in_game_state)
+    {
+        case InProgress:
+            if (GetGSComponent<Wave>()->GetState() == Wave::End)
+            {
+                in_game_state == Boss;
+                GetGSComponent<Timer>()->SetTime();
+            }
+            break;
 
-    if (in_game_state != InProgress)
-    {
-        if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Enter))
-        {
-            diamond += (GetGSComponent<Wave>()->GetCurWave() + 1) * 5;
-            Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
-        }
-    }
+        case Boss:
+            GetGSComponent<Timer>()->Update(dt);
+            if (Monster::GetRemainingMonster() == 0)
+            {
+                in_game_state = Win;
+            }
+            break;
 
-    GAM200::Camera* camera = GetGSComponent<GAM200::Camera>();
-    if (Engine::GetInput().keyDown(GAM200::Input::Keys::Right))
-    {
-        camera->SetPosition({ camera->GetPosition().x - 1 * camera->GetScale().x, camera->GetPosition().y });
-        Engine::GetLogger().LogDebug("Camera: ");
-        Engine::GetLogger().LogDebug(std::to_string(camera->GetPosition().x) + ", " + std::to_string(camera->GetPosition().y));
-    }
-    if (Engine::GetInput().keyDown(GAM200::Input::Keys::Left))
-    {
-        camera->SetPosition({ camera->GetPosition().x + 1 * camera->GetScale().x, camera->GetPosition().y });
-        Engine::GetLogger().LogDebug("Camera: ");
-        Engine::GetLogger().LogDebug(std::to_string(camera->GetPosition().x) + ", " + std::to_string(camera->GetPosition().y));
-    }
-    if (Engine::GetInput().keyDown(GAM200::Input::Keys::Up))
-    {
-        camera->SetPosition({ camera->GetPosition().x, camera->GetPosition().y - 1 * camera->GetScale().x });
-        Engine::GetLogger().LogDebug("Camera: ");
-        Engine::GetLogger().LogDebug(std::to_string(camera->GetPosition().x) + ", " + std::to_string(camera->GetPosition().y));
-    }
-    if (Engine::GetInput().keyDown(GAM200::Input::Keys::Down))
-    {
-        camera->SetPosition({ camera->GetPosition().x, camera->GetPosition().y + 1 * camera->GetScale().x });
-        Engine::GetLogger().LogDebug("Camera: ");
-        Engine::GetLogger().LogDebug(std::to_string(camera->GetPosition().x) + ", " + std::to_string(camera->GetPosition().y));
-    }
-    if (Engine::GetInput().keyDown(GAM200::Input::Keys::I))
-    {
-        camera->SetScale({ camera->GetScale().x * 1.01, camera->GetScale().y * 1.01 });
-        Engine::GetLogger().LogDebug("Camera: ");
-        Engine::GetLogger().LogDebug(std::to_string(camera->GetScale().x) + ", " + std::to_string(camera->GetScale().y));
-        Engine::GetLogger().LogDebug(std::to_string(camera->GetPosition().x) + ", " + std::to_string(camera->GetPosition().y));
-    }
-    if (Engine::GetInput().keyDown(GAM200::Input::Keys::O))
-    {
-        camera->SetScale({ camera->GetScale().x * 0.99, camera->GetScale().y * 0.99 });
-        Engine::GetLogger().LogDebug("Camera: ");
-        Engine::GetLogger().LogDebug(std::to_string(camera->GetScale().x) + ", " + std::to_string(camera->GetScale().y));
-        Engine::GetLogger().LogDebug(std::to_string(camera->GetPosition().x) + ", " + std::to_string(camera->GetPosition().y));
-    }
-
-    Unit* target = GetGSComponent<GAM200::GameObjectManager>()->GetInfoTarget();
-    if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Z) && target != nullptr)
-    {
-        camera->SetPosition(target->GetPosition());
-        camera->SetScale({ 3, 3 });
-
-        Engine::GetLogger().LogDebug("Object: " + std::to_string(target->GetPosition().x) + ", " + std::to_string(target->GetPosition().y));
-        Engine::GetLogger().LogDebug("Camera: " + std::to_string(camera->GetPosition().x) + ", " + std::to_string(camera->GetPosition().y));
-    }
-
-
-    if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::R))
-    {
-        camera->Reset();
+        case Win:
+        case Lose:
+            if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::Enter))
+            {
+                diamond += (GetGSComponent<Wave>()->GetCurWave() + 1) * 5;
+                Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
+            }
+            break;
     }
 }
 
@@ -225,6 +182,8 @@ void Game::Draw()
     ShaderDrawing::draw_text("Gold: " + std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 1100, 530, 50, 255, 255, 255);
     ShaderDrawing::draw_text("Monster: " + std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 1100, 460, 50, 255, 255, 255);
 	ShaderDrawing::draw_text("Wave: " + std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1) + "/" + std::to_string(GetGSComponent<Wave>()->GetMaxWave()), 1100, 390, 50, 255, 255, 255);
+    if (in_game_state == Boss)
+        ShaderDrawing::draw_text("Time Limit: " + std::to_string(GetGSComponent<Timer>()->CurrentTimeInt()), 500, 500, 50, 255, 255, 255);
     if (!Button::random)
     {
         ShaderDrawing::draw_text(std::to_string(unit_cost), 531, 34, 25, 1.0f, 1.0f, 0.0f);
@@ -260,9 +219,6 @@ void Game::Draw()
 	{
 		lose.Draw(0, 0, 1280, 800);
 	}
-
-    GAM200::DrawShape shape;
-    shape.DrawCircle(Map::middle_point.x, Map::middle_point.y, 10, 10);
 }
 
 void Game::ImguiDraw()

@@ -76,7 +76,10 @@ void MeleeUnit::State_None::Update(GameObject* object, double dt)
 void MeleeUnit::State_None::CheckExit(GameObject* object)
 {
     MeleeUnit* unit = static_cast<MeleeUnit*>(object);
-
+    if (unit->stunned == true)
+    {
+        unit->change_state(&unit->state_stun);
+    }
 }
 void MeleeUnit::State_Attack::Enter(GameObject* object)
 {
@@ -101,6 +104,28 @@ void MeleeUnit::State_Attack::CheckExit(GameObject* object)
     MeleeUnit* unit = static_cast<MeleeUnit*>(object);
 
     unit->change_state(&unit->state_none);
+}
+void MeleeUnit::State_Stun::Enter(GameObject* object)
+{
+    MeleeUnit* unit = static_cast<MeleeUnit*>(object);
+
+    unit->stun_count = 0;
+}
+void MeleeUnit::State_Stun::Update(GameObject* object, double dt)
+{
+    MeleeUnit* unit = static_cast<MeleeUnit*>(object);
+
+    unit->stun_count += dt;
+}
+void MeleeUnit::State_Stun::CheckExit(GameObject* object)
+{
+    MeleeUnit* unit = static_cast<MeleeUnit*>(object);
+
+    if (unit->stun_count >= unit->stun_time)
+    {
+        unit->change_state(&unit->state_none);
+        unit->stunned = false;
+    }
 }
 
 

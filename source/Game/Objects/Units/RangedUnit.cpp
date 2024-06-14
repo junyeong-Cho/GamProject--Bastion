@@ -76,7 +76,10 @@ void RangedUnit::State_None::Update(GameObject* object, double dt)
 void RangedUnit::State_None::CheckExit(GameObject* object)
 {
     RangedUnit* unit = static_cast<RangedUnit*>(object);
-
+    if (unit->stunned == true)
+    {
+        unit->change_state(&unit->state_stun);
+    }
 }
 void RangedUnit::State_Attack::Enter(GameObject* object)
 {
@@ -101,6 +104,28 @@ void RangedUnit::State_Attack::CheckExit(GameObject* object)
     RangedUnit* unit = static_cast<RangedUnit*>(object);
 
     unit->change_state(&unit->state_none);
+}
+void RangedUnit::State_Stun::Enter(GameObject* object)
+{
+    RangedUnit* unit = static_cast<RangedUnit*>(object);
+
+    unit->stun_count = 0;
+}
+void RangedUnit::State_Stun::Update(GameObject* object, double dt)
+{
+    RangedUnit* unit = static_cast<RangedUnit*>(object);
+
+    unit->stun_count += dt;
+}
+void RangedUnit::State_Stun::CheckExit(GameObject* object)
+{
+    RangedUnit* unit = static_cast<RangedUnit*>(object);
+
+    if (unit->stun_count >= unit->stun_time)
+    {
+        unit->change_state(&unit->state_none);
+        unit->stunned = false;
+    }
 }
 
 

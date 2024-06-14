@@ -47,6 +47,8 @@ namespace GAM200
         Unit* SetInfoTarget(Unit* unit) { info_target = unit; }
         void ResetInfoTarget() { info_target = nullptr; }
 
+        void StunUnits(Math::vec2 position, double range);
+
         bool IsMonserNear(Unit* unit);
         Monster* GetClosestMonster(Unit* unit);
         Monster* GetClosestMonster(Math::vec2 position);

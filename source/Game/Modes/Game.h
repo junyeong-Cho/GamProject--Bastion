@@ -73,6 +73,7 @@ private:
 	enum InGameStates
 	{
 		InProgress,
+		Boss,
 		Win,
 		Lose
 	} in_game_state = InProgress;

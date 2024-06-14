@@ -75,7 +75,10 @@ void SniperUnit::State_None::Update(GameObject* object, double dt)
 void SniperUnit::State_None::CheckExit(GameObject* object)
 {
     SniperUnit* unit = static_cast<SniperUnit*>(object);
-
+    if (unit->stunned == true)
+    {
+        unit->change_state(&unit->state_stun);
+    }
 }
 void SniperUnit::State_Attack::Enter(GameObject* object)
 {
@@ -100,6 +103,28 @@ void SniperUnit::State_Attack::CheckExit(GameObject* object)
     SniperUnit* unit = static_cast<SniperUnit*>(object);
 
     unit->change_state(&unit->state_none);
+}
+void SniperUnit::State_Stun::Enter(GameObject* object)
+{
+    SniperUnit* unit = static_cast<SniperUnit*>(object);
+
+    unit->stun_count = 0;
+}
+void SniperUnit::State_Stun::Update(GameObject* object, double dt)
+{
+    SniperUnit* unit = static_cast<SniperUnit*>(object);
+
+    unit->stun_count += dt;
+}
+void SniperUnit::State_Stun::CheckExit(GameObject* object)
+{
+    SniperUnit* unit = static_cast<SniperUnit*>(object);
+
+    if (unit->stun_count >= unit->stun_time)
+    {
+        unit->change_state(&unit->state_none);
+        unit->stunned = false;
+    }
 }
 
 

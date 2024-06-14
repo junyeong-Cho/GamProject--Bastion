@@ -8,6 +8,7 @@
 
 #include "../Game/States.h"
 #include "Game/Objects/Monsters/Monster.h"
+#include "Game/Objects/Monsters/Boss.h"
 
 #include <iostream>
 #include <fstream>
@@ -134,6 +135,10 @@ void Wave::Update(double dt)
             {
                 new Monster_16();
             }
+			else if (monster_name == "BOSS")
+			{
+                new Boss();
+			}
 		}
 
 

@@ -47,9 +47,26 @@ protected:
         virtual void CheckExit(GameObject* object) override;
         std::string GetName() override { return "Attack"; }
     };
+    class State_Stun : public State
+    {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+
+        std::string GetName() override
+        {
+            return "Stun";
+        }
+    };
+
 
     State_None      state_none;
-    State_Attack    state_attacking;
+    State_Attack state_attacking;
+    State_Stun      state_stun;
+
+    double stun_time = 1.0;
+    double stun_count = 0;
 };
 
 

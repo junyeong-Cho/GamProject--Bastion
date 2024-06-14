@@ -195,6 +195,26 @@ Unit* GAM200::GameObjectManager::GetClosestUnit(Math::vec2 position)
 	return closest_unit;
 }
 
+void GAM200::GameObjectManager::StunUnits(Math::vec2 position, double range)
+{
+	for (GameObject* object : objects)
+	{
+        if (object->Type() < GameObjectTypes::Unit || object->Type() > GameObjectTypes::UnitEnd)
+			continue;
+		else
+        {
+            Math::vec2 unit_position    = object->GetPosition();
+            double     squared_distance = pow((unit_position.x - position.x), 2) + pow((unit_position.y - position.y), 2);
+
+			if (squared_distance < pow(range, 2))
+			{
+                Unit* unit = dynamic_cast<Unit*>(object);
+                unit->stunned = true;
+			}
+		}
+	}
+}
+
 bool GAM200::GameObjectManager::IsMonserNear(Unit* unit)
 {
 	for (GameObject* object : objects)
