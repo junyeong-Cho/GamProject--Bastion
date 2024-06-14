@@ -229,8 +229,15 @@ void Game::Draw()
 	if (GetGSComponent<Wave>()->IsResting())
         ShaderDrawing::draw_text("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 1100, 600, 50, 255, 255, 255);
     ShaderDrawing::draw_text(std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 960, 65, 31.36, 255, 255, 255);
-    ShaderDrawing::draw_text(std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 615.9102, 736.3091, 31.36, 50, 50, 50);
-    ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1) + "/" + std::to_string(GetGSComponent<Wave>()->GetMaxWave()), 735, 736.3091, 31.36, 255, 255, 255);
+    if ((Monster::GetRemainingMonster() > GetGSComponent<MonsterLimit>()->GetLimit() * 0.8)) {
+        ShaderDrawing::draw_text(std::to_string(Monster::GetRemainingMonster()), 580.9102, 728.3091, 31.36, 181, 0, 0);
+    }
+    else
+    {
+        ShaderDrawing::draw_text(std::to_string(Monster::GetRemainingMonster()), 580.9102, 728.3091, 31.36, 50, 50, 50);
+    }
+    ShaderDrawing::draw_text("/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 621.9102, 734.7021, 19.71, 50, 50, 50);
+    ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1) + "/" + std::to_string(GetGSComponent<Wave>()->GetMaxWave()), 736, 736.3091, 31.36, 255, 255, 255);
     if (!Button::random)
     {
         ShaderDrawing::draw_text(std::to_string(unit_cost), 566, 34, 25, 1.0f, 1.0f, 0.0f);
@@ -238,7 +245,7 @@ void Game::Draw()
     }
     ShaderDrawing::draw_text(std::to_string(unit_cost), 698, 34, 25, 1.0f, 1.0f, 0.0f);
     if (GetGSComponent<Wave>()->IsResting() &&
-        (GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()) <= 1 &&
+        (GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()) <= 2 &&
         (GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()) >= 0)
     {
         if ((GetGSComponent<Wave>()->GetCurWave() + 1 > 9))
@@ -284,10 +291,15 @@ void Game::Draw()
             wave2.Draw(0, 302.3333, 1280, 200);
             ShaderDrawing::ShaderDraw::setFont("assets/font/Eina01-Bold.ttf");
             //ShaderDrawing::draw_text("Wave: " + std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1), 715.377, 340.6201, 127.01, 255, 108, 255,100);
-            ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1), 715.377, 340.6201, 127.01, 1.0f, 0.423529f, 0.0f, 0.392157);
+            ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 2), 715.377, 332.999, 127.01, 1.0f, 0.423529f, 0.0f, 0.392157);
         }
         else {
+            int moving_x = 1280;
             wave1.Draw(0, 302.3333, 1280, 200);
+            double wave_notice_location = 342.999;
+            double shadow = 7.6211;
+            ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 2), 715.377, wave_notice_location, 127.01, 1.0f, 0.423529f, 0.0f, 0.082352);
+            ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 2), 715.377, wave_notice_location + shadow, 127.01, 1.0f, 0.423529f, 0.0f, 0.392157);
         }
     }
     //GameSpeed_Button gameSpeedButton;
