@@ -13,6 +13,7 @@ set(SOURCE_CODE
     Component/Wave.h   Component/Wave.cpp
     Component/StartGold.h
     Component/Interface.h
+    Component/Timer.h
     
 
     opengl/GL.hpp opengl/GL.cpp
@@ -91,6 +92,7 @@ set(SOURCE_CODE
     Game/Objects/Button.h               Game/Objects/Button.cpp
 
     Game/Objects/Monsters/Monster.h     Game/Objects/Monsters/Monster.cpp
+    Game/Objects/Monsters/Boss.h     Game/Objects/Monsters/Boss.cpp
 
     Game/Objects/Units/MagicUnit.h      Game/Objects/Units/MagicUnit.cpp
     Game/Objects/Units/MeleeUnit.h      Game/Objects/Units/MeleeUnit.cpp
