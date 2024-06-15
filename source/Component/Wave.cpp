@@ -51,6 +51,10 @@ void Wave::Update(double dt)
 {
 	current_time += dt;
 
+    if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::B))
+    {
+        new Boss();
+    }
 	switch (wave_state)
 	{
 	case WaveState::Battle:

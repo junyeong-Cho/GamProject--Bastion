@@ -109,16 +109,13 @@ public:
         current_state->Enter(this);
     }
 
-    Monster_1(Math::vec2 position, Math::vec2 direction) : Monster(info, position, direction)
+    Monster_1(Math::vec2 position, Math::vec2 direction) : Monster({ 3, 0, 1.0 }, position, direction)
     {
         AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Jewel1.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
     }
-
-private:
-    MonsterInfo info = MonsterInfo({ 3, 0, 1.0 });
 };
 
 class Monster_2 : public Monster
@@ -132,16 +129,13 @@ public:
         current_state->Enter(this);
     }
 
-    Monster_2(Math::vec2 position, Math::vec2 direction) : Monster(info, position, direction)
+    Monster_2(Math::vec2 position, Math::vec2 direction) : Monster({ 5, 0, 1.0 }, position, direction)
     {
         AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Jewel2.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
     }
-
-private:
-    MonsterInfo info = MonsterInfo({ 5, 0, 1.0 });
 };
 
 class Monster_3 : public Monster
@@ -155,16 +149,13 @@ public:
         current_state->Enter(this);
     }
 
-    Monster_3(Math::vec2 position, Math::vec2 direction) : Monster(info, position, direction)
+    Monster_3(Math::vec2 position, Math::vec2 direction) : Monster({ 7, 0, 1.0 }, position, direction)
     {
         AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Jewel3.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
     }
-
-private:
-    MonsterInfo info = MonsterInfo({ 7, 0, 1.0 });
 };
 
 class Monster_4 : public Monster
@@ -178,16 +169,13 @@ public:
         current_state->Enter(this);
     }
 
-    Monster_4(Math::vec2 position, Math::vec2 direction) : Monster(info, position, direction)
+    Monster_4(Math::vec2 position, Math::vec2 direction) : Monster({ 4, 0, 1.5 }, position, direction)
     {
         AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Jewel4.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
     }
-
-private:
-    MonsterInfo info = MonsterInfo({ 4, 0, 1.5 });
 };
 
 class Monster_5 : public Monster
@@ -201,16 +189,13 @@ public:
         current_state->Enter(this);
     }
 
-    Monster_5(Math::vec2 position, Math::vec2 direction) : Monster(info, position, direction)
+    Monster_5(Math::vec2 position, Math::vec2 direction) : Monster({ 7, 0, 1.5 }, position, direction)
     {
         AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Jewel5.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
     }
-
-private:
-    MonsterInfo info = MonsterInfo({ 7, 0, 1.5 });
 };
 
 class Monster_6 : public Monster
@@ -224,16 +209,13 @@ public:
         current_state->Enter(this);
     }
 
-    Monster_6(Math::vec2 position, Math::vec2 direction) : Monster(info, position, direction)
+    Monster_6(Math::vec2 position, Math::vec2 direction) : Monster({ 10, 0, 1.5 }, position, direction)
     {
         AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Jewel6.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
     }
-
-private:
-    MonsterInfo info = MonsterInfo({ 10, 0, 1.5 });
 };
 
 class Monster_7 : public Monster
@@ -247,16 +229,13 @@ public:
         current_state->Enter(this);
     }
 
-    Monster_7(Math::vec2 position, Math::vec2 direction) : Monster(info, position, direction)
+    Monster_7(Math::vec2 position, Math::vec2 direction) : Monster({ 8, 0, 1.2 }, position, direction)
     {
         AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Robot1.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
     }
-
-private:
-    MonsterInfo info = MonsterInfo({ 8, 0, 1.2 });
 };
 
 class Monster_8 : public Monster
@@ -270,16 +249,13 @@ public:
         current_state->Enter(this);
     }
 
-    Monster_8(Math::vec2 position, Math::vec2 direction) : Monster(info, position, direction)
+    Monster_8(Math::vec2 position, Math::vec2 direction) : Monster({ 12, 0, 1.2 }, position, direction)
     {
         AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Robot2.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
     }
-
-private:
-    MonsterInfo info = MonsterInfo({ 12, 0, 1.2 });
 };
 
 class Monster_9 : public Monster
@@ -293,16 +269,13 @@ public:
         current_state->Enter(this);
     }
 
-    Monster_9(Math::vec2 position, Math::vec2 direction) : Monster(info, position, direction)
+    Monster_9(Math::vec2 position, Math::vec2 direction) : Monster({ 16, 0, 1.2 }, position, direction)
     {
         AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Robot3.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
     }
-
-private:
-    MonsterInfo info = MonsterInfo({ 16, 0, 1.2 });
 };
 
 class Monster_10 : public Monster
@@ -316,16 +289,13 @@ public:
         current_state->Enter(this);
     }
 
-    Monster_10(Math::vec2 position, Math::vec2 direction) : Monster(info, position, direction)
+    Monster_10(Math::vec2 position, Math::vec2 direction) : Monster({ 30, 0, 1.0 }, position, direction)
     {
         AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Devil.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
     }
-
-private:
-    MonsterInfo info = MonsterInfo({ 30, 0, 1.0 });
 };
 
 class Monster_11 : public Monster
@@ -339,16 +309,13 @@ public:
         current_state->Enter(this);
     }
 
-    Monster_11(Math::vec2 position, Math::vec2 direction) : Monster(info, position, direction)
+    Monster_11(Math::vec2 position, Math::vec2 direction) : Monster({ 40, 0, 1.0 }, position, direction)
     {
         AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Devil2.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
     }
-
-private:
-    MonsterInfo info = MonsterInfo({ 40, 0, 1.0 });
 };
 
 class Monster_12 : public Monster
@@ -362,16 +329,13 @@ public:
         current_state->Enter(this);
     }
 
-    Monster_12(Math::vec2 position, Math::vec2 direction) : Monster(info, position, direction)
+    Monster_12(Math::vec2 position, Math::vec2 direction) : Monster({ 50, 0, 1.0 }, position, direction)
     {
         AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Akuma.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
     }
-
-private:
-    MonsterInfo info = MonsterInfo({ 50, 0, 1.0 });
 };
 
 class Monster_13 : public Monster
@@ -385,16 +349,13 @@ public:
         current_state->Enter(this);
     }
 
-    Monster_13(Math::vec2 position, Math::vec2 direction) : Monster(info, position, direction)
+    Monster_13(Math::vec2 position, Math::vec2 direction) : Monster({ 50, 0, 1.0 }, position, direction)
     {
         AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Akuma2.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
     }
-
-private:
-    MonsterInfo info = MonsterInfo({ 50, 0, 1.0 });
 };
 
 class Monster_14 : public Monster
@@ -408,16 +369,13 @@ public:
         current_state->Enter(this);
     }
 
-    Monster_14(Math::vec2 position, Math::vec2 direction) : Monster(info, position, direction)
+    Monster_14(Math::vec2 position, Math::vec2 direction) : Monster({ 50, 0, 1.0 }, position, direction)
     {
         AddGOComponent(new GAM200::Sprite("assets/enemy_s2/mimic.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
     }
-
-private:
-    MonsterInfo info = MonsterInfo({ 50, 0, 1.0 });
 };
 
 class Monster_15 : public Monster
@@ -431,16 +389,13 @@ public:
         current_state->Enter(this);
     }
 
-    Monster_15(Math::vec2 position, Math::vec2 direction) : Monster(info, position, direction)
+    Monster_15(Math::vec2 position, Math::vec2 direction) : Monster({ 50, 0, 1.0 }, position, direction)
     {
         AddGOComponent(new GAM200::Sprite("assets/enemy_s2/BanBanMon.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
     }
-
-private:
-    MonsterInfo info = MonsterInfo({ 50, 0, 1.0 });
 };
 
 class Monster_16 : public Monster
@@ -454,14 +409,11 @@ public:
         current_state->Enter(this);
     }
 
-    Monster_16(Math::vec2 position, Math::vec2 direction) : Monster(info, position, direction)
+    Monster_16(Math::vec2 position, Math::vec2 direction) : Monster({ 50, 0, 1.0 }, position, direction)
     {
         AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Boss.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
     }
-
-private:
-    MonsterInfo info = MonsterInfo({ 50, 0, 1.0 });
 };

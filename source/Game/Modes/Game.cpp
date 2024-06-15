@@ -31,6 +31,7 @@
 #include "Game/Objects/Units/BuffUnit.h"
 
 #include "Game/Objects/Monsters/Monster.h"
+#include "Game/Objects/Monsters/Boss.h"
 #include "Game/Objects/Button.h"
 
 #include "Game/Fonts.h"
@@ -93,13 +94,13 @@ void Game::Update(double dt)
 {
     count += dt;
 
-	GetGSComponent<GameSpeed>()->Update(dt);
-	GetGSComponent<Time>()->Update(dt);
-	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
-	GetGSComponent<GAM200::GameObjectManager>()->MergeTest();
-	GetGSComponent<Wave>()->Update(dt);
+    GetGSComponent<GameSpeed>()->Update(dt);
+    GetGSComponent<Time>()->Update(dt);
+    GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
+    GetGSComponent<GAM200::GameObjectManager>()->MergeTest();
+    GetGSComponent<Wave>()->Update(dt);
     GetGSComponent<MonsterLimit>()->GetCurrentMonster();
-	Engine::GetWindow().Clear(1.0f, 1.0f, 1.0f, 1.0f);
+    Engine::GetWindow().Clear(1.0f, 1.0f, 1.0f, 1.0f);
 
 #if IfWantShader
 
@@ -125,7 +126,7 @@ void Game::Update(double dt)
         case InProgress:
             if (GetGSComponent<Wave>()->GetState() == Wave::End)
             {
-                in_game_state == Boss;
+                in_game_state = Boss;
                 GetGSComponent<Timer>()->SetTime();
             }
             break;

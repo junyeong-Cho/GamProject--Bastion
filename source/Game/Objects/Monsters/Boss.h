@@ -3,10 +3,21 @@
 #include "Monster.h"
 #include "Engine/Collision.h"
 
+#include "Engine/GameObject.h"
+#include "Game/GameObjectTypes.h"
+
+#include "Component/Map.h"
+
 class Boss : public Monster
 {
 public:
-    Boss() : Monster(info) { }
+    Boss() : Monster({ 500, 10, 1.0 })
+    {
+        AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Boss.spt", (this)));
+
+        current_state = &state_none;
+        current_state->Enter(this);
+    }
 
     GameObjectTypes Type() override
     {
@@ -17,8 +28,11 @@ public:
         return "Boss";
     }
 
-private:
-    MonsterInfo boss_info = MonsterInfo({ 500, 10, 1.0 });
+    enum NextPattern
+    {
+        Summon,
+        Stun
+    } next_pattern = Summon;
 
 protected:
     class State_None : public State
@@ -78,11 +92,15 @@ protected:
     State_Stun      state_stun;
     State_Dead      state_dead;
 
-    double summon_time       = 0;
+    double pattern_time_count = 0.0;
+
+    double summon_pattern_cool_time = 10.0;
+    double summon_time       = 5.0;
     double summon_time_count = 0;
-    double summon_num        = 0;
+    double summon_num        = 10;
     double summon_num_count  = 0;
 
+    double stun_pattern_cool_time = 10.0;
     double stun_time    = 0;
     double stun_count   = 0;
     double stun_range = Map::basic_size * 1.5;
