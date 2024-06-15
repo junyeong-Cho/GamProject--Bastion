@@ -12,22 +12,46 @@
 class Map : public GAM200::Component
 {
 public:
-    Map()
-        : game_background("assets/Background/game_tile2.png"), blur("assets/Background/blur.png")
+	Map()
+		: game_map1("assets/Background/map1.png"), game_map2("assets/Background/map2.png"), game_map3("assets/Background/map3.png"),
+		game_tuto_map("assets/Background/tuto_map.png"), blur("assets/Background/blur.png")
 	{
 
 	}
 
-	void Draw(Math::TransformationMatrix camera_matrix)
+	void Draw(Math::TransformationMatrix camera_matrix,int map_number)
 	{
-		game_background.Draw(0, 0, 1280, 800);
-        blur.Draw(0, 0, 1280, 800);
+    
+		   if (map_number == 0)
+		   {
+			   game_tuto_map.Draw(0, 0, 1280, 800);
+		   }
+		   else if (map_number == 1)
+		   {
+			   game_map1.Draw(0, 0, 1280, 800);
+		   }
+		   else if(map_number == 2)
+		   {
+			   game_map2.Draw(0, 0, 1280, 800);
+		   }
+		   else
+		   {
+               game_map3.Draw(0, 0, 1280, 800);
+		   }
+			
+	
+	
+
+		blur.Draw(0, 0, 1280, 800);
 	}
 
 public:
-	GAM200::Texture game_background;
-    GAM200::Texture blur;
-    //GAM200::Texture ui;
+	GAM200::Texture game_map1;
+	GAM200::Texture game_map2;
+	GAM200::Texture game_map3;
+	GAM200::Texture game_tuto_map;
+	GAM200::Texture blur;
+	//GAM200::Texture ui;
 
 	static inline double basic_size = 80;
 
@@ -63,4 +87,5 @@ public:
 	static inline Math::vec2 middle_lower_right{ middle_rigiht_end, middle_bottom_end };
 	static inline Math::vec2 middle_upper_right{ middle_rigiht_end, middle_top_end };
 	static inline Math::vec2 middle_upper_left{ middle_left_end, middle_top_end };
+
 };

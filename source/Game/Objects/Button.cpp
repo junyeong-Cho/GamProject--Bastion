@@ -45,11 +45,16 @@ Button::Button(Math::vec2 position, Math::vec2 size) : GameObject(position), pos
 {
 
 }
+
+
+
+
 bool Button::random = false;
 void Button::Update(double dt)
 {
 	GameObject::Update(dt);
-	if (IsClicked())
+   
+    if (IsClicked())
 	{
 		func();
 	}

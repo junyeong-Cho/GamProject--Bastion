@@ -33,6 +33,11 @@ public:
     virtual bool IsClicked();
 
     static bool random;
+    int map_number;
+
+   
+
+
 protected:
     virtual void func();
 private:

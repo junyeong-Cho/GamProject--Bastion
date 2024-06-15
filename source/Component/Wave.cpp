@@ -13,7 +13,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-
+bool wave_rest;
 void Wave::SetWave(std::string file_name)
 {
 	std::ifstream file(file_name);
@@ -51,18 +51,21 @@ void Wave::Update(double dt)
 {
 	current_time += dt;
 
+
+
 	switch (wave_state)
 	{
 	case WaveState::Battle:
 		// Wave ended
 		if (current_time > wave_time)
 		{
+
 			// Reset time
 			current_time = 0.0;
 
 			// Change the state
 			wave_state = Rest;
-
+		
 			return;
 		}
 
@@ -150,8 +153,8 @@ void Wave::Update(double dt)
 		{
 			// Reset time
 			current_time = 0.0;
-
-
+			
+		
 			// Get informations from the vector
 			++current_wave;
 			if (current_wave >= total_wave)

@@ -3,6 +3,7 @@
 
 #include "Unit.h"
 
+#include<string>
 
 #include "Engine/GameObjectManager.h"
 #include "Engine/DrawShape.h"
@@ -81,9 +82,7 @@ void Unit::Draw(Math::TransformationMatrix camera_matrix)
 #else
     Math::vec2 position = GetPosition();
 
-    ShaderDrawing::set_color(0, 0, 0, 51);
-    ShaderDrawing::draw_circle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(radius), static_cast<int>(radius));
-
+ 
     if (is_moving)
 	{
         ShaderDrawing::set_color(249, 40, 145, 76);

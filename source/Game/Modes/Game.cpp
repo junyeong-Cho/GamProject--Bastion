@@ -31,16 +31,31 @@
 #include "Game/Objects/Units/BuffUnit.h"
 
 #include "Game/Objects/Monsters/Monster.h"
-#include "Game/Objects/Button.h"
 
 #include "Game/Fonts.h"
 #include "Game/Objects/Button.h"
 #include "Game/Particles.h"
 
+#include "Engine/Camera.h"
+
+
+#include "Engine/GameObject.h"
+
+
+
+
+
+
+
+
+
+
+
 int startGold = 110;
 int monsterLimit = 40;
 extern int diamond;
 extern int unit_cost;
+extern int         selected_map;
 
 Game::Game()
 {
@@ -161,11 +176,15 @@ void Game::Unload()
 void Game::Draw()
 {
     Math::TransformationMatrix camera_matrix = GetGSComponent<GAM200::Camera>()->GetMatrix();
-    
-    GetGSComponent<Map>()->Draw(camera_matrix);
+  
+    GetGSComponent<Map>()->Draw(camera_matrix, selected_map);
     GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
     GetGSComponent<GAM200::GameObjectManager>()->DrawParticle(camera_matrix);
-    GetGSComponent<Interface>()->Draw(camera_matrix);
+    GetGSComponent<Interface>()->Draw(camera_matrix, 1);
+
+
+
+
 
 
     Unit* unit = GetGSComponent<GAM200::GameObjectManager>()->GetInfoTarget();
@@ -183,29 +202,85 @@ void Game::Draw()
         //tower_ui_no_random.Draw(380, 35, 514, 108);
     }
 #if IfWantShader
-	if (GetGSComponent<Wave>()->IsResting())
-        ShaderDrawing::draw_text("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 1100, 600, 50, 255, 255, 255);
-    ShaderDrawing::draw_text("Gold: " + std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 1100, 530, 50, 255, 255, 255);
-    ShaderDrawing::draw_text("Monster: " + std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 1100, 460, 50, 255, 255, 255);
-	ShaderDrawing::draw_text("Wave: " + std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1) + "/" + std::to_string(GetGSComponent<Wave>()->GetMaxWave()), 1100, 390, 50, 255, 255, 255);
-    if (in_game_state == Boss)
-        ShaderDrawing::draw_text("Time Limit: " + std::to_string(GetGSComponent<Timer>()->CurrentTimeInt()), 500, 500, 50, 255, 255, 255);
+    if (GetGSComponent<Wave>()->IsResting())
+        //ShaderDrawing::draw_text("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 1100, 600, 50, 50.0f, 50.0f, 50.0f);
+        ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 640, 736.8542, 20, 181, 0, 0);
+         //to 승훈 넥스트 웨이브 시간 표시하는거 웨이브 끝나고 인터페이스 헤더에 있는 enemy_wave_ui를 언드로우하고 그 자리 위에 뜨도록 해줘 웨이브 대기 시간동안  폰트 좌표 640, 736.8542
+    
+    ShaderDrawing::draw_text(std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 960, 65, 31.36, 50.0f, 50.0f, 50.0f);//골드표시
+  
+
+    
+
+    ///ui text parts ==||
+    //                 \/
+    // 
+   
+    //<now monsyer numbers>
+    
+   
+        if (10 <= (Monster::GetRemainingMonster()))
+        {
+            if ((Monster::GetRemainingMonster() > GetGSComponent<MonsterLimit>()->GetLimit() * 0.8)) {
+                ShaderDrawing::draw_text(std::to_string(Monster::GetRemainingMonster()), 589.5752 + 13, 736.8542, 31.36, 181, 0, 0);//number_warning_color
+            }
+            else
+            {
+                ShaderDrawing::draw_text(std::to_string(Monster::GetRemainingMonster()), 589.5752 + 13, 736.8542, 31.36, 51.0f, 50.0f, 50.0f);
+            }
+        }
+        else
+        {
+
+            if ((Monster::GetRemainingMonster() > GetGSComponent<MonsterLimit>()->GetLimit() * 0.8)) {
+                ShaderDrawing::draw_text("0" + std::to_string(Monster::GetRemainingMonster()), 589.5752 + 13, 736.8542, 31.36, 181, 0, 0);//number_warning_color
+            }
+            else
+            {
+                ShaderDrawing::draw_text("0" + std::to_string(Monster::GetRemainingMonster()), 589.5752 + 13, 736.8542, 31.36, 51.0f, 50.0f, 50.0f);
+            }
+        }
+
+
+        ShaderDrawing::draw_text("/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 627.394 + 15, 739.1143, 22, 50.0f, 50.0f, 50.0f);//enemy_max_numbers
+      
+
+
+
+
+        ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1) + "/" + std::to_string(GetGSComponent<Wave>()->GetMaxWave()), 736, 736.8542, 31.36, 50.0f, 50.0f, 50.0f);//wave
+ 
+
+    /// <summary>
+    /// /
+    /// 
+    /// </summary>
+
+
     if (!Button::random)
     {
         ShaderDrawing::draw_text(std::to_string(unit_cost), 566, 34, 25, 1.0f, 1.0f, 0.0f);
         ShaderDrawing::draw_text(std::to_string(unit_cost), 830, 34, 25, 1.0f, 1.0f, 0.0f);
     }
-    ShaderDrawing::draw_text(std::to_string(unit_cost), 698, 34, 25, 1.0f, 1.0f, 0.0f);
+ 
+
+    
+    ShaderDrawing::draw_text(std::to_string(unit_cost), 575.4382, 36.0547, 20, 50.0f, 50.0f, 50.0f);//1번타워
+    ShaderDrawing::draw_text(std::to_string(unit_cost), 702.918, 36.0547, 20, 50.0f, 50.0f, 50.0f);//2번타워
+    ShaderDrawing::draw_text(std::to_string(unit_cost), 830.917, 36.0547, 20, 50.0f, 50.0f, 50.0f);//3번타워
+
+    
     if (GetGSComponent<Wave>()->IsResting() &&
-        (GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()) <= 1 &&
+        (GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()) <= 2 &&
         (GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()) >= 0)
     {
         if ((GetGSComponent<Wave>()->GetCurWave() + 1 > 9))
         {
             ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1), 715.377, 340.6201, 127.01, 1.0f, 0.423529f, 0.0f, 0.392157);
         }
-    }
+}
 #else
+
 	trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
 	time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 700 }));
 	gold->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 630 }));

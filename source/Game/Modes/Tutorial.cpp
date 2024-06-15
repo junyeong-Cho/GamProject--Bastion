@@ -177,10 +177,10 @@ void Tutorial::Unload()
 void Tutorial::Draw()
 {
     Math::TransformationMatrix camera_matrix = GetGSComponent<GAM200::Camera>()->GetMatrix();
-    GetGSComponent<Map>()->Draw(camera_matrix);
+    GetGSComponent<Map>()->Draw(camera_matrix,0);
     GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
     GetGSComponent<GAM200::GameObjectManager>()->DrawParticle(camera_matrix);
-    GetGSComponent<Interface>()->Draw(camera_matrix);
+    GetGSComponent<Interface>()->Draw(camera_matrix,0);
     Engine::GetLogger().LogDebug("Current task: " + std::to_string(currentTask));
     switch (currentTask)
     {

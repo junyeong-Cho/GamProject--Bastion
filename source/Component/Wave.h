@@ -3,6 +3,8 @@
 #include "../Engine/Component.h"
 #include "../Engine/Texture.h"
 
+
+
 class Wave : public GAM200::Component
 {
 public:
@@ -25,6 +27,7 @@ public:
 	bool IsResting() const { return wave_state == Rest ? true : false; }
 	void Skip();
 	void Update(double dt) override;
+	
 
 
 private:
