@@ -379,4 +379,5 @@ public:
 private:
     GAM200::Texture* mute_on   = Engine::Instance().GetTextureManager().Load("assets/buttons/mute_on.png");
     GAM200::Texture* mute_off  = Engine::Instance().GetTextureManager().Load("assets/buttons/mute_off.png");
+    bool             mute      = false;
 };

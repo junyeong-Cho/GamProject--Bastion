@@ -130,6 +130,7 @@ void Main_menu::Unload()
 	//Unload Mode1
 
 	//Unload Mode2
+    Engine::Instance().GetTextureManager().Unload();
 	GetGSComponent<GAM200::GameObjectManager>()->Unload();
 
 }

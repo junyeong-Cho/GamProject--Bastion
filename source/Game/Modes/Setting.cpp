@@ -18,14 +18,13 @@ void Setting::Load()
 
     GAM200::GameObjectManager* gameobjectmanager = GetGSComponent<GAM200::GameObjectManager>();
 
-    gameobjectmanager->Add(new Mute_ONOFF_Button({ 500.3, 440.493 }, { 99, 27 }));
+    gameobjectmanager->Add(new Store_Menu_Button({ 18.6646, 745.1167 }, { 153, 43 }));
 
-    sound_background = Engine::Instance().GetTextureManager().Load("assets/Background/sound_background.png");
+    setting_background = Engine::Instance().GetTextureManager().Load("assets/Background/setting.jpg");
 }
 
 void Setting::Update(double dt)
 {
-    Engine::GetWindow().Clear(1.0f, 1.0f, 1.0f, 1.0f);
 
     if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Right))
     {
@@ -51,10 +50,12 @@ void Setting::Unload()
 
 void Setting::Draw()
 {
-    sound_background->Draw(Math::TranslationMatrix(Math::ivec2{ 0, 0 }));
-    ShaderDrawing::draw_text("Main BGM Volume: " + std::to_string(bgmVolume), 500, 500, 40, 1.0f, 1.0f, 1.0f);
+    Engine::GetWindow().Clear(0.2f, 0.4f, 0.7f, 1.0f);
+    setting_background->Draw(Math::TranslationMatrix(Math::ivec2{ 0, 0 }));
+    ShaderDrawing::draw_text("Main BGM Volume: " + std::to_string(bgmVolume), 500, 430, 40, 0.196f, 0.196f, 0.196f);
 
-    GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
+
+
 }
 
 void Setting::ImguiDraw()
