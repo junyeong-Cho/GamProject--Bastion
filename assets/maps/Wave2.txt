@@ -1,0 +1,7 @@
+5
+
+10.0    20.0    MONSTER1        20
+30.0    30.0    MONSTER1        15
+10.0    15.0    MONSTER2        15
+10.0    40.0    MONSTER2        20
+10.0    10.0    MONSTER9        5

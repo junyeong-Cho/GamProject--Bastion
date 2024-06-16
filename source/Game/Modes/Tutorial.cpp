@@ -187,21 +187,19 @@ void Tutorial::Draw()
     GetGSComponent<Interface>()->Draw(camera_matrix);
     Engine::GetLogger().LogDebug("Current task: " + std::to_string(currentTask));
 
-    switch (currentTask)
-    {
-        case SummonUnit: tutorial1.Draw(0, 0, 1280, 800); break;
-        case Merge: tutorial2.Draw(0, 0, 1280, 800); break;
-        case Limit: tutorial3.Draw(0, 0, 1280, 800); break;
-        case TabAndClick: tutorial4.Draw(0, 0, 1280, 800); break;
-        case Info: tutorial5.Draw(0, 0, 1280, 800); break;
-        case Done: ShaderDrawing::draw_text("Done!", 400, 500, 35, 0.0f, 1.0f, 1.0f); break;
-    }
-
     Unit* unit = GetGSComponent<GAM200::GameObjectManager>()->GetInfoTarget();
     if (unit != nullptr)
         unit->ShowInfo();
     //tower_ui.Draw(380, 35, 514, 108);
-
+    switch (currentTask)
+    {
+        case SummonUnit: ShaderDrawing::draw_text("Summon a unit by pressing the button below", 400, 200, 35, 0.0f, 1.0f, 1.0f); break;
+        case Merge: ShaderDrawing::draw_text("Drag your unit to another unit to merge", 400, 500, 35, 0.0f, 1.0f, 1.0f); break;
+        case Limit: ShaderDrawing::draw_text("You can see monster limit on the right side", 400, 500, 35, 0.0f, 1.0f, 1.0f); break;
+        case TabAndClick: ShaderDrawing::draw_text("You can change speed by the button or pressing \"Tab\"", 500, 500, 35, 0.0f, 1.0f, 1.0f); break;
+        case Info: ShaderDrawing::draw_text("You also can see informations on the right side", 450, 500, 35, 0.0f, 1.0f, 1.0f); break;
+        case Done: ShaderDrawing::draw_text("Done!", 400, 500, 35, 0.0f, 1.0f, 1.0f); break;
+    }
 #if IfWantShader
     if (GetGSComponent<Wave>()->IsResting())
         ShaderDrawing::draw_text("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 1100, 600, 50, 255, 255, 255);

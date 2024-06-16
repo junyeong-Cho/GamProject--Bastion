@@ -42,7 +42,7 @@ int         unit_cost      = 55;
 int         stock1         = 10;
 int         stock2         = 10;
 int         stock3         = 10;
-bool        mute           = false;
+
 
 Button::Button(Math::vec2 position, Math::vec2 size) : GameObject(position), position(position), size(size)
 {
@@ -634,15 +634,15 @@ Mute_ONOFF_Button::Mute_ONOFF_Button(Math::vec2 position, Math::vec2 size) : But
 
 void Mute_ONOFF_Button::func()
 {
-    if (mute)
+    if (!mute)
     {
-        mute = false;
-        Engine::Instance().GetAudioManager().SetMusicVolume(0.0f);
+    Engine::Instance().GetAudioManager().SetMusicVolume(0.0f);
+    mute = true;
     }
     else
     {
-        mute = true;
-        Engine::Instance().GetAudioManager().SetMusicVolume(0.5f);
+    Engine::Instance().GetAudioManager().SetMusicVolume(0.5f);
+    mute = false;
     }
 }
 

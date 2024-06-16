@@ -86,8 +86,15 @@ void Game::Load()
     gameobjectmanager->Add(new Setting_Button({ 108.7507 - 153/2, 800 - 43.44- 43/2 }, { 153, 43 }));
 
 	in_game_state = InProgress;
+    if (selected_map == 1 || selected_map == 4)
+    {
+        GetGSComponent<Wave>()->SetWave("assets/maps/Wave2.txt");
+    }
+    else
+    {
+        GetGSComponent<Wave>()->SetWave("assets/maps/Wave1.txt");
+    }
 
-	GetGSComponent<Wave>()->SetWave("assets/maps/Wave1.txt");
 
     Engine::GetAudioManager().StopMusic(GAM200::AudioID::MainMenu_BGM);
     Engine::GetAudioManager().PlayMusic(GAM200::AudioID::Game_BGM);
@@ -197,6 +204,18 @@ void Game::Update(double dt)
                 break;
         }
     }
+    if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::J))
+    {
+        GetGSComponent<Gold>()->Earn(55);
+    }
+    if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::K))
+    {
+        GetGSComponent<MonsterLimit>()->SetLimit(100);
+    }
+    if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::L))
+    {
+        GetGSComponent<MonsterLimit>()->SetLimit(5);
+    }
 }
 
 void Game::Unload()
@@ -221,9 +240,9 @@ void Game::Draw()
 
     switch (GetGSComponent<Wave>()->GetCurWave() % 3)
     {
-        case 0: cloud1.Draw(0, -wave_signal_count * 100 - 4000, 2294, 3997); break;
-        case 1: cloud2.Draw(0, -wave_signal_count * 100 - 4000, 2294, 3997); break;
-        case 2: cloud3.Draw(0, -wave_signal_count * 100 - 4000, 2294, 3997); break;
+        case 0: cloud1.Draw(0, -wave_stop_count * 200 + 3000, 2294, 2997); break;
+        case 1: cloud2.Draw(0, -wave_stop_count * 200 + 3000, 2294, 2997); break;
+        case 2: cloud3.Draw(0, -wave_stop_count * 200 + 3000, 2294, 2997); break;
         default: break;
     }
     GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
@@ -331,7 +350,6 @@ void Game::Draw()
 
     if (magic_state == On)
     {
-        //ShaderDrawing::draw_image()
         ShaderDrawing::draw_circle(magic_position.x, magic_position.y, magic_range, magic_range);
     }
 }
