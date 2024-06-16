@@ -11,13 +11,16 @@
 class Boss : public Monster
 {
 public:
-    Boss() : Monster({ 500, 10, 1.0 })
+    Boss() : Monster({ 500, 10, 0.5 })
     {
         AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Boss.spt", (this)));
 
         current_state = &state_none;
         current_state->Enter(this);
     }
+
+    
+	virtual void Draw(Math::TransformationMatrix camera_matrix) override;
 
     GameObjectTypes Type() override
     {
@@ -92,16 +95,16 @@ protected:
     State_Stun      state_stun;
     State_Dead      state_dead;
 
-    double pattern_time_count = 0.0;
+    inline static double pattern_time_count = 0.0;
 
-    double summon_pattern_cool_time = 10.0;
-    double summon_time       = 5.0;
+    inline static double summon_pattern_cool_time = 10.0;
+    inline static double summon_time              = 5.0;
     double summon_time_count = 0;
-    double summon_num        = 10;
+    inline static double summon_num               = 5;
     double summon_num_count  = 0;
 
-    double stun_pattern_cool_time = 10.0;
-    double stun_time    = 0;
+    inline static double stun_pattern_delay     = 3.0;
+    inline static double stun_pattern_cool_time = 10.0;
     double stun_count   = 0;
-    double stun_range = Map::basic_size * 1.5;
+    inline static double stun_range             = Map::basic_size * 3.0;
 };

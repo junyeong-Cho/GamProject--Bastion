@@ -28,7 +28,28 @@ Monster::Monster(MonsterInfo info) : GameObject(Map::middle_upper_left), info(in
 Monster::Monster(MonsterInfo info, Math::vec2 position, Math::vec2 direction) : GameObject(position), info(info)
 {
 	SetPosition(position);
-	SetVelocity({ direction.x * speed * info.speed_scale, direction.y * speed * info.speed_scale });
+
+    Math::vec2 new_direction;
+    if (direction.x == 0)
+        new_direction.x = 0;
+    else if (direction.x < 0)
+        new_direction.x = -1;
+    else
+        new_direction.x = 1;
+
+    if (direction.y == 0)
+        new_direction.y = 0;
+    else if (direction.y < 0)
+        new_direction.y = -1;
+    else
+        new_direction.y = 1;
+
+    SetVelocity(Math::vec2{ new_direction.x * speed * info.speed_scale, new_direction.y * speed * info.speed_scale });
+
+	AddGOComponent(new GAM200::CircleCollision(radius, this));
+    Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
+
+	++remaining_monster;
 }
 
 Monster::~Monster()
