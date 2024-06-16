@@ -103,8 +103,6 @@ void Game::Update(double dt)
         wave_signal_count = 0;
     }
 
-    std::cout << wave_signal_count << std::endl;
-
 	GetGSComponent<GameSpeed>()->Update(dt);
 	GetGSComponent<Time>()->Update(dt);
 	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
@@ -181,7 +179,7 @@ void Game::Draw()
         righttrain.Draw(939.6, wave_signal_count * 400 - 3809, 304, 3809);
     }
 
-    switch (rand() % 3)
+    switch (GetGSComponent<Wave>()->GetCurWave() % 3)
     {
         case 0: cloud1.Draw(0, wave_signal_count * 100 - 4000, 2294, 3997); break;
         case 1: cloud2.Draw(0, wave_signal_count * 100 - 4000, 2294, 3997); break;

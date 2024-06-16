@@ -11,6 +11,7 @@ namespace GAM200
         std::unique_ptr<sf::Music> music = std::make_unique<sf::Music>();
         if (music->openFromFile(filename))
         {
+            music->setLoop(true);
             musicMap[id] = std::move(music);
         }
     }
