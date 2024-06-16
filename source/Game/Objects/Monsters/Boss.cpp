@@ -1,6 +1,26 @@
 #include "Boss.h"
 #include "Engine/GameObjectManager.h"
 
+void Boss::Draw(Math::TransformationMatrix camera_matrix)
+{
+    Math::vec2 position = GetPosition();
+    GAM200::GameObject::Draw(camera_matrix);
+
+
+    if (stun_count >= stun_pattern_cool_time - stun_pattern_delay)
+    {
+        Engine::GetLogger().LogDebug("Drawing Stun Range: " + std::to_string(stun_pattern_cool_time - stun_count));
+        double stun_scale_gap = stun_pattern_cool_time - stun_count + 1.0;
+        double stun_scale     = 1.0 / stun_scale_gap;
+        ShaderDrawing::push();
+        ShaderDrawing::set_color(255 * stun_scale, 0, 0, 255 * stun_scale);
+        ShaderDrawing::draw_circle(GetPosition().x, GetPosition().y, stun_range * stun_scale, stun_range * stun_scale * 0.7);
+        ShaderDrawing::pop();
+        /*ShaderDrawing::set_color(25, 25, 25, 153);
+        ShaderDrawing::draw_circle(GetPosition().x, GetPosition().y, stun_range, stun_range);*/
+    }
+}
+
 void Boss::State_None::Enter(GameObject* object)
 {
     Boss* boss = static_cast<Boss*>(object);
@@ -82,11 +102,41 @@ void Boss::State_Summon::Update(GameObject* object, double dt)
 {
     Boss* boss = static_cast<Boss*>(object);
     boss->summon_time_count += dt;
-
-    if (boss->summon_time_count / boss->summon_num >= boss->summon_time)
+    
+    if (boss->IsInside(Map::outer_lower_left))
     {
+        boss->SetVelocity({ speed * boss->info.speed_scale, 0 });
+        boss->SetScale({ 1, 1 });
+    }
+    else if (boss->IsInside(Map::outer_lower_right))
+    {
+        boss->SetVelocity({ 0, speed * boss->info.speed_scale });
+        boss->SetScale({ 1, 1 });
+    }
+    else if (boss->IsInside(Map::outer_upper_right))
+    {
+        boss->SetVelocity({ -speed * boss->info.speed_scale, 0 });
+        boss->SetScale({ -1, 1 });
+    }
+    else if (boss->IsInside(Map::outer_upper_left))
+    {
+        boss->SetVelocity({ 0, -speed * boss->info.speed_scale });
+        boss->SetScale({ -1, 1 });
+    }
+
+    if (boss->tilt_count > 0.0)
+    {
+        boss->tilt_count -= dt;
+        boss->tilt_amount -= boss->tilt_decrease * dt;
+        boss->SetRotation(boss->tilt_amount);
+    }
+
+    if (boss->summon_time_count >= boss->summon_time / boss->summon_num)
+    {
+        Engine::GetLogger().LogDebug("Monster Summon!");
+        Engine::GetLogger().LogDebug("Position: " + std::to_string(boss->GetPosition().x) + std::to_string(boss->GetPosition().y));
         new Monster_10(boss->GetPosition(), boss->GetVelocity());
-        
+        //new Monster_10();
         boss->summon_time_count = 0;
         ++boss->summon_num_count;
     }
@@ -97,8 +147,6 @@ void Boss::State_Summon::CheckExit(GameObject* object)
 
     if (boss->summon_num_count >= boss->summon_num)
     {
-        new Monster_10();
-
         boss->next_pattern = Stun;
         
         boss->change_state(&boss->state_none);
@@ -115,16 +163,45 @@ void Boss::State_Stun::Update(GameObject* object, double dt)
 {
     Boss* boss = static_cast<Boss*>(object);
     boss->stun_count += dt;
+
+    if (boss->IsInside(Map::outer_lower_left))
+    {
+        boss->SetVelocity({ speed * boss->info.speed_scale, 0 });
+        boss->SetScale({ 1, 1 });
+    }
+    else if (boss->IsInside(Map::outer_lower_right))
+    {
+        boss->SetVelocity({ 0, speed * boss->info.speed_scale });
+        boss->SetScale({ 1, 1 });
+    }
+    else if (boss->IsInside(Map::outer_upper_right))
+    {
+        boss->SetVelocity({ -speed * boss->info.speed_scale, 0 });
+        boss->SetScale({ -1, 1 });
+    }
+    else if (boss->IsInside(Map::outer_upper_left))
+    {
+        boss->SetVelocity({ 0, -speed * boss->info.speed_scale });
+        boss->SetScale({ -1, 1 });
+    }
+
+    if (boss->tilt_count > 0.0)
+    {
+        boss->tilt_count -= dt;
+        boss->tilt_amount -= boss->tilt_decrease * dt;
+        boss->SetRotation(boss->tilt_amount);
+    }
 }
 void Boss::State_Stun::CheckExit(GameObject* object)
 {
     Boss* boss = static_cast<Boss*>(object);
 
-    if (boss->stun_count >= boss->stun_time)
+    if (boss->stun_count >= boss->stun_pattern_cool_time)
     {
         Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->StunUnits(boss->GetPosition(), boss->stun_range);
         boss->next_pattern = Summon;
 
+        boss->stun_count = 0;
         boss->change_state(&boss->state_none);
     }
 }

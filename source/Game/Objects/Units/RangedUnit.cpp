@@ -107,6 +107,7 @@ void RangedUnit::State_Attack::CheckExit(GameObject* object)
 }
 void RangedUnit::State_Stun::Enter(GameObject* object)
 {
+    Engine::GetLogger().LogDebug("Stun Enter");
     RangedUnit* unit = static_cast<RangedUnit*>(object);
 
     unit->stun_count = 0;

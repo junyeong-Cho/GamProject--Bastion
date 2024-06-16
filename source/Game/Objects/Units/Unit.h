@@ -28,7 +28,7 @@ public:
 
     virtual bool CanCollideWith(GameObjectTypes type) override
     {
-        return type == GameObjectTypes::Monster ? true : false;
+        return ((type == GameObjectTypes::Monster) || (type == GameObjectTypes::Boss)) ? true : false;
     }
     virtual void ResolveCollision(GameObject* other_object) override = 0;
 
