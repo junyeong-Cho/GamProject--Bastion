@@ -63,18 +63,18 @@ public:
 
 	static inline double basic_size = 80;
 
-	static inline double outer_left_end = 380;
-	static inline double outer_rigiht_end = 900;
-	static inline double outer_top_end = 740;
-	static inline double outer_bottom_end = 100;
+	static inline double outer_left_end = 360;
+	static inline double outer_right_end = 920;
+	static inline double outer_top_end = 800;
+	static inline double outer_bottom_end = 120;
 
 	static inline double inner_left_end = outer_left_end + basic_size;
-	static inline double inner_rigiht_end = outer_rigiht_end - basic_size;
+	static inline double inner_rigiht_end = outer_right_end - basic_size;
 	static inline double inner_top_end = outer_top_end - basic_size;
 	static inline double inner_bottom_end = outer_bottom_end + basic_size;
 
 	static inline double middle_left_end = outer_left_end + basic_size / 2;
-	static inline double middle_rigiht_end = outer_rigiht_end - basic_size / 2;
+	static inline double middle_rigiht_end = outer_right_end - basic_size / 2;
 	static inline double middle_top_end = outer_top_end - basic_size / 2;
 	static inline double middle_bottom_end = outer_bottom_end + basic_size / 2;
 
@@ -82,8 +82,8 @@ public:
 	static inline Math::vec2 middle_point{ (inner_left_end + inner_rigiht_end) / 2.0, (inner_top_end + inner_bottom_end) / 2.0 };
 
 	static inline Math::vec2 outer_lower_left{ outer_left_end, outer_bottom_end };
-	static inline Math::vec2 outer_lower_right{ outer_rigiht_end, outer_bottom_end };
-	static inline Math::vec2 outer_upper_right{ outer_rigiht_end, outer_top_end };
+	static inline Math::vec2 outer_lower_right{ outer_right_end, outer_bottom_end };
+	static inline Math::vec2 outer_upper_right{ outer_right_end, outer_top_end };
 	static inline Math::vec2 outer_upper_left{ outer_left_end, outer_top_end };
 
 	static inline Math::vec2 inner_lower_left{ inner_left_end,  inner_bottom_end };

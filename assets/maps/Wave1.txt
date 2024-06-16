@@ -29,4 +29,4 @@
 30.0    40.0    MONSTER10      50
 30.0    30.0    MONSTER11      40
 30.0    40.0    MONSTER12      50
-0.0    30.0      MONSTER12      10 
+0.0      5       BOSS		  1

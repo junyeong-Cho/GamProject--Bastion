@@ -94,15 +94,18 @@ void Game::Load()
 void Game::Update(double dt)
 {
     count += dt;
-    if (!GetGSComponent<Wave>()->IsResting())
+    if (!(!GetGSComponent<Wave>()->IsResting() && wave_stop_count > 0 && wave_stop_count < 1))
     {
         wave_signal_count += dt;
     }
-    if (GetGSComponent<Wave>()->IsResting())
+    if (!GetGSComponent<Wave>()->IsResting())
     {
-        wave_signal_count = 0;
+        wave_stop_count += dt;
     }
-
+    if (GetGSComponent<Wave>()->IsResting()){
+        wave_signal_count = 0;
+        wave_stop_count = -1;
+    }
 	GetGSComponent<GameSpeed>()->Update(dt);
 	GetGSComponent<Time>()->Update(dt);
 	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
@@ -175,15 +178,15 @@ void Game::Draw()
     GetGSComponent<Map>()->Draw(camera_matrix, selected_map);
     if (selected_map > 2)
     {
-        lefttrain.Draw(37.802, wave_signal_count * 400 - 3809, 304, 3809);
-        righttrain.Draw(939.6, wave_signal_count * 400 - 3809, 304, 3809);
+        lefttrain.Draw(37.802, wave_stop_count * 800 - 3809, 304, 3809);
+        righttrain.Draw(939.6, -wave_stop_count * 800 + 3809, 304, 3809);
     }
 
     switch (GetGSComponent<Wave>()->GetCurWave() % 3)
     {
-        case 0: cloud1.Draw(0, wave_signal_count * 100 - 4000, 2294, 3997); break;
-        case 1: cloud2.Draw(0, wave_signal_count * 100 - 4000, 2294, 3997); break;
-        case 2: cloud3.Draw(0, wave_signal_count * 100 - 4000, 2294, 3997); break;
+        case 0: cloud1.Draw(0, -wave_signal_count * 100 - 4000, 2294, 3997); break;
+        case 1: cloud2.Draw(0, -wave_signal_count * 100 - 4000, 2294, 3997); break;
+        case 2: cloud3.Draw(0, -wave_signal_count * 100 - 4000, 2294, 3997); break;
         default: break;
     }
     GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
@@ -241,7 +244,7 @@ void Game::Draw()
     {
         if ((GetGSComponent<Wave>()->GetCurWave() + 1 > 9))
         {
-            ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1), 715.377, 340.6201, 127.01, 1.0f, 0.423529f, 0.0f, 0.392157f);
+            ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1), 715.377, 340.6201, 127.01, 1.0f, 0.423529f, 0.0f);
         }
 }
 #else

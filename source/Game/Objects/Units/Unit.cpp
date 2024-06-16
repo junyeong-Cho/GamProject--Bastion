@@ -58,7 +58,7 @@ void Unit::Draw(Math::TransformationMatrix camera_matrix)
 
     // Merge range
     Engine::Instance().push();
-    shape.SetColor(0.0f, 0.0f, 0.0f, 0.2f);
+    sha pe.SetColor(0.0f, 0.0f, 0.0f, 0.2f);
     shape.DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(radius), static_cast<int>(radius));
     Engine::Instance().pop();
 
@@ -105,8 +105,10 @@ void Unit::DrawMergeList()
         GameObjectTypes result = pair.second;
 
         std::string string = TypeName() + " + " + toString(target) + " = " + toString(result);
+        ShaderDrawing::Image myImage = "assets/buttons/sniper.png";
 
         ShaderDrawing::draw_text(string, initial_x_value, initial_y_value, 20, 0.0, 0.0, 0.0);
+        ShaderDrawing::draw_image(myImage, initial_x_value, initial_y_value, 0, 0, 89, 89);
         //Engine::GetLogger().LogDebug(TypeName() + " + " + toString(target) + " = " + toString(result));
         initial_y_value -= 30;
     }

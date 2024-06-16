@@ -85,10 +85,6 @@ void Store::Update(double dt)
     std::cout << selected_stage << "," << selected_map << std::endl;
 	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
     
-	if(Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::P))
-	{
-        startGold += 50;
-	}
     if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::_1))
     {
         Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Editor));
@@ -121,7 +117,7 @@ void Store::Draw()
     ShaderDrawing::draw_text(std::to_string(stock2), 315.1025 + 255, 800 - 524.8457, 15, 0.0f, 0.0f, 0.0f);
     ShaderDrawing::draw_text(std::to_string(stock3), 315.1025 + 505, 800 - 524.8457, 15, 0.0f, 0.0f, 0.0f);
     ShaderDrawing::ShaderDraw::setFont("assets/font/Eina01-Bold.ttf");
-    ShaderDrawing::draw_text("Diamond: " + std::to_string(diamond), 1100, 700, 50, 0.4f, 1.0f, 0.9f);
+    ShaderDrawing::draw_text(std::to_string(diamond), 1120, 760, 20, 1.0f, 1.0f, 1.0f);
 }
 
 void Store::ImguiDraw()

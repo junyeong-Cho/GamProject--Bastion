@@ -95,4 +95,5 @@ private:
 
 	double count = 0.0;
     double wave_signal_count = 0.0;
+    double wave_stop_count = -1.0;
 };
