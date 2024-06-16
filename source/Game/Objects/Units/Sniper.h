@@ -69,7 +69,7 @@ class Sniper_2 : public SniperUnit
 public:
     Sniper_2(Math::vec2 position = Map::middle_point) : SniperUnit(5.0, 10, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/sniper/sniper0.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/sniper/sniper_default.spt", (this)));
         current_state = &state_none;
         current_state->Enter(this);
 
