@@ -77,7 +77,8 @@ class Sword_1 : public MeleeUnit
 public:
     Sword_1(Math::vec2 position = Map::middle_point) : MeleeUnit(2.0, 2, position) 
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/sword/sword_default.spt", (this)));
+       AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/sword/sword_default.spt", (this)));
+       
         current_state = &state_none;
         current_state->Enter(this);
         

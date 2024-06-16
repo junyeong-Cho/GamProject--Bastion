@@ -1,6 +1,6 @@
 assets/tower_s2/animation/sword/sword.png
-HotSpot 208 0
-FrameSize 417 275
+HotSpot 185 61
+FrameSize 371 245
 NumFrames 15
 Anim assets/tower_s2/animation/none.anm
 Anim assets/tower_s2/animation/sword/sword_attack.anm

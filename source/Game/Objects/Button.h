@@ -171,6 +171,9 @@ public:
     Base_Item1_Button(Math::vec2 position, Math::vec2 size);
 
     void func() override;
+
+private:
+    int cost = 20;
 };
 
 class Base_Item2_Button : public Button
@@ -179,6 +182,9 @@ public:
     Base_Item2_Button(Math::vec2 position, Math::vec2 size);
 
     void func() override;
+
+private:
+    int cost = 30;
 };
 
 class Base_Item3_Button : public Button
@@ -187,6 +193,9 @@ public:
     Base_Item3_Button(Math::vec2 position, Math::vec2 size);
 
     void func() override;
+
+private:
+    int cost = 30;
 };
 
 class Selected_Stage0_Button : public Button

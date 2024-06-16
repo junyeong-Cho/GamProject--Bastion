@@ -11,7 +11,6 @@ Updated:    October		10, 2023
 
 #pragma once
 
-#pragma once
 
 enum class GameObjectTypes
 {
@@ -151,6 +150,66 @@ static std::string toString(GameObjectTypes type)
         case GameObjectTypes::AtkspdBuff_4: return "AtkspdBuff_4";
         case GameObjectTypes::AtkspdBuff_8: return "AtkspdBuff_8";
         case GameObjectTypes::AtkspdBuff_16: return "AtkspdBuff_16";
+        case GameObjectTypes::BuffUnitEnd: return "BuffUnitEnd";
+
+        default: return "Unknown";
+    }
+}
+
+static const char* toStringPath(GameObjectTypes type)
+{
+    switch (type)
+    {
+        case GameObjectTypes::MeleeUnit: return "MeleeUnit";
+        case GameObjectTypes::Sword_1: return "assets/buttons/sword.png";
+        case GameObjectTypes::Sword_2: return "assets/buttons/sword.png";
+        case GameObjectTypes::Sword_4: return "assets/buttons/sword.png";
+        case GameObjectTypes::Sword_8: return "assets/buttons/sword.png";
+        case GameObjectTypes::Sword_16: return "assets/buttons/sword.png";
+
+        case GameObjectTypes::RangedUnit: return "RangedUnit";
+        case GameObjectTypes::Bow_1: return "assets/buttons/bow.png";
+        case GameObjectTypes::Bow_2: return "assets/buttons/bow.png";
+        case GameObjectTypes::Bow_4: return "assets/buttons/bow.png";
+        case GameObjectTypes::Bow_8: return "assets/buttons/bow.png";
+        case GameObjectTypes::Bow_16: return "assets/buttons/bow.png";
+
+        case GameObjectTypes::Rambo_4: return "assets/buttons/rapid.png";
+        case GameObjectTypes::Rambo_8: return "assets/buttons/rapid.png";
+        case GameObjectTypes::Rambo_16: return "assets/buttons/rapid.png";
+
+        case GameObjectTypes::MagicUnit: return "MagicUnit";
+        case GameObjectTypes::Bomb_1: return "assets/buttons/Bomb.png";
+        case GameObjectTypes::Bomb_2: return "assets/buttons/Bomb.png";
+        case GameObjectTypes::Bomb_4: return "assets/buttons/Bomb.png";
+        case GameObjectTypes::Bomb_8: return "assets/buttons/Bomb.png";
+        case GameObjectTypes::Bomb_16: return "assets/buttons/Bomb.png";
+
+        case GameObjectTypes::SpearUnit: return "SpearUnit";
+        case GameObjectTypes::Spear_2: return "assets/buttons/spear.png";
+        case GameObjectTypes::Spear_4: return "assets/buttons/spear.png";
+        case GameObjectTypes::Spear_8: return "assets/buttons/spear.png";
+        case GameObjectTypes::Spear_16: return "assets/buttons/spear.png";
+
+        case GameObjectTypes::TransformUnit: return "SpearUnit";
+        case GameObjectTypes::Transform_2: return "assets/buttons/Transform.png";
+        case GameObjectTypes::Transform_4: return "assets/buttons/Transform.png";
+        case GameObjectTypes::Transform_8: return "assets/buttons/Transform.png";
+        case GameObjectTypes::Transform_16: return "assets/buttons/Transform.png";
+
+        case GameObjectTypes::SniperUnit: return "SniperUnit";
+        case GameObjectTypes::Sniper_2: return "assets/buttons/sniper.png";
+        case GameObjectTypes::Sniper_4: return "assets/buttons/sniper.png";
+        case GameObjectTypes::Sniper_8: return "assets/buttons/sniper.png";
+        case GameObjectTypes::Sniper_16: return "assets/buttons/sniper.png";
+
+        case GameObjectTypes::BuffUnit: return "BuffUnit";
+        case GameObjectTypes::DmgBuff_4: return "assets/buttons/AtkBuff.png";
+        case GameObjectTypes::DmgBuff_8: return "assets/buttons/AtkBuff.png";
+        case GameObjectTypes::DmgBuff_16: return "assets/buttons/AtkBuff.png";
+        case GameObjectTypes::AtkspdBuff_4: return "assets/buttons/SpdBuff.png";
+        case GameObjectTypes::AtkspdBuff_8: return "assets/buttons/SpdBuff.png";
+        case GameObjectTypes::AtkspdBuff_16: return "assets/buttons/SpdBuff.png";
         case GameObjectTypes::BuffUnitEnd: return "BuffUnitEnd";
 
         default: return "Unknown";

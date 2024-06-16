@@ -107,6 +107,8 @@ protected:
     Math::vec2 position_gap;
 
     std::unordered_map<GameObjectTypes, GameObjectTypes> merge_list;
+    std::unordered_map<GameObjectTypes, ShaderDrawing::Image> imageCache;
+    ShaderDrawing::Image&                                     getImage(GameObjectTypes type);
 
 #if IfWantShader
 

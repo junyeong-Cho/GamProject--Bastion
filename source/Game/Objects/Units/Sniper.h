@@ -15,7 +15,7 @@ public:
 
     virtual GameObjectTypes Type() override { return GameObjectTypes::SniperUnit; }
     virtual std::string TypeName() override { return "SniperUnit"; }
-
+    
     enum class anm
     {
         none,
@@ -69,7 +69,7 @@ class Sniper_2 : public SniperUnit
 public:
     Sniper_2(Math::vec2 position = Map::middle_point) : SniperUnit(5.0, 10, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/sniper/sniper_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/sniper/sniper0.spt", (this)));
         current_state = &state_none;
         current_state->Enter(this);
 
@@ -90,7 +90,7 @@ class Sniper_4 : public SniperUnit
 public:
     Sniper_4(Math::vec2 position = Map::middle_point) : SniperUnit(4.5, 30, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/sniper/sniper_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/sniper/sniper4.spt", (this)));
         current_state = &state_none;
         current_state->Enter(this);
 
@@ -109,7 +109,7 @@ class Sniper_8 : public SniperUnit
 public:
     Sniper_8(Math::vec2 position = Map::middle_point) : SniperUnit(4.3, 90, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/sniper/sniper_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/sniper/sniper8.spt", (this)));
         current_state = &state_none;
         current_state->Enter(this);
 
@@ -128,7 +128,7 @@ class Sniper_16 : public SniperUnit
 public:
     Sniper_16(Math::vec2 position = Map::middle_point) : SniperUnit(4.0, 200, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/sniper/sniper_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/sniper/sniper16.spt", (this)));
         current_state = &state_none;
         current_state->Enter(this);
 

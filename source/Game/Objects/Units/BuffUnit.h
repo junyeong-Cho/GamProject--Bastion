@@ -131,11 +131,6 @@ public:
         return GameObjectTypes::BuffUnit;
     }
 
-    virtual std::string TypeName() override
-    {
-        return "BuffUnit";
-    }
-
 protected:
     virtual void Draw(Math::TransformationMatrix camera_matrix);
     bool         restart = false;
@@ -161,7 +156,7 @@ public:
     {
         return "AtkspdBuff_4";
     };
-
+    
     bool CanMergeWith(GameObjectTypes type) override;
     void ResolveMerge(GameObject* other_object) override;
 };

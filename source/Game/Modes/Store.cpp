@@ -82,7 +82,6 @@ void Store::Load()
 
 void Store::Update(double dt)
 {
-    std::cout << selected_stage << "," << selected_map << std::endl;
 	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
     
     if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::_1))
