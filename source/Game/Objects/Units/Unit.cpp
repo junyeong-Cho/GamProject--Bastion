@@ -58,7 +58,7 @@ void Unit::Draw(Math::TransformationMatrix camera_matrix)
 
     // Merge range
     Engine::Instance().push();
-    shape.SetColor(0.0f, 0.0f, 0.0f, 0.2f);
+    sha pe.SetColor(0.0f, 0.0f, 0.0f, 0.2f);
     shape.DrawCircle(static_cast<int>(position.x), static_cast<int>(position.y), static_cast<int>(radius), static_cast<int>(radius));
     Engine::Instance().pop();
 
@@ -96,19 +96,26 @@ void Unit::Draw(Math::TransformationMatrix camera_matrix)
 
 void Unit::DrawMergeList()
 {
-    float initial_x_value = 200;
-    float initial_y_value = 600;
+    float initial_x_value = 0;
+    float initial_y_value = 500;
 
     for (const auto& pair : merge_list)
     {
+        GameObjectTypes mytype = Type();
         GameObjectTypes target = pair.first;
         GameObjectTypes result = pair.second;
 
-        std::string string = TypeName() + " + " + toString(target) + " = " + toString(result);
 
-        ShaderDrawing::draw_text(string, initial_x_value, initial_y_value, 20, 0.0, 0.0, 0.0);
+        ShaderDrawing::Image& myImage     = getImage(mytype);
+        ShaderDrawing::Image& targetImage = getImage(target);
+        ShaderDrawing::Image& resultImage = getImage(result);
+
+
+        ShaderDrawing::draw_image(myImage, initial_x_value, initial_y_value, 0, 0, 89, 89);
+        ShaderDrawing::draw_image(targetImage, initial_x_value + 100, initial_y_value, 0, 0, 89, 89);
+        ShaderDrawing::draw_image(resultImage, initial_x_value + 200, initial_y_value, 0, 0, 89, 89);
         //Engine::GetLogger().LogDebug(TypeName() + " + " + toString(target) + " = " + toString(result));
-        initial_y_value -= 30;
+        initial_y_value -= 135;
     }
 }
 
@@ -301,4 +308,16 @@ void Unit::ResetBuff()
 {
     damage_buff = 1.0;
     atkspd_buff = 1.0;
+}
+
+ShaderDrawing::Image& Unit::getImage(GameObjectTypes type)
+{
+    auto it = imageCache.find(type);
+    if (it == imageCache.end())
+    {
+        ShaderDrawing::Image newImage = ShaderDrawing::Image(toStringPath(type));
+        imageCache[type]              = newImage;
+        return imageCache[type];
+    }
+    return it->second;
 }

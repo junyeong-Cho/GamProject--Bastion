@@ -144,10 +144,6 @@ void Editor::Update(double dt)
     {
         Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->DeleteAllMonster();
     }
-    if (Monster::GetRemainingMonster() >= 3)
-    {
-        Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->ApplyDebuff(0.1);
-    }
 
 }
 
@@ -163,7 +159,7 @@ void Editor::Draw()
     GetGSComponent<Map>()->Draw(camera_matrix,0);
     GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
     GetGSComponent<GAM200::GameObjectManager>()->DrawParticle(camera_matrix);
-    GetGSComponent<Interface>()->Draw(camera_matrix,1);
+    GetGSComponent<Interface>()->Draw(camera_matrix);
 
     Unit* unit = GetGSComponent<GAM200::GameObjectManager>()->GetInfoTarget();
     if (unit != nullptr)

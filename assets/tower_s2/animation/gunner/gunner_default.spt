@@ -1,17 +1,7 @@
-assets/tower_s2/animation/gunner/gunner.png
-HotSpot 207 0
-FrameSize 415 150
-Frame 0 0
-Frame 415 0
-Frame 830 0
-Frame 1245 0
-Frame 1660 0
-Frame 2075 0
-Frame 2490 0
-Frame 2905 0
-Frame 3320 0
-Frame 3735 0
-Frame 4150 0
+assets/tower_s2/animation/gunner/gunner0.png
+HotSpot 166 63
+FrameSize 332 251
+NumFrames 10
 Anim assets/tower_s2/animation/gunner/none.anm
 Anim assets/tower_s2/animation/gunner/attack.anm
 

@@ -43,7 +43,7 @@ class DmgBuff_4 : public DmgBuffUnit
 public:
     DmgBuff_4(Math::vec2 position = Map::middle_point) : DmgBuffUnit(1.5, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/spear/spear_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/support_damage/support_damage_default.spt", (this)));
 
         merge_list.insert({ GameObjectTypes::DmgBuff_4, GameObjectTypes::DmgBuff_8 });
     }
@@ -67,7 +67,7 @@ class DmgBuff_8 : public DmgBuffUnit
 public:
     DmgBuff_8(Math::vec2 position = Map::middle_point) : DmgBuffUnit(2.5, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/spear/spear_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/support_damage/support_damage_default.spt", (this)));
 
         merge_list.insert({ GameObjectTypes::DmgBuff_8, GameObjectTypes::DmgBuff_16 });
     }
@@ -91,7 +91,7 @@ class DmgBuff_16 : public DmgBuffUnit
 public:
     DmgBuff_16(Math::vec2 position = Map::middle_point) : DmgBuffUnit(6.5, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/spear/spear_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/support_damage/support_damage_default.spt", (this)));
 
     }
 
@@ -131,11 +131,6 @@ public:
         return GameObjectTypes::BuffUnit;
     }
 
-    virtual std::string TypeName() override
-    {
-        return "BuffUnit";
-    }
-
 protected:
     virtual void Draw(Math::TransformationMatrix camera_matrix);
     bool         restart = false;
@@ -148,7 +143,7 @@ class AtkspdBuff_4 : public AtkspdBuffUnit
 public:
     AtkspdBuff_4(Math::vec2 position = Map::middle_point) : AtkspdBuffUnit(0.9, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/spear/spear_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/support_speed/support_speed_default.spt", (this)));
 
     }
 
@@ -161,7 +156,7 @@ public:
     {
         return "AtkspdBuff_4";
     };
-
+    
     bool CanMergeWith(GameObjectTypes type) override;
     void ResolveMerge(GameObject* other_object) override;
 };
@@ -171,7 +166,7 @@ class AtkspdBuff_8 : public AtkspdBuffUnit
 public:
     AtkspdBuff_8(Math::vec2 position = Map::middle_point) : AtkspdBuffUnit(0.8, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/spear/spear_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/support_speed/support_speed_default.spt", (this)));
 
     }
 
@@ -194,7 +189,7 @@ class AtkspdBuff_16 : public AtkspdBuffUnit
 public:
     AtkspdBuff_16(Math::vec2 position = Map::middle_point) : AtkspdBuffUnit(0.6, position)
     {
-        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/spear/spear_default.spt", (this)));
+        AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/support_speed/support_speed_default.spt", (this)));
 
     }
 

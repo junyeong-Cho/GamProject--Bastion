@@ -335,14 +335,18 @@ void GAM200::GameObjectManager::DeleteAllMonster()
     }
 }
 
-void GAM200::GameObjectManager::ApplyDebuff(double debuff_multiplier)
+void GAM200::GameObjectManager::ApplyDebuff(Math::vec2 position, double range, double debuffFactor)
 {
     for (GameObject* object : objects)
     {
-        if (object->Type() == GameObjectTypes::Unit)
+        if (object->Type() > GameObjectTypes::Unit && object->Type() < GameObjectTypes::UnitEnd)
         {
-            Unit*  unit            = static_cast<Unit*>(object);
-			unit->SetDamage(debuff_multiplier);
+            Unit*  unit            = dynamic_cast<Unit*>(object);
+
+			double squared_distance = (unit->GetPosition().x - position.x) * (unit->GetPosition().x - position.x) + (unit->GetPosition().y - position.y) * (unit->GetPosition().y - position.y); 
+
+			if (squared_distance <= pow(range, 2))
+				unit->BuffDmg(debuffFactor);
         }
     }
 }

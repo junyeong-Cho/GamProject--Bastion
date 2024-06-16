@@ -1,0 +1,7 @@
+assets/tower_s2/animation/sniper/sniper2.png
+HotSpot 181 36
+FrameSize 363 145
+NumFrames 10
+Anim assets/tower_s2/animation/none.anm
+Anim assets/tower_s2/animation/sniper/sniper_attack.anm
+

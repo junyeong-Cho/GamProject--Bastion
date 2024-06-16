@@ -44,6 +44,7 @@ public:
     int counter = 0;
 
     GAM200::Texture* store_background;
+    GAM200::Texture* item_background;
     GAM200::Texture* base_cover;
     GAM200::Texture* base_stage0;
     GAM200::Texture* base_stage1;
