@@ -165,13 +165,28 @@ public:
     void func() override;
 };
 
-class Base_Item_Button : public Button
+class Base_Item1_Button : public Button
 {
 public:
-    Base_Item_Button(Math::vec2 position, Math::vec2 size);
+    Base_Item1_Button(Math::vec2 position, Math::vec2 size);
 
     void func() override;
-    void Draw(Math::TransformationMatrix camera_matrix) override;
+};
+
+class Base_Item2_Button : public Button
+{
+public:
+    Base_Item2_Button(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
+};
+
+class Base_Item3_Button : public Button
+{
+public:
+    Base_Item3_Button(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
 };
 
 class Selected_Stage0_Button : public Button
@@ -342,4 +357,17 @@ public:
     Wave_Enemy3(Math::vec2 position, Math::vec2 size);
 
     void func() override;
+};
+
+class Mute_ONOFF_Button : public Button
+{
+public:
+    Mute_ONOFF_Button(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
+    void Draw(Math::TransformationMatrix camera_matrix) override;
+
+private:
+    GAM200::Texture* mute_on   = Engine::Instance().GetTextureManager().Load("assets/buttons/mute_on.png");
+    GAM200::Texture* mute_off  = Engine::Instance().GetTextureManager().Load("assets/buttons/mute_off.png");
 };

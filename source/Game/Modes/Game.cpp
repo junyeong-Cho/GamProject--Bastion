@@ -27,7 +27,6 @@
 #include "Game/Objects/Units/MeleeUnit.h"
 #include "Game/Objects/Units/RangedUnit.h"
 #include "Game/Objects/Units/MagicUnit.h"
-
 #include "Game/Objects/Units/BuffUnit.h"
 
 #include "Game/Objects/Monsters/Monster.h"
@@ -37,25 +36,14 @@
 #include "Game/Particles.h"
 
 #include "Engine/Camera.h"
-
-
 #include "Engine/GameObject.h"
-
-
-
-
-
-
-
-
-
-
 
 int startGold = 110;
 int monsterLimit = 40;
 extern int diamond;
 extern int unit_cost;
-extern int         selected_map;
+extern int selected_map;
+bool       isended = false;
 
 Game::Game()
 {
@@ -82,19 +70,18 @@ void Game::Load()
     GAM200::GameObjectManager* gameobjectmanager = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>();
 	if (Button::random == false)
     {
+        gameobjectmanager->Add(new random_tower_Button({ 530.918 -128, 31.5268 }, { 88, 88 }));
         gameobjectmanager->Add(new tower1_Button({ 530.918, 31.5268 }, { 88, 88 }));
         gameobjectmanager->Add(new tower2_Button({ 658.918, 31.5268 }, { 88, 88 }));
         gameobjectmanager->Add(new tower3_Button({ 786.918, 31.5268 }, { 88, 88 }));
-        //tower_ui = GAM200::Texture("assets/buttons/tower_ui.png");
 	}
 	else
 	{
-        gameobjectmanager->Add(new random_tower_Button({ 402.9181, 31.5268 }, { 88, 88 }));
-        //tower_ui = GAM200::Texture("assets/buttons/tower_ui.png");
+        gameobjectmanager->Add(new random_tower_Button({ 594.918, 31.5268 }, { 88, 88 }));
 	}
     gameobjectmanager->Add(new GameSpeed_Button({ 1016.4631, 688.3434 }, { 74.1758, 74.1758 }));
     gameobjectmanager->Add(new Skip_Button({ 1144.4631, 688.3434 }, { 74.1758, 74.1758 }));
-    gameobjectmanager->Add(new Setting_Button({ 61.3611, 688.3434 }, { 74.1758, 74.1758 }));
+    gameobjectmanager->Add(new Setting_Button({ 108.7507 - 153/2, 800 - 43.44- 43/2 }, { 153, 43 }));
 
 	in_game_state = InProgress;
 
@@ -107,6 +94,16 @@ void Game::Load()
 void Game::Update(double dt)
 {
     count += dt;
+    if (!GetGSComponent<Wave>()->IsResting())
+    {
+        wave_signal_count += dt;
+    }
+    if (GetGSComponent<Wave>()->IsResting())
+    {
+        wave_signal_count = 0;
+    }
+
+    std::cout << wave_signal_count << std::endl;
 
 	GetGSComponent<GameSpeed>()->Update(dt);
 	GetGSComponent<Time>()->Update(dt);
@@ -178,14 +175,22 @@ void Game::Draw()
     Math::TransformationMatrix camera_matrix = GetGSComponent<GAM200::Camera>()->GetMatrix();
   
     GetGSComponent<Map>()->Draw(camera_matrix, selected_map);
+    if (selected_map > 2)
+    {
+        lefttrain.Draw(37.802, wave_signal_count * 400 - 3809, 304, 3809);
+        righttrain.Draw(939.6, wave_signal_count * 400 - 3809, 304, 3809);
+    }
+
+    switch (rand() % 3)
+    {
+        case 0: cloud1.Draw(0, wave_signal_count * 100 - 4000, 2294, 3997); break;
+        case 1: cloud2.Draw(0, wave_signal_count * 100 - 4000, 2294, 3997); break;
+        case 2: cloud3.Draw(0, wave_signal_count * 100 - 4000, 2294, 3997); break;
+        default: break;
+    }
     GetGSComponent<GAM200::GameObjectManager>()->DrawAll(camera_matrix);
     GetGSComponent<GAM200::GameObjectManager>()->DrawParticle(camera_matrix);
-    GetGSComponent<Interface>()->Draw(camera_matrix, 1);
-
-
-
-
-
+    GetGSComponent<Interface>()->Draw(camera_matrix);
 
     Unit* unit = GetGSComponent<GAM200::GameObjectManager>()->GetInfoTarget();
     if (unit != nullptr)
@@ -195,88 +200,50 @@ void Game::Draw()
     }
     if (Button::random)
     {
-        //tower_ui_random.Draw(380, 35, 514, 108);
     }
     else
     {
-        //tower_ui_no_random.Draw(380, 35, 514, 108);
     }
 #if IfWantShader
     if (GetGSComponent<Wave>()->IsResting())
-        //ShaderDrawing::draw_text("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 1100, 600, 50, 50.0f, 50.0f, 50.0f);
-        ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 640, 736.8542, 20, 181, 0, 0);
-         //to 승훈 넥스트 웨이브 시간 표시하는거 웨이브 끝나고 인터페이스 헤더에 있는 enemy_wave_ui를 언드로우하고 그 자리 위에 뜨도록 해줘 웨이브 대기 시간동안  폰트 좌표 640, 736.8542
-    
-    ShaderDrawing::draw_text(std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 960, 65, 31.36, 50.0f, 50.0f, 50.0f);//골드표시
-  
-
-    
-
-    ///ui text parts ==||
-    //                 \/
-    // 
-   
-    //<now monsyer numbers>
-    
-   
-        if (10 <= (Monster::GetRemainingMonster()))
+    {
+        ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 640, 731.8542, 20, 0.71f, 0.0f, 0.0f);
+        isended = false;
+    }
+    else
+    {
+        if ((Monster::GetRemainingMonster() > GetGSComponent<MonsterLimit>()->GetLimit() * 0.8))
         {
-            if ((Monster::GetRemainingMonster() > GetGSComponent<MonsterLimit>()->GetLimit() * 0.8)) {
-                ShaderDrawing::draw_text(std::to_string(Monster::GetRemainingMonster()), 589.5752 + 13, 736.8542, 31.36, 181, 0, 0);//number_warning_color
-            }
-            else
-            {
-                ShaderDrawing::draw_text(std::to_string(Monster::GetRemainingMonster()), 589.5752 + 13, 736.8542, 31.36, 51.0f, 50.0f, 50.0f);
-            }
+            ShaderDrawing::draw_text(std::to_string(Monster::GetRemainingMonster()), 589.5752 + 13, 736.8542, 31.36, 0.71f, 0.0f, 0.0f); // number_warning_color
         }
         else
         {
-
-            if ((Monster::GetRemainingMonster() > GetGSComponent<MonsterLimit>()->GetLimit() * 0.8)) {
-                ShaderDrawing::draw_text("0" + std::to_string(Monster::GetRemainingMonster()), 589.5752 + 13, 736.8542, 31.36, 181, 0, 0);//number_warning_color
-            }
-            else
-            {
-                ShaderDrawing::draw_text("0" + std::to_string(Monster::GetRemainingMonster()), 589.5752 + 13, 736.8542, 31.36, 51.0f, 50.0f, 50.0f);
-            }
+            ShaderDrawing::draw_text(std::to_string(Monster::GetRemainingMonster()), 589.5752 + 13, 736.8542, 31.36, 0.196f, 0.196f, 0.196f);
         }
+        ShaderDrawing::draw_text("/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 627.394 + 15, 739.1143, 22, 0.196f, 0.196f, 0.196f);
+        ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1) + "/" + std::to_string(GetGSComponent<Wave>()->GetMaxWave()), 736, 736.8542, 31.36, 0.196f, 0.196f, 0.196f);
+        isended = true;
+    }
 
 
-        ShaderDrawing::draw_text("/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 627.394 + 15, 739.1143, 22, 50.0f, 50.0f, 50.0f);//enemy_max_numbers
-      
-
-
-
-
-        ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1) + "/" + std::to_string(GetGSComponent<Wave>()->GetMaxWave()), 736, 736.8542, 31.36, 50.0f, 50.0f, 50.0f);//wave
- 
-
-    /// <summary>
-    /// /
-    /// 
-    /// </summary>
+    ShaderDrawing::draw_text(std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 960, 65, 31.36, 0.196f, 0.196f, 0.196f);
 
 
     if (!Button::random)
     {
-        ShaderDrawing::draw_text(std::to_string(unit_cost), 566, 34, 25, 1.0f, 1.0f, 0.0f);
-        ShaderDrawing::draw_text(std::to_string(unit_cost), 830, 34, 25, 1.0f, 1.0f, 0.0f);
+        ShaderDrawing::draw_text(std::to_string(unit_cost), 575.4382, 36.0547, 20, 0.196f, 0.196f, 0.196f);
+        ShaderDrawing::draw_text(std::to_string(unit_cost), 702.918, 36.0547, 20, 0.196f, 0.196f, 0.196f);
+        ShaderDrawing::draw_text(std::to_string(unit_cost), 830.917, 36.0547, 20, 0.196f, 0.196f, 0.196f);
+
     }
- 
 
-    
-    ShaderDrawing::draw_text(std::to_string(unit_cost), 575.4382, 36.0547, 20, 50.0f, 50.0f, 50.0f);//1번타워
-    ShaderDrawing::draw_text(std::to_string(unit_cost), 702.918, 36.0547, 20, 50.0f, 50.0f, 50.0f);//2번타워
-    ShaderDrawing::draw_text(std::to_string(unit_cost), 830.917, 36.0547, 20, 50.0f, 50.0f, 50.0f);//3번타워
-
-    
     if (GetGSComponent<Wave>()->IsResting() &&
         (GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()) <= 2 &&
         (GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()) >= 0)
     {
         if ((GetGSComponent<Wave>()->GetCurWave() + 1 > 9))
         {
-            ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1), 715.377, 340.6201, 127.01, 1.0f, 0.423529f, 0.0f, 0.392157);
+            ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1), 715.377, 340.6201, 127.01, 1.0f, 0.423529f, 0.0f, 0.392157f);
         }
 }
 #else
@@ -310,23 +277,19 @@ void Game::Draw()
 		lose.Draw(0, 0, 1280, 800);
 	}
 
-    if (GetGSComponent<Wave>()->IsResting() &&
-        (GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()) <= 2 &&
-        (GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()) > 1)
+    if (!GetGSComponent<Wave>()->IsResting() && wave_signal_count < 2.0)
     {
         if ((GetGSComponent<Wave>()->GetCurWave() + 1 > 9)) {
-            wave2.Draw(0, 302.3333, 1280, 200);
+            wave2.Draw(1280 * wave_signal_count - 1280, 302.3333, 1280, 200);
             ShaderDrawing::ShaderDraw::setFont("assets/font/Eina01-Bold.ttf");
-            //ShaderDrawing::draw_text("Wave: " + std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1), 715.377, 340.6201, 127.01, 255, 108, 255,100);
-            ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1), 715.377, 340.6201, 127.01, 1.0f, 0.423529f, 0.0f, 0.392157);
+            ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1), 1280 * wave_signal_count + 715.377 + 70- 1280, 340.6201 + 20, 127.01, 1.0f, 0.423529f, 0.0f, 0.392157);
         }
         else {
-            wave1.Draw(0, 302.3333, 1280, 200);
+            wave1.Draw(1280 * wave_signal_count - 1280, 302.3333, 1280, 200);
+            ShaderDrawing::ShaderDraw::setFont("assets/font/Eina01-Bold.ttf");
+            ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1), 1280 * wave_signal_count + 715.377 + 70-1280, 340.6201 + 20, 127.01, 1.0f, 0.423529f, 0.0f, 0.392157);
         }
     }
-    //GameSpeed_Button gameSpeedButton;
-    //Skip_Button      skipButton;
-    //Setting_Button   settingButton;
 }
 
 void Game::ImguiDraw()

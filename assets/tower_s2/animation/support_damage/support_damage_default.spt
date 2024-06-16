@@ -1,0 +1,8 @@
+assets/tower_s2/animation/support_damage/support_black.png
+HotSpot 230 70
+FrameSize 460 279
+NumFrames 19
+
+Anim assets/tower_s2/animation/none.anm
+Anim assets/tower_s2/animation/support_damage/support_damage_attack.anm
+

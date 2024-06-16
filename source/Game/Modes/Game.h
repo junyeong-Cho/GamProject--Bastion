@@ -52,6 +52,15 @@ public:
 	GAM200::Texture lose = GAM200::Texture("assets/lose.png");
 	GAM200::Texture wave1 = GAM200::Texture("assets/Background/wave1.png");
 	GAM200::Texture wave2 = GAM200::Texture("assets/Background/wave2.png");
+
+	GAM200::Texture cloud1 = GAM200::Texture("assets/Background/cloud1.png");
+    GAM200::Texture cloud2 = GAM200::Texture("assets/Background/cloud2.png");
+    GAM200::Texture cloud3 = GAM200::Texture("assets/Background/cloud3.png");
+    GAM200::Texture lefttrain = GAM200::Texture("assets/Background/lefttrain.png");
+    GAM200::Texture righttrain = GAM200::Texture("assets/Background/righttrain.png");
+
+
+
 	//GAM200::Texture ui       = GAM200::Texture("assets/Background/ingame_ui.png");
 #else
 	GAM200::Texture tower_ui_no_random = GAM200::Texture("assets/buttons/tower_ui.png", GAM200::Texture::TextureType::RECTANGLE);
@@ -85,4 +94,5 @@ private:
 
 
 	double count = 0.0;
+    double wave_signal_count = 0.0;
 };

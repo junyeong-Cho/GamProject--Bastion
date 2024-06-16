@@ -27,7 +27,11 @@ Created:    March 14, 2024
 
 extern int startGold;
 int        diamond = 100;
-extern int stock;
+
+extern int stock1;
+extern int stock2;
+extern int stock3;
+
 extern int selected_stage;
 extern int selected_map;
 
@@ -50,7 +54,9 @@ void Store::Load()
 
 	gameobjectmanager->Add(new Store_Menu_Button({ 18.6646, 745.1167 }, { 153, 43 }));
     gameobjectmanager->Add(new Store_GameStart_Button({ 1003.1398, 20.4109 }, { 257, 56 }));
-    gameobjectmanager->Add(new Base_Item_Button({ 125.2568, 121.9691 }, { 208, 206 }));
+    gameobjectmanager->Add(new Base_Item1_Button({ 125.2568, 121.9691 }, { 208, 206 }));
+    gameobjectmanager->Add(new Base_Item2_Button({ 375.2568, 121.9691 }, { 208, 206 }));
+    gameobjectmanager->Add(new Base_Item3_Button({ 625.2568, 121.9691 }, { 208, 206 }));
     gameobjectmanager->Add(new Selected_Stage0_Button({ 129.2302, 388.8858 }, { 100, 70 }));
     gameobjectmanager->Add(new Selected_Stage1_Button({ 247.6667, 388.8858 }, { 100, 70 }));
     gameobjectmanager->Add(new Selected_Stage2_Button({ 365.1032, 388.8858 }, { 100, 70 }));
@@ -65,6 +71,7 @@ void Store::Load()
 	counter = 0;
 
 	store_background = Engine::Instance().GetTextureManager().Load("assets/Background/base_background.png");
+    item_background  = Engine::Instance().GetTextureManager().Load("assets/Background/item_ui.png");
     base_cover       = Engine::Instance().GetTextureManager().Load("assets/Background/base_cover.png");
     base_stage0      = Engine::Instance().GetTextureManager().Load("assets/Background/base_stage0.png");
     base_stage1      = Engine::Instance().GetTextureManager().Load("assets/Background/base_stage1.png");
@@ -97,7 +104,7 @@ void Store::Unload()
 void Store::Draw()
 {
 	store_background->Draw(Math::TranslationMatrix(Math::ivec2{ 0 ,0 }));
-
+    item_background->Draw(Math::TranslationMatrix(Math::ivec2{ 0, 0 }));
     switch (selected_stage)
     {
         case 0: base_stage0->Draw(Math::TranslationMatrix(Math::vec2{ 112.5635, 376.3333 })); break;
@@ -110,10 +117,11 @@ void Store::Draw()
 	GetGSComponent<GAM200::GameObjectManager>()->DrawAll(Math::TransformationMatrix());
 
     ShaderDrawing::ShaderDraw::setFont("assets/font/Eina01-SemiBold.ttf");
-    ShaderDrawing::draw_text("Stock: " + std::to_string(stock), 302.041, 262.7529, 10, 0.0f, 0.0f, 0.0f);
-
+    ShaderDrawing::draw_text(std::to_string(stock1), 315.1025 +   5, 800 - 524.8457, 15, 0.0f, 0.0f, 0.0f);
+    ShaderDrawing::draw_text(std::to_string(stock2), 315.1025 + 255, 800 - 524.8457, 15, 0.0f, 0.0f, 0.0f);
+    ShaderDrawing::draw_text(std::to_string(stock3), 315.1025 + 505, 800 - 524.8457, 15, 0.0f, 0.0f, 0.0f);
     ShaderDrawing::ShaderDraw::setFont("assets/font/Eina01-Bold.ttf");
-	ShaderDrawing::draw_text("Gold: " + std::to_string(diamond), 1100, 700, 50, 1.0f, 1.0f, 0.0f);
+    ShaderDrawing::draw_text("Diamond: " + std::to_string(diamond), 1100, 700, 50, 0.4f, 1.0f, 0.9f);
 }
 
 void Store::ImguiDraw()

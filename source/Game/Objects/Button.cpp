@@ -39,7 +39,10 @@ extern int  diamond;
 int			selected_stage = 0;
 int         selected_map   = -1;
 int         unit_cost      = 55;
-int         stock          = 50;
+int         stock1         = 10;
+int         stock2         = 10;
+int         stock3         = 10;
+bool        mute           = false;
 
 Button::Button(Math::vec2 position, Math::vec2 size) : GameObject(position), position(position), size(size)
 {
@@ -205,21 +208,34 @@ void Store_GameStart_Button::func() {
 }
 
 
-Base_Item_Button::Base_Item_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+Base_Item1_Button::Base_Item1_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
 {
-    AddGOComponent(new GAM200::Sprite("assets/buttons/Itembox.spt", (this)));
 }
 
-void Base_Item_Button::func()
+void Base_Item1_Button::func()
 {
-    stock--;
-    //Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Game));
+    if (stock1>0)
+        stock1--;
 }
 
-void Base_Item_Button::Draw(Math::TransformationMatrix camera_matrix)
+Base_Item2_Button::Base_Item2_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
 {
-    Math::TranslationMatrix translation(Math::vec2(640, 400));
-    GameObject::Draw(camera_matrix * translation);
+}
+
+void Base_Item2_Button::func()
+{
+    if (stock2 > 0)
+        stock2--;
+}
+
+Base_Item3_Button::Base_Item3_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+}
+
+void Base_Item3_Button::func()
+{
+    if (stock3 > 0)
+        stock3--;
 }
 
 Selected_Stage0_Button::Selected_Stage0_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
@@ -512,9 +528,6 @@ void GameSpeed_Button::Draw(Math::TransformationMatrix camera_matrix)
 	case 2:
 		speed_2->Draw(GetMatrix());
 		break;
-	//case 3:
-	//	//speed_3->Draw(GetMatrix() * camera_matrix);
-	//	break;
 	case 4:
 		speed_4->Draw(GetMatrix());
 		break;
@@ -594,4 +607,35 @@ Wave_Enemy3::Wave_Enemy3(Math::vec2 position, Math::vec2 size) : Button(position
 
 void Wave_Enemy3::func()
 {
+}
+
+Mute_ONOFF_Button::Mute_ONOFF_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+{
+
+}
+
+void Mute_ONOFF_Button::func()
+{
+    if (mute)
+    {
+        mute = false;
+        Engine::Instance().GetAudioManager().SetMusicVolume(0.0f);
+    }
+    else
+    {
+        mute = true;
+        Engine::Instance().GetAudioManager().SetMusicVolume(0.5f);
+    }
+}
+
+void Mute_ONOFF_Button::Draw(Math::TransformationMatrix camera_matrix)
+{
+    if (mute)
+    {
+        mute_on->Draw(GetMatrix());
+    }
+    else
+    {
+        mute_off->Draw(GetMatrix());
+    }
 }

@@ -24,8 +24,11 @@ public:
     }
 
 private:
+
+    GAM200::Texture* sound_background;
+
     float bgmVolume;
     float sfxVolume;
-    bool  isBlurComplete;
-    float blurProgress;
+    //bool  isBlurComplete;
+    //float blurProgress;
 };
