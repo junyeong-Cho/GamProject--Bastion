@@ -160,6 +160,41 @@ void Game::Update(double dt)
             }
             break;
     }
+
+    if (selected_map >= 4 && selected_map <=6)
+    {
+        magic_count += dt;
+        switch (magic_state)
+        {
+            case Off:
+                if (magic_count >= magic_cool_time)
+                {
+                    magic_state = On;
+                    magic_count = 0;
+
+                    double map_x_gap = Map::inner_rigiht_end - Map::inner_left_end;
+                    double map_y_gap = Map::inner_top_end - Map::inner_bottom_end;
+
+                    double random_x_position = static_cast<double>(std::rand() % static_cast<int>(map_x_gap) + Map::inner_left_end);
+                    double random_y_position = static_cast<double>(std::rand() % static_cast<int>(map_y_gap) + Map::inner_bottom_end);
+
+                    magic_position = Math::vec2(random_x_position, random_y_position);
+                }
+                break;
+
+            case On:
+
+                GetGSComponent<GAM200::GameObjectManager>()->ApplyDebuff(magic_position, magic_range, 0.7);
+
+                if (magic_count >= magic_last_time)
+                {
+                    magic_state = Off;
+
+                    magic_count = 0;
+                }
+                break;
+        }
+    }
 }
 
 void Game::Unload()
@@ -290,6 +325,12 @@ void Game::Draw()
             ShaderDrawing::ShaderDraw::setFont("assets/font/Eina01-Bold.ttf");
             ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1), 1280 * wave_signal_count + 715.377 + 70-1280, 340.6201 + 20, 127.01, 1.0f, 0.423529f, 0.0f, 0.392157);
         }
+    }
+
+    if (magic_state == On)
+    {
+        //ShaderDrawing::draw_image()
+        ShaderDrawing::draw_circle(magic_position.x, magic_position.y, magic_range, magic_range);
     }
 }
 

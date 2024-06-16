@@ -91,9 +91,18 @@ private:
 		Lose
 	} in_game_state = InProgress;
 
-
-
 	double count = 0.0;
     double wave_signal_count = 0.0;
     double wave_stop_count = -1.0;
+
+	Math::vec2           magic_position;
+    inline static double magic_range = 160.0;
+    inline static double magic_cool_time = 20.0;
+    inline static double magic_last_time = 10.0;
+    double               magic_count     = 0.0;
+    enum Magic_State
+    {
+        Off,
+        On
+    } magic_state = Off;
 };
