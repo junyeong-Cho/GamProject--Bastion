@@ -144,10 +144,6 @@ void Editor::Update(double dt)
     {
         Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->DeleteAllMonster();
     }
-    if (Monster::GetRemainingMonster() >= 3)
-    {
-        Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->ApplyDebuff(0.1);
-    }
 
 }
 

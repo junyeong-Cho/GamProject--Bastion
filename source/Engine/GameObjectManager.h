@@ -54,7 +54,7 @@ namespace GAM200
         Monster* GetClosestMonster(Math::vec2 position);
         void DeleteAllMonster();
         double WideDamage(Math::vec2 position, double radius, double damage);
-        void ApplyDebuff(double debuffFactor);
+        void ApplyDebuff(Math::vec2 position, double range, double debuffFactor);
 
     private:
         std::list<GameObject*> objects;
