@@ -52,7 +52,7 @@ void Setting::Draw()
 {
     Engine::GetWindow().Clear(0.2f, 0.4f, 0.7f, 1.0f);
     setting_background->Draw(Math::TranslationMatrix(Math::ivec2{ 0, 0 }));
-    ShaderDrawing::draw_text("Main BGM Volume: " + std::to_string(bgmVolume), 500, 430, 40, 0.196f, 0.196f, 0.196f);
+    ShaderDrawing::draw_text("Main BGM Volume: " + std::to_string(bgmVolume), 600, 430, 40, 0.196f, 0.196f, 0.196f);
 
 
 
