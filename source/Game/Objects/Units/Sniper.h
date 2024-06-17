@@ -73,7 +73,7 @@ public:
         current_state = &state_none;
         current_state->Enter(this);
 
-        merge_list.insert({ GameObjectTypes::, GameObjectTypes::Sniper_4 });
+        merge_list.insert({ GameObjectTypes::Sniper_2, GameObjectTypes::Sniper_4 });
         merge_list.insert({ GameObjectTypes::Spear_2, GameObjectTypes::Rambo_4 });
         merge_list.insert({ GameObjectTypes::Transform_2, GameObjectTypes::DmgBuff_4 });
     }
