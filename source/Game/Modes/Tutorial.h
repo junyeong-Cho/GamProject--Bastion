@@ -46,11 +46,7 @@ public:
     GAM200::Texture lose = GAM200::Texture("assets/lose.png");
     GAM200::Texture ui   = GAM200::Texture("assets/Background/ingame_ui.png");
 
-    GAM200::Texture tutorial1     = GAM200::Texture("assets/Background/tutorial1.png");
-    GAM200::Texture tutorial2     = GAM200::Texture("assets/Background/tutorial2.png");
-    GAM200::Texture tutorial3     = GAM200::Texture("assets/Background/tutorial3.png");
-    GAM200::Texture tutorial4     = GAM200::Texture("assets/Background/tutorial4.png");
-    GAM200::Texture tutorial5     = GAM200::Texture("assets/Background/tutorial5.png");
+
 
 #else
     GAM200::Texture                  tower_ui = GAM200::Texture("assets/buttons/tower_ui.png", GAM200::Texture::TextureType::RECTANGLE);
