@@ -22,15 +22,6 @@ public:
     
 	virtual void Draw(Math::TransformationMatrix camera_matrix) override;
 
-    GameObjectTypes Type() override
-    {
-        return GameObjectTypes::Boss;
-    }
-    std::string TypeName() override
-    {
-        return "Boss";
-    }
-
     enum NextPattern
     {
         Summon,

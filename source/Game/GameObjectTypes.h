@@ -16,7 +16,6 @@ enum class GameObjectTypes
 {
     // Season 2
     Monster,
-    Boss,
 
     Unit,
 

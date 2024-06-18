@@ -65,8 +65,8 @@ public:
 
 	static inline double outer_left_end = 360;
 	static inline double outer_right_end = 920;
-	static inline double outer_top_end = 800;
-	static inline double outer_bottom_end = 120;
+	static inline double outer_top_end = 740;
+	static inline double outer_bottom_end = 100;
 
 	static inline double inner_left_end = outer_left_end + basic_size;
 	static inline double inner_rigiht_end = outer_right_end - basic_size;
