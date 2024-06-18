@@ -94,6 +94,8 @@ protected:
     double death_count = 0.0f;
     static inline double death_time  = 0.5;
 
+    int max_life;
+
 private:
 	static int remaining_monster;
 };

@@ -30,6 +30,11 @@ public:
         return static_cast<int>(time);
     }
 
+    int GetMaxTime() const
+    {
+        return static_cast<int>(time_limit);
+    }
+
     bool IsOver() const
     {
         return time < 0;

@@ -142,6 +142,7 @@ void Game::Update(double dt)
     {
         in_game_state = Lose;
     }
+
     switch (in_game_state)
     {
         case InProgress:
@@ -154,6 +155,10 @@ void Game::Update(double dt)
 
         case Boss:
             GetGSComponent<Timer>()->Update(dt);
+            if (GetGSComponent<Timer>()->IsOver())
+            {
+                in_game_state = Lose;
+            }
             if (Monster::GetRemainingMonster() == 0)
             {
                 in_game_state = Win;
@@ -204,18 +209,6 @@ void Game::Update(double dt)
                 break;
         }
     }
-    if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::J))
-    {
-        GetGSComponent<Gold>()->Earn(55);
-    }
-    if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::K))
-    {
-        GetGSComponent<MonsterLimit>()->SetLimit(100);
-    }
-    if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::L))
-    {
-        GetGSComponent<MonsterLimit>()->SetLimit(5);
-    }
 }
 
 void Game::Unload()
@@ -230,7 +223,7 @@ void Game::Unload()
 void Game::Draw()
 {
     Math::TransformationMatrix camera_matrix = GetGSComponent<GAM200::Camera>()->GetMatrix();
-  
+
     GetGSComponent<Map>()->Draw(camera_matrix, selected_map);
     if (selected_map > 2)
     {
@@ -291,66 +284,74 @@ void Game::Draw()
         ShaderDrawing::draw_text(std::to_string(unit_cost), 575.4382, 36.0547, 20, 0.196f, 0.196f, 0.196f);
         ShaderDrawing::draw_text(std::to_string(unit_cost), 702.918, 36.0547, 20, 0.196f, 0.196f, 0.196f);
         ShaderDrawing::draw_text(std::to_string(unit_cost), 830.917, 36.0547, 20, 0.196f, 0.196f, 0.196f);
-
     }
 
-    if (GetGSComponent<Wave>()->IsResting() &&
-        (GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()) <= 2 &&
+    if (GetGSComponent<Wave>()->IsResting() && (GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()) <= 2 &&
         (GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()) >= 0)
     {
         if ((GetGSComponent<Wave>()->GetCurWave() + 1 > 9))
         {
             ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1), 715.377, 340.6201, 127.01, 1.0f, 0.423529f, 0.0f);
         }
-}
+    }
 #else
 
-	trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
-	time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 700 }));
-	gold->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 630 }));
-	//speed->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 630 }));
-	monsters->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 560 }));
-	currentwave->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 490 }));
+    trash->Draw(Math::TranslationMatrix(Math::ivec2{ -100, -100 }));
+    time->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 700 }));
+    gold->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 630 }));
+    // speed->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 630 }));
+    monsters->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 560 }));
+    currentwave->Draw(Math::TranslationMatrix(Math::ivec2{ 910, 490 }));
 #endif
 
 #if !defined(__EMSCRIPTEN__)
-	if (count < 3.0)
-	{
-		Engine::Instance().push();
-		GAM200::DrawShape shape;
-		Math::ivec2 window_size = Engine::GetWindow().GetSize();
-		shape.SetColor(0.f, 0.f, 0.f, 1.f);
-		shape.DrawRectangle(static_cast<int>(-count * 500), 0, window_size.x / 2, window_size.y);
-		shape.DrawRectangle(window_size.x / 2 + static_cast<int>(count * 500), 0, window_size.x / 2, window_size.y);
-		Engine::Instance().pop();
-	}
+    if (count < 3.0)
+    {
+        Engine::Instance().push();
+        GAM200::DrawShape shape;
+        Math::ivec2       window_size = Engine::GetWindow().GetSize();
+        shape.SetColor(0.f, 0.f, 0.f, 1.f);
+        shape.DrawRectangle(static_cast<int>(-count * 500), 0, window_size.x / 2, window_size.y);
+        shape.DrawRectangle(window_size.x / 2 + static_cast<int>(count * 500), 0, window_size.x / 2, window_size.y);
+        Engine::Instance().pop();
+    }
 #endif
-	if (in_game_state == Win)
-	{
-		win.Draw(0, 0, 1280, 800);
-	}
-	if (in_game_state == Lose)
-	{
-		lose.Draw(0, 0, 1280, 800);
-	}
+    if (in_game_state == Win)
+    {
+        win.Draw(0, 0, 1280, 800);
+    }
+    if (in_game_state == Lose)
+    {
+        lose.Draw(0, 0, 1280, 800);
+    }
 
     if (!GetGSComponent<Wave>()->IsResting() && wave_signal_count < 2.0)
     {
-        if ((GetGSComponent<Wave>()->GetCurWave() + 1 > 9)) {
+        if ((GetGSComponent<Wave>()->GetCurWave() + 1 > 9))
+        {
             wave2.Draw(1280 * wave_signal_count - 1280, 302.3333, 1280, 200);
             ShaderDrawing::ShaderDraw::setFont("assets/font/Eina01-Bold.ttf");
-            ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1), 1280 * wave_signal_count + 715.377 + 70- 1280, 340.6201 + 20, 127.01, 1.0f, 0.423529f, 0.0f, 0.392157);
+            ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1), 1280 * wave_signal_count + 715.377 + 70 - 1280, 340.6201 + 20, 127.01, 1.0f, 0.423529f, 0.0f, 0.392157);
         }
-        else {
+        else
+        {
             wave1.Draw(1280 * wave_signal_count - 1280, 302.3333, 1280, 200);
             ShaderDrawing::ShaderDraw::setFont("assets/font/Eina01-Bold.ttf");
-            ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1), 1280 * wave_signal_count + 715.377 + 70-1280, 340.6201 + 20, 127.01, 1.0f, 0.423529f, 0.0f, 0.392157);
+            ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1), 1280 * wave_signal_count + 715.377 + 70 - 1280, 340.6201 + 20, 127.01, 1.0f, 0.423529f, 0.0f, 0.392157);
         }
     }
 
     if (magic_state == On)
     {
         ShaderDrawing::draw_circle(magic_position.x, magic_position.y, magic_range, magic_range);
+    }
+
+    if (in_game_state == Boss)
+    {
+        int current_time = GetGSComponent<Timer>()->CurrentTimeInt();   // 0 -> 120
+        int max_time     = GetGSComponent<Timer>()->GetMaxTime();       // 120
+
+        ShaderDrawing::draw_text(std::to_string(current_time) + " seconds until game over", Map::middle_point.x, Map::inner_top_end - Map::basic_size / 2, 30, current_time / 120.0 * 255.0, 0, 0);
     }
 }
 

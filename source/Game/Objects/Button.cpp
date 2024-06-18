@@ -214,11 +214,13 @@ Base_Item1_Button::Base_Item1_Button(Math::vec2 position, Math::vec2 size) : But
 
 void Base_Item1_Button::func()
 {
-    if (stock1>0)
-        stock1--;
-
     if (diamond < cost)
         return;
+
+    if (stock1 <= 0)
+        return;
+
+    --stock1;
     diamond -= cost;
 
     startGold += 50;
@@ -230,11 +232,13 @@ Base_Item2_Button::Base_Item2_Button(Math::vec2 position, Math::vec2 size) : But
 
 void Base_Item2_Button::func()
 {
-    if (stock2 > 0)
-        stock2--;
-
     if (diamond < cost)
         return;
+
+    if (stock2 <= 0)
+        return;
+
+    --stock2;
     diamond -= cost;
 
     monsterLimit += 5;
@@ -246,11 +250,13 @@ Base_Item3_Button::Base_Item3_Button(Math::vec2 position, Math::vec2 size) : But
 
 void Base_Item3_Button::func()
 {
-    if (stock3 > 0)
-        stock3--;
-
     if (diamond < cost)
         return;
+
+    if (stock3 <= 0)
+        return;
+
+    --stock3;
     diamond -= cost;
 
     unit_cost -= 2;

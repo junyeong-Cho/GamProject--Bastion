@@ -22,6 +22,8 @@ Monster::Monster(MonsterInfo info) : GameObject(Map::middle_upper_left), info(in
 	AddGOComponent(new GAM200::CircleCollision(radius, this));
     Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 
+    max_life = info.life;
+
 	++remaining_monster;
 }
 
@@ -49,6 +51,8 @@ Monster::Monster(MonsterInfo info, Math::vec2 position, Math::vec2 direction) : 
 	AddGOComponent(new GAM200::CircleCollision(radius, this));
     Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>()->Add(this);
 
+    max_life = info.life;
+
 	++remaining_monster;
 }
 
@@ -72,6 +76,15 @@ void Monster::Draw(Math::TransformationMatrix camera_matrix)
 	//image->Draw(static_cast<int>(position.x) - 528 / 8, static_cast<int>(position.y), 528 / 4, 350 / 4);
     //image->Draw(camera_matrix * Math::TranslationMatrix(Math::ivec2{ static_cast<int>(position.x) - 528 / 8, static_cast<int>(position.y) }));
     GAM200::GameObject::Draw(camera_matrix);
+
+    if (info.life > 0)
+    {
+        ShaderDrawing::push();
+        float life_ratio = static_cast<float>(info.life) / max_life;
+        ShaderDrawing::set_color((1.0 - life_ratio) * 255, life_ratio * 255, 0, 125);
+        ShaderDrawing::draw_box(GetPosition().x, GetPosition().y - radius * 1.7, radius, radius / 8.0);
+        ShaderDrawing::pop();
+    }
 }
 
 // Check to change direction
@@ -156,6 +169,7 @@ void Monster::State_Dead::Enter(GameObject* object)
     Monster* monster = static_cast<Monster*>(object);
     monster->death_count = monster->death_time;
     monster->GetGOComponent<GAM200::Sprite>()->PlayAnimation(static_cast<int>(anm::dead));
+    monster->SetVelocity({ 0, 0 });
 }
 void Monster::State_Dead::Update(GameObject* object, double dt)
 {

@@ -61,7 +61,7 @@ protected:
     State_Attack state_attacking;
     State_Stun   state_stun;
 
-    double stun_time  = 1.0;
+    double stun_time  = 5.0;
     double stun_count = 0;
 };
 

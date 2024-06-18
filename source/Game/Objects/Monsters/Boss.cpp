@@ -4,20 +4,19 @@
 void Boss::Draw(Math::TransformationMatrix camera_matrix)
 {
     Math::vec2 position = GetPosition();
-    GAM200::GameObject::Draw(camera_matrix);
+
+    Monster::Draw(camera_matrix);
 
 
     if (stun_count >= stun_pattern_cool_time - stun_pattern_delay)
     {
         Engine::GetLogger().LogDebug("Drawing Stun Range: " + std::to_string(stun_pattern_cool_time - stun_count));
         double stun_scale_gap = stun_pattern_cool_time - stun_count + 1.0;
-        double stun_scale     = 1.0 / stun_scale_gap;
+        double stun_scale     = 1.0 / stun_scale_gap * 0.7;
         ShaderDrawing::push();
         ShaderDrawing::set_color(255 * stun_scale, 0, 0, 255 * stun_scale);
-        ShaderDrawing::draw_circle(GetPosition().x, GetPosition().y, stun_range * stun_scale, stun_range * stun_scale * 0.7);
+        ShaderDrawing::draw_circle(GetPosition().x, GetPosition().y, stun_range * stun_scale, stun_range * stun_scale);
         ShaderDrawing::pop();
-        /*ShaderDrawing::set_color(25, 25, 25, 153);
-        ShaderDrawing::draw_circle(GetPosition().x, GetPosition().y, stun_range, stun_range);*/
     }
 }
 
