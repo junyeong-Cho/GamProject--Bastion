@@ -45,8 +45,8 @@ namespace GAM200
 
     static const std::unordered_map<AudioID, std::string> AudioFiles = 
     {
-        {         AudioID::MainMenu_BGM,   "assets/Sounds/Theme/Maintheme_Reference.wav"},
-        {             AudioID::Game_BGM, "assets/Sounds/Theme/BattleTheme_Reference.wav"},
+        {         AudioID::MainMenu_BGM,   "assets/Sounds/Theme/Main_Theme.mp3"},
+        {             AudioID::Game_BGM, "assets/Sounds/Theme/Main_Stage_theme.mp3"},
         {  AudioID::Maintheme_Reference,   "assets/Sounds/Theme/Maintheme_Reference.wav"},
         {AudioID::BattleTheme_Reference, "assets/Sounds/Theme/BattleTheme_Reference.wav"},
 

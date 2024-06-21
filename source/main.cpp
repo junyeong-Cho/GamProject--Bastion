@@ -9,6 +9,7 @@
 #include "Game/Modes/MainMenu.h"
 #include "Game/Modes/Game.h"
 #include "Game/Modes/Setting.h"
+#include "Game/Modes/Credit.h"
 #include "Game/Modes/HowToPlay.h"
 #include "Game/Modes/Store.h"
 #include "Game/Modes/Win.h"
@@ -101,6 +102,8 @@ int main()
         engine.GetGameStateManager().AddGameState(lose);
         Setting setting;
         engine.GetGameStateManager().AddGameState(setting);
+        Credit credit;
+        engine.GetGameStateManager().AddGameState(credit);
 
 #if     !defined(__EMSCRIPTEN__)
         while (engine.HasGameEnded() == false)

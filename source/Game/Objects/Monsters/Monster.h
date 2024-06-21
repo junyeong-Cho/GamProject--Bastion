@@ -341,7 +341,7 @@ public:
 class Monster_13 : public Monster
 {
 public:
-    Monster_13() : Monster({ 50, 0, 1.0 })
+    Monster_13() : Monster({ 60, 0, 1.0 })
     {
         AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Akuma2.spt", (this)));
 
@@ -361,7 +361,7 @@ public:
 class Monster_14 : public Monster
 {
 public:
-    Monster_14() : Monster({ 50, 0, 1.0 })
+    Monster_14() : Monster({ 70, 0, 1.0 })
     {
         AddGOComponent(new GAM200::Sprite("assets/enemy_s2/mimic.spt", (this)));
 
@@ -381,7 +381,7 @@ public:
 class Monster_15 : public Monster
 {
 public:
-    Monster_15() : Monster({ 50, 0, 1.0 })
+    Monster_15() : Monster({ 80, 0, 1.0 })
     {
         AddGOComponent(new GAM200::Sprite("assets/enemy_s2/BanBanMon.spt", (this)));
 
@@ -401,7 +401,7 @@ public:
 class Monster_16 : public Monster
 {
 public:
-    Monster_16() : Monster({ 50, 0, 1.0 })
+    Monster_16() : Monster({ 100, 0, 1.0 })
     {
         AddGOComponent(new GAM200::Sprite("assets/enemy_s2/Boss.spt", (this)));
 

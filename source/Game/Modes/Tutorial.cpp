@@ -69,6 +69,7 @@ void Tutorial::Load()
     AddGSComponent(new GAM200::ParticleManager<Particles::FontParticle>());
 
     GAM200::GameObjectManager* gameobjectmanager = Engine::GetGameStateManager().GetGSComponent<GAM200::GameObjectManager>();
+    gameobjectmanager->Add(new random_tower_Button({ 530.918 - 128, 31.5268 }, { 88, 88 }));
     gameobjectmanager->Add(new tower1_Button({ 530.918, 31.5268 }, { 88, 88 }));
     gameobjectmanager->Add(new tower2_Button({ 658.918, 31.5268 }, { 88, 88 }));
     gameobjectmanager->Add(new tower3_Button({ 786.918, 31.5268 }, { 88, 88 }));
@@ -193,19 +194,42 @@ void Tutorial::Draw()
     //tower_ui.Draw(380, 35, 514, 108);
     switch (currentTask)
     {
-        case SummonUnit: ShaderDrawing::draw_text("Summon a unit by pressing the button below", 400, 200, 35, 0.0f, 1.0f, 1.0f); break;
-        case Merge: ShaderDrawing::draw_text("Drag your unit to another unit to merge", 400, 500, 35, 0.0f, 1.0f, 1.0f); break;
-        case Limit: ShaderDrawing::draw_text("You can see monster limit on the right side", 400, 500, 35, 0.0f, 1.0f, 1.0f); break;
-        case TabAndClick: ShaderDrawing::draw_text("You can change speed by the button or pressing \"Tab\"", 500, 500, 35, 0.0f, 1.0f, 1.0f); break;
-        case Info: ShaderDrawing::draw_text("You also can see informations on the right side", 450, 500, 35, 0.0f, 1.0f, 1.0f); break;
-        case Done: ShaderDrawing::draw_text("Done!", 400, 500, 35, 0.0f, 1.0f, 1.0f); break;
+        case SummonUnit: tutorial1.Draw(0,0,1280,800); break;
+        case Merge: tutorial2.Draw(0, 0, 1280, 800); break;
+        case Limit: tutorial3.Draw(0, 0, 1280, 800); break;
+        case TabAndClick: tutorial4.Draw(0, 0, 1280, 800); break;
+        case Info: tutorial5.Draw(0, 0, 1280, 800); break;
+        case Done: break;
+        default: break;
     }
 #if IfWantShader
+    //if (GetGSComponent<Wave>()->IsResting())
+        //ShaderDrawing::draw_text("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 1100, 600, 50, 255, 255, 255);
+    //ShaderDrawing::draw_text(std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 960, 65, 31.36, 255, 255, 255);
+    //ShaderDrawing::draw_text(std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 615.9102, 736.3091, 31.36, 50, 50, 50);
+    //ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1) + "/" + std::to_string(GetGSComponent<Wave>()->GetMaxWave()), 735, 736.3091, 31.36, 255, 255, 255);
+
+
     if (GetGSComponent<Wave>()->IsResting())
-        ShaderDrawing::draw_text("Next wave: " + std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 1100, 600, 50, 255, 255, 255);
-    ShaderDrawing::draw_text(std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 960, 65, 31.36, 255, 255, 255);
-    ShaderDrawing::draw_text(std::to_string(Monster::GetRemainingMonster()) + "/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 615.9102, 736.3091, 31.36, 50, 50, 50);
-    ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1) + "/" + std::to_string(GetGSComponent<Wave>()->GetMaxWave()), 735, 736.3091, 31.36, 255, 255, 255);
+    {
+        ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetRestTime() - GetGSComponent<Wave>()->GetCurTime()), 640, 731.8542, 20, 0.71f, 0.0f, 0.0f);
+        isended = false;
+    }
+    else
+    {
+        if ((Monster::GetRemainingMonster() > GetGSComponent<MonsterLimit>()->GetLimit() * 0.8))
+        {
+            ShaderDrawing::draw_text(std::to_string(Monster::GetRemainingMonster()), 589.5752 + 13, 736.8542, 31.36, 0.71f, 0.0f, 0.0f); // number_warning_color
+        }
+        else
+        {
+            ShaderDrawing::draw_text(std::to_string(Monster::GetRemainingMonster()), 589.5752 + 13, 736.8542, 31.36, 0.196f, 0.196f, 0.196f);
+        }
+        ShaderDrawing::draw_text("/" + std::to_string(GetGSComponent<MonsterLimit>()->GetLimit()), 627.394 + 15, 739.1143, 22, 0.196f, 0.196f, 0.196f);
+        ShaderDrawing::draw_text(std::to_string(GetGSComponent<Wave>()->GetCurWave() + 1) + "/" + std::to_string(GetGSComponent<Wave>()->GetMaxWave()), 736, 736.8542, 31.36, 0.196f, 0.196f, 0.196f);
+        isended = true;
+    }
+    ShaderDrawing::draw_text(std::to_string(GetGSComponent<Gold>()->GetCurrentGold()), 960, 65, 31.36, 0.196f, 0.196f, 0.196f);
     ShaderDrawing::draw_text(std::to_string(unit_cost), 566, 34, 25, 1.0f, 1.0f, 0.0f);
     ShaderDrawing::draw_text(std::to_string(unit_cost), 698, 34, 25, 1.0f, 1.0f, 0.0f);
     ShaderDrawing::draw_text(std::to_string(unit_cost), 830, 34, 25, 1.0f, 1.0f, 0.0f);

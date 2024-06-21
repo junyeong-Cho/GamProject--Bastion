@@ -204,18 +204,6 @@ void Game::Update(double dt)
                 break;
         }
     }
-    if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::J))
-    {
-        GetGSComponent<Gold>()->Earn(55);
-    }
-    if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::K))
-    {
-        GetGSComponent<MonsterLimit>()->SetLimit(100);
-    }
-    if (Engine::GetInput().KeyJustPressed(GAM200::Input::Keys::L))
-    {
-        GetGSComponent<MonsterLimit>()->SetLimit(5);
-    }
 }
 
 void Game::Unload()
@@ -350,7 +338,8 @@ void Game::Draw()
 
     if (magic_state == On)
     {
-        ShaderDrawing::draw_circle(magic_position.x, magic_position.y, magic_range, magic_range);
+        ShaderDrawing::Image debuff = "assets/buttons/debuff.png";
+        ShaderDrawing::draw_image(debuff, magic_position.x, magic_position.y, magic_range, magic_range);
     }
 }
 

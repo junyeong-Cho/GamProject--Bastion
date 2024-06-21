@@ -55,6 +55,7 @@ private:
 	std::unique_ptr<GAM200::Texture> play;
 	std::unique_ptr<GAM200::Texture> howToPlay;
 	std::unique_ptr<GAM200::Texture> setting;
+    std::unique_ptr<GAM200::Texture> credit;
 	std::unique_ptr<GAM200::Texture> gamePlay_Editor;
 	std::unique_ptr<GAM200::Texture> exit;
 
