@@ -87,7 +87,7 @@ set(SOURCE_CODE
     Game/Modes/Store.h                 Game/Modes/Store.cpp
     Game/Modes/Tutorial.h              Game/Modes/Tutorial.cpp
     Game/Modes/Win.h                   Game/Modes/Win.cpp
-
+    Game/Modes/Credit.h		Game/Modes/Credit.cpp
 
     Game/Objects/Button.h               Game/Objects/Button.cpp
 
