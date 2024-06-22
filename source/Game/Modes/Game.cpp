@@ -343,7 +343,8 @@ void Game::Draw()
 
     if (magic_state == On)
     {
-        ShaderDrawing::draw_circle(magic_position.x, magic_position.y, magic_range, magic_range);
+        ShaderDrawing::Image debuff = "assets/buttons/debuff.png";
+        ShaderDrawing::draw_image(debuff, magic_position.x, magic_position.y, magic_range, magic_range);
     }
 
     if (in_game_state == Boss)

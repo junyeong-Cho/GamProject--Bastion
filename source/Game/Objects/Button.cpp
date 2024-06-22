@@ -42,7 +42,7 @@ int         unit_cost      = 55;
 int         stock1         = 10;
 int         stock2         = 10;
 int         stock3         = 10;
-
+float       bgmVolume      = 50.0f;
 
 Button::Button(Math::vec2 position, Math::vec2 size) : GameObject(position), position(position), size(size)
 {
@@ -226,6 +226,12 @@ void Base_Item1_Button::func()
     startGold += 50;
 }
 
+void Base_Item1_Button::Draw(Math::TransformationMatrix camera_matrix)
+{
+    GameObject::Draw(camera_matrix);
+    ShaderDrawing::draw_text(std::to_string(cost), GetPosition().x + 111.1455, GetPosition().y + 12.7633, 17, 1.0f, 1.0f, 1.0f);
+}
+
 Base_Item2_Button::Base_Item2_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
 {
 }
@@ -244,6 +250,12 @@ void Base_Item2_Button::func()
     monsterLimit += 5;
 }
 
+void Base_Item2_Button::Draw(Math::TransformationMatrix camera_matrix)
+{
+    GameObject::Draw(camera_matrix);
+    ShaderDrawing::draw_text(std::to_string(cost), GetPosition().x + 111.1455, GetPosition().y + 12.7633, 17, 1.0f, 1.0f, 1.0f);
+}
+
 Base_Item3_Button::Base_Item3_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
 {
 }
@@ -260,6 +272,12 @@ void Base_Item3_Button::func()
     diamond -= cost;
 
     unit_cost -= 2;
+}
+
+void Base_Item3_Button::Draw(Math::TransformationMatrix camera_matrix)
+{
+    GameObject::Draw(camera_matrix);
+    ShaderDrawing::draw_text(std::to_string(cost), GetPosition().x + 111.1455, GetPosition().y + 12.7633, 17, 1.0f, 1.0f, 1.0f);
 }
 
 Selected_Stage0_Button::Selected_Stage0_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
@@ -633,33 +651,12 @@ void Wave_Enemy3::func()
 {
 }
 
-Mute_ONOFF_Button::Mute_ONOFF_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
+Sound_reset_Button::Sound_reset_Button(Math::vec2 position, Math::vec2 size) : Button(position, size)
 {
-
 }
 
-void Mute_ONOFF_Button::func()
+void Sound_reset_Button::func()
 {
-    if (!mute)
-    {
-    Engine::Instance().GetAudioManager().SetMusicVolume(0.0f);
-    mute = true;
-    }
-    else
-    {
-    Engine::Instance().GetAudioManager().SetMusicVolume(0.5f);
-    mute = false;
-    }
-}
-
-void Mute_ONOFF_Button::Draw(Math::TransformationMatrix camera_matrix)
-{
-    if (mute)
-    {
-        mute_on->Draw(GetMatrix());
-    }
-    else
-    {
-        mute_off->Draw(GetMatrix());
-    }
+    bgmVolume = 50.0f;
+    Engine::Instance().GetAudioManager().SetMusicVolume(bgmVolume);
 }

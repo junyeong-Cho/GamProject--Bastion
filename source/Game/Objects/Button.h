@@ -171,6 +171,7 @@ public:
     Base_Item1_Button(Math::vec2 position, Math::vec2 size);
 
     void func() override;
+    void Draw(Math::TransformationMatrix camera_matrix) override;
 
 private:
     int cost = 20;
@@ -182,6 +183,7 @@ public:
     Base_Item2_Button(Math::vec2 position, Math::vec2 size);
 
     void func() override;
+    void Draw(Math::TransformationMatrix camera_matrix) override;
 
 private:
     int cost = 30;
@@ -193,6 +195,7 @@ public:
     Base_Item3_Button(Math::vec2 position, Math::vec2 size);
 
     void func() override;
+    void Draw(Math::TransformationMatrix camera_matrix) override;
 
 private:
     int cost = 30;
@@ -380,4 +383,14 @@ private:
     GAM200::Texture* mute_on   = Engine::Instance().GetTextureManager().Load("assets/buttons/mute_on.png");
     GAM200::Texture* mute_off  = Engine::Instance().GetTextureManager().Load("assets/buttons/mute_off.png");
     bool             mute      = false;
+};
+
+class Sound_reset_Button : public Button
+{
+public:
+    Sound_reset_Button(Math::vec2 position, Math::vec2 size);
+
+    void func() override;
+
+private:
 };

@@ -24,7 +24,8 @@ public:
     }
 
 private:
+
     GAM200::Texture* setting_background;
-    float bgmVolume;
-    float sfxVolume;
+    GAM200::Texture* sound_box;
+    GAM200::Texture* sound_bar;
 };

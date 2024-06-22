@@ -96,7 +96,7 @@ void Unit::Draw(Math::TransformationMatrix camera_matrix)
 
 void Unit::DrawMergeList()
 {
-    float initial_x_value = 0;
+    float initial_x_value = 70;
     float initial_y_value = 500;
 
     for (const auto& pair : merge_list)
@@ -105,16 +105,16 @@ void Unit::DrawMergeList()
         GameObjectTypes target = pair.first;
         GameObjectTypes result = pair.second;
 
-
         ShaderDrawing::Image& myImage     = getImage(mytype);
         ShaderDrawing::Image& targetImage = getImage(target);
         ShaderDrawing::Image& resultImage = getImage(result);
 
 
-        ShaderDrawing::draw_image(myImage, initial_x_value, initial_y_value, 0, 0, 89, 89);
-        ShaderDrawing::draw_image(targetImage, initial_x_value + 100, initial_y_value, 0, 0, 89, 89);
-        ShaderDrawing::draw_image(resultImage, initial_x_value + 200, initial_y_value, 0, 0, 89, 89);
-        //Engine::GetLogger().LogDebug(TypeName() + " + " + toString(target) + " = " + toString(result));
+        ShaderDrawing::draw_image(myImage, initial_x_value, initial_y_value, 0, 0, 45, 45);
+        ShaderDrawing::draw_text("+", initial_x_value + 52, initial_y_value + 20, 20, 1.0f, 1.0f, 1.0f);
+        ShaderDrawing::draw_image(targetImage, initial_x_value + 60, initial_y_value, 0, 0, 45, 45);
+        ShaderDrawing::draw_text("=", initial_x_value + 113, initial_y_value + 20, 20, 1.0f, 1.0f, 1.0f);
+        ShaderDrawing::draw_image(resultImage, initial_x_value + 120, initial_y_value, 0, 0, 45, 45);
         initial_y_value -= 135;
     }
 }

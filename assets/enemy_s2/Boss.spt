@@ -1,6 +1,6 @@
 assets/enemy_s2/Boss.png
 HotSpot 50 50
-FrameSize 100 100
+FrameSize 150 150
 NumFrames 8
 
 Anim assets/enemy_s2/Monster_none8.anm

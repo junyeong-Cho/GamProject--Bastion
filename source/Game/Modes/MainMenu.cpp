@@ -48,7 +48,7 @@ void Main_menu::Load()
 
 void Main_menu::UpdateMenuTextColors()
 {
-	uint32_t colors[4] = { 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF };
+    uint32_t colors[5] = { 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF };
 	colors[counter] = 0x7EFACBFF;
 
 #if IfWantShader
@@ -59,7 +59,8 @@ void Main_menu::UpdateMenuTextColors()
 	play.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Play", colors[0]));
 	howToPlay.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("How to play", colors[1]));
 	setting.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Setting", colors[2]));
-	exit.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Exit", colors[3]));
+    credit.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Credit", colors[3]));
+	exit.reset(Engine::GetFont(static_cast<int>(Fonts::Outlined)).PrintToTexture("Exit", colors[4]));
 #endif
 
 }
@@ -74,13 +75,13 @@ void Main_menu::Update(double dt)
 
 	if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Down))
 	{
-		counter = (counter + 1) % 4;
+		counter = (counter + 1) % 5;
 		shouldUpdateColors = true;
         Engine::GetAudioManager().PlaySound(GAM200::AudioID::Button_1);
     }
 	else if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Up))
 	{
-		counter = (counter - 1 + 4) % 4;
+		counter = (counter - 1 + 5) % 5;
 		shouldUpdateColors = true;
         Engine::GetAudioManager().PlaySound(GAM200::AudioID::Button_1);
     }
@@ -108,7 +109,6 @@ void Main_menu::Update(double dt)
             Engine::GetAudioManager().PlaySound(GAM200::AudioID::Button_3);
             break;
 		case 1:
-
 			Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::HowToPlay));
             Engine::GetAudioManager().PlaySound(GAM200::AudioID::Button_3);		
 			break;
@@ -117,7 +117,11 @@ void Main_menu::Update(double dt)
             Engine::GetAudioManager().PlaySound(GAM200::AudioID::Button_3);		
 			break;
 		case 3:
-			Engine::GetGameStateManager().ClearNextGameState();
+            Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Credit));
+            Engine::GetAudioManager().PlaySound(GAM200::AudioID::Button_3);
+            break;
+        case 4:
+            Engine::GetGameStateManager().ClearNextGameState();
             Engine::GetAudioManager().PlaySound(GAM200::AudioID::Button_3);
             break;
 		}
@@ -149,13 +153,14 @@ void Main_menu::Draw()
 #else
 	Math::vec2 color = counter == 0 ? Math::vec2{ 255,0 } : Math::vec2{ 0,0 };
     ShaderDrawing::ShaderDraw::setFont("assets/font/Eina01-Bold.ttf");
-	ShaderDrawing::draw_text("Play", Engine::GetWindow().GetSize().x - 180 ,       Engine::GetWindow().GetSize().y / 2 - 150, 50, color.x, color.y, 0);
+	ShaderDrawing::draw_text("Play", Engine::GetWindow().GetSize().x - 180 ,       Engine::GetWindow().GetSize().y / 2 - 90, 50, color.x, color.y, 0);
 	color = counter == 1 ? Math::vec2{ 255,0 } : Math::vec2{ 0,0 };
-	ShaderDrawing::draw_text("How to play", Engine::GetWindow().GetSize().x - 180, Engine::GetWindow().GetSize().y / 2 - 210, 50, color.x, color.y, 0);
+	ShaderDrawing::draw_text("How to play", Engine::GetWindow().GetSize().x - 180, Engine::GetWindow().GetSize().y / 2 - 150, 50, color.x, color.y, 0);
 	color = counter == 2 ? Math::vec2{ 255,0 } : Math::vec2{ 0,0 };
-
-	ShaderDrawing::draw_text("Setting", Engine::GetWindow().GetSize().x - 180, Engine::GetWindow().GetSize().y / 2 - 270, 50, color.x, color.y, 0);
+	ShaderDrawing::draw_text("Setting", Engine::GetWindow().GetSize().x - 180, Engine::GetWindow().GetSize().y / 2 - 210, 50, color.x, color.y, 0);
 	color = counter == 3 ? Math::vec2{ 255,0 } : Math::vec2{ 0,0 };
+    ShaderDrawing::draw_text("Credit", Engine::GetWindow().GetSize().x - 180, Engine::GetWindow().GetSize().y / 2 - 270, 50, color.x, color.y, 0);
+    color = counter == 4 ? Math::vec2{ 255, 0 } : Math::vec2{ 0, 0 };
 	ShaderDrawing::draw_text("Exit", Engine::GetWindow().GetSize().x - 180,		 Engine::GetWindow().GetSize().y / 2 - 330, 50, color.x, color.y, 0);
 
 #endif

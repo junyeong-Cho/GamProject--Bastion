@@ -28,7 +28,7 @@ enum class States
 	Lose,
 
 	Setting,
-
+	Credit,
 
 
 	Stage,

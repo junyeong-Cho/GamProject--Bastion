@@ -41,7 +41,7 @@ protected:
 class DmgBuff_4 : public DmgBuffUnit
 {
 public:
-    DmgBuff_4(Math::vec2 position = Map::middle_point) : DmgBuffUnit(1.5, position)
+    DmgBuff_4(Math::vec2 position = Map::middle_point) : DmgBuffUnit(1.0, position)
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/support_damage/support_damage_default.spt", (this)));
 
@@ -89,7 +89,7 @@ public:
 class DmgBuff_16 : public DmgBuffUnit
 {
 public:
-    DmgBuff_16(Math::vec2 position = Map::middle_point) : DmgBuffUnit(6.5, position)
+    DmgBuff_16(Math::vec2 position = Map::middle_point) : DmgBuffUnit(6, position)
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/support_damage/support_damage_default.spt", (this)));
 
@@ -141,7 +141,7 @@ protected:
 class AtkspdBuff_4 : public AtkspdBuffUnit
 {
 public:
-    AtkspdBuff_4(Math::vec2 position = Map::middle_point) : AtkspdBuffUnit(0.9, position)
+    AtkspdBuff_4(Math::vec2 position = Map::middle_point) : AtkspdBuffUnit(1.0, position)
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/support_speed/support_speed_default.spt", (this)));
 
@@ -164,7 +164,7 @@ public:
 class AtkspdBuff_8 : public AtkspdBuffUnit
 {
 public:
-    AtkspdBuff_8(Math::vec2 position = Map::middle_point) : AtkspdBuffUnit(0.8, position)
+    AtkspdBuff_8(Math::vec2 position = Map::middle_point) : AtkspdBuffUnit(0.75, position)
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/support_speed/support_speed_default.spt", (this)));
 
@@ -187,7 +187,7 @@ public:
 class AtkspdBuff_16 : public AtkspdBuffUnit
 {
 public:
-    AtkspdBuff_16(Math::vec2 position = Map::middle_point) : AtkspdBuffUnit(0.6, position)
+    AtkspdBuff_16(Math::vec2 position = Map::middle_point) : AtkspdBuffUnit(0.5, position)
     {
         AddGOComponent(new GAM200::Sprite("assets/tower_s2/animation/support_speed/support_speed_default.spt", (this)));
 
