@@ -167,6 +167,8 @@ void Tutorial::Update(double dt)
             Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
         }
     }
+
+
 }
 
 void Tutorial::Unload()

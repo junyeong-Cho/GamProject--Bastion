@@ -76,6 +76,11 @@ void Store::Load()
 void Store::Update(double dt)
 {
 	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
+
+    if (!Engine::GetAudioManager().IsMusicPlaying(GAM200::AudioID::MainMenu_BGM))
+    {
+        Engine::GetAudioManager().PlayMusic(GAM200::AudioID::MainMenu_BGM);
+    }
 }
 
 void Store::Unload()
