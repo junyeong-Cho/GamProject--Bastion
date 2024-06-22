@@ -1,7 +1,7 @@
 assets/enemy_s2/mimic.png
-HotSpot 50 50
-FrameSize 100 100
-NumFrames 8
+HotSpot 57 50
+FrameSize 114 100
+NumFrames 7
 
 Anim assets/enemy_s2/mimic_none.anm
 Anim assets/enemy_s2/mimic_dead.anm

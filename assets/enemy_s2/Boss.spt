@@ -1,7 +1,7 @@
 assets/enemy_s2/Boss.png
-HotSpot 50 50
-FrameSize 150 150
-NumFrames 8
+HotSpot 58 75
+FrameSize 115 150
+NumFrames 14
 
-Anim assets/enemy_s2/Monster_none8.anm
-Anim assets/enemy_s2/Monster_dead8.anm
+Anim assets/enemy_s2/Boss_none.anm
+Anim assets/enemy_s2/Boss_dead.anm
