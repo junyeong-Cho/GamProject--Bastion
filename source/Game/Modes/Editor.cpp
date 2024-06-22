@@ -29,6 +29,7 @@
 #include "Game/Objects/Units/BuffUnit.h"
 
 #include "Game/Objects/Monsters/Monster.h"
+#include "Game/Objects/Monsters/Boss.h"
 
 #include "Game/Fonts.h"
 #include "Game/Objects/Button.h"
@@ -280,9 +281,13 @@ void Editor::ImguiDraw()
         new Monster_15();
     }
     ImGui::SameLine();
-    if (ImGui::Button("Boss"))
+    if (ImGui::Button("Monster_16"))
     {
         new Monster_16();
+    }
+    if (ImGui::Button("Boss"))
+    {
+        new Boss();
     }
     if (ImGui::SliderInt("Adjust Limit", &adjusted_monsterLimit, 40, 100, "%d"))
     {

@@ -241,13 +241,13 @@ void Base_Item2_Button::func()
     if (diamond < cost)
         return;
 
-    if (stock2 <= 0)
+    if (stock3 <= 0)
         return;
 
-    --stock2;
+    --stock3;
     diamond -= cost;
 
-    monsterLimit += 5;
+    unit_cost -= 2;
 }
 
 void Base_Item2_Button::Draw(Math::TransformationMatrix camera_matrix)
@@ -265,13 +265,13 @@ void Base_Item3_Button::func()
     if (diamond < cost)
         return;
 
-    if (stock3 <= 0)
+    if (stock2 <= 0)
         return;
 
-    --stock3;
+    --stock2;
     diamond -= cost;
 
-    unit_cost -= 2;
+    monsterLimit += 5;
 }
 
 void Base_Item3_Button::Draw(Math::TransformationMatrix camera_matrix)
@@ -327,7 +327,7 @@ void Base_Map0_Button::Draw(Math::TransformationMatrix camera_matrix)
 {
     if (selected_map == 0)
     {
-        Math::TranslationMatrix translation(Math::vec2(640, 400 + (39.3964/2 *3)));
+        Math::TranslationMatrix translation(Math::vec2(640, 400 + (39.3964/2)));
         GameObject::Draw(camera_matrix * translation);
     }
 }
@@ -350,7 +350,7 @@ void Base_Map1_Button::Draw(Math::TransformationMatrix camera_matrix)
 {
     if (selected_map == 1)
     {
-        Math::TranslationMatrix translation(Math::vec2(640, 400 + (39.3964 / 2 *3)));
+        Math::TranslationMatrix translation(Math::vec2(640, 400 + (39.3964 / 2)));
         GameObject::Draw(camera_matrix * translation);
     }
 }
@@ -372,7 +372,7 @@ void Base_Map2_Button::Draw(Math::TransformationMatrix camera_matrix)
 {
     if (selected_map == 2)
     {
-        Math::TranslationMatrix translation(Math::vec2(640, 400 + (39.3964 / 2 *3)));
+        Math::TranslationMatrix translation(Math::vec2(640, 400 + (39.3964 / 2)));
         GameObject::Draw(camera_matrix * translation);
     }
 }
@@ -394,7 +394,7 @@ void Base_Map3_Button::Draw(Math::TransformationMatrix camera_matrix)
 {
     if (selected_map == 3)
     {
-        Math::TranslationMatrix translation(Math::vec2(640, 400 + (39.3964 / 2 *3)));
+        Math::TranslationMatrix translation(Math::vec2(640, 400 + (39.3964 / 2)));
         GameObject::Draw(camera_matrix * translation);
     }
 }
@@ -416,7 +416,7 @@ void Base_Map4_Button::Draw(Math::TransformationMatrix camera_matrix)
 {
     if (selected_map == 4)
     {
-        Math::TranslationMatrix translation(Math::vec2(640, 400 + (39.3964 / 2 *3)));
+        Math::TranslationMatrix translation(Math::vec2(640, 400 + (39.3964 / 2)));
         GameObject::Draw(camera_matrix * translation);
     }
 }
@@ -438,7 +438,7 @@ void Base_Map5_Button::Draw(Math::TransformationMatrix camera_matrix)
 {
     if (selected_map == 5)
     {
-        Math::TranslationMatrix translation(Math::vec2(640, 400 + (39.3964 / 2 *3)));
+        Math::TranslationMatrix translation(Math::vec2(640, 400 + (39.3964 / 2)));
         GameObject::Draw(camera_matrix * translation);
     }
 }
@@ -460,7 +460,7 @@ void Base_Map6_Button::Draw(Math::TransformationMatrix camera_matrix)
 {
     if (selected_map == 6)
     {
-        Math::TranslationMatrix translation(Math::vec2(640, 400 + (39.3964 / 2 * 3)));
+        Math::TranslationMatrix translation(Math::vec2(640, 400 + (39.3964 / 2)));
         GameObject::Draw(camera_matrix * translation);
     }
 }
