@@ -1,7 +1,7 @@
-assets/tower_s2/animation/gunner/gunner8.png
+assets/tower_s2/animation/gunner/gunner16.png
 HotSpot 131 33
 FrameSize 263 133
 NumFrames 16
 Anim assets/tower_s2/animation/gunner/none.anm
-Anim assets/tower_s2/animation/gunner/attack3.anm
+Anim assets/tower_s2/animation/gunner/attack4.anm
 

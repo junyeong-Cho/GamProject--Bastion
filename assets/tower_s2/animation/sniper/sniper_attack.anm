@@ -6,5 +6,5 @@ PlayFrame 5 0.025
 PlayFrame 6 0.025
 PlayFrame 7 0.025
 PlayFrame 8 0.025
-PlayFrame 9 0.025
-Loop 3
+PlayFrame 9 15
+Loop 9

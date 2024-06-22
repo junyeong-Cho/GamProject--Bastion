@@ -1,9 +1,9 @@
-PlayFrame 1 0.5
-PlayFrame 2 0.5
-PlayFrame 3 0.5
-PlayFrame 4 0.5
-PlayFrame 5 0.5
-PlayFrame 6 0.5
-PlayFrame 7 0.5
-PlayFrame 8 0.5
+PlayFrame 1 0
+PlayFrame 2 0.125
+PlayFrame 3 0.125
+PlayFrame 4 0.125
+PlayFrame 5 0.125
+PlayFrame 6 0.125
+PlayFrame 7 5.2
+
 Loop 2
