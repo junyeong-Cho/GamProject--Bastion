@@ -66,10 +66,12 @@ public:
     }
 
 
+    #if !defined(__EMSCRIPTEN__)
     static GAM200::AudioManager& GetAudioManager()
     {
         return Instance().audiomanager;
     }
+    #endif
 
     //   static GAM200::Mouse& GetMouse()
     //   {
@@ -116,8 +118,10 @@ private:
     GAM200::GameStateManager gamestatemanager;
     GAM200::TextureManager   texturemanager;
     GAM200::Input input;
-    GAM200::AudioManager     audiomanager;
 
+    #if !defined(__EMSCRIPTEN__)
+    GAM200::AudioManager     audiomanager;
+    #endif
     //GAM200::Mouse mouse;
 
 

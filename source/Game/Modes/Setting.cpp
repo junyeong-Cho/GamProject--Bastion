@@ -22,6 +22,7 @@ void Setting::Load()
     gameobjectmanager->Add(new Store_Menu_Button({ 18.6646, 745.1167 }, { 153, 43 }));
     gameobjectmanager->Add(new Sound_reset_Button({ 873.5556, 582.5 }, { 100, 25 }));
     
+
     setting_background = Engine::Instance().GetTextureManager().Load("assets/Background/setting.jpg");
     sound_box          = Engine::Instance().GetTextureManager().Load("assets/Background/sound_box.png");
     sound_bar          = Engine::Instance().GetTextureManager().Load("assets/buttons/sound_bar.png");
@@ -34,12 +35,18 @@ void Setting::Update(double dt)
     if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Right))
     {
         bgmVolume = std::min(bgmVolume + 5.0f, 100.0f);
+        
+        #if !defined(__EMSCRIPTEN__)
         Engine::Instance().GetAudioManager().SetMusicVolume(bgmVolume);
+        #endif
     }
     if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Left))
     {
         bgmVolume = std::max(bgmVolume - 5.0f, 0.0f);
+
+        #if !defined(__EMSCRIPTEN__)
         Engine::Instance().GetAudioManager().SetMusicVolume(bgmVolume);
+        #endif
     }
 
     if (Engine::GetInput().KeyJustReleased(GAM200::Input::Keys::Escape))

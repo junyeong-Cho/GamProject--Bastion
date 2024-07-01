@@ -1,20 +1,15 @@
 #include "Drawing.h"
+#include <GL/glew.h>
 #include <SDL_vulkan.h>
-
 #include <array>
 #include <chrono>
 #include <filesystem>
+#include <ft2build.h>
 #include <sstream>
 #include <vector>
-
-#include <GL/glew.h>
-#include <ft2build.h>
-
 #include FT_FREETYPE_H
-
 #include <fstream>
 #include <iostream>
-
 
 ShaderDrawing::ShaderDraw::ShaderFile ShaderDrawing::ShaderDraw::vertexShaderBox       = { "assets/shaders/box.vert", std::filesystem::last_write_time("assets/shaders/box.vert") };
 ShaderDrawing::ShaderDraw::ShaderFile ShaderDrawing::ShaderDraw::fragmentShaderBox     = { "assets/shaders/box.frag", std::filesystem::last_write_time("assets/shaders/box.frag") };
@@ -101,8 +96,6 @@ glm::mat3 ShaderDrawing::ShaderDraw::privous_view_xform[2];
 glm::mat3 ShaderDrawing::ShaderDraw::apply_Matrix{ 1.f };
 glm::mat3 ShaderDrawing::ShaderDraw::previous_Matrix;
 
-//std::map<char, ShaderDrawing::ShaderDraw::Character> ShaderDrawing::ShaderDraw::Characters;
-
 bool ShaderDrawing::ShaderDraw::isfill          = true;
 bool ShaderDrawing::ShaderDraw::previous_isfill = true;
 
@@ -123,7 +116,6 @@ void ShaderDrawing::ShaderDraw::initFont()
     initFont("assets/font/Eina01-SemiBold.ttf");
 }
 
-
 void ShaderDrawing::ShaderDraw::initFont(const std::string& fontPath)
 {
     FT_Library ft;
@@ -132,8 +124,6 @@ void ShaderDrawing::ShaderDraw::initFont(const std::string& fontPath)
         std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
         return;
     }
-
-
 
     FT_Face face;
     if (FT_New_Face(ft, fontPath.c_str(), 0, &face))
@@ -157,9 +147,15 @@ void ShaderDrawing::ShaderDraw::initFont(const std::string& fontPath)
         }
 
         GLuint texture;
+#if !defined(__EMSCRIPTEN__)
         glCreateTextures(GL_TEXTURE_2D, 1, &texture);
         glTextureStorage2D(texture, 1, GL_R8, face->glyph->bitmap.width, face->glyph->bitmap.rows);
         glTextureSubImage2D(texture, 0, 0, 0, face->glyph->bitmap.width, face->glyph->bitmap.rows, GL_RED, GL_UNSIGNED_BYTE, face->glyph->bitmap.buffer);
+#else
+        glGenTextures(1, &texture);
+        glBindTexture(GL_TEXTURE_2D, texture);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, face->glyph->bitmap.width, face->glyph->bitmap.rows, 0, GL_RED, GL_UNSIGNED_BYTE, face->glyph->bitmap.buffer);
+#endif
 
         glBindTexture(GL_TEXTURE_2D, texture);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -183,16 +179,27 @@ void ShaderDrawing::ShaderDraw::initFont(const std::string& fontPath)
     FT_Done_FreeType(ft);
 
     GLuint vao;
+#if !defined(__EMSCRIPTEN__)
     glCreateVertexArrays(1, &vao);
+#else
+    glGenVertexArrays(1, &vao);
+#endif
 
     GLuint buffer;
+#if !defined(__EMSCRIPTEN__)
     glCreateBuffers(1, &buffer);
-
     glNamedBufferStorage(buffer, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_STORAGE_BIT);
-    glVertexArrayVertexBuffer(vao, 0, buffer, 0, sizeof(GLfloat) * 4);
-    glVertexArrayAttribFormat(vao, 0, 4, GL_FLOAT, GL_FALSE, 0);
-    glVertexArrayAttribBinding(vao, 0, 0);
-    glEnableVertexArrayAttrib(vao, 0);
+#else
+    glGenBuffers(1, &buffer);
+    glBindBuffer(GL_ARRAY_BUFFER, buffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+#endif
+
+    glBindVertexArray(vao);
+    glBindBuffer(GL_ARRAY_BUFFER, buffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void*)0);
+    glEnableVertexAttribArray(0);
 
     ShaderDraw::fontBox.vaoid[0] = vao;
     ShaderDraw::fontBox.vboid[0] = buffer;
@@ -241,23 +248,38 @@ void ShaderDrawing::ShaderDraw::setBoxModel()
     };
 
     GLuint VBO;
+#if !defined(__EMSCRIPTEN__)
     glCreateBuffers(1, &VBO);
     glNamedBufferStorage(VBO, sizeof(glm::vec2) * pos_vtx.size(), nullptr, GL_DYNAMIC_STORAGE_BIT);
     glNamedBufferSubData(VBO, 0, sizeof(glm::vec2) * pos_vtx.size(), pos_vtx.data());
+#else
+    glGenBuffers(1, &VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * pos_vtx.size(), pos_vtx.data(), GL_DYNAMIC_DRAW);
+#endif
 
     GLuint VAO;
+#if !defined(__EMSCRIPTEN__)
     glCreateVertexArrays(1, &VAO);
-    glEnableVertexArrayAttrib(VAO, 0);
-    glVertexArrayVertexBuffer(VAO, 0, VBO, 0, sizeof(glm::vec2));
-    glVertexArrayAttribFormat(VAO, 0, 2, GL_FLOAT, GL_FALSE, 0);
-    glVertexArrayAttribBinding(VAO, 0, 0);
+#else
+    glGenVertexArrays(1, &VAO);
+#endif
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
 
     std::vector<GLushort> idx_vtx = { 0, 1, 2, 2, 3, 0 };
     GLuint                EBO;
+#if !defined(__EMSCRIPTEN__)
     glCreateBuffers(1, &EBO);
     glNamedBufferStorage(EBO, sizeof(GLushort) * idx_vtx.size(), idx_vtx.data(), GL_DYNAMIC_STORAGE_BIT);
-    glVertexArrayElementBuffer(VAO, EBO);
-    glBindVertexArray(0);
+#else
+    glGenBuffers(1, &EBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort) * idx_vtx.size(), idx_vtx.data(), GL_DYNAMIC_DRAW);
+#endif
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
     std::string vertexShaderSource   = loadShaderSource("assets/shaders/box.vert");
     std::string fragmentShaderSource = loadShaderSource("assets/shaders/box.frag");
@@ -279,18 +301,27 @@ void ShaderDrawing::ShaderDraw::setBoxModel()
     };
 
     GLuint VBO1;
+#if !defined(__EMSCRIPTEN__)
     glCreateBuffers(1, &VBO1);
     glNamedBufferStorage(VBO1, sizeof(glm::vec2) * pos_vtx2.size(), nullptr, GL_DYNAMIC_STORAGE_BIT);
     glNamedBufferSubData(VBO1, 0, sizeof(glm::vec2) * pos_vtx2.size(), pos_vtx2.data());
+#else
+    glGenBuffers(1, &VBO1);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO1);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * pos_vtx2.size(), pos_vtx2.data(), GL_DYNAMIC_DRAW);
+#endif
 
     GLuint VAO1;
+#if !defined(__EMSCRIPTEN__)
     glCreateVertexArrays(1, &VAO1);
-    glEnableVertexArrayAttrib(VAO1, 0);
-    glVertexArrayVertexBuffer(VAO1, 0, VBO1, 0, sizeof(glm::vec2));
-    glVertexArrayAttribFormat(VAO1, 0, 2, GL_FLOAT, GL_FALSE, 0);
-    glVertexArrayAttribBinding(VAO1, 0, 0);
-    glVertexArrayElementBuffer(VAO1, EBO);
-    glBindVertexArray(0);
+#else
+    glGenVertexArrays(1, &VAO1);
+#endif
+    glBindVertexArray(VAO1);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO1);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
     box.vaoid[1] = VAO1;
 }
@@ -311,16 +342,26 @@ void ShaderDrawing::ShaderDraw::setCircleModel()
     }
 
     GLuint cVBO;
+#if !defined(__EMSCRIPTEN__)
     glCreateBuffers(1, &cVBO);
     glNamedBufferStorage(cVBO, sizeof(glm::vec2) * cpos_vtx.size(), nullptr, GL_DYNAMIC_STORAGE_BIT);
     glNamedBufferSubData(cVBO, 0, sizeof(glm::vec2) * cpos_vtx.size(), cpos_vtx.data());
+#else
+    glGenBuffers(1, &cVBO);
+    glBindBuffer(GL_ARRAY_BUFFER, cVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * cpos_vtx.size(), cpos_vtx.data(), GL_DYNAMIC_DRAW);
+#endif
 
     GLuint cVAO;
+#if !defined(__EMSCRIPTEN__)
     glCreateVertexArrays(1, &cVAO);
-    glEnableVertexArrayAttrib(cVAO, 0);
-    glVertexArrayVertexBuffer(cVAO, 0, cVBO, 0, sizeof(glm::vec2));
-    glVertexArrayAttribFormat(cVAO, 0, 2, GL_FLOAT, GL_FALSE, 0);
-    glVertexArrayAttribBinding(cVAO, 0, 0);
+#else
+    glGenVertexArrays(1, &cVAO);
+#endif
+    glBindVertexArray(cVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, cVBO);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
 
     std::vector<GLushort> cidx_vtx;
     for (GLushort i = 0; i < count; i++)
@@ -331,10 +372,15 @@ void ShaderDrawing::ShaderDraw::setCircleModel()
     cidx_vtx.push_back(1);
 
     GLuint cebo_hdl;
+#if !defined(__EMSCRIPTEN__)
     glCreateBuffers(1, &cebo_hdl);
     glNamedBufferStorage(cebo_hdl, sizeof(GLushort) * cidx_vtx.size(), cidx_vtx.data(), GL_DYNAMIC_STORAGE_BIT);
-    glVertexArrayElementBuffer(cVAO, cebo_hdl);
-    glBindVertexArray(0);
+#else
+    glGenBuffers(1, &cebo_hdl);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cebo_hdl);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort) * cidx_vtx.size(), cidx_vtx.data(), GL_DYNAMIC_DRAW);
+#endif
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cebo_hdl);
 
     std::string vertexShaderSource   = loadShaderSource("assets/shaders/circle.vert");
     std::string fragmentShaderSource = loadShaderSource("assets/shaders/circle.frag");
@@ -365,30 +411,44 @@ void ShaderDrawing::ShaderDraw::setTextureModel()
     };
 
     GLuint tVBO;
+#if !defined(__EMSCRIPTEN__)
     glCreateBuffers(1, &tVBO);
     glNamedBufferStorage(tVBO, sizeof(glm::vec2) * tpos_vtx.size() + sizeof(glm::vec2) * tpos_tex.size(), nullptr, GL_DYNAMIC_STORAGE_BIT);
     glNamedBufferSubData(tVBO, 0, sizeof(glm::vec2) * tpos_vtx.size(), tpos_vtx.data());
     glNamedBufferSubData(tVBO, sizeof(glm::vec2) * tpos_vtx.size(), sizeof(glm::vec2) * tpos_tex.size(), tpos_tex.data());
+#else
+    glGenBuffers(1, &tVBO);
+    glBindBuffer(GL_ARRAY_BUFFER, tVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * tpos_vtx.size(), tpos_vtx.data(), GL_DYNAMIC_DRAW);
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * tpos_vtx.size(), sizeof(glm::vec2) * tpos_tex.size(), tpos_tex.data());
+#endif
 
     GLuint tVAO;
+#if !defined(__EMSCRIPTEN__)
     glCreateVertexArrays(1, &tVAO);
-    glEnableVertexArrayAttrib(tVAO, 0);
-    glVertexArrayVertexBuffer(tVAO, 0, tVBO, 0, sizeof(glm::vec2));
-    glVertexArrayAttribFormat(tVAO, 0, 2, GL_FLOAT, GL_FALSE, 0);
-    glVertexArrayAttribBinding(tVAO, 0, 0);
+#else
+    glGenVertexArrays(1, &tVAO);
+#endif
+    glBindVertexArray(tVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, tVBO);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
 
-    glEnableVertexArrayAttrib(tVAO, 1);
-    glVertexArrayVertexBuffer(tVAO, 1, tVBO, sizeof(glm::vec2) * tpos_vtx.size(), sizeof(glm::vec2));
-    glVertexArrayAttribFormat(tVAO, 1, 2, GL_FLOAT, GL_FALSE, 0);
-    glVertexArrayAttribBinding(tVAO, 1, 1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)(sizeof(glm::vec2) * tpos_vtx.size()));
+    glEnableVertexAttribArray(1);
 
     std::array<GLushort, 4> tidx_vtx = { 0, 2, 1, 3 };
 
     GLuint tEBO;
+#if !defined(__EMSCRIPTEN__)
     glCreateBuffers(1, &tEBO);
     glNamedBufferStorage(tEBO, sizeof(GLushort) * tidx_vtx.size(), tidx_vtx.data(), GL_DYNAMIC_STORAGE_BIT);
-    glVertexArrayElementBuffer(tVAO, tEBO);
-    glBindVertexArray(0);
+#else
+    glGenBuffers(1, &tEBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, tEBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLushort) * tidx_vtx.size(), tidx_vtx.data(), GL_DYNAMIC_DRAW);
+#endif
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, tEBO);
 
     std::string vertexShaderSource   = loadShaderSource("assets/shaders/texture.vert");
     std::string fragmentShaderSource = loadShaderSource("assets/shaders/texture.frag");
@@ -410,25 +470,33 @@ void ShaderDrawing::ShaderDraw::setTextureModel()
     };
 
     GLuint tVBO2;
+#if !defined(__EMSCRIPTEN__)
     glCreateBuffers(1, &tVBO2);
     glNamedBufferStorage(tVBO2, sizeof(glm::vec2) * tpos_vtx2.size() + sizeof(glm::vec2) * tpos_tex.size(), nullptr, GL_DYNAMIC_STORAGE_BIT);
     glNamedBufferSubData(tVBO2, 0, sizeof(glm::vec2) * tpos_vtx2.size(), tpos_vtx2.data());
     glNamedBufferSubData(tVBO2, sizeof(glm::vec2) * tpos_vtx2.size(), sizeof(glm::vec2) * tpos_tex.size(), tpos_tex.data());
+#else
+    glGenBuffers(1, &tVBO2);
+    glBindBuffer(GL_ARRAY_BUFFER, tVBO2);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * tpos_vtx2.size(), tpos_vtx2.data(), GL_DYNAMIC_DRAW);
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * tpos_vtx2.size(), sizeof(glm::vec2) * tpos_tex.size(), tpos_tex.data());
+#endif
 
     GLuint tVAO2;
+#if !defined(__EMSCRIPTEN__)
     glCreateVertexArrays(1, &tVAO2);
-    glEnableVertexArrayAttrib(tVAO2, 0);
-    glVertexArrayVertexBuffer(tVAO2, 0, tVBO2, 0, sizeof(glm::vec2));
-    glVertexArrayAttribFormat(tVAO2, 0, 2, GL_FLOAT, GL_FALSE, 0);
-    glVertexArrayAttribBinding(tVAO2, 0, 0);
+#else
+    glGenVertexArrays(1, &tVAO2);
+#endif
+    glBindVertexArray(tVAO2);
+    glBindBuffer(GL_ARRAY_BUFFER, tVBO2);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
 
-    glEnableVertexArrayAttrib(tVAO2, 1);
-    glVertexArrayVertexBuffer(tVAO2, 1, tVBO2, sizeof(glm::vec2) * tpos_vtx2.size(), sizeof(glm::vec2));
-    glVertexArrayAttribFormat(tVAO2, 1, 2, GL_FLOAT, GL_FALSE, 0);
-    glVertexArrayAttribBinding(tVAO2, 1, 1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)(sizeof(glm::vec2) * tpos_vtx2.size()));
+    glEnableVertexAttribArray(1);
     textureBox.vaoid[1] = tVAO2;
-    glVertexArrayElementBuffer(tVAO2, tEBO);
-    glBindVertexArray(0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, tEBO);
 
     textureBox.vboid[0] = tVBO;
     textureBox.vboid[1] = tVBO2;
@@ -685,10 +753,10 @@ void ShaderDrawing::draw_image(Image& image, int x, int y, int width, int height
     glm::mat3 mdl_to_ndc_xform = ShaderDraw::world_to_ndc_xform * (transApplyMatrix * translateMat * ShaderDraw::apply_Matrix * scaleMat);
 
     glUseProgram(ShaderDraw::textureBox.shdr_pgm);
-    glBindTextureUnit(1, image.textureID);
+    glBindTexture(GL_TEXTURE_2D, image.textureID);
 
-    glTextureParameteri(image.textureID, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTextureParameteri(image.textureID, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
     glBindVertexArray(ShaderDraw::textureBox.vaoid[ShaderDraw::current_image_mode]);
     GLint uniform_var_loc1 = glGetUniformLocation(ShaderDraw::textureBox.shdr_pgm, "uModelToNDC");
@@ -744,10 +812,10 @@ void ShaderDrawing::draw_image_freely(Image& image, int x, int y, int width, int
     glm::mat3 mdl_to_ndc_xform = ShaderDraw::world_to_ndc_xform * (transApplyMatrix * translateMat * ShaderDraw::apply_Matrix * scaleMat);
 
     glUseProgram(ShaderDraw::textureBox.shdr_pgm);
-    glBindTextureUnit(1, image.textureID);
+    glBindTexture(GL_TEXTURE_2D, image.textureID);
 
-    glTextureParameteri(image.textureID, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTextureParameteri(image.textureID, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
     glBindVertexArray(ShaderDraw::textureBox.vaoid[ShaderDraw::current_image_mode]);
     GLint uniform_var_loc1 = glGetUniformLocation(ShaderDraw::textureBox.shdr_pgm, "uModelToNDC");
@@ -857,7 +925,12 @@ void ShaderDrawing::draw_image(ShaderDrawing::Image& image, int x, int y, int te
     tpos_vtx.push_back(glm::vec2{ (static_cast<float>(texelX + texelWidth) / static_cast<float>(image.GetWidth())),
                                   static_cast<float>((image.GetHeight() - texelY - texelHeight)) / static_cast<float>(image.GetHeight()) });
 
+#if !defined(__EMSCRIPTEN__)
     glNamedBufferSubData(ShaderDraw::textureBox.vboid[ShaderDraw::current_image_mode], sizeof(glm::vec2) * 4, sizeof(glm::vec2) * tpos_vtx.size(), tpos_vtx.data());
+#else
+    glBindBuffer(GL_ARRAY_BUFFER, ShaderDraw::textureBox.vboid[ShaderDraw::current_image_mode]);
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * 4, sizeof(glm::vec2) * tpos_vtx.size(), tpos_vtx.data());
+#endif
 
     glm::mat3 scaleMat{ 1.f };
 
@@ -884,9 +957,9 @@ void ShaderDrawing::draw_image(ShaderDrawing::Image& image, int x, int y, int te
     glm::mat3 mdl_to_ndc_xform = ShaderDraw::world_to_ndc_xform * (transApplyMatrix * translateMat * ShaderDraw::apply_Matrix * scaleMat);
 
     glUseProgram(ShaderDraw::textureBox.shdr_pgm);
-    glBindTextureUnit(1, image.textureID);
-    glTextureParameteri(image.textureID, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTextureParameteri(image.textureID, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glBindTexture(GL_TEXTURE_2D, image.textureID);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
     glBindVertexArray(ShaderDraw::textureBox.vaoid[ShaderDraw::current_image_mode]);
     GLint uniform_var_loc1 = glGetUniformLocation(ShaderDraw::textureBox.shdr_pgm, "uModelToNDC");
@@ -920,7 +993,12 @@ void ShaderDrawing::draw_image(ShaderDrawing::Image& image, int x, int y, int te
     tpos_tex.push_back({ 1.f, 1.f });
     tpos_tex.push_back({ 0.f, 0.f });
     tpos_tex.push_back({ 1.f, 0.f });
+#if !defined(__EMSCRIPTEN__)
     glNamedBufferSubData(ShaderDraw::textureBox.vboid[ShaderDraw::current_image_mode], sizeof(glm::vec2) * 4, sizeof(glm::vec2) * tpos_tex.size(), tpos_tex.data());
+#else
+    glBindBuffer(GL_ARRAY_BUFFER, ShaderDraw::textureBox.vboid[ShaderDraw::current_image_mode]);
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec2) * 4, sizeof(glm::vec2) * tpos_tex.size(), tpos_tex.data());
+#endif
 }
 
 void ShaderDrawing::set_fill(bool set)
@@ -1001,7 +1079,12 @@ void ShaderDrawing::draw_text(std::string text, float x, float y, float scale, f
 
                                         xpos, ypos + h, 0.0f, 0.0f, xpos + w, ypos, 1.0f, 1.0f, xpos + w, ypos + h, 1.0f, 0.0f };
 
+#if !defined(__EMSCRIPTEN__)
             glNamedBufferSubData(ShaderDraw::fontBox.vboid[0], 0, sizeof(GLfloat) * 6 * 4, vertices);
+#else
+            glBindBuffer(GL_ARRAY_BUFFER, ShaderDraw::fontBox.vboid[0]);
+            glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(GLfloat) * 6 * 4, vertices);
+#endif
             glBindTexture(GL_TEXTURE_2D, ch.TextureID);
             glDrawArrays(GL_TRIANGLES, 0, 6);
             X += (ch.Advance >> 6) * scale;
@@ -1019,118 +1102,123 @@ void ShaderDrawing::draw_text(std::string text, float x, float y, float scale, f
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-    void ShaderDrawing::draw_text(std::string text, float x, float y, float scale, double radians, float r, float g, float b)
+void ShaderDrawing::draw_text(std::string text, float x, float y, float scale, double radians, float r, float g, float b)
+{
+    glUseProgram(ShaderDraw::fontBox.shdr_pgm);
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    glm::mat3 translateMat{ 1.f };
+    translateMat[0][0] = 1.f;
+    translateMat[1][1] = 1.f;
+    translateMat[2][2] = 1.f;
+    translateMat[2][0] = static_cast<float>(x);
+    translateMat[2][1] = static_cast<float>(y);
+
+    glm::mat3 rotateMat{ 1.f };
+    rotateMat[0][0] = cos(radians);
+    rotateMat[1][0] = -sin(radians);
+    rotateMat[0][1] = sin(radians);
+    rotateMat[1][1] = cos(radians);
+
+    glm::mat3 transApplyMatrix{ 1.f };
+    transApplyMatrix[2][0] = ShaderDraw::apply_Matrix[2][0];
+    transApplyMatrix[2][1] = ShaderDraw::apply_Matrix[2][1];
+
+    ShaderDraw::apply_Matrix[2][0] = 0;
+    ShaderDraw::apply_Matrix[2][1] = 0;
+    glBindVertexArray(ShaderDraw::fontBox.vaoid[0]);
+    glm::mat3 mdl_to_ndc_xform = ShaderDraw::world_to_ndc_xform * (translateMat * rotateMat * transApplyMatrix);
+
+    GLint check = glGetUniformLocation(ShaderDraw::fontBox.shdr_pgm, "uModelToNDC");
+    if (check >= 0)
     {
-        glUseProgram(ShaderDraw::fontBox.shdr_pgm);
-
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-        glm::mat3 translateMat{ 1.f };
-        translateMat[0][0] = 1.f;
-        translateMat[1][1] = 1.f;
-        translateMat[2][2] = 1.f;
-        translateMat[2][0] = static_cast<float>(x);
-        translateMat[2][1] = static_cast<float>(y);
-
-        glm::mat3 rotateMat{ 1.f };
-        rotateMat[0][0] = cos(radians);
-        rotateMat[1][0] = -sin(radians);
-        rotateMat[0][1] = sin(radians);
-        rotateMat[1][1] = cos(radians);
-
-        glm::mat3 transApplyMatrix{ 1.f };
-        transApplyMatrix[2][0] = ShaderDraw::apply_Matrix[2][0];
-        transApplyMatrix[2][1] = ShaderDraw::apply_Matrix[2][1];
-
-        ShaderDraw::apply_Matrix[2][0] = 0;
-        ShaderDraw::apply_Matrix[2][1] = 0;
-        glBindVertexArray(ShaderDraw::fontBox.vaoid[0]);
-        glm::mat3 mdl_to_ndc_xform = ShaderDraw::world_to_ndc_xform * (translateMat * rotateMat * transApplyMatrix);
-
-        GLint check = glGetUniformLocation(ShaderDraw::fontBox.shdr_pgm, "uModelToNDC");
-        if (check >= 0)
-        {
-            glUniformMatrix3fv(check, 1, GL_FALSE, glm::value_ptr(mdl_to_ndc_xform));
-        }
-        else
-        {
-            std::cout << "model Uniform doesn't exist!!! \n";
-            std::exit(EXIT_FAILURE);
-        }
-
-        glUniform3f(glGetUniformLocation(ShaderDraw::fontBox.shdr_pgm, "textColor"), r, g, b);
-
-        glActiveTexture(GL_TEXTURE0);
-
-        scale = scale / 40;
-
-        float firstX = -x / 2;
-        float X      = 0;
-        float Y      = 0;
-
-        std::vector<float> set = { 0.0f };
-        int                i   = 0;
-
-        for (auto c = text.begin(); c != text.end(); c++)
-        {
-            if (*c != '\n')
-            {
-                ShaderDrawing::ShaderDraw::Character ch   = ShaderDrawing::ShaderDraw::Fonts[ShaderDrawing::ShaderDraw::currentFont].Characters[*c];
-                GLfloat                              xpos = set[i] + ch.Bearing.x * scale;
-                GLfloat                              ypos = Y - (ch.Size.y - ch.Bearing.y) * scale;
-                set[i] += (ch.Advance >> 6) * scale;
-            }
-            else if (*c == '\n')
-            {
-                i++;
-                set.push_back(0.0f);
-            }
-        }
-        X           = set[0];
-        size_t size = set.size();
-        for (size_t i = 0; i < size; i++)
-        {
-            if (set[i] > X)
-            {
-                X = set[i];
-            }
-        }
-        X      = -X / 2;
-        firstX = X;
-
-        for (auto c = text.begin(); c != text.end(); c++)
-        {
-            if (*c != '\n')
-            {
-                ShaderDrawing::ShaderDraw::Character ch   = ShaderDrawing::ShaderDraw::Fonts[ShaderDrawing::ShaderDraw::currentFont].Characters[*c];
-                GLfloat                              xpos = X + ch.Bearing.x * scale;
-                GLfloat                              ypos = Y - (ch.Size.y - ch.Bearing.y) * scale;
-
-                GLfloat w               = ch.Size.x * scale;
-                GLfloat h               = ch.Size.y * scale;
-                GLfloat vertices[6 * 4] = { xpos, ypos + h, 0.0f, 0.0f, xpos,     ypos, 0.0f, 1.0f, xpos + w, ypos,     1.0f, 1.0f,
-
-                                            xpos, ypos + h, 0.0f, 0.0f, xpos + w, ypos, 1.0f, 1.0f, xpos + w, ypos + h, 1.0f, 0.0f };
-
-                glNamedBufferSubData(ShaderDraw::fontBox.vboid[0], 0, sizeof(GLfloat) * 6 * 4, vertices);
-                glBindTexture(GL_TEXTURE_2D, ch.TextureID);
-                glDrawArrays(GL_TRIANGLES, 0, 6);
-                X += (ch.Advance >> 6) * scale;
-            }
-            else if (*c == '\n')
-            {
-                ShaderDrawing::ShaderDraw::Character ch = ShaderDrawing::ShaderDraw::Fonts[ShaderDrawing::ShaderDraw::currentFont].Characters[*c];
-                GLfloat                              h  = ch.Size.y * scale + 5.0f;
-                Y -= h;
-                X = firstX;
-            }
-        }
-
-        glBindVertexArray(0);
-        glUseProgram(0);
-        glBindTexture(GL_TEXTURE_2D, 0);
+        glUniformMatrix3fv(check, 1, GL_FALSE, glm::value_ptr(mdl_to_ndc_xform));
     }
+    else
+    {
+        std::cout << "model Uniform doesn't exist!!! \n";
+        std::exit(EXIT_FAILURE);
+    }
+
+    glUniform3f(glGetUniformLocation(ShaderDraw::fontBox.shdr_pgm, "textColor"), r, g, b);
+
+    glActiveTexture(GL_TEXTURE0);
+
+    scale = scale / 40;
+
+    float firstX = -x / 2;
+    float X      = 0;
+    float Y      = 0;
+
+    std::vector<float> set = { 0.0f };
+    int                i   = 0;
+
+    for (auto c = text.begin(); c != text.end(); c++)
+    {
+        if (*c != '\n')
+        {
+            ShaderDrawing::ShaderDraw::Character ch   = ShaderDrawing::ShaderDraw::Fonts[ShaderDrawing::ShaderDraw::currentFont].Characters[*c];
+            GLfloat                              xpos = set[i] + ch.Bearing.x * scale;
+            GLfloat                              ypos = Y - (ch.Size.y - ch.Bearing.y) * scale;
+            set[i] += (ch.Advance >> 6) * scale;
+        }
+        else if (*c == '\n')
+        {
+            i++;
+            set.push_back(0.0f);
+        }
+    }
+    X           = set[0];
+    size_t size = set.size();
+    for (size_t i = 0; i < size; i++)
+    {
+        if (set[i] > X)
+        {
+            X = set[i];
+        }
+    }
+    X      = -X / 2;
+    firstX = X;
+
+    for (auto c = text.begin(); c != text.end(); c++)
+    {
+        if (*c != '\n')
+        {
+            ShaderDrawing::ShaderDraw::Character ch   = ShaderDrawing::ShaderDraw::Fonts[ShaderDrawing::ShaderDraw::currentFont].Characters[*c];
+            GLfloat                              xpos = X + ch.Bearing.x * scale;
+            GLfloat                              ypos = Y - (ch.Size.y - ch.Bearing.y) * scale;
+
+            GLfloat w               = ch.Size.x * scale;
+            GLfloat h               = ch.Size.y * scale;
+            GLfloat vertices[6 * 4] = { xpos, ypos + h, 0.0f, 0.0f, xpos,     ypos, 0.0f, 1.0f, xpos + w, ypos,     1.0f, 1.0f,
+
+                                        xpos, ypos + h, 0.0f, 0.0f, xpos + w, ypos, 1.0f, 1.0f, xpos + w, ypos + h, 1.0f, 0.0f };
+
+#if !defined(__EMSCRIPTEN__)
+            glNamedBufferSubData(ShaderDraw::fontBox.vboid[0], 0, sizeof(GLfloat) * 6 * 4, vertices);
+#else
+            glBindBuffer(GL_ARRAY_BUFFER, ShaderDraw::fontBox.vboid[0]);
+            glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(GLfloat) * 6 * 4, vertices);
+#endif
+            glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+            glDrawArrays(GL_TRIANGLES, 0, 6);
+            X += (ch.Advance >> 6) * scale;
+        }
+        else if (*c == '\n')
+        {
+            ShaderDrawing::ShaderDraw::Character ch = ShaderDrawing::ShaderDraw::Fonts[ShaderDrawing::ShaderDraw::currentFont].Characters[*c];
+            GLfloat                              h  = ch.Size.y * scale + 5.0f;
+            Y -= h;
+            X = firstX;
+        }
+    }
+
+    glBindVertexArray(0);
+    glUseProgram(0);
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
 
 void ShaderDrawing::EndWIndow()
 {

@@ -12,7 +12,7 @@ void Lose::Load()
 {
     counter = 0;
 
-
+    lose = GAM200::Texture("assets/lose.png");
 
 }
 

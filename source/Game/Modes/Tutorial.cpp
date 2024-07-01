@@ -83,8 +83,10 @@ void Tutorial::Load()
 
     GetGSComponent<Wave>()->SetWave("assets/maps/Wave1.txt");
 
+    #if !defined(__EMSCRIPTEN__)
     Engine::GetAudioManager().StopMusic(GAM200::AudioID::MainMenu_BGM);
     Engine::GetAudioManager().PlayMusic(GAM200::AudioID::Game_BGM);
+    #endif
 
 }
 

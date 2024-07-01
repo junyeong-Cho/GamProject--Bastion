@@ -2,7 +2,7 @@
 Copyright (C) 2023 DigiPen Institute of Technology
 Reproduction or distribution of this file or its contents without
 prior written consent is prohibited
-File Name:  Wincow.cpp
+File Name:  Window.cpp
 Project:    GAM200_TeamExodia_openGL
 Author:     Junyeong Cho
 Created:    September 30, 2023
@@ -11,16 +11,14 @@ Updated:    December 15, 2023
 
 
 #include "Engine/Window.h"
-#include "Engine/ImGuiHelper.h"
+#include "Engine/Drawing.h"
 #include "Engine/Engine.h"
-#include "Engine/Drawing.h" 
+#include "Engine/ImGuiHelper.h"
 
 #include <GL/glew.h>
+#include <filesystem>
 #include <iostream>
 #include <sstream>
-#include <filesystem>
-
-
 
 namespace
 {
@@ -32,8 +30,8 @@ namespace
         }
     }
 
-
-    template <typename... Messages> [[noreturn]] void throw_error_message(Messages&&... more_messages)
+    template <typename... Messages>
+    [[noreturn]] void throw_error_message(Messages&&... more_messages)
     {
         std::ostringstream stringOut;
         (stringOut << ... << more_messages);
@@ -44,22 +42,19 @@ namespace
 
 namespace GAM200
 {
-
-    Window::Window() : origin_position{ OriginPosition::CENTER } { };
-
+    Window::Window() : origin_position{ OriginPosition::CENTER }
+    {
+    }
 
     Window::~Window()
     {
-
         SDL_GL_DeleteContext(gl_context);
         SDL_DestroyWindow(ptr_window);
         SDL_Quit();
     }
 
-
     void Window::Start(const char* title, int desired_width, int desired_height, OriginPosition position)
     {
-
         if (title == nullptr || title[0] == '\0')
         {
             throw_error_message("App title shouldn't be empty");
@@ -69,8 +64,6 @@ namespace GAM200
         {
             throw_error_message("Failed to init SDK error: ", SDL_GetError());
         }
-
-
 
         hint_gl(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
         hint_gl(SDL_GL_DOUBLEBUFFER, true);
@@ -83,45 +76,22 @@ namespace GAM200
         hint_gl(SDL_GL_MULTISAMPLEBUFFERS, 1);
         hint_gl(SDL_GL_MULTISAMPLESAMPLES, 4);
 
-
-        desired_width = std::max(640, std::min(16384, desired_width));
+        desired_width  = std::max(640, std::min(16384, desired_width));
         desired_height = std::max(480, std::min(16384, desired_height));
 
         origin_position = position;
 
-        
+#if !defined(__EMSCRIPTEN__)
         switch (origin_position)
         {
-        case OriginPosition::LEFT_DOWN:
-
-            glOrtho(0, desired_width, 0, desired_height, -1, 1);
-            break;
-
-        case OriginPosition::LEFT_UP:
-
-            glOrtho(0, desired_width, desired_height, 0, -1, 1);
-            break;
-
-        case OriginPosition::RIGHT_DOWN:
-
-            glOrtho(desired_width, 0, 0, desired_height, -1, 1);
-            break;
-
-        case OriginPosition::RIGHT_UP:
-
-            glOrtho(desired_width, 0, desired_height, 0, -1, 1);
-            break;
-
-        case OriginPosition::CENTER:
-
-            glOrtho(-desired_width / 2, desired_width / 2, -desired_height / 2, desired_height / 2, -1, 1);
-            break;
-
-
-        default:
-            break;
+            case OriginPosition::LEFT_DOWN: glOrtho(0, desired_width, 0, desired_height, -1, 1); break;
+            case OriginPosition::LEFT_UP: glOrtho(0, desired_width, desired_height, 0, -1, 1); break;
+            case OriginPosition::RIGHT_DOWN: glOrtho(desired_width, 0, 0, desired_height, -1, 1); break;
+            case OriginPosition::RIGHT_UP: glOrtho(desired_width, 0, desired_height, 0, -1, 1); break;
+            case OriginPosition::CENTER: glOrtho(-desired_width / 2, desired_width / 2, -desired_height / 2, desired_height / 2, -1, 1); break;
+            default: break;
         }
-
+#endif
 
         ptr_window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, desired_width, desired_height, SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI);
         if (ptr_window == nullptr)
@@ -142,9 +112,8 @@ namespace GAM200
             throw_error_message("Unable to initialize GLEW - error: ", glewGetErrorString(result));
         }
 
-
         constexpr int ADAPTIVE_VSYNC = -1;
-        constexpr int VSYNC = 1;
+        constexpr int VSYNC          = 1;
         if (const auto result = SDL_GL_SetSwapInterval(ADAPTIVE_VSYNC); result != 0)
         {
             SDL_GL_SetSwapInterval(VSYNC);
@@ -152,42 +121,30 @@ namespace GAM200
 
         ImGuiHelper::Initialize(ptr_window, gl_context);
 
-
         int width = 0, height = 0;
         SDL_GL_GetDrawableSize(ptr_window, &width, &height);
 
         ShaderDrawing::ShaderDraw::init(ptr_window);
         ShaderDrawing::ShaderDraw::initFont();
-        // ptr_program = create_program(width, height);
-
     }
-
 
     void Window::Update()
     {
-
-        //        SDL_Event event{ 0 };
-
         SDL_GL_SwapWindow(ptr_window);
-
-
     }
-
 
     Math::ivec2 Window::GetSize()
     {
         int width = 0, height = 0;
-
         SDL_GL_GetDrawableSize(ptr_window, &width, &height);
-
         return Math::ivec2{ width, height };
     }
 
     void Window::Clear(float red, float green, float blue, float alpha)
     {
-        red = std::clamp(red, 0.0f, 1.0f);
+        red   = std::clamp(red, 0.0f, 1.0f);
         green = std::clamp(green, 0.0f, 1.0f);
-        blue = std::clamp(blue, 0.0f, 1.0f);
+        blue  = std::clamp(blue, 0.0f, 1.0f);
         alpha = std::clamp(alpha, 0.0f, 1.0f);
 
         glClearColor(red, green, blue, alpha);
@@ -196,26 +153,24 @@ namespace GAM200
 
     void Window::Clear(unsigned int color)
     {
-        float red = ((color >> 24) & 0xFF) / 255.0f;
+        float red   = ((color >> 24) & 0xFF) / 255.0f;
         float green = ((color >> 16) & 0xFF) / 255.0f;
-        float blue = ((color >> 8) & 0xFF) / 255.0f;
+        float blue  = ((color >> 8) & 0xFF) / 255.0f;
         float alpha = (color & 0xFF) / 255.0f;
 
-        red = std::clamp(red, 0.0f, 1.0f);
+        red   = std::clamp(red, 0.0f, 1.0f);
         green = std::clamp(green, 0.0f, 1.0f);
-        blue = std::clamp(blue, 0.0f, 1.0f);
+        blue  = std::clamp(blue, 0.0f, 1.0f);
         alpha = std::clamp(alpha, 0.0f, 1.0f);
 
         glClearColor(red, green, blue, alpha);
         glClear(GL_COLOR_BUFFER_BIT);
     }
 
-
     bool Window::IsDone() const noexcept
     {
         return is_done;
     }
-
 
     OriginPosition Window::GetOriginPosition()
     {
@@ -236,8 +191,4 @@ namespace GAM200
     {
         SDL_SetWindowSize(ptr_window, desired_width, desired_height);
     }
-
-
-
-
 }

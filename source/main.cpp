@@ -80,7 +80,9 @@ int main()
         engine.AddFont("assets/Font_Simple.png");
         engine.AddFont("assets/Font_Outlined.png");
 
+        #if !defined(__EMSCRIPTEN__)
         engine.GetAudioManager().SetMusicVolume(30.f);
+        #endif
 
         Splash splash;
         engine.GetGameStateManager().AddGameState(splash);

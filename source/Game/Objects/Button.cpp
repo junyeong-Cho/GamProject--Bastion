@@ -658,5 +658,8 @@ Sound_reset_Button::Sound_reset_Button(Math::vec2 position, Math::vec2 size) : B
 void Sound_reset_Button::func()
 {
     bgmVolume = 50.0f;
+    
+    #if !defined(__EMSCRIPTEN__)
     Engine::Instance().GetAudioManager().SetMusicVolume(bgmVolume);
+    #endif
 }

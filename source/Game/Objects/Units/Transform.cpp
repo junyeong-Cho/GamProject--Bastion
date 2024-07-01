@@ -15,7 +15,9 @@ TransformUnit::TransformUnit(double transform_cool, double transform_time, doubl
     Unit(attack_time, damage, range, position)
 {
     //Sound
+    #if !defined(__EMSCRIPTEN__)
     Engine::GetAudioManager().PlaySound(GAM200::AudioID::Tower_Placing);
+	#endif
 }
 
 void TransformUnit::Update(double dt)

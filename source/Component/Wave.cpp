@@ -173,7 +173,9 @@ void Wave::Update(double dt)
 			wave_state = Battle;
 
 			//Sound
+			#if !defined(__EMSCRIPTEN__)
             Engine::GetAudioManager().PlaySound(GAM200::AudioID::Wave_Start);
+			#endif
 
 			return;
 		}

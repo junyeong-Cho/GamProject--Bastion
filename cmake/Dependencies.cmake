@@ -20,6 +20,10 @@ target_link_libraries(dependencies INTERFACE
     stb
     gsl
     GAM250_glm
-    freetype  
-    GAM250_sfml
+    freetype
 )
+
+
+if(NOT EMSCRIPTEN)
+    target_link_libraries(dependencies INTERFACE GAM250_sfml)
+endif()

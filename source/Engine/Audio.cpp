@@ -1,3 +1,5 @@
+#if !defined(__EMSCRIPTEN__)
+
 #include "Audio.h"
 
 namespace GAM200
@@ -163,3 +165,4 @@ namespace GAM200
         }
     }
 }
+#endif

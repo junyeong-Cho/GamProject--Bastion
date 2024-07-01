@@ -84,7 +84,9 @@ void Boss::State_None::CheckExit(GameObject* object)
     if (boss->info.life <= 0)
     {
         boss->change_state(&boss->state_dead);
+        #if !defined(__EMSCRIPTEN__)
         Engine::GetAudioManager().PlaySound(GAM200::AudioID::Monster_Die_2);
+        #endif
     }
 }
 void Boss::State_Summon::Enter(GameObject* object)

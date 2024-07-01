@@ -12,7 +12,9 @@ void Win::Load()
 {
     counter = 0;
 
-    win = GAM200::Texture("assets/win.png", GAM200::Texture::TextureType::RECTANGLE);
+    #if !defined(__EMSCRIPTEN__)
+    win = GAM200::Texture("assets/win.png");
+    #endif
 }
 
 void Win::Update(double dt)
@@ -34,7 +36,6 @@ void Win::Draw()
 {
 
     win.Draw(0, 0, 1280, 800);
-
 }
 
 void Win::ImguiDraw()

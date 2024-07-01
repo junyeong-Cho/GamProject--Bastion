@@ -23,5 +23,5 @@ public:
 
     double counter = 0;
 
-    GAM200::Texture   lose = GAM200::Texture("assets/lose.png", GAM200::Texture::TextureType::RECTANGLE);
+    GAM200::Texture lose;
 };

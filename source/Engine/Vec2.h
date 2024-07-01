@@ -10,8 +10,10 @@ Created:    March 8, 2023
 
 #pragma once
 
+#include <cmath>
 #include <functional>
 #define PI 3.14159265358979323846
+
 
 namespace Math {
     struct vec2 {

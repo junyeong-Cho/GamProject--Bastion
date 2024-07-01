@@ -70,17 +70,21 @@ void Store::Load()
     base_stage1      = Engine::Instance().GetTextureManager().Load("assets/Background/base_stage1.png");
     base_stage2      = Engine::Instance().GetTextureManager().Load("assets/Background/base_stage2.png");
 
+    #if !defined(__EMSCRIPTEN__)
 	Engine::GetAudioManager().StopMusic(GAM200::AudioID::Game_BGM);
+    #endif
 }
 
 void Store::Update(double dt)
 {
 	GetGSComponent<GAM200::GameObjectManager>()->UpdateAll(dt);
 
+    #if !defined(__EMSCRIPTEN__)
     if (!Engine::GetAudioManager().IsMusicPlaying(GAM200::AudioID::MainMenu_BGM))
     {
         Engine::GetAudioManager().PlayMusic(GAM200::AudioID::MainMenu_BGM);
     }
+    #endif
 }
 
 void Store::Unload()

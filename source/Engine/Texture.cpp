@@ -26,7 +26,6 @@ Updated:    October 10, 2023
 namespace GAM200
 {
    
-#if     !defined(__EMSCRIPTEN__) 
 #pragma region Constructor & Destructer
 
     //direct drawing image constructor
@@ -61,6 +60,7 @@ namespace GAM200
 #endif
 
     //font,text drawing image constructor
+    #if !defined(__EMSCRIPTEN__) 
     Texture::Texture(const std::filesystem::path& file_path, Math::ivec2 text_size)
     {
 
@@ -106,6 +106,7 @@ namespace GAM200
         stbi_image_free(image);
         image = nullptr;
     }
+    #endif
 
     //destructer
     Texture::~Texture()
@@ -222,6 +223,7 @@ namespace GAM200
 #endif
 
     //new version of texture mapping code
+    #if !defined(__EMSCRIPTEN__) 
     void Texture::DrawRect(Math::vec2 topLeft, Math::vec2 topRight, Math::vec2 bottomLeft, Math::vec2 bottomRight, Math::ivec2 texel_position, Math::ivec2 frame_size)
     {
         Engine::Instance().push();
@@ -264,7 +266,7 @@ namespace GAM200
 
         Engine::Instance().pop();
     }
-
+    #endif
 
     //old version of texture mapping code
     /*
@@ -305,7 +307,7 @@ namespace GAM200
 #pragma endregion
 
 
-
+    #if !defined(__EMSCRIPTEN__) 
     unsigned int Texture::GetPixel(Math::ivec2 texel)
     {
         auto localID = shaderImage.GetTextureID();
@@ -322,6 +324,7 @@ namespace GAM200
 
         return pixelData;
     }
+    #endif
 
 
     Math::ivec2 Texture::GetSize()
@@ -494,9 +497,8 @@ namespace GAM200
 
 #pragma endregion
 
-#else
 
 
-#endif
+
 
 }

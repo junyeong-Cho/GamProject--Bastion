@@ -11,6 +11,7 @@ Updated:    October		10, 2023
 
 #pragma once
 
+#include <string>
 
 enum class GameObjectTypes
 {

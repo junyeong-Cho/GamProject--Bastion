@@ -10,17 +10,16 @@ Updated:    November 1, 2023
 */
 
 #include "Font.h"
-#include "Logger.h"
 #include "Engine.h"
+#include "Logger.h"
 
-
-
-#include "Engine/Texture.h"
-
-
+#if !defined(__EMSCRIPTEN__)
+#    include "Engine/Texture.h"
+#endif
 
 GAM200::Font::Font(const std::filesystem::path& file_name) : file_names(file_name)
 {
+#if !defined(__EMSCRIPTEN__)
     const unsigned int white = 0xFFFFFFFF;
 
     texture = new Texture(file_name);
@@ -36,19 +35,24 @@ GAM200::Font::Font(const std::filesystem::path& file_name) : file_names(file_nam
     {
         FindCharRects();
     }
+#else
+    Engine::GetLogger().LogError("Font loading not supported in Emscripten");
+#endif
 }
 
 GAM200::Font::~Font()
 {
+#if !defined(__EMSCRIPTEN__)
     if (texture != nullptr)
     {
         texture = nullptr;
     }
-
+#endif
 }
 
 void GAM200::Font::FindCharRects()
 {
+#if !defined(__EMSCRIPTEN__)
     unsigned int check_color = texture->GetPixel({ 0, 0 });
     unsigned int next_color;
 
@@ -71,9 +75,8 @@ void GAM200::Font::FindCharRects()
         char_rects[index].point1 = { x, char_rects[index].point2.y + height - 1 };
         x += width;
     }
+#endif
 }
-
-
 
 Math::irect& GAM200::Font::GetCharRect(char c)
 {
@@ -88,11 +91,9 @@ Math::irect& GAM200::Font::GetCharRect(char c)
     }
 }
 
-
-
 void GAM200::Font::DrawChar(Math::TransformationMatrix& matrix, char c)
 {
-
+#if !defined(__EMSCRIPTEN__)
     Math::irect& display_rect = GetCharRect(c);
 
     Math::ivec2 top_left = { display_rect.point1.x, display_rect.point2.y };
@@ -103,13 +104,12 @@ void GAM200::Font::DrawChar(Math::TransformationMatrix& matrix, char c)
     }
 
     matrix *= Math::TranslationMatrix(Math::ivec2{ display_rect.Size().x, 0 });
+#endif
 }
-
-
 
 Math::ivec2 GAM200::Font::MeasureText(std::string text)
 {
-    Math::ivec2 size = { 0, 0 };
+    Math::ivec2                size = { 0, 0 };
     Math::TransformationMatrix matrix;
     for (char c : text)
     {
@@ -120,10 +120,9 @@ Math::ivec2 GAM200::Font::MeasureText(std::string text)
     return size;
 }
 
-
-
 GAM200::Texture* GAM200::Font::PrintToTexture(std::string text, unsigned int color)
 {
+#if !defined(__EMSCRIPTEN__)
     Engine::Instance().push();
 
     Math::ivec2 text_size = MeasureText(text);
@@ -133,9 +132,7 @@ GAM200::Texture* GAM200::Font::PrintToTexture(std::string text, unsigned int col
     float B = ((color >> 8) & 0xFF) / 255.0f;
     float A = (color & 0xFF) / 255.0f;
 
-
     glColor4f(R, G, B, A);
-
 
     GLuint fbo;
     glGenFramebuffers(1, &fbo);
@@ -143,26 +140,23 @@ GAM200::Texture* GAM200::Font::PrintToTexture(std::string text, unsigned int col
 
     Texture* newTexture = new Texture(file_names, text_size);
 
-
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, newTexture->getTextureID(), 0);
 
-
     Math::TransformationMatrix matrix;
-
 
     for (char c : text)
     {
         DrawChar(matrix, c);
     }
 
-
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);  
-    glDeleteFramebuffers(1, &fbo);         
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glDeleteFramebuffers(1, &fbo);
 
     Engine::Instance().pop();
 
-
     return newTexture;
-
+#else
+    Engine::GetLogger().LogError("PrintToTexture not supported in Emscripten");
+    return nullptr;
+#endif
 }
-

@@ -160,7 +160,10 @@ void Monster::State_None::CheckExit(GameObject* object)
 	if (monster->info.life <= 0)
 	{
         monster->change_state(&monster->state_dead);
+
+        #if !defined(__EMSCRIPTEN__)
         Engine::GetAudioManager().PlaySound(GAM200::AudioID::Monster_Die_2);
+        #endif
     }
 }
 

@@ -1,3 +1,5 @@
+#if !defined(__EMSCRIPTEN__)
+
 #pragma once
 
 #include "../Engine/ComponentManager.h"
@@ -103,3 +105,4 @@ namespace GAM200
         SoundEffect soundEffect;
     };
 }
+#endif

@@ -13,7 +13,9 @@ MeleeUnit::MeleeUnit(double attack_time, int damage, Math::vec2 position, double
     Unit(attack_time, damage, range, position)
 { 
     //Sound
+    #if !defined(__EMSCRIPTEN__)
     Engine::GetAudioManager().PlaySound(GAM200::AudioID::Tower_Placing);
+    #endif
 }
 void MeleeUnit::Update(double dt)
 {
