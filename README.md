@@ -1,29 +1,38 @@
-- Team Name: Exodia
+---
 
-- Game Name: Bastion
+# Author: Junyoung Cho
+If you have any questions or concerns, please contact me at **saviour2111@gmail.com or tpqldj1312@gmail.com**.
 
--Team Member List
-Jaeyong Lee
-Hyeonjoon Nam
-Taeho Kim
-Junyoung Cho
-Seunghoon kwon
+---
 
-- Compilation Instructions						
-Open cmd, and follow the instructions at README_COMPILE.md.
-Then you can make sln file.
+# Team: Exodia
 
-PLS READ README_COMPILE.md before you compile.
+## Game: Bastion
 
+### Team Members
+- Jaeyong Lee
+- Hyeonjoon Nam
+- Taeho Kim
+- Junyoung Cho
+- Seunghoon Kwon
 
-- Explanation of what the game is and how to play:
+### Compilation Instructions
+1. Open the command prompt.
+2. Follow the instructions in `README_COMPILE.md`.
+3. This will generate the `.sln` file needed for compilation.
 
-Here's the English translation of your description of the game:
+**Please ensure you read `README_COMPILE.md` before compiling.**
 
-Our game is a top-down tower defense game. Each predetermined stage features a specific number and type of enemies that attempt to destroy the fortress from the outside. If a certain number of enemies accumulate, the fortress will collapse and the game will end. Before the game starts, you can choose one item from the shop and select the stage you wish to play. Once the game begins, you can summon units by pressing a button at the bottom of the screen and drag units to merge them. Use the merged, strengthened towers to fend off the increasingly powerful waves of enemies.
+### Game Overview and How to Play
 
-Tab: fastforward
+**Bastion** is a top-down tower defense game where you defend a fortress from waves of enemies. Each stage presents a specific number and type of enemies attempting to breach your defenses. If too many enemies accumulate, the fortress collapses, ending the game.
 
-When you want to feedback to us. Contact with email.
-Producer : Jaeyong Lee
-Email :jaey0806@gmail.com
+**Gameplay:**
+- **Pre-game:** Choose an item from the shop and select a stage.
+- **In-game:** Summon units using the buttons at the bottom of the screen. Drag units to merge them, creating stronger towers. Use these towers to fend off increasingly powerful waves of enemies.
+
+**Controls:**
+- **Tab:** Fast forward
+
+For feedback, please contact our producer, Jaeyong Lee, at **jaey0806@gmail.com**.
+
